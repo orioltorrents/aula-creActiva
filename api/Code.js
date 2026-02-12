@@ -99,17 +99,32 @@ function getProjects(curs) {
     // Per simplicitat i segons requisits, ho fem estàtic al backend per ara.
 
     const catalog = {
+        // Formats estàndard
         '1r ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
         ],
         '2n ESO': [
-            { id: 'p2_paralimpics', titol: 'Jocs Paralímpics', descripcio: 'Educació física i valors.' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
         ],
         '4t ESO': [
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
+        ],
+        // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
+        '1ESO': [
+            { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
+            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
+        ],
+        '2ESO': [
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
+        ],
+        '3ESO': [
+            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+        ],
+        '4ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
         ]
     };
