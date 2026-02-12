@@ -108,6 +108,11 @@
                                 <h4 data-i18n="act_sea_title">El Mar del Mig</h4>
                                 <p data-i18n="act_sea_desc">Vídeo i Test de coneixements</p>
                             </div>
+                            <div class="activity-card" onclick="openMediterraniActivity('map')">
+                                <div class="act-icon">🗺️</div>
+                                <h4 data-i18n="act_map_title">Mapa del Mediterrani</h4>
+                                <p data-i18n="act_map_desc">Identifica els països al mapa</p>
+                            </div>
                         </div>
 
                         <!-- ACTIVITAT 1: Capitals -->
@@ -117,6 +122,8 @@
                             <div class="game-header">
                                 <h3 id="med-title">Capitals del Mediterrani</h3>
                                 <div class="game-controls">
+                                    <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
+                                        data-i18n="hide_country">Amagar País</button>
                                     <button onclick="initMediterraniGame('practice')" class="btn-secondary"
                                         data-i18n="btn_practice">Pràctica</button>
                                     <button onclick="initMediterraniGame('exam')" class="btn-primary"
@@ -183,6 +190,36 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- ACTIVITAT 3: Mapa del Mediterrani -->
+                        <div id="med-activity-map" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_map_title">Mapa del Mediterrani</h3>
+                                <div class="game-controls">
+                                    <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()"
+                                        class="btn-secondary" data-i18n="hide_country">Amagar País</button>
+                                    <button onclick="initMediterraniMapGame('practice')" class="btn-secondary"
+                                        data-i18n="btn_practice">Pràctica</button>
+                                    <button onclick="initMediterraniMapGame('exam')" class="btn-primary"
+                                        data-i18n="btn_exam">Examen</button>
+                                </div>
+                            </div>
+                            <div id="med-map-area" class="hidden">
+                                <div class="stats-bar">
+                                    <span id="med-map-score">Punts: 0</span>
+                                    <span id="med-map-time" class="hidden">Temps: 60s</span>
+                                </div>
+                                <div class="question-container">
+                                    <h4 id="med-map-question">Fai clic a...</h4>
+                                </div>
+                                <div id="map-container" class="map-wrapper">
+                                    <!-- L'SVG del mapa es carregarà aquí dinàmicament o s'injectarà -->
+                                </div>
+                                <p id="med-map-feedback" class="feedback-msg"></p>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
@@ -202,6 +239,7 @@
     <script src="js/i18n.js"></script>
     <script src="js/games/mediterrani-capitals.js"></script>
     <script src="js/games/mediterrani-test.js"></script>
+    <script src="js/games/mediterrani-map.js"></script>
     <script src="js/app.js"></script>
 </body>
 

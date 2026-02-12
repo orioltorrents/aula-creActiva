@@ -39,22 +39,25 @@ let medTestState = {
 
 // --- NAVEGACIÓ MENÚ ---
 
-function showMediterraniMenu() {
-    // Amagar activitats, mostrar menú
-    document.getElementById('med-activities-menu').classList.remove('hidden');
-    document.getElementById('med-activity-capitals').classList.add('hidden');
-    document.getElementById('med-activity-test_mar').classList.add('hidden');
-}
-
 function openMediterraniActivity(activityId) {
+    // Amagar menú i totes les sub-activitats
     document.getElementById('med-activities-menu').classList.add('hidden');
+    document.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
 
     if (activityId === 'capitals') {
         document.getElementById('med-activity-capitals').classList.remove('hidden');
-        // Inicialitzem capitells si cal, però ja ho fa el botó 'Pràctica'/'Examen'
     } else if (activityId === 'test_mar') {
         document.getElementById('med-activity-test_mar').classList.remove('hidden');
+    } else if (activityId === 'map') {
+        const mapDiv = document.getElementById('med-activity-map');
+        if (mapDiv) mapDiv.classList.remove('hidden');
     }
+}
+
+function showMediterraniMenu() {
+    // Amagar totes les sub-activitats i mostrar menú
+    document.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    document.getElementById('med-activities-menu').classList.remove('hidden');
 }
 
 // --- LÒGICA DEL TEST ---

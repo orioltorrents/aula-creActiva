@@ -408,8 +408,57 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+}
+
+/* MAPA ESTILS */
+.map-wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #e0f2fe; /* Color aigua suau */
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #bae6fd;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.map-wrapper svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.country-path {
+    fill: #f8fafc;
+    stroke: #64748b;
+    stroke-width: 0.5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.country-path:hover {
+    fill: #d1d5db;
+    transform: scale(1.01);
+}
+
+.country-path.correct {
+    fill: #4ade80 !important;
+    stroke: #166534;
+}
+
+.country-path.incorrect {
+    fill: #f87171 !important;
+    stroke: #991b1b;
+}
+
+.med-flag-map {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    vertical-align: middle;
+    margin-right: 15px;
 }
 
 .med-flag {

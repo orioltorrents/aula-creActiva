@@ -34,7 +34,8 @@ let medGameState = {
     questions: [],
     timer: null,
     timeLeft: 60,
-    examFinished: false
+    examFinished: false,
+    wasShown: false
 };
 
 let showCountryName = true;
@@ -47,6 +48,7 @@ function toggleCountryName() {
     if (showCountryName) {
         btn.innerText = i18n.t('hide_country');
         if (label) label.style.visibility = 'visible';
+        medGameState.wasShown = true; // El país s'ha mostrat en aquesta pregunta
     } else {
         btn.innerText = i18n.t('show_country');
         if (label) label.style.visibility = 'hidden';
@@ -107,6 +109,9 @@ function showNextQuestion() {
     const currentQ = medGameState.questions[medGameState.currentQuestionIndex];
     const lang = i18n.currentLang;
 
+    // Reset tracking de si s'ha mostrat el país per a aquesta pregunta
+    medGameState.wasShown = showCountryName;
+
     // Actualitzar text de la pregunta
     // Format: [Bandera] [País]
     const countryName = currentQ.country[lang] || currentQ.country['ca'];
@@ -155,7 +160,9 @@ function handleAnswer(selected, correct, btnElement) {
     const isCorrect = selected.id === correct.id;
 
     if (isCorrect) {
-        medGameState.score += 10;
+        // 20 punts si NO s'ha mostrat en cap moment durant la pregunta, 10 si sí
+        const points = medGameState.wasShown ? 10 : 20;
+        medGameState.score += points;
         document.getElementById('med-score').innerText = `${i18n.t('score')}: ${medGameState.score}`;
 
         if (medGameState.mode === 'practice') {

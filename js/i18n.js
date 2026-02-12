@@ -29,7 +29,9 @@ const i18n = {
             'choose_lang': 'Tria el teu idioma',
             'active_projects': 'Aquests són els teus projectes actius.',
             'hide_country': 'Amagar País',
-            'show_country': 'Mostrar País'
+            'show_country': 'Mostrar País',
+            'act_map_title': 'Mapa del Mediterrani',
+            'act_map_desc': 'Identifica els països al mapa'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -52,7 +54,9 @@ const i18n = {
             'choose_lang': 'Elige tu idioma',
             'active_projects': 'Estos son tus proyectos activos.',
             'hide_country': 'Ocultar País',
-            'show_country': 'Mostrar País'
+            'show_country': 'Mostrar País',
+            'act_map_title': 'Mapa del Mediterráneo',
+            'act_map_desc': 'Identifica los países en el mapa'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -75,7 +79,9 @@ const i18n = {
             'choose_lang': 'Choose your language',
             'active_projects': 'These are your active projects.',
             'hide_country': 'Hide Country',
-            'show_country': 'Show Country'
+            'show_country': 'Show Country',
+            'act_map_title': 'Mediterranean Map',
+            'act_map_desc': 'Identify countries on the map'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -98,7 +104,9 @@ const i18n = {
             'choose_lang': 'اختر لغتك',
             'active_projects': 'هذه هي مشاريعك النشطة.',
             'hide_country': 'إخفاء البلد',
-            'show_country': 'إظهار البلد'
+            'show_country': 'إظهار البلد',
+            'act_map_title': 'خريطة البحر الأبيض المتوسط',
+            'act_map_desc': 'تحديد البلدان على الخريطة'
         }
     },
 
