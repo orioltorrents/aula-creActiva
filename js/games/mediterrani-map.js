@@ -24,7 +24,7 @@ const medMapData = [
     { id: 'lbn', iso: 'lb', name: { ca: 'Líban', es: 'Líbano', en: 'Lebanon', ar: 'لبنان' } },
     { id: 'cyp', iso: 'cy', name: { ca: 'Xipre', es: 'Chipre', en: 'Cyprus', ar: 'قبرص' } },
     { id: 'mlt', iso: 'mt', name: { ca: 'Malta', es: 'Malta', en: 'Malta', ar: 'مالطا' } },
-    { id: 'hrv', iso: 'hr', name: { ca: 'Croàcia', es: 'Croacia', en: 'Croatia', ar: 'كروat' } },
+    { id: 'hrv', iso: 'hr', name: { ca: 'Croàcia', es: 'Croacia', en: 'Croatia', ar: 'كرواتيا' } },
     { id: 'alb', iso: 'al', name: { ca: 'Albània', es: 'Albania', en: 'Albania', ar: 'ألبانيا' } },
     { id: 'mne', iso: 'me', name: { ca: 'Montenegro', es: 'Montenegro', en: 'Montenegro', ar: 'الجبل الأسود' } },
     { id: 'svn', iso: 'si', name: { ca: 'Eslovènia', es: 'Eslovenia', en: 'Slovenia', ar: 'سلوفينيا' } },
@@ -312,6 +312,35 @@ async function finishMapGame() {
 
     document.getElementById('med-map-question').innerText = i18n.t('final_score');
     document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
+    document.getElementById('med-map-feedback').style.color = 'black';
 
-    // Similar save logic as capitals game (callApi...)
+    if (medMapState.mode === 'exam') {
+        document.getElementById('med-map-feedback').innerText += ` - ${i18n.t('loading')}`;
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            const resultData = {
+                email: user.email,
+                curs: user.curs,
+                projecte: 'Mediterrani',
+                app: 'Mapa',
+                nivell: 'General',
+                puntuacio: medMapState.score,
+                temps_segons: 60 - medMapState.timeLeft,
+                feedback_pos: '',
+                feedback_neg: ''
+            };
+
+            try {
+                const response = await callApi('saveResult', resultData);
+                if (response && response.status === 'success') {
+                    document.getElementById('med-map-feedback').innerText += `\n${i18n.t('result_saved')}`;
+                } else {
+                    document.getElementById('med-map-feedback').innerText += `\n${i18n.t('result_error')}`;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
 }
