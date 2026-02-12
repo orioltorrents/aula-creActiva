@@ -147,32 +147,19 @@
                         <div id="med-activity-test_mar" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
                                 menú</button>
-                            <h3>El Mar del Mig</h3>
-
-                            <!-- VIDEO -->
+                            <h3 data-i18n="act_sea_title">El Mar del Mig</h3>
                             <div class="video-container mb-4">
                                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/LumufzHA8wA"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
+                                    frameborder="0" allowfullscreen></iframe>
                             </div>
-                            <p class="text-sm mb-4">
-                                <a href="https://www.youtube.com/watch?v=LumufzHA8wA" target="_blank"
-                                    class="btn-secondary btn-sm">📺 Veure vídeo a YouTube</a>
-                            </p>
-
-                            <!-- TEST -->
                             <div id="med-test-area">
                                 <div class="game-controls mb-4">
                                     <button onclick="initMediterraniTest()" class="btn-primary"
                                         data-i18n="btn_start_test">Començar Test</button>
                                 </div>
-
                                 <div id="test-container" class="hidden">
-                                    <div class="stats-bar">
-                                        <span id="test-progress">Pregunta 1/25</span>
-                                        <span id="test-score">Encerts: 0</span>
-                                    </div>
+                                    <div class="stats-bar"><span id="test-progress">Pregunta 1/25</span><span
+                                            id="test-score">Encerts: 0</span></div>
                                     <div class="question-container">
                                         <h4 id="test-question-text">Pregunta...</h4>
                                         <div id="test-options" class="options-list"></div>
@@ -181,9 +168,8 @@
                                     <button id="test-next-btn" class="btn-primary hidden" onclick="nextTestQuestion()"
                                         data-i18n="btn_next">Següent</button>
                                 </div>
-
                                 <div id="test-results" class="hidden text-center">
-                                    <h3>Resultats</h3>
+                                    <h3 data-i18n="final_score">Resultats</h3>
                                     <p id="test-final-score" class="text-2xl font-bold">0 / 25</p>
                                     <p id="test-message"></p>
                                     <button onclick="showMediterraniMenu()" class="btn-secondary">Tornar</button>
@@ -207,17 +193,55 @@
                                 </div>
                             </div>
                             <div id="med-map-area" class="hidden">
+                                <div class="stats-bar"><span id="med-map-score">Punts: 0</span><span id="med-map-time"
+                                        class="hidden">Temps: 60s</span></div>
+                                <div class="question-container">
+                                    <h4 id="med-map-question">Clicka...</h4>
+                                </div>
+                                <div id="map-container" class="map-wrapper"></div>
+                                <p id="med-map-feedback" class="feedback-msg"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROJECTE: Paralímpics -->
+                    <div id="project-hub-paralimpics" class="game-module hidden">
+                        <h3 data-i18n="par_project_title">Projecte Paralímpics</h3>
+                        <div id="par-activities-menu" class="activities-grid">
+                            <div class="activity-card" onclick="openParalimpicsActivity('microbit')">
+                                <div class="act-icon">🤖</div>
+                                <h4 data-i18n="act_microbit_title">Control de la Micro:bit</h4>
+                                <p data-i18n="act_microbit_desc">Demostra què saps sobre la placa</p>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Microbit -->
+                        <div id="paralimpics-activity-microbit" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showParalimpicsMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_microbit_title">Control de la Micro:bit</h3>
+                                <div class="game-controls">
+                                    <button onclick="initParalimpicsMicrobit()" class="btn-primary"
+                                        data-i18n="btn_start">Començar</button>
+                                </div>
+                            </div>
+                            <div id="paralimpics-quiz-container" class="hidden">
                                 <div class="stats-bar">
-                                    <span id="med-map-score">Punts: 0</span>
-                                    <span id="med-map-time" class="hidden">Temps: 60s</span>
+                                    <span id="paralimpics-progress">Pregunta 1/20</span>
+                                    <span id="paralimpics-score">Punts: 0</span>
                                 </div>
                                 <div class="question-container">
-                                    <h4 id="med-map-question">Fai clic a...</h4>
+                                    <h4 id="paralimpics-question-text">Pregunta...</h4>
+                                    <div id="paralimpics-options" class="options-list"></div>
                                 </div>
-                                <div id="map-container" class="map-wrapper">
-                                    <!-- L'SVG del mapa es carregarà aquí dinàmicament o s'injectarà -->
-                                </div>
-                                <p id="med-map-feedback" class="feedback-msg"></p>
+                                <p id="paralimpics-feedback" class="feedback-msg"></p>
+                            </div>
+                            <div id="paralimpics-results" class="hidden text-center">
+                                <h3 data-i18n="final_score">Resultats</h3>
+                                <p id="paralimpics-final-score" class="text-2xl font-bold">0 / 200</p>
+                                <p id="paralimpics-message"></p>
+                                <button onclick="showParalimpicsMenu()" class="btn-secondary">Tornar</button>
                             </div>
                         </div>
                     </div>
@@ -240,6 +264,7 @@
     <script src="js/games/mediterrani-capitals.js"></script>
     <script src="js/games/mediterrani-test.js"></script>
     <script src="js/games/mediterrani-map.js"></script>
+    <script src="js/games/paralimpics-microbit.js"></script>
     <script src="js/app.js"></script>
 </body>
 

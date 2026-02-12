@@ -247,9 +247,16 @@ function openProject(project) {
         const hubDiv = document.getElementById('project-hub-mediterrani');
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
-            // Assegurar que es mostra el menú i no una activitat residual
             if (typeof showMediterraniMenu === 'function') {
                 showMediterraniMenu();
+            }
+        }
+    } else if (project.id === 'p2_paralimpics') {
+        const hubDiv = document.getElementById('project-hub-paralimpics');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showParalimpicsMenu === 'function') {
+                showParalimpicsMenu();
             }
         }
     } else {
@@ -270,10 +277,12 @@ document.getElementById('language-selector').addEventListener('change', (e) => {
             el.innerText = i18n.t(key);
         });
 
-        // Si estem dins d'un joc, potser cal refrescar-lo (o ho fa el propi joc escoltant l'event)
-        if (state.currentProject && state.currentProject.id === 'p1_mediterrani') {
-            if (typeof updateMediterraniLanguage === 'function') {
+        // Si estem dins d'un joc, potser cal refrescar-lo
+        if (state.currentProject) {
+            if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
                 updateMediterraniLanguage();
+            } else if (state.currentProject.id === 'p2_paralimpics' && typeof updateParalimpicsLanguage === 'function') {
+                updateParalimpicsLanguage();
             }
         }
     }
@@ -306,4 +315,32 @@ async function simulateGameSave() {
         statusP.textContent = 'Error al guardar.';
         statusP.style.color = 'red';
     }
+}
+
+// --- MEDITERRANI NAVIGATION ---
+function showMediterraniMenu() {
+    const hub = document.getElementById('project-hub-mediterrani');
+    if (hub) {
+        document.getElementById('med-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openMediterraniActivity(actId) {
+    document.getElementById('med-activities-menu').classList.add('hidden');
+    document.getElementById(`med-activity-${actId}`).classList.remove('hidden');
+}
+
+// --- PARALIMPICS NAVIGATION ---
+function showParalimpicsMenu() {
+    const hub = document.getElementById('project-hub-paralimpics');
+    if (hub) {
+        document.getElementById('par-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openParalimpicsActivity(actId) {
+    document.getElementById('par-activities-menu').classList.add('hidden');
+    document.getElementById(`paralimpics-activity-${actId}`).classList.remove('hidden');
 }

@@ -38,7 +38,11 @@ const i18n = {
             'act_capitals_desc': 'Aprèn les capitals del Mediterrani',
             'act_sea_title': 'El Mar del Mig',
             'act_sea_desc': 'Vídeo i Test de coneixements',
-            'btn_start_test': 'Començar Test'
+            'btn_start_test': 'Començar Test',
+            'par_project_title': 'Projecte Paralímpics',
+            'act_microbit_title': 'Control de la Micro:bit',
+            'act_microbit_desc': 'Demostra què saps sobre la placa',
+            'btn_start': 'Començar'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -70,7 +74,11 @@ const i18n = {
             'act_capitals_desc': 'Aprende las capitales del Mediterráneo',
             'act_sea_title': 'El Mar del Medio',
             'act_sea_desc': 'Vídeo y Test de conocimientos',
-            'btn_start_test': 'Empezar Test'
+            'btn_start_test': 'Empezar Test',
+            'par_project_title': 'Proyecto Paralímpicos',
+            'act_microbit_title': 'Control de la Micro:bit',
+            'act_microbit_desc': 'Demuestra qué sabes sobre la placa',
+            'btn_start': 'Comenzar'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -102,7 +110,11 @@ const i18n = {
             'act_capitals_desc': 'Learn the capitals of the Mediterranean',
             'act_sea_title': 'The Middle Sea',
             'act_sea_desc': 'Video and Knowledge Test',
-            'btn_start_test': 'Start Test'
+            'btn_start_test': 'Start Test',
+            'par_project_title': 'Paralympics Project',
+            'act_microbit_title': 'Micro:bit Control',
+            'act_microbit_desc': 'Show what you know about the board',
+            'btn_start': 'Start'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -134,7 +146,11 @@ const i18n = {
             'act_capitals_desc': 'تعلم عواصم البحر الأبيض المتوسط',
             'act_sea_title': 'البحر الأوسط',
             'act_sea_desc': 'فيديو واختبار المعلومات',
-            'btn_start_test': 'ابدأ الاختبار'
+            'btn_start_test': 'ابدأ الاختبار',
+            'par_project_title': 'مشروع بارالمبيك',
+            'act_microbit_title': 'التحكم في Micro:bit',
+            'act_microbit_desc': 'أظهر ما تعرفه عن اللوحة',
+            'btn_start': 'ابدأ'
         }
     },
 
