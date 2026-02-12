@@ -198,11 +198,8 @@ async function finishGame() {
                 }
             } catch (e) {
                 console.error(e);
-                document.getElementById('med-feedback').innerText += `\n${i18n.t('result_error')}`;
             }
         }
-    }
-}
     }
 }
 
