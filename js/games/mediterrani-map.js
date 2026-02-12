@@ -141,16 +141,28 @@ async function initMediterraniMapGame(mode) {
         svg.id = "med-svg"; // Forcem ID per coherència
         svg.style.width = "100%";
         svg.style.height = "auto";
+
+        // ASIGNACIÓ D'ÍNDEXS (Helper per a mapes sense IDs)
+        const paths = svg.querySelectorAll('path, polygon, rect, circle');
+        paths.forEach((p, idx) => {
+            if (!p.id) p.id = `idx-${idx}`;
+        });
+
         svg.addEventListener('click', onSvgMapClick);
 
-        // HELPER PER A IDENTIFICAR IDs (Esborrar en producció)
+        // HELPER VISUAL PER A IDENTIFICAR
         svg.addEventListener('click', (e) => {
-            const target = e.target.closest('path, polygon, rect');
+            const target = e.target.closest('path, polygon, rect, circle');
             if (target) {
-                const id = target.id || "SENSE ID";
-                document.getElementById('med-map-feedback').innerText = `Has clicat l'ID: ${id}`;
-                document.getElementById('med-map-feedback').style.color = 'orange';
-                console.log("Element SVG:", target);
+                const id = target.id;
+                document.getElementById('med-map-feedback').innerText = `Has clicat l'element: ${id}`;
+                document.getElementById('med-map-feedback').style.color = 'blue';
+                document.getElementById('med-map-feedback').style.fontWeight = 'bold';
+
+                // Efecte flash
+                const originalFill = target.style.fill;
+                target.style.fill = 'yellow';
+                setTimeout(() => target.style.fill = originalFill, 500);
             }
         });
     }
