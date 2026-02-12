@@ -110,10 +110,14 @@ async function callApi(action, params = {}) {
     // Solució Robusta: Enviar com POST text/plain. Google Apps Script ho llegeix a e.postData.contents.
     // Això evita el Preflight OPTIONS.
 
+    const url = new URL(API_URL);
+    url.searchParams.append('action', action); // IMPORTANT: Sempre per URL també
+
+    // Opcions per a POST (per defecte)
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'text/plain;charset=utf-8', // Important: text/plain evita OPTIONS
+            'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify({ ...params, action: action })
     };
