@@ -76,10 +76,24 @@
                 <p>Aquí es carregaria l'activitat interactiva seleccionada.</p>
                 <!-- Aquí aniria l'iframe o el canvas del joc -->
                 <div id="activity-area">
-                    <!-- Simulació de joc -->
-                    <h3>Mode Examen</h3>
-                    <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
-                    <p id="simulation-result"></p>
+
+                    <!-- EXEMPLE JOC ESPECÍFIC: Rates a la carrera -->
+                    <div id="game-container-p1_rates" class="game-module hidden">
+                        <h3>Rates a la carrera - Activitat 1</h3>
+                        <p>Pregunta de prova: Quant fan 2+2?</p>
+                        <button onclick="alert('Correcte!')" class="btn-primary" style="max-width: 200px;">4</button>
+                        <button onclick="alert('Incorrecte')" class="btn-secondary" style="max-width: 200px;">5</button>
+                        <hr>
+                    </div>
+
+                    <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
+                    <div id="game-container-generic" class="game-module">
+                        <h3>Simulació Genèrica (Mode Examen)</h3>
+                        <p>Aquest projecte encara no té activitats específiques.</p>
+                        <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                        <p id="simulation-result"></p>
+                    </div>
+
                 </div>
             </div>
         </main>

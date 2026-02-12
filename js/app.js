@@ -211,7 +211,19 @@ function openProject(project) {
     state.currentProject = project;
     showScreen('game');
     document.getElementById('game-title').textContent = project.titol;
+
+    // Reset UIs
+    document.querySelectorAll('.game-module').forEach(el => el.classList.add('hidden'));
     document.getElementById('simulation-result').textContent = '';
+
+    // Carregar joc específic segons ID del projecte
+    if (project.id === 'p1_rates') {
+        const gameDiv = document.getElementById('game-container-p1_rates');
+        if (gameDiv) gameDiv.classList.remove('hidden');
+    } else {
+        // Fallback genèric
+        document.getElementById('game-container-generic').classList.remove('hidden');
+    }
 }
 
 async function simulateGameSave() {
