@@ -46,6 +46,12 @@
         <header class="top-bar">
             <div class="logo">Aula CreActiva</div>
             <div class="user-info">
+                <select id="language-selector" class="lang-select">
+                    <option value="ca">Català</option>
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                </select>
                 <span id="user-name">Carregant...</span>
                 <span id="user-course" class="badge">...</span>
                 <button id="logout-btn" class="btn-secondary">Sortir</button>
@@ -86,12 +92,28 @@
                         <hr>
                     </div>
 
-                    <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
-                    <div id="game-container-generic" class="game-module">
-                        <h3>Simulació Genèrica (Mode Examen)</h3>
-                        <p>Aquest projecte encara no té activitats específiques.</p>
-                        <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
-                        <p id="simulation-result"></p>
+                    <!-- JOC: Capitals del Mediterrani (1r ESO) -->
+                    <div id="game-container-mediterrani_capitals" class="game-module hidden">
+                        <div class="game-header">
+                            <h3 id="med-title">Capitals del Mediterrani</h3>
+                            <div class="game-controls">
+                                <button onclick="initMediterraniGame('practice')" class="btn-secondary"
+                                    data-i18n="btn_practice">Pràctica</button>
+                                <button onclick="initMediterraniGame('exam')" class="btn-primary"
+                                    data-i18n="btn_exam">Examen</button>
+                            </div>
+                        </div>
+                        <div id="med-game-area" class="hidden">
+                            <div class="stats-bar">
+                                <span id="med-score">Punts: 0</span>
+                                <span id="med-time" class="hidden">Temps: 60s</span>
+                            </div>
+                            <div class="question-container">
+                                <h4 id="med-question">Pregunta...</h4>
+                                <div id="med-options" class="options-grid"></div>
+                            </div>
+                            <p id="med-feedback" class="feedback-msg"></p>
+                        </div>
                     </div>
 
                 </div>
@@ -99,6 +121,9 @@
         </main>
     </section>
 
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/games/mediterrani-capitals.js"></script>
     <script src="js/app.js"></script>
 </body>
 
