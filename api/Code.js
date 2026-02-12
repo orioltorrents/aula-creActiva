@@ -12,7 +12,7 @@
  * 8. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
  */
 
-const SHEET_ID = 'POSA_AQUI_EL_TEU_SHEET_ID'; // <--- IMPORTANT: CANVIAR AIXÒ
+const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8'; // <--- IMPORTANT: CANVIAR AIXÒ
 
 function doGet(e) {
     return handleRequest(e);
