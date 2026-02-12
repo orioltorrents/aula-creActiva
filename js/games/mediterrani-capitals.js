@@ -5,26 +5,26 @@
  */
 
 const mediterraniData = [
-    { id: 'esp', country: { ca: 'Espanya', es: 'España', en: 'Spain', ar: 'إسبانيا' }, capital: 'Madrid' },
-    { id: 'fra', country: { ca: 'França', es: 'Francia', en: 'France', ar: 'فرنسا' }, capital: 'París' },
-    { id: 'ita', country: { ca: 'Itàlia', es: 'Italia', en: 'Italy', ar: 'إيطاليا' }, capital: 'Roma' },
-    { id: 'gre', country: { ca: 'Grècia', es: 'Grecia', en: 'Greece', ar: 'اليونان' }, capital: 'Atenes' },
-    { id: 'tur', country: { ca: 'Turquia', es: 'Turquía', en: 'Turkey', ar: 'تركيا' }, capital: 'Ankara' },
-    { id: 'egy', country: { ca: 'Egipte', es: 'Egipto', en: 'Egypt', ar: 'مصر' }, capital: 'El Caire' },
-    { id: 'mar', country: { ca: 'Marroc', es: 'Marruecos', en: 'Morocco', ar: 'المغرب' }, capital: 'Rabat' },
-    { id: 'tun', country: { ca: 'Tunísia', es: 'Túnez', en: 'Tunisia', ar: 'تونس' }, capital: 'Tunis' },
-    { id: 'alg', country: { ca: 'Algèria', es: 'Argelia', en: 'Algeria', ar: 'الجزائر' }, capital: 'Alger' },
-    { id: 'lby', country: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' }, capital: 'Trípoli' },
-    { id: 'isr', country: { ca: 'Israel', es: 'Israel', en: 'Israel', ar: 'إسرائيل' }, capital: 'Jerusalem' },
-    { id: 'lbn', country: { ca: 'Líban', es: 'Líbano', en: 'Lebanon', ar: 'لبنان' }, capital: 'Beirut' },
-    { id: 'cyp', country: { ca: 'Xipre', es: 'Chipre', en: 'Cyprus', ar: 'قبرص' }, capital: 'Nicòsia' },
-    { id: 'mlt', country: { ca: 'Malta', es: 'Malta', en: 'Malta', ar: 'مالطا' }, capital: 'La Valletta' },
-    { id: 'hrv', country: { ca: 'Croàcia', es: 'Croacia', en: 'Croatia', ar: 'كرواتيا' }, capital: 'Zagreb' },
-    { id: 'alb', country: { ca: 'Albània', es: 'Albania', en: 'Albania', ar: 'ألبانيا' }, capital: 'Tirana' },
-    { id: 'mne', country: { ca: 'Montenegro', es: 'Montenegro', en: 'Montenegro', ar: 'الجبل الأسود' }, capital: 'Podgorica' },
-    { id: 'svn', country: { ca: 'Eslovènia', es: 'Eslovenia', en: 'Slovenia', ar: 'سلوفينيا' }, capital: 'Ljubljana' },
-    { id: 'bih', country: { ca: 'Bòsnia i Hercegovina', es: 'Bosnia y Herzegovina', en: 'Bosnia and Herzegovina', ar: 'البوسنة والهرسك' }, capital: 'Sarajevo' },
-    { id: 'mon', country: { ca: 'Mònaco', es: 'Mónaco', en: 'Monaco', ar: 'موناكو' }, capital: 'Mònaco' }
+    { id: 'esp', iso: 'es', country: { ca: 'Espanya', es: 'España', en: 'Spain', ar: 'إسبانيا' }, capital: 'Madrid' },
+    { id: 'fra', iso: 'fr', country: { ca: 'França', es: 'Francia', en: 'France', ar: 'فرنسا' }, capital: 'París' },
+    { id: 'ita', iso: 'it', country: { ca: 'Itàlia', es: 'Italia', en: 'Italy', ar: 'إيطاليا' }, capital: 'Roma' },
+    { id: 'gre', iso: 'gr', country: { ca: 'Grècia', es: 'Grecia', en: 'Greece', ar: 'اليونان' }, capital: 'Atenes' },
+    { id: 'tur', iso: 'tr', country: { ca: 'Turquia', es: 'Turquía', en: 'Turkey', ar: 'تركيا' }, capital: 'Ankara' },
+    { id: 'egy', iso: 'eg', country: { ca: 'Egipte', es: 'Egipto', en: 'Egypt', ar: 'مصر' }, capital: 'El Caire' },
+    { id: 'mar', iso: 'ma', country: { ca: 'Marroc', es: 'Marruecos', en: 'Morocco', ar: 'المغرب' }, capital: 'Rabat' },
+    { id: 'tun', iso: 'tn', country: { ca: 'Tunísia', es: 'Túnez', en: 'Tunisia', ar: 'تونس' }, capital: 'Tunis' },
+    { id: 'alg', iso: 'dz', country: { ca: 'Algèria', es: 'Argelia', en: 'Algeria', ar: 'الجزائر' }, capital: 'Alger' },
+    { id: 'lby', iso: 'ly', country: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' }, capital: 'Trípoli' },
+    { id: 'isr', iso: 'il', country: { ca: 'Israel', es: 'Israel', en: 'Israel', ar: 'إسرائيل' }, capital: 'Jerusalem' },
+    { id: 'lbn', iso: 'lb', country: { ca: 'Líban', es: 'Líbano', en: 'Lebanon', ar: 'لبنان' }, capital: 'Beirut' },
+    { id: 'cyp', iso: 'cy', country: { ca: 'Xipre', es: 'Chipre', en: 'Cyprus', ar: 'قبرص' }, capital: 'Nicòsia' },
+    { id: 'mlt', iso: 'mt', country: { ca: 'Malta', es: 'Malta', en: 'Malta', ar: 'مالطا' }, capital: 'La Valletta' },
+    { id: 'hrv', iso: 'hr', country: { ca: 'Croàcia', es: 'Croacia', en: 'Croatia', ar: 'كرواتيا' }, capital: 'Zagreb' },
+    { id: 'alb', iso: 'al', country: { ca: 'Albània', es: 'Albania', en: 'Albania', ar: 'ألبانيا' }, capital: 'Tirana' },
+    { id: 'mne', iso: 'me', country: { ca: 'Montenegro', es: 'Montenegro', en: 'Montenegro', ar: 'الجبل الأسود' }, capital: 'Podgorica' },
+    { id: 'svn', iso: 'si', country: { ca: 'Eslovènia', es: 'Eslovenia', en: 'Slovenia', ar: 'سلوفينيا' }, capital: 'Ljubljana' },
+    { id: 'bih', iso: 'ba', country: { ca: 'Bòsnia i Hercegovina', es: 'Bosnia y Herzegovina', en: 'Bosnia and Herzegovina', ar: 'البوسنة والهرسك' }, capital: 'Sarajevo' },
+    { id: 'mon', iso: 'mc', country: { ca: 'Mònaco', es: 'Mónaco', en: 'Monaco', ar: 'موناكو' }, capital: 'Mònaco' }
 ];
 
 let medGameState = {
