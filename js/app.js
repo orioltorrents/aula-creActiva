@@ -221,11 +221,13 @@ function openProject(project) {
         const gameDiv = document.getElementById('game-container-p1_rates');
         if (gameDiv) gameDiv.classList.remove('hidden');
     } else if (project.id === 'p1_mediterrani') {
-        const gameDiv = document.getElementById('game-container-mediterrani_capitals');
-        if (gameDiv) gameDiv.classList.remove('hidden');
-        // Inicialitzem en mode pràctica per defecte
-        if (typeof initMediterraniGame === 'function') {
-            initMediterraniGame('practice');
+        const hubDiv = document.getElementById('project-hub-mediterrani');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            // Assegurar que es mostra el menú i no una activitat residual
+            if (typeof showMediterraniMenu === 'function') {
+                showMediterraniMenu();
+            }
         }
     } else {
         // Fallback genèric
