@@ -10,30 +10,30 @@
  */
 
 const medMapData = [
-  { id: 'esp', iso: 'es', name: { ca: 'Espanya', es: 'España', en: 'Spain', ar: 'إسبانيا' } },
-  { id: 'fra', iso: 'fr', name: { ca: 'França', es: 'Francia', en: 'France', ar: 'فرنسا' } },
-  { id: 'ita', iso: 'it', name: { ca: 'Itàlia', es: 'Italia', en: 'Italy', ar: 'إيطاليا' } },
-  { id: 'gre', iso: 'gr', name: { ca: 'Grècia', es: 'Grecia', en: 'Greece', ar: 'اليونان' } },
-  { id: 'tur', iso: 'tr', name: { ca: 'Turquia', es: 'Turquía', en: 'Turkey', ar: 'تركيا' } },
-  { id: 'egy', iso: 'eg', name: { ca: 'Egipte', es: 'Egipto', en: 'Egypt', ar: 'مصر' } },
-  { id: 'mar', iso: 'ma', name: { ca: 'Marroc', es: 'Marruecos', en: 'Morocco', ar: 'المغرب' } },
-  { id: 'tun', iso: 'tn', name: { ca: 'Tunísia', es: 'Túnez', en: 'Tunisia', ar: 'تونس' } },
-  { id: 'alg', iso: 'dz', name: { ca: 'Algèria', es: 'Argelia', en: 'Algeria', ar: 'الجزائر' } },
-  { id: 'lby', iso: 'ly', name: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' } }
-  // ... simplificat per a la demo de mapa, podem afegir més
+    { id: 'esp', iso: 'es', name: { ca: 'Espanya', es: 'España', en: 'Spain', ar: 'إسبانيا' } },
+    { id: 'fra', iso: 'fr', name: { ca: 'França', es: 'Francia', en: 'France', ar: 'فرنسا' } },
+    { id: 'ita', iso: 'it', name: { ca: 'Itàlia', es: 'Italia', en: 'Italy', ar: 'إيطاليا' } },
+    { id: 'gre', iso: 'gr', name: { ca: 'Grècia', es: 'Grecia', en: 'Greece', ar: 'اليونان' } },
+    { id: 'tur', iso: 'tr', name: { ca: 'Turquia', es: 'Turquía', en: 'Turkey', ar: 'تركيا' } },
+    { id: 'egy', iso: 'eg', name: { ca: 'Egipte', es: 'Egipto', en: 'Egypt', ar: 'مصر' } },
+    { id: 'mar', iso: 'ma', name: { ca: 'Marroc', es: 'Marruecos', en: 'Morocco', ar: 'المغرب' } },
+    { id: 'tun', iso: 'tn', name: { ca: 'Tunísia', es: 'Túnez', en: 'Tunisia', ar: 'تونس' } },
+    { id: 'alg', iso: 'dz', name: { ca: 'Algèria', es: 'Argelia', en: 'Algeria', ar: 'الجزائر' } },
+    { id: 'lby', iso: 'ly', name: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' } }
+    // ... simplificat per a la demo de mapa, podem afegir més
 ];
 
 let medMapState = {
-  mode: null,
-  score: 0,
-  currentQuestionIndex: 0,
-  questions: [],
-  timer: null,
-  timeLeft: 60,
-  examFinished: false,
-  showName: true,
-  wasShown: false,
-  locked: false
+    mode: null,
+    score: 0,
+    currentQuestionIndex: 0,
+    questions: [],
+    timer: null,
+    timeLeft: 60,
+    examFinished: false,
+    showName: true,
+    wasShown: false,
+    locked: false
 };
 
 // IMPORTANT (CSS recomanat, fora del JS):
@@ -80,168 +80,198 @@ const MAP_SVG = `
 `;
 
 function toggleCountryNameMap() {
-  medMapState.showName = !medMapState.showName;
-  const btn = document.getElementById('btn-toggle-country-map');
-  const label = document.getElementById('med-map-country-name');
+    medMapState.showName = !medMapState.showName;
+    const btn = document.getElementById('btn-toggle-country-map');
+    const label = document.getElementById('med-map-country-name');
 
-  if (medMapState.showName) {
-    if (btn) btn.innerText = i18n.t('hide_country');
-    if (label) label.style.visibility = 'visible';
-    medMapState.wasShown = true;
-  } else {
-    if (btn) btn.innerText = i18n.t('show_country');
-    if (label) label.style.visibility = 'hidden';
-  }
+    if (medMapState.showName) {
+        if (btn) btn.innerText = i18n.t('hide_country');
+        if (label) label.style.visibility = 'visible';
+        medMapState.wasShown = true;
+    } else {
+        if (btn) btn.innerText = i18n.t('show_country');
+        if (label) label.style.visibility = 'hidden';
+    }
 }
 
 // Event delegation: un sol listener per l’SVG
 function onSvgMapClick(e) {
-  if (medMapState.examFinished || medMapState.locked) return;
+    if (medMapState.examFinished || medMapState.locked) return;
 
-  const target = e.target.closest('[data-country]');
-  if (!target) return; // han clicat al mar/fons
+    const target = e.target.closest('[data-country]');
+    if (!target) return; // han clicat al mar/fons
 
-  const countryId = target.getAttribute('data-country');
-  handleMapClick(countryId);
+    const countryId = target.getAttribute('data-country');
+    handleMapClick(countryId);
 }
 
-function initMediterraniMapGame(mode) {
-  medMapState.mode = mode;
-  medMapState.score = 0;
-  medMapState.currentQuestionIndex = 0;
-  medMapState.examFinished = false;
-  medMapState.wasShown = medMapState.showName;
-  medMapState.locked = false;
+const SVG_PATH = 'assets/maps/mediterrani.svg';
 
-  // IMPORTANT: mostra l'àrea abans d'injectar (evita SVG amb 0 alçada si estava hidden)
-  document.getElementById('med-map-area').classList.remove('hidden');
+async function loadExternalSvg() {
+    try {
+        const response = await fetch(SVG_PATH);
+        const svgText = await response.text();
+        // Netegem el text per evitar conflictes de IDs o estils si cal
+        return svgText;
+    } catch (e) {
+        console.error("Error carregant el mapa SVG:", e);
+        return MAP_SVG; // Fallback al mapa simplificat
+    }
+}
 
-  // Inject Map
-  const container = document.getElementById('map-container');
-  container.innerHTML = MAP_SVG;
+async function initMediterraniMapGame(mode) {
+    medMapState.mode = mode;
+    medMapState.score = 0;
+    medMapState.currentQuestionIndex = 0;
+    medMapState.examFinished = false;
+    medMapState.wasShown = medMapState.showName;
+    medMapState.locked = false;
 
-  // Listener únic (si reinicies sovint, això evita múltiples listeners)
-  const svg = container.querySelector('#med-svg');
-  if (svg) {
-    svg.addEventListener('click', onSvgMapClick);
-  }
+    // IMPORTANT: mostra l'àrea abans d'injectar (evita SVG amb 0 alçada si estava hidden)
+    document.getElementById('med-map-area').classList.remove('hidden');
 
-  // Setup UI
-  document.getElementById('med-map-score').innerText = `${i18n.t('score')}: 0`;
-  document.getElementById('med-map-feedback').innerText = '';
+    // Inject Map (Càrrega externa)
+    const container = document.getElementById('map-container');
+    const svgContent = await loadExternalSvg();
+    container.innerHTML = svgContent;
 
-  // Shuffle questions
-  medMapState.questions = [...medMapData].sort(() => 0.5 - Math.random()).slice(0, 10);
+    // Ajustem l'SVG per assegurar que sigui interactiu
+    const svg = container.querySelector('svg');
+    if (svg) {
+        svg.id = "med-svg"; // Forcem ID per coherència
+        svg.style.width = "100%";
+        svg.style.height = "auto";
+        svg.addEventListener('click', onSvgMapClick);
 
-  if (mode === 'exam') {
-    medMapState.timeLeft = 60;
-    document.getElementById('med-map-time').classList.remove('hidden');
-    startMapTimer();
-  } else {
-    document.getElementById('med-map-time').classList.add('hidden');
-    if (medMapState.timer) clearInterval(medMapState.timer);
-  }
+        // HELPER PER A IDENTIFICAR IDs (Esborrar en producció)
+        svg.addEventListener('click', (e) => {
+            const target = e.target.closest('path, polygon, rect');
+            if (target) {
+                console.log("Clicat element SVG:", {
+                    id: target.id,
+                    class: target.getAttribute('class'),
+                    data: target.getAttribute('data-country')
+                });
+            }
+        });
+    }
 
-  showNextMapQuestion();
+    // Setup UI
+    document.getElementById('med-map-score').innerText = `${i18n.t('score')}: 0`;
+    document.getElementById('med-map-feedback').innerText = '';
+
+    // Shuffle questions
+    medMapState.questions = [...medMapData].sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    if (mode === 'exam') {
+        medMapState.timeLeft = 60;
+        document.getElementById('med-map-time').classList.remove('hidden');
+        startMapTimer();
+    } else {
+        document.getElementById('med-map-time').classList.add('hidden');
+        if (medMapState.timer) clearInterval(medMapState.timer);
+    }
+
+    showNextMapQuestion();
 }
 
 function startMapTimer() {
-  if (medMapState.timer) clearInterval(medMapState.timer);
-  medMapState.timer = setInterval(() => {
-    medMapState.timeLeft--;
-    document.getElementById('med-map-time').innerText = `${i18n.t('time')}: ${medMapState.timeLeft}s`;
-    if (medMapState.timeLeft <= 0) finishMapGame();
-  }, 1000);
+    if (medMapState.timer) clearInterval(medMapState.timer);
+    medMapState.timer = setInterval(() => {
+        medMapState.timeLeft--;
+        document.getElementById('med-map-time').innerText = `${i18n.t('time')}: ${medMapState.timeLeft}s`;
+        if (medMapState.timeLeft <= 0) finishMapGame();
+    }, 1000);
 }
 
 function showNextMapQuestion() {
-  if (medMapState.currentQuestionIndex >= medMapState.questions.length) {
-    finishMapGame();
-    return;
-  }
+    if (medMapState.currentQuestionIndex >= medMapState.questions.length) {
+        finishMapGame();
+        return;
+    }
 
-  const currentQ = medMapState.questions[medMapState.currentQuestionIndex];
-  const lang = i18n.currentLang;
-  const countryName = currentQ.name[lang] || currentQ.name['ca'];
-  const flagUrl = `https://flagcdn.com/h240/${currentQ.iso}.png`;
+    const currentQ = medMapState.questions[medMapState.currentQuestionIndex];
+    const lang = i18n.currentLang;
+    const countryName = currentQ.name[lang] || currentQ.name['ca'];
+    const flagUrl = `https://flagcdn.com/h240/${currentQ.iso}.png`;
 
-  // “wasShown” = si el nom estava visible en aquesta pregunta
-  medMapState.wasShown = medMapState.showName;
+    // “wasShown” = si el nom estava visible en aquesta pregunta
+    medMapState.wasShown = medMapState.showName;
 
-  document.getElementById('med-map-question').innerHTML = `
+    document.getElementById('med-map-question').innerHTML = `
     <img src="${flagUrl}" class="med-flag-map" alt="Bandera de ${countryName}">
     <span id="med-map-country-name" style="visibility: ${medMapState.showName ? 'visible' : 'hidden'}">${countryName}</span>
   `;
 
-  document.getElementById('med-map-feedback').innerText = i18n.t('select_answer');
-  document.getElementById('med-map-feedback').style.color = '';
+    document.getElementById('med-map-feedback').innerText = i18n.t('select_answer');
+    document.getElementById('med-map-feedback').style.color = '';
 }
 
 function handleMapClick(countryId) {
-  if (medMapState.examFinished || medMapState.locked) return;
-  medMapState.locked = true;
+    if (medMapState.examFinished || medMapState.locked) return;
+    medMapState.locked = true;
 
-  const correctQ = medMapState.questions[medMapState.currentQuestionIndex];
-  const isCorrect = countryId === correctQ.id;
+    const correctQ = medMapState.questions[medMapState.currentQuestionIndex];
+    const isCorrect = countryId === correctQ.id;
 
-  const pathEl = document.getElementById(`path-${countryId}`);
-  if (!pathEl) {
-    medMapState.locked = false;
-    return;
-  }
-
-  if (isCorrect) {
-    const points = medMapState.wasShown ? 10 : 20;
-    medMapState.score += points;
-    document.getElementById('med-map-score').innerText = `${i18n.t('score')}: ${medMapState.score}`;
-
-    pathEl.classList.add('correct');
-    document.getElementById('med-map-feedback').innerText = i18n.t('correct');
-    document.getElementById('med-map-feedback').style.color = 'green';
-
-    setTimeout(() => {
-      pathEl.classList.remove('correct');
-      medMapState.currentQuestionIndex++;
-      medMapState.locked = false;
-      showNextMapQuestion();
-    }, 800);
-  } else {
-    pathEl.classList.add('incorrect');
-    document.getElementById('med-map-feedback').innerText = i18n.t('incorrect');
-    document.getElementById('med-map-feedback').style.color = 'red';
-
-    // (Opcional pedagògic) en mode pràctica, marca el correcte breument
-    if (medMapState.mode !== 'exam') {
-      const correctEl = document.getElementById(`path-${correctQ.id}`);
-      if (correctEl) {
-        correctEl.classList.add('correct');
-        setTimeout(() => correctEl.classList.remove('correct'), 600);
-      }
+    const pathEl = document.getElementById(`path-${countryId}`);
+    if (!pathEl) {
+        medMapState.locked = false;
+        return;
     }
 
-    if (medMapState.mode === 'exam') {
-      setTimeout(() => {
-        pathEl.classList.remove('incorrect');
-        medMapState.currentQuestionIndex++;
-        medMapState.locked = false;
-        showNextMapQuestion();
-      }, 800);
+    if (isCorrect) {
+        const points = medMapState.wasShown ? 10 : 20;
+        medMapState.score += points;
+        document.getElementById('med-map-score').innerText = `${i18n.t('score')}: ${medMapState.score}`;
+
+        pathEl.classList.add('correct');
+        document.getElementById('med-map-feedback').innerText = i18n.t('correct');
+        document.getElementById('med-map-feedback').style.color = 'green';
+
+        setTimeout(() => {
+            pathEl.classList.remove('correct');
+            medMapState.currentQuestionIndex++;
+            medMapState.locked = false;
+            showNextMapQuestion();
+        }, 800);
     } else {
-      setTimeout(() => {
-        pathEl.classList.remove('incorrect');
-        medMapState.locked = false;
-      }, 800);
+        pathEl.classList.add('incorrect');
+        document.getElementById('med-map-feedback').innerText = i18n.t('incorrect');
+        document.getElementById('med-map-feedback').style.color = 'red';
+
+        // (Opcional pedagògic) en mode pràctica, marca el correcte breument
+        if (medMapState.mode !== 'exam') {
+            const correctEl = document.getElementById(`path-${correctQ.id}`);
+            if (correctEl) {
+                correctEl.classList.add('correct');
+                setTimeout(() => correctEl.classList.remove('correct'), 600);
+            }
+        }
+
+        if (medMapState.mode === 'exam') {
+            setTimeout(() => {
+                pathEl.classList.remove('incorrect');
+                medMapState.currentQuestionIndex++;
+                medMapState.locked = false;
+                showNextMapQuestion();
+            }, 800);
+        } else {
+            setTimeout(() => {
+                pathEl.classList.remove('incorrect');
+                medMapState.locked = false;
+            }, 800);
+        }
     }
-  }
 }
 
 async function finishMapGame() {
-  if (medMapState.timer) clearInterval(medMapState.timer);
-  medMapState.examFinished = true;
-  medMapState.locked = false;
+    if (medMapState.timer) clearInterval(medMapState.timer);
+    medMapState.examFinished = true;
+    medMapState.locked = false;
 
-  document.getElementById('med-map-question').innerText = i18n.t('final_score');
-  document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
+    document.getElementById('med-map-question').innerText = i18n.t('final_score');
+    document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
 
-  // Similar save logic as capitals game (callApi...)
+    // Similar save logic as capitals game (callApi...)
 }
