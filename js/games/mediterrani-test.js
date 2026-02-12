@@ -166,10 +166,15 @@ async function finishTest() {
         };
 
         try {
-            await callApi('saveResult', resultData);
-            document.getElementById('test-message').innerText += " (Resultat guardat)";
+            const response = await callApi('saveResult', resultData);
+            if (response && response.status === 'success') {
+                document.getElementById('test-message').innerText += " (Resultat guardat!)";
+            } else {
+                document.getElementById('test-message').innerText += " (Error al guardar)";
+            }
         } catch (e) {
             console.error("Error saving test", e);
+            document.getElementById('test-message').innerText += " (Error de connexió)";
         }
     }
 }
