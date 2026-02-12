@@ -4,7 +4,7 @@
  * INSTRUCCIONS:
  * 1. Crea un nou Google Sheet.
  * 2. Crea 2 pestanyes: "usuaris" i "resultats".
- * 3. A "usuaris", crea les capçaleres: id, email, password, nom, cognoms, curs, grup
+ * 3. A "usuaris", crea les capçaleres: id, email, password, cognoms, nom, curs, grup
  * 4. A "resultats", crea les capçaleres: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
  * 5. Obre Extensions > Apps Script.
  * 6. Copia aquest codi a "Codi.gs".
