@@ -110,8 +110,9 @@ async function callApi(action, params = {}) {
     // Solució Robusta: Enviar com POST text/plain. Google Apps Script ho llegeix a e.postData.contents.
     // Això evita el Preflight OPTIONS.
 
-    const url = new URL(API_URL);
-    url.searchParams.append('action', action); // IMPORTANT: Sempre per URL també
+    // Modifiquem la URL existent (declarada a la línia 98) per afegir l'acció
+    // Això assegura que el backend rebi e.parameter.action fins i tot en POST
+    url.searchParams.set('action', action);
 
     // Opcions per a POST (per defecte)
     const options = {
