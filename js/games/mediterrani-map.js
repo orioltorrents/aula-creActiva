@@ -19,8 +19,16 @@ const medMapData = [
     { id: 'mar', iso: 'ma', name: { ca: 'Marroc', es: 'Marruecos', en: 'Morocco', ar: 'المغرب' } },
     { id: 'tun', iso: 'tn', name: { ca: 'Tunísia', es: 'Túnez', en: 'Tunisia', ar: 'تونس' } },
     { id: 'alg', iso: 'dz', name: { ca: 'Algèria', es: 'Argelia', en: 'Algeria', ar: 'الجزائر' } },
-    { id: 'lby', iso: 'ly', name: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' } }
-    // ... simplificat per a la demo de mapa, podem afegir més
+    { id: 'lby', iso: 'ly', name: { ca: 'Líbia', es: 'Libia', en: 'Libya', ar: 'ليبيا' } },
+    { id: 'isr', iso: 'il', name: { ca: 'Israel', es: 'Israel', en: 'Israel', ar: 'إسرائيل' } },
+    { id: 'lbn', iso: 'lb', name: { ca: 'Líban', es: 'Líbano', en: 'Lebanon', ar: 'لبنان' } },
+    { id: 'cyp', iso: 'cy', name: { ca: 'Xipre', es: 'Chipre', en: 'Cyprus', ar: 'قبرص' } },
+    { id: 'mlt', iso: 'mt', name: { ca: 'Malta', es: 'Malta', en: 'Malta', ar: 'مالطا' } },
+    { id: 'hrv', iso: 'hr', name: { ca: 'Croàcia', es: 'Croacia', en: 'Croatia', ar: 'كروat' } },
+    { id: 'alb', iso: 'al', name: { ca: 'Albània', es: 'Albania', en: 'Albania', ar: 'ألبانيا' } },
+    { id: 'mne', iso: 'me', name: { ca: 'Montenegro', es: 'Montenegro', en: 'Montenegro', ar: 'الجبل الأسود' } },
+    { id: 'svn', iso: 'si', name: { ca: 'Eslovènia', es: 'Eslovenia', en: 'Slovenia', ar: 'سلوفينيا' } },
+    { id: 'bih', iso: 'ba', name: { ca: 'Bòsnia i Hercegovina', es: 'Bosnia y Herzegovina', en: 'Bosnia and Herzegovina', ar: 'البوسنة والهرسك' } }
 ];
 
 let medMapState = {
@@ -79,6 +87,30 @@ const MAP_SVG = `
 </svg>
 `;
 
+// Mapatge d'IDs per al mapa extern (assets/maps/mediterrani.svg)
+// A mesura que identifiquis països, els afegirem aquí.
+const COUNTRY_ID_MAP = {
+    'idx-51': 'esp',
+    'idx-43': 'fra',
+    'idx-46': 'ita',
+    'idx-26': 'svn',
+    'idx-23': 'hrv',
+    'idx-10': 'tur',
+    'idx-6': 'egy',
+    'idx-1': 'mar',
+    'idx-4': 'alg',
+    'idx-19': 'alb',
+    'idx-17': 'mne',
+    'idx-22': 'bih',
+    'idx-15': 'gre',
+    'idx-5': 'lby',
+    'idx-49': 'tun',
+    'idx-42': 'isr',
+    'idx-38': 'lbn',
+    'idx-40': 'cyp',
+    'idx-48': 'mlt',
+};
+
 function toggleCountryNameMap() {
     medMapState.showName = !medMapState.showName;
     const btn = document.getElementById('btn-toggle-country-map');
@@ -94,14 +126,33 @@ function toggleCountryNameMap() {
     }
 }
 
+function getElementByCountryId(countryId) {
+    // 1. Intentar per l'ID directe (com si hagués estat carregat el mapa simple)
+    let el = document.getElementById(`path-${countryId}`);
+    if (el) return el;
+
+    // 2. Intentar per l'atribut data-country (si l'hem posat dinàmicament o ja venia)
+    el = document.querySelector(`[data-country="${countryId}"]`);
+    if (el) return el;
+
+    // 3. Buscar en el nostre COUNTRY_ID_MAP
+    for (const [svgId, internalId] of Object.entries(COUNTRY_ID_MAP)) {
+        if (internalId === countryId) {
+            return document.getElementById(svgId);
+        }
+    }
+    return null;
+}
+
 // Event delegation: un sol listener per l’SVG
 function onSvgMapClick(e) {
     if (medMapState.examFinished || medMapState.locked) return;
 
-    const target = e.target.closest('[data-country]');
+    const target = e.target.closest('path, polygon, rect, circle');
     if (!target) return; // han clicat al mar/fons
 
-    const countryId = target.getAttribute('data-country');
+    // Obtenim la identitat: atribut data, o mapeig per ID, o l'ID directament
+    const countryId = target.getAttribute('data-country') || COUNTRY_ID_MAP[target.id] || target.id;
     handleMapClick(countryId);
 }
 
@@ -149,22 +200,6 @@ async function initMediterraniMapGame(mode) {
         });
 
         svg.addEventListener('click', onSvgMapClick);
-
-        // HELPER VISUAL PER A IDENTIFICAR
-        svg.addEventListener('click', (e) => {
-            const target = e.target.closest('path, polygon, rect, circle');
-            if (target) {
-                const id = target.id;
-                document.getElementById('med-map-feedback').innerText = `Has clicat l'element: ${id}`;
-                document.getElementById('med-map-feedback').style.color = 'blue';
-                document.getElementById('med-map-feedback').style.fontWeight = 'bold';
-
-                // Efecte flash
-                const originalFill = target.style.fill;
-                target.style.fill = 'yellow';
-                setTimeout(() => target.style.fill = originalFill, 500);
-            }
-        });
     }
 
     // Setup UI
@@ -223,9 +258,11 @@ function handleMapClick(countryId) {
     medMapState.locked = true;
 
     const correctQ = medMapState.questions[medMapState.currentQuestionIndex];
-    const isCorrect = countryId === correctQ.id;
+    // Normalitzem isCorrect comparant els IDs interns
+    const selectedInternalId = COUNTRY_ID_MAP[countryId] || countryId;
+    const isCorrect = selectedInternalId === correctQ.id;
 
-    const pathEl = document.getElementById(`path-${countryId}`);
+    const pathEl = getElementByCountryId(selectedInternalId) || document.getElementById(countryId);
     if (!pathEl) {
         medMapState.locked = false;
         return;
@@ -252,10 +289,10 @@ function handleMapClick(countryId) {
         document.getElementById('med-map-feedback').style.color = 'red';
 
         if (medMapState.mode !== 'exam') {
-            const correctEl = document.getElementById(`path-${correctQ.id}`);
+            const correctEl = getElementByCountryId(correctQ.id);
             if (correctEl) {
                 correctEl.classList.add('correct');
-                setTimeout(() => correctEl.classList.add('correct_perm'), 600); // Opcional: deixar-ho marcat?
+                setTimeout(() => correctEl.classList.add('correct_perm'), 600);
             }
         }
 
