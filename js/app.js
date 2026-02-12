@@ -247,9 +247,9 @@ document.getElementById('language-selector').addEventListener('change', (e) => {
 
         // Si estem dins d'un joc, potser cal refrescar-lo (o ho fa el propi joc escoltant l'event)
         if (state.currentProject && state.currentProject.id === 'p1_mediterrani') {
-            // El joc de mediterrani ja llegeix l'idioma al mostrar la següent pregunta,
-            // però potser volem refrescar la pregunta actual immediatament.
-            // Per simplicitat, reiniciem el joc en el mode actual o deixem que flueixi.
+            if (typeof updateMediterraniLanguage === 'function') {
+                updateMediterraniLanguage();
+            }
         }
     }
 });

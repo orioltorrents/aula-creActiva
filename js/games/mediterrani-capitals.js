@@ -203,3 +203,46 @@ async function finishGame() {
         }
     }
 }
+    }
+}
+
+// Funció per actualitzar textos quan canvia l'idioma sense avançar pregunta
+function updateMediterraniLanguage() {
+    // Actualitzar textos estàtics del joc (puntuació, temps...)
+    document.getElementById('med-score').innerText = `${i18n.t('score')}: ${medGameState.score}`;
+    if (medGameState.mode === 'exam') {
+        document.getElementById('med-time').innerText = `${i18n.t('time')}: ${medGameState.timeLeft}s`;
+    }
+
+    // Si el joc ha acabat, mostrar missatge final traduït
+    if (medGameState.examFinished) {
+        document.getElementById('med-question').innerText = i18n.t('final_score');
+        return;
+    }
+
+    // Si hi ha una pregunta activa, refrescar-la
+    if (medGameState.questions.length > 0 && medGameState.currentQuestionIndex < medGameState.questions.length) {
+        const currentQ = medGameState.questions[medGameState.currentQuestionIndex];
+        const lang = i18n.currentLang;
+
+        // Refrescar pregunta
+        const countryName = currentQ.country[lang] || currentQ.country['ca'];
+        document.getElementById('med-question').innerText = `${countryName}`;
+
+        // Refrescar feedback si n'hi ha
+        const feedbackEl = document.getElementById('med-feedback');
+        if (feedbackEl.innerText !== '') {
+            // Si estem mostrant 'correct'/'incorrect', ho traduïm.
+            // Això és una mica 'tricky' si no sabem l'estat exacte, 
+            // però podem deduir-ho pel color o estil, o simplificar mostrant 'select_answer'
+            // Per simplicitat, si no hem respost (color negre o buit), posem 'select_answer'.
+            if (!feedbackEl.style.color || feedbackEl.style.color === 'black') {
+                feedbackEl.innerText = i18n.t('select_answer');
+            } else if (feedbackEl.style.color === 'green') {
+                feedbackEl.innerText = i18n.t('correct');
+            } else if (feedbackEl.style.color === 'red') {
+                feedbackEl.innerText = i18n.t('incorrect');
+            }
+        }
+    }
+}
