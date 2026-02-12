@@ -42,7 +42,11 @@ const i18n = {
             'par_project_title': 'Projecte Paralímpics',
             'act_microbit_title': 'Control de la Micro:bit',
             'act_microbit_desc': 'Demostra què saps sobre la placa',
-            'btn_start': 'Començar'
+            'btn_start': 'Començar',
+            'level_easy': 'Fàcil',
+            'level_medium': 'Mitjà',
+            'level_hard': 'Difícil',
+            'level_mixed': 'Barrejat'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -78,7 +82,11 @@ const i18n = {
             'par_project_title': 'Proyecto Paralímpicos',
             'act_microbit_title': 'Control de la Micro:bit',
             'act_microbit_desc': 'Demuestra qué sabes sobre la placa',
-            'btn_start': 'Comenzar'
+            'btn_start': 'Comenzar',
+            'level_easy': 'Fácil',
+            'level_medium': 'Medio',
+            'level_hard': 'Difícil',
+            'level_mixed': 'Mezclado'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -114,7 +122,11 @@ const i18n = {
             'par_project_title': 'Paralympics Project',
             'act_microbit_title': 'Micro:bit Control',
             'act_microbit_desc': 'Show what you know about the board',
-            'btn_start': 'Start'
+            'btn_start': 'Start',
+            'level_easy': 'Easy',
+            'level_medium': 'Medium',
+            'level_hard': 'Hard',
+            'level_mixed': 'Mixed'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -150,7 +162,11 @@ const i18n = {
             'par_project_title': 'مشروع بارالمبيك',
             'act_microbit_title': 'التحكم في Micro:bit',
             'act_microbit_desc': 'أظهر ما تعرفه عن اللوحة',
-            'btn_start': 'ابدأ'
+            'btn_start': 'ابدأ',
+            'level_easy': 'سهل',
+            'level_medium': 'متوسط',
+            'level_hard': 'صعب',
+            'level_mixed': 'مختلط'
         }
     },
 

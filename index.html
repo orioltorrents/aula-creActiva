@@ -221,9 +221,15 @@
                                 menú</button>
                             <div class="game-header">
                                 <h3 data-i18n="act_microbit_title">Control de la Micro:bit</h3>
-                                <div class="game-controls">
-                                    <button onclick="initParalimpicsMicrobit()" class="btn-primary"
-                                        data-i18n="btn_start">Començar</button>
+                                <div class="game-controls quiz-difficulty-selection">
+                                    <button onclick="initParalimpicsMicrobit('easy')" class="btn-secondary"
+                                        data-i18n="level_easy">Fàcil</button>
+                                    <button onclick="initParalimpicsMicrobit('medium')" class="btn-secondary"
+                                        data-i18n="level_medium">Mitjà</button>
+                                    <button onclick="initParalimpicsMicrobit('hard')" class="btn-secondary"
+                                        data-i18n="level_hard">Difícil</button>
+                                    <button onclick="initParalimpicsMicrobit('mixed')" class="btn-primary"
+                                        data-i18n="level_mixed">Barrejat</button>
                                 </div>
                             </div>
                             <div id="paralimpics-quiz-container" class="hidden">

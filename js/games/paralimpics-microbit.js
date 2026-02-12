@@ -12,22 +12,22 @@ const microbitQuestions = [
             "Un sensor que només detecta la temperatura.",
             "Una bateria externa per a telèfons mòbils."
         ],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "Quina és la mida aproximada de la placa?",
         a: ["10 x 10 cm.", "4 x 5 cm.", "2 x 2 cm.", "15 x 20 cm."],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "Com es diu l'editor de programació oficial basat en blocs per a aquesta placa?",
         a: ["Scratch.", "Microsoft MakeCode.", "Python Editor.", "Arduino IDE."],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "Quantes piles AAA s'inclouen normalment a la capsa segons la guia d'inici?",
         a: ["Una.", "Dues.", "Quatre.", "Cap, funciona amb bateria solar."],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "De quines maneres es pot alimentar o engegar la placa?",
@@ -37,7 +37,7 @@ const microbitQuestions = [
             "Connectant el compartiment de piles o mitjançant un cable micro-USB a l'ordinador.",
             "Fregant el sensor tàctil durant 10 segons."
         ],
-        correct: 2
+        correct: 2, level: 'medium'
     },
     {
         q: "Què indica una llum de color taronja a la placa?",
@@ -47,7 +47,7 @@ const microbitQuestions = [
             "Que hi ha un error en el codi.",
             "Que el sensor de llum està detectant molta claror."
         ],
-        correct: 1
+        correct: 1, level: 'hard'
     },
     {
         q: "Què indica la llum vermella quan engeguem la placa?",
@@ -57,12 +57,12 @@ const microbitQuestions = [
             "Que el Bluetooth està activat.",
             "Que el micròfon està gravant."
         ],
-        correct: 1
+        correct: 1, level: 'hard'
     },
     {
         q: "Quants LEDs té la matriu integrada a la part frontal?",
         a: ["5 LEDs.", "10 LEDs.", "25 LEDs.", "100 LEDs."],
-        correct: 2
+        correct: 2, level: 'medium'
     },
     {
         q: "Com estan distribuïts els LEDs de la matriu frontal?",
@@ -72,17 +72,17 @@ const microbitQuestions = [
             "En una sola línia horitzontal.",
             "Formant un quadrat de 4x4."
         ],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "Quin component de la placa actua com a sensor de llum ambiental?",
         a: ["El micròfon.", "Els mateixos LEDs de la matriu.", "L'antena de Bluetooth.", "El botó de reinici."],
-        correct: 1
+        correct: 1, level: 'hard'
     },
     {
         q: "Quin sensor ens permet conèixer els girs i moviments que fa la placa?",
         a: ["El magnetòmetre.", "L'acceleròmetre.", "El sensor de temperatura.", "El micròfon."],
-        correct: 1
+        correct: 1, level: 'medium'
     },
     {
         q: "Quina és la funció del magnetòmetre (brúixola digital)?",
@@ -92,7 +92,7 @@ const microbitQuestions = [
             "Escalfar la placa en climes freds.",
             "Comptar els passos de l'usuari."
         ],
-        correct: 1
+        correct: 1, level: 'medium'
     },
     {
         q: "Com funciona el \"sensor de contacte\" situat al logotip?",
@@ -102,12 +102,12 @@ const microbitQuestions = [
             "Només funciona si portem guants.",
             "Serveix per mesurar la humitat de la pell."
         ],
-        correct: 1
+        correct: 1, level: 'medium'
     },
     {
         q: "En quina unitat mesura la temperatura el sensor integrat?",
         a: ["Graus Fahrenheit.", "Kelvin.", "Graus Celsius.", "Percentatge de calor."],
-        correct: 2
+        correct: 2, level: 'easy'
     },
     {
         q: "Per a què serveix el brunzidor (altaveu) de la placa?",
@@ -117,12 +117,12 @@ const microbitQuestions = [
             "Per connectar-se a la ràdio FM.",
             "Per amplificar el so del micròfon."
         ],
-        correct: 1
+        correct: 1, level: 'easy'
     },
     {
         q: "Quants pins de connexió totals té la placa a la part inferior?",
         a: ["5 pins.", "10 pins.", "25 pins.", "3 pins."],
-        correct: 2
+        correct: 2, level: 'hard'
     },
     {
         q: "Quins són els noms dels 5 pins més amples per a connexió fàcil?",
@@ -132,37 +132,51 @@ const microbitQuestions = [
             "Nord, Sud, Est, Oest i Centre.",
             "USB, Bateria, LED, So i Llum."
         ],
-        correct: 1
+        correct: 1, level: 'hard'
     },
     {
         q: "Dins de l'entorn MakeCode, on podem trobar les categories de blocs (Bàsic, Entrada, Música...)?",
         a: ["Al simulador.", "A la caixa d'eines.", "A l'espai de treball.", "Al menú d'opcions de l'engranatge."],
-        correct: 1
+        correct: 1, level: 'medium'
     },
     {
         q: "Quina part de l'entorn MakeCode ens permet veure el resultat del nostre codi sense tenir la placa física connectada?",
         a: ["El simulador.", "La caixa d'eines.", "A l'espai de treball.", "El botó de transferir."],
-        correct: 0
+        correct: 0, level: 'easy'
     },
     {
         q: "Quin botó hem de prémer per enviar el programa que hem creat des de l'ordinador a la placa micro:bit?",
         a: ["Desa.", "Projecte nou.", "Transferir.", "Reinicia."],
-        correct: 2
+        correct: 2, level: 'easy'
     }
 ];
 
 let paralimpicsState = {
+    activeQuestions: [],
     currentQ: 0,
     score: 0,
     examFinished: false,
-    locked: false
+    locked: false,
+    level: 'mixed'
 };
 
-function initParalimpicsMicrobit() {
+function initParalimpicsMicrobit(selectedLevel) {
+    paralimpicsState.level = selectedLevel;
     paralimpicsState.currentQ = 0;
     paralimpicsState.score = 0;
     paralimpicsState.examFinished = false;
     paralimpicsState.locked = false;
+
+    // Filtrar i barrejar preguntes
+    let pool = [];
+    if (selectedLevel === 'mixed') {
+        pool = [...microbitQuestions];
+    } else {
+        pool = microbitQuestions.filter(q => q.level === selectedLevel);
+    }
+
+    // Barrejar i agafar màxim 10
+    paralimpicsState.activeQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
 
     document.getElementById('paralimpics-quiz-container').classList.remove('hidden');
     document.getElementById('paralimpics-results').classList.add('hidden');
@@ -172,9 +186,9 @@ function initParalimpicsMicrobit() {
 }
 
 function showParalimpicsQuestion() {
-    const qData = microbitQuestions[paralimpicsState.currentQ];
+    const qData = paralimpicsState.activeQuestions[paralimpicsState.currentQ];
 
-    document.getElementById('paralimpics-progress').innerText = `Pregunta ${paralimpicsState.currentQ + 1}/${microbitQuestions.length}`;
+    document.getElementById('paralimpics-progress').innerText = `${i18n.t('question') || 'Pregunta'} ${paralimpicsState.currentQ + 1}/${paralimpicsState.activeQuestions.length}`;
     document.getElementById('paralimpics-score').innerText = `${i18n.t('score')}: ${paralimpicsState.score}`;
 
     document.getElementById('paralimpics-question-text').innerText = qData.q;
@@ -197,7 +211,7 @@ function handleParalimpicsAnswer(selectedIndex) {
     if (paralimpicsState.locked) return;
     paralimpicsState.locked = true;
 
-    const qData = microbitQuestions[paralimpicsState.currentQ];
+    const qData = paralimpicsState.activeQuestions[paralimpicsState.currentQ];
     const isCorrect = selectedIndex === qData.correct;
 
     const buttons = document.getElementById('paralimpics-options').querySelectorAll('button');
@@ -219,7 +233,7 @@ function handleParalimpicsAnswer(selectedIndex) {
     setTimeout(() => {
         paralimpicsState.currentQ++;
         paralimpicsState.locked = false;
-        if (paralimpicsState.currentQ >= microbitQuestions.length) {
+        if (paralimpicsState.currentQ >= paralimpicsState.activeQuestions.length) {
             finishParalimpicsGame();
         } else {
             showParalimpicsQuestion();
@@ -232,7 +246,7 @@ async function finishParalimpicsGame() {
     document.getElementById('paralimpics-quiz-container').classList.add('hidden');
     document.getElementById('paralimpics-results').classList.remove('hidden');
 
-    const totalPossible = microbitQuestions.length * 10;
+    const totalPossible = paralimpicsState.activeQuestions.length * 10;
     document.getElementById('paralimpics-final-score').innerText = `${paralimpicsState.score} / ${totalPossible}`;
 
     // Missatge de feedback segons puntuació
@@ -245,7 +259,7 @@ async function finishParalimpicsGame() {
 
     document.getElementById('paralimpics-message').innerText = msg;
 
-    // Guardar al Backend (Mode Examen implícit ja que son preguntes fixes)
+    // Guardar al Backend
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
         const resultData = {
@@ -253,7 +267,7 @@ async function finishParalimpicsGame() {
             curs: user.curs,
             projecte: 'Paralímpics',
             app: 'Microbit Control',
-            nivell: 'General',
+            nivell: paralimpicsState.level.charAt(0).toUpperCase() + paralimpicsState.level.slice(1),
             puntuacio: paralimpicsState.score,
             temps_segons: 0,
             feedback_pos: '',
@@ -272,8 +286,7 @@ async function finishParalimpicsGame() {
 }
 
 function updateParalimpicsLanguage() {
-    // Si hi hagués textos dinàmics que no depenen de data-i18n, els posaríem aquí.
-    if (!paralimpicsState.examFinished && paralimpicsState.currentQ < microbitQuestions.length) {
+    if (!paralimpicsState.examFinished && paralimpicsState.activeQuestions.length > 0) {
         showParalimpicsQuestion();
     }
 }
