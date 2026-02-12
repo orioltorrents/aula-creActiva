@@ -220,11 +220,39 @@ function openProject(project) {
     if (project.id === 'p1_rates') {
         const gameDiv = document.getElementById('game-container-p1_rates');
         if (gameDiv) gameDiv.classList.remove('hidden');
+    } else if (project.id === 'p1_mediterrani') {
+        const gameDiv = document.getElementById('game-container-mediterrani_capitals');
+        if (gameDiv) gameDiv.classList.remove('hidden');
+        // Inicialitzem en mode pràctica per defecte
+        if (typeof initMediterraniGame === 'function') {
+            initMediterraniGame('practice');
+        }
     } else {
         // Fallback genèric
         document.getElementById('game-container-generic').classList.remove('hidden');
     }
 }
+
+// Listener pel canvi d'idioma
+document.getElementById('language-selector').addEventListener('change', (e) => {
+    const lang = e.target.value;
+    if (typeof i18n !== 'undefined') {
+        i18n.setLanguage(lang);
+
+        // Actualitzar textos UI comuns que tinguin l'atribut data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            el.innerText = i18n.t(key);
+        });
+
+        // Si estem dins d'un joc, potser cal refrescar-lo (o ho fa el propi joc escoltant l'event)
+        if (state.currentProject && state.currentProject.id === 'p1_mediterrani') {
+            // El joc de mediterrani ja llegeix l'idioma al mostrar la següent pregunta,
+            // però potser volem refrescar la pregunta actual immediatament.
+            // Per simplicitat, reiniciem el joc en el mode actual o deixem que flueixi.
+        }
+    }
+});
 
 async function simulateGameSave() {
     if (!state.user || !state.currentProject) return;
