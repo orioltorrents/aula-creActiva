@@ -53,11 +53,7 @@ function handleRequest(e) {
         } else if (action === 'saveResult') {
             result = saveResult(data);
         } else {
-            // DEBUG: Retornem què hem rebut per entendre perquè falla
-            result = {
-                status: 'error',
-                message: 'Acció desconeguda. Rebut: "' + action + '". Dades: ' + JSON.stringify(data)
-            };
+            result = { status: 'error', message: 'Acció desconeguda' };
         }
 
         return createJSONOutput(result);
