@@ -92,27 +92,93 @@
                         <hr>
                     </div>
 
-                    <!-- JOC: Capitals del Mediterrani (1r ESO) -->
-                    <div id="game-container-mediterrani_capitals" class="game-module hidden">
-                        <div class="game-header">
-                            <h3 id="med-title">Capitals del Mediterrani</h3>
-                            <div class="game-controls">
-                                <button onclick="initMediterraniGame('practice')" class="btn-secondary"
-                                    data-i18n="btn_practice">Pràctica</button>
-                                <button onclick="initMediterraniGame('exam')" class="btn-primary"
-                                    data-i18n="btn_exam">Examen</button>
+                    <!-- PROJECTE: Mediterrani (1r ESO) -->
+                    <!-- Aquest contenidor ara fa de "HUB" per a les diferents activitats -->
+                    <div id="project-hub-mediterrani" class="game-module hidden">
+                        <h3 data-i18n="med_project_title">Projecte Mediterrani</h3>
+
+                        <!-- MENÚ D'ACTIVITATS -->
+                        <div id="med-activities-menu" class="activities-grid">
+                            <div class="activity-card" onclick="openMediterraniActivity('capitals')">
+                                <div class="act-icon">🌍</div>
+                                <h4 data-i18n="act_capitals_title">Capitals</h4>
+                                <p data-i18n="act_capitals_desc">Aprèn les capitals del Mediterrani</p>
+                            </div>
+                            <div class="activity-card" onclick="openMediterraniActivity('test_mar')">
+                                <div class="act-icon">🌊</div>
+                                <h4 data-i18n="act_sea_title">El Mar del Mig</h4>
+                                <p data-i18n="act_sea_desc">Vídeo i Test de coneixements</p>
                             </div>
                         </div>
-                        <div id="med-game-area" class="hidden">
-                            <div class="stats-bar">
-                                <span id="med-score">Punts: 0</span>
-                                <span id="med-time" class="hidden">Temps: 60s</span>
+
+                        <!-- ACTIVITAT 1: Capitals -->
+                        <div id="med-activity-capitals" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3 id="med-title">Capitals del Mediterrani</h3>
+                                <div class="game-controls">
+                                    <button onclick="initMediterraniGame('practice')" class="btn-secondary"
+                                        data-i18n="btn_practice">Pràctica</button>
+                                    <button onclick="initMediterraniGame('exam')" class="btn-primary"
+                                        data-i18n="btn_exam">Examen</button>
+                                </div>
                             </div>
-                            <div class="question-container">
-                                <h4 id="med-question">Pregunta...</h4>
-                                <div id="med-options" class="options-grid"></div>
+                            <div id="med-game-area" class="hidden">
+                                <div class="stats-bar">
+                                    <span id="med-score">Punts: 0</span>
+                                    <span id="med-time" class="hidden">Temps: 60s</span>
+                                </div>
+                                <div class="question-container">
+                                    <h4 id="med-question">Pregunta...</h4>
+                                    <div id="med-options" class="options-grid"></div>
+                                </div>
+                                <p id="med-feedback" class="feedback-msg"></p>
                             </div>
-                            <p id="med-feedback" class="feedback-msg"></p>
+                        </div>
+
+                        <!-- ACTIVITAT 2: El Mar del Mig (Test) -->
+                        <div id="med-activity-test_mar" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                                menú</button>
+                            <h3>El Mar del Mig</h3>
+
+                            <!-- VIDEO -->
+                            <div class="video-container mb-4">
+                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/BadOpGvG8Gk"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+
+                            <!-- TEST -->
+                            <div id="med-test-area">
+                                <div class="game-controls mb-4">
+                                    <button onclick="initMediterraniTest()" class="btn-primary"
+                                        data-i18n="btn_start_test">Començar Test</button>
+                                </div>
+
+                                <div id="test-container" class="hidden">
+                                    <div class="stats-bar">
+                                        <span id="test-progress">Pregunta 1/25</span>
+                                        <span id="test-score">Encerts: 0</span>
+                                    </div>
+                                    <div class="question-container">
+                                        <h4 id="test-question-text">Pregunta...</h4>
+                                        <div id="test-options" class="options-list"></div>
+                                    </div>
+                                    <p id="test-feedback" class="feedback-msg"></p>
+                                    <button id="test-next-btn" class="btn-primary hidden" onclick="nextTestQuestion()"
+                                        data-i18n="btn_next">Següent</button>
+                                </div>
+
+                                <div id="test-results" class="hidden text-center">
+                                    <h3>Resultats</h3>
+                                    <p id="test-final-score" class="text-2xl font-bold">0 / 25</p>
+                                    <p id="test-message"></p>
+                                    <button onclick="showMediterraniMenu()" class="btn-secondary">Tornar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
