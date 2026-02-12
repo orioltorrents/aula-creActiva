@@ -116,7 +116,7 @@ function showNextQuestion() {
         <div class="flag-container">
             <img src="${flagUrl}" alt="Bandera" class="med-flag">
         </div>
-        <span>${countryName}</span>
+        <span id="med-country-label" style="visibility: ${showCountryName ? 'visible' : 'hidden'}">${countryName}</span>
     `;
     document.getElementById('med-feedback').innerText = i18n.t('select_answer');
 

@@ -408,28 +408,14 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* FLAGS */
-    .flag-container {
-        margin-bottom: 15px;
-        height: 120px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .med-flag {
-        max-height: 100%;
-        max-width: 200px;
-        border: 1px solid #ddd;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-    }
+.med-flag {
+    max-height: 100%;
+    max-width: 200px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
