@@ -27,7 +27,9 @@ const i18n = {
             'mode_exam_desc': 'Posa a prova els teus coneixements. Els resultats es guardaran al teu expedient.',
             'language': 'Idioma',
             'choose_lang': 'Tria el teu idioma',
-            'active_projects': 'Aquests són els teus projectes actius.'
+            'active_projects': 'Aquests són els teus projectes actius.',
+            'hide_country': 'Amagar País',
+            'show_country': 'Mostrar País'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -48,7 +50,9 @@ const i18n = {
             'mode_exam_desc': 'Pon a prueba tus conocimientos. Los resultados se guardarán en tu expediente.',
             'language': 'Idioma',
             'choose_lang': 'Elige tu idioma',
-            'active_projects': 'Estos son tus proyectos activos.'
+            'active_projects': 'Estos son tus proyectos activos.',
+            'hide_country': 'Ocultar País',
+            'show_country': 'Mostrar País'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -69,7 +73,9 @@ const i18n = {
             'mode_exam_desc': 'Test your knowledge. Results will be saved to your record.',
             'language': 'Language',
             'choose_lang': 'Choose your language',
-            'active_projects': 'These are your active projects.'
+            'active_projects': 'These are your active projects.',
+            'hide_country': 'Hide Country',
+            'show_country': 'Show Country'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -90,7 +96,9 @@ const i18n = {
             'mode_exam_desc': 'اختبر معلوماتك. سيتم حفظ النتائج في سجلك.',
             'language': 'لغة',
             'choose_lang': 'اختر لغتك',
-            'active_projects': 'هذه هي مشاريعك النشطة.'
+            'active_projects': 'هذه هي مشاريعك النشطة.',
+            'hide_country': 'إخفاء البلد',
+            'show_country': 'إظهار البلد'
         }
     },
 

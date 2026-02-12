@@ -37,6 +37,22 @@ let medGameState = {
     examFinished: false
 };
 
+let showCountryName = true;
+
+function toggleCountryName() {
+    showCountryName = !showCountryName;
+    const btn = document.getElementById('btn-toggle-country');
+    const label = document.getElementById('med-country-label');
+
+    if (showCountryName) {
+        btn.innerText = i18n.t('hide_country');
+        if (label) label.style.visibility = 'visible';
+    } else {
+        btn.innerText = i18n.t('show_country');
+        if (label) label.style.visibility = 'hidden';
+    }
+}
+
 // Inicialitza el joc
 function initMediterraniGame(mode) {
     medGameState.mode = mode;
@@ -44,8 +60,14 @@ function initMediterraniGame(mode) {
     medGameState.currentQuestionIndex = 0;
     medGameState.examFinished = false;
 
+    // Reset toggle state per defecte? O mantenim? Mantenim selecció usuari és millor UX.
+    // Només assegurem que el botó tingui el text correcte
+    const btn = document.getElementById('btn-toggle-country');
+    if (btn) btn.innerText = showCountryName ? i18n.t('hide_country') : i18n.t('show_country');
+
     // Preparar preguntes (barrejar)
     medGameState.questions = [...mediterraniData].sort(() => 0.5 - Math.random()).slice(0, 10); // 10 preguntes per partida
+
 
     // UI Setup
     document.getElementById('med-game-area').classList.remove('hidden');
@@ -237,7 +259,7 @@ function updateMediterraniLanguage() {
             <div class="flag-container">
                 <img src="${flagUrl}" alt="Bandera" class="med-flag">
             </div>
-            <span>${countryName}</span>
+            <span id="med-country-label" style="visibility: ${showCountryName ? 'visible' : 'hidden'}">${countryName}</span>
         `;
 
         // Refrescar feedback si n'hi ha
