@@ -35,7 +35,8 @@ let medGameState = {
     timer: null,
     timeLeft: 60,
     examFinished: false,
-    wasShown: false
+    wasShown: false,
+    locked: false
 };
 
 let showCountryName = true;
@@ -61,6 +62,7 @@ function initMediterraniGame(mode) {
     medGameState.score = 0;
     medGameState.currentQuestionIndex = 0;
     medGameState.examFinished = false;
+    medGameState.locked = false;
 
     // Reset toggle state per defecte? O mantenim? Mantenim selecció usuari és millor UX.
     // Només assegurem que el botó tingui el text correcte
@@ -101,6 +103,7 @@ function startTimer() {
 }
 
 function showNextQuestion() {
+    medGameState.locked = false; // Desbloquegem per la següent pregunta
     if (medGameState.currentQuestionIndex >= medGameState.questions.length) {
         finishGame();
         return;
@@ -155,7 +158,8 @@ function renderOptions(options, correctQ) {
 }
 
 function handleAnswer(selected, correct, btnElement) {
-    if (medGameState.examFinished) return;
+    if (medGameState.examFinished || medGameState.locked) return;
+    medGameState.locked = true; // Bloquegem per evitar multi-clics o correccions posteriors
 
     const isCorrect = selected.id === correct.id;
 
@@ -165,29 +169,31 @@ function handleAnswer(selected, correct, btnElement) {
         medGameState.score += points;
         document.getElementById('med-score').innerText = `${i18n.t('score')}: ${medGameState.score}`;
 
-        if (medGameState.mode === 'practice') {
-            btnElement.classList.add('correct');
-            document.getElementById('med-feedback').innerText = i18n.t('correct');
-            document.getElementById('med-feedback').style.color = 'green';
-            setTimeout(() => {
-                medGameState.currentQuestionIndex++;
-                showNextQuestion();
-            }, 1000);
-        } else {
-            // Mode Examen: No diem si és correcte o no immediatament (o sí, però ràpid)
+        btnElement.classList.add('correct');
+        document.getElementById('med-feedback').innerText = i18n.t('correct');
+        document.getElementById('med-feedback').style.color = 'green';
+
+        setTimeout(() => {
             medGameState.currentQuestionIndex++;
             showNextQuestion();
-        }
+        }, 800);
     } else {
+        btnElement.classList.add('incorrect');
+        document.getElementById('med-feedback').innerText = i18n.t('incorrect');
+        document.getElementById('med-feedback').style.color = 'red';
+
+        // Mostrem quina era la bona breument en mode pràctica
         if (medGameState.mode === 'practice') {
-            btnElement.classList.add('incorrect');
-            document.getElementById('med-feedback').innerText = i18n.t('incorrect');
-            document.getElementById('med-feedback').style.color = 'red';
-        } else {
-            // Mode Examen: Passem a la següent sense feedback
+            const btns = document.querySelectorAll('.btn-option');
+            btns.forEach(b => {
+                if (b.innerText === correct.capital) b.classList.add('correct');
+            });
+        }
+
+        setTimeout(() => {
             medGameState.currentQuestionIndex++;
             showNextQuestion();
-        }
+        }, 800);
     }
 }
 

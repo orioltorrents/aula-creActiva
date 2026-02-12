@@ -251,28 +251,20 @@ function handleMapClick(countryId) {
         document.getElementById('med-map-feedback').innerText = i18n.t('incorrect');
         document.getElementById('med-map-feedback').style.color = 'red';
 
-        // (Opcional pedagògic) en mode pràctica, marca el correcte breument
         if (medMapState.mode !== 'exam') {
             const correctEl = document.getElementById(`path-${correctQ.id}`);
             if (correctEl) {
                 correctEl.classList.add('correct');
-                setTimeout(() => correctEl.classList.remove('correct'), 600);
+                setTimeout(() => correctEl.classList.add('correct_perm'), 600); // Opcional: deixar-ho marcat?
             }
         }
 
-        if (medMapState.mode === 'exam') {
-            setTimeout(() => {
-                pathEl.classList.remove('incorrect');
-                medMapState.currentQuestionIndex++;
-                medMapState.locked = false;
-                showNextMapQuestion();
-            }, 800);
-        } else {
-            setTimeout(() => {
-                pathEl.classList.remove('incorrect');
-                medMapState.locked = false;
-            }, 800);
-        }
+        setTimeout(() => {
+            pathEl.classList.remove('incorrect');
+            medMapState.currentQuestionIndex++;
+            medMapState.locked = false;
+            showNextMapQuestion();
+        }, 800);
     }
 }
 
