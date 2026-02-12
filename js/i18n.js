@@ -26,7 +26,8 @@ const i18n = {
             'mode_practice_desc': 'Practica sense límit de temps i amb feedback immediat. Els resultats no es guarden.',
             'mode_exam_desc': 'Posa a prova els teus coneixements. Els resultats es guardaran al teu expedient.',
             'language': 'Idioma',
-            'choose_lang': 'Tria el teu idioma'
+            'choose_lang': 'Tria el teu idioma',
+            'active_projects': 'Aquests són els teus projectes actius.'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -46,7 +47,8 @@ const i18n = {
             'mode_practice_desc': 'Practica sin límite de tiempo y con feedback inmediato. Los resultados no se guardan.',
             'mode_exam_desc': 'Pon a prueba tus conocimientos. Los resultados se guardarán en tu expediente.',
             'language': 'Idioma',
-            'choose_lang': 'Elige tu idioma'
+            'choose_lang': 'Elige tu idioma',
+            'active_projects': 'Estos son tus proyectos activos.'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -66,7 +68,8 @@ const i18n = {
             'mode_practice_desc': 'Practice without time limit and with immediate feedback. Results are not saved.',
             'mode_exam_desc': 'Test your knowledge. Results will be saved to your record.',
             'language': 'Language',
-            'choose_lang': 'Choose your language'
+            'choose_lang': 'Choose your language',
+            'active_projects': 'These are your active projects.'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -86,7 +89,8 @@ const i18n = {
             'mode_practice_desc': 'مارس بدون حد زمني ومع تعليقات فورية. لا يتم حفظ النتائج.',
             'mode_exam_desc': 'اختبر معلوماتك. سيتم حفظ النتائج في سجلك.',
             'language': 'لغة',
-            'choose_lang': 'اختر لغتك'
+            'choose_lang': 'اختر لغتك',
+            'active_projects': 'هذه هي مشاريعك النشطة.'
         }
     },
 
