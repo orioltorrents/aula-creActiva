@@ -184,12 +184,35 @@ async function loadDashboard() {
     const grid = document.getElementById('projects-grid');
     grid.innerHTML = '<div class="loader">Carregant projectes...</div>';
 
-    const response = await callApi('getProjects', { curs: state.user.curs });
+    // Suport per a múltiples cursos (ex: "1ESO, 2ESO")
+    const courses = state.user.curs.split(',').map(c => c.trim()).filter(c => c !== "");
+
+    let allProjects = [];
+    let seenIds = new Set();
+
+    try {
+        // Fem les crides en paral·lel per a tots els cursos
+        const fetchPromises = courses.map(curs => callApi('getProjects', { curs }));
+        const responses = await Promise.all(fetchPromises);
+
+        responses.forEach(response => {
+            if (response && response.status === 'success' && response.projectes) {
+                response.projectes.forEach(proj => {
+                    if (!seenIds.has(proj.id)) {
+                        seenIds.add(proj.id);
+                        allProjects.push(proj);
+                    }
+                });
+            }
+        });
+    } catch (e) {
+        console.error("Error carregant projectes:", e);
+    }
 
     grid.innerHTML = ''; // Netejar
 
-    if (response && response.status === 'success' && response.projectes.length > 0) {
-        response.projectes.forEach(proj => {
+    if (allProjects.length > 0) {
+        allProjects.forEach(proj => {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
@@ -203,7 +226,7 @@ async function loadDashboard() {
             grid.appendChild(card);
         });
     } else {
-        grid.innerHTML = '<p>No tens projectes assignats o no s\'han pogut carregar.</p>';
+        grid.innerHTML = `<p>${i18n.t('no_projects') || 'No tens projectes assignats o no s\'han pogut carregar.'}</p>`;
     }
 }
 
