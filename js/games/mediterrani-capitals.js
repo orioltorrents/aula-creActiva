@@ -86,10 +86,16 @@ function showNextQuestion() {
     const lang = i18n.currentLang;
 
     // Actualitzar text de la pregunta
-    // Format: "Quina és la capital de [País]?"
-    // Simplificació per ara: "[País]"
+    // Format: [Bandera] [País]
     const countryName = currentQ.country[lang] || currentQ.country['ca'];
-    document.getElementById('med-question').innerText = `${countryName}`;
+    const flagUrl = `https://flagcdn.com/h240/${currentQ.iso}.png`;
+
+    document.getElementById('med-question').innerHTML = `
+        <div class="flag-container">
+            <img src="${flagUrl}" alt="Bandera" class="med-flag">
+        </div>
+        <span>${countryName}</span>
+    `;
     document.getElementById('med-feedback').innerText = i18n.t('select_answer');
 
     // Generar opcions (1 correcta + 3 incorrectes)
@@ -222,9 +228,17 @@ function updateMediterraniLanguage() {
         const currentQ = medGameState.questions[medGameState.currentQuestionIndex];
         const lang = i18n.currentLang;
 
-        // Refrescar pregunta
+        // Refrescar pregunta (mantenint la bandera si ja hi és, o regenerant-la)
+        // Com que hem canviat a innerHTML, millor regenerar-ho tot per simplicitat
         const countryName = currentQ.country[lang] || currentQ.country['ca'];
-        document.getElementById('med-question').innerText = `${countryName}`;
+        const flagUrl = `https://flagcdn.com/h240/${currentQ.iso}.png`;
+
+        document.getElementById('med-question').innerHTML = `
+            <div class="flag-container">
+                <img src="${flagUrl}" alt="Bandera" class="med-flag">
+            </div>
+            <span>${countryName}</span>
+        `;
 
         // Refrescar feedback si n'hi ha
         const feedbackEl = document.getElementById('med-feedback');
