@@ -93,7 +93,9 @@ function showTestQuestion() {
     });
 
     document.getElementById('test-feedback').innerText = '';
-    document.getElementById('test-next-btn').classList.add('hidden');
+    const nextBtn = document.getElementById('test-next-btn');
+    nextBtn.classList.add('hidden');
+    nextBtn.classList.remove('active-step'); // Important: Reset flag so we can answer next question
 }
 
 function handleTestAnswer(selectedIndex, btnElement) {
