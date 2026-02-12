@@ -31,7 +31,13 @@ const i18n = {
             'hide_country': 'Amagar País',
             'show_country': 'Mostrar País',
             'act_map_title': 'Mapa del Mediterrani',
-            'act_map_desc': 'Identifica els països al mapa'
+            'act_map_desc': 'Identifica els països al mapa',
+            'med_project_title': 'Projecte Mediterrani',
+            'act_capitals_title': 'Capitals',
+            'act_capitals_desc': 'Aprèn les capitals del Mediterrani',
+            'act_sea_title': 'El Mar del Mig',
+            'act_sea_desc': 'Vídeo i Test de coneixements',
+            'btn_start_test': 'Començar Test'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -56,7 +62,13 @@ const i18n = {
             'hide_country': 'Ocultar País',
             'show_country': 'Mostrar País',
             'act_map_title': 'Mapa del Mediterráneo',
-            'act_map_desc': 'Identifica los países en el mapa'
+            'act_map_desc': 'Identifica los países en el mapa',
+            'med_project_title': 'Proyecto Mediterráneo',
+            'act_capitals_title': 'Capitales',
+            'act_capitals_desc': 'Aprende las capitales del Mediterráneo',
+            'act_sea_title': 'El Mar del Medio',
+            'act_sea_desc': 'Vídeo y Test de conocimientos',
+            'btn_start_test': 'Empezar Test'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -81,7 +93,13 @@ const i18n = {
             'hide_country': 'Hide Country',
             'show_country': 'Show Country',
             'act_map_title': 'Mediterranean Map',
-            'act_map_desc': 'Identify countries on the map'
+            'act_map_desc': 'Identify countries on the map',
+            'med_project_title': 'Mediterranean Project',
+            'act_capitals_title': 'Capitals',
+            'act_capitals_desc': 'Learn the capitals of the Mediterranean',
+            'act_sea_title': 'The Middle Sea',
+            'act_sea_desc': 'Video and Knowledge Test',
+            'btn_start_test': 'Start Test'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -106,7 +124,13 @@ const i18n = {
             'hide_country': 'إخفاء البلد',
             'show_country': 'إظهار البلد',
             'act_map_title': 'خريطة البحر الأبيض المتوسط',
-            'act_map_desc': 'تحديد البلدان على الخريطة'
+            'act_map_desc': 'تحديد البلدان على الخريطة',
+            'med_project_title': 'مشروع البحر الأبيض المتوسط',
+            'act_capitals_title': 'العواصم',
+            'act_capitals_desc': 'تعلم عواصم البحر الأبيض المتوسط',
+            'act_sea_title': 'البحر الأوسط',
+            'act_sea_desc': 'فيديو واختبار المعلومات',
+            'btn_start_test': 'ابدأ الاختبار'
         }
     },
 

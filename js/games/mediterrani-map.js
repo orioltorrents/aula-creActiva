@@ -344,3 +344,19 @@ async function finishMapGame() {
         }
     }
 }
+
+function updateMediterraniLanguage() {
+    document.getElementById('med-map-score').innerText = `${i18n.t('score')}: ${medMapState.score}`;
+    if (medMapState.mode === 'exam') {
+        document.getElementById('med-map-time').innerText = `${i18n.t('time')}: ${medMapState.timeLeft}s`;
+    }
+
+    if (medMapState.examFinished) {
+        document.getElementById('med-map-question').innerText = i18n.t('final_score');
+        return;
+    }
+
+    if (medMapState.questions.length > 0 && medMapState.currentQuestionIndex < medMapState.questions.length) {
+        showNextMapQuestion();
+    }
+}
