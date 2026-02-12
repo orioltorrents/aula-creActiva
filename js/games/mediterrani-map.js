@@ -147,11 +147,10 @@ async function initMediterraniMapGame(mode) {
         svg.addEventListener('click', (e) => {
             const target = e.target.closest('path, polygon, rect');
             if (target) {
-                console.log("Clicat element SVG:", {
-                    id: target.id,
-                    class: target.getAttribute('class'),
-                    data: target.getAttribute('data-country')
-                });
+                const id = target.id || "SENSE ID";
+                document.getElementById('med-map-feedback').innerText = `Has clicat l'ID: ${id}`;
+                document.getElementById('med-map-feedback').style.color = 'orange';
+                console.log("Element SVG:", target);
             }
         });
     }
