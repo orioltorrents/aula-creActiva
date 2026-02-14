@@ -5,10 +5,16 @@
 
 const naturaXarxesState = {
     correctOrder: [
-        'action_field_data',
-        'action_diet',
-        'action_trophic_level',
-        'action_interactions'
+        'action_select_ecosystem',
+        'action_identify_species',
+        'action_observe_behavior',
+        'action_collect_samples',
+        'action_scientific_info',
+        'action_diet_classification',
+        'action_primary_producers',
+        'action_assign_trophic_level',
+        'action_draw_interactions',
+        'action_final_web'
     ],
     currentOrder: []
 };
