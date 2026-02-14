@@ -37,6 +37,10 @@ const forms = {
 document.addEventListener('DOMContentLoaded', () => {
     // Comprovar si hi ha sessió guardada (localStorage)
     const savedUser = localStorage.getItem('user');
+
+    // Inicialitzar traduccions
+    translateUI();
+
     if (savedUser) {
         state.user = JSON.parse(savedUser);
         loadDashboard();
@@ -270,23 +274,33 @@ document.getElementById('language-selector').addEventListener('change', (e) => {
     const lang = e.target.value;
     if (typeof i18n !== 'undefined') {
         i18n.setLanguage(lang);
-
-        // Actualitzar textos UI comuns que tinguin l'atribut data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            el.innerText = i18n.t(key);
-        });
-
-        // Si estem dins d'un joc, potser cal refrescar-lo
-        if (state.currentProject) {
-            if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
-                updateMediterraniLanguage();
-            } else if (state.currentProject.id === 'p2_paralimpics' && typeof updateParalimpicsLanguage === 'function') {
-                updateParalimpicsLanguage();
-            }
-        }
+        translateUI();
     }
 });
+
+function translateUI() {
+    if (typeof i18n === 'undefined') return;
+
+    // Actualitzar textos UI comuns que tinguin l'atribut data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.innerText = i18n.t(key);
+    });
+
+    // Actualitzar textos dinàmics si cal
+    if (state.user) {
+        document.getElementById('welcome-msg').textContent = `${i18n.t('hi')}, ${state.user.nom}!`;
+    }
+
+    // Si estem dins d'un joc, potser cal refrescar-lo
+    if (state.currentProject) {
+        if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
+            updateMediterraniLanguage();
+        } else if (state.currentProject.id === 'p2_paralimpics' && typeof updateParalimpicsLanguage === 'function') {
+            updateParalimpicsLanguage();
+        }
+    }
+}
 
 async function simulateGameSave() {
     if (!state.user || !state.currentProject) return;

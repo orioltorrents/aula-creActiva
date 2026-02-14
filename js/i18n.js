@@ -46,7 +46,17 @@ const i18n = {
             'level_easy': 'Fàcil',
             'level_medium': 'Mitjà',
             'level_hard': 'Difícil',
-            'level_mixed': 'Barrejat'
+            'level_mixed': 'Barrejat',
+            'login_title': 'Aula CreActiva',
+            'login_subtitle': 'Accés a l\'Entorn d\'Aprenentatge',
+            'label_email': 'Correu electrònic',
+            'label_password': 'Contrasenya',
+            'btn_login': 'Entrar',
+            'hi': 'Hola',
+            'logout': 'Sortir',
+            'back': 'Tornar',
+            'loading_projects': 'Carregant projectes...',
+            'no_projects': 'No tens projectes assignats o no s\'han pogut carregar.'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -86,7 +96,17 @@ const i18n = {
             'level_easy': 'Fácil',
             'level_medium': 'Medio',
             'level_hard': 'Difícil',
-            'level_mixed': 'Mezclado'
+            'level_mixed': 'Mezclado',
+            'login_title': 'Aula CreActiva',
+            'login_subtitle': 'Acceso al Entorno de Aprendizaje',
+            'label_email': 'Correo electrónico',
+            'label_password': 'Contraseña',
+            'btn_login': 'Entrar',
+            'hi': 'Hola',
+            'logout': 'Salir',
+            'back': 'Volver',
+            'loading_projects': 'Cargando proyectos...',
+            'no_projects': 'No tienes proyectos asignados o no se han podido cargar.'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -126,7 +146,17 @@ const i18n = {
             'level_easy': 'Easy',
             'level_medium': 'Medium',
             'level_hard': 'Hard',
-            'level_mixed': 'Mixed'
+            'level_mixed': 'Mixed',
+            'login_title': 'Aula CreActiva',
+            'login_subtitle': 'Learning Environment Access',
+            'label_email': 'Email address',
+            'label_password': 'Password',
+            'btn_login': 'Login',
+            'hi': 'Hello',
+            'logout': 'Logout',
+            'back': 'Back',
+            'loading_projects': 'Loading projects...',
+            'no_projects': 'You have no assigned projects or they could not be loaded.'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -166,7 +196,17 @@ const i18n = {
             'level_easy': 'سهل',
             'level_medium': 'متوسط',
             'level_hard': 'صعب',
-            'level_mixed': 'مختلط'
+            'level_mixed': 'مختلط',
+            'login_title': 'أولا كرياكتيفا',
+            'login_subtitle': 'الوصول إلى بيئة التعلم',
+            'label_email': 'البريد الإلكتروني',
+            'label_password': 'كلمة المرور',
+            'btn_login': 'تسجيل الدخول',
+            'hi': 'مرحباً',
+            'logout': 'تسجيل الخروج',
+            'back': 'رجوع',
+            'loading_projects': 'جارٍ تحميل المشاريع...',
+            'no_projects': 'ليس لديك مشاريع معينة أو لم يتم تحميلها.'
         }
     },
 

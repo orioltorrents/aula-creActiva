@@ -19,20 +19,20 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="login-header">
-                    <h1>Aula CreActiva</h1>
-                    <p>Accés a l'Entorn d'Aprenentatge</p>
+                    <h1 data-i18n="login_title">Aula CreActiva</h1>
+                    <p data-i18n="login_subtitle">Accés a l'Entorn d'Aprenentatge</p>
                 </div>
                 <form id="login-form">
                     <div class="form-group">
-                        <label for="email">Correu electrònic</label>
+                        <label for="email" data-i18n="label_email">Correu electrònic</label>
                         <input type="email" id="email" placeholder="alumne@escola.cat" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Contrasenya</label>
+                        <label for="password" data-i18n="label_password">Contrasenya</label>
                         <input type="password" id="password" placeholder="••••••" required>
                     </div>
                     <button type="submit" class="btn-primary" id="login-btn">
-                        <span class="btn-text">Entrar</span>
+                        <span class="btn-text" data-i18n="btn_login">Entrar</span>
                         <div class="loader hidden" id="login-loader"></div>
                     </button>
                     <p id="login-error" class="error-msg"></p>
@@ -52,21 +52,21 @@
                     <option value="en">English</option>
                     <option value="ar">العربية</option>
                 </select>
-                <span id="user-name">Carregant...</span>
+                <span id="user-name" data-i18n="loading">Carregant...</span>
                 <span id="user-course" class="badge">...</span>
-                <button id="logout-btn" class="btn-secondary">Sortir</button>
+                <button id="logout-btn" class="btn-secondary" data-i18n="logout">Sortir</button>
             </div>
         </header>
 
         <main class="dashboard-content">
             <div class="welcome-banner">
-                <h2 id="welcome-msg">Hola!</h2>
+                <h2 id="welcome-msg" data-i18n="hi">Hola!</h2>
                 <p data-i18n="active_projects">Aquests són els teus projectes actius.</p>
             </div>
 
             <div id="projects-grid" class="projects-grid">
                 <!-- Els projectes es carregaran aquí dinàmicament -->
-                <div class="loader">Carregant projectes...</div>
+                <div class="loader" data-i18n="loading_projects">Carregant projectes...</div>
             </div>
         </main>
     </section>
@@ -74,8 +74,8 @@
     <!-- JOC / ACTIVITAT (Placeholder per ara) -->
     <section id="game-screen" class="screen hidden">
         <header class="top-bar">
-            <button id="back-dashboard-btn" class="btn-secondary">← Tornar</button>
-            <div id="game-title" class="title">Activitat</div>
+            <button id="back-dashboard-btn" class="btn-secondary" data-i18n="back">← Tornar</button>
+            <div id="game-title" class="title" data-i18n="loading">Activitat</div>
         </header>
         <main class="game-content">
             <div class="game-container">
