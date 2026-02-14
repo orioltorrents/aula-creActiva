@@ -480,3 +480,64 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
 }
+
+/* NATURA - SORTABLE LIST */
+.activity-instructions {
+    margin-bottom: 20px;
+    text-align: left;
+    padding: 15px;
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+}
+
+.sortable-list {
+    list-style: none;
+    padding: 0;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.sortable-item {
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s;
+    user-select: none;
+    text-align: left;
+}
+
+.sortable-item:active {
+    cursor: grabbing;
+}
+
+.sortable-item.dragging {
+    opacity: 0.5;
+    background: #f3f4f6;
+    border-style: dashed;
+}
+
+.sortable-item:hover {
+    border-color: var(--primary-color);
+    background: #f5f3ff;
+}
+
+.sortable-item .handle {
+    color: #9ca3af;
+    font-size: 1.2rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}

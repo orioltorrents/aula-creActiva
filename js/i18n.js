@@ -56,7 +56,17 @@ const i18n = {
             'logout': 'Sortir',
             'back': 'Tornar',
             'loading_projects': 'Carregant projectes...',
-            'no_projects': 'No tens projectes assignats o no s\'han pogut carregar.'
+            'no_projects': 'No tens projectes assignats o no s\'han pogut carregar.',
+            'natura_project_title': 'Entorns de Natura',
+            'act_xarxes_title': 'Xarxes Tròfiques',
+            'act_xarxes_desc': 'Ordena els passos per crear una xarxa tròfica',
+            'instruction_xarxes': 'Ordena aquestes accions per establir una xarxa tròfica amb dades reals:',
+            'action_field_data': 'Agafar dades sobre el terreny',
+            'action_diet': 'Determinar el règim alimentari',
+            'action_trophic_level': 'Posicionar-lo a un nivell tròfic',
+            'action_interactions': 'Saber qui se\'l pot menjar i qui menja',
+            'btn_verify': 'Verificar Ordenació',
+            'result_order': 'Accions ben ordenades:'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -106,7 +116,17 @@ const i18n = {
             'logout': 'Salir',
             'back': 'Volver',
             'loading_projects': 'Cargando proyectos...',
-            'no_projects': 'No tienes proyectos asignados o no se han podido cargar.'
+            'no_projects': 'No tienes proyectos asignados o no se han podido cargar.',
+            'natura_project_title': 'Entornos de Naturaleza',
+            'act_xarxes_title': 'Redes Tróficas',
+            'act_xarxes_desc': 'Ordena los pasos para crear una red trófica',
+            'instruction_xarxes': 'Ordena estas acciones para establecer una red trófica con datos reales:',
+            'action_field_data': 'Recoger datos sobre el terreno',
+            'action_diet': 'Determinar el régimen alimenticio',
+            'action_trophic_level': 'Posicionarlo en un nivel trófico',
+            'action_interactions': 'Saber quién se lo puede comer y quién come',
+            'btn_verify': 'Verificar Ordenación',
+            'result_order': 'Acciones bien ordenadas:'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -156,7 +176,17 @@ const i18n = {
             'logout': 'Logout',
             'back': 'Back',
             'loading_projects': 'Loading projects...',
-            'no_projects': 'You have no assigned projects or they could not be loaded.'
+            'no_projects': 'You have no assigned projects or they could not be loaded.',
+            'natura_project_title': 'Nature Environments',
+            'act_xarxes_title': 'Trophic Networks',
+            'act_xarxes_desc': 'Order the steps to create a trophic network',
+            'instruction_xarxes': 'Order these actions to establish a trophic network with real data:',
+            'action_field_data': 'Gather field data',
+            'action_diet': 'Determine the diet',
+            'action_trophic_level': 'Position it at a trophic level',
+            'action_interactions': 'Know who can eat it and who it eats',
+            'btn_verify': 'Verify Ordering',
+            'result_order': 'Correctly ordered actions:'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -206,7 +236,17 @@ const i18n = {
             'logout': 'تسجيل الخروج',
             'back': 'رجوع',
             'loading_projects': 'جارٍ تحميل المشاريع...',
-            'no_projects': 'ليس لديك مشاريع معينة أو لم يتم تحميلها.'
+            'no_projects': 'ليس لديك مشاريع معينة أو لم يتم تحميلها.',
+            'natura_project_title': 'بيئات الطبيعة',
+            'act_xarxes_title': 'الشبكات الغذائية',
+            'act_xarxes_desc': 'رتب الخطوات لإنشاء شبكة غذائية',
+            'instruction_xarxes': 'رتب هذه الإجراءات لإنشاء شبكة غذائية ببيانات حقيقية:',
+            'action_field_data': 'جمع البيانات الميدانية',
+            'action_diet': 'تحديد النظام الغذائي',
+            'action_trophic_level': 'وضعه في مستوى غذائي',
+            'action_interactions': 'معرفة من يمكنه أكله ومن يأكل',
+            'btn_verify': 'التحقق من الترتيب',
+            'result_order': 'الإجراءات المرتبة بشكل صحيح:'
         }
     },
 

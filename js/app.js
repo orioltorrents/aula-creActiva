@@ -263,6 +263,14 @@ function openProject(project) {
                 showParalimpicsMenu();
             }
         }
+    } else if (project.id === 'p1_natura') {
+        const hubDiv = document.getElementById('project-hub-natura');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showNaturaMenu === 'function') {
+                showNaturaMenu();
+            }
+        }
     } else {
         // Fallback genèric
         document.getElementById('game-container-generic').classList.remove('hidden');
@@ -298,6 +306,8 @@ function translateUI() {
             updateMediterraniLanguage();
         } else if (state.currentProject.id === 'p2_paralimpics' && typeof updateParalimpicsLanguage === 'function') {
             updateParalimpicsLanguage();
+        } else if (state.currentProject.id === 'p1_natura' && typeof updateNaturaLanguage === 'function') {
+            updateNaturaLanguage();
         }
     }
 }
