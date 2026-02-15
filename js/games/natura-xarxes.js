@@ -16,7 +16,8 @@ const naturaXarxesState = {
         'action_draw_interactions',
         'action_final_web'
     ],
-    currentOrder: []
+    currentOrder: [],
+    penaltyPoints: 0
 };
 
 function showNaturaMenu() {
@@ -48,7 +49,8 @@ function initXarxesGame() {
     const list = document.getElementById('xarxes-sortable-list');
     list.innerHTML = '';
 
-    // Amagar resultats previs
+    // Reset estat i amagar resultats previs
+    naturaXarxesState.penaltyPoints = 0;
     document.getElementById('xarxes-result').classList.add('hidden');
 
     // Desordenar les accions (shuffled)
@@ -111,35 +113,51 @@ function verifyXarxesOrder() {
 
     const percentage = Math.round((correctCount / naturaXarxesState.correctOrder.length) * 100);
 
+    // Càlcul de penalització (si no està perfecte, s'acumulen 10 punts de penalització per intent)
+    if (percentage < 100) {
+        naturaXarxesState.penaltyPoints += 10;
+    }
+
+    const finalScore = Math.max(0, percentage - naturaXarxesState.penaltyPoints);
+
     // Mostrar resultats
     const resultDiv = document.getElementById('xarxes-result');
     resultDiv.classList.remove('hidden');
-    document.getElementById('xarxes-percentage').textContent = `${percentage}%`;
+
+    let scoreHtml = `<span data-i18n="result_order">Accions ben ordenades:</span> ${percentage}%`;
+    if (naturaXarxesState.penaltyPoints > 0) {
+        scoreHtml += ` <small>(Penalització intents: -${naturaXarxesState.penaltyPoints}%)</small>`;
+    }
+    // Update the parent's innerHTML safely
+    const percentageSpan = document.getElementById('xarxes-percentage');
+    if (percentageSpan && percentageSpan.parentElement) {
+        percentageSpan.parentElement.innerHTML = scoreHtml;
+    }
 
     const feedback = document.getElementById('xarxes-feedback');
     if (percentage === 100) {
-        feedback.textContent = i18n.t('correct');
+        feedback.textContent = i18n.t('correct') + ` (Nota final: ${finalScore}%)`;
         feedback.style.color = 'var(--success)';
+
+        // Guardar resultat quan el tinguin correcte
+        if (state.user && state.currentProject) {
+            saveNaturaResult(finalScore, i18n.t('act_xarxes_title'));
+        }
     } else if (percentage >= 50) {
-        feedback.textContent = 'Molt bé! Gairebé ho tens.';
+        feedback.textContent = 'Molt bé! Gairebé ho tens. Recorda que cada error resta punts.';
         feedback.style.color = 'orange';
     } else {
-        feedback.textContent = 'Segueix intentant-ho. Revisa l\'ordre lògic.';
+        feedback.textContent = 'Segueix intentant-ho. Revisa l\'ordre lògic. Recorda que cada error resta punts.';
         feedback.style.color = 'var(--error)';
-    }
-
-    // Opcional: Guardar resultat si és 100% o si l'usuari vol
-    if (percentage === 100 && state.user && state.currentProject) {
-        saveNaturaResult(percentage);
     }
 }
 
-async function saveNaturaResult(percentage) {
+async function saveNaturaResult(percentage, appName) {
     const result = {
         email: state.user.email,
         curs: state.user.curs,
         projecte: state.currentProject.titol,
-        app: i18n.t('act_xarxes_title'),
+        app: appName || i18n.t('act_xarxes_title'),
         nivell: 'Normal',
         puntuacio: percentage,
         temps_segons: 0,

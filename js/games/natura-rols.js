@@ -184,7 +184,7 @@ function showFinalResults() {
 
     // Guardar resultat final del projecte
     if (state.user && state.currentProject) {
-        saveNaturaResult(percentage);
+        saveNaturaResult(percentage, i18n.t('act_rols_title'));
     }
 }
 
