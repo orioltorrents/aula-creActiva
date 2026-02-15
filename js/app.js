@@ -308,6 +308,7 @@ function translateUI() {
             updateParalimpicsLanguage();
         } else if ((state.currentProject.id === 'p1_natura' || state.currentProject.id === 'p4_natura') && typeof updateNaturaLanguage === 'function') {
             updateNaturaLanguage();
+            if (typeof updateRolsLanguage === 'function') updateRolsLanguage();
         }
     }
 }

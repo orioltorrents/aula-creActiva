@@ -33,7 +33,15 @@ function openNaturaActivity(actId) {
 
     if (actId === 'xarxes') {
         initXarxesGame();
+    } else if (actId === 'rols') {
+        initRolsActivity();
     }
+}
+
+function initRolsActivity() {
+    document.getElementById('rols-ecosystem-selection').classList.remove('hidden');
+    document.getElementById('rols-quiz-area').classList.add('hidden');
+    document.getElementById('rols-results-area').classList.add('hidden');
 }
 
 function initXarxesGame() {

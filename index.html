@@ -273,6 +273,11 @@
                                 <h4 data-i18n="act_xarxes_title">Xarxes Tròfiques</h4>
                                 <p data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</p>
                             </div>
+                            <div class="activity-card" onclick="openNaturaActivity('rols')">
+                                <div class="act-icon">🧠</div>
+                                <h4 data-i18n="act_rols_title">Rols Tròfics</h4>
+                                <p data-i18n="act_rols_desc">Classifica espècies segons la seva dieta</p>
+                            </div>
                         </div>
                         <!-- ACTIVITAT: Xarxes Tròfiques -->
                         <div id="natura-activity-xarxes" class="sub-activity hidden">
@@ -300,6 +305,106 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ACTIVITAT: Rols Tròfics -->
+                        <div id="natura-activity-rols" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">←
+                                Tornar</button>
+
+                            <!-- SELECCIÓ ECOSISTEMA -->
+                            <div id="rols-ecosystem-selection">
+                                <h3 data-i18n="choose_ecosystem" class="mb-4">Tria un ecosistema</h3>
+                                <div class="ecosystem-grid">
+                                    <div class="eco-card" onclick="startRolsQuiz('Bosc')">🌳 <span
+                                            data-i18n="eco_forest">Bosc</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Mar')">🌊 <span
+                                            data-i18n="eco_sea">Mar</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Riu')">💧 <span
+                                            data-i18n="eco_river">Riu</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Hort')">🥕 <span
+                                            data-i18n="eco_garden">Hort</span></div>
+                                </div>
+                            </div>
+
+                            <!-- QUIZ AREA -->
+                            <div id="rols-quiz-area" class="hidden">
+                                <div class="quiz-progress mb-2">
+                                    <span id="rols-current-q">1</span>/10
+                                    <div class="progress-bar-bg">
+                                        <div id="rols-progress-fill" class="progress-bar-fill"></div>
+                                    </div>
+                                </div>
+                                <div class="question-card">
+                                    <h4 id="rols-species-name" class="text-2xl font-bold mb-2">Espècie</h4>
+                                    <p id="rols-diet-desc" class="italic mb-4">Descripció de la dieta...</p>
+
+                                    <div class="quiz-options grid grid-2 gap-4">
+                                        <div class="option-group">
+                                            <label data-i18n="regime" class="block font-bold mb-2">Règim</label>
+                                            <div class="btn-group-vertical" id="rols-regime-options">
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectRegime('herbivore', this)"
+                                                    data-i18n="herbivore">Herbívor</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectRegime('carnivore', this)"
+                                                    data-i18n="carnivore">Carnívor</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectRegime('omnivore', this)"
+                                                    data-i18n="omnivore">Omnívor</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectRegime('decomposer', this)"
+                                                    data-i18n="decomposer">Descomponedor</button>
+                                            </div>
+                                        </div>
+                                        <div class="option-group">
+                                            <label data-i18n="trophic_level" class="block font-bold mb-2">Nivell</label>
+                                            <div class="btn-group-vertical" id="rols-level-options">
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectLevel('producer', this)"
+                                                    data-i18n="producer">Productor</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectLevel('primary_consumer', this)"
+                                                    data-i18n="primary_consumer">Consumidor Primari</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectLevel('secondary_consumer', this)"
+                                                    data-i18n="secondary_consumer">Consumidor Secundari</button>
+                                                <button class="btn-outline w-full mb-1"
+                                                    onclick="selectLevel('tertiary_consumer', this)"
+                                                    data-i18n="tertiary_consumer">Consumidor Terciari</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="justification-area mt-4">
+                                        <label data-i18n="justification"
+                                            class="block font-bold mb-1">Justificació</label>
+                                        <textarea id="rols-justification" class="form-control w-full"
+                                            data-i18n-ph="justification_ph" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mt-4 text-center">
+                                        <button id="rols-submit-btn" onclick="submitRolsAnswer()" class="btn-primary"
+                                            data-i18n="btn_send_answer">Enviar resposta</button>
+                                        <button id="rols-next-btn" onclick="nextRolsQuestion()"
+                                            class="btn-primary hidden" data-i18n="btn_next_question">Següent
+                                            pregunta</button>
+                                    </div>
+
+                                    <div id="rols-feedback" class="hidden mt-4 p-3 rounded text-left"></div>
+                                </div>
+                            </div>
+
+                            <!-- RESULTS AREA -->
+                            <div id="rols-results-area" class="hidden text-center">
+                                <h3 data-i18n="results">Resultats</h3>
+                                <div class="results-display my-4">
+                                    <p class="text-4xl font-bold"><span id="rols-final-score">0</span> / 40</p>
+                                    <p id="rols-final-percentage" class="text-xl">0%</p>
+                                </div>
+                                <div id="rols-final-msg" class="alert p-4 rounded mb-4"></div>
+                                <button onclick="showNaturaMenu()" class="btn-secondary"
+                                    data-i18n="back">Tornar</button>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -323,6 +428,7 @@
     <script src="js/games/mediterrani-map.js"></script>
     <script src="js/games/paralimpics-microbit.js"></script>
     <script src="js/games/natura-xarxes.js"></script>
+    <script src="js/games/natura-rols.js"></script>
     <script src="js/app.js"></script>
 </body>
 

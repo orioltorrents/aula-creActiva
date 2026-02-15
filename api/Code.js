@@ -52,6 +52,10 @@ function handleRequest(e) {
             result = getProjects(data.curs);
         } else if (action === 'saveResult') {
             result = saveResult(data);
+        } else if (action === 'getNaturaQuestions') {
+            result = getNaturaQuestions(data.ecosistema);
+        } else if (action === 'saveNaturaQuizResult') {
+            result = saveNaturaQuizResult(data);
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -156,6 +160,51 @@ function saveResult(data) {
 
     sheet.appendRow(row);
     return { status: 'success', message: 'Resultat guardat correctament' };
+}
+
+function getNaturaQuestions(ecosistema) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_natura');
+    if (!sheet) return { status: 'error', message: 'Pestanya preguntes_natura no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const ecoIdx = headers.indexOf('Ecosistema');
+
+    // Filtrar per ecosistema i saltar capçalera
+    let filtered = data.slice(1).filter(row => row[ecoIdx] === ecosistema);
+
+    // Aleatoritzar i agafar max 10
+    filtered = filtered.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    const questions = filtered.map(row => {
+        const q = {};
+        headers.forEach((h, i) => q[h] = row[i]);
+        return q;
+    });
+
+    return { status: 'success', questions: questions };
+}
+
+function saveNaturaQuizResult(data) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('resultats_rols');
+    if (!sheet) return { status: 'error', message: 'Pestanya resultats_rols no trobada' };
+
+    // Columnes: Timestamp, Email, ID pregunta, Règim alumne, Nivell alumne, Justificació, Punts Règim, Punts Nivell, Punts Just., Punts Total
+    const row = [
+        new Date(),
+        data.email,
+        data.questionId,
+        data.regimAlumne,
+        data.nivellAlumne,
+        data.justificacio,
+        data.puntuacioRegim,
+        data.puntuacioNivell,
+        data.puntuacioJustificacio,
+        data.puntuacioTotal
+    ];
+
+    sheet.appendRow(row);
+    return { status: 'success', message: 'Resposta guardada' };
 }
 
 // --- UTILITATS ---
