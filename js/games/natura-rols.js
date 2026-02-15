@@ -34,13 +34,14 @@ async function loadQuestions() {
     if (response && response.status === 'success') {
         naturaRolsState.questions = response.questions;
         if (naturaRolsState.questions.length === 0) {
-            alert('No hi ha preguntes per aquest ecosistema.');
+            alert('No hi ha preguntes per l\'ecosistema: ' + naturaRolsState.ecosystem);
             showNaturaMenu();
             return;
         }
         renderQuestion();
     } else {
-        alert('Error carregant preguntes.');
+        const msg = (response && response.message) ? response.message : 'Error desconegut';
+        alert('Error carregant preguntes: ' + msg);
         showNaturaMenu();
     }
 }
