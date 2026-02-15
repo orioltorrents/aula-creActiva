@@ -63,6 +63,16 @@ function renderQuestion() {
     document.getElementById('rols-species-name').innerText = q['Espècie'];
     document.getElementById('rols-diet-desc').innerText = q['Descripció dieta'];
 
+    // Image handling
+    const imgContainer = document.getElementById('rols-species-img-container');
+    const imgEl = document.getElementById('rols-species-img');
+    if (q['URL Imatge']) {
+        imgEl.src = q['URL Imatge'];
+        imgContainer.classList.remove('hidden');
+    } else {
+        imgContainer.classList.add('hidden');
+    }
+
     // Clear buttons
     document.querySelectorAll('#rols-regime-options .btn-outline').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('#rols-level-options .btn-outline').forEach(b => b.classList.remove('selected'));
