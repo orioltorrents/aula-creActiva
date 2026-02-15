@@ -99,9 +99,9 @@ const i18n = {
             'primary_consumer': 'Consumidor Primari',
             'secondary_consumer': 'Consumidor Secundari',
             'tertiary_consumer': 'Consumidor Terciari',
-            'eco_forest': 'Bosc',
-            'eco_sea': 'Mar',
-            'eco_river': 'Riu',
+            'eco_forest': 'Bosc mediterrani',
+            'eco_sea': 'Mar mediterrani',
+            'eco_river': 'Riu mediterrani',
             'eco_garden': 'Hort'
         },
         'es': {
@@ -195,9 +195,9 @@ const i18n = {
             'primary_consumer': 'Consumidor Primario',
             'secondary_consumer': 'Consumidor Secundario',
             'tertiary_consumer': 'Consumidor Terciario',
-            'eco_forest': 'Bosque',
-            'eco_sea': 'Mar',
-            'eco_river': 'Río',
+            'eco_forest': 'Bosque mediterráneo',
+            'eco_sea': 'Mar mediterráneo',
+            'eco_river': 'Río mediterráneo',
             'eco_garden': 'Huerto'
         },
         'en': {
@@ -291,9 +291,9 @@ const i18n = {
             'primary_consumer': 'Primary Consumer',
             'secondary_consumer': 'Secondary Consumer',
             'tertiary_consumer': 'Tertiary Consumer',
-            'eco_forest': 'Forest',
-            'eco_sea': 'Sea',
-            'eco_river': 'River',
+            'eco_forest': 'Mediterranean Forest',
+            'eco_sea': 'Mediterranean Sea',
+            'eco_river': 'Mediterranean River',
             'eco_garden': 'Garden'
         },
         'ar': {
@@ -387,9 +387,9 @@ const i18n = {
             'primary_consumer': 'مستهلك أول',
             'secondary_consumer': 'مستهلك ثانٍ',
             'tertiary_consumer': 'مستهلك ثالث',
-            'eco_forest': 'غابة',
-            'eco_sea': 'بحر',
-            'eco_river': 'نهر',
+            'eco_forest': 'غابة متوسطية',
+            'eco_sea': 'بحر متوسطي',
+            'eco_river': 'نهر متوسطي',
             'eco_garden': 'بستان'
         }
     },
