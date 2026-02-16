@@ -6,6 +6,10 @@ const sonarGame = {
     currentStep: 0,
     score: 100,
     targets: [
+        { key: 'act_audio_sec1', x: 7, y: 35, w: 986, h: 100 },  // Toolbar/Transport top
+        { key: 'act_audio_sec2', x: 7, y: 140, w: 165, h: 360 }, // Inspector
+        { key: 'act_audio_sec3', x: 175, y: 140, w: 585, h: 360 }, // Track View
+        { key: 'act_audio_sec4', x: 765, y: 140, w: 228, h: 360 }, // Browser
         { key: 'act_audio_q1', x: 315, y: 435, w: 22, h: 22 }, // Arm (R)
         { key: 'act_audio_q2', x: 315, y: 395, w: 22, h: 22 }, // Mute (M)
         { key: 'act_audio_q3', x: 338, y: 395, w: 22, h: 22 }, // Solo (S)
@@ -14,7 +18,7 @@ const sonarGame = {
         { key: 'act_audio_q6', x: 538, y: 225, w: 25, h: 25 }, // Play (Transport)
         { key: 'act_audio_q7', x: 504, y: 225, w: 25, h: 25 }, // Stop (Transport)
         { key: 'act_audio_q8', x: 338, y: 435, w: 22, h: 22 }, // Write (W)
-        { key: 'act_audio_q9', x: 200, y: 975, w: 60, h: 20 }  // Consola tab (bottom) - x/y might need check
+        { key: 'act_audio_q9', x: 180, y: 512, w: 50, h: 18 }  // Consola tab
     ],
     isFinished: false
 };
