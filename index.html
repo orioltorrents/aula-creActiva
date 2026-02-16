@@ -412,17 +412,94 @@
                             </div>
                         </div>
                     </div>
+                    <!-- PROJECTE: Digitalització -->
+                    <div id="project-hub-digitalitzacio" class="game-module hidden">
+                        <h3 data-i18n="digi_project_title">Digitalització</h3>
+                        <p data-i18n="digi_project_desc">Eines i recursos digitals per al segle XXI.</p>
 
+                        <div id="digi-activities-menu" class="activities-grid mt-4">
+                            <div class="activity-card" onclick="openDigitalitzacioActivity('audio')">
+                                <div class="act-icon">🎵</div>
+                                <h4 data-i18n="act_audio_title">Edició d'àudio</h4>
+                                <p data-i18n="act_audio_desc">Aprèn a gravar i editar els teus propis sons.</p>
+                            </div>
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">📝</div>
+                                <h4 data-i18n="act_docs_title">Google Docs</h4>
+                                <p data-i18n="act_docs_desc">Processador de textos en el núvol.</p>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">📊</div>
+                                <h4 data-i18n="act_sheets_title">Google Sheets</h4>
+                                <p data-i18n="act_sheets_desc">Fulls de càlcul i dades.</p>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">📱</div>
+                                <h4 data-i18n="act_devices_title">Dispositius digitals</h4>
+                                <p data-i18n="act_devices_desc">Maquinari i perifèrics.</p>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
 
-                    <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
-                    <div id="game-container-generic" class="game-module hidden">
-                        <h3>Simulació Genèrica (Mode Examen)</h3>
-                        <p>Aquest projecte encara no té activitats específiques.</p>
-                        <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
-                        <p id="simulation-result"></p>
+                        <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
+                        <div id="digi-activity-audio" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
+                            </div>
+                            <div class="sonar-activity-container">
+                                <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                    <div id="sonar-score-display" class="font-bold">Punts: 100</div>
+                                    <button id="sonar-skip-btn" class="btn-secondary btn-sm" onclick="skipQuestion()"
+                                        data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                                <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
+                                <div class="image-interactive-wrapper mt-4"
+                                    style="position: relative; cursor: crosshair;">
+                                    <img id="sonar-image" src="assets/images/sonar_interface.png"
+                                        alt="Cakewalk Sonar Interface"
+                                        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                </div>
+                                <p id="sonar-feedback" class="feedback-msg mt-2"></p>
+                            </div>
+                        </div>
+                        <!-- PROJECTE: Biologia -->
+                        <div id="project-hub-biologia" class="game-module hidden">
+                            <h3 data-i18n="bio_project_title">Biologia</h3>
+                            <p data-i18n="bio_project_desc">Estudi dels éssers vius i el seu entorn.</p>
+                            <div class="placeholder-content text-center p-8 mt-4">
+                                <div class="act-icon text-6xl mb-4">🔬</div>
+                                <h4 data-i18n="loading">Carregant activitats...</h4>
+                                <p>Aviat trobaràs aquí les activitats de Biologia.</p>
+                            </div>
+                        </div>
+
+                        <!-- PROJECTE: Ràdio -->
+                        <div id="project-hub-radio" class="game-module hidden">
+                            <h3 data-i18n="radio_project_title">Ràdio</h3>
+                            <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
+                            <div class="placeholder-content text-center p-8 mt-4">
+                                <div class="act-icon text-6xl mb-4">📻</div>
+                                <h4 data-i18n="loading">Carregant activitats...</h4>
+                                <p>Aviat trobaràs aquí les activitats de Ràdio.</p>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
+
+
+                <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
+                <div id="game-container-generic" class="game-module hidden">
+                    <h3>Simulació Genèrica (Mode Examen)</h3>
+                    <p>Aquest projecte encara no té activitats específiques.</p>
+                    <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                    <p id="simulation-result"></p>
+                </div>
+
+            </div>
             </div>
         </main>
     </section>
@@ -435,6 +512,7 @@
     <script src="js/games/paralimpics-microbit.js"></script>
     <script src="js/games/natura-xarxes.js"></script>
     <script src="js/games/natura-rols.js"></script>
+    <script src="js/games/audio-sonar.js"></script>
     <script src="js/app.js"></script>
 </body>
 

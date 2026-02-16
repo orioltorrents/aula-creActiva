@@ -112,13 +112,16 @@ function getProjects(curs) {
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
         ],
         '2n ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' },
+            { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels éssers vius i el seu entorn.' },
+            { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
         ],
         '4t ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ],
         // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
         '1ESO': [
@@ -126,13 +129,16 @@ function getProjects(curs) {
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
         ],
         '2ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' },
+            { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels éssers vius i el seu entorn.' },
+            { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
         '3ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
         ],
         '4ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ]
     };
 

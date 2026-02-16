@@ -430,6 +430,30 @@ body {
     border-color: var(--primary-color);
 }
 
+.disabled-card {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.disabled-card:hover {
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+.badge-soon {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 5px;
+    border: 1px solid #d1d5db;
+}
+
 .act-icon {
     height: 80px;
     display: flex;

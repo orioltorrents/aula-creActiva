@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbw09X5F25Iw4bvVFZGNFy8AFsbGsLk_lBc79HoU2Dup7nIMLKPR45PEpfC_wjmGDSMAqA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzTFZnGpdCGmeyox1AzncTXdD3A8NZChkkNLoWRy11AuHXDpWFed1xpFQRlKbAsJSSl2w/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -271,6 +271,20 @@ function openProject(project) {
                 showNaturaMenu();
             }
         }
+    } else if (project.id === 'p4_digitalitzacio') {
+        const hubDiv = document.getElementById('project-hub-digitalitzacio');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showDigitalitzacioMenu === 'function') {
+                showDigitalitzacioMenu();
+            }
+        }
+    } else if (project.id === 'p2_biologia') {
+        const hubDiv = document.getElementById('project-hub-biologia');
+        if (hubDiv) hubDiv.classList.remove('hidden');
+    } else if (project.id === 'p2_radio') {
+        const hubDiv = document.getElementById('project-hub-radio');
+        if (hubDiv) hubDiv.classList.remove('hidden');
     } else {
         // Fallback genèric
         document.getElementById('game-container-generic').classList.remove('hidden');
@@ -368,4 +382,22 @@ function showParalimpicsMenu() {
 function openParalimpicsActivity(actId) {
     document.getElementById('par-activities-menu').classList.add('hidden');
     document.getElementById(`paralimpics-activity-${actId}`).classList.remove('hidden');
+}
+
+// --- DIGITALITZACIÓ NAVIGATION ---
+function showDigitalitzacioMenu() {
+    const hub = document.getElementById('project-hub-digitalitzacio');
+    if (hub) {
+        document.getElementById('digi-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openDigitalitzacioActivity(actId) {
+    document.getElementById('digi-activities-menu').classList.add('hidden');
+    document.getElementById(`digi-activity-${actId}`).classList.remove('hidden');
+
+    if (actId === 'audio' && typeof initSonarGame === 'function') {
+        initSonarGame();
+    }
 }
