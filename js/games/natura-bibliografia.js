@@ -4,74 +4,130 @@
  */
 
 let biblioState = {
+    allQuestions: [],
     activeQuestions: [],
     currentQ: 0,
     score: 0,
     examFinished: false,
     locked: false,
-    level: 'mixed'
+    selectedType: 'all',
+    selectedLevel: 'mixed'
 };
 
-async function initBiblioGame(selectedLevel) {
-    biblioState.level = selectedLevel;
-
-    // UI Setup
+async function initBiblioGame() {
+    // UI Reset
     document.getElementById('natura-activity-biblio').classList.remove('hidden');
     document.getElementById('biblio-level-selection').classList.add('hidden');
+    document.getElementById('biblio-topic-selection').innerHTML = ''; // Netejar dinàmics
     document.getElementById('biblio-quiz-container').classList.add('hidden');
     document.getElementById('biblio-results').classList.add('hidden');
     document.getElementById('natura-activities-menu').classList.add('hidden');
 
     const feedback = document.getElementById('biblio-feedback');
-    feedback.innerText = i18n.t('loading') || 'Carregant preguntes...';
+    feedback.innerText = i18n.t('loading') || 'Carregant dades...';
     feedback.style.color = 'var(--text-main)';
 
     try {
-        console.log("Iniciant Bibliografia. Nivell seleccionat:", selectedLevel);
         const response = await callApi('getBiblioQuestions');
-
         if (response && response.status === 'success' && response.questions) {
-            console.log(`Rebudes ${response.questions.length} preguntes del backend.`);
+            biblioState.allQuestions = response.questions;
 
-            // Diagnòstic de nivells per consola
-            const levelsFound = [...new Set(response.questions.map(q => q.level))];
-            console.log("Nivells trobats al Excel:", levelsFound);
+            // Mostrar selector
+            document.getElementById('biblio-level-selection').classList.remove('hidden');
+            feedback.innerText = '';
 
-            biblioState.activeQuestions = processBiblioQuestions(response.questions, selectedLevel);
+            // Generar botons de TIPUS dinàmicament
+            generateTopicButtons(response.questions);
 
-            if (biblioState.activeQuestions.length === 0) {
-                let msg = `No s'han trobat preguntes per al nivell "${selectedLevel}".`;
-                if (levelsFound.length > 0) {
-                    msg += ` Al Excel hem trobat aquests nivells: ${levelsFound.join(", ")}.`;
-                }
-                msg += ` Revisa que a la columna A hi hagi "Fàcil" o "Difícil".`;
-
-                feedback.innerText = msg;
-                feedback.style.color = 'var(--error)';
-                return;
-            }
-
-            biblioState.currentQ = 0;
-            biblioState.score = 0;
-            biblioState.examFinished = false;
-            biblioState.locked = false;
-
-            document.getElementById('biblio-quiz-container').classList.remove('hidden');
-            showBiblioQuestion();
         } else {
-            const errorMsg = response && response.message ? response.message : 'Error desconegut o falta de Re-deploy';
-            feedback.innerText = `Error al carregar les preguntes: ${errorMsg}`;
+            const errorMsg = response && response.message ? response.message : 'Error al carregar dades.';
+            feedback.innerText = `Error: ${errorMsg}`;
             feedback.style.color = 'var(--error)';
-            console.error("DEBUG BIBLIO API ERROR:", response);
         }
     } catch (e) {
-        console.error("Error crític a initBiblioGame:", e);
-        feedback.innerText = 'Error de connexió o de codi JavaScript.';
+        console.error("Error fetching biblio questions", e);
+        feedback.innerText = 'Error de connexió.';
     }
 }
 
+function generateTopicButtons(questions) {
+    const container = document.getElementById('biblio-topic-selection');
+    container.innerHTML = '';
+
+    // Obtenir tipus únics
+    const types = [...new Set(questions.map(q => q.type))].filter(t => t && t !== "");
+
+    if (types.length === 0) return;
+
+    const label = document.createElement('p');
+    label.className = 'w-full mb-2 font-bold';
+    label.innerText = 'Tria un tema (nivell barrejat):';
+    container.appendChild(label);
+
+    const btnWrapper = document.createElement('div');
+    btnWrapper.style = "display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 5px; margin-bottom: 15px;";
+
+    types.forEach(type => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.9rem;";
+        btn.innerText = type;
+        btn.onclick = () => startGameWithFilter(type, 'mixed');
+        btnWrapper.appendChild(btn);
+    });
+
+    container.appendChild(btnWrapper);
+}
+
+function startGameWithFilter(type = 'all', level = 'mixed') {
+    biblioState.selectedType = type;
+    biblioState.selectedLevel = level;
+
+    // Filtrar preguntes
+    let pool = [...biblioState.allQuestions];
+
+    const targetLevel = normalizeLevel(level);
+
+    if (type !== 'all') {
+        pool = pool.filter(q => q.type === type);
+    }
+
+    if (targetLevel !== 'mixed') {
+        pool = pool.filter(q => normalizeLevel(q.level) === targetLevel);
+    }
+
+    if (pool.length === 0) {
+        const feedback = document.getElementById('biblio-feedback');
+        feedback.innerText = `No s'han trobat preguntes per a aquesta combinació.`;
+        feedback.style.color = 'var(--error)';
+        return;
+    }
+
+    // Processar i barrejar
+    biblioState.activeQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10).map(qData => {
+        const shuffledAlts = [...qData.alternatives].sort(() => Math.random() - 0.5);
+        const correctIdx = shuffledAlts.indexOf(qData.correct);
+        return {
+            q: qData.q,
+            a: shuffledAlts,
+            correct: correctIdx
+        };
+    });
+
+    // Start Game UI
+    document.getElementById('biblio-level-selection').classList.add('hidden');
+    document.getElementById('biblio-quiz-container').classList.remove('hidden');
+
+    biblioState.currentQ = 0;
+    biblioState.score = 0;
+    biblioState.examFinished = false;
+    biblioState.locked = false;
+
+    showBiblioQuestion();
+}
+
 /**
- * Normalitza el text per comparar nivells (treu accents, espais i passa a minúscules)
+ * Normalitza el text per comparar nivells (treu accents i espais)
  */
 function normalizeLevel(text) {
     if (!text) return "";
@@ -80,46 +136,6 @@ function normalizeLevel(text) {
         .trim()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, ""); // Treu accents
-}
-
-/**
- * Processa les preguntes del Sheet:
- * - Filtra per nivell si cal.
- * - Barreja l'ordre de les preguntes.
- * - Barreja les alternatives de cada pregunta.
- */
-function processBiblioQuestions(rawQuestions, selectedLevel) {
-    const target = normalizeLevel(selectedLevel);
-    console.log("Filtrant pel target normalitzat:", target);
-
-    // 1. Filtrar per nivell
-    let pool = [];
-    if (target === 'mixed') {
-        pool = [...rawQuestions];
-    } else {
-        pool = rawQuestions.filter(q => {
-            const qLevelNorm = normalizeLevel(q.level);
-            return qLevelNorm === target;
-        });
-    }
-
-    console.log(`Pool filtrat: ${pool.length} preguntes.`);
-
-    // 2. Barrejar preguntes i agafar màxim 10
-    const shuffledQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
-
-    return shuffledQuestions.map(qData => {
-        // Barrejar les alternatives
-        const shuffledAlts = [...qData.alternatives].sort(() => Math.random() - 0.5);
-        // Trobar el nou índex de la resposta correcta
-        const correctIdx = shuffledAlts.indexOf(qData.correct);
-
-        return {
-            q: qData.q,
-            a: shuffledAlts,
-            correct: correctIdx
-        };
-    });
 }
 
 function showBiblioQuestion() {
@@ -197,7 +213,9 @@ async function finishBiblioGame() {
 
     // Guardar resultat
     if (typeof saveNaturaResult === 'function') {
-        saveNaturaResult(percentage, i18n.t('act_biblio_title'));
+        let label = i18n.t('act_biblio_title');
+        if (biblioState.selectedType !== 'all') label += ` (${biblioState.selectedType})`;
+        saveNaturaResult(percentage, label);
     }
 }
 

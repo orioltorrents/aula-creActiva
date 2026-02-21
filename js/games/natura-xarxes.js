@@ -38,11 +38,8 @@ function openNaturaActivity(actId) {
         initRolsActivity();
     } else if (actId === 'impacte' && typeof initImpacteGame === 'function') {
         initImpacteGame();
-    } else if (actId === 'biblio') {
-        // El selector de nivells ja és visible per defecte al div de biblio
-        document.getElementById('biblio-level-selection').classList.remove('hidden');
-        document.getElementById('biblio-quiz-container').classList.add('hidden');
-        document.getElementById('biblio-results').classList.add('hidden');
+    } else if (actId === 'biblio' && typeof initBiblioGame === 'function') {
+        initBiblioGame();
     }
 }
 
