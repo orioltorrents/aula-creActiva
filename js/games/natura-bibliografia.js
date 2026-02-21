@@ -27,6 +27,12 @@ async function initBiblioGame() {
         if (response && response.status === 'success' && response.questions) {
             biblioState.activeQuestions = processBiblioQuestions(response.questions);
 
+            if (biblioState.activeQuestions.length === 0) {
+                feedback.innerText = 'No s\'han trobat preguntes a la pestanya "bibliografia-APA".';
+                feedback.style.color = 'var(--error)';
+                return;
+            }
+
             biblioState.currentQ = 0;
             biblioState.score = 0;
             biblioState.examFinished = false;
@@ -35,8 +41,10 @@ async function initBiblioGame() {
             document.getElementById('biblio-quiz-container').classList.remove('hidden');
             showBiblioQuestion();
         } else {
-            feedback.innerText = 'Error al carregar les preguntes de la brúixola.';
+            const errorMsg = response && response.message ? response.message : 'Error desconegut o falta de Re-deploy';
+            feedback.innerText = `Error al carregar les preguntes: ${errorMsg}`;
             feedback.style.color = 'var(--error)';
+            console.error("DEBUG BIBLIO:", response);
         }
     } catch (e) {
         console.error("Error fetching biblio questions", e);
