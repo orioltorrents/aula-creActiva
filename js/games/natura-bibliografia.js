@@ -27,12 +27,26 @@ async function initBiblioGame(selectedLevel) {
     feedback.style.color = 'var(--text-main)';
 
     try {
+        console.log("Iniciant Bibliografia. Nivell seleccionat:", selectedLevel);
         const response = await callApi('getBiblioQuestions');
+
         if (response && response.status === 'success' && response.questions) {
+            console.log(`Rebudes ${response.questions.length} preguntes del backend.`);
+
+            // Diagnòstic de nivells per consola
+            const levelsFound = [...new Set(response.questions.map(q => q.level))];
+            console.log("Nivells trobats al Excel:", levelsFound);
+
             biblioState.activeQuestions = processBiblioQuestions(response.questions, selectedLevel);
 
             if (biblioState.activeQuestions.length === 0) {
-                feedback.innerText = `No s'han trobat preguntes per al nivell "${selectedLevel}" a la pestanya "bibliografia-APA".`;
+                let msg = `No s'han trobat preguntes per al nivell "${selectedLevel}".`;
+                if (levelsFound.length > 0) {
+                    msg += ` Al Excel hem trobat aquests nivells: ${levelsFound.join(", ")}.`;
+                }
+                msg += ` Revisa que a la columna A hi hagi "Fàcil" o "Difícil".`;
+
+                feedback.innerText = msg;
                 feedback.style.color = 'var(--error)';
                 return;
             }
@@ -48,12 +62,24 @@ async function initBiblioGame(selectedLevel) {
             const errorMsg = response && response.message ? response.message : 'Error desconegut o falta de Re-deploy';
             feedback.innerText = `Error al carregar les preguntes: ${errorMsg}`;
             feedback.style.color = 'var(--error)';
-            console.error("DEBUG BIBLIO:", response);
+            console.error("DEBUG BIBLIO API ERROR:", response);
         }
     } catch (e) {
-        console.error("Error fetching biblio questions", e);
-        feedback.innerText = 'Error de connexió.';
+        console.error("Error crític a initBiblioGame:", e);
+        feedback.innerText = 'Error de connexió o de codi JavaScript.';
     }
+}
+
+/**
+ * Normalitza el text per comparar nivells (treu accents, espais i passa a minúscules)
+ */
+function normalizeLevel(text) {
+    if (!text) return "";
+    return String(text)
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""); // Treu accents
 }
 
 /**
@@ -63,13 +89,21 @@ async function initBiblioGame(selectedLevel) {
  * - Barreja les alternatives de cada pregunta.
  */
 function processBiblioQuestions(rawQuestions, selectedLevel) {
+    const target = normalizeLevel(selectedLevel);
+    console.log("Filtrant pel target normalitzat:", target);
+
     // 1. Filtrar per nivell
     let pool = [];
-    if (selectedLevel === 'mixed') {
+    if (target === 'mixed') {
         pool = [...rawQuestions];
     } else {
-        pool = rawQuestions.filter(q => q.level === selectedLevel);
+        pool = rawQuestions.filter(q => {
+            const qLevelNorm = normalizeLevel(q.level);
+            return qLevelNorm === target;
+        });
     }
+
+    console.log(`Pool filtrat: ${pool.length} preguntes.`);
 
     // 2. Barrejar preguntes i agafar màxim 10
     const shuffledQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
