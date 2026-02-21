@@ -60,12 +60,12 @@ function generateTopicButtons(questions) {
     if (types.length === 0) return;
 
     const label = document.createElement('p');
-    label.className = 'w-full mb-2 font-bold';
+    label.className = 'font-bold mb-3';
     label.innerText = 'Tria un tema (nivell barrejat):';
     container.appendChild(label);
 
     const btnWrapper = document.createElement('div');
-    btnWrapper.style = "display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 5px; margin-bottom: 15px;";
+    btnWrapper.className = 'flex flex-wrap justify-center gap-3 mb-6';
 
     types.forEach(type => {
         const btn = document.createElement('button');

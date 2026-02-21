@@ -352,21 +352,24 @@
                                 <p data-i18n="instruction_biblio">Pots o bé triar el nivell de les preguntes o bé triar
                                     un tipus de preguntes a treballar:</p>
                             </div>
-                            <div class="game-controls text-center py-4" id="biblio-level-selection">
-                                <div id="biblio-topic-selection"></div>
-                                <p class="w-full mb-2 font-bold mt-4" data-i18n="select_level">O tria per nivell (tots
-                                    els temes):</p>
-                                <div
-                                    style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
-                                    <button onclick="startGameWithFilter('all', 'facil')" class="btn-primary"
-                                        style="background-color: var(--success); width: auto;"
-                                        data-i18n="level_easy">Fàcil</button>
-                                    <button onclick="startGameWithFilter('all', 'dificil')" class="btn-primary"
-                                        style="background-color: #f59e0b; width: auto;"
-                                        data-i18n="level_hard">Difícil</button>
-                                    <button onclick="startGameWithFilter('all', 'mixed')" class="btn-primary"
-                                        style="background-color: var(--error); width: auto;"
-                                        data-i18n="level_mixed">Barrejat</button>
+                            <div class="game-controls py-4" id="biblio-level-selection">
+                                <!-- Dynamic Topic Selection -->
+                                <div id="biblio-topic-selection" class="flex flex-col items-center"></div>
+
+                                <div class="flex flex-col items-center mt-6">
+                                    <p class="font-bold mb-3" data-i18n="select_level">O tria per nivell (tots els
+                                        temes):</p>
+                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn-primary"
+                                            style="background-color: var(--success); width: auto;"
+                                            data-i18n="level_easy">Fàcil</button>
+                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn-primary"
+                                            style="background-color: #f59e0b; width: auto;"
+                                            data-i18n="level_hard">Difícil</button>
+                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn-primary"
+                                            style="background-color: var(--error); width: auto;"
+                                            data-i18n="level_mixed">Barrejat</button>
+                                    </div>
                                 </div>
                             </div>
                             <div id="biblio-quiz-container" class="hidden">

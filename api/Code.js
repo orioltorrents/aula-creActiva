@@ -260,7 +260,8 @@ function getBiblioQuestions() {
             level: String(row[1]).toLowerCase().trim(),
             q: row[2],
             correct: row[3],
-            alternatives: [row[3], row[4], row[5], row[6], row[7]].filter(val => val !== "")
+            alternatives: row[4], row[5], row[6], row[7]]
+                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
         };
     });
 
