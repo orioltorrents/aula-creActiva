@@ -36,6 +36,8 @@ function openNaturaActivity(actId) {
         initXarxesGame();
     } else if (actId === 'rols') {
         initRolsActivity();
+    } else if (actId === 'impacte' && typeof initImpacteGame === 'function') {
+        initImpacteGame();
     }
 }
 
@@ -124,14 +126,14 @@ function verifyXarxesOrder() {
     const resultDiv = document.getElementById('xarxes-result');
     resultDiv.classList.remove('hidden');
 
-    let scoreHtml = `<span data-i18n="result_order">Accions ben ordenades:</span> ${percentage}%`;
-    if (naturaXarxesState.penaltyPoints > 0) {
-        scoreHtml += ` <small>(Penalització intents: -${naturaXarxesState.penaltyPoints}%)</small>`;
-    }
-    // Update the parent's innerHTML safely
+    // Actualitzem el percentage sense carregar-nos el contenidor
     const percentageSpan = document.getElementById('xarxes-percentage');
-    if (percentageSpan && percentageSpan.parentElement) {
-        percentageSpan.parentElement.innerHTML = scoreHtml;
+    if (percentageSpan) {
+        let scoreText = `${percentage}%`;
+        if (naturaXarxesState.penaltyPoints > 0) {
+            scoreText += ` (Penalització intents: -${naturaXarxesState.penaltyPoints}%)`;
+        }
+        percentageSpan.textContent = scoreText;
     }
 
     const feedback = document.getElementById('xarxes-feedback');
