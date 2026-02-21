@@ -65,12 +65,12 @@ function generateTopicButtons(questions) {
     container.appendChild(label);
 
     const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'flex flex-wrap justify-center gap-5 mb-6';
+    btnWrapper.className = 'flex flex-wrap justify-center gap-8 mb-8 mt-4';
 
     types.forEach(type => {
         const btn = document.createElement('button');
         btn.className = 'btn-primary';
-        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.9rem;";
+        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 12px 24px; min-width: 140px;";
         btn.innerText = type;
         btn.onclick = () => startGameWithFilter(type, 'mixed');
         btnWrapper.appendChild(btn);
