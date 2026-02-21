@@ -3,13 +3,14 @@
  * 
  * INSTRUCCIONS:
  * 1. Crea un nou Google Sheet.
- * 2. Crea 2 pestanyes: "usuaris" i "resultats".
+ * 2. Crea les pestanyes: "usuaris", "resultats", "preguntes_natura", "resultats_rols" i "fases_impacte".
  * 3. A "usuaris", crea les capçaleres: id, email, password, cognoms, nom, curs, grup
  * 4. A "resultats", crea les capçaleres: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
- * 5. Obre Extensions > Apps Script.
- * 6. Copia aquest codi a "Codi.gs".
- * 7. Substitueix SHEET_ID pel teu ID del full de càlcul.
- * 8. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
+ * 5. A "fases_impacte", crea les capçaleres: Ordre, Fase (fins a 10 files per l'activitat d'ordenació)
+ * 6. Obre Extensions > Apps Script.
+ * 7. Copia aquest codi a "Codi.gs".
+ * 8. Substitueix SHEET_ID pel teu ID del full de càlcul.
+ * 9. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
  */
 
 const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8'; // <--- IMPORTANT: CANVIAR AIXÒ
@@ -56,6 +57,8 @@ function handleRequest(e) {
             result = getNaturaQuestions(data.ecosistema);
         } else if (action === 'saveNaturaQuizResult') {
             result = saveNaturaQuizResult(data);
+        } else if (action === 'getImpactePhases') {
+            result = getImpactePhases();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -189,6 +192,34 @@ function getNaturaQuestions(ecosistema) {
     });
 
     return { status: 'success', questions: questions };
+}
+
+
+function getImpactePhases() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('fases_impacte');
+    if (!sheet) return { status: 'error', message: 'Pestanya fases_impacte no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a fases_impacte' };
+
+    const headers = data[0];
+    const ordreIdx = headers.indexOf('Ordre');
+    const faseIdx = headers.indexOf('Fase');
+
+    if (faseIdx === -1) return { status: 'error', message: 'Falta la columna Fase a fases_impacte' };
+
+    const phases = data.slice(1)
+        .filter(row => row[faseIdx])
+        .map((row, i) => ({
+            id: `impacte_${ordreIdx !== -1 && row[ordreIdx] ? row[ordreIdx] : (i + 1)}`,
+            text: String(row[faseIdx]).trim(),
+            order: ordreIdx !== -1 && row[ordreIdx] ? Number(row[ordreIdx]) : (i + 1)
+        }))
+        .sort((a, b) => a.order - b.order)
+        .slice(0, 10)
+        .map(({ id, text }) => ({ id, text }));
+
+    return { status: 'success', phases: phases };
 }
 
 function saveNaturaQuizResult(data) {
