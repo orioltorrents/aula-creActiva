@@ -5,18 +5,45 @@
 const bioHeartGame = {
     currentStep: 0,
     score: 100,
-    targets: [
-        { key: 'act_heart_q1', x: 400, y: 450, w: 80, h: 80 },  // Aurícula Dreta
-        { key: 'act_heart_q2', x: 550, y: 350, w: 80, h: 80 },  // Aurícula Esquerra
-        { key: 'act_heart_q3', x: 400, y: 600, w: 100, h: 100 }, // Ventricle Dret
-        { key: 'act_heart_q4', x: 550, y: 600, w: 100, h: 100 }, // Ventricle Esquerre
-        { key: 'act_heart_q5', x: 500, y: 200, w: 80, h: 80 },   // Aorta
-        { key: 'act_heart_q6', x: 450, y: 150, w: 60, h: 60 },   // Vena Cava Sup
-        { key: 'act_heart_q7', x: 450, y: 800, w: 60, h: 60 },   // Vena Cava Inf
-        { key: 'act_heart_q8', x: 400, y: 300, w: 80, h: 80 },   // Arteria Pulmonar
-        { key: 'act_heart_q9', x: 650, y: 400, w: 60, h: 60 },   // Venes Pulmonars
-        { key: 'act_heart_q10', x: 430, y: 530, w: 50, h: 50 },  // Vàlvula Tricúspide
-        { key: 'act_heart_q11', x: 570, y: 480, w: 50, h: 50 }   // Vàlvula Mitral
+    sessionQuestions: [],
+    allQuestions: [
+        // Aurícula Dreta (RA)
+        { key: 'act_heart_q1', x: 400, y: 450, w: 80, h: 80 },
+        { key: 'act_heart_q2', x: 400, y: 450, w: 80, h: 80 },
+        { key: 'act_heart_q3', x: 400, y: 450, w: 80, h: 80 },
+        // Aurícula Esquerra (LA)
+        { key: 'act_heart_q4', x: 550, y: 350, w: 80, h: 80 },
+        { key: 'act_heart_q5', x: 550, y: 350, w: 80, h: 80 },
+        { key: 'act_heart_q6', x: 550, y: 350, w: 80, h: 80 },
+        // Ventricle Dret (RV)
+        { key: 'act_heart_q7', x: 400, y: 600, w: 100, h: 100 },
+        { key: 'act_heart_q8', x: 400, y: 600, w: 100, h: 100 },
+        // Ventricle Esquerre (LV)
+        { key: 'act_heart_q9', x: 550, y: 600, w: 100, h: 100 },
+        { key: 'act_heart_q10', x: 550, y: 600, w: 100, h: 100 },
+        { key: 'act_heart_q11', x: 550, y: 600, w: 100, h: 100 },
+        // Arteria Aorta
+        { key: 'act_heart_q12', x: 500, y: 200, w: 80, h: 80 },
+        { key: 'act_heart_q13', x: 500, y: 200, w: 80, h: 80 },
+        { key: 'act_heart_q14', x: 500, y: 200, w: 80, h: 80 },
+        // Vena Cava Superior
+        { key: 'act_heart_q15', x: 450, y: 150, w: 60, h: 60 },
+        { key: 'act_heart_q16', x: 450, y: 150, w: 60, h: 60 },
+        // Vena Cava Inferior
+        { key: 'act_heart_q17', x: 450, y: 800, w: 60, h: 60 },
+        { key: 'act_heart_q18', x: 450, y: 800, w: 60, h: 60 },
+        // Arteria Pulmonar
+        { key: 'act_heart_q19', x: 400, y: 300, w: 80, h: 80 },
+        { key: 'act_heart_q20', x: 400, y: 300, w: 80, h: 80 },
+        // Venes Pulmonars
+        { key: 'act_heart_q21', x: 650, y: 400, w: 60, h: 60 },
+        { key: 'act_heart_q22', x: 650, y: 400, w: 60, h: 60 },
+        // Vàlvula Tricúspide
+        { key: 'act_heart_q23', x: 430, y: 530, w: 50, h: 50 },
+        { key: 'act_heart_q24', x: 430, y: 530, w: 50, h: 50 },
+        // Vàlvula Mitral
+        { key: 'act_heart_q25', x: 570, y: 480, w: 50, h: 50 },
+        { key: 'act_heart_q26', x: 570, y: 480, w: 50, h: 50 }
     ],
     isFinished: false,
     debugMode: true // Permet calibració en temps real
@@ -26,6 +53,12 @@ function initBioHeartGame() {
     bioHeartGame.currentStep = 0;
     bioHeartGame.score = 100;
     bioHeartGame.isFinished = false;
+
+    // Barregem i seleccionem 25 preguntes
+    bioHeartGame.sessionQuestions = [...bioHeartGame.allQuestions]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 25);
+
     updateBioHeartUI();
 
     const img = document.getElementById('bio-heart-image');
@@ -56,8 +89,8 @@ function updateBioHeartUI() {
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
 
-    const currentTarget = bioHeartGame.targets[bioHeartGame.currentStep];
-    questionEl.innerText = i18n.t(currentTarget.key);
+    const currentTarget = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
+    questionEl.innerText = `(${bioHeartGame.currentStep + 1}/25) ` + i18n.t(currentTarget.key);
 }
 
 function showBioHeartHelp() {
@@ -68,7 +101,7 @@ function showBioHeartHelp() {
         updateBioHeartUI();
     }
 
-    const target = bioHeartGame.targets[bioHeartGame.currentStep];
+    const target = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     renderBioHeartHelpHint(target);
 
     // Mostra la interfície de calibratge
@@ -116,14 +149,14 @@ function renderBioHeartHelpHint(target) {
 }
 
 function nudgeBioHeartTarget(axis, delta) {
-    const target = bioHeartGame.targets[bioHeartGame.currentStep];
+    const target = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     target[axis] += delta;
     renderBioHeartHelpHint(target);
     updateBioHeartCalibrationDisplay();
 }
 
 function updateBioHeartCalibrationDisplay() {
-    const target = bioHeartGame.targets[bioHeartGame.currentStep];
+    const target = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     const display = document.getElementById('bio-heart-calibration-values');
     if (display) {
         display.innerText = `x:${target.x} y:${target.y} w:${target.w} h:${target.h}`;
@@ -145,7 +178,7 @@ function skipBioHeartQuestion() {
 
 function nextBioHeartStep() {
     bioHeartGame.currentStep++;
-    if (bioHeartGame.currentStep >= bioHeartGame.targets.length) {
+    if (bioHeartGame.currentStep >= bioHeartGame.sessionQuestions.length) {
         bioHeartGame.isFinished = true;
         saveBioHeartResult();
     }
@@ -166,7 +199,7 @@ function handleBioHeartClick(event) {
     const clickX = (event.clientX - rect.left) * scaleX;
     const clickY = (event.clientY - rect.top) * scaleY;
 
-    const target = bioHeartGame.targets[bioHeartGame.currentStep];
+    const target = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     const feedbackEl = document.getElementById('bio-heart-feedback');
 
     if (clickX >= target.x && clickX <= target.x + target.w &&
@@ -195,10 +228,10 @@ async function saveBioHeartResult() {
         curs: state.user.curs,
         projecte: state.currentProject.titol,
         app: 'El Cor Humà',
-        nivell: 'Anatomia bàsica',
+        nivell: 'Fisiologia mixta (25 preguntes)',
         puntuacio: bioHeartGame.score,
         temps_segons: 0,
-        feedback_pos: 'Molt bona identificació de les parts del cor.',
+        feedback_pos: 'Excel·lent coneixement de l\'anatomia i fisiologia del cor.',
         feedback_neg: ''
     };
 
