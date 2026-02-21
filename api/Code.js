@@ -59,6 +59,8 @@ function handleRequest(e) {
             result = saveNaturaQuizResult(data);
         } else if (action === 'getImpactePhases') {
             result = getImpactePhases();
+        } else if (action === 'getBiblioQuestions') {
+            result = getBiblioQuestions();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -242,6 +244,25 @@ function saveNaturaQuizResult(data) {
 
     sheet.appendRow(row);
     return { status: 'success', message: 'Resposta guardada' };
+}
+
+function getBiblioQuestions() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
+    if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
+
+    const headers = data[0];
+    const questions = data.slice(1).map(row => {
+        return {
+            q: row[0],
+            correct: row[1],
+            alternatives: [row[1], row[2], row[3], row[4]].filter(val => val !== "")
+        };
+    });
+
+    return { status: 'success', questions: questions };
 }
 
 // --- UTILITATS ---
