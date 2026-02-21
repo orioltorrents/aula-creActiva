@@ -420,3 +420,52 @@ function openDigitalitzacioActivity(actId) {
         initSonarGame();
     }
 }
+
+// --- NATURA NAVIGATION ---
+function showNaturaMenu() {
+    const hub = document.getElementById('project-hub-natura');
+    if (hub) {
+        document.getElementById('natura-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openNaturaActivity(actId) {
+    document.getElementById('natura-activities-menu').classList.add('hidden');
+    document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    if (actId === 'xarxes') {
+        document.getElementById('natura-activity-xarxes').classList.remove('hidden');
+        if (typeof initXarxesGame === 'function') initXarxesGame();
+    } else if (actId === 'impacte') {
+        document.getElementById('natura-activity-impacte').classList.remove('hidden');
+        if (typeof initImpacteGame === 'function') initImpacteGame();
+    } else if (actId === 'rols') {
+        document.getElementById('natura-activity-rols').classList.remove('hidden');
+        if (typeof initRolsGame === 'function') initRolsGame();
+    } else if (actId === 'biblio') {
+        document.getElementById('natura-activity-biblio').classList.remove('hidden');
+        if (typeof initBiblioGame === 'function') initBiblioGame();
+    }
+}
+
+// --- RADIO NAVIGATION ---
+function showRadioMenu() {
+    const hub = document.getElementById('project-hub-radio');
+    if (hub) {
+        document.getElementById('radio-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openRadioActivity(actId) {
+    document.getElementById('radio-activities-menu').classList.add('hidden');
+    document.querySelectorAll('#project-hub-radio .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    if (actId === 'taula') {
+        document.getElementById('radio-activity-taula').classList.remove('hidden');
+        if (typeof initRadioBoardGame === 'function') {
+            initRadioBoardGame();
+        }
+    }
+}
