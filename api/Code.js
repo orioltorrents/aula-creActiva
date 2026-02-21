@@ -61,6 +61,8 @@ function handleRequest(e) {
             result = getImpactePhases();
         } else if (action === 'getBiblioQuestions') {
             result = getBiblioQuestions();
+        } else if (action === 'getRadioConfig') {
+            result = getRadioConfig();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -254,18 +256,47 @@ function getBiblioQuestions() {
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
 
     const headers = data[0];
+    const typeIdx = headers.indexOf('Tipus');
+    const levelIdx = headers.indexOf('Nivell');
+    const qIdx = headers.indexOf('Pregunta');
+    const correctIdx = headers.indexOf('Correcta');
+
+    // Marem les alternatives (Correcta + Incorrectes) enviant de la D fins a la H
     const questions = data.slice(1).map(row => {
         return {
-            type: String(row[0]).trim(),
-            level: String(row[1]).toLowerCase().trim(),
-            q: row[2],
-            correct: row[3],
+            type: String(row[typeIdx]).trim(),
+            level: String(row[levelIdx]).toLowerCase().trim(),
+            q: row[qIdx],
+            correct: row[correctIdx],
             alternatives: [row[3], row[4], row[5], row[6], row[7]]
                 .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
         };
     });
 
     return { status: 'success', questions: questions };
+}
+
+function getRadioConfig() {
+    return {
+        status: 'success',
+        effects: [
+            { id: '00', type: 'SMALL HALL' },
+            { id: '10', type: 'SMALL ROOM' },
+            { id: '13', type: 'MID ROOM' },
+            { id: '27', type: 'SPRING' },
+            { id: '36', type: 'REVERSE' },
+            { id: '40', type: 'EARLY REFL' },
+            { id: '50', type: 'DELAY' },
+            { id: '59', type: 'ECHO' },
+            { id: '66', type: 'FLANGER' },
+            { id: '74', type: 'PITH SHIFT' },
+            { id: '82', type: 'FLANGER & REVERB' },
+            { id: '90', type: 'DELAY & GATED' },
+            { id: '92', type: 'DELAY & CHORUS' },
+            { id: '96', type: 'DELAY & PHASER' },
+            { id: '98', type: 'DELAY & PITCH' }
+        ]
+    };
 }
 
 // --- UTILITATS ---
