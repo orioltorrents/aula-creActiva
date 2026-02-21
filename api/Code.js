@@ -256,9 +256,10 @@ function getBiblioQuestions() {
     const headers = data[0];
     const questions = data.slice(1).map(row => {
         return {
-            q: row[0],
-            correct: row[1],
-            alternatives: [row[1], row[2], row[3], row[4]].filter(val => val !== "")
+            level: String(row[0]).toLowerCase().trim(),
+            q: row[1],
+            correct: row[2],
+            alternatives: [row[2], row[3], row[4], row[5]].filter(val => val !== "")
         };
     });
 

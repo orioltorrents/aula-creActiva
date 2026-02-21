@@ -8,12 +8,16 @@ let biblioState = {
     currentQ: 0,
     score: 0,
     examFinished: false,
-    locked: false
+    locked: false,
+    level: 'mixed'
 };
 
-async function initBiblioGame() {
-    // Mostrar loader
+async function initBiblioGame(selectedLevel) {
+    biblioState.level = selectedLevel;
+
+    // UI Setup
     document.getElementById('natura-activity-biblio').classList.remove('hidden');
+    document.getElementById('biblio-level-selection').classList.add('hidden');
     document.getElementById('biblio-quiz-container').classList.add('hidden');
     document.getElementById('biblio-results').classList.add('hidden');
     document.getElementById('natura-activities-menu').classList.add('hidden');
@@ -25,10 +29,10 @@ async function initBiblioGame() {
     try {
         const response = await callApi('getBiblioQuestions');
         if (response && response.status === 'success' && response.questions) {
-            biblioState.activeQuestions = processBiblioQuestions(response.questions);
+            biblioState.activeQuestions = processBiblioQuestions(response.questions, selectedLevel);
 
             if (biblioState.activeQuestions.length === 0) {
-                feedback.innerText = 'No s\'han trobat preguntes a la pestanya "bibliografia-APA".';
+                feedback.innerText = `No s'han trobat preguntes per al nivell "${selectedLevel}" a la pestanya "bibliografia-APA".`;
                 feedback.style.color = 'var(--error)';
                 return;
             }
@@ -54,12 +58,21 @@ async function initBiblioGame() {
 
 /**
  * Processa les preguntes del Sheet:
+ * - Filtra per nivell si cal.
  * - Barreja l'ordre de les preguntes.
  * - Barreja les alternatives de cada pregunta.
  */
-function processBiblioQuestions(rawQuestions) {
-    // 1. Barrejar preguntes i agafar màxim 10
-    const shuffledQuestions = rawQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+function processBiblioQuestions(rawQuestions, selectedLevel) {
+    // 1. Filtrar per nivell
+    let pool = [];
+    if (selectedLevel === 'mixed') {
+        pool = [...rawQuestions];
+    } else {
+        pool = rawQuestions.filter(q => q.level === selectedLevel);
+    }
+
+    // 2. Barrejar preguntes i agafar màxim 10
+    const shuffledQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10);
 
     return shuffledQuestions.map(qData => {
         // Barrejar les alternatives
@@ -157,4 +170,5 @@ async function finishBiblioGame() {
 function showNaturaMenuFromBiblio() {
     document.getElementById('natura-activity-biblio').classList.add('hidden');
     document.getElementById('natura-activities-menu').classList.remove('hidden');
+    document.getElementById('biblio-level-selection').classList.remove('hidden');
 }

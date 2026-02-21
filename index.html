@@ -350,8 +350,21 @@
                             </div>
                             <div class="activity-instructions">
                                 <p data-i18n="instruction_biblio">Demostra els teus coneixements sobre el format APA i
-                                    la
-                                    fiabilitat de les fonts:</p>
+                                    la fiabilitat de les fonts:</p>
+                            </div>
+                            <div class="game-controls text-center py-4" id="biblio-level-selection">
+                                <div
+                                    style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                                    <button onclick="initBiblioGame('facil')" class="btn-primary"
+                                        style="background-color: var(--success); width: auto;"
+                                        data-i18n="level_easy">Fàcil</button>
+                                    <button onclick="initBiblioGame('dificil')" class="btn-primary"
+                                        style="background-color: #f59e0b; width: auto;"
+                                        data-i18n="level_hard">Difícil</button>
+                                    <button onclick="initBiblioGame('mixed')" class="btn-primary"
+                                        style="background-color: var(--error); width: auto;"
+                                        data-i18n="level_mixed">Barrejat</button>
+                                </div>
                             </div>
                             <div id="biblio-quiz-container" class="hidden">
                                 <div class="stats-bar">
