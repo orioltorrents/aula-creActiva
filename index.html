@@ -356,9 +356,9 @@
                                 <!-- Dynamic Topic Selection -->
                                 <div id="biblio-topic-selection" class="flex flex-col items-center"></div>
 
-                                <div class="flex flex-col items-center mt-6">
-                                    <p class="font-bold mb-3" data-i18n="select_level">O tria per nivell (tots els
-                                        temes):</p>
+                                <div class="flex flex-col items-center mt-4">
+                                    <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
+                                        (tots els temes):</p>
                                     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
                                         <button onclick="startGameWithFilter('all', 'facil')" class="btn-primary"
                                             style="background-color: var(--success); width: auto;"
@@ -599,10 +599,75 @@
                         <div id="project-hub-radio" class="game-module hidden">
                             <h3 data-i18n="radio_project_title">Ràdio</h3>
                             <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
-                            <div class="placeholder-content text-center p-8 mt-4">
-                                <div class="act-icon text-6xl mb-4">📻</div>
-                                <h4 data-i18n="loading">Carregant activitats...</h4>
-                                <p>Aviat trobaràs aquí les activitats de Ràdio.</p>
+                            <div id="radio-activities-menu" class="activities-grid mt-4">
+                                <div class="activity-card" onclick="openRadioActivity('taula')">
+                                    <div class="act-icon">🎚️</div>
+                                    <h4 data-i18n="act_radio_title">La Taula de So</h4>
+                                    <p data-i18n="act_radio_desc">Identifica els controls de la taula</p>
+                                </div>
+                            </div>
+
+                            <!-- ACTIVITAT: Taula de So -->
+                            <div id="radio-activity-taula" class="sub-activity hidden">
+                                <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al
+                                    menú</button>
+                                <div class="game-header">
+                                    <h3 data-i18n="act_radio_title">La Taula de So</h3>
+                                </div>
+                                <div class="radio-activity-container">
+                                    <div
+                                        class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                        <div id="radio-board-score-display" class="font-bold">Punts: 100</div>
+                                        <div class="flex gap-2">
+                                            <button id="radio-board-help-btn" class="btn-info btn-sm"
+                                                onclick="showRadioBoardHelp()" data-i18n="btn_help">Ajuda (-10
+                                                punts)</button>
+                                            <button id="radio-board-skip-btn" class="btn-secondary btn-sm"
+                                                onclick="skipRadioBoardQuestion()" data-i18n="btn_skip">Passar pregunta
+                                                (-5 punts)</button>
+                                        </div>
+                                    </div>
+                                    <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">
+                                        Clica...</div>
+                                    <div class="image-interactive-wrapper mt-4"
+                                        style="position: relative; cursor: crosshair;">
+                                        <img id="radio-board-image" src="assets/images/taula-de-so.png"
+                                            alt="Taula de So"
+                                            style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    </div>
+                                    <p id="radio-board-feedback" class="feedback-msg mt-2"></p>
+
+                                    <!-- CALIBRATION UI (DEBUG) -->
+                                    <div id="radio-board-calibration-ui"
+                                        class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                        style="font-family: monospace; font-size: 12px;">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span>⚙️ Ajust de diana (Ràdio)</span>
+                                            <button onclick="closeRadioBoardCalibration()"
+                                                class="text-red-400">✖</button>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                            <div></div><button onclick="nudgeRadioTarget('y', -1)"
+                                                class="bg-gray-700 p-1 rounded">▲</button>
+                                            <div></div>
+                                            <button onclick="nudgeRadioTarget('x', -1)"
+                                                class="bg-gray-700 p-1 rounded">◀</button>
+                                            <button onclick="nudgeRadioTarget('y', 1)"
+                                                class="bg-gray-700 p-1 rounded">▼</button>
+                                            <button onclick="nudgeRadioTarget('x', 1)"
+                                                class="bg-gray-700 p-1 rounded">▶</button>
+                                        </div>
+                                        <div class="flex gap-2 justify-center mb-2">
+                                            <button onclick="nudgeRadioTarget('w', 1); nudgeRadioTarget('h', 1)"
+                                                class="bg-gray-700 px-2 rounded">+</button>
+                                            <button onclick="nudgeRadioTarget('w', -1); nudgeRadioTarget('h', -1)"
+                                                class="bg-gray-700 px-2 rounded">-</button>
+                                            <span class="ml-2">Mida</span>
+                                        </div>
+                                        <div id="radio-board-calibration-values" class="text-center text-xs opacity-75">
+                                            x:0 y:0 w:0 h:0</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -633,6 +698,7 @@
     <script src="js/games/natura-rols.js"></script>
     <script src="js/games/natura-bibliografia.js"></script>
     <script src="js/games/audio-sonar.js"></script>
+    <script src="js/games/radio-taula.js"></script>
     <script src="js/app.js"></script>
 </body>
 

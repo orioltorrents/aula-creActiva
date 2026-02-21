@@ -60,17 +60,17 @@ function generateTopicButtons(questions) {
     if (types.length === 0) return;
 
     const label = document.createElement('p');
-    label.className = 'font-bold mb-3';
+    label.className = 'font-bold mb-3 text-center';
     label.innerText = 'Tria un tema (nivell barrejat):';
     container.appendChild(label);
 
     const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'flex flex-wrap justify-center gap-8 mb-8 mt-4';
+    btnWrapper.className = 'flex flex-wrap justify-center gap-4 mb-6';
 
     types.forEach(type => {
         const btn = document.createElement('button');
         btn.className = 'btn-primary';
-        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 12px 24px; min-width: 140px;";
+        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
         btn.innerText = type;
         btn.onclick = () => startGameWithFilter(type, 'mixed');
         btnWrapper.appendChild(btn);

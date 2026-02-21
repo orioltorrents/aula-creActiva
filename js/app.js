@@ -215,12 +215,26 @@ async function loadDashboard() {
 
     grid.innerHTML = ''; // Netejar
 
+    // Configuració visual dels projectes
+    const projectVisuals = {
+        'p1_mediterrani': { icon: '🌊', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '🌿', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p4_natura': { icon: '🌲', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '🏅', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '💻', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '🔬', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '🎙️', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' }
+    };
+
     if (allProjects.length > 0) {
         allProjects.forEach(proj => {
+            const visual = projectVisuals[proj.id] || { icon: '📁', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
+
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.style.minWidth = '180px'; // Targeta més estreta per optimitzar espai
             card.innerHTML = `
-                <div class="card-image">📁</div>
+                <div class="card-image" style="background: ${visual.gradient}">${visual.icon}</div>
                 <div class="card-content">
                     <div class="card-title">${proj.titol}</div>
                     <div class="card-desc">${proj.descripcio}</div>
@@ -284,7 +298,12 @@ function openProject(project) {
         if (hubDiv) hubDiv.classList.remove('hidden');
     } else if (project.id === 'p2_radio') {
         const hubDiv = document.getElementById('project-hub-radio');
-        if (hubDiv) hubDiv.classList.remove('hidden');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showRadioMenu === 'function') {
+                showRadioMenu();
+            }
+        }
     } else {
         // Fallback genèric
         document.getElementById('game-container-generic').classList.remove('hidden');
