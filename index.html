@@ -469,6 +469,34 @@
                                         style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                                 </div>
                                 <p id="sonar-feedback" class="feedback-msg mt-2"></p>
+
+                                <!-- CALIBRATION UI (USER DEBUG) -->
+                                <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                    style="font-family: monospace; font-size: 12px;">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span>⚙️ Ajust de diana</span>
+                                        <button onclick="closeCalibration()" class="text-red-400">✖</button>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                        <div></div><button onclick="nudgeTarget('y', -1)"
+                                            class="bg-gray-700 p-1 rounded">▲</button>
+                                        <div></div>
+                                        <button onclick="nudgeTarget('x', -1)"
+                                            class="bg-gray-700 p-1 rounded">◀</button>
+                                        <button onclick="nudgeTarget('y', 1)" class="bg-gray-700 p-1 rounded">▼</button>
+                                        <button onclick="nudgeTarget('x', 1)" class="bg-gray-700 p-1 rounded">▶</button>
+                                    </div>
+                                    <div class="flex gap-2 justify-center mb-2">
+                                        <button onclick="nudgeTarget('w', 1); nudgeTarget('h', 1)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                        <button onclick="nudgeTarget('w', -1); nudgeTarget('h', -1)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <span class="ml-2">Mida</span>
+                                    </div>
+                                    <div id="calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0
+                                    </div>
+                                    <p class="mt-2 text-yellow-400 text-center italic">Està ben posat ara?</p>
+                                </div>
                             </div>
                         </div>
                         <!-- PROJECTE: Biologia -->

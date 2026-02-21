@@ -10,17 +10,18 @@ const sonarGame = {
         { key: 'act_audio_sec2', x: 0, y: 105, w: 175, h: 426 }, // Inspector (Esquerra)
         { key: 'act_audio_sec3', x: 175, y: 140, w: 590, h: 372 }, // Track View (Centre)
         { key: 'act_audio_sec4', x: 765, y: 140, w: 235, h: 372 }, // Browser (Dreta)
-        { key: 'act_audio_q1', x: 311, y: 213, w: 22, h: 22 },  // Arm (R) - Pista 1
-        { key: 'act_audio_q2', x: 311, y: 188, w: 22, h: 22 },  // Mute (M) - Pista 1
-        { key: 'act_audio_q3', x: 334, y: 188, w: 22, h: 22 },  // Solo (S) - Pista 1
-        { key: 'act_audio_q4', x: 555, y: 55, w: 25, h: 25 },   // Main Record (Transport)
+        { key: 'act_audio_q1', x: 308, y: 215, w: 20, h: 20 },  // Arm (R) - Petit, avall i esquerra
+        { key: 'act_audio_q2', x: 311, y: 186, w: 26, h: 26 },  // Mute (M)
+        { key: 'act_audio_q3', x: 334, y: 186, w: 26, h: 26 },  // Solo (S)
+        { key: 'act_audio_q4', x: 555, y: 55, w: 28, h: 28 },   // Main Record
         { key: 'act_audio_q5', x: 768, y: 312, w: 35, h: 20 },  // Audio FX Tab
-        { key: 'act_audio_q6', x: 525, y: 55, w: 27, h: 25 },   // Play (Transport)
-        { key: 'act_audio_q7', x: 495, y: 55, w: 25, h: 25 },   // Stop (Transport)
-        { key: 'act_audio_q8', x: 334, y: 213, w: 22, h: 22 },  // Write (W) - Pista 1
+        { key: 'act_audio_q6', x: 525, y: 55, w: 28, h: 28 },   // Play
+        { key: 'act_audio_q7', x: 495, y: 55, w: 28, h: 28 },   // Stop
+        { key: 'act_audio_q8', x: 334, y: 211, w: 26, h: 26 },  // Write (W)
         { key: 'act_audio_q9', x: 185, y: 512, w: 55, h: 18 }   // Consola tab
     ],
-    isFinished: false
+    isFinished: false,
+    debugMode: true // Permet calibració en temps real
 };
 
 function initSonarGame() {
@@ -41,6 +42,7 @@ function updateSonarUI() {
     const scoreEl = document.getElementById('sonar-score-display');
     const skipBtn = document.getElementById('sonar-skip-btn');
     const helpBtn = document.getElementById('sonar-help-btn');
+    const calibrationUI = document.getElementById('sonar-calibration-ui');
 
     if (scoreEl) scoreEl.innerText = i18n.t('score_label') + sonarGame.score;
 
@@ -49,6 +51,7 @@ function updateSonarUI() {
         feedbackEl.innerText = '';
         if (skipBtn) skipBtn.classList.add('hidden');
         if (helpBtn) helpBtn.classList.add('hidden');
+        if (calibrationUI) calibrationUI.classList.add('hidden');
         return;
     }
 
@@ -62,19 +65,34 @@ function updateSonarUI() {
 function showSonarHelp() {
     if (sonarGame.isFinished) return;
 
-    // Penalty
-    sonarGame.score = Math.max(0, sonarGame.score - 10);
-    updateSonarUI();
+    // Penalització només si no estem en debug
+    if (!sonarGame.debugMode) {
+        sonarGame.score = Math.max(0, sonarGame.score - 10);
+        updateSonarUI();
+    }
 
     const target = sonarGame.targets[sonarGame.currentStep];
+    renderHelpHint(target);
+
+    // Mostra la interfície de calibratge
+    const calibrationUI = document.getElementById('sonar-calibration-ui');
+    if (calibrationUI) {
+        calibrationUI.classList.remove('hidden');
+        updateCalibrationDisplay();
+    }
+}
+
+function renderHelpHint(target) {
+    // Eliminar existent
+    const existing = document.querySelector('.sonar-help-hint');
+    if (existing) existing.remove();
+
     const img = document.getElementById('sonar-image');
     const wrapper = img.parentElement;
 
-    // Create hint element
     const hint = document.createElement('div');
     hint.className = 'sonar-help-hint';
 
-    // Calculate relative position based on current image size
     const rect = img.getBoundingClientRect();
     const logicalWidth = 1000;
     const logicalHeight = 531;
@@ -89,17 +107,41 @@ function showSonarHelp() {
 
     wrapper.appendChild(hint);
 
-    // Remove after 2.5 seconds
-    setTimeout(() => {
-        if (hint.parentElement) {
-            hint.parentElement.removeChild(hint);
-        }
-    }, 2500);
+    // Auto-eliminar si NO estem en debug
+    if (!sonarGame.debugMode) {
+        setTimeout(() => {
+            if (hint.parentElement) {
+                hint.parentElement.removeChild(hint);
+            }
+        }, 2500);
+    }
+}
+
+function nudgeTarget(axis, delta) {
+    const target = sonarGame.targets[sonarGame.currentStep];
+    target[axis] += delta;
+    renderHelpHint(target);
+    updateCalibrationDisplay();
+    console.log(`Calibració [${target.key}]: x:${target.x}, y:${target.y}, w:${target.w}, h:${target.h}`);
+}
+
+function updateCalibrationDisplay() {
+    const target = sonarGame.targets[sonarGame.currentStep];
+    const display = document.getElementById('calibration-values');
+    if (display) {
+        display.innerText = `x:${target.x} y:${target.y} w:${target.w} h:${target.h}`;
+    }
+}
+
+function closeCalibration() {
+    const calibrationUI = document.getElementById('sonar-calibration-ui');
+    const hint = document.querySelector('.sonar-help-hint');
+    if (calibrationUI) calibrationUI.classList.add('hidden');
+    if (hint) hint.remove();
 }
 
 function skipQuestion() {
     if (sonarGame.isFinished) return;
-
     sonarGame.score = Math.max(0, sonarGame.score - 5);
     nextStep();
 }
@@ -118,8 +160,6 @@ function handleSonarClick(event) {
 
     const img = event.target;
     const rect = img.getBoundingClientRect();
-
-    // Scale click to matches image's logical resolution (1000x531)
     const logicalWidth = 1000;
     const logicalHeight = 531;
 
@@ -145,7 +185,7 @@ function handleSonarClick(event) {
     } else {
         feedbackEl.innerText = i18n.t('act_audio_feedback_incorrect');
         feedbackEl.style.color = 'red';
-        sonarGame.score = Math.max(0, sonarGame.score - 1); // Small penalty for wrong click
+        sonarGame.score = Math.max(0, sonarGame.score - 1);
         updateSonarUI();
     }
 }
@@ -159,8 +199,8 @@ async function saveSonarResult() {
         projecte: state.currentProject.titol,
         app: 'Cakewalk Sonar',
         nivell: 'Identificació de controls',
-        puntuacio: 10,
-        temps_segons: 0, // Podríem mesurar-lo
+        puntuacio: sonarGame.score,
+        temps_segons: 0,
         feedback_pos: 'Excel·lent identificació de la interfície',
         feedback_neg: ''
     };
