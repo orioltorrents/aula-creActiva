@@ -295,7 +295,12 @@ function openProject(project) {
         }
     } else if (project.id === 'p2_biologia') {
         const hubDiv = document.getElementById('project-hub-biologia');
-        if (hubDiv) hubDiv.classList.remove('hidden');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showBioMenu === 'function') {
+                showBioMenu();
+            }
+        }
     } else if (project.id === 'p2_radio') {
         const hubDiv = document.getElementById('project-hub-radio');
         if (hubDiv) {
@@ -449,6 +454,27 @@ function openNaturaActivity(actId) {
     }
 }
 
+// --- BIOLOGIA NAVIGATION ---
+function showBioMenu() {
+    const hub = document.getElementById('project-hub-biologia');
+    if (hub) {
+        document.getElementById('bio-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openBioActivity(actId) {
+    document.getElementById('bio-activities-menu').classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    if (actId === 'cor') {
+        document.getElementById('bio-activity-cor').classList.remove('hidden');
+        if (typeof initBioHeartGame === 'function') {
+            initBioHeartGame();
+        }
+    }
+}
+
 // --- RADIO NAVIGATION ---
 function showRadioMenu() {
     const hub = document.getElementById('project-hub-radio');
@@ -466,6 +492,11 @@ function openRadioActivity(actId) {
         document.getElementById('radio-activity-taula').classList.remove('hidden');
         if (typeof initRadioBoardGame === 'function') {
             initRadioBoardGame();
+        }
+    } else if (actId === 'conexions') {
+        document.getElementById('radio-activity-conexions').classList.remove('hidden');
+        if (typeof initConnectionsQuiz === 'function') {
+            initConnectionsQuiz();
         }
     }
 }

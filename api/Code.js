@@ -63,6 +63,8 @@ function handleRequest(e) {
             result = getBiblioQuestions();
         } else if (action === 'getRadioConfig') {
             result = getRadioConfig();
+        } else if (action === 'getRadioConnectionsQuestions') {
+            result = getRadioConnectionsQuestions();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -297,6 +299,55 @@ function getRadioConfig() {
             { id: '98', type: 'DELAY & PITCH' }
         ]
     };
+}
+
+function getRadioConnectionsQuestions() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_radio_conexions');
+    if (!sheet) {
+        // Fallback or development questions if sheet doesn't exist yet
+        const defaultQuestions = [
+            { id: 1, image: 'xlr_male.png', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
+            { id: 2, image: 'xlr_female.png', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
+            { id: 3, image: 'jack_mono.png', correct: 'Jack 6.35mm Mono (TS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estèreo (TRS)', 'Mini-Jack 3.5mm', 'RCA'] },
+            { id: 4, image: 'jack_stereo.png', correct: 'Jack 6.35mm Estèreo (TRS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estèreo (TRS)', 'Mini-Jack 3.5mm', 'RCA'] },
+            { id: 5, image: 'minijack_trs.png', correct: 'Mini-Jack 3.5mm (TRS)', alternatives: ['Mini-Jack 3.5mm (TRS)', 'Mini-Jack 3.5mm amb micro (TRRS)', 'RCA', 'USB-C'] },
+            { id: 6, image: 'minijack_trrs.png', correct: 'Mini-Jack 3.5mm amb micro (TRRS)', alternatives: ['Mini-Jack 3.5mm (TRS)', 'Mini-Jack 3.5mm amb micro (TRRS)', 'RCA', 'USB-C'] },
+            { id: 7, image: 'rca_white_red.png', correct: 'RCA (L/R)', alternatives: ['RCA (L/R)', 'XLR', 'Jack', 'HDMI'] },
+            { id: 8, image: 'usb_a.png', correct: 'USB Tipus A', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 9, image: 'usb_b.png', correct: 'USB Tipus B', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 10, image: 'usb_c.png', correct: 'USB Tipus C', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 11, image: 'hdmi.png', correct: 'HDMI', alternatives: ['HDMI', 'VGA', 'DVI', 'DisplayPort'] },
+            { id: 12, image: 'toslink.png', correct: 'Toslink (Òptic)', alternatives: ['Toslink (Òptic)', 'Coaxial', 'SPDIF', 'Jack'] },
+            { id: 13, image: 'speakon.png', correct: 'Speakon', alternatives: ['Speakon', 'Powercon', 'XLR', 'Jack'] },
+            { id: 14, image: 'iec.png', correct: 'IEC (Alimentació PC)', alternatives: ['IEC (Alimentació PC)', 'Schuko', 'Powercon', 'C7 (8-fig)'] },
+            { id: 15, image: 'schuko.png', correct: 'Schuko (Endoll domèstic)', alternatives: ['Schuko (Endoll domèstic)', 'IEC', 'Powercon', 'BNC'] },
+            { id: 16, image: 'powercon.png', correct: 'Powercon', alternatives: ['Powercon', 'IEC', 'Schuko', 'Speakon'] },
+            { id: 17, image: 'bnc.png', correct: 'BNC', alternatives: ['BNC', 'RCA', 'F-Connector', 'SMA'] },
+            { id: 18, image: 'mid_cable.png', correct: 'MIDI (5-pin DIN)', alternatives: ['MIDI (5-pin DIN)', 'XLR', 'Mini-DIN', 'Firewire'] },
+            { id: 19, image: 'micro_usb.png', correct: 'Micro-USB', alternatives: ['Micro-USB', 'Mini-USB', 'USB-C', 'Lightning'] },
+            { id: 20, image: 'lightning.png', correct: 'Lightning', alternatives: ['Lightning', 'USB-C', 'Micro-USB', '30-pin Dock'] }
+        ];
+        return { status: 'success', questions: defaultQuestions };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_radio_conexions' };
+
+    const headers = data[0];
+    const imgIdx = headers.indexOf('Imatge');
+    const correctIdx = headers.indexOf('Correcta');
+
+    const questions = data.slice(1).map((row, index) => {
+        return {
+            id: index + 1,
+            image: row[imgIdx],
+            correct: row[correctIdx],
+            alternatives: [row[1], row[2], row[3], row[4]] // Suposem que les opcions estan a les columnes B-E
+                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+        };
+    });
+
+    return { status: 'success', questions: questions };
 }
 
 // --- UTILITATS ---

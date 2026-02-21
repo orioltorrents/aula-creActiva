@@ -586,14 +586,79 @@
                         </div>
                     </div>
 
-                    <!-- PROJECTE: Biologia -->
                     <div id="project-hub-biologia" class="game-module hidden">
                         <h3 data-i18n="bio_project_title">Biologia</h3>
                         <p data-i18n="bio_project_desc">Estudi dels éssers vius i el seu entorn.</p>
-                        <div class="placeholder-content text-center p-8 mt-4">
-                            <div class="act-icon text-6xl mb-4">🔬</div>
-                            <h4 data-i18n="loading">Carregant activitats...</h4>
-                            <p>Aviat trobaràs aquí les activitats de Biologia.</p>
+
+                        <div id="bio-activities-menu" class="activities-grid mt-4">
+                            <!-- SECCIÓ: Aparell Circulatori -->
+                            <div class="col-span-full mb-2">
+                                <h4 class="text-blue-600 font-bold border-b pb-1" data-i18n="sec_circulatori">Aparell
+                                    Circulatori</h4>
+                            </div>
+                            <div class="activity-card" onclick="openBioActivity('cor')">
+                                <div class="act-icon">❤️</div>
+                                <h4 data-i18n="act_heart_title">El Cor Humà</h4>
+                                <p data-i18n="act_heart_desc">Identifica les parts i cavitats del cor</p>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: El Cor Humà -->
+                        <div id="bio-activity-cor" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_heart_title">El Cor Humà</h3>
+                            </div>
+                            <div class="bio-activity-container">
+                                <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                    <div id="bio-heart-score-display" class="font-bold">Punts: 100</div>
+                                    <div class="flex gap-2">
+                                        <button id="bio-heart-help-btn" class="btn-info btn-sm"
+                                            onclick="showBioHeartHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                        <button id="bio-heart-skip-btn" class="btn-secondary btn-sm"
+                                            onclick="skipBioHeartQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                            punts)</button>
+                                    </div>
+                                </div>
+                                <div id="bio-heart-question" class="text-lg font-bold p-2 bg-red-50 rounded">Clica...
+                                </div>
+                                <div class="image-interactive-wrapper mt-4"
+                                    style="position: relative; cursor: crosshair;">
+                                    <img id="bio-heart-image" src="assets/images/cor.png" alt="Cor Humà"
+                                        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                </div>
+                                <p id="bio-heart-feedback" class="feedback-msg mt-2"></p>
+
+                                <!-- CALIBRATION UI (DEBUG) -->
+                                <div id="bio-heart-calibration-ui"
+                                    class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                    style="font-family: monospace; font-size: 12px;">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span>⚙️ Ajust de diana (Cor)</span>
+                                        <button onclick="closeBioHeartCalibration()" class="text-red-400">✖</button>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                        <div></div><button onclick="nudgeBioHeartTarget('y', -1)"
+                                            class="bg-gray-700 p-1 rounded">▲</button>
+                                        <div></div>
+                                        <button onclick="nudgeBioHeartTarget('x', -1)"
+                                            class="bg-gray-700 p-1 rounded">◀</button>
+                                        <button onclick="nudgeBioHeartTarget('y', 1)"
+                                            class="bg-gray-700 p-1 rounded">▼</button>
+                                        <button onclick="nudgeBioHeartTarget('x', 1)"
+                                            class="bg-gray-700 p-1 rounded">▶</button>
+                                    </div>
+                                    <div class="flex gap-2 justify-center mb-2">
+                                        <button onclick="nudgeBioHeartTarget('w', 1); nudgeBioHeartTarget('h', 1)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                        <button onclick="nudgeBioHeartTarget('w', -1); nudgeBioHeartTarget('h', -1)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <span class="ml-2">Mida</span>
+                                    </div>
+                                    <div id="bio-heart-calibration-values" class="text-center text-xs opacity-75">x:0
+                                        y:0 w:0 h:0</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -606,6 +671,12 @@
                                 <div class="act-icon">🎚️</div>
                                 <h4 data-i18n="act_radio_title">La Taula de So</h4>
                                 <p data-i18n="act_radio_desc">Identifica els controls de la taula</p>
+                            </div>
+                            <div class="activity-card" onclick="openRadioActivity('conexions')">
+                                <div class="act-icon">🔌</div>
+                                <h4 data-i18n="act_connections_title">Conexions d'Àudio</h4>
+                                <p data-i18n="act_connections_desc">Identifica els diferents tipus de connectors i
+                                    cables</p>
                             </div>
                         </div>
 
@@ -669,6 +740,37 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- ACTIVITAT: Conexions d'Àudio -->
+                    <div id="radio-activity-conexions" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
+                        </div>
+                        <div id="connections-quiz-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-4">
+                                <div id="connections-progress">Pregunta 1/20</div>
+                                <div id="connections-score" class="font-bold">Punts: 0</div>
+                            </div>
+                            <div class="question-container text-center">
+                                <div class="image-display mb-4" style="max-width: 400px; margin: 0 auto;">
+                                    <img id="connection-img" src="" alt="Connector"
+                                        style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                </div>
+                                <h4 class="mb-4" data-i18n="select_answer">Tria la resposta correcta:</h4>
+                                <div id="connection-options" class="options-grid">
+                                    <!-- Options will be loaded here -->
+                                </div>
+                            </div>
+                            <p id="connection-feedback" class="feedback-msg mt-4 text-center"></p>
+                        </div>
+                        <div id="connections-results" class="hidden text-center p-8">
+                            <h3 data-i18n="final_score">Resultats</h3>
+                            <p id="connections-final-score" class="text-4xl font-bold my-4">0 / 200</p>
+                            <p id="connections-final-msg"></p>
+                            <button onclick="showRadioMenu()" class="btn-secondary mt-4">Tornar</button>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -695,8 +797,10 @@
     <script src="js/games/natura-impacte.js"></script>
     <script src="js/games/natura-rols.js"></script>
     <script src="js/games/natura-bibliografia.js"></script>
+    <script src="js/games/bio-cor.js"></script>
     <script src="js/games/audio-sonar.js"></script>
     <script src="js/games/radio-taula.js"></script>
+    <script src="js/games/radio-conexions.js"></script>
     <script src="js/app.js"></script>
 </body>
 
