@@ -65,7 +65,7 @@ function generateTopicButtons(questions) {
     container.appendChild(label);
 
     const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'flex flex-wrap justify-center gap-3 mb-6';
+    btnWrapper.className = 'flex flex-wrap justify-center gap-5 mb-6';
 
     types.forEach(type => {
         const btn = document.createElement('button');
