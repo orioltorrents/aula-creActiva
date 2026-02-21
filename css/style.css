@@ -739,3 +739,26 @@ body {
     border-radius: 20px;
     margin: 20px 0;
 }
+
+.sonar-help-hint {
+    position: absolute;
+    pointer-events: none;
+    border: 3px solid #ff4444;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
+    background: rgba(255, 68, 68, 0.2);
+    z-index: 100;
+    animation: pulse-red 1s infinite alternate;
+}
+
+@keyframes pulse-red {
+    from {
+        box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        transform: scale(1);
+    }
+
+    to {
+        box-shadow: 0 0 20px rgba(255, 68, 68, 0.9);
+        transform: scale(1.05);
+    }
+}

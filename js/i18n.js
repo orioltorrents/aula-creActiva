@@ -135,6 +135,7 @@ const i18n = {
             'act_audio_q8': '8. Clica el botó \'W\' (Write) per activar l\'automatització a la pista.',
             'act_audio_q9': '9. On és la pestanya de la CONSOLA per veure els barrejadors?',
             'btn_skip': 'Passar pregunta (-5 punts)',
+            'btn_help': 'Ajuda (-10 punts)',
             'score_label': 'Punts: '
         },
         'es': {
@@ -264,6 +265,7 @@ const i18n = {
             'act_audio_q8': '8. Haz clic en el botón \'W\' (Write) para activar la automatización en la pista.',
             'act_audio_q9': '9. ¿Dónde está la pestaña de la CONSOLA para ver los mezcladores?',
             'btn_skip': 'Pasar pregunta (-5 puntos)',
+            'btn_help': 'Ayuda (-10 puntos)',
             'score_label': 'Puntos: '
         },
         'en': {
@@ -393,6 +395,7 @@ const i18n = {
             'act_audio_q8': '8. Click the \'W\' (Write) button to enable automation on the track.',
             'act_audio_q9': '9. Where is the CONSOLE tab to see the mixers?',
             'btn_skip': 'Skip question (-5 points)',
+            'btn_help': 'Help (-10 points)',
             'score_label': 'Points: '
         },
         'ar': {
@@ -522,6 +525,7 @@ const i18n = {
             'act_audio_q8': '8. انقر فوق الزر \'W\' (Write) لتمكين الأتمتة على المسار.',
             'act_audio_q9': '9. أين توجد علامة تبويب CONSOLE لرؤية أجهزة المزج؟',
             'btn_skip': 'تخطي السؤال (-5 نقاط)',
+            'btn_help': 'مساعدة (-10 نقاط)',
             'score_label': 'نقاط: '
         }
     },

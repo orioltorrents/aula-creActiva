@@ -453,8 +453,13 @@
                             <div class="sonar-activity-container">
                                 <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                     <div id="sonar-score-display" class="font-bold">Punts: 100</div>
-                                    <button id="sonar-skip-btn" class="btn-secondary btn-sm" onclick="skipQuestion()"
-                                        data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <div class="flex gap-2">
+                                        <button id="sonar-help-btn" class="btn-info btn-sm" onclick="showSonarHelp()"
+                                            data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                        <button id="sonar-skip-btn" class="btn-secondary btn-sm"
+                                            onclick="skipQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                            punts)</button>
+                                    </div>
                                 </div>
                                 <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
                                 <div class="image-interactive-wrapper mt-4"
