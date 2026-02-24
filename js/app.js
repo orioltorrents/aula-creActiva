@@ -216,7 +216,9 @@ async function loadDashboard() {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="card-image">📁</div>
+                <div class="card-image">
+                    <img src="${proj.imatge || 'assets/img/placeholder-project.png'}" alt="${proj.titol}" class="project-img-thumb">
+                </div>
                 <div class="card-content">
                     <div class="card-title">${proj.titol}</div>
                     <div class="card-desc">${proj.descripcio}</div>

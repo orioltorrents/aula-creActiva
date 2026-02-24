@@ -252,10 +252,10 @@ async function finishParalimpicsGame() {
     // Missatge de feedback segons puntuació
     const percentage = (paralimpicsState.score / totalPossible) * 100;
     let msg = "";
-    if (percentage >= 90) msg = "Excel·lent! Ets un expert en micro:bit! 🤖✨";
-    else if (percentage >= 70) msg = "Molt bé! Tens un bon control de la placa. 👍";
-    else if (percentage >= 50) msg = "Ho has superat, però cal repassar alguns conceptes. 📚";
-    else msg = "Has de repassar la guia de la micro:bit. Ànims! 💪";
+    if (percentage >= 90) msg = "Excel·lent! Ets un expert en micro:bit!";
+    else if (percentage >= 70) msg = "Molt bé! Tens un bon control de la placa.";
+    else if (percentage >= 50) msg = "Ho has superat, però cal repassar alguns conceptes.";
+    else msg = "Has de repassar la guia de la micro:bit. Ànims!";
 
     document.getElementById('paralimpics-message').innerText = msg;
 

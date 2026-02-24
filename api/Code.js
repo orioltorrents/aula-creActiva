@@ -104,31 +104,31 @@ function getProjects(curs) {
     const catalog = {
         // Formats estàndard
         '1r ESO': [
-            { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
-            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
+            { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.', imatge: 'assets/img/rates.png' },
+            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.', imatge: 'assets/img/mediterrani.png' }
         ],
         '2n ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' }
         ],
         '3r ESO': [
-            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/img/solidart.png' }
         ],
         '4t ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' }
         ],
         // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
         '1ESO': [
-            { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
-            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
+            { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.', imatge: 'assets/img/rates.png' },
+            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.', imatge: 'assets/img/mediterrani.png' }
         ],
         '2ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' }
         ],
         '3ESO': [
-            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/img/solidart.png' }
         ],
         '4ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' }
         ]
     };
 
