@@ -136,6 +136,13 @@ const i18n = {
             'eco_river': 'Riu mediterrani',
             'eco_garden': 'Hort',
             'sec_circulatori': 'Aparell Circulatori',
+            'sec_circ_desc': 'Cor, sang i vasos sanguinis',
+            'sec_respiratori': 'Aparell Respiratori',
+            'sec_resp_desc': 'Pulmons i intercanvi de gasos',
+            'sec_excretor': 'Aparell Excretor',
+            'sec_excr_desc': 'Ronyons i eliminació de residus',
+            'sec_digestiu': 'Aparell Digestiu',
+            'sec_dig_desc': 'Processament d\'aliments i nutrients',
             'act_heart_title': 'El Cor Humà',
             'act_heart_desc': 'Identifica les parts i cavitats del cor',
             'act_heart_instruction': 'Clica sobre la part del cor que se\'t demana:',
@@ -201,6 +208,7 @@ const i18n = {
             'btn_skip': 'Passar pregunta (-5 punts)',
             'btn_help': 'Ajuda (-10 punts)',
             'score_label': 'Punts: '
+
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -329,7 +337,14 @@ const i18n = {
             'eco_sea': 'Mar mediterráneo',
             'eco_river': 'Río mediterráneo',
             'eco_garden': 'Huerto',
-            'sec_circulatori': 'Aparell Circulatori',
+            'sec_circulatori': 'Aparato Circulatorio',
+            'sec_circ_desc': 'Corazón, sangre y vasos sanguíneos',
+            'sec_respiratori': 'Aparato Respiratorio',
+            'sec_resp_desc': 'Pulmones e intercambio de gases',
+            'sec_excretor': 'Aparato Excretor',
+            'sec_excr_desc': 'Riñones y eliminación de residuos',
+            'sec_digestiu': 'Aparato Digestivo',
+            'sec_dig_desc': 'Transformación de los alimentos',
             'act_heart_title': 'El Corazón Humano',
             'act_heart_desc': 'Identifica las partes y cavidades del corazón',
             'act_heart_instruction': 'Haz clic sobre la parte del corazón que se te pide:',
@@ -395,6 +410,7 @@ const i18n = {
             'btn_skip': 'Pasar pregunta (-5 puntos)',
             'btn_help': 'Ajuda (-10 punts)',
             'score_label': 'Puntos: '
+
         },
         'en': {
             'btn_practice': 'Practice',

@@ -586,18 +586,44 @@
                         <h3 data-i18n="bio_project_title">Biologia</h3>
                         <p data-i18n="bio_project_desc">Estudi dels éssers vius i el seu entorn.</p>
 
-                        <div id="bio-activities-menu" class="activities-grid mt-4">
-                            <!-- SECCIÓ: Aparell Circulatori -->
-                            <div class="col-span-full mb-2">
-                                <h4 class="text-blue-600 font-bold border-b pb-1" data-i18n="sec_circulatori">Aparell
-                                    Circulatori</h4>
+                        <div id="bio-systems-menu" class="activities-grid mt-4">
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">🍎</div>
+                                <h4 data-i18n="sec_digestiu">Aparell Digestiu</h4>
+                                <p data-i18n="sec_dig_desc">Processament d'aliments i nutrients</p>
+                                <span class="badge-soon">Aviat</span>
                             </div>
+                            <div class="activity-card" onclick="openBioSystem('circulatori')">
+                                <div class="act-icon">❤️</div>
+                                <h4 data-i18n="sec_circulatori">Aparell Circulatori</h4>
+                                <p data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</p>
+                            </div>
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">🫁</div>
+                                <h4 data-i18n="sec_respiratori">Aparell Respiratori</h4>
+                                <p data-i18n="sec_resp_desc">Pulmons i intercanvi de gasos</p>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                            <div class="activity-card disabled-card">
+                                <div class="act-icon">🧼</div>
+                                <h4 data-i18n="sec_excretor">Aparell Excretor</h4>
+                                <p data-i18n="sec_excr_desc">Ronyons i eliminació de residus</p>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ACTIVITATS: Aparell Circulatori -->
+                        <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
+                            <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                                style="width: fit-content;">← Tornar als Sistemes</button>
                             <div class="activity-card" onclick="openBioActivity('cor')">
                                 <div class="act-icon">❤️</div>
                                 <h4 data-i18n="act_heart_title">El Cor Humà</h4>
                                 <p data-i18n="act_heart_desc">Identifica les parts i cavitats del cor</p>
                             </div>
                         </div>
+
 
                         <!-- ACTIVITAT: El Cor Humà -->
                         <div id="bio-activity-cor" class="sub-activity hidden">

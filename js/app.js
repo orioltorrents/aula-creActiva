@@ -462,14 +462,30 @@ function openNaturaActivity(actId) {
 function showBioMenu() {
     const hub = document.getElementById('project-hub-biologia');
     if (hub) {
-        document.getElementById('bio-activities-menu').classList.remove('hidden');
-        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+        document.getElementById('bio-systems-menu').classList.remove('hidden');
+        // Hide all sub-activity lists and individual activities
+        document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
     }
 }
 
+function openBioSystem(systemId) {
+    // Amagar el menú principal de sistemes
+    document.getElementById('bio-systems-menu').classList.add('hidden');
+    // Mostrar el menú d'activitats del sistema seleccionat
+    const systemDiv = document.getElementById(`bio-${systemId}-activities`);
+    if (systemDiv) {
+        systemDiv.classList.remove('hidden');
+    }
+}
+
+
 function openBioActivity(actId) {
-    document.getElementById('bio-activities-menu').classList.add('hidden');
+    // Hide all activity menus (circulatori, respiratori, etc)
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    // Hide all individual activity containers
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+
 
     if (actId === 'cor') {
         document.getElementById('bio-activity-cor').classList.remove('hidden');
