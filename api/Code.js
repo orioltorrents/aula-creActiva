@@ -3,13 +3,14 @@
  * 
  * INSTRUCCIONS:
  * 1. Crea un nou Google Sheet.
- * 2. Crea 2 pestanyes: "usuaris" i "resultats".
+ * 2. Crea les pestanyes: "usuaris", "resultats", "preguntes_natura", "resultats_rols" i "fases_impacte".
  * 3. A "usuaris", crea les capçaleres: id, email, password, cognoms, nom, curs, grup
  * 4. A "resultats", crea les capçaleres: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
- * 5. Obre Extensions > Apps Script.
- * 6. Copia aquest codi a "Codi.gs".
- * 7. Substitueix SHEET_ID pel teu ID del full de càlcul.
- * 8. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
+ * 5. A "fases_impacte", crea les capçaleres: Ordre, Fase (fins a 10 files per l'activitat d'ordenació)
+ * 6. Obre Extensions > Apps Script.
+ * 7. Copia aquest codi a "Codi.gs".
+ * 8. Substitueix SHEET_ID pel teu ID del full de càlcul.
+ * 9. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
  */
 
 const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8'; // <--- IMPORTANT: CANVIAR AIXÒ
@@ -52,6 +53,18 @@ function handleRequest(e) {
             result = getProjects(data.curs);
         } else if (action === 'saveResult') {
             result = saveResult(data);
+        } else if (action === 'getNaturaQuestions') {
+            result = getNaturaQuestions(data.ecosistema);
+        } else if (action === 'saveNaturaQuizResult') {
+            result = saveNaturaQuizResult(data);
+        } else if (action === 'getImpactePhases') {
+            result = getImpactePhases();
+        } else if (action === 'getBiblioQuestions') {
+            result = getBiblioQuestions();
+        } else if (action === 'getRadioConfig') {
+            result = getRadioConfig();
+        } else if (action === 'getRadioConnectionsQuestions') {
+            result = getRadioConnectionsQuestions();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -108,13 +121,16 @@ function getProjects(curs) {
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.', imatge: 'assets/img/mediterrani.png' }
         ],
         '2n ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' },
+            { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels éssers vius i el seu entorn.' },
+            { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/img/solidart.png' }
         ],
         '4t ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ],
         // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
         '1ESO': [
@@ -122,13 +138,16 @@ function getProjects(curs) {
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.', imatge: 'assets/img/mediterrani.png' }
         ],
         '2ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' }
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' },
+            { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels éssers vius i el seu entorn.' },
+            { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
         '3ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/img/solidart.png' }
         ],
         '4ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' }
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ]
     };
 
@@ -156,6 +175,179 @@ function saveResult(data) {
 
     sheet.appendRow(row);
     return { status: 'success', message: 'Resultat guardat correctament' };
+}
+
+function getNaturaQuestions(ecosistema) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_natura');
+    if (!sheet) return { status: 'error', message: 'Pestanya preguntes_natura no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const ecoIdx = headers.indexOf('Ecosistema');
+
+    // Filtrar per ecosistema i saltar capçalera
+    let filtered = data.slice(1).filter(row => row[ecoIdx] === ecosistema);
+
+    // Aleatoritzar i agafar max 10
+    filtered = filtered.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    const questions = filtered.map(row => {
+        const q = {};
+        headers.forEach((h, i) => q[h] = row[i]);
+        return q;
+    });
+
+    return { status: 'success', questions: questions };
+}
+
+
+function getImpactePhases() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('fases_impacte');
+    if (!sheet) return { status: 'error', message: 'Pestanya fases_impacte no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a fases_impacte' };
+
+    const headers = data[0];
+    const ordreIdx = headers.indexOf('Ordre');
+    const faseIdx = headers.indexOf('Fase');
+
+    if (faseIdx === -1) return { status: 'error', message: 'Falta la columna Fase a fases_impacte' };
+
+    const phases = data.slice(1)
+        .filter(row => row[faseIdx])
+        .map((row, i) => ({
+            id: `impacte_${ordreIdx !== -1 && row[ordreIdx] ? row[ordreIdx] : (i + 1)}`,
+            text: String(row[faseIdx]).trim(),
+            order: ordreIdx !== -1 && row[ordreIdx] ? Number(row[ordreIdx]) : (i + 1)
+        }))
+        .sort((a, b) => a.order - b.order)
+        .slice(0, 10)
+        .map(({ id, text }) => ({ id, text }));
+
+    return { status: 'success', phases: phases };
+}
+
+function saveNaturaQuizResult(data) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('resultats_rols');
+    if (!sheet) return { status: 'error', message: 'Pestanya resultats_rols no trobada' };
+
+    // Columnes: Timestamp, Email, ID pregunta, Règim alumne, Nivell alumne, Justificació, Punts Règim, Punts Nivell, Punts Just., Punts Total
+    const row = [
+        new Date(),
+        data.email,
+        data.questionId,
+        data.regimAlumne,
+        data.nivellAlumne,
+        data.justificacio,
+        data.puntuacioRegim,
+        data.puntuacioNivell,
+        data.puntuacioJustificacio,
+        data.puntuacioTotal
+    ];
+
+    sheet.appendRow(row);
+    return { status: 'success', message: 'Resposta guardada' };
+}
+
+function getBiblioQuestions() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
+    if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
+
+    const headers = data[0];
+    const typeIdx = headers.indexOf('Tipus');
+    const levelIdx = headers.indexOf('Nivell');
+    const qIdx = headers.indexOf('Pregunta');
+    const correctIdx = headers.indexOf('Correcta');
+
+    // Marem les alternatives (Correcta + Incorrectes) enviant de la D fins a la H
+    const questions = data.slice(1).map(row => {
+        return {
+            type: String(row[typeIdx]).trim(),
+            level: String(row[levelIdx]).toLowerCase().trim(),
+            q: row[qIdx],
+            correct: row[correctIdx],
+            alternatives: [row[3], row[4], row[5], row[6], row[7]]
+                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+        };
+    });
+
+    return { status: 'success', questions: questions };
+}
+
+function getRadioConfig() {
+    return {
+        status: 'success',
+        effects: [
+            { id: '00', type: 'SMALL HALL' },
+            { id: '10', type: 'SMALL ROOM' },
+            { id: '13', type: 'MID ROOM' },
+            { id: '27', type: 'SPRING' },
+            { id: '36', type: 'REVERSE' },
+            { id: '40', type: 'EARLY REFL' },
+            { id: '50', type: 'DELAY' },
+            { id: '59', type: 'ECHO' },
+            { id: '66', type: 'FLANGER' },
+            { id: '74', type: 'PITH SHIFT' },
+            { id: '82', type: 'FLANGER & REVERB' },
+            { id: '90', type: 'DELAY & GATED' },
+            { id: '92', type: 'DELAY & CHORUS' },
+            { id: '96', type: 'DELAY & PHASER' },
+            { id: '98', type: 'DELAY & PITCH' }
+        ]
+    };
+}
+
+function getRadioConnectionsQuestions() {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_radio_conexions');
+    if (!sheet) {
+        // Fallback or development questions if sheet doesn't exist yet
+        const defaultQuestions = [
+            { id: 1, image: 'xlr_male.png', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
+            { id: 2, image: 'xlr_female.png', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
+            { id: 3, image: 'jack_mono.png', correct: 'Jack 6.35mm Mono (TS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estèreo (TRS)', 'Mini-Jack 3.5mm', 'RCA'] },
+            { id: 4, image: 'jack_stereo.png', correct: 'Jack 6.35mm Estèreo (TRS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estèreo (TRS)', 'Mini-Jack 3.5mm', 'RCA'] },
+            { id: 5, image: 'minijack_trs.png', correct: 'Mini-Jack 3.5mm (TRS)', alternatives: ['Mini-Jack 3.5mm (TRS)', 'Mini-Jack 3.5mm amb micro (TRRS)', 'RCA', 'USB-C'] },
+            { id: 6, image: 'minijack_trrs.png', correct: 'Mini-Jack 3.5mm amb micro (TRRS)', alternatives: ['Mini-Jack 3.5mm (TRS)', 'Mini-Jack 3.5mm amb micro (TRRS)', 'RCA', 'USB-C'] },
+            { id: 7, image: 'rca_white_red.png', correct: 'RCA (L/R)', alternatives: ['RCA (L/R)', 'XLR', 'Jack', 'HDMI'] },
+            { id: 8, image: 'usb_a.png', correct: 'USB Tipus A', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 9, image: 'usb_b.png', correct: 'USB Tipus B', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 10, image: 'usb_c.png', correct: 'USB Tipus C', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Micro-USB'] },
+            { id: 11, image: 'hdmi.png', correct: 'HDMI', alternatives: ['HDMI', 'VGA', 'DVI', 'DisplayPort'] },
+            { id: 12, image: 'toslink.png', correct: 'Toslink (Òptic)', alternatives: ['Toslink (Òptic)', 'Coaxial', 'SPDIF', 'Jack'] },
+            { id: 13, image: 'speakon.png', correct: 'Speakon', alternatives: ['Speakon', 'Powercon', 'XLR', 'Jack'] },
+            { id: 14, image: 'iec.png', correct: 'IEC (Alimentació PC)', alternatives: ['IEC (Alimentació PC)', 'Schuko', 'Powercon', 'C7 (8-fig)'] },
+            { id: 15, image: 'schuko.png', correct: 'Schuko (Endoll domèstic)', alternatives: ['Schuko (Endoll domèstic)', 'IEC', 'Powercon', 'BNC'] },
+            { id: 16, image: 'powercon.png', correct: 'Powercon', alternatives: ['Powercon', 'IEC', 'Schuko', 'Speakon'] },
+            { id: 17, image: 'bnc.png', correct: 'BNC', alternatives: ['BNC', 'RCA', 'F-Connector', 'SMA'] },
+            { id: 18, image: 'mid_cable.png', correct: 'MIDI (5-pin DIN)', alternatives: ['MIDI (5-pin DIN)', 'XLR', 'Mini-DIN', 'Firewire'] },
+            { id: 19, image: 'micro_usb.png', correct: 'Micro-USB', alternatives: ['Micro-USB', 'Mini-USB', 'USB-C', 'Lightning'] },
+            { id: 20, image: 'lightning.png', correct: 'Lightning', alternatives: ['Lightning', 'USB-C', 'Micro-USB', '30-pin Dock'] }
+        ];
+        return { status: 'success', questions: defaultQuestions };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_radio_conexions' };
+
+    const headers = data[0];
+    const imgIdx = headers.indexOf('Imatge');
+    const correctIdx = headers.indexOf('Correcta');
+
+    const questions = data.slice(1).map((row, index) => {
+        return {
+            id: index + 1,
+            image: row[imgIdx],
+            correct: row[correctIdx],
+            alternatives: [row[1], row[2], row[3], row[4]] // Suposem que les opcions estan a les columnes B-E
+                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+        };
+    });
+
+    return { status: 'success', questions: questions };
 }
 
 // --- UTILITATS ---
