@@ -8,45 +8,45 @@ const bioHeartGame = {
     sessionQuestions: [],
     allQuestions: [
         // Aurícula Dreta (RA)
-        { key: 'act_heart_q1', x: 400, y: 450, w: 80, h: 80 },
-        { key: 'act_heart_q2', x: 400, y: 450, w: 80, h: 80 },
-        { key: 'act_heart_q3', x: 400, y: 450, w: 80, h: 80 },
+        { key: 'act_heart_q1', x: 316, y: 348, w: 115, h: 115 },
+        { key: 'act_heart_q2', x: 316, y: 348, w: 115, h: 115 },
+        { key: 'act_heart_q3', x: 316, y: 348, w: 115, h: 115 },
         // Aurícula Esquerra (LA)
-        { key: 'act_heart_q4', x: 550, y: 350, w: 80, h: 80 },
-        { key: 'act_heart_q5', x: 550, y: 350, w: 80, h: 80 },
-        { key: 'act_heart_q6', x: 550, y: 350, w: 80, h: 80 },
+        { key: 'act_heart_q4', x: 537, y: 361, w: 95, h: 95 },
+        { key: 'act_heart_q5', x: 537, y: 361, w: 95, h: 95 },
+        { key: 'act_heart_q6', x: 537, y: 361, w: 95, h: 95 },
         // Ventricle Dret (RV)
-        { key: 'act_heart_q7', x: 400, y: 600, w: 100, h: 100 },
-        { key: 'act_heart_q8', x: 400, y: 600, w: 100, h: 100 },
+        { key: 'act_heart_q7', x: 332, y: 540, w: 160, h: 160 },
+        { key: 'act_heart_q8', x: 332, y: 540, w: 160, h: 160 },
         // Ventricle Esquerre (LV)
-        { key: 'act_heart_q9', x: 550, y: 600, w: 100, h: 100 },
-        { key: 'act_heart_q10', x: 550, y: 600, w: 100, h: 100 },
-        { key: 'act_heart_q11', x: 550, y: 600, w: 100, h: 100 },
+        { key: 'act_heart_q9', x: 517, y: 539, w: 151, h: 151 },
+        { key: 'act_heart_q10', x: 517, y: 539, w: 151, h: 151 },
+        { key: 'act_heart_q11', x: 517, y: 539, w: 151, h: 151 },
         // Arteria Aorta
-        { key: 'act_heart_q12', x: 500, y: 200, w: 80, h: 80 },
-        { key: 'act_heart_q13', x: 500, y: 200, w: 80, h: 80 },
-        { key: 'act_heart_q14', x: 500, y: 200, w: 80, h: 80 },
+        { key: 'act_heart_q12', x: 441, y: 142, w: 100, h: 100 },
+        { key: 'act_heart_q13', x: 441, y: 142, w: 100, h: 100 },
+        { key: 'act_heart_q14', x: 441, y: 142, w: 100, h: 100 },
         // Vena Cava Superior
-        { key: 'act_heart_q15', x: 450, y: 150, w: 60, h: 60 },
-        { key: 'act_heart_q16', x: 450, y: 150, w: 60, h: 60 },
+        { key: 'act_heart_q15', x: 318, y: 171, w: 84, h: 84 },
+        { key: 'act_heart_q16', x: 318, y: 171, w: 84, h: 84 },
         // Vena Cava Inferior
-        { key: 'act_heart_q17', x: 450, y: 800, w: 60, h: 60 },
-        { key: 'act_heart_q18', x: 450, y: 800, w: 60, h: 60 },
+        { key: 'act_heart_q17', x: 315, y: 770, w: 77, h: 77 },
+        { key: 'act_heart_q18', x: 315, y: 770, w: 77, h: 77 },
         // Arteria Pulmonar
-        { key: 'act_heart_q19', x: 400, y: 300, w: 80, h: 80 },
-        { key: 'act_heart_q20', x: 400, y: 300, w: 80, h: 80 },
+        { key: 'act_heart_q19', x: 494, y: 258, w: 77, h: 77 },
+        { key: 'act_heart_q20', x: 494, y: 258, w: 77, h: 77 },
         // Venes Pulmonars
-        { key: 'act_heart_q21', x: 650, y: 400, w: 60, h: 60 },
-        { key: 'act_heart_q22', x: 650, y: 400, w: 60, h: 60 },
+        { key: 'act_heart_q21', x: 622, y: 313, w: 110, h: 110 },
+        { key: 'act_heart_q22', x: 622, y: 313, w: 110, h: 110 },
         // Vàlvula Tricúspide
-        { key: 'act_heart_q23', x: 430, y: 530, w: 50, h: 50 },
-        { key: 'act_heart_q24', x: 430, y: 530, w: 50, h: 50 },
+        { key: 'act_heart_q23', x: 392, y: 474, w: 50, h: 50 },
+        { key: 'act_heart_q24', x: 392, y: 474, w: 50, h: 50 },
         // Vàlvula Mitral
-        { key: 'act_heart_q25', x: 570, y: 480, w: 50, h: 50 },
-        { key: 'act_heart_q26', x: 570, y: 480, w: 50, h: 50 }
+        { key: 'act_heart_q25', x: 530, y: 477, w: 50, h: 50 },
+        { key: 'act_heart_q26', x: 530, y: 477, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true // Permet calibració en temps real
+    debugMode: false // Permet calibració en temps real (Canviar a true per editar)
 };
 
 function initBioHeartGame() {
@@ -96,20 +96,20 @@ function updateBioHeartUI() {
 function showBioHeartHelp() {
     if (bioHeartGame.isFinished) return;
 
-    if (!bioHeartGame.debugMode) {
-        bioHeartGame.score = Math.max(0, bioHeartGame.score - 10);
-        updateBioHeartUI();
-    }
+    bioHeartGame.score = Math.max(0, bioHeartGame.score - 10);
+    updateBioHeartUI();
+
 
     const target = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     renderBioHeartHelpHint(target);
 
-    // Mostra la interfície de calibratge
+    // Mostra la interfície de calibratge (només en mode depuració)
     const calibrationUI = document.getElementById('bio-heart-calibration-ui');
-    if (calibrationUI) {
+    if (calibrationUI && bioHeartGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateBioHeartCalibrationDisplay();
     }
+
 }
 
 function renderBioHeartHelpHint(target) {
@@ -170,6 +170,40 @@ function closeBioHeartCalibration() {
     if (hint) hint.remove();
 }
 
+function exportBioHeartConfig() {
+    // 1. Aconseguir la pregunta actual del set de sessió
+    const currentTarget = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
+
+    // 2. Trobar la referència original a allQuestions per actualitzar-la permanentment
+    // Nota: currentTarget és una referència a un objecte que ja està a allQuestions (via el spread a init)
+    // Però per seguretat, busquem l'index.
+    const originalIndex = bioHeartGame.allQuestions.findIndex(q => q.key === currentTarget.key);
+
+    if (originalIndex !== -1) {
+        bioHeartGame.allQuestions[originalIndex] = { ...currentTarget };
+    }
+
+    // 3. Generar el codi string per copiar
+    const code = JSON.stringify(bioHeartGame.allQuestions, null, 4);
+
+    // 4. Mostrar a l'usuari
+    console.log("NOVA CONFIGURACIÓ PER A bio-cor.js:");
+    console.log(code);
+
+    const textArea = document.createElement("textarea");
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert("Codi copiat al portapapers! Enganxa'l a la variable 'allQuestions' de bio-cor.js");
+    } catch (err) {
+        prompt("Copia aquest codi i enganxa'l a bio-cor.js:", code);
+    }
+    document.body.removeChild(textArea);
+}
+
+
 function skipBioHeartQuestion() {
     if (bioHeartGame.isFinished) return;
     bioHeartGame.score = Math.max(0, bioHeartGame.score - 5);
@@ -187,6 +221,10 @@ function nextBioHeartStep() {
 
 function handleBioHeartClick(event) {
     if (bioHeartGame.isFinished) return;
+
+    // Eliminar l'ajuda si existeix quan cliquem
+    const hint = document.querySelector('.bio-heart-help-hint');
+    if (hint) hint.remove();
 
     const img = event.target;
     const rect = img.getBoundingClientRect();
@@ -215,7 +253,7 @@ function handleBioHeartClick(event) {
     } else {
         feedbackEl.innerText = i18n.t('act_heart_feedback_incorrect');
         feedbackEl.style.color = 'red';
-        bioHeartGame.score = Math.max(0, bioHeartGame.score - 1);
+        bioHeartGame.score = Math.max(0, bioHeartGame.score - 10);
         updateBioHeartUI();
     }
 }

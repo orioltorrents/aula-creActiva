@@ -616,14 +616,17 @@
                                             punts)</button>
                                     </div>
                                 </div>
-                                <div id="bio-heart-question" class="text-lg font-bold p-2 bg-red-50 rounded">Clica...
+                                <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
+                                    <div id="bio-heart-question" class="text-lg font-bold">Clica...</div>
+                                    <div id="bio-heart-feedback" class="feedback-msg font-bold"
+                                        style="margin: 0; min-width: 120px; text-align: right;"></div>
                                 </div>
-                                <div class="image-interactive-wrapper mt-4"
+                                <div class="image-interactive-wrapper mt-2"
                                     style="position: relative; cursor: crosshair;">
                                     <img id="bio-heart-image" src="assets/images/cor.png" alt="Cor Humà"
                                         style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                                 </div>
-                                <p id="bio-heart-feedback" class="feedback-msg mt-2"></p>
+
 
                                 <!-- CALIBRATION UI (DEBUG) -->
                                 <div id="bio-heart-calibration-ui"
@@ -653,6 +656,13 @@
                                     </div>
                                     <div id="bio-heart-calibration-values" class="text-center text-xs opacity-75">x:0
                                         y:0 w:0 h:0</div>
+                                    <div class="mt-2 text-center">
+                                        <button onclick="exportBioHeartConfig()"
+                                            class="btn-primary btn-sm bg-green-600 text-xs py-1"
+                                            style="background-color: #059669; font-size: 10px;">Exportar / Copiar
+                                            Codi</button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

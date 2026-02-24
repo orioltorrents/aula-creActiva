@@ -23,7 +23,7 @@ const radioBoardGame = {
         { key: 'act_radio_q15', x: 600, y: 200, w: 50, h: 50 }  // BT/MP3
     ],
     isFinished: false,
-    debugMode: true // Permet calibració en temps real
+    debugMode: false // Permet calibració en temps real (Canviar a true per editar)
 };
 
 function initRadioBoardGame() {
@@ -75,12 +75,13 @@ function showRadioBoardHelp() {
     const target = radioBoardGame.targets[radioBoardGame.currentStep];
     renderRadioBoardHelpHint(target);
 
-    // Mostra la interfície de calibratge
+    // Mostra la interfície de calibratge (només en mode depuració)
     const calibrationUI = document.getElementById('radio-board-calibration-ui');
-    if (calibrationUI) {
+    if (calibrationUI && radioBoardGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateRadioBoardCalibrationDisplay();
     }
+
 }
 
 function renderRadioBoardHelpHint(target) {

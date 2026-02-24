@@ -21,7 +21,7 @@ const sonarGame = {
         { key: 'act_audio_q9', x: 185, y: 512, w: 55, h: 18 }   // Consola tab
     ],
     isFinished: false,
-    debugMode: true // Permet calibració en temps real
+    debugMode: false // Permet calibració en temps real (Canviar a true per editar)
 };
 
 function initSonarGame() {
@@ -74,12 +74,13 @@ function showSonarHelp() {
     const target = sonarGame.targets[sonarGame.currentStep];
     renderHelpHint(target);
 
-    // Mostra la interfície de calibratge
+    // Mostra la interfície de calibratge (només en mode depuració)
     const calibrationUI = document.getElementById('sonar-calibration-ui');
-    if (calibrationUI) {
+    if (calibrationUI && sonarGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateCalibrationDisplay();
     }
+
 }
 
 function renderHelpHint(target) {
