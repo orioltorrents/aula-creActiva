@@ -65,9 +65,12 @@ function handleRequest(e) {
             result = getRadioConfig();
         } else if (action === 'getRadioConnectionsQuestions') {
             result = getRadioConnectionsQuestions();
+        } else if (action === 'getCirculatoriQuestions') {
+            result = getCirculatoriQuestions();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
+
 
         return createJSONOutput(result);
 
@@ -277,6 +280,62 @@ function getBiblioQuestions() {
 
     return { status: 'success', questions: questions };
 }
+
+function getCirculatoriQuestions() {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+
+    // Funció d'ajuda per trobar pestanya per nom (insensible a majúscules/espais)
+    const findSheet = (name) => {
+        const sheets = ss.getSheets();
+        const norm = name.toLowerCase().trim();
+        return sheets.find(s => s.getName().toLowerCase().trim() === norm);
+    };
+
+    const sheet = findSheet('aparell-circulatori');
+    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-circulatori" no trobada al Google Sheet' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-circulatori"' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
+    // Funció d'ajuda per trobar índex de columna per múltiples noms possibles
+    const findIdx = (names) => {
+        for (let name of names) {
+            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            let idx = headers.indexOf(norm);
+            if (idx !== -1) return idx;
+        }
+        return -1;
+    };
+
+    const typeIdx = findIdx(['Tipus de pregunta', 'Tipus pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo pregunta', 'Tipo']);
+    const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
+    const qIdx = findIdx(['Pregunta', 'Question']);
+    const correctIdx = findIdx(['Correcta', 'Correct']);
+
+    if (qIdx === -1 || correctIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
+    }
+
+    const questions = data.slice(1)
+        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "") // Ignorar files buides
+        .map(row => {
+            return {
+                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
+                level: levelIdx !== -1 ? String(row[levelIdx] || "").toLowerCase().trim() : "mixed",
+                q: row[qIdx],
+                correct: row[correctIdx],
+                alternatives: [row[3], row[4], row[5], row[6], row[7]]
+                    .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+            };
+        });
+
+    return { status: 'success', questions: questions };
+}
+
+
+
 
 function getRadioConfig() {
     return {

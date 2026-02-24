@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbyVMIzHs8JCZvwtxkV7tYrEbhvULAMFaqnFfPlOsASGqb9VfkR3_R6L6FuzqJU2dfFR/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwppDGVD5fbVVuoq9pA8WCAY9iPWIHQakHfVWpWDYDAVhSLh824GZgiUDpSEFzY7rLO4w/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -470,14 +470,17 @@ function showBioMenu() {
 }
 
 function openBioSystem(systemId) {
-    // Amagar el menú principal de sistemes
-    document.getElementById('bio-systems-menu').classList.add('hidden');
+    // Amagar el menú principal de sistemes i totes les activitats individuals
+    document.getElementById('bio-systems-menu')?.classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+
     // Mostrar el menú d'activitats del sistema seleccionat
     const systemDiv = document.getElementById(`bio-${systemId}-activities`);
     if (systemDiv) {
         systemDiv.classList.remove('hidden');
     }
 }
+
 
 
 function openBioActivity(actId) {
@@ -492,8 +495,20 @@ function openBioActivity(actId) {
         if (typeof initBioHeartGame === 'function') {
             initBioHeartGame();
         }
+    } else if (actId === 'circulatori-quiz') {
+        document.getElementById('bio-activity-circulatori-quiz').classList.remove('hidden');
+        if (typeof initCircQuiz === 'function') {
+            initCircQuiz();
+        }
+    } else if (actId === 'cells') {
+        document.getElementById('bio-activity-cells').classList.remove('hidden');
+        if (typeof initCellsGame === 'function') {
+            initCellsGame();
+        }
     }
 }
+
+
 
 // --- RADIO NAVIGATION ---
 function showRadioMenu() {

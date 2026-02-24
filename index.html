@@ -583,29 +583,33 @@
                     </div>
 
                     <div id="project-hub-biologia" class="game-module hidden">
-                        <h3 data-i18n="bio_project_title">Biologia</h3>
-                        <p data-i18n="bio_project_desc">Estudi dels éssers vius i el seu entorn.</p>
 
                         <div id="bio-systems-menu" class="activities-grid mt-4">
                             <div class="activity-card disabled-card">
-                                <div class="act-icon">🍎</div>
+                                <img src="assets/images/aparell-digestiu.png" alt="Aparell Digestiu"
+                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
                                 <h4 data-i18n="sec_digestiu">Aparell Digestiu</h4>
                                 <p data-i18n="sec_dig_desc">Processament d'aliments i nutrients</p>
                                 <span class="badge-soon">Aviat</span>
                             </div>
+
                             <div class="activity-card" onclick="openBioSystem('circulatori')">
-                                <div class="act-icon">❤️</div>
+                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori"
+                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
                                 <h4 data-i18n="sec_circulatori">Aparell Circulatori</h4>
                                 <p data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</p>
                             </div>
                             <div class="activity-card disabled-card">
-                                <div class="act-icon">🫁</div>
+                                <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori"
+                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
                                 <h4 data-i18n="sec_respiratori">Aparell Respiratori</h4>
                                 <p data-i18n="sec_resp_desc">Pulmons i intercanvi de gasos</p>
                                 <span class="badge-soon">Aviat</span>
+
                             </div>
                             <div class="activity-card disabled-card">
-                                <div class="act-icon">🧼</div>
+                                <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor"
+                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
                                 <h4 data-i18n="sec_excretor">Aparell Excretor</h4>
                                 <p data-i18n="sec_excr_desc">Ronyons i eliminació de residus</p>
                                 <span class="badge-soon">Aviat</span>
@@ -617,15 +621,181 @@
                         <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
                             <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                                 style="width: fit-content;">← Tornar als Sistemes</button>
+                            <!-- Imatge de capçalera del circulatori -->
+                            <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
+                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori" class="w-full"
+                                    style="max-height:180px; object-fit:cover;">
+                            </div>
+
+
                             <div class="activity-card" onclick="openBioActivity('cor')">
-                                <div class="act-icon">❤️</div>
+                                <img src="assets/images/cor-huma.png" alt="El Cor Humà" class="w-full rounded-lg mb-2"
+                                    style="max-height:120px; object-fit:cover;">
                                 <h4 data-i18n="act_heart_title">El Cor Humà</h4>
                                 <p data-i18n="act_heart_desc">Identifica les parts i cavitats del cor</p>
                             </div>
+
+                            <!-- NOU: Quiz de l'Aparell Circulatori -->
+                            <div class="activity-card" onclick="openBioActivity('circulatori-quiz')">
+                                <h4 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h4>
+                                <p data-i18n="act_circ_quiz_desc">Posa a prova els teus coneixements</p>
+                            </div>
+                            <!-- NOU: Cèl·lules de la Sang -->
+                            <div class="activity-card" onclick="openBioActivity('cells')">
+                                <img src="assets/images/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
+                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                                <h4 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h4>
+                                <p data-i18n="act_cells_desc">Identifica els elements de la sang</p>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <!-- ACTIVITAT: Quiz Aparell Circulatori -->
+                        <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
+                            </div>
+
+                            <div id="circ-quiz-feedback" class="text-center mb-4"></div>
+
+                            <!-- Selecció de Nivell/Tema -->
+                            <div id="circ-quiz-selection"
+                                class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                                <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
+                                    temes):</p>
+                                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                                    <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn-primary"
+                                        data-i18n="level_easy">Fàcil</button>
+                                    <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn-primary"
+                                        data-i18n="level_medium">Mitjà</button>
+                                    <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn-primary"
+                                        data-i18n="level_hard">Difícil</button>
+                                    <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn-primary"
+                                        data-i18n="level_mixed">Barrejat</button>
+                                </div>
+                                <div id="circ-quiz-topic-selection"></div>
+                            </div>
+
+                            <!-- Quiz UI -->
+                            <div id="circ-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                                <div
+                                    class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                    <div id="circ-quiz-progress">Pregunta 1/10</div>
+                                    <div id="circ-quiz-score">Punts: 0</div>
+                                </div>
+                                <div id="circ-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                                <div id="circ-quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
+                            </div>
+
+                            <!-- Resultats -->
+                            <div id="circ-quiz-results"
+                                class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                                <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                                <div id="circ-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                                </div>
+                                <p id="circ-quiz-message" class="text-lg mb-8"></p>
+                                <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Cèl·lules de la Sang -->
+                        <div id="bio-activity-cells" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                                menú</button>
+                            <div class="game-header text-center mb-6">
+                                <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
+                                <p id="cells-instruction" class="text-lg opacity-75" data-i18n="cells_instruction">
+                                    Identifica la cèl·lula que demana l'enunciat:</p>
+                            </div>
+
+                            <div class="cells-game-container max-w-2xl mx-auto">
+                                <!-- Imatge del diagrama -->
+                                <div
+                                    class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
+                                    <img src="assets/images/cellules-sanguinies-microscopi-electronic.png"
+                                        alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
+                                        style="max-height: 280px;">
+                                </div>
+
+                                <div id="cells-matching-ui"
+                                    class="container-white p-6 rounded-xl shadow-sm border mb-6">
+                                    <!-- Files per 1, 2, 3 -->
+                                    <div class="space-y-5">
+                                        <!-- Cèl·lula 1 -->
+                                        <div id="row-cell-1"
+                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                            <span class="font-bold">La cèl·lula 1 és un</span>
+                                            <select id="select-common-1"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom comú...</option>
+                                            </select>
+                                            <span class="font-bold">o també es diu</span>
+                                            <select id="select-scientific-1"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom científic...</option>
+                                            </select>
+                                        </div>
+                                        <!-- Cèl·lula 2 -->
+                                        <div id="row-cell-2"
+                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                            <span class="font-bold">La cèl·lula 2 és un</span>
+                                            <select id="select-common-2"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom comú...</option>
+                                            </select>
+                                            <span class="font-bold">o també es diu</span>
+                                            <select id="select-scientific-2"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom científic...</option>
+                                            </select>
+                                        </div>
+                                        <!-- Cèl·lula 3 -->
+                                        <div id="row-cell-3"
+                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                            <span class="font-bold">La cèl·lula 3 és un</span>
+                                            <select id="select-common-3"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom comú...</option>
+                                            </select>
+                                            <span class="font-bold">o també es diu</span>
+                                            <select id="select-scientific-3"
+                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                                <option value="" disabled selected>Tria nom científic...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mt-8 text-center">
+                                        <button onclick="checkCellsAnswers()"
+                                            class="btn-primary px-10 py-3 text-lg">Comprovar respostes</button>
+                                    </div>
+                                </div>
+
+                                <div id="cells-feedback" class="text-center h-8 font-bold text-lg mb-4"></div>
+                            </div>
+
+                            <!-- Resultats Cells -->
+                            <div id="cells-results"
+                                class="hidden text-center p-8 bg-white rounded-lg shadow-sm border max-w-md mx-auto">
+                                <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                                <div id="cells-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                                </div>
+                                <p id="cells-message" class="text-lg mb-8"></p>
+                                <button onclick="initCellsGame()" class="btn-primary">Tornar a jugar</button>
+                            </div>
+
                         </div>
 
 
+
                         <!-- ACTIVITAT: El Cor Humà -->
+
                         <div id="bio-activity-cor" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
                             <div class="game-header">
@@ -830,6 +1000,10 @@
     <script src="js/games/natura-rols.js"></script>
     <script src="js/games/natura-bibliografia.js"></script>
     <script src="js/games/bio-cor.js"></script>
+    <script src="js/games/bio-circulatori-quiz.js"></script>
+    <script src="js/games/bio-cells.js"></script>
+
+
     <script src="js/games/audio-sonar.js"></script>
     <script src="js/games/radio-taula.js"></script>
     <script src="js/games/radio-conexions.js"></script>

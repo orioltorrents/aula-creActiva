@@ -143,7 +143,14 @@ const i18n = {
             'sec_excr_desc': 'Ronyons i eliminació de residus',
             'sec_digestiu': 'Aparell Digestiu',
             'sec_dig_desc': 'Processament d\'aliments i nutrients',
+            'act_circ_quiz_title': 'Repàs del Circulatori',
+            'act_circ_quiz_desc': 'Posa a prova els teus coneixements',
+            'act_cells_title': 'Les Cèl·lules de la Sang',
+            'act_cells_desc': 'Identifica els elements de la sang',
+            'cells_instruction': 'Identifica la cèl·lula que demana l\'enunciat:',
             'act_heart_title': 'El Cor Humà',
+
+
             'act_heart_desc': 'Identifica les parts i cavitats del cor',
             'act_heart_instruction': 'Clica sobre la part del cor que se\'t demana:',
             'act_heart_q1': 'On és l\'Aurícula Dreta?',
@@ -345,7 +352,14 @@ const i18n = {
             'sec_excr_desc': 'Riñones y eliminación de residuos',
             'sec_digestiu': 'Aparato Digestivo',
             'sec_dig_desc': 'Transformación de los alimentos',
+            'act_circ_quiz_title': 'Repaso del Circulatorio',
+            'act_circ_quiz_desc': 'Pon a prueba tus conocimientos',
+            'act_cells_title': 'Las Células de la Sang',
+            'act_cells_desc': 'Identifica los elementos de la sangre',
+            'cells_instruction': 'Identifica la célula que pide el enunciado:',
             'act_heart_title': 'El Corazón Humano',
+
+
             'act_heart_desc': 'Identifica las partes y cavidades del corazón',
             'act_heart_instruction': 'Haz clic sobre la parte del corazón que se te pide:',
             'act_heart_q1': '¿Dónde está la Aurícula Derecha?',
