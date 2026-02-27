@@ -219,7 +219,7 @@ async function loadDashboard() {
     const projectVisuals = {
         'p1_mediterrani': { icon: '🌊', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '🌿', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        'p4_natura': { icon: '🌲', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p4_natura': { icon: '<img src="assets/images/targeta_entorns.png" alt="Entorns" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
         'p2_paralimpics': { icon: '<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
         'p2_biologia': { icon: '<img src="assets/images/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
