@@ -254,31 +254,78 @@ function saveNaturaQuizResult(data) {
 }
 
 function getBiblioQuestions() {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
-    if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
+  if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
 
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
+  const data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
 
-    const headers = data[0];
-    const typeIdx = headers.indexOf('Tipus');
-    const levelIdx = headers.indexOf('Nivell');
-    const qIdx = headers.indexOf('Pregunta');
-    const correctIdx = headers.indexOf('Correcta');
+  // Normalitzem headers (minúscules, trim, fora accents)
+  const rawHeaders = data[0].map(h => String(h).replace(/^\uFEFF/, '').trim());
+  const headers = rawHeaders.map(h =>
+    h.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  );
 
-    // Marem les alternatives (Correcta + Incorrectes) enviant de la D fins a la H
-    const questions = data.slice(1).map(row => {
-        return {
-            type: String(row[typeIdx]).trim(),
-            level: String(row[levelIdx]).toLowerCase().trim(),
-            q: row[qIdx],
-            correct: row[correctIdx],
-            alternatives: [row[3], row[4], row[5], row[6], row[7]]
-                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
-        };
+  const findIdx = (names) => {
+    for (let name of names) {
+      const norm = String(name).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const idx = headers.indexOf(norm);
+      if (idx !== -1) return idx;
+    }
+    return -1;
+  };
+
+  // ✅ Aquests són els teus headers reals
+  const typeIdx = findIdx(['Tipus de pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo']);
+  const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
+  const qIdx = findIdx(['Pregunta', 'Question']);
+  const correctIdx = findIdx(['Correcta', 'Correct', 'Correcta ']);
+  const wrong1Idx = findIdx(['Incorrecta1', 'Incorrecta 1', 'Incorrecta_1']);
+  const wrong2Idx = findIdx(['Incorrecta2', 'Incorrecta 2', 'Incorrecta_2']);
+  const wrong3Idx = findIdx(['Incorrecta3', 'Incorrecta 3', 'Incorrecta_3']);
+
+  if (typeIdx === -1) return { status: 'error', message: 'Falta la columna "Tipus de pregunta"' };
+  if (qIdx === -1) return { status: 'error', message: 'Falta la columna "Pregunta"' };
+  if (correctIdx === -1) return { status: 'error', message: 'Falta la columna "Correcta"' };
+
+  const questions = data.slice(1)
+    .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
+    .map(row => {
+      const type = String(row[typeIdx] ?? "").trim();
+      const level = String(row[levelIdx] ?? "").trim(); // deixa'l tal qual ("Fàcil", "Difícil")
+      const q = String(row[qIdx] ?? "").trim();
+      const correct = String(row[correctIdx] ?? "").trim();
+
+      const wrongs = [
+        wrong1Idx !== -1 ? row[wrong1Idx] : "",
+        wrong2Idx !== -1 ? row[wrong2Idx] : "",
+        wrong3Idx !== -1 ? row[wrong3Idx] : ""
+      ]
+        .map(v => String(v ?? "").trim())
+        .filter(v => v);
+
+      const alternatives = [correct, ...wrongs].filter(v => v);
+
+      return {
+        // ✅ IMPORTANT: retorna també amb headers “compatibles” amb el teu frontend actual
+        "Tipus de pregunta": type,
+        "Nivell": level,
+        "Pregunta": q,
+        "Correcta": correct,
+        "Incorrecta1": wrongs[0] || "",
+        "Incorrecta2": wrongs[1] || "",
+        "Incorrecta3": wrongs[2] || "",
+
+        // ✅ i també en format normalitzat (per si el frontend llegeix .type/.level/.q)
+        type,
+        level,
+        q,
+        correct,
+        alternatives
+      };
     });
 
-    return { status: 'success', questions: questions };
+  return { status: 'success', questions };
 }
 
 function getCirculatoriQuestions() {
