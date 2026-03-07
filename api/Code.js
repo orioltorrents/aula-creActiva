@@ -137,10 +137,10 @@ function getProjects(curs) {
             { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
         '3r ESO': [
-            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/img/solidart.png' }
+            { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.', imatge: 'assets/images/targeta-solidart.png' }
         ],
         '4t ESO': [
-            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' },
+            { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/images/targeta_entorns.png' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ],
         // Batxillerat
