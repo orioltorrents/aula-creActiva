@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbynO0KxvNHTfrYLOfLWNzeXSCy9IqXyJXAslTJeQE-AnA6lkF-gPHjl_LBCYYD0yd6Q7g/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbweete82JvIoEt0trsBulnMXfxqeQIBiDgDrIRMfJ9ApsvzGGtviVWhzChWUB3Kj-JCzw/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ

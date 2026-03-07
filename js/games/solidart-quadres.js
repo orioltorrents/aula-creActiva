@@ -40,7 +40,8 @@ async function initSolidartQuadres(dificultat) {
             }
             renderSolidartQuadre();
         } else {
-            quizDiv.innerHTML = `<div class="alert alert-error">No s'han trobat preguntes per a aquesta dificultat.</div>
+            const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
+            quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
                                  <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {

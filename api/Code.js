@@ -740,6 +740,12 @@ function getNaturaTemesQuestions(tipusBatxillerat) {
     return { status: 'success', topics };
 }
 
+// Helper per normalitzar strings (treu accents, espais i passa a minúscules)
+function normalizeStr(str) {
+    if (!str) return "";
+    return String(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
 function getSolidartQuadres(dificultat) {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('quadres');
     if (!sheet) return { status: 'error', message: 'Pestanya quadres no trobada' };
@@ -761,8 +767,17 @@ function getSolidartQuadres(dificultat) {
     }
 
     let filtered = data.slice(1);
-    if (dificultat && dificultat !== 'Mix') {
-        filtered = filtered.filter(row => String(row[difIdx]).trim().toLowerCase() === dificultat.toLowerCase());
+    const normalizedTarget = normalizeStr(dificultat);
+
+    if (dificultat && normalizedTarget !== 'mix' && difIdx !== -1) {
+        filtered = filtered.filter(row => normalizeStr(row[difIdx]) === normalizedTarget);
+    }
+
+    if (filtered.length === 0) {
+        return {
+            status: 'error',
+            message: 'No s\'han trobat preguntes per a la dificultat: ' + dificultat + '. Revisa la columna "dificultat" de la pestanya "quadres".'
+        };
     }
 
     const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
@@ -787,10 +802,10 @@ function getSolidartQuadres(dificultat) {
 
 function getSolidartQuadres2(dificultat) {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('quadres2');
-    if (!sheet) return { status: 'error', message: 'Pestanya quadres2 no trobada' };
+    if (!sheet) return { status: 'error', message: 'ERROR: La pestanya "quadres2" no existeix al Google Sheet.' };
 
     const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'Sense dades a la pestanya quadres2' };
+    if (data.length <= 1) return { status: 'error', message: 'ERROR: La pestanya "quadres2" està buida (només té la capçalera o res).' };
 
     const headers = data[0].map(h => String(h).toLowerCase().trim());
     const difIdx = headers.indexOf('dificultat');
@@ -800,27 +815,42 @@ function getSolidartQuadres2(dificultat) {
     const inc2Idx = headers.indexOf('incorrecta_2');
     const inc3Idx = headers.indexOf('incorrecta_3');
 
-    if (qIdx === -1 || imgCorrectIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques a la pestanya quadres2' };
+    // Més flexible: si no troba img_correcta, potser es diu nom_imatge?
+    const finalImgIdx = imgCorrectIdx !== -1 ? imgCorrectIdx : headers.indexOf('nom_imatge');
+
+    if (qIdx === -1 || finalImgIdx === -1) {
+        return {
+            status: 'error',
+            message: 'ERROR: Falten columnes a "quadres2". Necessito "pregunta" i "img_correcta" (o "nom_imatge"). Columnes trobades: ' + headers.join(', ')
+        };
     }
 
-    let filtered = data.slice(1);
-    if (dificultat && dificultat !== 'Mix') {
-        filtered = filtered.filter(row => String(row[difIdx]).trim().toLowerCase() === dificultat.toLowerCase());
+    let filtered = data.slice(1).filter(row => row[qIdx] && String(row[qIdx]).trim() !== "");
+    const normalizedTarget = normalizeStr(dificultat);
+
+    if (dificultat && normalizedTarget !== 'mix' && difIdx !== -1) {
+        filtered = filtered.filter(row => normalizeStr(row[difIdx]) === normalizedTarget);
+    }
+
+    if (filtered.length === 0) {
+        return {
+            status: 'error',
+            message: 'No s\'han trobat preguntes per a la dificultat: ' + dificultat + '. Revisa la columna "dificultat".'
+        };
     }
 
     const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
         const options = [
-            row[imgCorrectIdx],
-            row[inc1Idx],
-            row[inc2Idx],
-            row[inc3Idx]
+            row[finalImgIdx],
+            row[inc1Idx] || "",
+            row[inc2Idx] || "",
+            row[inc3Idx] || ""
         ].filter(o => o !== "").sort(() => Math.random() - 0.5);
 
         return {
-            dificultat: row[difIdx],
+            dificultat: difIdx !== -1 ? row[difIdx] : 'Mix',
             pregunta: row[qIdx],
-            img_correcta: row[imgCorrectIdx],
+            img_correcta: row[finalImgIdx],
             opcions: options
         };
     });

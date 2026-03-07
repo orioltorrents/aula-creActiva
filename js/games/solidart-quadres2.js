@@ -39,7 +39,8 @@ async function initSolidartQuadres2(dificultat) {
             }
             renderSolidartQuadres2();
         } else {
-            quizDiv.innerHTML = `<div class="alert alert-error">No s'han trobat preguntes per a aquesta dificultat.</div>
+            const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
+            quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
                                  <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {
@@ -131,7 +132,7 @@ function checkSolidartQuadres2(selectedImg, selectedBtn) {
 
 function nextSolidartQuadres2() {
     solidartQuadres2State.currentIndex++;
-    if (solidartQuadresState.currentIndex < solidartQuadres2State.questions.length) {
+    if (solidartQuadres2State.currentIndex < solidartQuadres2State.questions.length) {
         renderSolidartQuadres2();
     } else {
         finishSolidartQuadres2();
