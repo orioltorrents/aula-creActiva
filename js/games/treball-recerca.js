@@ -19,9 +19,9 @@ async function loadTrCategories() {
 
             // Columna Esquerra: Tipus de Batxillerat (Ambits al sheet)
             const leftCol = document.createElement('div');
-            leftCol.className = 'flex flex-col gap-3';
+            leftCol.className = 'flex flex-row flex-wrap gap-2 justify-center';
             const leftTitle = document.createElement('h4');
-            leftTitle.className = 'text-lg font-bold mb-2 text-blue-600 border-b pb-1';
+            leftTitle.className = 'w-full text-lg font-bold mb-2 text-blue-600 border-b pb-1 text-center';
             leftTitle.textContent = 'Tipus de Batxillerat';
             leftCol.appendChild(leftTitle);
 
@@ -32,9 +32,9 @@ async function loadTrCategories() {
 
             // Columna Dreta: Sub-àmbits
             const rightCol = document.createElement('div');
-            rightCol.className = 'flex flex-col gap-3';
+            rightCol.className = 'flex flex-row flex-wrap gap-2 justify-center';
             const rightTitle = document.createElement('h4');
-            rightTitle.className = 'text-lg font-bold mb-2 text-red-600 border-b pb-1';
+            rightTitle.className = 'w-full text-lg font-bold mb-2 text-red-600 border-b pb-1 text-center';
             rightTitle.textContent = 'Sub-àmbits';
             rightCol.appendChild(rightTitle);
 
@@ -65,9 +65,10 @@ async function loadTrCategories() {
 
 function createTrBtn(text, onClick, bgColor = '#3b82f6') {
     const btn = document.createElement('button');
-    btn.className = 'btn-primary shadow-md w-full';
-    btn.style.padding = '1rem';
-    btn.style.fontSize = '1.1rem';
+    btn.className = 'btn-primary shadow-md';
+    btn.style.padding = '0.7rem 1.2rem';
+    btn.style.width = 'auto';
+    btn.style.fontSize = '1rem';
     btn.style.fontWeight = 'bold';
     btn.style.backgroundColor = bgColor;
     btn.style.transition = 'all 0.3s ease';
