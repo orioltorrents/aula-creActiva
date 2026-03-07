@@ -57,7 +57,7 @@ function renderSolidartQuadre() {
                 <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
-            <div id="solidart-quadres-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
         </div>
         <div id="solidart-quadres-feedback-area" class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
