@@ -13,33 +13,33 @@ async function loadTrCategories() {
             const ambits = response.ambits || [];
             container.innerHTML = '';
 
-            // Estructura vertical (Sub-àmbits a dalt, Batxillerat a sota)
+            // Estructura vertical (Batxillerat a dalt, Sub-àmbits a sota)
             const stack = document.createElement('div');
-            stack.className = 'flex flex-col gap-12 w-full max-w-4xl mx-auto mt-12';
+            stack.className = 'flex flex-col gap-10 w-full max-w-4xl mx-auto mt-10';
 
-            // Bloc Superior: Sub-àmbits
+            // Bloc Superior: Tipus de Batxillerat
             const topBlock = document.createElement('div');
-            topBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
+            topBlock.className = 'flex flex-row flex-wrap gap-3 justify-center';
             const topTitle = document.createElement('h4');
-            topTitle.className = 'w-full text-xl font-bold mb-4 text-red-600 border-b-2 pb-2 text-center';
-            topTitle.textContent = 'Sub-àmbits';
+            topTitle.className = 'w-full text-xl font-bold mb-4 text-blue-600 border-b-2 pb-2 text-center';
+            topTitle.textContent = 'Tipus de Batxillerat';
             topBlock.appendChild(topTitle);
-
-            subambits.forEach(opt => {
-                const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), '#ef4444');
-                topBlock.appendChild(btn);
-            });
-
-            // Bloc Inferior: Tipus de Batxillerat
-            const bottomBlock = document.createElement('div');
-            bottomBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
-            const bottomTitle = document.createElement('h4');
-            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-blue-600 border-b-2 pb-2 text-center';
-            bottomTitle.textContent = 'Tipus de Batxillerat';
-            bottomBlock.appendChild(bottomTitle);
 
             ambits.forEach(opt => {
                 const btn = createTrBtn(opt, () => initTrPreguntes('', opt));
+                topBlock.appendChild(btn);
+            });
+
+            // Bloc Inferior: Sub-àmbits
+            const bottomBlock = document.createElement('div');
+            bottomBlock.className = 'flex flex-row flex-wrap gap-3 justify-center';
+            const bottomTitle = document.createElement('h4');
+            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-red-600 border-b-2 pb-2 text-center';
+            bottomTitle.textContent = 'Sub-àmbits';
+            bottomBlock.appendChild(bottomTitle);
+
+            subambits.forEach(opt => {
+                const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), '#ef4444');
                 bottomBlock.appendChild(btn);
             });
 
@@ -66,10 +66,10 @@ async function loadTrCategories() {
 function createTrBtn(text, onClick, bgColor = '#3b82f6') {
     const btn = document.createElement('button');
     btn.className = 'btn-primary shadow-md';
-    btn.style.padding = '0.8rem 1.5rem';
-    btn.style.margin = '5px';
+    btn.style.padding = '0.6rem 1.2rem';
+    btn.style.margin = '4px';
     btn.style.width = 'auto';
-    btn.style.fontSize = '1.1rem';
+    btn.style.fontSize = '0.95rem';
     btn.style.fontWeight = 'bold';
     btn.style.backgroundColor = bgColor;
     btn.style.transition = 'all 0.3s ease';
