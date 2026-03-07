@@ -563,8 +563,8 @@ body {
 
 /* QUIZ BUTTONS (SolidArt & Others) */
 .quiz-option-btn {
-    padding: 2rem 1.5rem;
-    font-size: 1.2rem;
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary-color);
     background-color: var(--white);
@@ -577,7 +577,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 120px;
+    min-height: 80px;
 }
 
 .quiz-option-btn:hover:not(:disabled) {
@@ -610,9 +610,9 @@ body {
     }
 
     .quiz-option-btn {
-        font-size: 1.2rem;
-        padding: 1.5rem 1rem;
-        min-height: 100px;
+        font-size: 1.1rem;
+        padding: 1rem 0.75rem;
+        min-height: 70px;
     }
 }
 

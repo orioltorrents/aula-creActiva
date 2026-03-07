@@ -53,13 +53,13 @@ function renderSolidartQuadre() {
             <span id="solidart-quadres-score-display"></span>
         </div>
         <div class="question-container text-center">
-            <div id="solidart-quadres-image-container" class="mb-6 mx-auto" style="max-width: 500px; height: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            <div id="solidart-quadres-image-container" class="mb-4 mx-auto" style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
+                <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
             <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
         </div>
-        <div id="solidart-quadres-feedback-area" class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
+        <div id="solidart-quadres-feedback-area" class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
             <button id="solidart-quadres-next-btn" class="btn-primary" onclick="nextSolidartQuadre()">Següent</button>
         </div>
