@@ -1,78 +1,103 @@
 // js/games/treball-recerca.js
 
-let trPreguntesList = [];
-let trCurrentQuestionIndex = 0;
-let trCorrectAnswers = 0;
-let trCategoriesLoaded = false;
-
 async function loadTrCategories() {
-    if (trCategoriesLoaded) return;
-
     const container = document.getElementById('tr-preguntes-categories-container');
-    container.innerHTML = '<p class="text-gray-500">Carregant àmbits disponibles...</p>';
+    if (!container) return;
+
+    container.innerHTML = `<p class="text-gray-500">Carregant opcions...</p>`;
 
     try {
-        const response = await callApi('getTrQuestions', { tipusBatxillerat: '' });
+        const response = await callApi('getTrQuestions', { subambit: '', tipusBatxillerat: '' });
         if (response && response.status === 'success') {
-            const categories = response.categories || [];
-            container.innerHTML = ''; // clear loading
+            const subambits = response.subambits || [];
+            const ambits = response.ambits || [];
+            container.innerHTML = '';
 
-            if (categories.length === 0) {
-                container.innerHTML = '<p class="text-red-500">No hi ha cap pregunta disponible.</p>';
-                return;
-            }
+            // Estructura de dues columnes
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto mt-4';
 
-            categories.forEach((cat) => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-primary shadow-md';
-                btn.style.padding = '1.5rem 2rem';
-                btn.style.fontSize = '1.5rem';
-                btn.style.fontWeight = 'bold';
-                btn.style.textTransform = 'capitalize';
-                btn.style.backgroundColor = '#3b82f6'; // Blau per defecte
-                btn.style.transition = 'background-color 0.3s ease, transform 0.1s ease';
+            // Columna Esquerra: Tipus de Batxillerat (Ambits al sheet)
+            const leftCol = document.createElement('div');
+            leftCol.className = 'flex flex-col gap-3';
+            const leftTitle = document.createElement('h4');
+            leftTitle.className = 'text-lg font-bold mb-2 text-blue-600 border-b pb-1';
+            leftTitle.textContent = 'Tipus de Batxillerat';
+            leftCol.appendChild(leftTitle);
 
-                // Efecte Hover
-                btn.onmouseover = () => {
-                    btn.style.backgroundColor = '#ef4444'; // Vermell
-                    btn.style.transform = 'scale(1.05)';
-                };
-
-                btn.onmouseout = () => {
-                    btn.style.backgroundColor = '#3b82f6'; // Torna a blau
-                    btn.style.transform = 'scale(1)';
-                };
-
-                btn.textContent = cat;
-                btn.onclick = () => initTrPreguntes(cat);
-                container.appendChild(btn);
+            ambits.forEach(opt => {
+                const btn = createTrBtn(opt, () => initTrPreguntes('', opt));
+                leftCol.appendChild(btn);
             });
 
-            trCategoriesLoaded = true;
+            // Columna Dreta: Sub-àmbits
+            const rightCol = document.createElement('div');
+            rightCol.className = 'flex flex-col gap-3';
+            const rightTitle = document.createElement('h4');
+            rightTitle.className = 'text-lg font-bold mb-2 text-red-600 border-b pb-1';
+            rightTitle.textContent = 'Sub-àmbits';
+            rightCol.appendChild(rightTitle);
+
+            subambits.forEach(opt => {
+                const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), '#ef4444');
+                rightCol.appendChild(btn);
+            });
+
+            grid.appendChild(leftCol);
+            grid.appendChild(rightCol);
+            container.appendChild(grid);
+
+            // Botó Barrejat al mig/baix
+            const mixContainer = document.createElement('div');
+            mixContainer.className = 'col-span-full flex justify-center mt-8';
+            const mixBtn = createTrBtn('Totes barreja des', () => initTrPreguntes('Mix', 'Mix'), '#8b5cf6');
+            mixBtn.style.padding = '1.2rem 3rem';
+            mixContainer.appendChild(mixBtn);
+            container.appendChild(mixContainer);
+
         } else {
-            const errorMsg = response && response.message ? response.message : 'Error desconegut';
-            container.innerHTML = `<p class="text-red-500 border border-red-300 bg-red-50 p-4 rounded">Error carregant dades del Google Sheets: <b>${errorMsg}</b></p>`;
-            console.error(response);
+            container.innerHTML = `<p class="text-red-500 p-4 rounded">Error: <b>${response.message || 'Error desconegut'}</b></p>`;
         }
     } catch (e) {
-        container.innerHTML = `<p class="text-red-500 border border-red-300 bg-red-50 p-4 rounded">Error de connexió: <b>${e.message}</b></p>`;
-        console.error(e);
+        container.innerHTML = `<p class="text-red-500 p-4 rounded">Error de connexió: <b>${e.message}</b></p>`;
     }
 }
 
-async function initTrPreguntes(tipusBatxillerat) {
+function createTrBtn(text, onClick, bgColor = '#3b82f6') {
+    const btn = document.createElement('button');
+    btn.className = 'btn-primary shadow-md w-full';
+    btn.style.padding = '1rem';
+    btn.style.fontSize = '1.1rem';
+    btn.style.fontWeight = 'bold';
+    btn.style.backgroundColor = bgColor;
+    btn.style.transition = 'all 0.3s ease';
+
+    btn.onmouseover = () => {
+        btn.style.filter = 'brightness(1.1)';
+        btn.style.transform = 'translateY(-2px)';
+    };
+    btn.onmouseout = () => {
+        btn.style.filter = 'brightness(1)';
+        btn.style.transform = 'translateY(0)';
+    };
+
+    btn.textContent = text;
+    btn.onclick = onClick;
+    return btn;
+}
+
+async function initTrPreguntes(subambit, tipusBatxillerat) {
     const setupDiv = document.getElementById('tr-preguntes-setup');
     const quizDiv = document.getElementById('tr-preguntes-quiz-container');
     const resultsDiv = document.getElementById('tr-preguntes-results');
 
-    // Mostrem text de càrrega als botons (sense carregar spinner sencer per no molestar)
     if (setupDiv) setupDiv.innerHTML += '<p class="text-gray-500 mt-4" id="tr-loading-text">Carregant preguntes...</p>';
 
     resultsDiv.classList.add('hidden');
     quizDiv.classList.add('hidden');
 
     try {
-        const response = await callApi('getTrQuestions', { tipusBatxillerat: tipusBatxillerat });
+        const response = await callApi('getTrQuestions', { subambit: subambit, tipusBatxillerat: tipusBatxillerat });
 
         if (response && response.status === 'success') {
             trPreguntesList = response.questions || [];

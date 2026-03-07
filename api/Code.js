@@ -68,13 +68,13 @@ function handleRequest(e) {
         } else if (action === 'getCirculatoriQuestions') {
             result = getCirculatoriQuestions();
         } else if (action === 'getTrQuestions') {
-            result = getTrQuestions(data.tipusBatxillerat);
+            result = getTrQuestions(data.subambit, data.tipusBatxillerat || data.ambit);
         } else if (action === 'getTrTemesQuestions') {
-            result = getTrTemesQuestions(data.tipusBatxillerat);
+            result = getTrTemesQuestions(data.tipusBatxillerat || data.ambit);
         } else if (action === 'getNaturaPreguntes') {
-            result = getNaturaPreguntes(data.tipusBatxillerat);
+            result = getNaturaPreguntes(data.subambit, data.tipusBatxillerat || data.ambit);
         } else if (action === 'getNaturaTemesQuestions') {
-            result = getNaturaTemesQuestions(data.tipusBatxillerat);
+            result = getNaturaTemesQuestions(data.tipusBatxillerat || data.ambit);
         } else if (action === 'getSolidartQuadres') {
             result = getSolidartQuadres(data.dificultat);
         } else if (action === 'getSolidartQuadres2') {
@@ -437,7 +437,7 @@ function getTrTemesQuestions(tipusBatxillerat) {
     return { status: 'success', topics: topics };
 }
 
-function getTrQuestions(tipusBatxillerat) {
+function getTrQuestions(subambit, tipusBatxillerat) {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_investigables');
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_investigables no trobada' };
 
@@ -450,6 +450,7 @@ function getTrQuestions(tipusBatxillerat) {
     const idIdx = headers.indexOf('id');
     const pqIdx = headers.indexOf('pregunta');
     const invIdx = headers.indexOf('investigable/no investigable');
+    const subIdx = headers.indexOf('subambit');
     const tipusIdx = headers.indexOf('tipus_batxillerat');
     const raoIdx = headers.indexOf('perquè_no_investigable');
     const tipusErrorIdx = headers.indexOf('tipus_error');
@@ -459,16 +460,41 @@ function getTrQuestions(tipusBatxillerat) {
         return { status: 'error', message: 'Falten columnes crítiques (cal "pregunta" i "investigable/no investigable")' };
     }
 
-    // Filtrar per tipus_batxillerat (ignorarem les que estiguin buides de pregunta)
+    // Step 1: No filters provided -> Return both lists of options
+    if (!subambit && !tipusBatxillerat) {
+        const subambitsSet = new Set();
+        const ambitsSet = new Set();
+        for (let i = 1; i < data.length; i++) {
+            if (data[i][pqIdx]) {
+                const s = String(data[i][subIdx] || "").trim();
+                const a = String(data[i][tipusIdx] || "").trim();
+                if (s) subambitsSet.add(s);
+                if (a) ambitsSet.add(a);
+            }
+        }
+        return {
+            status: 'success',
+            level: 'setup',
+            subambits: Array.from(subambitsSet).sort(),
+            ambits: Array.from(ambitsSet).sort()
+        };
+    }
+
+    // Step 2: Filter and return questions
     let questionsFiltered = data.slice(1).filter(row => {
         const hasQuestion = row[pqIdx] && String(row[pqIdx]).trim() !== '';
-        // Si no s'ha demanat cap tipus, tornem tot el que tingui pregunta. Si no, filtrem:
-        const isTargetType = tipusBatxillerat ? (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
 
-        return hasQuestion && isTargetType;
+        // "Barrejat" or "Mix" means no filtering
+        const isMixSub = !subambit || subambit.toLowerCase() === 'mix' || subambit.toLowerCase() === 'barrejat';
+        const isMixAmbit = !tipusBatxillerat || tipusBatxillerat.toLowerCase() === 'mix' || tipusBatxillerat.toLowerCase() === 'barrejat';
+
+        const matchesSub = isMixSub ? true : (String(row[subIdx] || "").trim().toLowerCase() === String(subambit).toLowerCase());
+        const matchesAmbit = isMixAmbit ? true : (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase());
+
+        return hasQuestion && matchesSub && matchesAmbit;
     });
 
-    // Remenar aleatòriament les preguntes i quedar-nos només amb les 15 primeres
+    // Remenar i agafar 15
     questionsFiltered = questionsFiltered.sort(() => Math.random() - 0.5).slice(0, 15);
 
     const questions = questionsFiltered.map(row => {
@@ -483,19 +509,7 @@ function getTrQuestions(tipusBatxillerat) {
         };
     });
 
-    // També obtenim els tipus de batxillerat disponibles (únics) de tot el full (ignorant blancs)
-    const allCategories = new Set();
-    if (tipusIdx !== -1) {
-        data.slice(1).forEach(row => {
-            const tipus = String(row[tipusIdx] || "").trim();
-            if (tipus !== "" && row[pqIdx] && String(row[pqIdx]).trim() !== '') {
-                // Afegim el text tal qual del sheet, la llista tindrà les majúscules segons convingui
-                allCategories.add(tipus);
-            }
-        });
-    }
-
-    return { status: 'success', questions: questions, categories: Array.from(allCategories) };
+    return { status: 'success', level: 'questions', questions: questions };
 }
 
 function getCirculatoriQuestions() {
@@ -638,7 +652,7 @@ function createJSONOutput(object) {
 // PERÒ: Si es fa el desplegament "Who has access: Anyone", Google fa un redirect 302 que sol funcionar amb `fetch`
 // si es segueixen les redireccions.
 // El return JSON estàndard sol funcionar per GET/POST simple.
-function getNaturaPreguntes(tipusBatxillerat) {
+function getNaturaPreguntes(subambit, tipusBatxillerat) {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('natura_preguntes');
     if (!sheet) return { status: 'error', message: 'Pestanya natura_preguntes no trobada' };
 
@@ -648,6 +662,7 @@ function getNaturaPreguntes(tipusBatxillerat) {
     const headers = data[0].map(h => String(h).toLowerCase().trim());
     const pqIdx = headers.indexOf('pregunta');
     const invIdx = headers.indexOf('investigable/no investigable');
+    const subIdx = headers.indexOf('subambit');
     const tipusIdx = headers.indexOf('tipus_batxillerat');
     const raoIdx = headers.indexOf('perquè_no_investigable');
 
@@ -655,21 +670,37 @@ function getNaturaPreguntes(tipusBatxillerat) {
         return { status: 'error', message: 'Falten columnes crítiques a natura_preguntes' };
     }
 
-    if (!tipusBatxillerat || tipusBatxillerat.trim() === '') {
-        const categoriesSet = new Set();
-        if (tipusIdx !== -1) {
-            for (let i = 1; i < data.length; i++) {
-                const cat = String(data[i][tipusIdx]).trim();
-                if (cat) categoriesSet.add(cat);
+    // Step 1: No filters provided -> Return both lists of options
+    if (!subambit && !tipusBatxillerat) {
+        const subambitsSet = new Set();
+        const ambitsSet = new Set();
+        for (let i = 1; i < data.length; i++) {
+            if (data[i][pqIdx]) {
+                const s = String(data[i][subIdx] || "").trim();
+                const a = String(data[i][tipusIdx] || "").trim();
+                if (s) subambitsSet.add(s);
+                if (a) ambitsSet.add(a);
             }
         }
-        return { status: 'success', categories: Array.from(categoriesSet) };
+        return {
+            status: 'success',
+            level: 'setup',
+            subambits: Array.from(subambitsSet).sort(),
+            ambits: Array.from(ambitsSet).sort()
+        };
     }
 
+    // Step 2: Filter and return questions
     let filtered = data.slice(1).filter(row => {
         const hasQ = row[pqIdx] && String(row[pqIdx]).trim() !== '';
-        const isType = tipusIdx !== -1 ? (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
-        return hasQ && isType;
+
+        const isMixSub = !subambit || subambit.toLowerCase() === 'mix' || subambit.toLowerCase() === 'barrejat';
+        const isMixAmbit = !tipusBatxillerat || tipusBatxillerat.toLowerCase() === 'mix' || tipusBatxillerat.toLowerCase() === 'barrejat';
+
+        const matchesSub = isMixSub ? true : (String(row[subIdx] || "").trim().toLowerCase() === String(subambit).toLowerCase());
+        const matchesAmbit = isMixAmbit ? true : (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase());
+
+        return hasQ && matchesSub && matchesAmbit;
     });
 
     const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 15).map(row => ({
@@ -678,7 +709,7 @@ function getNaturaPreguntes(tipusBatxillerat) {
         perque_no_investigable: raoIdx !== -1 ? row[raoIdx] : ''
     }));
 
-    return { status: 'success', questions };
+    return { status: 'success', level: 'questions', questions };
 }
 
 function getNaturaTemesQuestions(tipusBatxillerat) {
