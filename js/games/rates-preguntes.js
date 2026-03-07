@@ -16,31 +16,19 @@ async function loadRatesCategories() {
             const stack = document.createElement('div');
             stack.className = 'flex flex-col gap-12 w-full max-w-4xl mx-auto mt-12';
 
-            const topBlock = document.createElement('div');
-            topBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
-            const topTitle = document.createElement('h4');
-            topTitle.className = 'w-full text-xl font-bold mb-4 text-rose-600 border-b-2 pb-2 text-center';
-            topTitle.textContent = 'Sub-àmbits';
-            topBlock.appendChild(topTitle);
-
-            subambits.forEach(opt => {
-                const btn = createRatesBtn(opt, () => initRatesPreguntes(opt, ''), '#e11d48');
-                topBlock.appendChild(btn);
-            });
-
+            // Només Sub-àmbits per a Rates a la carrera
             const bottomBlock = document.createElement('div');
             bottomBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
             const bottomTitle = document.createElement('h4');
-            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-pink-600 border-b-2 pb-2 text-center';
-            bottomTitle.textContent = 'Tipus de Batxillerat';
+            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-rose-600 border-b-2 pb-2 text-center';
+            bottomTitle.textContent = 'Sub-àmbits';
             bottomBlock.appendChild(bottomTitle);
 
-            ambits.forEach(opt => {
-                const btn = createRatesBtn(opt, () => initRatesPreguntes('', opt));
+            subambits.forEach(opt => {
+                const btn = createRatesBtn(opt, () => initRatesPreguntes(opt, ''), '#e11d48');
                 bottomBlock.appendChild(btn);
             });
 
-            stack.appendChild(topBlock);
             stack.appendChild(bottomBlock);
             container.appendChild(stack);
 
