@@ -150,7 +150,7 @@ function getProjects(curs) {
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.', imatge: 'assets/img/mediterrani.png' }
         ],
         '2ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/img/paralimpics.png' },
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educació física i valors.', imatge: 'assets/images/targeta-paralimpics.png' },
             { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels éssers vius i el seu entorn.' },
             { id: 'p2_radio', titol: 'Ràdio', descripcio: 'Comunicació, locució i edició radiofònica.' }
         ],
@@ -375,13 +375,24 @@ function getTrTemesQuestions(tipusBatxillerat) {
                 if (cat) categoriesSet.add(cat);
             }
         }
+
+        // Si no hi ha categories pero hi ha dades, oferim un botó "General" per poder jugar
+        if (categoriesSet.size === 0 && data.length > 1) {
+            categoriesSet.add('General');
+        }
+
         return { status: 'success', categories: Array.from(categoriesSet) };
     }
 
     // Filtrar per temes vàlids (ignorarem les que estiguin buides de tema) i pel tipus de batxillerat demanat
     let questionsFiltered = data.slice(1).filter(row => {
         const hasTema = row[temaIdx] && String(row[temaIdx]).trim() !== '';
-        const isTargetType = tipusBtxIdx !== -1 ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
+
+        // Si hem triat "General" i no hi havia categories, mostrem tot
+        const isGeneralFallback = (tipusBatxillerat || "").toLowerCase() === 'general';
+        const isTargetType = (tipusBtxIdx !== -1 && !isGeneralFallback)
+            ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase())
+            : true;
 
         return hasTema && isTargetType;
     });
