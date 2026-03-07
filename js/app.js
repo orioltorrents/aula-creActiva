@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbwYCZbCQWoorrB7TPNQKRxA66Kq5M6ISL0g62HNAgW4-E2o_ffFkDcHX2Yj-TPvcZLYAg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxapilQyIHkdd8gU5iXG1JakfS59NlCBjLwOsX16VtyQgAoMlKJb-kGOpW47iAG58esvQ/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -422,6 +422,8 @@ function openTrActivity(actId) {
 
     if (actId === 'preguntes' && typeof loadTrCategories === 'function') {
         loadTrCategories();
+    } else if (actId === 'temes' && typeof loadTrTemesCategories === 'function') {
+        loadTrTemesCategories();
     }
 }
 

@@ -22,14 +22,27 @@ async function loadTrCategories() {
                 return;
             }
 
-            const colors = ['var(--primary)', 'var(--secondary)', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6'];
-
-            categories.forEach((cat, index) => {
+            categories.forEach((cat) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-primary';
+                btn.className = 'btn-primary shadow-md';
                 btn.style.padding = '1.5rem 2rem';
-                btn.style.fontSize = '1.25rem';
-                btn.style.backgroundColor = colors[index % colors.length];
+                btn.style.fontSize = '1.5rem';
+                btn.style.fontWeight = 'bold';
+                btn.style.textTransform = 'capitalize';
+                btn.style.backgroundColor = '#3b82f6'; // Blau per defecte
+                btn.style.transition = 'background-color 0.3s ease, transform 0.1s ease';
+
+                // Efecte Hover
+                btn.onmouseover = () => {
+                    btn.style.backgroundColor = '#ef4444'; // Vermell
+                    btn.style.transform = 'scale(1.05)';
+                };
+
+                btn.onmouseout = () => {
+                    btn.style.backgroundColor = '#3b82f6'; // Torna a blau
+                    btn.style.transform = 'scale(1)';
+                };
+
                 btn.textContent = cat;
                 btn.onclick = () => initTrPreguntes(cat);
                 container.appendChild(btn);
@@ -37,45 +50,57 @@ async function loadTrCategories() {
 
             trCategoriesLoaded = true;
         } else {
-            container.innerHTML = '<p class="text-red-500">Error carregant els àmbits.</p>';
+            const errorMsg = response && response.message ? response.message : 'Error desconegut';
+            container.innerHTML = `<p class="text-red-500 border border-red-300 bg-red-50 p-4 rounded">Error carregant dades del Google Sheets: <b>${errorMsg}</b></p>`;
+            console.error(response);
         }
     } catch (e) {
-        container.innerHTML = '<p class="text-red-500">Error de connexió.</p>';
+        container.innerHTML = `<p class="text-red-500 border border-red-300 bg-red-50 p-4 rounded">Error de connexió: <b>${e.message}</b></p>`;
+        console.error(e);
     }
 }
 
 async function initTrPreguntes(tipusBatxillerat) {
-    // Show loading text on the buttons or somewhere
     const setupDiv = document.getElementById('tr-preguntes-setup');
     const quizDiv = document.getElementById('tr-preguntes-quiz-container');
     const resultsDiv = document.getElementById('tr-preguntes-results');
 
-    // Hide results if we are restarting
+    // Mostrem text de càrrega als botons (sense carregar spinner sencer per no molestar)
+    if (setupDiv) setupDiv.innerHTML += '<p class="text-gray-500 mt-4" id="tr-loading-text">Carregant preguntes...</p>';
+
     resultsDiv.classList.add('hidden');
+    quizDiv.classList.add('hidden');
 
     try {
         const response = await callApi('getTrQuestions', { tipusBatxillerat: tipusBatxillerat });
 
         if (response && response.status === 'success') {
-            trPreguntesList = response.questions;
+            trPreguntesList = response.questions || [];
 
             if (trPreguntesList.length === 0) {
-                alert("No s'han trobat preguntes per aquest àmbit.");
+                alert("Ho sentim, no hi ha preguntes disponibles per aquest àmbit.");
+                const loadTxt = document.getElementById('tr-loading-text');
+                if (loadTxt) loadTxt.remove();
                 return;
             }
 
             trCurrentQuestionIndex = 0;
             trCorrectAnswers = 0;
 
-            setupDiv.classList.add('hidden');
+            if (setupDiv) setupDiv.classList.add('hidden');
             quizDiv.classList.remove('hidden');
 
             renderTrPregunta();
         } else {
-            alert("Error carregant les preguntes: " + (response ? response.message : "Error de connexió"));
+            alert("Error carregant les preguntes: " + (response ? response.message : "Desconegut"));
+            const loadTxt = document.getElementById('tr-loading-text');
+            if (loadTxt) loadTxt.remove();
         }
     } catch (e) {
-        alert("Error de connexió. Torna-ho a provar.");
+        console.error("Connection Error:", e);
+        alert("Error de connexió en demanar les preguntes a la base de dades.");
+        const loadTxt = document.getElementById('tr-loading-text');
+        if (loadTxt) loadTxt.remove();
     }
 }
 
@@ -85,68 +110,60 @@ function renderTrPregunta() {
         return;
     }
 
-    const question = trPreguntesList[trCurrentQuestionIndex];
+    const currentQ = trPreguntesList[trCurrentQuestionIndex];
     document.getElementById('tr-preguntes-progress').textContent = `Pregunta ${trCurrentQuestionIndex + 1} / ${trPreguntesList.length}`;
-    document.getElementById('tr-preguntes-text').textContent = question.pregunta;
+    document.getElementById('tr-preguntes-text').textContent = currentQ.pregunta;
 
     // Reset UI
     document.getElementById('tr-preguntes-feedback-area').classList.add('hidden');
-
-    const btnI = document.getElementById('btn-investigable');
-    const btnNi = document.getElementById('btn-no-investigable');
-
-    btnI.disabled = false;
-    btnI.style.opacity = '1';
-
-    btnNi.disabled = false;
-    btnNi.style.opacity = '1';
+    document.getElementById('btn-investigable').disabled = false;
+    document.getElementById('btn-no-investigable').disabled = false;
+    document.getElementById('btn-investigable').style.opacity = "1";
+    document.getElementById('btn-no-investigable').style.opacity = "1";
 }
 
-async function checkTrPreguntaRespuesta(respostaAlumne) {
-    const question = trPreguntesList[trCurrentQuestionIndex];
-    const respostaCorrecta = question.investigable.trim();
-
-    // Disable buttons
+function checkTrPreguntaRespuesta(respostaHabilitada) {
     document.getElementById('btn-investigable').disabled = true;
     document.getElementById('btn-no-investigable').disabled = true;
 
-    // Mostrar què ha passat i el feedback
-    const feedbackArea = document.getElementById('tr-preguntes-feedback-area');
-    const feedbackMsg = document.getElementById('tr-preguntes-feedback-msg');
-    const feedbackDesc = document.getElementById('tr-preguntes-feedback-desc');
+    const currentQ = trPreguntesList[trCurrentQuestionIndex];
 
-    let isCorrect = false;
+    // Check if what user clicked matches what db says 
+    // Usually 'investigable/no investigable' column says "Investigable" or "No investigable"
+    const isInvestigableDB = String(currentQ.investigable).toLowerCase().includes('no') ? false : true;
+    const isInvestigableUser = respostaHabilitada === 'Investigable';
 
-    // Simplifiquem la comparació per ser case insensitive i treure espais
-    if (respostaAlumne.toLowerCase() === respostaCorrecta.toLowerCase()) {
-        isCorrect = true;
-        trCorrectAnswers++;
-        feedbackArea.className = 'text-center mt-4 p-4 rounded bg-green-50 border border-green-200';
-        feedbackMsg.textContent = '✔ Correcte';
-        feedbackMsg.className = 'text-xl font-bold mb-2 text-green-700';
+    const isCorrect = isInvestigableDB === isInvestigableUser;
 
-        if (respostaCorrecta.toLowerCase() === 'investigable') {
-            feedbackDesc.textContent = "Molt bé! Aquesta pregunta es pot respondre recollint i analitzant dades.";
-        } else {
-            feedbackDesc.textContent = "Exacte. " + question.perque_no_investigable;
-        }
+    if (isCorrect) trCorrectAnswers++;
 
+    // Guardem l'acció a l'objecte per a finalResult
+    currentQ.userPassed = isCorrect;
+
+    // Show Feedback
+    const fbArea = document.getElementById('tr-preguntes-feedback-area');
+    const fbMsg = document.getElementById('tr-preguntes-feedback-msg');
+    const fbDesc = document.getElementById('tr-preguntes-feedback-desc');
+
+    fbArea.classList.remove('hidden');
+
+    if (isCorrect) {
+        fbArea.className = 'text-center mt-4 p-4 rounded bg-green-50 border border-green-200';
+        fbMsg.textContent = "✔ Correcte!";
+        fbMsg.className = "text-xl font-bold mb-2 text-green-700";
     } else {
-        feedbackArea.className = 'text-center mt-4 p-4 rounded bg-red-50 border border-red-200';
-        feedbackMsg.textContent = '✖ No és correcte';
-        feedbackMsg.className = 'text-xl font-bold mb-2 text-red-700';
-
-        if (respostaCorrecta.toLowerCase() === 'investigable') {
-            feedbackDesc.textContent = "Aquesta és una pregunta investigable perquè permet recollir dades per trobar la resposta.";
-        } else {
-            feedbackDesc.textContent = question.perque_no_investigable;
-        }
+        fbArea.className = 'text-center mt-4 p-4 rounded bg-red-50 border border-red-200';
+        fbMsg.textContent = "✖ Incorrecte.";
+        fbMsg.className = "text-xl font-bold mb-2 text-red-700";
+        document.getElementById(respostaHabilitada === 'Investigable' ? 'btn-no-investigable' : 'btn-investigable').style.opacity = "0.5";
     }
 
-    feedbackArea.classList.remove('hidden');
-
-    // Desem el resultat a la base de dades
-    await saveTrResult(question, respostaAlumne, respostaCorrecta, isCorrect);
+    // Raó
+    if (isInvestigableDB) {
+        fbDesc.textContent = "Aquesta pregunta ÉS investigable perquè " + (currentQ.perque_no_investigable || "es pot respondre dissenyant un experiment o pauta d'observació.");
+    } else {
+        fbDesc.textContent = "Aquesta pregunta NO és investigable perquè " + (currentQ.perque_no_investigable || "només demana informació que es pot trobar a la bibliografia o a internet.");
+    }
 }
 
 function nextTrPregunta() {
@@ -159,10 +176,10 @@ function showTrResults() {
     const resultsDiv = document.getElementById('tr-preguntes-results');
     resultsDiv.classList.remove('hidden');
 
-    const total = trPreguntesList.length;
-    const percent = Math.round((trCorrectAnswers / total) * 100);
+    const totalQs = trPreguntesList.length;
+    const percent = Math.round((trCorrectAnswers / totalQs) * 100);
 
-    document.getElementById('tr-preguntes-final-score').textContent = `${trCorrectAnswers} / ${total}`;
+    document.getElementById('tr-preguntes-final-score').textContent = `${trCorrectAnswers} / ${totalQs}`;
     document.getElementById('tr-preguntes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('tr-preguntes-final-msg');
@@ -176,30 +193,39 @@ function showTrResults() {
         msgEl.textContent = "Encara confons preguntes d'informació amb preguntes investigables.";
         msgEl.className = "text-lg mb-8 text-red-600 font-bold";
     }
+
+    saveTrResult();
 }
 
-async function saveTrResult(question, respostaAlumne, respostaCorrecta, isCorrect) {
+async function saveTrResult() {
     if (!state.user) return; // Si no hi ha sessió, no guardem
 
-    // Per al temps agafem una aproximació, no s'ha especificat cronòmetre
-    const temps = 10;
+    // Temps fictici per no crear timer ara
+    const temps = 30;
 
-    // Adaptem els camps al "saveResult" existent. 
-    // Ordre columnes: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
-    // Aprofitem els camps per enviar ID pregunta, etc.
+    let feedPos = [];
+    let feedNeg = [];
+
+    // Recopilem les preguntes per feedback
+    trPreguntesList.forEach(q => {
+        if (q.userPassed) {
+            feedPos.push(`Encert: ${q.pregunta.substring(0, 30)}`);
+        } else {
+            feedNeg.push(`${q.tipus_error || 'Sense tipus h'}: ${q.pregunta.substring(0, 40)}`);
+        }
+    });
+
     const resultData = {
         email: state.user.email,
         curs: state.user.curs,
         projecte: 'Treball de Recerca',
-        app: 'Preguntes investigables',
-        nivell: question.tipus_batxillerat || 'General',
-        puntuacio: isCorrect ? 1 : 0,
+        app: 'Preguntes investigables (Targetes)',
+        nivell: (trPreguntesList[0] ? trPreguntesList[0].tipus_batxillerat : 'Mix').substring(0, 50),
+        puntuacio: trCorrectAnswers,
         temps_segons: temps,
-        // Guardem codi de pregunta i què ha triat al camp "feedback" com a metadata útil 
-        feedback_pos: `ID: ${question.id} | Q: ${question.pregunta.substring(0, 30)}...`,
-        feedback_neg: `Resp: ${respostaAlumne} | Corr: ${respostaCorrecta}`
+        feedback_pos: feedPos.join(" | ").substring(0, 400),
+        feedback_neg: feedNeg.join(" | ").substring(0, 400)
     };
 
-    // Fem un 'fire and forget' per no blocar la UI (ja hi ha await adalt pero si falla no mostrem error)
-    callApi('saveResult', resultData).catch(e => console.error(e));
+    callApi('saveResult', resultData).catch(e => console.error("Error guardant resultats TR: ", e));
 }

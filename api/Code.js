@@ -69,6 +69,8 @@ function handleRequest(e) {
             result = getCirculatoriQuestions();
         } else if (action === 'getTrQuestions') {
             result = getTrQuestions(data.tipusBatxillerat);
+        } else if (action === 'getTrTemesQuestions') {
+            result = getTrTemesQuestions(data.tipusBatxillerat);
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -337,6 +339,83 @@ function getBiblioQuestions() {
         });
 
     return { status: 'success', questions };
+}
+
+function getTrTemesQuestions(tipusBatxillerat) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('temes-TR-preguntes');
+    if (!sheet) return { status: 'error', message: 'Pestanya temes-TR-preguntes no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a temes-TR-preguntes' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim());
+
+    // Busquem les columnes per nom (normalitzat)
+    const temaIdx = headers.indexOf('tema');
+    const tipusBtxIdx = headers.indexOf('tipus_batxillerat');
+
+    const colIdxs = [];
+    for (let i = 1; i <= 10; i++) {
+        colIdxs.push({
+            pIdx: headers.indexOf(`pregunta_${i}`),
+            tIdx: headers.indexOf(`tipus_${i}`)
+        });
+    }
+
+    if (temaIdx === -1 || colIdxs[0].pIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques (com a mínim cal "tema" i "pregunta_1") a temes-TR-preguntes' };
+    }
+
+    // Extracció de categories úniques (si no passem tipus)
+    if (!tipusBatxillerat || tipusBatxillerat.trim() === '') {
+        const categoriesSet = new Set();
+        if (tipusBtxIdx !== -1) {
+            for (let i = 1; i < data.length; i++) {
+                const cat = String(data[i][tipusBtxIdx]).trim();
+                if (cat) categoriesSet.add(cat);
+            }
+        }
+        return { status: 'success', categories: Array.from(categoriesSet) };
+    }
+
+    // Filtrar per temes vàlids (ignorarem les que estiguin buides de tema) i pel tipus de batxillerat demanat
+    let questionsFiltered = data.slice(1).filter(row => {
+        const hasTema = row[temaIdx] && String(row[temaIdx]).trim() !== '';
+        const isTargetType = tipusBtxIdx !== -1 ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
+
+        return hasTema && isTargetType;
+    });
+
+    // Remenar aleatòriament els temes i quedar-nos amd 10 màxim
+    questionsFiltered = questionsFiltered.sort(() => Math.random() - 0.5).slice(0, 10);
+
+    const topics = questionsFiltered.map(row => {
+        const tema = row[temaIdx];
+
+        // Preparem l'array de preguntes
+        let qs = [];
+        for (let i = 0; i < 10; i++) {
+            const idxs = colIdxs[i];
+            qs.push({
+                id: `q${i + 1}`,
+                text: idxs.pIdx !== -1 ? String(row[idxs.pIdx]).trim() : '',
+                type: idxs.tIdx !== -1 ? String(row[idxs.tIdx]).trim() : ''
+            });
+        }
+
+        // Filtrem aquelles que no tinguin text per si un tema en té menys de 10
+        qs = qs.filter(q => q.text && String(q.text).trim() !== '');
+
+        // Barregem sempre les preguntes dins de l'array perquè no surtin ordenades per com estan a l'Excel
+        qs = qs.sort(() => Math.random() - 0.5);
+
+        return {
+            tema: tema,
+            preguntes: qs
+        };
+    });
+
+    return { status: 'success', topics: topics };
 }
 
 function getTrQuestions(tipusBatxillerat) {

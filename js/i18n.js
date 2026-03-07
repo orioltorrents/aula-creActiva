@@ -217,7 +217,9 @@ const i18n = {
             'score_label': 'Punts: ',
             'tr_project_title': 'Treball de recerca',
             'act_tr_preguntes_title': 'Preguntes investigables',
-            'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.'
+            'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.',
+            'act_tr_temes_title': 'Temes i preguntes',
+            'act_tr_temes_desc': 'Tria grups de preguntes d\'un tema de recerca.'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -428,7 +430,9 @@ const i18n = {
             'score_label': 'Puntos: ',
             'tr_project_title': 'Trabajo de investigación',
             'act_tr_preguntes_title': 'Preguntas investigables',
-            'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.'
+            'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.',
+            'act_tr_temes_title': 'Temas y preguntas',
+            'act_tr_temes_desc': 'Elige grupos de preguntas de un tema de investigación.'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -625,7 +629,9 @@ const i18n = {
             'score_label': 'Points: ',
             'tr_project_title': 'Research Work',
             'act_tr_preguntes_title': 'Investigable Questions',
-            'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.'
+            'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.',
+            'act_tr_temes_title': 'Topics and questions',
+            'act_tr_temes_desc': 'Choose groups of questions from a research topic.'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -819,7 +825,12 @@ const i18n = {
             'act_audio_q9': '9. أين توجد علامة تبويب CONSOLE لرؤية أجهزة المزج؟',
             'btn_skip': 'تخطي السؤال (-5 نقاط)',
             'btn_help': 'مساعدة (-10 نقاط)',
-            'score_label': 'نقاط: '
+            'score_label': 'نقاط: ',
+            'tr_project_title': 'عمل بحثي',
+            'act_tr_preguntes_title': 'أسئلة قابلة للتحقيق',
+            'act_tr_preguntes_desc': 'تعلم كيفية التمييز بين الأسئلة القابلة للبحث وغيرها.',
+            'act_tr_temes_title': 'المواضيع والأسئلة',
+            'act_tr_temes_desc': 'اختر مجموعات من الأسئلة من موضوع بحث.'
         }
     },
 

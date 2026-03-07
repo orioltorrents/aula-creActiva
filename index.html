@@ -218,32 +218,37 @@
                         <div id="tr-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openTrActivity('preguntes')">
                                 <div class="act-icon">
-                                    <span style="font-size: 2rem;">❓</span>
+                                    <img src="assets/images/targeta-preguntes-investigables.png"
+                                        alt="Preguntes Investigables" class="act-img">
                                 </div>
                                 <h4 data-i18n="act_tr_preguntes_title">Preguntes Investigables</h4>
                                 <p data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les
                                     que no ho són.</p>
                             </div>
+                            <!-- Nova Targeta Temes -->
+                            <div class="activity-card" onclick="openTrActivity('temes')">
+                                <div class="act-icon">
+                                    <img src="assets/images/targeta-temes-preguntes.png" alt="Temes i preguntes"
+                                        class="act-img">
+                                </div>
+                                <h4 data-i18n="act_tr_temes_title">Temes i preguntes</h4>
+                                <p data-i18n="act_tr_temes_desc">Tria bones preguntes d'un tema de recerca.</p>
+                            </div>
                         </div>
 
-                        <!-- ACTIVITAT: Preguntes Investigables -->
+                        <!-- ACTIVITAT: Preguntes Investigables (Original) -->
                         <div id="tr-activity-preguntes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al
-                                menú</button>
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
 
-                            <!-- PANTALLA INICIAL (Selecció d'àmbit) -->
                             <div id="tr-preguntes-setup" class="game-header text-center">
                                 <h3><span data-i18n="tr_project_title">Treball de recerca</span> — <span
                                         data-i18n="act_tr_preguntes_title">Preguntes investigables</span></h3>
                                 <p class="mb-4">Tria l'àmbit del qual vols practicar preguntes.</p>
-
                                 <div id="tr-preguntes-categories-container"
                                     class="flex justify-center gap-4 flex-wrap mt-4">
-                                    <!-- Dynamic categories will be generated here -->
                                 </div>
                             </div>
 
-                            <!-- QUIZ AREA -->
                             <div id="tr-preguntes-quiz-container" class="hidden">
                                 <div class="stats-bar flex justify-between">
                                     <span id="tr-preguntes-progress">Pregunta 1 / 15</span>
@@ -270,7 +275,6 @@
                                 </div>
                             </div>
 
-                            <!-- RESULTATS -->
                             <div id="tr-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
                                 <h3 data-i18n="final_score">Resultat final</h3>
                                 <p id="tr-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 / 15
@@ -281,6 +285,61 @@
                                 <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
                             </div>
                         </div>
+
+                        <!-- ACTIVITAT: Temes i Preguntes -->
+                        <div id="tr-activity-temes" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
+
+                            <div id="tr-temes-setup" class="game-header text-center">
+                                <h3><span data-i18n="tr_project_title">Treball de recerca</span> — <span
+                                        data-i18n="act_tr_temes_title">Temes i Preguntes</span></h3>
+                                <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de
+                                    recerca.</p>
+                                <div id="tr-temes-categories-container"
+                                    class="flex justify-center gap-4 flex-wrap mt-4">
+                                </div>
+                            </div>
+
+                            <div id="tr-temes-quiz-container" class="hidden">
+                                <div class="stats-bar flex justify-between mb-4">
+                                    <span id="tr-temes-progress">Tema 1 / X</span>
+                                    <span id="tr-temes-score">Punts: 0</span>
+                                </div>
+
+                                <div class="bg-white rounded shadow-sm p-6 text-center">
+                                    <h3 id="tr-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">TEMA</h3>
+                                    <p class="mb-6 text-gray-600">Selecciona <strong class="text-black">totes</strong>
+                                        les preguntes que consideris <strong
+                                            class="text-blue-600">INVESTIGABLES</strong>.</p>
+
+                                    <div id="tr-temes-options" class="flex flex-col gap-3 text-left">
+                                        <!-- Buttons generated dynamically -->
+                                    </div>
+
+                                    <div class="mt-8">
+                                        <button id="tr-temes-check-btn" class="btn-primary w-full text-xl py-3"
+                                            onclick="checkTrTemesRespostes()">Comprovar Selecció</button>
+                                    </div>
+                                </div>
+                                <div id="tr-temes-feedback-area" class="hidden mt-6">
+                                    <div id="tr-temes-feedback-list" class="flex flex-col gap-3 mb-6"></div>
+                                    <button id="tr-temes-next-btn" class="btn-primary w-full text-lg py-3"
+                                        onclick="nextTrTema()">Següent Tema</button>
+                                </div>
+                            </div>
+
+                            <div id="tr-temes-results" class="hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="tr-temes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 / 15</p>
+                                <p id="tr-temes-final-percentage" class="text-2xl font-semibold mb-4 text-gray-700">0%
+                                </p>
+                                <p id="tr-temes-final-msg" class="text-lg mb-8"></p>
+                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
                     <!-- PROJECTE: Paralímpics -->
@@ -1073,6 +1132,7 @@
     <script src="js/games/natura-rols.js"></script>
     <script src="js/games/natura-bibliografia.js"></script>
     <script src="js/games/treball-recerca.js"></script>
+    <script src="js/games/treball-recerca-temes.js"></script>
     <script src="js/games/bio-cor.js"></script>
     <script src="js/games/bio-circulatori-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>
