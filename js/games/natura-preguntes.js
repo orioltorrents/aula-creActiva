@@ -17,9 +17,9 @@ async function loadNaturaCategories() {
             grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto mt-4';
 
             const leftCol = document.createElement('div');
-            leftCol.className = 'flex flex-col gap-3';
+            leftCol.className = 'flex flex-row flex-wrap gap-2 justify-center';
             const leftTitle = document.createElement('h4');
-            leftTitle.className = 'text-lg font-bold mb-2 text-emerald-600 border-b pb-1';
+            leftTitle.className = 'w-full text-lg font-bold mb-2 text-emerald-600 border-b pb-1 text-center';
             leftTitle.textContent = 'Tipus de Batxillerat';
             leftCol.appendChild(leftTitle);
 
@@ -29,9 +29,9 @@ async function loadNaturaCategories() {
             });
 
             const rightCol = document.createElement('div');
-            rightCol.className = 'flex flex-col gap-3';
+            rightCol.className = 'flex flex-row flex-wrap gap-2 justify-center';
             const rightTitle = document.createElement('h4');
-            rightTitle.className = 'text-lg font-bold mb-2 text-teal-600 border-b pb-1';
+            rightTitle.className = 'w-full text-lg font-bold mb-2 text-teal-600 border-b pb-1 text-center';
             rightTitle.textContent = 'Sub-àmbits';
             rightCol.appendChild(rightTitle);
 
@@ -61,9 +61,10 @@ async function loadNaturaCategories() {
 
 function createNaturaBtn(text, onClick, bgColor = '#10b981') {
     const btn = document.createElement('button');
-    btn.className = 'btn-primary shadow-md w-full';
-    btn.style.padding = '1rem';
-    btn.style.fontSize = '1.1rem';
+    btn.className = 'btn-primary shadow-md';
+    btn.style.padding = '0.7rem 1.2rem';
+    btn.style.width = 'auto';
+    btn.style.fontSize = '1rem';
     btn.style.fontWeight = 'bold';
     btn.style.backgroundColor = bgColor;
     btn.style.transition = 'all 0.3s ease';
