@@ -14,29 +14,29 @@ async function loadNaturaCategories() {
             container.innerHTML = '';
 
             const stack = document.createElement('div');
-            stack.className = 'flex flex-col gap-10 w-full max-w-4xl mx-auto mt-8';
+            stack.className = 'flex flex-col gap-12 w-full max-w-4xl mx-auto mt-12';
 
             const topBlock = document.createElement('div');
             topBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
             const topTitle = document.createElement('h4');
-            topTitle.className = 'w-full text-xl font-bold mb-4 text-emerald-600 border-b-2 pb-2 text-center';
-            topTitle.textContent = 'Tipus de Batxillerat';
+            topTitle.className = 'w-full text-xl font-bold mb-4 text-teal-600 border-b-2 pb-2 text-center';
+            topTitle.textContent = 'Sub-àmbits';
             topBlock.appendChild(topTitle);
 
-            ambits.forEach(opt => {
-                const btn = createNaturaBtn(opt, () => initNaturaPreguntes('', opt));
+            subambits.forEach(opt => {
+                const btn = createNaturaBtn(opt, () => initNaturaPreguntes(opt, ''), '#059669');
                 topBlock.appendChild(btn);
             });
 
             const bottomBlock = document.createElement('div');
             bottomBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
             const bottomTitle = document.createElement('h4');
-            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-teal-600 border-b-2 pb-2 text-center';
-            bottomTitle.textContent = 'Sub-àmbits';
+            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-emerald-600 border-b-2 pb-2 text-center';
+            bottomTitle.textContent = 'Tipus de Batxillerat';
             bottomBlock.appendChild(bottomTitle);
 
-            subambits.forEach(opt => {
-                const btn = createNaturaBtn(opt, () => initNaturaPreguntes(opt, ''), '#059669');
+            ambits.forEach(opt => {
+                const btn = createNaturaBtn(opt, () => initNaturaPreguntes('', opt));
                 bottomBlock.appendChild(btn);
             });
 
@@ -46,7 +46,7 @@ async function loadNaturaCategories() {
 
             const mixContainer = document.createElement('div');
             mixContainer.className = 'col-span-full flex justify-center mt-8';
-            const mixBtn = createNaturaBtn('Totes barreja des', () => initNaturaPreguntes('Mix', 'Mix'), '#8b5cf6');
+            const mixBtn = createNaturaBtn('Totes barrejades', () => initNaturaPreguntes('Mix', 'Mix'), '#8b5cf6');
             mixBtn.style.padding = '1.2rem 3rem';
             mixContainer.appendChild(mixBtn);
             container.appendChild(mixContainer);

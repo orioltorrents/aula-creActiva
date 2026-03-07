@@ -13,33 +13,33 @@ async function loadTrCategories() {
             const ambits = response.ambits || [];
             container.innerHTML = '';
 
-            // Estructura vertical (Batxillerat a dalt, Sub-àmbits a sota)
+            // Estructura vertical (Sub-àmbits a dalt, Batxillerat a sota)
             const stack = document.createElement('div');
-            stack.className = 'flex flex-col gap-10 w-full max-w-4xl mx-auto mt-8';
+            stack.className = 'flex flex-col gap-12 w-full max-w-4xl mx-auto mt-12';
 
-            // Bloc Superior: Tipus de Batxillerat
+            // Bloc Superior: Sub-àmbits
             const topBlock = document.createElement('div');
             topBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
             const topTitle = document.createElement('h4');
-            topTitle.className = 'w-full text-xl font-bold mb-4 text-blue-600 border-b-2 pb-2 text-center';
-            topTitle.textContent = 'Tipus de Batxillerat';
+            topTitle.className = 'w-full text-xl font-bold mb-4 text-red-600 border-b-2 pb-2 text-center';
+            topTitle.textContent = 'Sub-àmbits';
             topBlock.appendChild(topTitle);
-
-            ambits.forEach(opt => {
-                const btn = createTrBtn(opt, () => initTrPreguntes('', opt));
-                topBlock.appendChild(btn);
-            });
-
-            // Bloc Inferior: Sub-àmbits
-            const bottomBlock = document.createElement('div');
-            bottomBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
-            const bottomTitle = document.createElement('h4');
-            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-red-600 border-b-2 pb-2 text-center';
-            bottomTitle.textContent = 'Sub-àmbits';
-            bottomBlock.appendChild(bottomTitle);
 
             subambits.forEach(opt => {
                 const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), '#ef4444');
+                topBlock.appendChild(btn);
+            });
+
+            // Bloc Inferior: Tipus de Batxillerat
+            const bottomBlock = document.createElement('div');
+            bottomBlock.className = 'flex flex-row flex-wrap gap-4 justify-center';
+            const bottomTitle = document.createElement('h4');
+            bottomTitle.className = 'w-full text-xl font-bold mb-4 text-blue-600 border-b-2 pb-2 text-center';
+            bottomTitle.textContent = 'Tipus de Batxillerat';
+            bottomBlock.appendChild(bottomTitle);
+
+            ambits.forEach(opt => {
+                const btn = createTrBtn(opt, () => initTrPreguntes('', opt));
                 bottomBlock.appendChild(btn);
             });
 
@@ -50,7 +50,7 @@ async function loadTrCategories() {
             // Botó Barrejat al mig/baix
             const mixContainer = document.createElement('div');
             mixContainer.className = 'col-span-full flex justify-center mt-8';
-            const mixBtn = createTrBtn('Totes barreja des', () => initTrPreguntes('Mix', 'Mix'), '#8b5cf6');
+            const mixBtn = createTrBtn('Totes barrejades', () => initTrPreguntes('Mix', 'Mix'), '#8b5cf6');
             mixBtn.style.padding = '1.2rem 3rem';
             mixContainer.appendChild(mixBtn);
             container.appendChild(mixContainer);
