@@ -1367,6 +1367,11 @@
                         <p data-i18n="act_tr_quadres_desc">Endevina l'autor o el corrent artístic de cada obra.
                         </p>
                     </div>
+                    <div class="activity-card" onclick="openSolidartActivity('quadres2')">
+                        <div class="act-icon">🖼️</div>
+                        <h4>Quadres i autors 2</h4>
+                        <p>Tria la imatge correcta per a l'autor o corrent indicat.</p>
+                    </div>
                 </div>
 
                 <!-- ACTIVITAT: Quadres -->
@@ -1456,6 +1461,69 @@
 
             </div>
             </div>
+            <!-- ACTIVITAT: Quadres 2 -->
+            <div id="solidart-activity-quadres2" class="sub-activity hidden">
+                <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
+
+                <div id="solidart-quadres2-setup" class="game-header text-center">
+                    <div id="solidart-feedback-config2" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
+                        style="max-width: 400px;">
+                        <label for="solidart-feedback-level2" class="block mb-2 font-semibold">Nivell de feedback per a
+                            l'alumne:</label>
+                        <select id="solidart-feedback-level2" class="form-select w-full p-2 border rounded">
+                            <option value="none">Cap (no es marquen les imatges)</option>
+                            <option value="simple" selected>Simple (només la triada)</option>
+                            <option value="full">Complet (marca correcta i error)</option>
+                        </select>
+                    </div>
+                    <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">Selecciona el nivell:</p>
+                    <div class="flex flex-col items-center gap-3 mt-6">
+                        <button class="btn-primary" style="background-color: #22c55e; max-width: 250px;"
+                            onclick="initSolidartQuadres2('Fàcil')">Fàcil</button>
+                        <button class="btn-primary" style="background-color: #eab308; max-width: 250px;"
+                            onclick="initSolidartQuadres2('Mitjà')">Mitjà</button>
+                        <button class="btn-primary" style="background-color: #ef4444; max-width: 250px;"
+                            onclick="initSolidartQuadres2('Difícil')">Difícil</button>
+                        <button class="btn-primary" style="background-color: #8b5cf6; max-width: 250px;"
+                            onclick="initSolidartQuadres2('Mix')">Barrejat</button>
+                    </div>
+                </div>
+
+                <div id="solidart-quadres2-quiz-container" class="hidden">
+                    <div class="stats-bar flex justify-between mb-4">
+                        <span id="solidart-quadres2-progress"></span>
+                        <span id="solidart-quadres2-score-display"></span>
+                    </div>
+                    <div class="question-container text-center">
+                        <h4 id="solidart-quadres2-text"
+                            class="text-2xl font-bold mb-8 p-6 bg-white rounded-xl shadow-sm border">Pregunta...</h4>
+                        <div id="solidart-quadres2-options" class="grid grid-cols-2 gap-4"></div>
+                    </div>
+                    <div id="solidart-quadres2-feedback-area"
+                        class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
+                        <p id="solidart-quadres2-feedback-msg" class="text-xl font-bold mb-2"></p>
+                        <button class="btn-primary" onclick="nextSolidartQuadres2()">Següent</button>
+                    </div>
+                </div>
+
+                <div id="solidart-quadres2-results" class="hidden text-center p-6 bg-white rounded-xl shadow-md">
+                    <h2 class="text-3xl font-bold mb-4">Resultat Final</h2>
+                    <div class="flex justify-center gap-10 mb-6">
+                        <div>
+                            <p class="text-gray-500">Puntuació</p>
+                            <p id="solidart-quadres2-final-score" class="text-4xl font-bold text-primary"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Percentatge</p>
+                            <p id="solidart-quadres2-final-percentage" class="text-4xl font-bold text-primary"></p>
+                        </div>
+                    </div>
+                    <p id="solidart-quadres2-final-msg" class="text-xl mb-6"></p>
+                    <button class="btn-primary" style="max-width: 200px; margin: 0 auto;"
+                        onclick="showSolidartMenu()">Tornar al menú</button>
+                </div>
+            </div>
+            </div>
         </main>
     </section>
 
@@ -1484,6 +1552,7 @@
     <script src="js/games/rates-preguntes.js"></script>
     <script src="js/games/treball-recerca-biblio.js"></script>
     <script src="js/games/solidart-quadres.js"></script>
+    <script src="js/games/solidart-quadres2.js"></script>
     <script src="js/app.js"></script>
 </body>
 

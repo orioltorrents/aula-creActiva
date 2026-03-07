@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbyQVXWRVYljWQK-AECBGHP32fpOqVFwkaDhOmS13JvoXmU70EuCBCg5mnG45dfcr4DJCQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbynO0KxvNHTfrYLOfLWNzeXSCy9IqXyJXAslTJeQE-AnA6lkF-gPHjl_LBCYYD0yd6Q7g/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -514,6 +514,20 @@ function openSolidartActivity(actId) {
             configDiv.classList.add('hidden');
             // Reset to default for students if needed, or keep last selected by prof
             const selector = document.getElementById('solidart-feedback-level');
+            if (selector) selector.value = 'simple';
+        }
+    } else if (actId === 'quadres2') {
+        const setupDiv = document.getElementById('solidart-quadres2-setup');
+        setupDiv.classList.remove('hidden');
+        document.getElementById('solidart-quadres2-quiz-container').classList.add('hidden');
+        document.getElementById('solidart-quadres2-results').classList.add('hidden');
+
+        const configDiv = document.getElementById('solidart-feedback-config2');
+        if (state.user && state.user.rol === 'prof') {
+            configDiv.classList.remove('hidden');
+        } else {
+            configDiv.classList.add('hidden');
+            const selector = document.getElementById('solidart-feedback-level2');
             if (selector) selector.value = 'simple';
         }
     }

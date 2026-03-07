@@ -77,6 +77,8 @@ function handleRequest(e) {
             result = getNaturaTemesQuestions(data.tipusBatxillerat);
         } else if (action === 'getSolidartQuadres') {
             result = getSolidartQuadres(data.dificultat);
+        } else if (action === 'getSolidartQuadres2') {
+            result = getSolidartQuadres2(data.dificultat);
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -776,6 +778,49 @@ function getSolidartQuadres(dificultat) {
             imatge: row[imgIdx],
             pregunta: row[qIdx],
             resposta_correcta: row[ansIdx],
+            opcions: options
+        };
+    });
+
+    return { status: 'success', questions };
+}
+
+function getSolidartQuadres2(dificultat) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('quadres2');
+    if (!sheet) return { status: 'error', message: 'Pestanya quadres2 no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a la pestanya quadres2' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim());
+    const difIdx = headers.indexOf('dificultat');
+    const qIdx = headers.indexOf('pregunta');
+    const imgCorrectIdx = headers.indexOf('img_correcta');
+    const inc1Idx = headers.indexOf('incorrecta_1');
+    const inc2Idx = headers.indexOf('incorrecta_2');
+    const inc3Idx = headers.indexOf('incorrecta_3');
+
+    if (qIdx === -1 || imgCorrectIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques a la pestanya quadres2' };
+    }
+
+    let filtered = data.slice(1);
+    if (dificultat && dificultat !== 'Mix') {
+        filtered = filtered.filter(row => String(row[difIdx]).trim().toLowerCase() === dificultat.toLowerCase());
+    }
+
+    const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
+        const options = [
+            row[imgCorrectIdx],
+            row[inc1Idx],
+            row[inc2Idx],
+            row[inc3Idx]
+        ].filter(o => o !== "").sort(() => Math.random() - 0.5);
+
+        return {
+            dificultat: row[difIdx],
+            pregunta: row[qIdx],
+            img_correcta: row[imgCorrectIdx],
             opcions: options
         };
     });
