@@ -296,12 +296,10 @@ body {
 }
 
 .projects-grid {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
     padding: 10px 5px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) transparent;
 }
 
 .projects-grid::-webkit-scrollbar {

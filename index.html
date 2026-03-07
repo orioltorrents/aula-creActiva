@@ -1375,6 +1375,18 @@
                         menú</button>
 
                     <div id="solidart-quadres-setup" class="game-header text-center">
+                        <div id="solidart-feedback-config" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
+                            style="max-width: 400px;">
+                            <label for="solidart-feedback-level" class="block mb-2 font-semibold">Nivell de feedback per
+                                a l'alumne:</label>
+                            <select id="solidart-feedback-level" class="form-select w-full p-2 border rounded">
+                                <option value="none">Cap (el botó no canvia de color)</option>
+                                <option value="simple" selected>Simple (només verd/vermell al botó triat)</option>
+                                <option value="full">Complet (marca la correcta i l'error)</option>
+                            </select>
+                            <p class="text-xs text-gray-500 mt-2">Tria "Cap" per a exàmens o per evitar que es copiïn.
+                            </p>
+                        </div>
                         <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">O tria per nivell (tots els
                             temes):</p>
                         <div class="flex flex-col items-center gap-3 mt-6">

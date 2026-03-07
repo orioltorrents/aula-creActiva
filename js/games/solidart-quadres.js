@@ -8,7 +8,8 @@ let solidartQuadresState = {
     currentIndex: 0,
     score: 0,
     startTime: null,
-    dificultat: ''
+    dificultat: '',
+    feedbackLevel: 'simple'
 };
 
 async function initSolidartQuadres(dificultat) {
@@ -31,7 +32,8 @@ async function initSolidartQuadres(dificultat) {
                 currentIndex: 0,
                 score: 0,
                 startTime: new Date(),
-                dificultat: dificultat
+                dificultat: dificultat,
+                feedbackLevel: document.getElementById('solidart-feedback-level')?.value || 'simple'
             };
             if (typeof toggleFullscreen === 'function' && !document.fullscreenElement) {
                 toggleFullscreen();
@@ -100,15 +102,29 @@ function checkSolidartQuadre(selected) {
 
     // Disable all buttons
     const buttons = document.querySelectorAll('#solidart-quadres-options button');
+    const level = solidartQuadresState.feedbackLevel;
+
     buttons.forEach(btn => {
         btn.disabled = true;
+
+        if (level === 'none') return; // No colors at all
+
+        if (level === 'full' && btn.textContent === q.resposta_correcta) {
+            btn.style.backgroundColor = 'var(--success-bg, #dcfce7)';
+            btn.style.borderColor = 'var(--success, #22c55e)';
+        }
+
         if (btn.textContent === selected) {
             if (isCorrect) {
-                btn.style.backgroundColor = 'var(--success-bg, #dcfce7)';
-                btn.style.borderColor = 'var(--success, #22c55e)';
+                if (level !== 'none') {
+                    btn.style.backgroundColor = 'var(--success-bg, #dcfce7)';
+                    btn.style.borderColor = 'var(--success, #22c55e)';
+                }
             } else {
-                btn.style.backgroundColor = 'var(--error-bg, #fee2e2)';
-                btn.style.borderColor = 'var(--error, #ef4444)';
+                if (level !== 'none') {
+                    btn.style.backgroundColor = 'var(--error-bg, #fee2e2)';
+                    btn.style.borderColor = 'var(--error, #ef4444)';
+                }
             }
         }
     });

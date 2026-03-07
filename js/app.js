@@ -250,7 +250,6 @@ async function loadDashboard() {
 
             const card = document.createElement('div');
             card.className = 'project-card';
-            card.style.minWidth = '180px'; // Targeta més estreta per optimitzar espai
             card.innerHTML = `
                 <div class="card-image" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
                     ${proj.imatge
@@ -502,9 +501,21 @@ function openSolidartActivity(actId) {
 
     if (actId === 'quadres') {
         // Reset sub-activity state
-        document.getElementById('solidart-quadres-setup').classList.remove('hidden');
+        const setupDiv = document.getElementById('solidart-quadres-setup');
+        setupDiv.classList.remove('hidden');
         document.getElementById('solidart-quadres-quiz-container').classList.add('hidden');
         document.getElementById('solidart-quadres-results').classList.add('hidden');
+
+        // Role-based visibility for feedback config
+        const configDiv = document.getElementById('solidart-feedback-config');
+        if (state.user && state.user.rol === 'prof') {
+            configDiv.classList.remove('hidden');
+        } else {
+            configDiv.classList.add('hidden');
+            // Reset to default for students if needed, or keep last selected by prof
+            const selector = document.getElementById('solidart-feedback-level');
+            if (selector) selector.value = 'simple';
+        }
     }
 }
 
