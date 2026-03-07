@@ -385,7 +385,19 @@ function getTrQuestions(tipusBatxillerat) {
         };
     });
 
-    return { status: 'success', questions: questions };
+    // També obtenim els tipus de batxillerat disponibles (únics) de tot el full (ignorant blancs)
+    const allCategories = new Set();
+    if (tipusIdx !== -1) {
+        data.slice(1).forEach(row => {
+            const tipus = String(row[tipusIdx] || "").trim();
+            if (tipus !== "" && row[pqIdx] && String(row[pqIdx]).trim() !== '') {
+                // Afegim el text tal qual del sheet, la llista tindrà les majúscules segons convingui
+                allCategories.add(tipus);
+            }
+        });
+    }
+
+    return { status: 'success', questions: questions, categories: Array.from(allCategories) };
 }
 
 function getCirculatoriQuestions() {

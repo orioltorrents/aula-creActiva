@@ -214,8 +214,10 @@ const i18n = {
             'act_audio_q9': '9. On és la pestanya de la CONSOLA per veure els barrejadors?',
             'btn_skip': 'Passar pregunta (-5 punts)',
             'btn_help': 'Ajuda (-10 punts)',
-            'score_label': 'Punts: '
-
+            'score_label': 'Punts: ',
+            'tr_project_title': 'Treball de recerca',
+            'act_tr_preguntes_title': 'Preguntes investigables',
+            'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -423,8 +425,10 @@ const i18n = {
             'act_audio_q9': '9. ¿Dónde está la pestaña de la CONSOLA para ver los mezcladores?',
             'btn_skip': 'Pasar pregunta (-5 puntos)',
             'btn_help': 'Ajuda (-10 punts)',
-            'score_label': 'Puntos: '
-
+            'score_label': 'Puntos: ',
+            'tr_project_title': 'Trabajo de investigación',
+            'act_tr_preguntes_title': 'Preguntas investigables',
+            'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -618,7 +622,10 @@ const i18n = {
             'act_audio_q9': '9. Where is the CONSOLE tab to see the mixers?',
             'btn_skip': 'Skip question (-5 points)',
             'btn_help': 'Help (-10 points)',
-            'score_label': 'Points: '
+            'score_label': 'Points: ',
+            'tr_project_title': 'Research Work',
+            'act_tr_preguntes_title': 'Investigable Questions',
+            'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.'
         },
         'ar': {
             'btn_practice': 'ممارسة',

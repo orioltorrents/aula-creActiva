@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbzLkteS-ZbDdC3ricMbYvJreYeZZbVQAS9PKdDR-ti0iP4C7xu0d7uirvqIA0xmBiVEAg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwTBrtzqgaHJoxzubNRfPyrcaARMINIi0ngWoyGLwzE3oX0l2uH2FRyk0oXpOIuuK9ziA/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -419,6 +419,10 @@ function showTrMenu() {
 function openTrActivity(actId) {
     document.getElementById('tr-activities-menu').classList.add('hidden');
     document.getElementById(`tr-activity-${actId}`).classList.remove('hidden');
+
+    if (actId === 'preguntes' && typeof loadTrCategories === 'function') {
+        loadTrCategories();
+    }
 }
 
 // --- PARALIMPICS NAVIGATION ---

@@ -3,6 +3,46 @@
 let trPreguntesList = [];
 let trCurrentQuestionIndex = 0;
 let trCorrectAnswers = 0;
+let trCategoriesLoaded = false;
+
+async function loadTrCategories() {
+    if (trCategoriesLoaded) return;
+
+    const container = document.getElementById('tr-preguntes-categories-container');
+    container.innerHTML = '<p class="text-gray-500">Carregant àmbits disponibles...</p>';
+
+    try {
+        const response = await callApi('getTrQuestions', { tipusBatxillerat: '' });
+        if (response && response.status === 'success') {
+            const categories = response.categories || [];
+            container.innerHTML = ''; // clear loading
+
+            if (categories.length === 0) {
+                container.innerHTML = '<p class="text-red-500">No hi ha cap pregunta disponible.</p>';
+                return;
+            }
+
+            const colors = ['var(--primary)', 'var(--secondary)', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6'];
+
+            categories.forEach((cat, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.style.padding = '1.5rem 2rem';
+                btn.style.fontSize = '1.25rem';
+                btn.style.backgroundColor = colors[index % colors.length];
+                btn.textContent = cat;
+                btn.onclick = () => initTrPreguntes(cat);
+                container.appendChild(btn);
+            });
+
+            trCategoriesLoaded = true;
+        } else {
+            container.innerHTML = '<p class="text-red-500">Error carregant els àmbits.</p>';
+        }
+    } catch (e) {
+        container.innerHTML = '<p class="text-red-500">Error de connexió.</p>';
+    }
+}
 
 async function initTrPreguntes(tipusBatxillerat) {
     // Show loading text on the buttons or somewhere
