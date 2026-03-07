@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbz__r8IxZFU1keZmseGc3dnvU4DjjOwaE-od9Hi2crbKfw28e7dfUeJeoOSNy9-XjtSHQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyQVXWRVYljWQK-AECBGHP32fpOqVFwkaDhOmS13JvoXmU70EuCBCg5mnG45dfcr4DJCQ/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -287,6 +287,12 @@ function openProject(project) {
                 showParalimpicsMenu();
             }
         }
+    } else if (project.id === 'p3_solidart') {
+        const hubDiv = document.getElementById('project-hub-solidart');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            showSolidartMenu();
+        }
     } else if (project.id === 'batx1_tr') {
         const hubDiv = document.getElementById('project-hub-tr');
         if (hubDiv) {
@@ -463,6 +469,27 @@ function openDigitalitzacioActivity(actId) {
 
     if (actId === 'audio' && typeof initSonarGame === 'function') {
         initSonarGame();
+    }
+}
+
+// --- SOLIDART NAVIGATION ---
+function showSolidartMenu() {
+    const hub = document.getElementById('project-hub-solidart');
+    if (hub) {
+        document.getElementById('solidart-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openSolidartActivity(actId) {
+    document.getElementById('solidart-activities-menu').classList.add('hidden');
+    document.getElementById(`solidart-activity-${actId}`).classList.remove('hidden');
+
+    if (actId === 'quadres') {
+        // Reset sub-activity state
+        document.getElementById('solidart-quadres-setup').classList.remove('hidden');
+        document.getElementById('solidart-quadres-quiz-container').classList.add('hidden');
+        document.getElementById('solidart-quadres-results').classList.add('hidden');
     }
 }
 

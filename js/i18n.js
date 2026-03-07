@@ -220,7 +220,10 @@ const i18n = {
             'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.',
             'act_tr_temes_title': 'Temes i preguntes',
             'act_tr_temes_desc': 'Tria grups de preguntes d\'un tema de recerca.',
-            'p1_rates_title': 'Rates a la carrera'
+            'p1_rates_title': 'Rates a la carrera',
+            'p3_solidart_title': 'SolidArt',
+            'act_tr_quadres_title': 'Quadres i autors',
+            'act_tr_quadres_desc': 'Endevina l\'autor o el corrent artístic de cada obra.'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -434,7 +437,10 @@ const i18n = {
             'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.',
             'act_tr_temes_title': 'Temas y preguntas',
             'act_tr_temes_desc': 'Elige grupos de preguntas de un tema de investigación.',
-            'p1_rates_title': 'Ratas a la carrera'
+            'p1_rates_title': 'Ratas a la carrera',
+            'p3_solidart_title': 'SolidArt',
+            'act_tr_quadres_title': 'Cuadros y autores',
+            'act_tr_quadres_desc': 'Adivina el autor o el corriente artístico de cada obra.'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -634,7 +640,10 @@ const i18n = {
             'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.',
             'act_tr_temes_title': 'Topics and questions',
             'act_tr_temes_desc': 'Choose groups of questions from a research topic.',
-            'p1_rates_title': 'Rats on the run'
+            'p1_rates_title': 'Rats on the run',
+            'p3_solidart_title': 'SolidArt',
+            'act_tr_quadres_title': 'Paintings and authors',
+            'act_tr_quadres_desc': 'Guess the author or artistic style of each artwork.'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -797,6 +806,9 @@ const i18n = {
             'act_heart_feedback_incorrect': 'هذا ليس الجزء الصحيح. حاول مرة أخرى.',
             'act_heart_finished': 'تم الانتهاء من النشاط. تهانينا!',
             'p1_rates_title': 'الجرذان في السباق',
+            'p3_solidart_title': 'سوليدارت',
+            'act_tr_quadres_title': 'اللوحات والمؤلفون',
+            'act_tr_quadres_desc': 'تخمين المؤلف أو النمط الفني لكل عمل.',
             'digi_project_title': 'الرقمنة',
             'digi_project_desc': 'الأدوات والموارد الرقمية للقرن الحادي والعشرين.',
             'act_audio_title': 'تحرير الصوت',
@@ -835,7 +847,7 @@ const i18n = {
             'act_tr_preguntes_desc': 'تعلم كيفية التمييز بين الأسئلة القابلة للبحث وغيرها.',
             'act_tr_temes_title': 'المواضيع والأسئلة',
             'act_tr_temes_desc': 'اختر مجموعات من الأسئلة من موضوع بحث.'
-        }
+        },
     },
 
     // Funció per canviar l'idioma
