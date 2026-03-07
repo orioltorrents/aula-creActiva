@@ -424,6 +424,8 @@ function openTrActivity(actId) {
         loadTrCategories();
     } else if (actId === 'temes' && typeof loadTrTemesCategories === 'function') {
         loadTrTemesCategories();
+    } else if (actId === 'biblio' && typeof initTrBiblioGame === 'function') {
+        initTrBiblioGame();
     }
 }
 

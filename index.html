@@ -100,14 +100,16 @@
                         <div id="med-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openMediterraniActivity('capitals')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_mediterrani_capitals.png" alt="Capitals" class="act-img">
+                                    <img src="assets/images/targeta_mediterrani_capitals.png" alt="Capitals"
+                                        class="act-img">
                                 </div>
                                 <h4 data-i18n="act_capitals_title">Capitals</h4>
                                 <p data-i18n="act_capitals_desc">Aprèn les capitals del Mediterrani</p>
                             </div>
                             <div class="activity-card" onclick="openMediterraniActivity('test_mar')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_mediterrani_elmardelmig.png" alt="Mar del Mig" class="act-img">
+                                    <img src="assets/images/targeta_mediterrani_elmardelmig.png" alt="Mar del Mig"
+                                        class="act-img">
                                 </div>
                                 <h4 data-i18n="act_sea_title">El Mar del Mig</h4>
                                 <p data-i18n="act_sea_desc">Vídeo i Test de coneixements</p>
@@ -234,6 +236,15 @@
                                 <h4 data-i18n="act_tr_temes_title">Temes i preguntes</h4>
                                 <p data-i18n="act_tr_temes_desc">Tria bones preguntes d'un tema de recerca.</p>
                             </div>
+                            <!-- Nova Targeta Bibliografia i Cites -->
+                            <div class="activity-card" onclick="openTrActivity('biblio')">
+                                <div class="act-icon">
+                                    <img src="assets/images/targeta_biblio-APA.png" alt="Bibliografia i Cites"
+                                        class="act-img">
+                                </div>
+                                <h4 data-i18n="act_biblio_title">Bibliografia i Cites</h4>
+                                <p data-i18n="act_biblio_desc">Aprèn a citar correctament les teves fonts</p>
+                            </div>
                         </div>
 
                         <!-- ACTIVITAT: Preguntes Investigables (Original) -->
@@ -338,6 +349,53 @@
                             </div>
                         </div>
 
+                        <!-- ACTIVITAT: Bibliografia i Cites (TR) -->
+                        <div id="tr-activity-biblio" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
+                            <div class="game-header">
+                                <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
+                            </div>
+                            <div class="activity-instructions">
+                                <p data-i18n="instruction_biblio">Pots o bé triar el nivell de les preguntes o bé triar
+                                    un tipus de preguntes a treballar:</p>
+                            </div>
+                            <div class="game-controls py-4" id="tr-biblio-level-selection">
+                                <div id="tr-biblio-topic-selection" class="flex flex-col items-center"></div>
+                                <div class="flex flex-col items-center mt-4">
+                                    <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
+                                        (tots els temes):</p>
+                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                                        <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn-primary"
+                                            style="background-color: var(--success); width: auto;"
+                                            data-i18n="level_easy">Fàcil</button>
+                                        <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn-primary"
+                                            style="background-color: #f59e0b; width: auto;"
+                                            data-i18n="level_hard">Difícil</button>
+                                        <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn-primary"
+                                            style="background-color: var(--error); width: auto;"
+                                            data-i18n="level_mixed">Barrejat</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tr-biblio-quiz-container" class="hidden">
+                                <div class="stats-bar">
+                                    <span id="tr-biblio-progress">Pregunta 1/8</span>
+                                    <span id="tr-biblio-score">Punts: 0</span>
+                                </div>
+                                <div class="question-container">
+                                    <h4 id="tr-biblio-question-text">Pregunta...</h4>
+                                    <div id="tr-biblio-options" class="options-list"></div>
+                                </div>
+                                <p id="tr-biblio-feedback" class="feedback-msg"></p>
+                            </div>
+                            <div id="tr-biblio-results" class="hidden text-center">
+                                <h3 data-i18n="final_score">Resultats</h3>
+                                <p id="tr-biblio-final-score" class="text-2xl font-bold">0 / 80</p>
+                                <p id="tr-biblio-message"></p>
+                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                            </div>
+                        </div>
+
 
 
                     </div>
@@ -398,7 +456,8 @@
                         <div id="natura-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openNaturaActivity('xarxes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_xarxes-trofiques.png" alt="Microbit" class="act-img">
+                                    <img src="assets/images/targeta_xarxes-trofiques.png" alt="Microbit"
+                                        class="act-img">
                                 </div>
                                 <h4 data-i18n="act_xarxes_title">Xarxes Tròfiques</h4>
                                 <p data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</p>
@@ -1169,6 +1228,7 @@
     <script src="js/games/radio-conexions.js"></script>
     <script src="js/games/natura-preguntes.js"></script>
     <script src="js/games/natura-temes.js"></script>
+    <script src="js/games/treball-recerca-biblio.js"></script>
     <script src="js/app.js"></script>
 </body>
 
