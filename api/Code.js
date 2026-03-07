@@ -71,6 +71,10 @@ function handleRequest(e) {
             result = getTrQuestions(data.tipusBatxillerat);
         } else if (action === 'getTrTemesQuestions') {
             result = getTrTemesQuestions(data.tipusBatxillerat);
+        } else if (action === 'getNaturaPreguntes') {
+            result = getNaturaPreguntes(data.tipusBatxillerat);
+        } else if (action === 'getNaturaTemesQuestions') {
+            result = getNaturaTemesQuestions(data.tipusBatxillerat);
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -630,3 +634,104 @@ function createJSONOutput(object) {
 // PERÒ: Si es fa el desplegament "Who has access: Anyone", Google fa un redirect 302 que sol funcionar amb `fetch`
 // si es segueixen les redireccions.
 // El return JSON estàndard sol funcionar per GET/POST simple.
+function getNaturaPreguntes(tipusBatxillerat) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('natura_preguntes');
+    if (!sheet) return { status: 'error', message: 'Pestanya natura_preguntes no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_preguntes' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim());
+    const pqIdx = headers.indexOf('pregunta');
+    const invIdx = headers.indexOf('investigable/no investigable');
+    const tipusIdx = headers.indexOf('tipus_batxillerat');
+    const raoIdx = headers.indexOf('perquè_no_investigable');
+
+    if (pqIdx === -1 || invIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques a natura_preguntes' };
+    }
+
+    if (!tipusBatxillerat || tipusBatxillerat.trim() === '') {
+        const categoriesSet = new Set();
+        if (tipusIdx !== -1) {
+            for (let i = 1; i < data.length; i++) {
+                const cat = String(data[i][tipusIdx]).trim();
+                if (cat) categoriesSet.add(cat);
+            }
+        }
+        return { status: 'success', categories: Array.from(categoriesSet) };
+    }
+
+    let filtered = data.slice(1).filter(row => {
+        const hasQ = row[pqIdx] && String(row[pqIdx]).trim() !== '';
+        const isType = tipusIdx !== -1 ? (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
+        return hasQ && isType;
+    });
+
+    const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 15).map(row => ({
+        pregunta: row[pqIdx],
+        investigable: row[invIdx],
+        perque_no_investigable: raoIdx !== -1 ? row[raoIdx] : ''
+    }));
+
+    return { status: 'success', questions };
+}
+
+function getNaturaTemesQuestions(tipusBatxillerat) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('natura_temes');
+    if (!sheet) return { status: 'error', message: 'Pestanya natura_temes no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_temes' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim());
+    const temaIdx = headers.indexOf('tema');
+    const tipusBtxIdx = headers.indexOf('tipus_batxillerat');
+
+    const colIdxs = [];
+    for (let i = 1; i <= 10; i++) {
+        colIdxs.push({
+            pIdx: headers.indexOf(`pregunta_${i}`),
+            tIdx: headers.indexOf(`tipus_${i}`)
+        });
+    }
+
+    if (temaIdx === -1 || colIdxs[0].pIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques a natura_temes' };
+    }
+
+    if (!tipusBatxillerat || tipusBatxillerat.trim() === '') {
+        const categoriesSet = new Set();
+        if (tipusBtxIdx !== -1) {
+            for (let i = 1; i < data.length; i++) {
+                const cat = String(data[i][tipusBtxIdx]).trim();
+                if (cat) categoriesSet.add(cat);
+            }
+        }
+        if (categoriesSet.size === 0 && data.length > 1) categoriesSet.add('General');
+        return { status: 'success', categories: Array.from(categoriesSet) };
+    }
+
+    let filtered = data.slice(1).filter(row => {
+        const hasTema = row[temaIdx] && String(row[temaIdx]).trim() !== '';
+        const isGen = tipusBatxillerat.toLowerCase() === 'general';
+        const isType = (tipusBtxIdx !== -1 && !isGen) ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
+        return hasTema && isType;
+    });
+
+    const topics = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
+        let qs = [];
+        for (let i = 0; i < 10; i++) {
+            const idxs = colIdxs[i];
+            if (idxs.pIdx !== -1 && String(row[idxs.pIdx]).trim()) {
+                qs.push({
+                    text: String(row[idxs.pIdx]).trim(),
+                    type: idxs.tIdx !== -1 ? String(row[idxs.tIdx]).trim() : ''
+                });
+            }
+        }
+        return { tema: row[temaIdx], preguntes: qs.sort(() => Math.random() - 0.5) };
+    });
+
+    return { status: 'success', topics };
+}

@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbxapilQyIHkdd8gU5iXG1JakfS59NlCBjLwOsX16VtyQgAoMlKJb-kGOpW47iAG58esvQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzvNHGpIq04wjQ3vAMFvsqVbKPr7dZkHBDe5txqRO0_oKqBSl1nl_jFlQwBlHvVZfkk/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -484,6 +484,22 @@ function openNaturaActivity(actId) {
     } else if (actId === 'biblio') {
         document.getElementById('natura-activity-biblio').classList.remove('hidden');
         if (typeof initBiblioGame === 'function') initBiblioGame();
+    } else if (actId === 'preguntes') {
+        document.getElementById('natura-activity-preguntes').classList.remove('hidden');
+        if (typeof loadNaturaCategories === 'function') {
+            document.getElementById('natura-preguntes-setup').classList.remove('hidden');
+            document.getElementById('natura-preguntes-quiz-container').classList.add('hidden');
+            document.getElementById('natura-preguntes-results').classList.add('hidden');
+            loadNaturaCategories();
+        }
+    } else if (actId === 'temes') {
+        document.getElementById('natura-activity-temes').classList.remove('hidden');
+        if (typeof loadNaturaTemesCategories === 'function') {
+            document.getElementById('natura-temes-setup').classList.remove('hidden');
+            document.getElementById('natura-temes-quiz-container').classList.add('hidden');
+            document.getElementById('natura-temes-results').classList.add('hidden');
+            loadNaturaTemesCategories();
+        }
     }
 }
 
