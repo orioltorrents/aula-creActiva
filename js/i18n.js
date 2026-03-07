@@ -219,7 +219,8 @@ const i18n = {
             'act_tr_preguntes_title': 'Preguntes investigables',
             'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.',
             'act_tr_temes_title': 'Temes i preguntes',
-            'act_tr_temes_desc': 'Tria grups de preguntes d\'un tema de recerca.'
+            'act_tr_temes_desc': 'Tria grups de preguntes d\'un tema de recerca.',
+            'p1_rates_title': 'Rates a la carrera'
         },
         'es': {
             'btn_practice': 'Práctica',
@@ -432,7 +433,8 @@ const i18n = {
             'act_tr_preguntes_title': 'Preguntas investigables',
             'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.',
             'act_tr_temes_title': 'Temas y preguntas',
-            'act_tr_temes_desc': 'Elige grupos de preguntas de un tema de investigación.'
+            'act_tr_temes_desc': 'Elige grupos de preguntas de un tema de investigación.',
+            'p1_rates_title': 'Ratas a la carrera'
         },
         'en': {
             'btn_practice': 'Practice',
@@ -631,7 +633,8 @@ const i18n = {
             'act_tr_preguntes_title': 'Investigable Questions',
             'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.',
             'act_tr_temes_title': 'Topics and questions',
-            'act_tr_temes_desc': 'Choose groups of questions from a research topic.'
+            'act_tr_temes_desc': 'Choose groups of questions from a research topic.',
+            'p1_rates_title': 'Rats on the run'
         },
         'ar': {
             'btn_practice': 'ممارسة',
@@ -793,6 +796,7 @@ const i18n = {
             'act_heart_feedback_correct': 'أحسنت! تم تحديد الجزء.',
             'act_heart_feedback_incorrect': 'هذا ليس الجزء الصحيح. حاول مرة أخرى.',
             'act_heart_finished': 'تم الانتهاء من النشاط. تهانينا!',
+            'p1_rates_title': 'الجرذان في السباق',
             'digi_project_title': 'الرقمنة',
             'digi_project_desc': 'الأدوات والموارد الرقمية للقرن الحادي والعشرين.',
             'act_audio_title': 'تحرير الصوت',
