@@ -67,6 +67,8 @@ function handleRequest(e) {
             result = getRadioConnectionsQuestions();
         } else if (action === 'getCirculatoriQuestions') {
             result = getCirculatoriQuestions();
+        } else if (action === 'getTrQuestions') {
+            result = getTrQuestions(data.tipusBatxillerat);
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -135,6 +137,11 @@ function getProjects(curs) {
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ],
+        // Batxillerat
+        '1r Batxillerat': [
+            { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.', imatge: 'assets/images/targeta-tr.png' }
+        ],
+        '2n Batxillerat': [],
         // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
         '1ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.', imatge: 'assets/img/rates.png' },
@@ -151,7 +158,11 @@ function getProjects(curs) {
         '4ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.', imatge: 'assets/img/natura.png' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
-        ]
+        ],
+        '1Batx': [
+            { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.', imatge: 'assets/images/targeta-tr.png' }
+        ],
+        '2Batx': []
     };
 
     const projectes = catalog[curs] || [];
@@ -254,78 +265,127 @@ function saveNaturaQuizResult(data) {
 }
 
 function getBiblioQuestions() {
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
-  if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
+    if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
 
-  const data = sheet.getDataRange().getValues();
-  if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
 
-  // Normalitzem headers (minúscules, trim, fora accents)
-  const rawHeaders = data[0].map(h => String(h).replace(/^\uFEFF/, '').trim());
-  const headers = rawHeaders.map(h =>
-    h.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-  );
+    // Normalitzem headers (minúscules, trim, fora accents)
+    const rawHeaders = data[0].map(h => String(h).replace(/^\uFEFF/, '').trim());
+    const headers = rawHeaders.map(h =>
+        h.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    );
 
-  const findIdx = (names) => {
-    for (let name of names) {
-      const norm = String(name).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const idx = headers.indexOf(norm);
-      if (idx !== -1) return idx;
+    const findIdx = (names) => {
+        for (let name of names) {
+            const norm = String(name).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const idx = headers.indexOf(norm);
+            if (idx !== -1) return idx;
+        }
+        return -1;
+    };
+
+    // ✅ Aquests són els teus headers reals
+    const typeIdx = findIdx(['Tipus de pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo']);
+    const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
+    const qIdx = findIdx(['Pregunta', 'Question']);
+    const correctIdx = findIdx(['Correcta', 'Correct', 'Correcta ']);
+    const wrong1Idx = findIdx(['Incorrecta1', 'Incorrecta 1', 'Incorrecta_1']);
+    const wrong2Idx = findIdx(['Incorrecta2', 'Incorrecta 2', 'Incorrecta_2']);
+    const wrong3Idx = findIdx(['Incorrecta3', 'Incorrecta 3', 'Incorrecta_3']);
+
+    if (typeIdx === -1) return { status: 'error', message: 'Falta la columna "Tipus de pregunta"' };
+    if (qIdx === -1) return { status: 'error', message: 'Falta la columna "Pregunta"' };
+    if (correctIdx === -1) return { status: 'error', message: 'Falta la columna "Correcta"' };
+
+    const questions = data.slice(1)
+        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
+        .map(row => {
+            const type = String(row[typeIdx] ?? "").trim();
+            const level = String(row[levelIdx] ?? "").trim(); // deixa'l tal qual ("Fàcil", "Difícil")
+            const q = String(row[qIdx] ?? "").trim();
+            const correct = String(row[correctIdx] ?? "").trim();
+
+            const wrongs = [
+                wrong1Idx !== -1 ? row[wrong1Idx] : "",
+                wrong2Idx !== -1 ? row[wrong2Idx] : "",
+                wrong3Idx !== -1 ? row[wrong3Idx] : ""
+            ]
+                .map(v => String(v ?? "").trim())
+                .filter(v => v);
+
+            const alternatives = [correct, ...wrongs].filter(v => v);
+
+            return {
+                // ✅ IMPORTANT: retorna també amb headers “compatibles” amb el teu frontend actual
+                "Tipus de pregunta": type,
+                "Nivell": level,
+                "Pregunta": q,
+                "Correcta": correct,
+                "Incorrecta1": wrongs[0] || "",
+                "Incorrecta2": wrongs[1] || "",
+                "Incorrecta3": wrongs[2] || "",
+
+                // ✅ i també en format normalitzat (per si el frontend llegeix .type/.level/.q)
+                type,
+                level,
+                q,
+                correct,
+                alternatives
+            };
+        });
+
+    return { status: 'success', questions };
+}
+
+function getTrQuestions(tipusBatxillerat) {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_investigables');
+    if (!sheet) return { status: 'error', message: 'Pestanya preguntes_investigables no trobada' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_investigables' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim());
+
+    // Busquem les columnes per nom (normalitzat)
+    const idIdx = headers.indexOf('id');
+    const pqIdx = headers.indexOf('pregunta');
+    const invIdx = headers.indexOf('investigable/no investigable');
+    const tipusIdx = headers.indexOf('tipus_batxillerat');
+    const raoIdx = headers.indexOf('perquè_no_investigable');
+    const tipusErrorIdx = headers.indexOf('tipus_error');
+    const escalaIdx = headers.indexOf('escala_tr');
+
+    if (pqIdx === -1 || invIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques (cal "pregunta" i "investigable/no investigable")' };
     }
-    return -1;
-  };
 
-  // ✅ Aquests són els teus headers reals
-  const typeIdx = findIdx(['Tipus de pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo']);
-  const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
-  const qIdx = findIdx(['Pregunta', 'Question']);
-  const correctIdx = findIdx(['Correcta', 'Correct', 'Correcta ']);
-  const wrong1Idx = findIdx(['Incorrecta1', 'Incorrecta 1', 'Incorrecta_1']);
-  const wrong2Idx = findIdx(['Incorrecta2', 'Incorrecta 2', 'Incorrecta_2']);
-  const wrong3Idx = findIdx(['Incorrecta3', 'Incorrecta 3', 'Incorrecta_3']);
+    // Filtrar per tipus_batxillerat (ignorarem les que estiguin buides de pregunta)
+    let questionsFiltered = data.slice(1).filter(row => {
+        const hasQuestion = row[pqIdx] && String(row[pqIdx]).trim() !== '';
+        // Si no s'ha demanat cap tipus, tornem tot el que tingui pregunta. Si no, filtrem:
+        const isTargetType = tipusBatxillerat ? (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
 
-  if (typeIdx === -1) return { status: 'error', message: 'Falta la columna "Tipus de pregunta"' };
-  if (qIdx === -1) return { status: 'error', message: 'Falta la columna "Pregunta"' };
-  if (correctIdx === -1) return { status: 'error', message: 'Falta la columna "Correcta"' };
-
-  const questions = data.slice(1)
-    .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
-    .map(row => {
-      const type = String(row[typeIdx] ?? "").trim();
-      const level = String(row[levelIdx] ?? "").trim(); // deixa'l tal qual ("Fàcil", "Difícil")
-      const q = String(row[qIdx] ?? "").trim();
-      const correct = String(row[correctIdx] ?? "").trim();
-
-      const wrongs = [
-        wrong1Idx !== -1 ? row[wrong1Idx] : "",
-        wrong2Idx !== -1 ? row[wrong2Idx] : "",
-        wrong3Idx !== -1 ? row[wrong3Idx] : ""
-      ]
-        .map(v => String(v ?? "").trim())
-        .filter(v => v);
-
-      const alternatives = [correct, ...wrongs].filter(v => v);
-
-      return {
-        // ✅ IMPORTANT: retorna també amb headers “compatibles” amb el teu frontend actual
-        "Tipus de pregunta": type,
-        "Nivell": level,
-        "Pregunta": q,
-        "Correcta": correct,
-        "Incorrecta1": wrongs[0] || "",
-        "Incorrecta2": wrongs[1] || "",
-        "Incorrecta3": wrongs[2] || "",
-
-        // ✅ i també en format normalitzat (per si el frontend llegeix .type/.level/.q)
-        type,
-        level,
-        q,
-        correct,
-        alternatives
-      };
+        return hasQuestion && isTargetType;
     });
 
-  return { status: 'success', questions };
+    // Remenar aleatòriament les preguntes i quedar-nos només amb les 15 primeres
+    questionsFiltered = questionsFiltered.sort(() => Math.random() - 0.5).slice(0, 15);
+
+    const questions = questionsFiltered.map(row => {
+        return {
+            id: idIdx !== -1 ? row[idIdx] : '',
+            pregunta: row[pqIdx],
+            investigable: row[invIdx],
+            tipus_batxillerat: tipusIdx !== -1 ? row[tipusIdx] : '',
+            perque_no_investigable: raoIdx !== -1 ? row[raoIdx] : '',
+            tipus_error: tipusErrorIdx !== -1 ? row[tipusErrorIdx] : '',
+            escala_tr: escalaIdx !== -1 ? row[escalaIdx] : ''
+        };
+    });
+
+    return { status: 'success', questions: questions };
 }
 
 function getCirculatoriQuestions() {

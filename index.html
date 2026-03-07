@@ -210,6 +210,69 @@
                         </div>
                     </div>
 
+                    <!-- PROJECTE: Treball de recerca (1r Batx) -->
+                    <div id="project-hub-tr" class="game-module hidden">
+                        <h3 data-i18n="tr_project_title">Projecte Treball de Recerca</h3>
+                        
+                        <!-- MENÚ D'ACTIVITATS -->
+                        <div id="tr-activities-menu" class="activities-grid">
+                            <div class="activity-card" onclick="openTrActivity('preguntes')">
+                                <div class="act-icon">
+                                    <span style="font-size: 2rem;">❓</span>
+                                </div>
+                                <h4 data-i18n="act_tr_preguntes_title">Preguntes Investigables</h4>
+                                <p data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</p>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Preguntes Investigables -->
+                        <div id="tr-activity-preguntes" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al
+                                menú</button>
+                            
+                            <!-- PANTALLA INICIAL (Selecció d'àmbit) -->
+                            <div id="tr-preguntes-setup" class="game-header text-center">
+                                <h3>Treball de recerca — Preguntes investigables</h3>
+                                <p class="mb-4">Tria l'àmbit del qual vols practicar preguntes.</p>
+                                
+                                <div class="flex justify-center gap-4 flex-wrap mt-4">
+                                    <button class="btn-primary" style="padding: 1.5rem 2rem; font-size: 1.25rem;" onclick="initTrPreguntes('científic')">Científic</button>
+                                    <button class="btn-primary" style="padding: 1.5rem 2rem; font-size: 1.25rem; background-color: var(--secondary);" onclick="initTrPreguntes('tecnològic')">Tecnològic</button>
+                                    <button class="btn-primary" style="padding: 1.5rem 2rem; font-size: 1.25rem; background-color: var(--primary);" onclick="initTrPreguntes('social')">Social</button>
+                                </div>
+                            </div>
+                            
+                            <!-- QUIZ AREA -->
+                            <div id="tr-preguntes-quiz-container" class="hidden">
+                                <div class="stats-bar flex justify-between">
+                                    <span id="tr-preguntes-progress">Pregunta 1 / 15</span>
+                                </div>
+                                <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+                                    <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
+                                    
+                                    <div class="flex justify-center gap-4">
+                                        <button id="btn-investigable" class="btn-primary" style="background-color: var(--success); min-width: 200px;" onclick="checkTrPreguntaRespuesta('Investigable')">Investigable</button>
+                                        <button id="btn-no-investigable" class="btn-primary" style="background-color: var(--error); min-width: 200px;" onclick="checkTrPreguntaRespuesta('No investigable')">No investigable</button>
+                                    </div>
+                                </div>
+                                <div id="tr-preguntes-feedback-area" class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+                                    <p id="tr-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
+                                    <p id="tr-preguntes-feedback-desc" class="mb-4"></p>
+                                    <button id="tr-preguntes-next-btn" class="btn-primary" onclick="nextTrPregunta()">Següent pregunta</button>
+                                </div>
+                            </div>
+                            
+                            <!-- RESULTATS -->
+                            <div id="tr-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="tr-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 / 15</p>
+                                <p id="tr-preguntes-final-percentage" class="text-2xl font-semibold mb-4 text-gray-700">0%</p>
+                                <p id="tr-preguntes-final-msg" class="text-lg mb-8"></p>
+                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- PROJECTE: Paralímpics -->
                     <div id="project-hub-paralimpics" class="game-module hidden">
                         <h3 data-i18n="par_project_title">Projecte Paralímpics</h3>
@@ -999,6 +1062,7 @@
     <script src="js/games/natura-impacte.js"></script>
     <script src="js/games/natura-rols.js"></script>
     <script src="js/games/natura-bibliografia.js"></script>
+    <script src="js/games/treball-recerca.js"></script>
     <script src="js/games/bio-cor.js"></script>
     <script src="js/games/bio-circulatori-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>

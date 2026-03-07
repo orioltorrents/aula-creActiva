@@ -223,7 +223,8 @@ async function loadDashboard() {
         'p2_paralimpics': { icon: '<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
         'p2_biologia': { icon: '<img src="assets/images/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p2_radio': { icon: '<img src="assets/images/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' }
+        'p2_radio': { icon: '<img src="assets/images/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/targeta-tr.png" alt="Treball de recerca" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
 
     if (allProjects.length > 0) {
@@ -279,6 +280,14 @@ function openProject(project) {
             hubDiv.classList.remove('hidden');
             if (typeof showParalimpicsMenu === 'function') {
                 showParalimpicsMenu();
+            }
+        }
+    } else if (project.id === 'batx1_tr') {
+        const hubDiv = document.getElementById('project-hub-tr');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showTrMenu === 'function') {
+                showTrMenu();
             }
         }
     } else if (project.id === 'p1_natura' || project.id === 'p4_natura') {
@@ -396,6 +405,20 @@ function showMediterraniMenu() {
 function openMediterraniActivity(actId) {
     document.getElementById('med-activities-menu').classList.add('hidden');
     document.getElementById(`med-activity-${actId}`).classList.remove('hidden');
+}
+
+// --- TREBALL DE RECERCA NAVIGATION ---
+function showTrMenu() {
+    const hub = document.getElementById('project-hub-tr');
+    if (hub) {
+        document.getElementById('tr-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openTrActivity(actId) {
+    document.getElementById('tr-activities-menu').classList.add('hidden');
+    document.getElementById(`tr-activity-${actId}`).classList.remove('hidden');
 }
 
 // --- PARALIMPICS NAVIGATION ---
