@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbwYM8Zj7Nv7zJqfJo4ltIab8xjDXOf47o1QnoZO3KQNq_92W_iyxyp3eaqI4BZRgCI3Ug/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbz__r8IxZFU1keZmseGc3dnvU4DjjOwaE-od9Hi2crbKfw28e7dfUeJeoOSNy9-XjtSHQ/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -217,8 +217,10 @@ async function loadDashboard() {
 
     // Configuració visual dels projectes
     const projectVisuals = {
+        'p1_rates': { icon: '<img src="assets/images/targeta_rates-a-la-carrera.png" alt="Rates" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
         'p1_mediterrani': { icon: '<img src="assets/images/targeta_mediterrani.png" alt="Mediterrani" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/targeta-solidart.png" alt="SolidArt" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_natura': { icon: '<img src="assets/images/targeta_entorns.png" alt="Entorns de Natura" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
         'p2_paralimpics': { icon: '<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
@@ -265,7 +267,10 @@ function openProject(project) {
     // Carregar joc específic segons ID del projecte
     if (project.id === 'p1_rates') {
         const gameDiv = document.getElementById('game-container-p1_rates');
-        if (gameDiv) gameDiv.classList.remove('hidden');
+        if (gameDiv) {
+            gameDiv.classList.remove('hidden');
+            showRatesMenu();
+        }
     } else if (project.id === 'p1_mediterrani') {
         const hubDiv = document.getElementById('project-hub-mediterrani');
         if (hubDiv) {
@@ -467,6 +472,31 @@ function showNaturaMenu() {
     if (hub) {
         document.getElementById('natura-activities-menu').classList.remove('hidden');
         hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+// **********************************************************
+// RATES A LA CARRERA (HUB)
+// **********************************************************
+function showRatesMenu() {
+    document.getElementById('rates-activities-menu').classList.remove('hidden');
+    document.querySelectorAll('#game-container-p1_rates .sub-activity').forEach(el => el.classList.add('hidden'));
+}
+
+function openRatesActivity(activityId) {
+    // Amagar menú
+    document.getElementById('rates-activities-menu').classList.add('hidden');
+
+    // Amagar totes les sub-activitats
+    document.querySelectorAll('#game-container-p1_rates .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    // Mostrar la seleccionada
+    const subAct = document.getElementById(`rates-activity-${activityId}`);
+    if (subAct) {
+        subAct.classList.remove('hidden');
+        if (activityId === 'preguntes') {
+            loadRatesCategories();
+        }
     }
 }
 

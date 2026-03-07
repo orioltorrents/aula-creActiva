@@ -82,13 +82,72 @@
                 <!-- Aquí aniria l'iframe o el canvas del joc -->
                 <div id="activity-area">
 
-                    <!-- EXEMPLE JOC ESPECÍFIC: Rates a la carrera -->
+                    <!-- PROJECTE: Rates a la carrera (1r ESO) -->
                     <div id="game-container-p1_rates" class="game-module hidden">
-                        <h3>Rates a la carrera - Activitat 1</h3>
-                        <p>Pregunta de prova: Quant fan 2+2?</p>
-                        <button onclick="alert('Correcte!')" class="btn-primary" style="max-width: 200px;">4</button>
-                        <button onclick="alert('Incorrecte')" class="btn-secondary" style="max-width: 200px;">5</button>
-                        <hr>
+                        <!-- MENÚ D'ACTIVITATS -->
+                        <div id="rates-activities-menu" class="activities-grid">
+                            <div class="activity-card" onclick="openRatesActivity('preguntes')">
+                                <div class="act-icon">
+                                    <img src="assets/images/targeta-preguntes-investigables.png" alt="Preguntes"
+                                        class="act-img">
+                                </div>
+                                <h4 data-i18n="act_tr_preguntes_title">Preguntes investigables</h4>
+                                <p>Practica com formular bones preguntes investigables.</p>
+                            </div>
+                            <!-- Proximament més activitats -->
+                        </div>
+
+                        <!-- ACTIVITAT 1: Preguntes Investigables -->
+                        <div id="rates-activity-preguntes" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-4" onclick="showRatesMenu()">← Tornar al
+                                menú</button>
+
+                            <div id="rates-preguntes-setup" class="game-header text-center">
+                                <h3><span data-i18n="p1_rates_title">Rates a la carrera</span> — <span
+                                        data-i18n="act_tr_preguntes_title">Preguntes investigables</span></h3>
+                                <p class="mb-4">Tria l'àmbit del qual vols practicar preguntes.</p>
+                                <div id="rates-preguntes-categories-container"
+                                    class="flex justify-center gap-4 flex-wrap mt-4">
+                                </div>
+                            </div>
+
+                            <div id="rates-preguntes-quiz-container" class="hidden">
+                                <div class="stats-bar flex justify-between">
+                                    <span id="rates-preguntes-progress">Pregunta 1 / 15</span>
+                                </div>
+                                <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+                                    <h4 id="rates-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
+
+                                    <div class="flex justify-center gap-4">
+                                        <button id="btn-rates-investigable" class="btn-primary"
+                                            style="background-color: var(--success); min-width: 200px;"
+                                            onclick="checkRatesPreguntaRespuesta('Investigable')">Investigable</button>
+                                        <button id="btn-rates-no-investigable" class="btn-primary"
+                                            style="background-color: var(--error); min-width: 200px;"
+                                            onclick="checkRatesPreguntaRespuesta('No investigable')">No
+                                            investigable</button>
+                                    </div>
+                                </div>
+                                <div id="rates-preguntes-feedback-area"
+                                    class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+                                    <p id="rates-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
+                                    <p id="rates-preguntes-feedback-desc" class="mb-4"></p>
+                                    <button id="rates-preguntes-next-btn" class="btn-primary"
+                                        onclick="nextRatesPregunta()">Següent pregunta</button>
+                                </div>
+                            </div>
+
+                            <div id="rates-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="rates-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 / 15
+                                </p>
+                                <p id="rates-preguntes-final-percentage"
+                                    class="text-2xl font-semibold mb-4 text-gray-700">
+                                    0%</p>
+                                <p id="rates-preguntes-final-msg" class="text-lg mb-8"></p>
+                                <button onclick="showRatesMenu()" class="btn-secondary">Tornar al menú</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- PROJECTE: Mediterrani (1r ESO) -->
@@ -1329,6 +1388,7 @@
     <script src="js/games/radio-conexions.js"></script>
     <script src="js/games/natura-preguntes.js"></script>
     <script src="js/games/natura-temes.js"></script>
+    <script src="js/games/rates-preguntes.js"></script>
     <script src="js/games/treball-recerca-biblio.js"></script>
     <script src="js/app.js"></script>
 </body>
