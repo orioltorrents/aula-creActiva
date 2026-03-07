@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulate Game Save
     document.getElementById('simulate-score-btn').addEventListener('click', simulateGameSave);
+
+    // Fullscreen Toggle
+    document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
 });
 
 // **********************************************************
@@ -87,6 +90,18 @@ function showScreen(screenName) {
     if (screens[screenName]) {
         screens[screenName].classList.add('active');
         screens[screenName].classList.remove('hidden');
+    }
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Error entering fullscreen: ${err.message}`);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
     }
 }
 

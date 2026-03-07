@@ -33,6 +33,9 @@ async function initSolidartQuadres(dificultat) {
                 startTime: new Date(),
                 dificultat: dificultat
             };
+            if (typeof toggleFullscreen === 'function' && !document.fullscreenElement) {
+                toggleFullscreen();
+            }
             renderSolidartQuadre();
         } else {
             quizDiv.innerHTML = `<div class="alert alert-error">No s'han trobat preguntes per a aquesta dificultat.</div>
@@ -99,12 +102,14 @@ function checkSolidartQuadre(selected) {
     const buttons = document.querySelectorAll('#solidart-quadres-options button');
     buttons.forEach(btn => {
         btn.disabled = true;
-        if (btn.textContent === q.resposta_correcta) {
-            btn.style.backgroundColor = 'var(--success-bg, #dcfce7)';
-            btn.style.borderColor = 'var(--success, #22c55e)';
-        } else if (btn.textContent === selected && !isCorrect) {
-            btn.style.backgroundColor = 'var(--error-bg, #fee2e2)';
-            btn.style.borderColor = 'var(--error, #ef4444)';
+        if (btn.textContent === selected) {
+            if (isCorrect) {
+                btn.style.backgroundColor = 'var(--success-bg, #dcfce7)';
+                btn.style.borderColor = 'var(--success, #22c55e)';
+            } else {
+                btn.style.backgroundColor = 'var(--error-bg, #fee2e2)';
+                btn.style.borderColor = 'var(--error, #ef4444)';
+            }
         }
     });
 
@@ -117,10 +122,10 @@ function checkSolidartQuadre(selected) {
 
     feedbackArea.classList.remove('hidden');
     if (isCorrect) {
-        feedbackMsg.textContent = "Correcte! ✨";
+        feedbackMsg.textContent = "Resposta registrada ✨"; // Changed from "Correcte!" to be more neutral if desired, but "Correcte" is fine too if we just want to hide the ANSWER.
         feedbackMsg.className = "text-xl font-bold mb-2 text-green-600";
     } else {
-        feedbackMsg.textContent = `Incorrecte. La resposta era: ${q.resposta_correcta}`;
+        feedbackMsg.textContent = "Resposta registrada";
         feedbackMsg.className = "text-xl font-bold mb-2 text-red-600";
     }
 
