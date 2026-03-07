@@ -709,497 +709,598 @@
                                     data-i18n="back">Tornar</button>
                             </div>
                         </div>
-                    </div>
-                    <!-- PROJECTE: Digitalització -->
-                    <div id="project-hub-digitalitzacio" class="game-module hidden">
-                        <h3 data-i18n="digi_project_title">Digitalització</h3>
-                        <p data-i18n="digi_project_desc">Eines i recursos digitals per al segle XXI.</p>
 
-                        <div id="digi-activities-menu" class="activities-grid mt-4">
-                            <div class="activity-card" onclick="openDigitalitzacioActivity('audio')">
-                                <div class="act-icon">🎵</div>
-                                <h4 data-i18n="act_audio_title">Edició d'àudio</h4>
-                                <p data-i18n="act_audio_desc">Aprèn a gravar i editar els teus propis sons.</p>
-                            </div>
-                            <div class="activity-card disabled-card">
-                                <div class="act-icon">📝</div>
-                                <h4 data-i18n="act_docs_title">Google Docs</h4>
-                                <p data-i18n="act_docs_desc">Processador de textos en el núvol.</p>
-                                <span class="badge-soon">Aviat</span>
-                            </div>
-                            <div class="activity-card disabled-card">
-                                <div class="act-icon">📊</div>
-                                <h4 data-i18n="act_sheets_title">Google Sheets</h4>
-                                <p data-i18n="act_sheets_desc">Fulls de càlcul i dades.</p>
-                                <span class="badge-soon">Aviat</span>
-                            </div>
-                            <div class="activity-card disabled-card">
-                                <div class="act-icon">📱</div>
-                                <h4 data-i18n="act_devices_title">Dispositius digitals</h4>
-                                <p data-i18n="act_devices_desc">Maquinari i perifèrics.</p>
-                                <span class="badge-soon">Aviat</span>
-                            </div>
-                        </div>
-
-                        <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
-                        <div id="digi-activity-audio" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
+                        <!-- ACTIVITAT DUPLICADA: Preguntes Investigables (Natura) -->
+                        <div id="natura-activity-preguntes" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al
                                 menú</button>
-                            <div class="game-header">
-                                <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
-                            </div>
-                            <div class="sonar-activity-container">
-                                <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
-                                    <div id="sonar-score-display" class="font-bold">Punts: 100</div>
-                                    <div class="flex gap-2">
-                                        <button id="sonar-help-btn" class="btn-info btn-sm" onclick="showSonarHelp()"
-                                            data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                        <button id="sonar-skip-btn" class="btn-secondary btn-sm"
-                                            onclick="skipQuestion()" data-i18n="btn_skip">Passar pregunta (-5
-                                            punts)</button>
-                                    </div>
-                                </div>
-                                <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
-                                <div class="image-interactive-wrapper mt-4"
-                                    style="position: relative; cursor: crosshair;">
-                                    <img id="sonar-image" src="assets/images/sonar_interface.png"
-                                        alt="Cakewalk Sonar Interface"
-                                        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                                </div>
-                                <p id="sonar-feedback" class="feedback-msg mt-2"></p>
 
-                                <!-- CALIBRATION UI (USER DEBUG) -->
-                                <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                    style="font-family: monospace; font-size: 12px;">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span>⚙️ Ajust de diana</span>
-                                        <button onclick="closeCalibration()" class="text-red-400">✖</button>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1 mb-2 text-center">
-                                        <div></div><button onclick="nudgeTarget('y', -1)"
-                                            class="bg-gray-700 p-1 rounded">▲</button>
-                                        <div></div>
-                                        <button onclick="nudgeTarget('x', -1)"
-                                            class="bg-gray-700 p-1 rounded">◀</button>
-                                        <button onclick="nudgeTarget('y', 1)" class="bg-gray-700 p-1 rounded">▼</button>
-                                        <button onclick="nudgeTarget('x', 1)" class="bg-gray-700 p-1 rounded">▶</button>
-                                    </div>
-                                    <div class="flex gap-2 justify-center mb-2">
-                                        <button onclick="nudgeTarget('w', 1); nudgeTarget('h', 1)"
-                                            class="bg-gray-700 px-2 rounded">+</button>
-                                        <button onclick="nudgeTarget('w', -1); nudgeTarget('h', -1)"
-                                            class="bg-gray-700 px-2 rounded">-</button>
-                                        <span class="ml-2">Mida</span>
-                                    </div>
-                                    <div id="calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0
-                                    </div>
-                                    <p class="mt-2 text-yellow-400 text-center italic">Està ben posat ara?</p>
+                            <div id="natura-preguntes-setup" class="game-header text-center">
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                        data-i18n="act_tr_preguntes_title">Preguntes investigables</span></h3>
+                                <p class="mb-4">Tria l'àmbit del qual vols practicar preguntes.</p>
+                                <div id="natura-preguntes-categories-container"
+                                    class="flex justify-center gap-4 flex-wrap mt-4">
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div id="project-hub-biologia" class="game-module hidden">
+                            <div id="natura-preguntes-quiz-container" class="hidden">
+                                <div class="stats-bar flex justify-between">
+                                    <span id="natura-preguntes-progress">Pregunta 1 / 15</span>
+                                </div>
+                                <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+                                    <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
-                        <div id="bio-systems-menu" class="activities-grid mt-4">
-                            <div class="activity-card disabled-card">
-                                <img src="assets/images/aparell-digestiu.png" alt="Aparell Digestiu"
-                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="sec_digestiu">Aparell Digestiu</h4>
-                                <p data-i18n="sec_dig_desc">Processament d'aliments i nutrients</p>
-                                <span class="badge-soon">Aviat</span>
+                                    <div class="flex justify-center gap-4">
+                                        <button id="btn-natura-investigable" class="btn-primary"
+                                            style="background-color: var(--success); min-width: 200px;"
+                                            onclick="checkNaturaPreguntaRespuesta('Investigable')">Investigable</button>
+                                        <button id="btn-natura-no-investigable" class="btn-primary"
+                                            style="background-color: var(--error); min-width: 200px;"
+                                            onclick="checkNaturaPreguntaRespuesta('No investigable')">No
+                                            investigable</button>
+                                    </div>
+                                </div>
+                                <div id="natura-preguntes-feedback-area"
+                                    class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+                                    <p id="natura-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
+                                    <p id="natura-preguntes-feedback-desc" class="mb-4"></p>
+                                    <button id="natura-preguntes-next-btn" class="btn-primary"
+                                        onclick="nextNaturaPregunta()">Següent pregunta</button>
+                                </div>
                             </div>
 
-                            <div class="activity-card" onclick="openBioSystem('circulatori')">
-                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori"
-                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="sec_circulatori">Aparell Circulatori</h4>
-                                <p data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</p>
-                            </div>
-                            <div class="activity-card disabled-card">
-                                <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori"
-                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="sec_respiratori">Aparell Respiratori</h4>
-                                <p data-i18n="sec_resp_desc">Pulmons i intercanvi de gasos</p>
-                                <span class="badge-soon">Aviat</span>
-
-                            </div>
-                            <div class="activity-card disabled-card">
-                                <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor"
-                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="sec_excretor">Aparell Excretor</h4>
-                                <p data-i18n="sec_excr_desc">Ronyons i eliminació de residus</p>
-                                <span class="badge-soon">Aviat</span>
+                            <div id="natura-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="natura-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 /
+                                    15
+                                </p>
+                                <p id="natura-preguntes-final-percentage"
+                                    class="text-2xl font-semibold mb-4 text-gray-700">
+                                    0%</p>
+                                <p id="natura-preguntes-final-msg" class="text-lg mb-8"></p>
+                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar</button>
                             </div>
                         </div>
 
-
-                        <!-- ACTIVITATS: Aparell Circulatori -->
-                        <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
-                            <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
-                                style="width: fit-content;">← Tornar als Sistemes</button>
-                            <!-- Imatge de capçalera del circulatori -->
-                            <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori" class="w-full"
-                                    style="max-height:180px; object-fit:cover;">
-                            </div>
-
-
-                            <div class="activity-card" onclick="openBioActivity('cor')">
-                                <img src="assets/images/cor-huma.png" alt="El Cor Humà" class="w-full rounded-lg mb-2"
-                                    style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="act_heart_title">El Cor Humà</h4>
-                                <p data-i18n="act_heart_desc">Identifica les parts i cavitats del cor</p>
-                            </div>
-
-                            <!-- NOU: Quiz de l'Aparell Circulatori -->
-                            <div class="activity-card" onclick="openBioActivity('circulatori-quiz')">
-                                <h4 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h4>
-                                <p data-i18n="act_circ_quiz_desc">Posa a prova els teus coneixements</p>
-                            </div>
-                            <!-- NOU: Cèl·lules de la Sang -->
-                            <div class="activity-card" onclick="openBioActivity('cells')">
-                                <img src="assets/images/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
-                                    class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
-                                <h4 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h4>
-                                <p data-i18n="act_cells_desc">Identifica els elements de la sang</p>
-                            </div>
-
-
-
-
-                        </div>
-
-                        <!-- ACTIVITAT: Quiz Aparell Circulatori -->
-                        <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                        <!-- ACTIVITAT DUPLICADA: Temes i Preguntes (Natura) -->
+                        <div id="natura-activity-temes" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al
                                 menú</button>
-                            <div class="game-header">
-                                <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
-                            </div>
 
-                            <div id="circ-quiz-feedback" class="text-center mb-4"></div>
-
-                            <!-- Selecció de Nivell/Tema -->
-                            <div id="circ-quiz-selection"
-                                class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
-                                <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
-                                    temes):</p>
-                                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                                    <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn-primary"
-                                        data-i18n="level_easy">Fàcil</button>
-                                    <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn-primary"
-                                        data-i18n="level_medium">Mitjà</button>
-                                    <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn-primary"
-                                        data-i18n="level_hard">Difícil</button>
-                                    <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn-primary"
-                                        data-i18n="level_mixed">Barrejat</button>
+                            <div id="natura-temes-setup" class="game-header text-center">
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                        data-i18n="act_tr_temes_title">Temes i Preguntes</span></h3>
+                                <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de
+                                    recerca.</p>
+                                <div id="natura-temes-categories-container"
+                                    class="flex justify-center gap-4 flex-wrap mt-4">
                                 </div>
-                                <div id="circ-quiz-topic-selection"></div>
                             </div>
 
-                            <!-- Quiz UI -->
-                            <div id="circ-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
-                                <div
-                                    class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
-                                    <div id="circ-quiz-progress">Pregunta 1/10</div>
-                                    <div id="circ-quiz-score">Punts: 0</div>
-                                </div>
-                                <div id="circ-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
-                                <div id="circ-quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
-                            </div>
-
-                            <!-- Resultats -->
-                            <div id="circ-quiz-results"
-                                class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                                <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
-                                <div id="circ-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
-                                </div>
-                                <p id="circ-quiz-message" class="text-lg mb-8"></p>
-                                <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
-                            </div>
-                        </div>
-
-                        <!-- ACTIVITAT: Cèl·lules de la Sang -->
-                        <div id="bio-activity-cells" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
-                                menú</button>
-                            <div class="game-header text-center mb-6">
-                                <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
-                                <p id="cells-instruction" class="text-lg opacity-75" data-i18n="cells_instruction">
-                                    Identifica la cèl·lula que demana l'enunciat:</p>
-                            </div>
-
-                            <div class="cells-game-container max-w-2xl mx-auto">
-                                <!-- Imatge del diagrama -->
-                                <div
-                                    class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
-                                    <img src="assets/images/cellules-sanguinies-microscopi-electronic.png"
-                                        alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
-                                        style="max-height: 280px;">
+                            <div id="natura-temes-quiz-container" class="hidden">
+                                <div class="stats-bar flex justify-between mb-4">
+                                    <span id="natura-temes-progress">Tema 1 / X</span>
+                                    <span id="natura-temes-score">Punts: 0</span>
                                 </div>
 
-                                <div id="cells-matching-ui"
-                                    class="container-white p-6 rounded-xl shadow-sm border mb-6">
-                                    <!-- Files per 1, 2, 3 -->
-                                    <div class="space-y-5">
-                                        <!-- Cèl·lula 1 -->
-                                        <div id="row-cell-1"
-                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                            <span class="font-bold">La cèl·lula 1 és un</span>
-                                            <select id="select-common-1"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom comú...</option>
-                                            </select>
-                                            <span class="font-bold">o també es diu</span>
-                                            <select id="select-scientific-1"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom científic...</option>
-                                            </select>
-                                        </div>
-                                        <!-- Cèl·lula 2 -->
-                                        <div id="row-cell-2"
-                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                            <span class="font-bold">La cèl·lula 2 és un</span>
-                                            <select id="select-common-2"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom comú...</option>
-                                            </select>
-                                            <span class="font-bold">o també es diu</span>
-                                            <select id="select-scientific-2"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom científic...</option>
-                                            </select>
-                                        </div>
-                                        <!-- Cèl·lula 3 -->
-                                        <div id="row-cell-3"
-                                            class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                            <span class="font-bold">La cèl·lula 3 és un</span>
-                                            <select id="select-common-3"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom comú...</option>
-                                            </select>
-                                            <span class="font-bold">o també es diu</span>
-                                            <select id="select-scientific-3"
-                                                class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
-                                                <option value="" disabled selected>Tria nom científic...</option>
-                                            </select>
-                                        </div>
+                                <div class="bg-white rounded shadow-sm p-6 text-center">
+                                    <h3 id="natura-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">TEMA</h3>
+                                    <p class="mb-6 text-gray-600">Selecciona <strong class="text-black">totes</strong>
+                                        les preguntes que consideris <strong
+                                            class="text-blue-600">INVESTIGABLES</strong>.</p>
+
+                                    <div id="natura-temes-options" class="flex flex-col gap-3 text-left">
+                                        <!-- Buttons generated dynamically -->
                                     </div>
 
-
-                                    <div class="mt-8 text-center">
-                                        <button onclick="checkCellsAnswers()"
-                                            class="btn-primary px-10 py-3 text-lg">Comprovar respostes</button>
+                                    <div class="mt-8">
+                                        <button id="natura-temes-check-btn" class="btn-primary w-full text-xl py-3"
+                                            onclick="checkNaturaTemesRespostes()">Comprovar Selecció</button>
                                     </div>
                                 </div>
-
-                                <div id="cells-feedback" class="text-center h-8 font-bold text-lg mb-4"></div>
+                                <div id="natura-temes-feedback-area" class="hidden mt-6">
+                                    <div id="natura-temes-feedback-list" class="flex flex-col gap-3 mb-6"></div>
+                                    <button id="natura-temes-next-btn" class="btn-primary w-full text-lg py-3"
+                                        onclick="nextNaturaTema()">Següent Tema</button>
+                                </div>
                             </div>
 
-                            <!-- Resultats Cells -->
-                            <div id="cells-results"
-                                class="hidden text-center p-8 bg-white rounded-lg shadow-sm border max-w-md mx-auto">
-                                <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
-                                <div id="cells-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
-                                </div>
-                                <p id="cells-message" class="text-lg mb-8"></p>
-                                <button onclick="initCellsGame()" class="btn-primary">Tornar a jugar</button>
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- ACTIVITAT: El Cor Humà -->
-
-                        <div id="bio-activity-cor" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
-                            <div class="game-header">
-                                <h3 data-i18n="act_heart_title">El Cor Humà</h3>
-                            </div>
-                            <div class="bio-activity-container">
-                                <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
-                                    <div id="bio-heart-score-display" class="font-bold">Punts: 100</div>
-                                    <div class="flex gap-2">
-                                        <button id="bio-heart-help-btn" class="btn-info btn-sm"
-                                            onclick="showBioHeartHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                        <button id="bio-heart-skip-btn" class="btn-secondary btn-sm"
-                                            onclick="skipBioHeartQuestion()" data-i18n="btn_skip">Passar pregunta (-5
-                                            punts)</button>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
-                                    <div id="bio-heart-question" class="text-lg font-bold">Clica...</div>
-                                    <div id="bio-heart-feedback" class="feedback-msg font-bold"
-                                        style="margin: 0; min-width: 120px; text-align: right;"></div>
-                                </div>
-                                <div class="image-interactive-wrapper mt-2"
-                                    style="position: relative; cursor: crosshair;">
-                                    <img id="bio-heart-image" src="assets/images/cor.png" alt="Cor Humà"
-                                        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                                </div>
-
-
-                                <!-- CALIBRATION UI (DEBUG) -->
-                                <div id="bio-heart-calibration-ui"
-                                    class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                    style="font-family: monospace; font-size: 12px;">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span>⚙️ Ajust de diana (Cor)</span>
-                                        <button onclick="closeBioHeartCalibration()" class="text-red-400">✖</button>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1 mb-2 text-center">
-                                        <div></div><button onclick="nudgeBioHeartTarget('y', -1)"
-                                            class="bg-gray-700 p-1 rounded">▲</button>
-                                        <div></div>
-                                        <button onclick="nudgeBioHeartTarget('x', -1)"
-                                            class="bg-gray-700 p-1 rounded">◀</button>
-                                        <button onclick="nudgeBioHeartTarget('y', 1)"
-                                            class="bg-gray-700 p-1 rounded">▼</button>
-                                        <button onclick="nudgeBioHeartTarget('x', 1)"
-                                            class="bg-gray-700 p-1 rounded">▶</button>
-                                    </div>
-                                    <div class="flex gap-2 justify-center mb-2">
-                                        <button onclick="nudgeBioHeartTarget('w', 1); nudgeBioHeartTarget('h', 1)"
-                                            class="bg-gray-700 px-2 rounded">+</button>
-                                        <button onclick="nudgeBioHeartTarget('w', -1); nudgeBioHeartTarget('h', -1)"
-                                            class="bg-gray-700 px-2 rounded">-</button>
-                                        <span class="ml-2">Mida</span>
-                                    </div>
-                                    <div id="bio-heart-calibration-values" class="text-center text-xs opacity-75">x:0
-                                        y:0 w:0 h:0</div>
-                                    <div class="mt-2 text-center">
-                                        <button onclick="exportBioHeartConfig()"
-                                            class="btn-primary btn-sm bg-green-600 text-xs py-1"
-                                            style="background-color: #059669; font-size: 10px;">Exportar / Copiar
-                                            Codi</button>
-                                    </div>
-
-                                </div>
+                            <div id="natura-temes-results" class="hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="natura-temes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0 / 15
+                                </p>
+                                <p id="natura-temes-final-percentage" class="text-2xl font-semibold mb-4 text-gray-700">
+                                    0%
+                                </p>
+                                <p id="natura-temes-final-msg" class="text-lg mb-8"></p>
+                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar</button>
                             </div>
                         </div>
                     </div>
+                </div>
+                <!-- PROJECTE: Digitalització -->
+                <div id="project-hub-digitalitzacio" class="game-module hidden">
+                    <h3 data-i18n="digi_project_title">Digitalització</h3>
+                    <p data-i18n="digi_project_desc">Eines i recursos digitals per al segle XXI.</p>
 
-                    <!-- PROJECTE: Ràdio -->
-                    <div id="project-hub-radio" class="game-module hidden">
-                        <h3 data-i18n="radio_project_title">Ràdio</h3>
-                        <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
-                        <div id="radio-activities-menu" class="activities-grid mt-4">
-                            <div class="activity-card" onclick="openRadioActivity('taula')">
-                                <div class="act-icon">🎚️</div>
-                                <h4 data-i18n="act_radio_title">La Taula de So</h4>
-                                <p data-i18n="act_radio_desc">Identifica els controls de la taula</p>
-                            </div>
-                            <div class="activity-card" onclick="openRadioActivity('conexions')">
-                                <div class="act-icon">🔌</div>
-                                <h4 data-i18n="act_connections_title">Conexions d'Àudio</h4>
-                                <p data-i18n="act_connections_desc">Identifica els diferents tipus de connectors i
-                                    cables</p>
-                            </div>
+                    <div id="digi-activities-menu" class="activities-grid mt-4">
+                        <div class="activity-card" onclick="openDigitalitzacioActivity('audio')">
+                            <div class="act-icon">🎵</div>
+                            <h4 data-i18n="act_audio_title">Edició d'àudio</h4>
+                            <p data-i18n="act_audio_desc">Aprèn a gravar i editar els teus propis sons.</p>
                         </div>
-
-                        <!-- ACTIVITAT: Taula de So -->
-                        <div id="radio-activity-taula" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al
-                                menú</button>
-                            <div class="game-header">
-                                <h3 data-i18n="act_radio_title">La Taula de So</h3>
-                            </div>
-                            <div class="radio-activity-container">
-                                <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
-                                    <div id="radio-board-score-display" class="font-bold">Punts: 100</div>
-                                    <div class="flex gap-2">
-                                        <button id="radio-board-help-btn" class="btn-info btn-sm"
-                                            onclick="showRadioBoardHelp()" data-i18n="btn_help">Ajuda (-10
-                                            punts)</button>
-                                        <button id="radio-board-skip-btn" class="btn-secondary btn-sm"
-                                            onclick="skipRadioBoardQuestion()" data-i18n="btn_skip">Passar pregunta
-                                            (-5 punts)</button>
-                                    </div>
-                                </div>
-                                <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">
-                                    Clica...</div>
-                                <div class="image-interactive-wrapper mt-4"
-                                    style="position: relative; cursor: crosshair;">
-                                    <img id="radio-board-image" src="assets/images/taula-de-so.png" alt="Taula de So"
-                                        style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                                </div>
-                                <p id="radio-board-feedback" class="feedback-msg mt-2"></p>
-
-                                <!-- CALIBRATION UI (DEBUG) -->
-                                <div id="radio-board-calibration-ui"
-                                    class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                    style="font-family: monospace; font-size: 12px;">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span>⚙️ Ajust de diana (Ràdio)</span>
-                                        <button onclick="closeRadioBoardCalibration()" class="text-red-400">✖</button>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1 mb-2 text-center">
-                                        <div></div><button onclick="nudgeRadioTarget('y', -1)"
-                                            class="bg-gray-700 p-1 rounded">▲</button>
-                                        <div></div>
-                                        <button onclick="nudgeRadioTarget('x', -1)"
-                                            class="bg-gray-700 p-1 rounded">◀</button>
-                                        <button onclick="nudgeRadioTarget('y', 1)"
-                                            class="bg-gray-700 p-1 rounded">▼</button>
-                                        <button onclick="nudgeRadioTarget('x', 1)"
-                                            class="bg-gray-700 p-1 rounded">▶</button>
-                                    </div>
-                                    <div class="flex gap-2 justify-center mb-2">
-                                        <button onclick="nudgeRadioTarget('w', 1); nudgeRadioTarget('h', 1)"
-                                            class="bg-gray-700 px-2 rounded">+</button>
-                                        <button onclick="nudgeRadioTarget('w', -1); nudgeRadioTarget('h', -1)"
-                                            class="bg-gray-700 px-2 rounded">-</button>
-                                        <span class="ml-2">Mida</span>
-                                    </div>
-                                    <div id="radio-board-calibration-values" class="text-center text-xs opacity-75">
-                                        x:0 y:0 w:0 h:0</div>
-                                </div>
-                            </div>
+                        <div class="activity-card disabled-card">
+                            <div class="act-icon">📝</div>
+                            <h4 data-i18n="act_docs_title">Google Docs</h4>
+                            <p data-i18n="act_docs_desc">Processador de textos en el núvol.</p>
+                            <span class="badge-soon">Aviat</span>
+                        </div>
+                        <div class="activity-card disabled-card">
+                            <div class="act-icon">📊</div>
+                            <h4 data-i18n="act_sheets_title">Google Sheets</h4>
+                            <p data-i18n="act_sheets_desc">Fulls de càlcul i dades.</p>
+                            <span class="badge-soon">Aviat</span>
+                        </div>
+                        <div class="activity-card disabled-card">
+                            <div class="act-icon">📱</div>
+                            <h4 data-i18n="act_devices_title">Dispositius digitals</h4>
+                            <p data-i18n="act_devices_desc">Maquinari i perifèrics.</p>
+                            <span class="badge-soon">Aviat</span>
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Conexions d'Àudio -->
-                    <div id="radio-activity-conexions" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+                    <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
+                    <div id="digi-activity-audio" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
+                            menú</button>
                         <div class="game-header">
-                            <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
+                            <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
                         </div>
-                        <div id="connections-quiz-container">
-                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-4">
-                                <div id="connections-progress">Pregunta 1/20</div>
-                                <div id="connections-score" class="font-bold">Punts: 0</div>
-                            </div>
-                            <div class="question-container text-center">
-                                <div class="image-display mb-4" style="max-width: 400px; margin: 0 auto;">
-                                    <img id="connection-img" src="" alt="Connector"
-                                        style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                                </div>
-                                <h4 class="mb-4" data-i18n="select_answer">Tria la resposta correcta:</h4>
-                                <div id="connection-options" class="options-grid">
-                                    <!-- Options will be loaded here -->
+                        <div class="sonar-activity-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="sonar-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="sonar-help-btn" class="btn-info btn-sm" onclick="showSonarHelp()"
+                                        data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="sonar-skip-btn" class="btn-secondary btn-sm" onclick="skipQuestion()"
+                                        data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
                                 </div>
                             </div>
-                            <p id="connection-feedback" class="feedback-msg mt-4 text-center"></p>
-                        </div>
-                        <div id="connections-results" class="hidden text-center p-8">
-                            <h3 data-i18n="final_score">Resultats</h3>
-                            <p id="connections-final-score" class="text-4xl font-bold my-4">0 / 200</p>
-                            <p id="connections-final-msg"></p>
-                            <button onclick="showRadioMenu()" class="btn-secondary mt-4">Tornar</button>
+                            <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
+                            <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
+                                <img id="sonar-image" src="assets/images/sonar_interface.png"
+                                    alt="Cakewalk Sonar Interface"
+                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            </div>
+                            <p id="sonar-feedback" class="feedback-msg mt-2"></p>
+
+                            <!-- CALIBRATION UI (USER DEBUG) -->
+                            <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana</span>
+                                    <button onclick="closeCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeTarget('y', -1)"
+                                        class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeTarget('x', -1)" class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeTarget('y', 1)" class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeTarget('x', 1)" class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-2 justify-center mb-2">
+                                    <button onclick="nudgeTarget('w', 1); nudgeTarget('h', 1)"
+                                        class="bg-gray-700 px-2 rounded">+</button>
+                                    <button onclick="nudgeTarget('w', -1); nudgeTarget('h', -1)"
+                                        class="bg-gray-700 px-2 rounded">-</button>
+                                    <span class="ml-2">Mida</span>
+                                </div>
+                                <div id="calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0
+                                </div>
+                                <p class="mt-2 text-yellow-400 text-center italic">Està ben posat ara?</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div id="project-hub-biologia" class="game-module hidden">
 
-                <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
-                <div id="game-container-generic" class="game-module hidden">
-                    <h3>Simulació Genèrica (Mode Examen)</h3>
-                    <p>Aquest projecte encara no té activitats específiques.</p>
-                    <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
-                    <p id="simulation-result"></p>
+                    <div id="bio-systems-menu" class="activities-grid mt-4">
+                        <div class="activity-card disabled-card">
+                            <img src="assets/images/aparell-digestiu.png" alt="Aparell Digestiu"
+                                class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="sec_digestiu">Aparell Digestiu</h4>
+                            <p data-i18n="sec_dig_desc">Processament d'aliments i nutrients</p>
+                            <span class="badge-soon">Aviat</span>
+                        </div>
+
+                        <div class="activity-card" onclick="openBioSystem('circulatori')">
+                            <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori"
+                                class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="sec_circulatori">Aparell Circulatori</h4>
+                            <p data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</p>
+                        </div>
+                        <div class="activity-card disabled-card">
+                            <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori"
+                                class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="sec_respiratori">Aparell Respiratori</h4>
+                            <p data-i18n="sec_resp_desc">Pulmons i intercanvi de gasos</p>
+                            <span class="badge-soon">Aviat</span>
+
+                        </div>
+                        <div class="activity-card disabled-card">
+                            <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor"
+                                class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="sec_excretor">Aparell Excretor</h4>
+                            <p data-i18n="sec_excr_desc">Ronyons i eliminació de residus</p>
+                            <span class="badge-soon">Aviat</span>
+                        </div>
+                    </div>
+
+
+                    <!-- ACTIVITATS: Aparell Circulatori -->
+                    <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <!-- Imatge de capçalera del circulatori -->
+                        <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
+                            <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori" class="w-full"
+                                style="max-height:180px; object-fit:cover;">
+                        </div>
+
+
+                        <div class="activity-card" onclick="openBioActivity('cor')">
+                            <img src="assets/images/cor-huma.png" alt="El Cor Humà" class="w-full rounded-lg mb-2"
+                                style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="act_heart_title">El Cor Humà</h4>
+                            <p data-i18n="act_heart_desc">Identifica les parts i cavitats del cor</p>
+                        </div>
+
+                        <!-- NOU: Quiz de l'Aparell Circulatori -->
+                        <div class="activity-card" onclick="openBioActivity('circulatori-quiz')">
+                            <h4 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h4>
+                            <p data-i18n="act_circ_quiz_desc">Posa a prova els teus coneixements</p>
+                        </div>
+                        <!-- NOU: Cèl·lules de la Sang -->
+                        <div class="activity-card" onclick="openBioActivity('cells')">
+                            <img src="assets/images/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
+                                class="w-full rounded-lg mb-2" style="max-height:120px; object-fit:cover;">
+                            <h4 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h4>
+                            <p data-i18n="act_cells_desc">Identifica els elements de la sang</p>
+                        </div>
+
+
+
+
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Aparell Circulatori -->
+                    <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
+                        </div>
+
+                        <div id="circ-quiz-feedback" class="text-center mb-4"></div>
+
+                        <!-- Selecció de Nivell/Tema -->
+                        <div id="circ-quiz-selection"
+                            class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
+                                temes):</p>
+                            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                                <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn-primary"
+                                    data-i18n="level_easy">Fàcil</button>
+                                <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn-primary"
+                                    data-i18n="level_medium">Mitjà</button>
+                                <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn-primary"
+                                    data-i18n="level_hard">Difícil</button>
+                                <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn-primary"
+                                    data-i18n="level_mixed">Barrejat</button>
+                            </div>
+                            <div id="circ-quiz-topic-selection"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="circ-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="circ-quiz-progress">Pregunta 1/10</div>
+                                <div id="circ-quiz-score">Punts: 0</div>
+                            </div>
+                            <div id="circ-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="circ-quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
+                        </div>
+
+                        <!-- Resultats -->
+                        <div id="circ-quiz-results" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="circ-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            </div>
+                            <p id="circ-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Cèl·lules de la Sang -->
+                    <div id="bio-activity-cells" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                            menú</button>
+                        <div class="game-header text-center mb-6">
+                            <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
+                            <p id="cells-instruction" class="text-lg opacity-75" data-i18n="cells_instruction">
+                                Identifica la cèl·lula que demana l'enunciat:</p>
+                        </div>
+
+                        <div class="cells-game-container max-w-2xl mx-auto">
+                            <!-- Imatge del diagrama -->
+                            <div
+                                class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
+                                <img src="assets/images/cellules-sanguinies-microscopi-electronic.png"
+                                    alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
+                                    style="max-height: 280px;">
+                            </div>
+
+                            <div id="cells-matching-ui" class="container-white p-6 rounded-xl shadow-sm border mb-6">
+                                <!-- Files per 1, 2, 3 -->
+                                <div class="space-y-5">
+                                    <!-- Cèl·lula 1 -->
+                                    <div id="row-cell-1"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 1 és un</span>
+                                        <select id="select-common-1"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-1"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                    <!-- Cèl·lula 2 -->
+                                    <div id="row-cell-2"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 2 és un</span>
+                                        <select id="select-common-2"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-2"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                    <!-- Cèl·lula 3 -->
+                                    <div id="row-cell-3"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 3 és un</span>
+                                        <select id="select-common-3"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-3"
+                                            class="form-select bg-white border p-2 rounded flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="mt-8 text-center">
+                                    <button onclick="checkCellsAnswers()"
+                                        class="btn-primary px-10 py-3 text-lg">Comprovar respostes</button>
+                                </div>
+                            </div>
+
+                            <div id="cells-feedback" class="text-center h-8 font-bold text-lg mb-4"></div>
+                        </div>
+
+                        <!-- Resultats Cells -->
+                        <div id="cells-results"
+                            class="hidden text-center p-8 bg-white rounded-lg shadow-sm border max-w-md mx-auto">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="cells-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            </div>
+                            <p id="cells-message" class="text-lg mb-8"></p>
+                            <button onclick="initCellsGame()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACTIVITAT: El Cor Humà -->
+
+                    <div id="bio-activity-cor" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_heart_title">El Cor Humà</h3>
+                        </div>
+                        <div class="bio-activity-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-heart-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-heart-help-btn" class="btn-info btn-sm" onclick="showBioHeartHelp()"
+                                        data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-heart-skip-btn" class="btn-secondary btn-sm"
+                                        onclick="skipBioHeartQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
+                                <div id="bio-heart-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-heart-feedback" class="feedback-msg font-bold"
+                                    style="margin: 0; min-width: 120px; text-align: right;"></div>
+                            </div>
+                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                                <img id="bio-heart-image" src="assets/images/cor.png" alt="Cor Humà"
+                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            </div>
+
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-heart-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Cor)</span>
+                                    <button onclick="closeBioHeartCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioHeartTarget('y', -1)"
+                                        class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioHeartTarget('x', -1)"
+                                        class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioHeartTarget('y', 1)"
+                                        class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioHeartTarget('x', 1)"
+                                        class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-2 justify-center mb-2">
+                                    <button onclick="nudgeBioHeartTarget('w', 1); nudgeBioHeartTarget('h', 1)"
+                                        class="bg-gray-700 px-2 rounded">+</button>
+                                    <button onclick="nudgeBioHeartTarget('w', -1); nudgeBioHeartTarget('h', -1)"
+                                        class="bg-gray-700 px-2 rounded">-</button>
+                                    <span class="ml-2">Mida</span>
+                                </div>
+                                <div id="bio-heart-calibration-values" class="text-center text-xs opacity-75">x:0
+                                    y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioHeartConfig()"
+                                        class="btn-primary btn-sm bg-green-600 text-xs py-1"
+                                        style="background-color: #059669; font-size: 10px;">Exportar / Copiar
+                                        Codi</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- PROJECTE: Ràdio -->
+                <div id="project-hub-radio" class="game-module hidden">
+                    <h3 data-i18n="radio_project_title">Ràdio</h3>
+                    <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
+                    <div id="radio-activities-menu" class="activities-grid mt-4">
+                        <div class="activity-card" onclick="openRadioActivity('taula')">
+                            <div class="act-icon">🎚️</div>
+                            <h4 data-i18n="act_radio_title">La Taula de So</h4>
+                            <p data-i18n="act_radio_desc">Identifica els controls de la taula</p>
+                        </div>
+                        <div class="activity-card" onclick="openRadioActivity('conexions')">
+                            <div class="act-icon">🔌</div>
+                            <h4 data-i18n="act_connections_title">Conexions d'Àudio</h4>
+                            <p data-i18n="act_connections_desc">Identifica els diferents tipus de connectors i
+                                cables</p>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Taula de So -->
+                    <div id="radio-activity-taula" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_radio_title">La Taula de So</h3>
+                        </div>
+                        <div class="radio-activity-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="radio-board-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="radio-board-help-btn" class="btn-info btn-sm"
+                                        onclick="showRadioBoardHelp()" data-i18n="btn_help">Ajuda (-10
+                                        punts)</button>
+                                    <button id="radio-board-skip-btn" class="btn-secondary btn-sm"
+                                        onclick="skipRadioBoardQuestion()" data-i18n="btn_skip">Passar pregunta
+                                        (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">
+                                Clica...</div>
+                            <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
+                                <img id="radio-board-image" src="assets/images/taula-de-so.png" alt="Taula de So"
+                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            </div>
+                            <p id="radio-board-feedback" class="feedback-msg mt-2"></p>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="radio-board-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Ràdio)</span>
+                                    <button onclick="closeRadioBoardCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeRadioTarget('y', -1)"
+                                        class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeRadioTarget('x', -1)"
+                                        class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeRadioTarget('y', 1)"
+                                        class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeRadioTarget('x', 1)"
+                                        class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-2 justify-center mb-2">
+                                    <button onclick="nudgeRadioTarget('w', 1); nudgeRadioTarget('h', 1)"
+                                        class="bg-gray-700 px-2 rounded">+</button>
+                                    <button onclick="nudgeRadioTarget('w', -1); nudgeRadioTarget('h', -1)"
+                                        class="bg-gray-700 px-2 rounded">-</button>
+                                    <span class="ml-2">Mida</span>
+                                </div>
+                                <div id="radio-board-calibration-values" class="text-center text-xs opacity-75">
+                                    x:0 y:0 w:0 h:0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVITAT: Conexions d'Àudio -->
+                <div id="radio-activity-conexions" class="sub-activity hidden">
+                    <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+                    <div class="game-header">
+                        <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
+                    </div>
+                    <div id="connections-quiz-container">
+                        <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-4">
+                            <div id="connections-progress">Pregunta 1/20</div>
+                            <div id="connections-score" class="font-bold">Punts: 0</div>
+                        </div>
+                        <div class="question-container text-center">
+                            <div class="image-display mb-4" style="max-width: 400px; margin: 0 auto;">
+                                <img id="connection-img" src="" alt="Connector"
+                                    style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            </div>
+                            <h4 class="mb-4" data-i18n="select_answer">Tria la resposta correcta:</h4>
+                            <div id="connection-options" class="options-grid">
+                                <!-- Options will be loaded here -->
+                            </div>
+                        </div>
+                        <p id="connection-feedback" class="feedback-msg mt-4 text-center"></p>
+                    </div>
+                    <div id="connections-results" class="hidden text-center p-8">
+                        <h3 data-i18n="final_score">Resultats</h3>
+                        <p id="connections-final-score" class="text-4xl font-bold my-4">0 / 200</p>
+                        <p id="connections-final-msg"></p>
+                        <button onclick="showRadioMenu()" class="btn-secondary mt-4">Tornar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
+            <div id="game-container-generic" class="game-module hidden">
+                <h3>Simulació Genèrica (Mode Examen)</h3>
+                <p>Aquest projecte encara no té activitats específiques.</p>
+                <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                <p id="simulation-result"></p>
+            </div>
 
             </div>
             </div>
