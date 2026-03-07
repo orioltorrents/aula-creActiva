@@ -52,8 +52,8 @@ function renderSolidartQuadre() {
             <span id="solidart-quadres-progress"></span>
             <span id="solidart-quadres-score-display"></span>
         </div>
-        <div class="question-container p-6 bg-white rounded shadow-sm text-center">
-            <div id="solidart-quadres-image-container" class="mb-6 mx-auto" style="max-width: 500px; height: 300px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; border: 1px solid #e5e7eb;">
+        <div class="question-container text-center">
+            <div id="solidart-quadres-image-container" class="mb-6 mx-auto" style="max-width: 500px; height: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                 <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
@@ -84,7 +84,7 @@ function renderSolidartQuadre() {
 
     q.opcions.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'btn-outline p-4 text-lg hover:bg-pink-50 transition-colors';
+        btn.className = 'quiz-option-btn';
         btn.textContent = opt;
         btn.onclick = () => checkSolidartQuadre(opt);
         optionsDiv.appendChild(btn);

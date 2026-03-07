@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #4f46e5;
+    --primary-color: #000000;
     /* Indigo */
     --primary-hover: #4338ca;
     --secondary-bg: #f3f4f6;
@@ -376,11 +376,8 @@ body {
 }
 
 .game-container {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
     margin-top: 20px;
+    width: 100%;
 }
 
 /* LOADERS */
@@ -560,8 +557,63 @@ body {
 }
 
 .btn-sm {
-    padding: 5px 10px;
+    padding: 6px 12px;
     font-size: 0.85rem;
+}
+
+/* QUIZ BUTTONS (SolidArt & Others) */
+.quiz-option-btn {
+    padding: 2rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--white);
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 120px;
+}
+
+.quiz-option-btn:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    background-color: #f5f3ff;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1);
+    color: var(--primary-hover);
+}
+
+.quiz-option-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.quiz-option-btn:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* Ensure 2x2 grid is forced */
+#solidart-quadres-options.grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+}
+
+@media (max-width: 640px) {
+    #solidart-quadres-options.grid {
+        gap: 1rem !important;
+    }
+
+    .quiz-option-btn {
+        font-size: 1.2rem;
+        padding: 1.5rem 1rem;
+        min-height: 100px;
+    }
 }
 
 .video-container {
