@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbzybYUxmXNKAqdje09_h1QEr_K3i7khWPDhTeSIK0lsUgfnMOfQ8s2wsXzlUrQNwwIECw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwf2j6A1pfEhunQ6VcJAbINLNm3wx3ApZqCVHgez4OH26c7fH1gXoI0Qxu7DdXaTGGXRw/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -451,6 +451,8 @@ function openTrActivity(actId) {
         loadTrTemesCategories();
     } else if (actId === 'biblio' && typeof initTrBiblioGame === 'function') {
         initTrBiblioGame();
+    } else if (actId === 'diagnostic' && typeof initTrDiagnostic === 'function') {
+        initTrDiagnostic();
     }
 }
 

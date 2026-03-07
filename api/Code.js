@@ -79,6 +79,8 @@ function handleRequest(e) {
             result = getSolidartQuadres(data.dificultat);
         } else if (action === 'getSolidartQuadres2') {
             result = getSolidartQuadres2(data.dificultat);
+        } else if (action === 'getDiagnosticQuestions') {
+            result = getDiagnosticQuestions();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -887,4 +889,27 @@ function getSolidartQuadres2(dificultat) {
     });
 
     return { status: 'success', questions };
+}
+function getDiagnosticQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('diagnostic_preguntes');
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya diagnostic_preguntes' };
+
+        const data = sheet.getDataRange().getValues();
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            const q = {};
+            headers.forEach((header, index) => {
+                q[header] = row[index];
+            });
+            questions.push(q);
+        }
+
+        return { status: 'success', questions: questions };
+    } catch (e) {
+        return { status: 'error', message: e.toString() };
+    }
 }
