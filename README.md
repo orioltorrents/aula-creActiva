@@ -88,4 +88,6 @@ La web app s’emmarca dins la voluntat d’Aula CreActiva de promoure:
 
 1. Els alumnes accedeixen amb el seu correu de l'escola i una contrasenya.
 2. Se'ls activa els projectes en funció del curs que estan.
-3. Totes les puntuacions de les activitats es poden recuperar per utilitzar-les per la qualificació.
+3. Dins de cada projecte, hi ha activitats creades per treballar diferents aspectes.
+4. Les activitats serveixen per consolidar les aprenentatges i es poden fer diverses vegades.
+5. Totes les puntuacions de les activitats es poden recuperar per utilitzar-les per la qualificació.
