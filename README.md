@@ -28,7 +28,7 @@ No és només un repositori de continguts, sinó una eina per:
 La web inclou activitats relacionades amb diversos projectes educatius de l’ESO, entre els quals destaquen:
 
 ### Rates a la carrera
-![Imatge](assets/imatges/targeta_rates-a-la-carrera.png)
+![Imatge](assets/images/targeta_rates-a-la-carrera.png)
 Projecte amb activitats i recursos específics per treballar continguts i dinàmiques pròpies d’aquest entorn de treball.
 
 ### Mediterrani
