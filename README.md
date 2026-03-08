@@ -27,24 +27,24 @@ No és només un repositori de continguts, sinó una eina per:
 
 La web inclou activitats relacionades amb diversos projectes educatius de l’ESO, entre els quals destaquen:
 
-### Rates a la carrera
+### 1ESO - Projecte "Rates a la carrera"
 <img src="assets/images/targeta_rates-a-la-carrera.png" alt="Rates a la carrera" width="400">
 Projecte amb activitats i recursos específics per treballar continguts i dinàmiques pròpies d’aquest entorn de treball.
 
-### Mediterrani
+### 1ESO - Projecte "Mediterrani"
 <img src="assets/images/targeta_mediterrani.png" alt="Mediterrani" width="400">
 Projecte amb activitats vinculades a continguts geogràfics, culturals i d’anàlisi del món mediterrani.
 
-### Paralímpics
+### 2ESO - Projecte "Paralímpics"
 <img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" width="400">
 Projecte amb activitats relacionades amb l’esport, la inclusió, la tecnologia i altres aspectes educatius vinculats als Jocs Paralímpics.
 
-### Solidart
-<img src="assets/images/targeta-solidart.png" alt="Solidart" width="400">
+### 3ESO - Projecte "Solidart"
+<img src="assets/images/targeta_solidart.png" alt="Solidart" width="400">
 Projecte orientat a activitats creatives, artístiques i de sensibilització, amb diferents recursos dins la web.
 
-### Entorns de Natura
-<img src="assets/images/targeta_entorns.png" alt="Solidart" width="400">
+### 4ESO - Projecte "Entorns de Natura"
+<img src="assets/images/targeta_entorns.png" alt="Entorns de Natura" width="400">
 Projecte amb activitats relacionades amb el medi natural, la investigació, els rols de treball i l’anàlisi d’entorns.
 
 ---
@@ -53,16 +53,20 @@ Projecte amb activitats relacionades amb el medi natural, la investigació, els 
 
 A més dels projectes principals, la web app també incorpora activitats i recursos per a altres àrees i matèries, com ara:
 
-### Ràdio
+### 2ESO - Optativa "Ràdio"
+<img src="assets/images/targeta-radio.png" alt="Ràdio" width="400">
 Activitats relacionades amb llenguatge radiofònic, connectors, àudio i producció de continguts.
 
-### Biologia de 2n d’ESO
+### 2ESO - "Biologia"
+<img src="assets/images/targeta-biologia-humana.png" alt="Biologia" width="400">
 Recursos i activitats per treballar continguts de biologia de manera visual i interactiva.
 
-### Digitalització
+### 4ESO - Optativa "Digitalització"
+<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" width="400">
 Activitats orientades al desenvolupament de la competència digital i a l’ús d’eines tecnològiques.
 
-### Treball de recerca de Batxillerat
+### BAT - Treball de recerca de Batxillerat
+<img src="assets/images/targeta-tr.png" alt="Treball de recerca" width="400">
 Materials i activitats per ajudar l’alumnat a pensar preguntes investigables, enfocar temes, treballar bibliografia i estructurar millor el procés de recerca.
 
 ---
