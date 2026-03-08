@@ -1,0 +1,97 @@
+<!-- =========================================================
+     ACTIVITAT: TEMES I PREGUNTES
+     Projecte: Entorns de Natura
+
+     Aquest fragment conté:
+     - la pantalla inicial de l'activitat
+     - la zona del quiz
+     - la zona de feedback
+     - la pantalla final de resultats
+========================================================== -->
+<div id="natura-activity-temes" class="sub-activity hidden">
+    <!-- Botó per tornar al menú del projecte -->
+    <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">
+        ← Tornar al menú
+    </button>
+
+    <!-- Pantalla inicial -->
+    <div id="natura-temes-setup" class="game-header text-center">
+        <h3>
+            <span data-i18n="natura_project_title">Entorns de Natura</span> —
+            <span data-i18n="act_tr_temes_title">Temes i Preguntes</span>
+        </h3>
+
+        <p class="mb-4" data-i18n="act_tr_temes_desc">
+            Tria grups de preguntes d'un tema de recerca.
+        </p>
+
+        <!-- Contenidor dinàmic de categories -->
+        <div id="natura-temes-categories-container"
+            class="flex justify-center gap-4 flex-wrap mt-4">
+        </div>
+    </div>
+
+    <!-- Zona del quiz -->
+    <div id="natura-temes-quiz-container" class="hidden">
+        <!-- Barra de progrés i puntuació -->
+        <div class="stats-bar flex justify-between mb-4">
+            <span id="natura-temes-progress">Tema 1 / X</span>
+            <span id="natura-temes-score">Punts: 0</span>
+        </div>
+
+        <!-- Caixa principal del tema -->
+        <div class="bg-white rounded shadow-sm p-6 text-center">
+            <h3 id="natura-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">TEMA</h3>
+
+            <p class="mb-6 text-gray-600">
+                Selecciona <strong class="text-black">totes</strong> les preguntes que consideris
+                <strong class="text-blue-600">INVESTIGABLES</strong>.
+            </p>
+
+            <!-- Opcions generades dinàmicament -->
+            <div id="natura-temes-options" class="flex flex-col gap-3 text-left">
+                <!-- Buttons generated dynamically -->
+            </div>
+
+            <!-- Botó per comprovar -->
+            <div class="mt-8">
+                <button id="natura-temes-check-btn"
+                    class="btn-primary w-full text-xl py-3"
+                    onclick="checkNaturaTemesRespostes()">
+                    Comprovar Selecció
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div id="natura-temes-feedback-area" class="hidden mt-6">
+            <div id="natura-temes-feedback-list" class="flex flex-col gap-3 mb-6"></div>
+
+            <button id="natura-temes-next-btn"
+                class="btn-primary w-full text-lg py-3"
+                onclick="nextNaturaTema()">
+                Següent Tema
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla final de resultats -->
+    <div id="natura-temes-results" class="hidden text-center p-8 bg-white rounded shadow">
+        <h3 data-i18n="final_score">Resultat final</h3>
+
+        <p id="natura-temes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+            0 / 15
+        </p>
+
+        <p id="natura-temes-final-percentage"
+            class="text-2xl font-semibold mb-4 text-gray-700">
+            0%
+        </p>
+
+        <p id="natura-temes-final-msg" class="text-lg mb-8"></p>
+
+        <button onclick="showNaturaMenu()" class="btn-secondary">
+            Tornar
+        </button>
+    </div>
+</div>
