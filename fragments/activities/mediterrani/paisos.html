@@ -1,0 +1,28 @@
+<div id="med-activity-map" class="sub-activity hidden">
+    <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+    <div class="game-header">
+        <h3 data-i18n="act_map_title">Mapa del Mediterrani</h3>
+        <div class="game-controls">
+            <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()" class="btn-secondary"
+                data-i18n="hide_country">Amagar País</button>
+            <button onclick="initMediterraniMapGame('practice')" class="btn-secondary"
+                data-i18n="btn_practice">Pràctica</button>
+            <button onclick="initMediterraniMapGame('exam')" class="btn-primary"
+                data-i18n="btn_exam">Examen</button>
+        </div>
+    </div>
+
+    <div id="med-map-area" class="hidden">
+        <div class="stats-bar">
+            <span id="med-map-score">Punts: 0</span>
+            <span id="med-map-time" class="hidden">Temps: 60s</span>
+        </div>
+
+        <div class="question-container">
+            <h4 id="med-map-question">Clicka...</h4>
+        </div>
+
+        <div id="map-container" class="map-wrapper"></div>
+        <p id="med-map-feedback" class="feedback-msg"></p>
+    </div>
+</div>
