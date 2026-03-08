@@ -10,7 +10,7 @@ Actualment el projecte se centra en dos grans àmbits:
 
 ---
 
-## Què és aquesta web app?
+## WEB APP
 
 Aquesta web app és un entorn educatiu digital que recull activitats, jocs, recursos i materials per treballar diferents sabers i competències de manera més activa, aplicada i motivadora.
 
@@ -84,14 +84,8 @@ La web app s’emmarca dins la voluntat d’Aula CreActiva de promoure:
 
 ---
 
-## Estructura del projecte tècnic
+## Instruccions
 
-```text
-aula-creActiva/
-  index.html
-  css/
-  js/
-  assets/
-  api/
-    Code.js
-    .clasp.json
+1. Els alumnes accedeixen amb el seu correu de l'escola i una contrasenya.
+2. Se'ls activa els projectes en funció del curs que estan.
+3. Totes les puntuacions de les activitats es poden recuperar per utilitzar-les per la qualificació.
