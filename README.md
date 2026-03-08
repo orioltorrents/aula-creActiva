@@ -4,8 +4,9 @@
 
 Actualment el projecte se centra en dos grans àmbits:
 
-1. **L’avaluació de les competències transversals a tota l’ESO**
-2. **El desenvolupament d’una web app educativa** per ajudar l’alumnat a treballar continguts, activitats i reptes vinculats a diferents projectes i matèries.
+1. **Manteniment, millora i actualització de tots els projectes de l'Institut**
+2. **Acompanyament del professorat en l’avaluació de les competències transversals a tota l’ESO**
+3. **El desenvolupament d’una web app educativa** per ajudar l’alumnat a treballar continguts, activitats i reptes vinculats a diferents projectes i matèries.
 
 ---
 
