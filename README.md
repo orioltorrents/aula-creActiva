@@ -28,19 +28,23 @@ No és només un repositori de continguts, sinó una eina per:
 La web inclou activitats relacionades amb diversos projectes educatius de l’ESO, entre els quals destaquen:
 
 ### Rates a la carrera
-<img src="assets/images/targeta_rates-a-la-carrera.png" alt="Portada Aula CreActiva" width="200">
+<img src="assets/images/targeta_rates-a-la-carrera.png" alt="Rates a la carrera" width="400">
 Projecte amb activitats i recursos específics per treballar continguts i dinàmiques pròpies d’aquest entorn de treball.
 
 ### Mediterrani
+<img src="assets/images/targeta_mediterrani.png" alt="Mediterrani" width="400">
 Projecte amb activitats vinculades a continguts geogràfics, culturals i d’anàlisi del món mediterrani.
 
 ### Paralímpics
+<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" width="400">
 Projecte amb activitats relacionades amb l’esport, la inclusió, la tecnologia i altres aspectes educatius vinculats als Jocs Paralímpics.
 
 ### Solidart
+<img src="assets/images/targeta-solidart.png" alt="Solidart" width="400">
 Projecte orientat a activitats creatives, artístiques i de sensibilització, amb diferents recursos dins la web.
 
 ### Entorns de Natura
+<img src="assets/images/targeta_entorns.png" alt="Solidart" width="400">
 Projecte amb activitats relacionades amb el medi natural, la investigació, els rols de treball i l’anàlisi d’entorns.
 
 ---
