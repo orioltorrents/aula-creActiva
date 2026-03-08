@@ -2,7 +2,7 @@
 
 **Aula CreActiva** és un grup de professors de l'INS Institut Intermunicipal del Penedès (Sant Sadurní d'Anoia, Alt Penedès, Catalunya) que treballa per transformar l’educació i millorar els **aprenentatges competencials** de l’alumnat de l'ESO i Batxillerat.
 
-Actualment el projecte se centra en dos grans àmbits:
+Actualment, l'Aula CreActiva se centra en tres grans àmbits:
 
 1. **Manteniment, millora i actualització de tots els projectes de l'Institut**
 2. **Acompanyament del professorat en l’avaluació de les competències transversals a tota l’ESO**
