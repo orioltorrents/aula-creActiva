@@ -319,8 +319,8 @@
                             </div>
                             <div class="activity-card" onclick="openTrActivity('diagnostic')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_diagnostic-preguntes.png" alt="Diagnòstic de preguntes"
-                                        class="act-img"
+                                    <img src="assets/images/targeta_diagnostic-preguntes.png"
+                                        alt="Diagnòstic de preguntes" class="act-img"
                                         onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
                                 </div>
                                 <div class="card-content">
@@ -1196,14 +1196,13 @@
                                 <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
-                        <div class="activity-card disabled-card">
+                        <div class="activity-card" onclick="openBioSystem('excretor')">
                             <div class="act-icon">
                                 <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_excretor">Aparell Excretor</div>
                                 <div class="card-desc" data-i18n="sec_excr_desc">Ronyons i eliminació de residus</div>
-                                <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
                     </div>
@@ -1256,6 +1255,27 @@
 
 
 
+                    </div>
+
+                    <!-- ACTIVITATS: Aparell Excretor -->
+                    <div id="bio-excretor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
+                            <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor" class="w-full"
+                                style="max-height:180px; object-fit:cover;">
+                        </div>
+
+                        <div class="activity-card" onclick="openBioActivity('excretor-game')">
+                            <div class="act-icon">
+                                <img src="assets/images/sistema_excretor.png" alt="El Sistema Excretor" class="act-img">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="act_excretor_title">El Sistema Excretor</div>
+                                <div class="card-desc" data-i18n="act_excretor_desc">Identifica les parts de l'aparell
+                                    excretor</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
@@ -1460,6 +1480,81 @@
                                         Codi</button>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Sistema Excretor Joc Principal -->
+                    <div id="bio-activity-excretor-game" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('excretor')">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_excretor_title">El Sistema Excretor</h3>
+                        </div>
+                        <div class="bio-activity-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-excretor-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-excretor-help-btn" class="btn-info btn-sm"
+                                        onclick="showBioExcretorHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-excretor-skip-btn" class="btn-secondary btn-sm"
+                                        onclick="skipBioExcretorQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
+                                <div id="bio-excretor-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-excretor-feedback" class="feedback-msg font-bold"
+                                    style="margin: 0; min-width: 120px; text-align: right;"></div>
+                            </div>
+                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                                <img id="bio-excretor-image" src="assets/images/sistema_excretor.png"
+                                    alt="Sistema Excretor"
+                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-excretor-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
+                                style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Excretor)</span>
+                                    <button onclick="closeBioExcretorCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioExcretorTarget('y', -5)"
+                                        class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioExcretorTarget('x', -5)"
+                                        class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioExcretorTarget('y', 5)"
+                                        class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioExcretorTarget('x', 5)"
+                                        class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioExcretorTarget('w', -5)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioExcretorTarget('w', 5)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioExcretorTarget('h', -5)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioExcretorTarget('h', 5)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-excretor-calibration-values" class="text-center text-xs opacity-75">x:0
+                                    y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioExcretorConfig()"
+                                        class="btn-primary btn-sm bg-green-600 text-xs py-1"
+                                        style="background-color: #059669; font-size: 10px;">Exportar / Copiar
+                                        Codi</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1770,6 +1865,7 @@
     <script src="js/games/treball-recerca.js"></script>
     <script src="js/games/treball-recerca-temes.js"></script>
     <script src="js/games/bio-cor.js"></script>
+    <script src="js/games/bio-excretor.js"></script>
     <script src="js/games/bio-circulatori-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>
 

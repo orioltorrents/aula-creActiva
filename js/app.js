@@ -651,6 +651,11 @@ function openBioActivity(actId) {
         if (typeof initCellsGame === 'function') {
             initCellsGame();
         }
+    } else if (actId === 'excretor-game') {
+        document.getElementById('bio-activity-excretor-game').classList.remove('hidden');
+        if (typeof initBioExcretorGame === 'function') {
+            initBioExcretorGame();
+        }
     }
 }
 
