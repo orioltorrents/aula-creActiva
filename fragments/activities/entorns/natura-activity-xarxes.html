@@ -1,0 +1,52 @@
+<!-- =========================================================
+     ACTIVITAT: XARXES TRÒFIQUES
+     Projecte: Entorns de Natura
+
+     Aquest fragment conté:
+     - la capçalera de l'activitat
+     - la instrucció principal
+     - la zona d'ordenació
+     - la zona de resultats
+========================================================== -->
+<div id="natura-activity-xarxes" class="sub-activity hidden">
+    <!-- Botó per tornar al menú del projecte -->
+    <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">
+        ← Tornar
+    </button>
+
+    <!-- Capçalera de l'activitat -->
+    <div class="game-header">
+        <h3 data-i18n="act_xarxes_title">Xarxes Tròfiques</h3>
+    </div>
+
+    <!-- Instruccions -->
+    <div class="activity-instructions">
+        <p data-i18n="instruction_xarxes">
+            Ordena aquestes accions per establir una xarxa tròfica amb dades reals:
+        </p>
+    </div>
+
+    <!-- Zona principal del joc -->
+    <div id="xarxes-game-area">
+        <!-- Llista ordenable que s'omplirà dinàmicament amb JS -->
+        <ul id="xarxes-sortable-list" class="sortable-list">
+            <!-- Els elements s'ompliran per JS -->
+        </ul>
+
+        <!-- Botó per verificar l'ordre -->
+        <div class="game-controls mt-4">
+            <button onclick="verifyXarxesOrder()" class="btn-primary" data-i18n="btn_verify">
+                Verificar Ordenació
+            </button>
+        </div>
+
+        <!-- Zona de resultat -->
+        <div id="xarxes-result" class="hidden mt-4">
+            <p class="text-xl font-bold">
+                <span data-i18n="result_order">Accions ben ordenades:</span>
+                <span id="xarxes-percentage">0%</span>
+            </p>
+            <p id="xarxes-feedback" class="feedback-msg"></p>
+        </div>
+    </div>
+</div>

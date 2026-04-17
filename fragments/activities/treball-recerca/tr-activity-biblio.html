@@ -1,0 +1,112 @@
+<!-- =========================================================
+     ACTIVITAT: BIBLIOGRAFIA I CITES
+     Projecte: Treball de Recerca
+
+     Aquest fragment conté:
+     - la pantalla inicial de selecció
+     - la zona del quiz
+     - la pantalla final de resultats
+========================================================== -->
+<div id="tr-activity-biblio" class="sub-activity hidden">
+
+    <!-- Botó per tornar al menú principal del projecte -->
+    <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">
+        ← Tornar al menú
+    </button>
+
+    <!-- Capçalera de l'activitat -->
+    <div class="game-header">
+        <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
+    </div>
+
+    <!-- Explicació inicial -->
+    <div class="activity-instructions">
+        <p data-i18n="instruction_biblio">
+            Pots o bé triar el nivell de les preguntes o bé triar un tipus de preguntes a treballar:
+        </p>
+    </div>
+
+    <!-- =====================================================
+         PANTALLA INICIAL
+         Aquí l'alumne selecciona tema o nivell.
+    ====================================================== -->
+    <div class="game-controls py-4" id="tr-biblio-level-selection">
+
+        <!-- Contenidor on es carregaran dinàmicament els temes -->
+        <div id="tr-biblio-topic-selection" class="flex flex-col items-center"></div>
+
+        <!-- Selecció per nivell -->
+        <div class="flex flex-col items-center mt-4">
+            <p class="font-bold mb-3 text-center" data-i18n="select_level">
+                O tria per nivell (tots els temes):
+            </p>
+
+            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+
+                <button onclick="startTrBiblioWithFilter('all', 'facil')"
+                    class="btn-primary"
+                    style="background-color: var(--success); width: auto;"
+                    data-i18n="level_easy">
+                    Fàcil
+                </button>
+
+                <button onclick="startTrBiblioWithFilter('all', 'dificil')"
+                    class="btn-primary"
+                    style="background-color: #f59e0b; width: auto;"
+                    data-i18n="level_hard">
+                    Difícil
+                </button>
+
+                <button onclick="startTrBiblioWithFilter('all', 'mixed')"
+                    class="btn-primary"
+                    style="background-color: var(--error); width: auto;"
+                    data-i18n="level_mixed">
+                    Barrejat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         ZONA DEL QUIZ
+         Aquí es mostra cada pregunta de bibliografia i cites.
+    ====================================================== -->
+    <div id="tr-biblio-quiz-container" class="hidden">
+
+        <!-- Barra d'estat amb progrés i puntuació -->
+        <div class="stats-bar">
+            <span id="tr-biblio-progress">Pregunta 1/8</span>
+            <span id="tr-biblio-score">Punts: 0</span>
+        </div>
+
+        <!-- Caixa principal de la pregunta -->
+        <div class="question-container">
+            <h4 id="tr-biblio-question-text">Pregunta...</h4>
+            <div id="tr-biblio-options" class="options-list"></div>
+        </div>
+
+        <!-- Missatge de feedback -->
+        <p id="tr-biblio-feedback" class="feedback-msg"></p>
+    </div>
+
+    <!-- =====================================================
+         PANTALLA FINAL DE RESULTATS
+         Es mostra quan l'activitat s'ha completat.
+    ====================================================== -->
+    <div id="tr-biblio-results" class="hidden text-center">
+
+        <!-- Títol de resultats -->
+        <h3 data-i18n="final_score">Resultats</h3>
+
+        <!-- Puntuació final -->
+        <p id="tr-biblio-final-score" class="text-2xl font-bold">0 / 80</p>
+
+        <!-- Missatge final -->
+        <p id="tr-biblio-message"></p>
+
+        <!-- Botó per tornar al menú del projecte -->
+        <button onclick="showTrMenu()" class="btn-secondary">
+            Tornar
+        </button>
+    </div>
+</div>
