@@ -19,11 +19,15 @@ const bioExcretorGame = {
         { key: 'act_excretor_q10', x: 390, y: 675, w: 230, h: 150 },
         { key: 'act_excretor_q11', x: 475, y: 840, w: 50, h: 115 },
         { key: 'act_excretor_q12', x: 475, y: 840, w: 50, h: 105 },
-        { key: 'act_excretor_q13', x: 450, y: 350, w: 80, h: 50 },
+        { key: 'act_excretor_q13', x: 495, y: 70, w: 55, h: 465 },
         { key: 'act_excretor_q14', x: 500, y: 75, w: 50, h: 445 },
         { key: 'act_excretor_q15', x: 440, y: 75, w: 55, h: 450 },
         { key: 'act_excretor_q16', x: 440, y: 75, w: 55, h: 455 },
-        { key: 'act_excretor_q21', x: 0, y: 0, w: 100, h: 100 }  // Calze
+        { key: 'act_excretor_q17', x: 0, y: 0, w: 100, h: 100 },
+        { key: 'act_excretor_q18', x: 0, y: 0, w: 100, h: 100 },
+        { key: 'act_excretor_q19', x: 0, y: 0, w: 100, h: 100 },
+        { key: 'act_excretor_q20', x: 0, y: 0, w: 100, h: 100 },
+        { key: 'act_excretor_q21', x: 0, y: 0, w: 100, h: 100 }
     ],
     isFinished: false,
     debugMode: true
