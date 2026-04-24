@@ -1927,13 +1927,123 @@
 
                     <!-- JOCS DE LES PARTS DELS SENTITS -->
                     <div id="bio-activity-vista-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
-                        <div id="vista-parts-container"></div>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_vista_parts_title">Les Parts de l'Ull</h3>
+                        </div>
+
+                        <div id="bio-vista-parts-ui" class="bio-activity-container hidden">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-vista-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-vista-parts-help-btn" class="btn-info btn-sm" onclick="showBioVistaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-vista-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioVistaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
+                                <div id="bio-vista-parts-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-vista-parts-feedback" class="feedback-msg font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                            </div>
+                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                                <img id="bio-vista-parts-image" src="assets/images/sentit-vista.png" alt="Parts de l'ull" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-vista-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Vista)</span>
+                                    <button onclick="closeBioVistaPartsCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioVistaPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioVistaPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioVistaPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioVistaPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioVistaPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioVistaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioVistaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioVistaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-vista-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioVistaPartsConfig()" class="btn-primary btn-sm" style="background-color: #059669; font-size: 10px;">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div id="bio-activity-oida-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
-                        <div id="oida-parts-container"></div>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_oida_parts_title">Les Parts de l'Orella</h3>
+                        </div>
+
+                        <div id="bio-oida-parts-ui" class="bio-activity-container hidden">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-oida-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-oida-parts-help-btn" class="btn-info btn-sm" onclick="showBioOidaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-oida-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioOidaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+
+                            <!-- Indicador de secció (canvia automàticament) -->
+                            <div class="flex items-center gap-3 p-2 bg-blue-50 rounded mb-2">
+                                <span id="bio-oida-parts-section-label" class="font-bold text-blue-700 text-sm px-3 py-1 rounded-full bg-blue-100">🔵 Orella Externa</span>
+                                <div id="bio-oida-parts-question" class="text-lg font-bold flex-1">Clica a la imatge...</div>
+                                <div id="bio-oida-parts-feedback" class="feedback-msg font-bold" style="margin:0;min-width:120px;text-align:right;"></div>
+                            </div>
+
+                            <div class="image-interactive-wrapper mt-2" style="position:relative;cursor:crosshair;">
+                                <img id="bio-oida-parts-image"
+                                     src="assets/images/orella-externa.png"
+                                     alt="Parts de l'orella"
+                                     style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:opacity 0.3s;"
+                                     onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-oida-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family:monospace;font-size:12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Oïda)</span>
+                                    <button onclick="closeBioOidaPartsCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioOidaPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioOidaPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioOidaPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioOidaPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioOidaPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioOidaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioOidaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioOidaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-oida-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioOidaPartsConfig()" class="btn-primary btn-sm" style="background-color:#059669;font-size:10px;">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div id="bio-activity-olfacte-parts" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
                         <div id="olfacte-parts-container"></div>

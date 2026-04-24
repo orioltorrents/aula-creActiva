@@ -9,7 +9,7 @@ const bioVistaPartsGame = {
     allQuestions: [
         { key: 'act_vista_part_cornea', x: 200, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_pupilla', x: 300, y: 500, w: 50, h: 50 },
-        { key: 'act_vista_part_iris', x: 300, y: 400, w: 50, h: 50 },
+        { key: 'act_vista_part_iris', x: 160 y:335 w:40 h:330 },
         { key: 'act_vista_part_cristalli', x: 400, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_retina', x: 800, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_nervi', x: 900, y: 500, w: 50, h: 50 }
@@ -64,14 +64,8 @@ function updateBioVistaPartsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
-
     if (skipBtn) skipBtn.classList.remove('hidden');
-    if (helpBtn) {
-        if (isProfe || isAdmin) helpBtn.classList.remove('hidden');
-        else helpBtn.classList.add('hidden');
-    }
+    if (helpBtn) helpBtn.classList.remove('hidden');
 
     const currentTarget = bioVistaPartsGame.sessionQuestions[bioVistaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -89,8 +83,7 @@ function showBioVistaPartsHelp() {
     renderBioVistaPartsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-vista-parts-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (calibrationUI && isAdmin) {
+    if (calibrationUI && bioVistaPartsGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateBioVistaPartsCalibrationDisplay();
     }
@@ -129,8 +122,7 @@ function renderBioVistaPartsHelpHint(target) {
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (!isAdmin) {
+    if (!bioVistaPartsGame.debugMode) {
         setTimeout(() => {
             const currentHints = document.querySelectorAll('.bio-vista-parts-help-hint');
             currentHints.forEach(el => el.remove());

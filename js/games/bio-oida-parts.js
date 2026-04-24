@@ -1,18 +1,38 @@
 /**
- * Joc de la Oida - Senyalar Parts
+ * Joc de l'Oïda - Senyalar Parts (Multi-Imatge)
+ * La imatge canvia automàticament segons la secció de cada pregunta:
+ *   section: 'externa'  → assets/images/orella-externa.png
+ *   section: 'mitjana'  → assets/images/orella-mitjana.png
+ *   section: 'interna'  → assets/images/orella-interna.png
  */
+
+const OIDA_IMAGES = {
+    externa: 'assets/images/orella-externa.png',
+    mitjana: 'assets/images/orella-mitjana.png',
+    interna: 'assets/images/orella-interna.png'
+};
 
 const bioOidaPartsGame = {
     currentStep: 0,
     score: 100,
     sessionQuestions: [],
     allQuestions: [
-        { key: 'act_oida_part_cornea', x: 200, y: 500, w: 50, h: 50 },
-        { key: 'act_oida_part_pupilla', x: 300, y: 500, w: 50, h: 50 },
-        { key: 'act_oida_part_iris', x: 300, y: 400, w: 50, h: 50 },
-        { key: 'act_oida_part_cristalli', x: 400, y: 500, w: 50, h: 50 },
-        { key: 'act_oida_part_retina', x: 800, y: 500, w: 50, h: 50 },
-        { key: 'act_oida_part_nervi', x: 900, y: 500, w: 50, h: 50 }
+        // --- ORELLA EXTERNA ---
+        { key: 'act_oida_part_pavello',   section: 'externa', x: 100, y: 100, w: 120, h: 120 },
+        { key: 'act_oida_part_conducte',  section: 'externa', x: 300, y: 300, w: 100, h: 100 },
+        { key: 'act_oida_part_timpa',     section: 'externa', x: 500, y: 400, w: 100, h: 100 },
+
+        // --- ORELLA MITJANA ---
+        { key: 'act_oida_part_martell',   section: 'mitjana', x: 200, y: 200, w: 100, h: 100 },
+        { key: 'act_oida_part_enclusa',   section: 'mitjana', x: 350, y: 250, w: 100, h: 100 },
+        { key: 'act_oida_part_estrep',    section: 'mitjana', x: 500, y: 300, w: 100, h: 100 },
+        { key: 'act_oida_part_eustaqui',  section: 'mitjana', x: 400, y: 500, w: 120, h: 100 },
+
+        // --- ORELLA INTERNA ---
+        { key: 'act_oida_part_coclea',    section: 'interna', x: 300, y: 300, w: 150, h: 150 },
+        { key: 'act_oida_part_semicirculars', section: 'interna', x: 200, y: 150, w: 200, h: 150 },
+        { key: 'act_oida_part_nervi',     section: 'interna', x: 600, y: 400, w: 100, h: 100 },
+        { key: 'act_oida_part_vestibul',  section: 'interna', x: 400, y: 300, w: 100, h: 100 }
     ],
     isFinished: false,
     debugMode: true
@@ -23,13 +43,10 @@ function initBioOidaPartsGame() {
     bioOidaPartsGame.score = 100;
     bioOidaPartsGame.isFinished = false;
 
-    const img = document.getElementById('bio-oida-parts-image');
-    img.src = 'assets/images/sentit-oida.png'; 
-
+    // Barrejar mantenint l'ordre per seccions (opcional: barreja total)
     const shuffled = [...bioOidaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
     bioOidaPartsGame.sessionQuestions = [];
-
     for (let q of shuffled) {
         if (!uniqueKeys.has(q.key)) {
             uniqueKeys.add(q.key);
@@ -38,25 +55,49 @@ function initBioOidaPartsGame() {
     }
 
     document.getElementById('bio-oida-parts-ui').classList.remove('hidden');
+    updateBioOidaPartsImage();
     updateBioOidaPartsUI();
 
-    if (img) {
-        img.onclick = handleBioOidaPartsClick;
+    const img = document.getElementById('bio-oida-parts-image');
+    if (img) img.onclick = handleBioOidaPartsClick;
+}
+
+function updateBioOidaPartsImage() {
+    if (bioOidaPartsGame.isFinished) return;
+    const currentTarget = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
+    if (!currentTarget) return;
+
+    const img = document.getElementById('bio-oida-parts-image');
+    const sectionLabel = document.getElementById('bio-oida-parts-section-label');
+    const section = currentTarget.section || 'externa';
+    const newSrc = OIDA_IMAGES[section] || OIDA_IMAGES.externa;
+
+    if (img && img.src !== newSrc) {
+        img.src = newSrc;
+    }
+
+    if (sectionLabel) {
+        const labels = {
+            externa: '🔵 Orella Externa',
+            mitjana: '🟠 Orella Mitjana',
+            interna: '🔴 Orella Interna'
+        };
+        sectionLabel.innerText = labels[section] || '';
     }
 }
 
 function updateBioOidaPartsUI() {
     const questionEl = document.getElementById('bio-oida-parts-question');
     const feedbackEl = document.getElementById('bio-oida-parts-feedback');
-    const scoreEl = document.getElementById('bio-oida-parts-score-display');
-    const skipBtn = document.getElementById('bio-oida-parts-skip-btn');
-    const helpBtn = document.getElementById('bio-oida-parts-help-btn');
+    const scoreEl    = document.getElementById('bio-oida-parts-score-display');
+    const skipBtn    = document.getElementById('bio-oida-parts-skip-btn');
+    const helpBtn    = document.getElementById('bio-oida-parts-help-btn');
     const calibrationUI = document.getElementById('bio-oida-parts-calibration-ui');
 
-    if (scoreEl) scoreEl.innerText = i18n.t('score') + ": " + bioOidaPartsGame.score;
+    if (scoreEl) scoreEl.innerText = i18n.t('score') + ': ' + bioOidaPartsGame.score;
 
     if (bioOidaPartsGame.isFinished) {
-        questionEl.innerText = i18n.t('act_oida_parts_finished') || 'Heu identificat totes les parts!';
+        questionEl.innerText = i18n.t('act_oida_parts_finished') || 'Heu identificat totes les parts de l\'orella!';
         feedbackEl.innerText = '';
         if (skipBtn) skipBtn.classList.add('hidden');
         if (helpBtn) helpBtn.classList.add('hidden');
@@ -64,19 +105,18 @@ function updateBioOidaPartsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
-
     if (skipBtn) skipBtn.classList.remove('hidden');
-    if (helpBtn) {
-        if (isProfe || isAdmin) helpBtn.classList.remove('hidden');
-        else helpBtn.classList.add('hidden');
-    }
+    if (helpBtn) helpBtn.classList.remove('hidden');
 
     const currentTarget = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
-    const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
+    const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key
+        ? i18n.t(currentTarget.key)
+        : currentTarget.key;
 
-    questionEl.innerText = `(${bioOidaPartsGame.currentStep + 1}/${bioOidaPartsGame.sessionQuestions.length}) Trobeu la zona corresponent a: ${translatedTarget}`;
+    questionEl.innerText = `(${bioOidaPartsGame.currentStep + 1}/${bioOidaPartsGame.sessionQuestions.length}) Trobeu: ${translatedTarget}`;
+
+    // Actualitzar imatge si ha canviat de secció
+    updateBioOidaPartsImage();
 }
 
 function showBioOidaPartsHelp() {
@@ -89,51 +129,38 @@ function showBioOidaPartsHelp() {
     renderBioOidaPartsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-oida-parts-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (calibrationUI && isAdmin) {
+    if (calibrationUI && bioOidaPartsGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateBioOidaPartsCalibrationDisplay();
     }
 }
 
 function renderBioOidaPartsHelpHint(target) {
-    const existings = document.querySelectorAll('.bio-oida-parts-help-hint');
-    existings.forEach(el => el.remove());
+    document.querySelectorAll('.bio-oida-parts-help-hint').forEach(el => el.remove());
 
     const img = document.getElementById('bio-oida-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();
-    const logicalWidth = 1000;
-    const logicalHeight = 1000;
-    const scaleX = rect.width / logicalWidth;
-    const scaleY = rect.height / logicalHeight;
+    const scaleX = rect.width / 1000;
+    const scaleY = rect.height / 1000;
 
     const matchingTargets = bioOidaPartsGame.allQuestions.filter(q => q.key === target.key);
-
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
         hint.className = 'bio-oida-parts-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
-        hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
-        hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
-        hint.style.width = (t.w * scaleX) + 'px';
+        hint.style.cssText = `position:absolute;border:2px solid red;background:rgba(255,0,0,0.3);pointer-events:none;z-index:10;`;
+        hint.style.left   = (img.offsetLeft + t.x * scaleX) + 'px';
+        hint.style.top    = (img.offsetTop  + t.y * scaleY) + 'px';
+        hint.style.width  = (t.w * scaleX) + 'px';
         hint.style.height = (t.h * scaleY) + 'px';
-
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (!isAdmin) {
+    if (!bioOidaPartsGame.debugMode) {
         setTimeout(() => {
-            const currentHints = document.querySelectorAll('.bio-oida-parts-help-hint');
-            currentHints.forEach(el => el.remove());
+            document.querySelectorAll('.bio-oida-parts-help-hint').forEach(el => el.remove());
         }, 2500);
     }
 }
@@ -148,16 +175,15 @@ function nudgeBioOidaPartsTarget(axis, delta) {
 function updateBioOidaPartsCalibrationDisplay() {
     const target = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
     const display = document.getElementById('bio-oida-parts-calibration-values');
-    if (display) {
-        display.innerText = `x:${target.x} y:${target.y} w:${target.w} h:${target.h}`;
+    if (display && target) {
+        display.innerText = `key:${target.key} | section:${target.section} | x:${target.x} y:${target.y} w:${target.w} h:${target.h}`;
     }
 }
 
 function closeBioOidaPartsCalibration() {
     const calibrationUI = document.getElementById('bio-oida-parts-calibration-ui');
-    const hints = document.querySelectorAll('.bio-oida-parts-help-hint');
+    document.querySelectorAll('.bio-oida-parts-help-hint').forEach(el => el.remove());
     if (calibrationUI) calibrationUI.classList.add('hidden');
-    hints.forEach(el => el.remove());
 }
 
 function exportBioOidaPartsConfig() {
@@ -167,17 +193,16 @@ function exportBioOidaPartsConfig() {
         bioOidaPartsGame.allQuestions[originalIndex] = { ...currentTarget };
     }
     const code = JSON.stringify(bioOidaPartsGame.allQuestions, null, 4);
-    console.log("NOVA CONFIGURACIÓ PER A bio-oida-parts.js:");
-    console.log(code);
-    const textArea = document.createElement("textarea");
+    console.log('NOVA CONFIGURACIÓ bio-oida-parts.js:\n', code);
+    const textArea = document.createElement('textarea');
     textArea.value = code;
     document.body.appendChild(textArea);
     textArea.select();
     try {
         document.execCommand('copy');
-        alert("Codi copiat al portapapers!");
+        alert('Codi copiat al portapapers!');
     } catch (err) {
-        prompt("Copia aquest codi:", code);
+        prompt('Copia aquest codi:', code);
     }
     document.body.removeChild(textArea);
 }
@@ -200,17 +225,14 @@ function nextBioOidaPartsStep() {
 function handleBioOidaPartsClick(event) {
     if (bioOidaPartsGame.isFinished) return;
 
-    const hints = document.querySelectorAll('.bio-oida-parts-help-hint');
-    hints.forEach(el => el.remove());
+    document.querySelectorAll('.bio-oida-parts-help-hint').forEach(el => el.remove());
 
     const img = event.target;
     const rect = img.getBoundingClientRect();
-    const logicalWidth = 1000;
-    const logicalHeight = 1000;
-    const scaleX = logicalWidth / rect.width;
-    const scaleY = logicalHeight / rect.height;
+    const scaleX = 1000 / rect.width;
+    const scaleY = 1000 / rect.height;
     const clickX = (event.clientX - rect.left) * scaleX;
-    const clickY = (event.clientY - rect.top) * scaleY;
+    const clickY = (event.clientY - rect.top)  * scaleY;
 
     const currentTarget = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
     const feedbackEl = document.getElementById('bio-oida-parts-feedback');
@@ -245,11 +267,11 @@ async function saveBioOidaPartsResult() {
         email: state.user.email,
         curs: state.user.curs,
         projecte: state.currentProject ? state.currentProject.titol : 'Biologia',
-        app: 'Anatomia de la Oida',
-        nivell: 'Parts de l\'ull',
+        app: 'Anatomia de l\'Oïda',
+        nivell: 'Parts de l\'Orella',
         puntuacio: bioOidaPartsGame.score,
         temps_segons: 0,
-        feedback_pos: 'Bona feina component la Oida.',
+        feedback_pos: 'Bona feina identificant les parts de l\'orella.',
         feedback_neg: ''
     };
     if (typeof callApi === 'function') {
