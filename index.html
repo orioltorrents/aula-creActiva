@@ -1356,6 +1356,21 @@
                         </div>
                     </div>
 
+                    <!-- ACTIVITATS: Aparell Locomotor -->
+                    <div id="bio-locomotor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        
+                        <!-- Quiz de l'Aparell Locomotor -->
+                        <div class="activity-card" onclick="openBioActivity('locomotor-quiz')">
+                            <div class="act-icon">🦴</div>
+                            <div class="card-content">
+                                <div class="card-title">Repàs del Locomotor</div>
+                                <div class="card-desc">Posa a prova els teus coneixements sobre ossos i músculs</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
                     <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
@@ -1502,6 +1517,36 @@
                                     <button onclick="exportBioEndocriGlandsConfig()" class="btn-primary btn-sm bg-green-600 text-xs py-1" style="background-color: #059669; font-size: 10px;">Exportar / Copiar Codi</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Aparell Locomotor -->
+                    <div id="bio-activity-locomotor-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('locomotor')">← Tornar al menú</button>
+                        <div class="game-header text-center">
+                            <h3>Repàs del Locomotor</h3>
+                        </div>
+                        
+                        <div id="locomotor-quiz-feedback" class="text-center mb-4 font-bold text-lg h-8"></div>
+                        
+                        <div id="locomotor-quiz-selection" class="text-center p-8 bg-white rounded-lg shadow-sm border mb-6 hidden">
+                            <div id="locomotor-quiz-topic-selection"></div>
+                        </div>
+
+                        <div id="locomotor-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="locomotor-quiz-progress">Pregunta 1</div>
+                                <div id="locomotor-quiz-score">Punts: 0</div>
+                            </div>
+                            <div id="locomotor-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="locomotor-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                        </div>
+
+                        <div id="locomotor-quiz-results" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Resultat Final</h4>
+                            <div id="locomotor-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="locomotor-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initLocomotorQuiz()" class="btn-primary">Tornar a jugar</button>
                         </div>
                     </div>
 
@@ -1993,7 +2038,7 @@
                             <div id="gust-quiz-options" class="flex flex-col gap-2 mb-4"></div>
                             <div id="gust-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
-                        <div id="bio-activity-gust-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                        <div id="bio-gust-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="gust-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="gust-quiz-final-msg" class="text-lg mb-8"></p>
@@ -2338,6 +2383,18 @@
     <script src="js/games/bio-circulatori-quiz.js"></script>
     <script src="js/games/bio-endocri-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>
+    <script src="js/games/bio-vista-quiz.js"></script>
+    <script src="js/games/bio-vista-parts.js"></script>
+    <script src="js/games/bio-oida-quiz.js"></script>
+    <script src="js/games/bio-oida-parts.js"></script>
+    <script src="js/games/bio-olfacte-quiz.js"></script>
+    <script src="js/games/bio-olfacte-parts.js"></script>
+    <script src="js/games/bio-gust-quiz.js"></script>
+    <script src="js/games/bio-gust-parts.js"></script>
+    <script src="js/games/bio-tacte-quiz.js"></script>
+    <script src="js/games/bio-tacte-parts.js"></script>
+    <script src="js/games/bio-endocri-glands.js"></script>
+    <script src="js/games/bio-locomotor-quiz.js"></script>
 
 
     <script src="js/games/audio-sonar.js"></script>

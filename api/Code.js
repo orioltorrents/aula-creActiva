@@ -1048,26 +1048,46 @@ function getDiagnosticQuestions() {
 }
 
 
-function getVistaQuestions() {
+function getSentitQuestions(senseName) {
     try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Vista'.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-vista' };
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + senseName.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-' + senseName.toLowerCase() };
 
         const data = sheet.getDataRange().getValues();
         if (data.length <= 1) return { status: 'success', data: [] };
 
-        const headers = data[0];
+        const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+        
+        const findIdx = (names) => {
+            for (let name of names) {
+                let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                let idx = headers.indexOf(norm);
+                if (idx !== -1) return idx;
+            }
+            return -1;
+        };
+
+        const temaIdx = findIdx(['tema', 'nivell', 'nivel', 'level']);
+        const qIdx = findIdx(['pregunta', 'question']);
+        const correctIdx = findIdx(['correcta', 'correct']);
+        const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
+        const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
+        const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
+
         const questions = [];
 
         for (let i = 1; i < data.length; i++) {
             const row = data[i];
-            let qObj = {};
-            for (let j = 0; j < headers.length; j++) {
-                if (headers[j]) {
-                    qObj[headers[j].toString().trim()] = row[j];
-                }
-            }
-            if (qObj.Pregunta && qObj.Correcta) {
+            if (qIdx !== -1 && correctIdx !== -1 && row[qIdx] && row[correctIdx]) {
+                let qObj = {
+                    Tema: temaIdx !== -1 && row[temaIdx] ? String(row[temaIdx]).trim() : "Mix",
+                    Nivell: temaIdx !== -1 && row[temaIdx] ? String(row[temaIdx]).trim() : "Mix",
+                    Pregunta: row[qIdx],
+                    Correcta: row[correctIdx],
+                    Incorrecta1: wrong1Idx !== -1 ? row[wrong1Idx] : "",
+                    Incorrecta2: wrong2Idx !== -1 ? row[wrong2Idx] : "",
+                    Incorrecta3: wrong3Idx !== -1 ? row[wrong3Idx] : ""
+                };
                 questions.push(qObj);
             }
         }
@@ -1078,122 +1098,8 @@ function getVistaQuestions() {
     }
 }
 
-function getOidaQuestions() {
-    try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Oida'.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-oida' };
-
-        const data = sheet.getDataRange().getValues();
-        if (data.length <= 1) return { status: 'success', data: [] };
-
-        const headers = data[0];
-        const questions = [];
-
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            let qObj = {};
-            for (let j = 0; j < headers.length; j++) {
-                if (headers[j]) {
-                    qObj[headers[j].toString().trim()] = row[j];
-                }
-            }
-            if (qObj.Pregunta && qObj.Correcta) {
-                questions.push(qObj);
-            }
-        }
-
-        return { status: 'success', data: questions };
-    } catch(e) {
-        return { status: 'error', message: e.toString() };
-    }
-}
-
-function getOlfacteQuestions() {
-    try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Olfacte'.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-olfacte' };
-
-        const data = sheet.getDataRange().getValues();
-        if (data.length <= 1) return { status: 'success', data: [] };
-
-        const headers = data[0];
-        const questions = [];
-
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            let qObj = {};
-            for (let j = 0; j < headers.length; j++) {
-                if (headers[j]) {
-                    qObj[headers[j].toString().trim()] = row[j];
-                }
-            }
-            if (qObj.Pregunta && qObj.Correcta) {
-                questions.push(qObj);
-            }
-        }
-
-        return { status: 'success', data: questions };
-    } catch(e) {
-        return { status: 'error', message: e.toString() };
-    }
-}
-
-function getGustQuestions() {
-    try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Gust'.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-gust' };
-
-        const data = sheet.getDataRange().getValues();
-        if (data.length <= 1) return { status: 'success', data: [] };
-
-        const headers = data[0];
-        const questions = [];
-
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            let qObj = {};
-            for (let j = 0; j < headers.length; j++) {
-                if (headers[j]) {
-                    qObj[headers[j].toString().trim()] = row[j];
-                }
-            }
-            if (qObj.Pregunta && qObj.Correcta) {
-                questions.push(qObj);
-            }
-        }
-
-        return { status: 'success', data: questions };
-    } catch(e) {
-        return { status: 'error', message: e.toString() };
-    }
-}
-
-function getTacteQuestions() {
-    try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Tacte'.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-tacte' };
-
-        const data = sheet.getDataRange().getValues();
-        if (data.length <= 1) return { status: 'success', data: [] };
-
-        const headers = data[0];
-        const questions = [];
-
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            let qObj = {};
-            for (let j = 0; j < headers.length; j++) {
-                if (headers[j]) {
-                    qObj[headers[j].toString().trim()] = row[j];
-                }
-            }
-            if (qObj.Pregunta && qObj.Correcta) {
-                questions.push(qObj);
-            }
-        }
-
-        return { status: 'success', data: questions };
-    } catch(e) {
-        return { status: 'error', message: e.toString() };
-    }
-}
+function getVistaQuestions() { return getSentitQuestions('Vista'); }
+function getOidaQuestions() { return getSentitQuestions('Oida'); }
+function getOlfacteQuestions() { return getSentitQuestions('Olfacte'); }
+function getGustQuestions() { return getSentitQuestions('Gust'); }
+function getTacteQuestions() { return getSentitQuestions('Tacte'); }

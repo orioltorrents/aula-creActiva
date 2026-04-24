@@ -131,10 +131,11 @@ function renderTacteQuizQuestion() {
     const container = document.getElementById('tacte-quiz-options');
     container.innerHTML = '';
 
-    answers.forEach(ans => {
+    answers.forEach((ans, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'w-full text-left p-4 rounded bg-gray-100 hover:bg-gray-200 border transition-colors';
+        btn.className = 'btn-option w-full text-left mb-2';
         btn.innerText = ans.text;
+        btn.dataset.correct = ans.correct;
         btn.onclick = () => handleTacteQuizAnswer(ans.correct, btn);
         container.appendChild(btn);
     });
@@ -147,15 +148,20 @@ function handleTacteQuizAnswer(isCorrect, btnElement) {
 
     const container = document.getElementById('tacte-quiz-options');
     const buttons = container.querySelectorAll('button');
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.correct === 'true') {
+            b.classList.add('correct');
+        } else if (b === btnElement) {
+            b.classList.add('incorrect');
+        }
+    });
 
     const feedbackEl = document.getElementById('tacte-quiz-feedback');
 
     if (isCorrect) {
-        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-        btnElement.classList.add('bg-green-500', 'text-white');
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'green';
+        feedbackEl.style.color = 'var(--success)';
         
         setTimeout(() => {
             bioTacteQuiz.currentStep++;
@@ -166,18 +172,17 @@ function handleTacteQuizAnswer(isCorrect, btnElement) {
             }
         }, 1500);
     } else {
-        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-        btnElement.classList.add('bg-red-500', 'text-white');
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        feedbackEl.style.color = 'var(--error)';
         bioTacteQuiz.score = Math.max(0, bioTacteQuiz.score - 10);
         document.getElementById('tacte-quiz-score-display').innerText = `Punts: ${bioTacteQuiz.score}`;
         
         setTimeout(() => {
-            btnElement.classList.add('bg-gray-100', 'hover:bg-gray-200');
-            btnElement.classList.remove('bg-red-500', 'text-white');
             feedbackEl.innerText = '';
-            buttons.forEach(b => b.disabled = false);
+            buttons.forEach(b => {
+                b.disabled = false;
+                b.classList.remove('correct', 'incorrect');
+            });
         }, 1500);
     }
 }
