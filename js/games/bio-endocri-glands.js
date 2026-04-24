@@ -30,6 +30,7 @@ const bioEndocriGlandsGame = {
         { key: 'act_endo_gland_pancrees', x: 955, y: 1065, w: 130, h: 65 },
         { key: 'act_endo_gland_gonades', x: 900, y: 1260, w: 55, h: 40 },
         { key: 'act_endo_gland_gonades', x: 1050, y: 1260, w: 55, h: 40 }
+        
     ],
     isFinished: false,
     debugMode: true
@@ -97,18 +98,8 @@ function updateBioEndocriGlandsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
-
     if (skipBtn) skipBtn.classList.remove('hidden');
-    
-    if (helpBtn) {
-        if (isProfe || isAdmin) {
-            helpBtn.classList.remove('hidden');
-        } else {
-            helpBtn.classList.add('hidden');
-        }
-    }
+    if (helpBtn) helpBtn.classList.remove('hidden');
 
     const currentTarget = bioEndocriGlandsGame.sessionQuestions[bioEndocriGlandsGame.currentStep];
 
@@ -134,8 +125,7 @@ function showBioEndocriGlandsHelp() {
     renderBioEndocriGlandsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-endocri-glands-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (calibrationUI && isAdmin) {
+    if (calibrationUI && bioEndocriGlandsGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateBioEndocriGlandsCalibrationDisplay();
     }
@@ -175,9 +165,7 @@ function renderBioEndocriGlandsHelpHint(target) {
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    
-    if (!isAdmin) {
+    if (!bioEndocriGlandsGame.debugMode) {
         setTimeout(() => {
             const currentHints = document.querySelectorAll('.bio-endocri-glands-help-hint');
             currentHints.forEach(el => el.remove());

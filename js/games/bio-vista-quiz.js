@@ -49,53 +49,65 @@ function startVistaQuizLevelSelector() {
     if (!container) return;
     container.innerHTML = '';
 
-    // Detectar si usem "Nivell" o "Tema"
-    const firstQ = bioVistaQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
+    // --- SECCIÓ PER TEMA (type) ---
+    const topics = [...new Set(bioVistaQuiz.allQuestions.map(q => q.type).filter(v => v && v.toString().trim() !== ''))];
+    if (topics.length > 0) {
+        const topicLabel = document.createElement('p');
+        topicLabel.className = 'w-full text-center font-bold mb-2 text-gray-600';
+        topicLabel.innerText = 'Per Tema:';
+        container.appendChild(topicLabel);
+        topics.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
+            btn.innerText = cat;
+            btn.onclick = () => startVistaQuiz(cat, 'type');
+            container.appendChild(btn);
+        });
+    }
 
-    // Obtenir valors únics
-    const categories = [...new Set(bioVistaQuiz.allQuestions
-        .map(q => q[categoryKey])
-        .filter(v => v && v.toString().trim() !== '')
-    )];
+    // --- SECCIÓ PER NIVELL (level) ---
+    const levels = [...new Set(bioVistaQuiz.allQuestions.map(q => q.level).filter(v => v && v.toString().trim() !== ''))];
+    if (levels.length > 0) {
+        const levelLabel = document.createElement('p');
+        levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+        levelLabel.innerText = 'Per Nivell:';
+        container.appendChild(levelLabel);
+        levels.forEach(lvl => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
+            btn.innerText = lvl;
+            btn.onclick = () => startVistaQuiz(lvl, 'level');
+            container.appendChild(btn);
+        });
+    }
 
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-primary';
-        btn.style.backgroundColor = '#3b82f6';
-        btn.style.width = 'auto';
-        btn.style.minWidth = '120px';
-        btn.innerText = cat;
-        btn.onclick = () => startVistaQuiz(cat);
-        container.appendChild(btn);
-    });
-
-    // Botó Barrejat
+    // --- BOTÓ BARREJAT ---
+    const mixLabel = document.createElement('p');
+    mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+    mixLabel.innerText = 'O bé:';
+    container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary bg-purple-600 hover:bg-purple-700';
-    mixBtn.style.width = 'auto';
-    mixBtn.style.minWidth = '120px';
+    mixBtn.className = 'btn-primary';
+    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
     mixBtn.innerText = 'Barrejat (Tots)';
-    mixBtn.onclick = () => startVistaQuiz('Barrejat');
+    mixBtn.onclick = () => startVistaQuiz('Barrejat', null);
     container.appendChild(mixBtn);
 }
 
-function startVistaQuiz(level) {
+function startVistaQuiz(value, filterBy) {
     document.getElementById('bio-vista-quiz-level-selector').classList.add('hidden');
 
-    const firstQ = bioVistaQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
-
     let pool = bioVistaQuiz.allQuestions;
-    if (level !== 'Barrejat') {
-        pool = bioVistaQuiz.allQuestions.filter(q => 
-            q[categoryKey] && q[categoryKey].toString().toLowerCase() === level.toString().toLowerCase()
-        );
+    if (filterBy === 'type') {
+        pool = bioVistaQuiz.allQuestions.filter(q => q.type && q.type.toString().toLowerCase() === value.toString().toLowerCase());
+    } else if (filterBy === 'level') {
+        pool = bioVistaQuiz.allQuestions.filter(q => q.level && q.level.toString().toLowerCase() === value.toString().toLowerCase());
     }
 
-
     if (pool.length === 0) {
-        alert("No hi ha preguntes per aquest nivell.");
+        alert("No hi ha preguntes per aquesta selecció.");
         initVistaQuiz();
         return;
     }
@@ -117,21 +129,20 @@ function renderVistaQuizQuestion() {
     document.getElementById('vista-quiz-progress').innerText = `Pregunta ${bioVistaQuiz.currentStep + 1} de ${bioVistaQuiz.sessionQuestions.length}`;
     document.getElementById('vista-quiz-score-display').innerText = `Punts: ${bioVistaQuiz.score}`;
     
-    document.getElementById('vista-quiz-text').innerText = questionData.Pregunta || '';
+    document.getElementById('vista-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
-    const answers = [
-        { text: questionData.Correcta, correct: true },
-        { text: questionData.Incorrecta1, correct: false },
-        { text: questionData.Incorrecta2, correct: false },
-        { text: questionData.Incorrecta3, correct: false }
-    ].filter(a => a.text);
+    const correctText = questionData.correct || questionData.Correcta;
+    const alts = questionData.alternatives
+        ? [...questionData.alternatives]
+        : [correctText, questionData.Incorrecta1, questionData.Incorrecta2, questionData.Incorrecta3].filter(a => a);
 
+    const answers = alts.map(text => ({ text, correct: text === correctText }));
     answers.sort(() => 0.5 - Math.random());
 
     const container = document.getElementById('vista-quiz-options');
     container.innerHTML = '';
 
-    answers.forEach((ans, idx) => {
+    answers.forEach((ans) => {
         const btn = document.createElement('button');
         btn.className = 'btn-option w-full text-left mb-2';
         btn.innerText = ans.text;

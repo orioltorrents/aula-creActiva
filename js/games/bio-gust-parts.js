@@ -7,12 +7,11 @@ const bioGustPartsGame = {
     score: 100,
     sessionQuestions: [],
     allQuestions: [
-        { key: 'act_gust_part_cornea', x: 200, y: 500, w: 50, h: 50 },
-        { key: 'act_gust_part_pupilla', x: 300, y: 500, w: 50, h: 50 },
-        { key: 'act_gust_part_iris', x: 300, y: 400, w: 50, h: 50 },
-        { key: 'act_gust_part_cristalli', x: 400, y: 500, w: 50, h: 50 },
-        { key: 'act_gust_part_retina', x: 800, y: 500, w: 50, h: 50 },
-        { key: 'act_gust_part_nervi', x: 900, y: 500, w: 50, h: 50 }
+        { key: 'act_gust_zone_acid', x: 200, y: 200, w: 100, h: 100 },
+        { key: 'act_gust_zone_dolc', x: 300, y: 300, w: 100, h: 100 },
+        { key: 'act_gust_zone_salat', x: 400, y: 400, w: 100, h: 100 },
+        { key: 'act_gust_zone_amarg', x: 500, y: 500, w: 100, h: 100 },
+        { key: 'act_gust_zone_umami', x: 600, y: 600, w: 100, h: 100 }
     ],
     isFinished: false,
     debugMode: true
@@ -24,7 +23,7 @@ function initBioGustPartsGame() {
     bioGustPartsGame.isFinished = false;
 
     const img = document.getElementById('bio-gust-parts-image');
-    img.src = 'assets/images/sentit-gust.png'; 
+    img.src = 'assets/images/llengua-gustos.png';
 
     const shuffled = [...bioGustPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -64,14 +63,8 @@ function updateBioGustPartsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
-
     if (skipBtn) skipBtn.classList.remove('hidden');
-    if (helpBtn) {
-        if (isProfe || isAdmin) helpBtn.classList.remove('hidden');
-        else helpBtn.classList.add('hidden');
-    }
+    if (helpBtn) helpBtn.classList.remove('hidden');
 
     const currentTarget = bioGustPartsGame.sessionQuestions[bioGustPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -89,8 +82,7 @@ function showBioGustPartsHelp() {
     renderBioGustPartsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-gust-parts-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (calibrationUI && isAdmin) {
+    if (calibrationUI && bioGustPartsGame.debugMode) {
         calibrationUI.classList.remove('hidden');
         updateBioGustPartsCalibrationDisplay();
     }
@@ -129,8 +121,7 @@ function renderBioGustPartsHelpHint(target) {
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    if (!isAdmin) {
+    if (!bioGustPartsGame.debugMode) {
         setTimeout(() => {
             const currentHints = document.querySelectorAll('.bio-gust-parts-help-hint');
             currentHints.forEach(el => el.remove());
@@ -245,8 +236,8 @@ async function saveBioGustPartsResult() {
         email: state.user.email,
         curs: state.user.curs,
         projecte: state.currentProject ? state.currentProject.titol : 'Biologia',
-        app: 'Anatomia de la Gust',
-        nivell: 'Parts de l\'ull',
+        app: 'Les Zones del Gust',
+        nivell: 'Anatomia de la Llengua',
         puntuacio: bioGustPartsGame.score,
         temps_segons: 0,
         feedback_pos: 'Bona feina component la Gust.',

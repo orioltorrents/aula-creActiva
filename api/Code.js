@@ -1067,7 +1067,10 @@ function getSentitQuestions(senseName) {
             return -1;
         };
 
-        const temaIdx = findIdx(['tema', 'nivell', 'nivel', 'level']);
+        const temaIdx = findIdx(['tipus de pregunta', 'tipus', 'tema', 'type']);
+        const nivellIdx = findIdx(['nivell', 'nivel', 'level']);
+        // Si no hi ha columna de tema, usem la columna de nivell per al tipus també
+        const effectiveTemaIdx = temaIdx !== -1 ? temaIdx : nivellIdx;
         const qIdx = findIdx(['pregunta', 'question']);
         const correctIdx = findIdx(['correcta', 'correct']);
         const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
@@ -1079,14 +1082,19 @@ function getSentitQuestions(senseName) {
         for (let i = 1; i < data.length; i++) {
             const row = data[i];
             if (qIdx !== -1 && correctIdx !== -1 && row[qIdx] && row[correctIdx]) {
+                const alternatives = [
+                    row[correctIdx],
+                    wrong1Idx !== -1 ? row[wrong1Idx] : '',
+                    wrong2Idx !== -1 ? row[wrong2Idx] : '',
+                    wrong3Idx !== -1 ? row[wrong3Idx] : ''
+                ].filter(a => a && String(a).trim() !== '');
+
                 let qObj = {
-                    Tema: temaIdx !== -1 && row[temaIdx] ? String(row[temaIdx]).trim() : "Mix",
-                    Nivell: temaIdx !== -1 && row[temaIdx] ? String(row[temaIdx]).trim() : "Mix",
-                    Pregunta: row[qIdx],
-                    Correcta: row[correctIdx],
-                    Incorrecta1: wrong1Idx !== -1 ? row[wrong1Idx] : "",
-                    Incorrecta2: wrong2Idx !== -1 ? row[wrong2Idx] : "",
-                    Incorrecta3: wrong3Idx !== -1 ? row[wrong3Idx] : ""
+                    type: effectiveTemaIdx !== -1 && row[effectiveTemaIdx] ? String(row[effectiveTemaIdx]).trim() : '',
+                    level: nivellIdx !== -1 && row[nivellIdx] ? String(row[nivellIdx]).trim() : '',
+                    q: row[qIdx],
+                    correct: row[correctIdx],
+                    alternatives: alternatives
                 };
                 questions.push(qObj);
             }

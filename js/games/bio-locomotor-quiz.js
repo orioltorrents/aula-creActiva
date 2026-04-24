@@ -60,29 +60,68 @@ function generateLocomotorTopicButtons(questions) {
     const container = document.getElementById('locomotor-quiz-topic-selection');
     container.innerHTML = '';
 
-    // Obtenir tipus únics
+    // --- SECCIÓ PER TEMA (type) ---
     const types = [...new Set(questions.map(q => q.type))].filter(t => t && t !== "");
 
-    if (types.length === 0) return;
+    if (types.length > 0) {
+        const topicLabel = document.createElement('p');
+        topicLabel.className = 'w-full text-center font-bold mb-3';
+        topicLabel.innerText = 'Per Tema:';
+        container.appendChild(topicLabel);
 
-    const label = document.createElement('p');
-    label.className = 'font-bold mb-3 text-center';
-    label.innerText = 'Tria un tema (nivell barrejat):';
-    container.appendChild(label);
+        const topicWrapper = document.createElement('div');
+        topicWrapper.className = 'flex flex-wrap justify-center gap-4 mb-4';
 
-    const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'flex flex-wrap justify-center gap-4 mb-6';
+        types.forEach(type => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style = "background-color: #3b82f6; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
+            btn.innerText = type;
+            btn.onclick = () => startLocomotorQuizWithFilter(type, 'mixed');
+            topicWrapper.appendChild(btn);
+        });
+        container.appendChild(topicWrapper);
+    }
 
-    types.forEach(type => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-primary';
-        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
-        btn.innerText = type;
-        btn.onclick = () => startLocomotorQuizWithFilter(type, 'mixed');
-        btnWrapper.appendChild(btn);
-    });
+    // --- SECCIÓ PER NIVELL (level) ---
+    const rawLevels = [...new Set(questions.map(q => q.level))].filter(l => l && l.toString().trim() !== "");
 
-    container.appendChild(btnWrapper);
+    if (rawLevels.length > 0) {
+        const levelLabel = document.createElement('p');
+        levelLabel.className = 'w-full text-center font-bold mb-3 mt-2';
+        levelLabel.innerText = 'Per Nivell:';
+        container.appendChild(levelLabel);
+
+        const levelWrapper = document.createElement('div');
+        levelWrapper.className = 'flex flex-wrap justify-center gap-4 mb-4';
+
+        rawLevels.forEach(lvl => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style = "background-color: #10b981; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
+            btn.innerText = lvl;
+            btn.onclick = () => startLocomotorQuizWithFilter('all', lvl);
+            levelWrapper.appendChild(btn);
+        });
+        container.appendChild(levelWrapper);
+    }
+
+    // --- BOTÓ BARREJAT (tots) ---
+    const mixLabel = document.createElement('p');
+    mixLabel.className = 'w-full text-center font-bold mb-3 mt-2';
+    mixLabel.innerText = 'O bé:';
+    container.appendChild(mixLabel);
+
+    const mixWrapper = document.createElement('div');
+    mixWrapper.className = 'flex flex-wrap justify-center gap-4';
+
+    const mixBtn = document.createElement('button');
+    mixBtn.className = 'btn-primary';
+    mixBtn.style = "background-color: #7c3aed; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
+    mixBtn.innerText = 'Barrejat (Tots)';
+    mixBtn.onclick = () => startLocomotorQuizWithFilter('all', 'mixed');
+    mixWrapper.appendChild(mixBtn);
+    container.appendChild(mixWrapper);
 }
 
 function startLocomotorQuizWithFilter(type = 'all', level = 'mixed') {

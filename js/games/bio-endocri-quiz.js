@@ -50,47 +50,77 @@ function startEndocriQuizLevelSelector() {
     if (!container) return;
     container.innerHTML = '';
 
-    // Detectar si usem "Nivell" o "Tema"
-    const firstQ = bioEndocriQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
+    // --- SECCIÓ PER TEMA (type) ---
+    const topicLabel = document.createElement('p');
+    topicLabel.className = 'w-full text-center font-bold mb-2 text-gray-600';
+    topicLabel.innerText = 'Per Tema:';
+    container.appendChild(topicLabel);
 
-    // Obtenir valors únics
-    const categories = [...new Set(bioEndocriQuiz.allQuestions
-        .map(q => q[categoryKey])
+    const topics = [...new Set(bioEndocriQuiz.allQuestions
+        .map(q => q.type)
         .filter(v => v && v.toString().trim() !== '')
     )];
 
-    categories.forEach(cat => {
+    topics.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'btn-primary';
         btn.style.backgroundColor = '#3b82f6';
         btn.style.width = 'auto';
         btn.style.minWidth = '120px';
         btn.innerText = cat;
-        btn.onclick = () => startEndocriQuiz(cat);
+        btn.onclick = () => startEndocriQuiz(cat, 'type');
         container.appendChild(btn);
     });
 
-    // Botó Barrejat
+    // --- SECCIÓ PER NIVELL (level) ---
+    const levelLabel = document.createElement('p');
+    levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+    levelLabel.innerText = 'Per Nivell:';
+    container.appendChild(levelLabel);
+
+    const levels = [...new Set(bioEndocriQuiz.allQuestions
+        .map(q => q.level)
+        .filter(v => v && v.toString().trim() !== '')
+    )];
+
+    levels.forEach(lvl => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.style.backgroundColor = '#10b981';
+        btn.style.width = 'auto';
+        btn.style.minWidth = '120px';
+        btn.innerText = lvl;
+        btn.onclick = () => startEndocriQuiz(lvl, 'level');
+        container.appendChild(btn);
+    });
+
+    // --- BOTÓ BARREJAT (tots) ---
+    const mixLabel = document.createElement('p');
+    mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+    mixLabel.innerText = 'O bé:';
+    container.appendChild(mixLabel);
+
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary bg-purple-600 hover:bg-purple-700';
+    mixBtn.className = 'btn-primary';
+    mixBtn.style.backgroundColor = '#7c3aed';
     mixBtn.style.width = 'auto';
     mixBtn.style.minWidth = '120px';
     mixBtn.innerText = 'Barrejat (Tots)';
-    mixBtn.onclick = () => startEndocriQuiz('Barrejat');
+    mixBtn.onclick = () => startEndocriQuiz('Barrejat', null);
     container.appendChild(mixBtn);
 }
 
-function startEndocriQuiz(level) {
+function startEndocriQuiz(value, filterBy) {
     document.getElementById('bio-endocri-quiz-level-selector').classList.add('hidden');
 
-    const firstQ = bioEndocriQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
-
     let pool = bioEndocriQuiz.allQuestions;
-    if (level !== 'Barrejat') {
+    if (filterBy === 'type') {
         pool = bioEndocriQuiz.allQuestions.filter(q => 
-            q[categoryKey] && q[categoryKey].toString().toLowerCase() === level.toString().toLowerCase()
+            q.type && q.type.toString().toLowerCase() === value.toString().toLowerCase()
+        );
+    } else if (filterBy === 'level') {
+        pool = bioEndocriQuiz.allQuestions.filter(q => 
+            q.level && q.level.toString().toLowerCase() === value.toString().toLowerCase()
         );
     }
 
@@ -101,7 +131,15 @@ function startEndocriQuiz(level) {
     }
 
     const shuffled = [...pool].sort(() => 0.5 - Math.random());
-    bioEndocriQuiz.sessionQuestions = shuffled.slice(0, 10);
+    bioEndocriQuiz.sessionQuestions = shuffled.slice(0, 10).map(qData => {
+        const shuffledAlts = [...qData.alternatives].sort(() => 0.5 - Math.random());
+        const correctIdx = shuffledAlts.indexOf(qData.correct);
+        return {
+            q: qData.q,
+            a: shuffledAlts,
+            correct: correctIdx
+        };
+    });
 
     bioEndocriQuiz.currentStep = 0;
     bioEndocriQuiz.score = 100;
@@ -117,25 +155,17 @@ function renderEndocriQuizQuestion() {
     document.getElementById('endo-quiz-progress').innerText = `Pregunta ${bioEndocriQuiz.currentStep + 1} de ${bioEndocriQuiz.sessionQuestions.length}`;
     document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
     
-    document.getElementById('endo-quiz-text').innerText = questionData.Pregunta || '';
-
-    const answers = [
-        { text: questionData.Correcta, correct: true },
-        { text: questionData.Incorrecta1, correct: false },
-        { text: questionData.Incorrecta2, correct: false },
-        { text: questionData.Incorrecta3, correct: false }
-    ].filter(a => a.text);
-
-    answers.sort(() => 0.5 - Math.random());
+    document.getElementById('endo-quiz-text').innerText = questionData.q || '';
 
     const container = document.getElementById('endo-quiz-options');
     container.innerHTML = '';
 
-    answers.forEach(ans => {
+    questionData.a.forEach((ansText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'w-full text-left p-4 rounded bg-gray-100 hover:bg-gray-200 border transition-colors';
-        btn.innerText = ans.text;
-        btn.onclick = () => handleEndocriQuizAnswer(ans.correct, btn);
+        btn.className = 'btn-option w-full text-left mb-2';
+        btn.innerText = ansText;
+        btn.dataset.isCorrect = (idx === questionData.correct);
+        btn.onclick = () => handleEndocriQuizAnswer(btn.dataset.isCorrect === 'true', btn);
         container.appendChild(btn);
     });
 
@@ -147,15 +177,20 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
 
     const container = document.getElementById('endo-quiz-options');
     const buttons = container.querySelectorAll('button');
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.isCorrect === 'true') {
+            b.classList.add('correct');
+        } else if (b === btnElement) {
+            b.classList.add('incorrect');
+        }
+    });
 
     const feedbackEl = document.getElementById('endo-quiz-feedback');
 
     if (isCorrect) {
-        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-        btnElement.classList.add('bg-green-500', 'text-white');
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'green';
+        feedbackEl.style.color = 'var(--success)';
         
         setTimeout(() => {
             bioEndocriQuiz.currentStep++;
@@ -166,18 +201,17 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
             }
         }, 1500);
     } else {
-        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-        btnElement.classList.add('bg-red-500', 'text-white');
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        feedbackEl.style.color = 'var(--error)';
         bioEndocriQuiz.score = Math.max(0, bioEndocriQuiz.score - 10);
         document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
         
         setTimeout(() => {
-            btnElement.classList.add('bg-gray-100', 'hover:bg-gray-200');
-            btnElement.classList.remove('bg-red-500', 'text-white');
             feedbackEl.innerText = '';
-            buttons.forEach(b => b.disabled = false);
+            buttons.forEach(b => {
+                b.disabled = false;
+                b.classList.remove('correct', 'incorrect');
+            });
         }, 1500);
     }
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aula CreActiva - Escola Projectes</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -321,7 +322,7 @@
                                 <div class="act-icon">
                                     <img src="assets/images/targeta_diagnostic-preguntes.png"
                                         alt="Diagnòstic de preguntes" class="act-img"
-                                        onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                                        onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                                 </div>
                                 <div class="card-content">
                                     <div class="card-title">Diagnòstic de preguntes</div>
@@ -870,7 +871,7 @@
                                 </div>
                                 <div class="question-card">
                                     <div id="rols-species-img-container" class="hidden mb-4">
-                                        <img id="rols-species-img" src="" alt="Espècie" class="species-quiz-img">
+                                        <img id="rols-species-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Espècie" class="species-quiz-img">
                                     </div>
                                     <h4 id="rols-species-name" class="text-2xl font-bold mb-2">Espècie</h4>
                                     <p id="rols-diet-desc" class="italic mb-4">Descripció de la dieta...</p>
@@ -1245,7 +1246,7 @@
                         <!-- 8. Sistema Immunitari -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
-                                <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                                <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Sistema Immunitari</div>
@@ -1257,7 +1258,7 @@
                         <!-- 9. Aparell Reproductor -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                                <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Aparell Reproductor</div>
@@ -1457,15 +1458,24 @@
 
                         <!-- Selector de Model -->
                         <div id="bio-endocri-glands-selector" class="container-white p-6 rounded-lg shadow-sm border mb-6 text-center">
-                            <p class="mb-4 font-bold">Tria el model per a l'activitat:</p>
-                            <div class="flex justify-center gap-6">
-                                <div class="cursor-pointer hover:scale-105 transition-transform" onclick="startBioEndocriGlandsGame('home')">
-                                    <img src="assets/images/glandules-endocrines-home.png" class="w-32 h-32 object-cover rounded-lg border mb-2">
-                                    <p class="font-bold">Home</p>
+                            <p class="mb-6 text-xl font-bold">Tria el model per a l'activitat:</p>
+                            <div class="flex flex-wrap justify-center gap-8">
+                                <!-- Model Masculí -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-blue-500 flex flex-col items-center p-4 w-56" 
+                                     onclick="startBioEndocriGlandsGame('home')">
+                                    <div class="w-full h-40 bg-blue-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-blue-100">
+                                        <img src="assets/images/glandules-endocrines-home.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <p class="font-bold text-lg text-blue-800">Model Masculí</p>
                                 </div>
-                                <div class="cursor-pointer hover:scale-105 transition-transform" onclick="startBioEndocriGlandsGame('dona')">
-                                    <img src="assets/images/glandules-endocrines-dona.png" class="w-32 h-32 object-cover rounded-lg border mb-2">
-                                    <p class="font-bold">Dona</p>
+                                
+                                <!-- Model Femení -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-pink-500 flex flex-col items-center p-4 w-56" 
+                                     onclick="startBioEndocriGlandsGame('dona')">
+                                    <div class="w-full h-40 bg-pink-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-pink-100">
+                                        <img src="assets/images/glandules-endocrines-dona.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <p class="font-bold text-lg text-pink-800">Model Femení</p>
                                 </div>
                             </div>
                         </div>
@@ -1484,7 +1494,7 @@
                                 <div id="bio-endocri-glands-feedback" class="feedback-msg font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-endocri-glands-image" src="" alt="Glàndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Glàndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
@@ -1929,8 +1939,58 @@
                         <div id="olfacte-parts-container"></div>
                     </div>
                     <div id="bio-activity-gust-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
-                        <div id="gust-parts-container"></div>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_gust_parts_title">Les Zones del Gust</h3>
+                        </div>
+
+                        <div id="bio-gust-parts-ui" class="bio-activity-container hidden">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-gust-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-gust-parts-help-btn" class="btn-info btn-sm" onclick="showBioGustPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-gust-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioGustPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-pink-50 rounded mb-2">
+                                <div id="bio-gust-parts-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-gust-parts-feedback" class="feedback-msg font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                            </div>
+                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                                <img id="bio-gust-parts-image" src="assets/images/llengua-gustos.png" alt="Llengua i Gustos" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-gust-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Gust)</span>
+                                    <button onclick="closeBioGustPartsCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioGustPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioGustPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioGustPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioGustPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioGustPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioGustPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioGustPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioGustPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-gust-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioGustPartsConfig()" class="btn-primary btn-sm bg-green-600 text-xs py-1" style="background-color: #059669; font-size: 10px;">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="bio-activity-tacte-parts" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
@@ -2169,7 +2229,7 @@
                         </div>
                         <div class="question-container text-center">
                             <div class="image-display mb-4" style="max-width: 400px; margin: 0 auto;">
-                                <img id="connection-img" src="" alt="Connector"
+                                <img id="connection-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Connector"
                                     style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             </div>
                             <h4 class="mb-4" data-i18n="select_answer">Tria la resposta correcta:</h4>
@@ -2258,7 +2318,7 @@
                         <div class="question-container text-center">
                             <div id="solidart-quadres-image-container" class="mb-4 mx-auto"
                                 style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
-                                <img id="solidart-quadres-img" src="" alt="Obra d'art"
+                                <img id="solidart-quadres-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Obra d'art"
                                     style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
                             </div>
 

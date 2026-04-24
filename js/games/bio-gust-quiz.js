@@ -49,53 +49,62 @@ function startGustQuizLevelSelector() {
     if (!container) return;
     container.innerHTML = '';
 
-    // Detectar si usem "Nivell" o "Tema"
-    const firstQ = bioGustQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
+    const topics = [...new Set(bioGustQuiz.allQuestions.map(q => q.type).filter(v => v && v.toString().trim() !== ''))];
+    if (topics.length > 0) {
+        const topicLabel = document.createElement('p');
+        topicLabel.className = 'w-full text-center font-bold mb-2 text-gray-600';
+        topicLabel.innerText = 'Per Tema:';
+        container.appendChild(topicLabel);
+        topics.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
+            btn.innerText = cat;
+            btn.onclick = () => startGustQuiz(cat, 'type');
+            container.appendChild(btn);
+        });
+    }
 
-    // Obtenir valors únics
-    const categories = [...new Set(bioGustQuiz.allQuestions
-        .map(q => q[categoryKey])
-        .filter(v => v && v.toString().trim() !== '')
-    )];
+    const levels = [...new Set(bioGustQuiz.allQuestions.map(q => q.level).filter(v => v && v.toString().trim() !== ''))];
+    if (levels.length > 0) {
+        const levelLabel = document.createElement('p');
+        levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+        levelLabel.innerText = 'Per Nivell:';
+        container.appendChild(levelLabel);
+        levels.forEach(lvl => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
+            btn.innerText = lvl;
+            btn.onclick = () => startGustQuiz(lvl, 'level');
+            container.appendChild(btn);
+        });
+    }
 
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-primary';
-        btn.style.backgroundColor = '#3b82f6';
-        btn.style.width = 'auto';
-        btn.style.minWidth = '120px';
-        btn.innerText = cat;
-        btn.onclick = () => startGustQuiz(cat);
-        container.appendChild(btn);
-    });
-
-    // Botó Barrejat
+    const mixLabel = document.createElement('p');
+    mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
+    mixLabel.innerText = 'O bé:';
+    container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary bg-purple-600 hover:bg-purple-700';
-    mixBtn.style.width = 'auto';
-    mixBtn.style.minWidth = '120px';
+    mixBtn.className = 'btn-primary';
+    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
     mixBtn.innerText = 'Barrejat (Tots)';
-    mixBtn.onclick = () => startGustQuiz('Barrejat');
+    mixBtn.onclick = () => startGustQuiz('Barrejat', null);
     container.appendChild(mixBtn);
 }
 
-function startGustQuiz(level) {
+function startGustQuiz(value, filterBy) {
     document.getElementById('bio-gust-quiz-level-selector').classList.add('hidden');
 
-    const firstQ = bioGustQuiz.allQuestions[0];
-    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
-
     let pool = bioGustQuiz.allQuestions;
-    if (level !== 'Barrejat') {
-        pool = bioGustQuiz.allQuestions.filter(q => 
-            q[categoryKey] && q[categoryKey].toString().toLowerCase() === level.toString().toLowerCase()
-        );
+    if (filterBy === 'type') {
+        pool = bioGustQuiz.allQuestions.filter(q => q.type && q.type.toString().toLowerCase() === value.toString().toLowerCase());
+    } else if (filterBy === 'level') {
+        pool = bioGustQuiz.allQuestions.filter(q => q.level && q.level.toString().toLowerCase() === value.toString().toLowerCase());
     }
 
-
     if (pool.length === 0) {
-        alert("No hi ha preguntes per aquest nivell.");
+        alert("No hi ha preguntes per aquesta selecció.");
         initGustQuiz();
         return;
     }
@@ -117,21 +126,20 @@ function renderGustQuizQuestion() {
     document.getElementById('gust-quiz-progress').innerText = `Pregunta ${bioGustQuiz.currentStep + 1} de ${bioGustQuiz.sessionQuestions.length}`;
     document.getElementById('gust-quiz-score-display').innerText = `Punts: ${bioGustQuiz.score}`;
     
-    document.getElementById('gust-quiz-text').innerText = questionData.Pregunta || '';
+    document.getElementById('gust-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
-    const answers = [
-        { text: questionData.Correcta, correct: true },
-        { text: questionData.Incorrecta1, correct: false },
-        { text: questionData.Incorrecta2, correct: false },
-        { text: questionData.Incorrecta3, correct: false }
-    ].filter(a => a.text);
+    const correctText = questionData.correct || questionData.Correcta;
+    const alts = questionData.alternatives
+        ? [...questionData.alternatives]
+        : [correctText, questionData.Incorrecta1, questionData.Incorrecta2, questionData.Incorrecta3].filter(a => a);
 
+    const answers = alts.map(text => ({ text, correct: text === correctText }));
     answers.sort(() => 0.5 - Math.random());
 
     const container = document.getElementById('gust-quiz-options');
     container.innerHTML = '';
 
-    answers.forEach((ans, idx) => {
+    answers.forEach((ans) => {
         const btn = document.createElement('button');
         btn.className = 'btn-option w-full text-left mb-2';
         btn.innerText = ans.text;
