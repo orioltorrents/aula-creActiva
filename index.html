@@ -1205,6 +1205,13 @@
                                 <div class="card-desc" data-i18n="sec_excr_desc">Ronyons i eliminació de residus</div>
                             </div>
                         </div>
+                        <div class="activity-card" onclick="openBioSystem('endocri')">
+                            <div class="act-icon">🧠</div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="sec_endocri">Sistema Endocrí</div>
+                                <div class="card-desc" data-i18n="sec_endo_desc">Glàndules i hormones</div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -1271,6 +1278,22 @@
                         </div>
                     </div>
 
+                    <!-- ACTIVITATS: Sistema Endocrí -->
+                    <div id="bio-endocri-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        
+                        <!-- Quiz del Sistema Endocrí -->
+                        <div class="activity-card" onclick="openBioActivity('endocri-quiz')">
+                            <div class="act-icon">🧠</div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="act_endo_quiz_title">Repàs de l'Endocrí</div>
+                                <div class="card-desc" data-i18n="act_endo_quiz_desc">Posa a prova els teus coneixements
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
                     <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
@@ -1317,6 +1340,55 @@
                             </div>
                             <p id="circ-quiz-message" class="text-lg mb-8"></p>
                             <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Sistema Endocrí -->
+                    <div id="bio-activity-endocri-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_endo_quiz_title">Repàs de l'Endocrí</h3>
+                        </div>
+
+                        <div id="endo-quiz-feedback" class="text-center mb-4"></div>
+
+                        <!-- Selecció de Nivell/Tema -->
+                        <div id="endo-quiz-selection"
+                            class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
+                                temes):</p>
+                            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                                <button onclick="startEndoQuizWithFilter('all', 'easy')" class="btn-primary"
+                                    data-i18n="level_easy">Fàcil</button>
+                                <button onclick="startEndoQuizWithFilter('all', 'medium')" class="btn-primary"
+                                    data-i18n="level_medium">Mitjà</button>
+                                <button onclick="startEndoQuizWithFilter('all', 'hard')" class="btn-primary"
+                                    data-i18n="level_hard">Difícil</button>
+                                <button onclick="startEndoQuizWithFilter('all', 'mixed')" class="btn-primary"
+                                    data-i18n="level_mixed">Barrejat</button>
+                            </div>
+                            <div id="endo-quiz-topic-selection"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="endo-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="endo-quiz-progress">Pregunta 1/10</div>
+                                <div id="endo-quiz-score">Punts: 0</div>
+                            </div>
+                            <div id="endo-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="endo-quiz-options" class="flex flex-wrap justify-center gap-4 mb-6"></div>
+                        </div>
+
+                        <!-- Resultats -->
+                        <div id="endo-quiz-results" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="endo-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            </div>
+                            <p id="endo-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initEndoQuiz()" class="btn-primary">Tornar a començar</button>
                         </div>
                     </div>
 
@@ -1860,6 +1932,7 @@
     <script src="js/games/bio-cor.js"></script>
     <script src="js/games/bio-excretor.js"></script>
     <script src="js/games/bio-circulatori-quiz.js"></script>
+    <script src="js/games/bio-endocri-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>
 
 

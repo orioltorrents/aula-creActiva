@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbwf2j6A1pfEhunQ6VcJAbINLNm3wx3ApZqCVHgez4OH26c7fH1gXoI0Qxu7DdXaTGGXRw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxOFM--hOejXCtIWMoQ0R5mWP9b6r0Lv3TRYrpythBw_OuuzxzEb2oE1t6fVWmYjn5bvA/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -655,6 +655,11 @@ function openBioActivity(actId) {
         document.getElementById('bio-activity-excretor-game').classList.remove('hidden');
         if (typeof initBioExcretorGame === 'function') {
             initBioExcretorGame();
+        }
+    } else if (actId === 'endocri-quiz') {
+        document.getElementById('bio-activity-endocri-quiz').classList.remove('hidden');
+        if (typeof initEndoQuiz === 'function') {
+            initEndoQuiz();
         }
     }
 }
