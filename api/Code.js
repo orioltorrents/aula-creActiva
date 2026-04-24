@@ -69,6 +69,18 @@ function handleRequest(e) {
             result = getCirculatoriQuestions();
         } else if (action === 'getEndocriQuestions') {
             result = getEndocriQuestions();
+        } else if (action === 'getLocomotorQuestions') {
+            result = getLocomotorQuestions();
+        } else if (action === 'getVistaQuestions') {
+            result = getVistaQuestions();
+        } else if (action === 'getOidaQuestions') {
+            result = getOidaQuestions();
+        } else if (action === 'getOlfacteQuestions') {
+            result = getOlfacteQuestions();
+        } else if (action === 'getGustQuestions') {
+            result = getGustQuestions();
+        } else if (action === 'getTacteQuestions') {
+            result = getTacteQuestions();
         } else if (action === 'getTrQuestions') {
             result = getTrQuestions(data.subambit, data.tipusBatxillerat || data.ambit);
         } else if (action === 'getTrTemesQuestions') {
@@ -574,8 +586,9 @@ function getEndocriQuestions() {
 
     const findSheet = (name) => {
         const sheets = ss.getSheets();
-        const norm = name.toLowerCase().trim();
-        return sheets.find(s => s.getName().toLowerCase().trim() === norm);
+        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
+        const normTarget = normalize(name);
+        return sheets.find(s => normalize(s.getName()) === normTarget) || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
     };
 
     const sheet = findSheet('sistema-endocri');
@@ -609,6 +622,67 @@ function getEndocriQuestions() {
 
     const questions = data.slice(1)
         .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "") // Ignorar files buides
+        .map(row => {
+            const correct = row[correctIdx];
+            const wrongs = [
+                wrong1Idx !== -1 ? row[wrong1Idx] : "",
+                wrong2Idx !== -1 ? row[wrong2Idx] : "",
+                wrong3Idx !== -1 ? row[wrong3Idx] : ""
+            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
+            
+            return {
+                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
+                level: levelIdx !== -1 ? String(row[levelIdx] || "").toLowerCase().trim() : "mixed",
+                q: row[qIdx],
+                correct: correct,
+                alternatives: [correct, ...wrongs]
+            };
+        });
+
+    return { status: 'success', questions: questions };
+}
+
+function getLocomotorQuestions() {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+
+    const findSheet = (name) => {
+        const sheets = ss.getSheets();
+        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
+        const normTarget = normalize(name);
+        return sheets.find(s => normalize(s.getName()) === normTarget) || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
+    };
+
+    const sheet = findSheet('aparell-locomotor') || findSheet('sistema-locomotor');
+    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-locomotor" no trobada al Google Sheet' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-locomotor"' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
+    const findIdx = (names) => {
+        for (let name of names) {
+            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            let idx = headers.indexOf(norm);
+            if (idx !== -1) return idx;
+        }
+        return -1;
+    };
+
+    const typeIdx = findIdx(['tipus de pregunta', 'tipus', 'tipo de pregunta']);
+    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
+    const qIdx = findIdx(['pregunta', 'question']);
+    const correctIdx = findIdx(['correcta', 'correct']);
+    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
+    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
+    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
+
+    if (qIdx === -1 || correctIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
+    }
+
+    const questions = data.slice(1)
+        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
         .map(row => {
             const correct = row[correctIdx];
             const wrongs = [
@@ -969,6 +1043,157 @@ function getDiagnosticQuestions() {
 
         return { status: 'success', questions: questions };
     } catch (e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+
+function getVistaQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Vista'.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-vista' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            let qObj = {};
+            for (let j = 0; j < headers.length; j++) {
+                if (headers[j]) {
+                    qObj[headers[j].toString().trim()] = row[j];
+                }
+            }
+            if (qObj.Pregunta && qObj.Correcta) {
+                questions.push(qObj);
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+function getOidaQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Oida'.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-oida' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            let qObj = {};
+            for (let j = 0; j < headers.length; j++) {
+                if (headers[j]) {
+                    qObj[headers[j].toString().trim()] = row[j];
+                }
+            }
+            if (qObj.Pregunta && qObj.Correcta) {
+                questions.push(qObj);
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+function getOlfacteQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Olfacte'.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-olfacte' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            let qObj = {};
+            for (let j = 0; j < headers.length; j++) {
+                if (headers[j]) {
+                    qObj[headers[j].toString().trim()] = row[j];
+                }
+            }
+            if (qObj.Pregunta && qObj.Correcta) {
+                questions.push(qObj);
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+function getGustQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Gust'.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-gust' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            let qObj = {};
+            for (let j = 0; j < headers.length; j++) {
+                if (headers[j]) {
+                    qObj[headers[j].toString().trim()] = row[j];
+                }
+            }
+            if (qObj.Pregunta && qObj.Correcta) {
+                questions.push(qObj);
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+function getTacteQuestions() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + 'Tacte'.toLowerCase());
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-tacte' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0];
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            let qObj = {};
+            for (let j = 0; j < headers.length; j++) {
+                if (headers[j]) {
+                    qObj[headers[j].toString().trim()] = row[j];
+                }
+            }
+            if (qObj.Pregunta && qObj.Correcta) {
+                questions.push(qObj);
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
         return { status: 'error', message: e.toString() };
     }
 }

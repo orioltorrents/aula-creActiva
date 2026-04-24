@@ -1,241 +1,208 @@
 /**
- * Activitat: Quiz Sistema Endocrí
- * Projecte: Biologia
+ * Quiz del Sistema Endocrí
  */
 
-let endoQuizState = {
+const bioEndocriQuiz = {
     allQuestions: [],
-    activeQuestions: [],
-    currentQ: 0,
-    score: 0,
-    examFinished: false,
-    locked: false,
-    selectedType: 'all',
-    selectedLevel: 'mixed'
+    sessionQuestions: [],
+    currentStep: 0,
+    score: 100,
+    isFinished: false
 };
 
-async function initEndoQuiz() {
-    // UI Reset
+function initEndocriQuiz() {
+    bioEndocriQuiz.allQuestions = [];
+    bioEndocriQuiz.sessionQuestions = [];
+    bioEndocriQuiz.currentStep = 0;
+    bioEndocriQuiz.score = 100;
+    bioEndocriQuiz.isFinished = false;
+
     document.getElementById('bio-activity-endocri-quiz').classList.remove('hidden');
-    document.getElementById('endo-quiz-selection').classList.remove('hidden');
-    document.getElementById('endo-quiz-topic-selection').innerHTML = ''; // Netejar dinàmics
-    document.getElementById('endo-quiz-ui').classList.add('hidden');
-    document.getElementById('endo-quiz-results').classList.add('hidden');
+    document.getElementById('bio-endocri-quiz-loader').classList.remove('hidden');
+    document.getElementById('bio-endocri-quiz-ui').classList.add('hidden');
+    document.getElementById('bio-endocri-quiz-final').classList.add('hidden');
+    document.getElementById('bio-endocri-quiz-level-selector').classList.add('hidden');
 
-    // Hide other sub-activity menus
-    document.getElementById('bio-endocri-activities').classList.add('hidden');
-
-    const feedback = document.getElementById('endo-quiz-feedback');
-    feedback.innerText = i18n.t('loading') || 'Carregant dades...';
-    feedback.style.color = 'var(--text-main)';
-    feedback.style.fontWeight = 'normal';
-
-
-    try {
-        const response = await callApi('getEndocriQuestions');
-        if (response && response.status === 'success' && response.questions) {
-            endoQuizState.allQuestions = response.questions;
-
-            // Mostrar selector
-            document.getElementById('endo-quiz-selection').classList.remove('hidden');
-            feedback.innerText = '';
-
-            // Generar botons de TIPUS dinàmicament
-            generateEndoTopicButtons(response.questions);
-
-        } else {
-            const errorMsg = response && response.message ? response.message : 'Error al carregar dades.';
-            feedback.innerText = `Error: ${errorMsg}. Revisa que la pestanya al Google Sheet es digui "sistema-endocri" i contingui dades amb les capçaleres correctes (Pregunta, Correcta, etc).`;
-            feedback.style.color = 'var(--error)';
-            feedback.style.fontWeight = 'bold';
-        }
-
-    } catch (e) {
-        console.error("Error fetching endocri questions", e);
-        feedback.innerText = 'Error de connexió.';
+    if (typeof callApi === 'function') {
+        callApi('getEndocriQuestions', {})
+            .then(data => {
+                if (data.status === 'success' && data.questions && data.questions.length > 0) {
+                    bioEndocriQuiz.allQuestions = data.questions;
+                    startEndocriQuizLevelSelector();
+                } else {
+                    alert("No s'han pogut carregar les preguntes de l'Endocrí. Comprova la pestanya del Sheet.");
+                }
+            })
+            .catch(err => {
+                console.error("Error carregant les preguntes:", err);
+                alert("Error de connexió.");
+            });
+    } else {
+        alert("callApi no definida.");
     }
 }
 
-function generateEndoTopicButtons(questions) {
-    const container = document.getElementById('endo-quiz-topic-selection');
+function startEndocriQuizLevelSelector() {
+    document.getElementById('bio-endocri-quiz-loader').classList.add('hidden');
+    document.getElementById('bio-endocri-quiz-level-selector').classList.remove('hidden');
+
+    const container = document.getElementById('bio-endocri-quiz-level-buttons');
+    if (!container) return;
     container.innerHTML = '';
 
-    // Obtenir tipus únics
-    const types = [...new Set(questions.map(q => q.type))].filter(t => t && t !== "");
+    // Detectar si usem "Nivell" o "Tema"
+    const firstQ = bioEndocriQuiz.allQuestions[0];
+    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
 
-    if (types.length === 0) return;
+    // Obtenir valors únics
+    const categories = [...new Set(bioEndocriQuiz.allQuestions
+        .map(q => q[categoryKey])
+        .filter(v => v && v.toString().trim() !== '')
+    )];
 
-    const label = document.createElement('p');
-    label.className = 'font-bold mb-3 text-center';
-    label.innerText = 'Tria un tema (nivell barrejat):';
-    container.appendChild(label);
-
-    const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'flex flex-wrap justify-center gap-4 mb-6';
-
-    types.forEach(type => {
+    categories.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'btn-primary';
-        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
-        btn.innerText = type;
-        btn.onclick = () => startEndoQuizWithFilter(type, 'mixed');
-        btnWrapper.appendChild(btn);
+        btn.style.backgroundColor = '#3b82f6';
+        btn.style.width = 'auto';
+        btn.style.minWidth = '120px';
+        btn.innerText = cat;
+        btn.onclick = () => startEndocriQuiz(cat);
+        container.appendChild(btn);
     });
 
-    container.appendChild(btnWrapper);
+    // Botó Barrejat
+    const mixBtn = document.createElement('button');
+    mixBtn.className = 'btn-primary bg-purple-600 hover:bg-purple-700';
+    mixBtn.style.width = 'auto';
+    mixBtn.style.minWidth = '120px';
+    mixBtn.innerText = 'Barrejat (Tots)';
+    mixBtn.onclick = () => startEndocriQuiz('Barrejat');
+    container.appendChild(mixBtn);
 }
 
-function startEndoQuizWithFilter(type = 'all', level = 'mixed') {
-    endoQuizState.selectedType = type;
-    endoQuizState.selectedLevel = level;
+function startEndocriQuiz(level) {
+    document.getElementById('bio-endocri-quiz-level-selector').classList.add('hidden');
 
-    // Filtrar preguntes
-    let pool = [...endoQuizState.allQuestions];
+    const firstQ = bioEndocriQuiz.allQuestions[0];
+    const categoryKey = (firstQ && firstQ.Tema) ? 'Tema' : 'Nivell';
 
-    const targetLevel = normalizeEndoLevel(level);
-
-    if (type !== 'all') {
-        pool = pool.filter(q => q.type === type);
-    }
-
-    if (targetLevel !== 'mixed') {
-        pool = pool.filter(q => normalizeEndoLevel(q.level) === targetLevel);
+    let pool = bioEndocriQuiz.allQuestions;
+    if (level !== 'Barrejat') {
+        pool = bioEndocriQuiz.allQuestions.filter(q => 
+            q[categoryKey] && q[categoryKey].toString().toLowerCase() === level.toString().toLowerCase()
+        );
     }
 
     if (pool.length === 0) {
-        const feedback = document.getElementById('endo-quiz-feedback');
-        feedback.innerText = `No s'han trobat preguntes per a aquesta combinació.`;
-        feedback.style.color = 'var(--error)';
+        alert("No hi ha preguntes per aquest nivell.");
+        initEndocriQuiz();
         return;
     }
 
-    // Processar i barrejar
-    endoQuizState.activeQuestions = pool.sort(() => Math.random() - 0.5).slice(0, 10).map(qData => {
-        const shuffledAlts = [...qData.alternatives].sort(() => Math.random() - 0.5);
-        const correctIdx = shuffledAlts.indexOf(qData.correct);
-        return {
-            q: qData.q,
-            a: shuffledAlts,
-            correct: correctIdx
-        };
-    });
+    const shuffled = [...pool].sort(() => 0.5 - Math.random());
+    bioEndocriQuiz.sessionQuestions = shuffled.slice(0, 10);
 
-    // Start Game UI
-    document.getElementById('endo-quiz-selection').classList.add('hidden');
-    document.getElementById('endo-quiz-ui').classList.remove('hidden');
+    bioEndocriQuiz.currentStep = 0;
+    bioEndocriQuiz.score = 100;
+    bioEndocriQuiz.isFinished = false;
 
-    endoQuizState.currentQ = 0;
-    endoQuizState.score = 0;
-    endoQuizState.examFinished = false;
-    endoQuizState.locked = false;
-
-    showEndoQuizQuestion();
+    document.getElementById('bio-endocri-quiz-ui').classList.remove('hidden');
+    renderEndocriQuizQuestion();
 }
 
-function normalizeEndoLevel(text) {
-    if (!text) return "";
-    let t = String(text).toLowerCase().trim()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+function renderEndocriQuizQuestion() {
+    const questionData = bioEndocriQuiz.sessionQuestions[bioEndocriQuiz.currentStep];
+    
+    document.getElementById('endo-quiz-progress').innerText = `Pregunta ${bioEndocriQuiz.currentStep + 1} de ${bioEndocriQuiz.sessionQuestions.length}`;
+    document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
+    
+    document.getElementById('endo-quiz-text').innerText = questionData.Pregunta || '';
 
-    // Mapatge flexible de nivells
-    if (t === 'facil' || t === 'easy') return 'easy';
-    if (t === 'mitja' || t === 'medio' || t === 'medium') return 'medium';
-    if (t === 'dificil' || t === 'hard') return 'hard';
+    const answers = [
+        { text: questionData.Correcta, correct: true },
+        { text: questionData.Incorrecta1, correct: false },
+        { text: questionData.Incorrecta2, correct: false },
+        { text: questionData.Incorrecta3, correct: false }
+    ].filter(a => a.text);
 
-    return t;
-}
+    answers.sort(() => 0.5 - Math.random());
 
+    const container = document.getElementById('endo-quiz-options');
+    container.innerHTML = '';
 
-function showEndoQuizQuestion() {
-    const qData = endoQuizState.activeQuestions[endoQuizState.currentQ];
-
-    document.getElementById('endo-quiz-progress').innerText = `${i18n.t('question')} ${endoQuizState.currentQ + 1}/${endoQuizState.activeQuestions.length}`;
-    document.getElementById('endo-quiz-score').innerText = `${i18n.t('score')}: ${endoQuizState.score}`;
-
-    document.getElementById('endo-quiz-question-text').innerText = qData.q;
-
-    const optsContainer = document.getElementById('endo-quiz-options');
-    optsContainer.innerHTML = '';
-
-    qData.a.forEach((optText, idx) => {
+    answers.forEach(ans => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
-        btn.innerText = optText;
-        btn.onclick = () => handleEndoQuizAnswer(idx);
-        optsContainer.appendChild(btn);
+        btn.className = 'w-full text-left p-4 rounded bg-gray-100 hover:bg-gray-200 border transition-colors';
+        btn.innerText = ans.text;
+        btn.onclick = () => handleEndocriQuizAnswer(ans.correct, btn);
+        container.appendChild(btn);
     });
 
     document.getElementById('endo-quiz-feedback').innerText = '';
 }
 
-function handleEndoQuizAnswer(selectedIndex) {
-    if (endoQuizState.locked) return;
-    endoQuizState.locked = true;
+function handleEndocriQuizAnswer(isCorrect, btnElement) {
+    if (bioEndocriQuiz.isFinished) return;
 
-    const qData = endoQuizState.activeQuestions[endoQuizState.currentQ];
-    const isCorrect = selectedIndex === qData.correct;
+    const container = document.getElementById('endo-quiz-options');
+    const buttons = container.querySelectorAll('button');
+    buttons.forEach(b => b.disabled = true);
 
-    const buttons = document.getElementById('endo-quiz-options').querySelectorAll('button');
-    buttons.forEach((btn, idx) => {
-        btn.disabled = true;
-        if (idx === qData.correct) btn.classList.add('correct');
-        else if (idx === selectedIndex) btn.classList.add('incorrect');
-    });
-
+    const feedbackEl = document.getElementById('endo-quiz-feedback');
 
     if (isCorrect) {
-        endoQuizState.score += 10;
-        document.getElementById('endo-quiz-feedback').innerText = i18n.t('correct');
-        document.getElementById('endo-quiz-feedback').style.color = 'var(--success)';
+        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+        btnElement.classList.add('bg-green-500', 'text-white');
+        feedbackEl.innerText = 'Correcte!';
+        feedbackEl.style.color = 'green';
+        
+        setTimeout(() => {
+            bioEndocriQuiz.currentStep++;
+            if (bioEndocriQuiz.currentStep >= bioEndocriQuiz.sessionQuestions.length) {
+                endEndocriQuiz();
+            } else {
+                renderEndocriQuizQuestion();
+            }
+        }, 1500);
     } else {
-        document.getElementById('endo-quiz-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('endo-quiz-feedback').style.color = 'var(--error)';
+        btnElement.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+        btnElement.classList.add('bg-red-500', 'text-white');
+        feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
+        feedbackEl.style.color = 'red';
+        bioEndocriQuiz.score = Math.max(0, bioEndocriQuiz.score - 10);
+        document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
+        
+        setTimeout(() => {
+            btnElement.classList.add('bg-gray-100', 'hover:bg-gray-200');
+            btnElement.classList.remove('bg-red-500', 'text-white');
+            feedbackEl.innerText = '';
+            buttons.forEach(b => b.disabled = false);
+        }, 1500);
     }
-
-    setTimeout(() => {
-        endoQuizState.currentQ++;
-        endoQuizState.locked = false;
-        if (endoQuizState.currentQ >= endoQuizState.activeQuestions.length) {
-            finishEndoQuiz();
-        } else {
-            showEndoQuizQuestion();
-        }
-    }, 1500);
 }
 
-async function finishEndoQuiz() {
-    endoQuizState.examFinished = true;
-    document.getElementById('endo-quiz-ui').classList.add('hidden');
-    document.getElementById('endo-quiz-results').classList.remove('hidden');
+async function endEndocriQuiz() {
+    bioEndocriQuiz.isFinished = true;
+    document.getElementById('bio-endocri-quiz-ui').classList.add('hidden');
+    document.getElementById('bio-endocri-quiz-final').classList.remove('hidden');
 
-    const totalPossible = endoQuizState.activeQuestions.length * 10;
-    const percentage = Math.round((endoQuizState.score / totalPossible) * 100);
-    document.getElementById('endo-quiz-final-score').innerText = `${endoQuizState.score} / ${totalPossible} (${percentage}%)`;
+    document.getElementById('endo-quiz-final-score').innerText = `${bioEndocriQuiz.score} / 100`;
+    const finalMsg = document.getElementById('endo-quiz-final-msg');
+    if (finalMsg) finalMsg.innerText = `Molt bé! Has completat el quiz del sistema endocrí.`;
 
-    let msg = "";
-    if (percentage >= 90) msg = "Excel·lent! Tens un domini total del sistema endocrí! 🧠";
-    else if (percentage >= 70) msg = "Molt bé! Coneixes bé les glàndules i hormones. 🩸";
-    else if (percentage >= 50) msg = "Ho has superat, però cal repassar alguns conceptes. 📚";
-    else msg = "Caldria revisar bé el tema de l'endocrí. Ànims! 💪";
-
-    document.getElementById('endo-quiz-message').innerText = msg;
-
-    // Guardar resultat
-    if (typeof saveResult === 'function') {
-        let label = i18n.t('act_endo_quiz_title') || 'Repàs de l\'Endocrí';
-        if (endoQuizState.selectedType !== 'all') label += ` (${endoQuizState.selectedType})`;
-
-        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-        saveResult({
-            email: userData.email,
-            curs: userData.curs,
-            projecte: 'Biologia',
-            app: label,
-            nivell: endoQuizState.selectedLevel,
-            puntuacio: percentage,
+    if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
+        const result = {
+            email: state.user.email,
+            curs: state.user.curs,
+            projecte: state.currentProject ? state.currentProject.titol : 'Biologia',
+            app: 'Quiz de l\'Endocrí',
+            nivell: 'Preguntes',
+            puntuacio: bioEndocriQuiz.score,
             temps_segons: 0,
-            feedback_pos: '',
+            feedback_pos: 'Bona feina component el quiz de l\'Endocrí.',
             feedback_neg: ''
-        });
+        };
+        await callApi('saveResult', result);
     }
 }

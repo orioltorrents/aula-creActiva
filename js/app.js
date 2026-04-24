@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbxOFM--hOejXCtIWMoQ0R5mWP9b6r0Lv3TRYrpythBw_OuuzxzEb2oE1t6fVWmYjn5bvA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwdp-PIaG4GtlH6bkWPe1UXu3uRX2h31SxW6j2vdCnNfaIYB-G2EakDsNzREeRcNULQXQ/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -630,7 +630,7 @@ function openBioSystem(systemId) {
 
 
 function openBioActivity(actId) {
-    // Hide all activity menus (circulatori, respiratori, etc)
+    // Hide all activity menus
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     // Hide all individual activity containers
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
@@ -658,10 +658,57 @@ function openBioActivity(actId) {
         }
     } else if (actId === 'endocri-quiz') {
         document.getElementById('bio-activity-endocri-quiz').classList.remove('hidden');
-        if (typeof initEndoQuiz === 'function') {
-            initEndoQuiz();
+        if (typeof initEndocriQuiz === 'function') {
+            initEndocriQuiz();
+        }
+    } else if (actId === 'endocri-glands') {
+        document.getElementById('bio-activity-endocri-glands').classList.remove('hidden');
+        if (typeof initBioEndocriGlandsGame === 'function') {
+            initBioEndocriGlandsGame();
+        }
+    } else if (actId === 'locomotor-quiz') {
+        document.getElementById('bio-activity-locomotor-quiz').classList.remove('hidden');
+        if (typeof initLocomotorQuiz === 'function') {
+            initLocomotorQuiz();
+        }
+    } else if (actId.endsWith('-quiz')) {
+        const sense = actId.split('-')[0];
+        document.getElementById('bio-activity-' + actId).classList.remove('hidden');
+        const initFnName = 'init' + sense.charAt(0).toUpperCase() + sense.slice(1) + 'Quiz';
+        if (typeof window[initFnName] === 'function') {
+            window[initFnName]();
+        }
+    } else if (actId.endsWith('-parts')) {
+        const sense = actId.split('-')[0];
+        document.getElementById('bio-activity-' + actId).classList.remove('hidden');
+        const initFnName = 'initBio' + sense.charAt(0).toUpperCase() + sense.slice(1) + 'PartsGame';
+        if (typeof window[initFnName] === 'function') {
+            window[initFnName]();
         }
     }
+}
+
+function openSenseMenu() {
+    document.getElementById('bio-systems-menu').classList.add('hidden');
+    // Amagar totes les llistes d'activitats de sistemes
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    // Amagar totes les sub-activitats (jocs)
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+    
+    // Mostrar el menú principal dels sentits
+    document.getElementById('bio-senses-activities').classList.remove('hidden');
+}
+
+function openSenseSubActivity(senseId) {
+    // Amagar el menú principal dels sentits i totes les llistes d'activitats
+    document.getElementById('bio-senses-activities').classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+    
+    // Mostrar el sub-menú del sentit seleccionat (ex: sense-vista-menu)
+    const menuId = 'sense-' + senseId + '-menu';
+    const menu = document.getElementById(menuId);
+    if (menu) menu.classList.remove('hidden');
 }
 
 

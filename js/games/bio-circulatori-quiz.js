@@ -221,21 +221,23 @@ async function finishCircQuiz() {
     document.getElementById('circ-quiz-message').innerText = msg;
 
     // Guardar resultat
-    if (typeof saveResult === 'function') {
-        let label = i18n.t('act_circ_quiz_title');
-        if (circQuizState.selectedType !== 'all') label += ` (${circQuizState.selectedType})`;
+    // Guardar resultat
+    let label = i18n.t('act_circ_quiz_title') || 'Repàs del Circulatori';
+    if (circQuizState.selectedType !== 'all') label += ` (${circQuizState.selectedType})`;
 
-        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-        saveResult({
-            email: userData.email,
-            curs: userData.curs,
+    if (state.user) {
+        callApi('saveResult', {
+            email: state.user.email,
+            curs: state.user.curs,
             projecte: 'Biologia',
             app: label,
             nivell: circQuizState.selectedLevel,
             puntuacio: percentage,
             temps_segons: 0,
-            feedback_pos: '',
+            feedback_pos: `Punts: ${circQuizState.score}`,
             feedback_neg: ''
-        });
+        }).then(response => {
+            console.log("Resultat guardat", response);
+        }).catch(err => console.error("Error guardant resultat", err));
     }
 }

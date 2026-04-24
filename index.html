@@ -1163,32 +1163,33 @@
                 <div id="project-hub-biologia" class="game-module hidden">
 
                     <div id="bio-systems-menu" class="activities-grid mt-4">
+                        <!-- 1. Digestiu -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
                                 <img src="assets/images/aparell-digestiu.png" alt="Aparell Digestiu" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_digestiu">Aparell Digestiu</div>
-                                <div class="card-desc" data-i18n="sec_dig_desc">Processament d'aliments i nutrients
-                                </div>
+                                <div class="card-desc" data-i18n="sec_dig_desc">Processament d'aliments i nutrients</div>
                                 <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
 
+                        <!-- 2. Circulatori -->
                         <div class="activity-card" onclick="openBioSystem('circulatori')">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori"
-                                    class="act-img">
+                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_circulatori">Aparell Circulatori</div>
                                 <div class="card-desc" data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</div>
                             </div>
                         </div>
+
+                        <!-- 3. Respiratori -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori"
-                                    class="act-img">
+                                <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_respiratori">Aparell Respiratori</div>
@@ -1196,6 +1197,8 @@
                                 <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
+
+                        <!-- 4. Excretor -->
                         <div class="activity-card" onclick="openBioSystem('excretor')">
                             <div class="act-icon">
                                 <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor" class="act-img">
@@ -1205,11 +1208,61 @@
                                 <div class="card-desc" data-i18n="sec_excr_desc">Ronyons i eliminació de residus</div>
                             </div>
                         </div>
+
+                        <!-- 5. Òrgans dels Sentits -->
+                        <div class="activity-card" onclick="openSenseMenu()">
+                            <div class="act-icon">
+                                <img src="assets/images/organs-sentits.png" alt="Òrgans dels Sentits" class="act-img">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="act_senses_title">Els Òrgans dels Sentits</div>
+                                <div class="card-desc" data-i18n="act_senses_desc">Explora els 5 sentits</div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Sistema Endocrí -->
                         <div class="activity-card" onclick="openBioSystem('endocri')">
-                            <div class="act-icon">🧠</div>
+                            <div class="act-icon">
+                                <img src="assets/images/sistema-endocri.png" alt="Sistema Endocrí" class="act-img">
+                            </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_endocri">Sistema Endocrí</div>
                                 <div class="card-desc" data-i18n="sec_endo_desc">Glàndules i hormones</div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Aparell Locomotor -->
+                        <div class="activity-card" onclick="openBioSystem('locomotor')">
+                            <div class="act-icon">
+                                <img src="assets/images/aparell-locomotor.png" alt="Aparell Locomotor" class="act-img">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="sec_locomotor">Aparell Locomotor</div>
+                                <div class="card-desc" data-i18n="sec_loco_desc">Esquelet i musculatura</div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Sistema Immunitari -->
+                        <div class="activity-card disabled-card">
+                            <div class="act-icon">
+                                <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Sistema Immunitari</div>
+                                <div class="card-desc">Defenses de l'organisme</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <!-- 9. Aparell Reproductor -->
+                        <div class="activity-card disabled-card">
+                            <div class="act-icon">
+                                <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-title">Aparell Reproductor</div>
+                                <div class="card-desc">Aparell reproductor masculí i femení</div>
+                                <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
                     </div>
@@ -1292,6 +1345,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- NOU: Situar les Glàndules -->
+                        <div class="activity-card" onclick="openBioActivity('endocri-glands')">
+                            <div class="act-icon">📍</div>
+                            <div class="card-content">
+                                <div class="card-title" data-i18n="act_endo_glands_title">Situar les Glàndules</div>
+                                <div class="card-desc" data-i18n="act_endo_glands_desc">Identifica la posició de les glàndules endocrines</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
@@ -1345,50 +1407,101 @@
 
                     <!-- ACTIVITAT: Quiz Sistema Endocrí -->
                     <div id="bio-activity-endocri-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al
-                            menú</button>
-                        <div class="game-header">
-                            <h3 data-i18n="act_endo_quiz_title">Repàs de l'Endocrí</h3>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz del Sistema Endocrí</h3>
                         </div>
-
-                        <div id="endo-quiz-feedback" class="text-center mb-4"></div>
-
-                        <!-- Selecció de Nivell/Tema -->
-                        <div id="endo-quiz-selection"
-                            class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
-                            <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
-                                temes):</p>
-                            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                                <button onclick="startEndoQuizWithFilter('all', 'easy')" class="btn-primary"
-                                    data-i18n="level_easy">Fàcil</button>
-                                <button onclick="startEndoQuizWithFilter('all', 'medium')" class="btn-primary"
-                                    data-i18n="level_medium">Mitjà</button>
-                                <button onclick="startEndoQuizWithFilter('all', 'hard')" class="btn-primary"
-                                    data-i18n="level_hard">Difícil</button>
-                                <button onclick="startEndoQuizWithFilter('all', 'mixed')" class="btn-primary"
-                                    data-i18n="level_mixed">Barrejat</button>
+                        <div id="bio-endocri-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-endocri-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-endocri-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-endocri-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="endo-quiz-progress">Pregunta 1</div>
+                                <div id="endo-quiz-score-display">Punts: 0</div>
                             </div>
-                            <div id="endo-quiz-topic-selection"></div>
+                            <div id="endo-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="endo-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="endo-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
-
-                        <!-- Quiz UI -->
-                        <div id="endo-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
-                            <div
-                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
-                                <div id="endo-quiz-progress">Pregunta 1/10</div>
-                                <div id="endo-quiz-score">Punts: 0</div>
-                            </div>
-                            <div id="endo-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
-                            <div id="endo-quiz-options" class="flex flex-wrap justify-center gap-4 mb-6"></div>
-                        </div>
-
-                        <!-- Resultats -->
-                        <div id="endo-quiz-results" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                        <div id="bio-endocri-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
-                            <div id="endo-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            <div id="endo-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="endo-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initEndocriQuiz()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Situar les Glàndules (Anatomia) -->
+                    <div id="bio-activity-endocri-glands" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <div class="game-header">
+                            <h3 data-i18n="act_endo_glands_title">Situar les Glàndules</h3>
+                        </div>
+
+                        <!-- Selector de Model -->
+                        <div id="bio-endocri-glands-selector" class="container-white p-6 rounded-lg shadow-sm border mb-6 text-center">
+                            <p class="mb-4 font-bold">Tria el model per a l'activitat:</p>
+                            <div class="flex justify-center gap-6">
+                                <div class="cursor-pointer hover:scale-105 transition-transform" onclick="startBioEndocriGlandsGame('home')">
+                                    <img src="assets/images/glandules-endocrines-home.png" class="w-32 h-32 object-cover rounded-lg border mb-2">
+                                    <p class="font-bold">Home</p>
+                                </div>
+                                <div class="cursor-pointer hover:scale-105 transition-transform" onclick="startBioEndocriGlandsGame('dona')">
+                                    <img src="assets/images/glandules-endocrines-dona.png" class="w-32 h-32 object-cover rounded-lg border mb-2">
+                                    <p class="font-bold">Dona</p>
+                                </div>
                             </div>
-                            <p id="endo-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initEndoQuiz()" class="btn-primary">Tornar a començar</button>
+                        </div>
+
+                        <!-- Joc UI -->
+                        <div id="bio-endocri-glands-ui" class="hidden bio-activity-container">
+                            <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-endocri-glands-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-endocri-glands-help-btn" class="btn-info btn-sm" onclick="showBioEndocriGlandsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-endocri-glands-skip-btn" class="btn-secondary btn-sm" onclick="skipBioEndocriGlandsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
+                                <div id="bio-endocri-glands-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-endocri-glands-feedback" class="feedback-msg font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                            </div>
+                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                                <img id="bio-endocri-glands-image" src="" alt="Glàndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-endocri-glands-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>⚙️ Ajust de diana (Endocrí)</span>
+                                    <button onclick="closeBioEndocriGlandsCalibration()" class="text-red-400">✖</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioEndocriGlandsTarget('y', -5)" class="bg-gray-700 p-1 rounded">▲</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('x', -5)" class="bg-gray-700 p-1 rounded">◀</button>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('y', 5)" class="bg-gray-700 p-1 rounded">▼</button>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('x', 5)" class="bg-gray-700 p-1 rounded">▶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-endocri-glands-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioEndocriGlandsConfig()" class="btn-primary btn-sm bg-green-600 text-xs py-1" style="background-color: #059669; font-size: 10px;">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1621,6 +1734,297 @@
                                         Codi</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Òrgans dels Sentits (Sub-menú) -->
+                    <div id="bio-senses-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        
+                        <div class="activity-card" onclick="openSenseSubActivity('vista')">
+                            <div class="act-icon"><img src="assets/images/sentit-vista.png" class="act-img"></div>
+                            <div class="card-content">
+                                <div class="card-title">La Vista</div>
+                                <div class="card-desc">L'ull i el sentit de la vista</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('oida')">
+                            <div class="act-icon"><img src="assets/images/sentit-oida.png" class="act-img"></div>
+                            <div class="card-content">
+                                <div class="card-title">L'Oïda</div>
+                                <div class="card-desc">L'orella i el sentit de l'oïda</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('olfacte')">
+                            <div class="act-icon"><img src="assets/images/sentit-olfacte.png" class="act-img"></div>
+                            <div class="card-content">
+                                <div class="card-title">L'Olfacte</div>
+                                <div class="card-desc">El nas i el sentit de l'olfacte</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('gust')">
+                            <div class="act-icon"><img src="assets/images/sentit-gust.png" class="act-img"></div>
+                            <div class="card-content">
+                                <div class="card-title">El Gust</div>
+                                <div class="card-desc">La llengua i el sentit del gust</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('tacte')">
+                            <div class="act-icon"><img src="assets/images/sentit-tacte.png" class="act-img"></div>
+                            <div class="card-content">
+                                <div class="card-title">El Tacte</div>
+                                <div class="card-desc">La pell i el sentit del tacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-MENÚS INDIVIDUALS PER CADA SENTIT -->
+                    <div id="sense-vista-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="openSenseMenu()" style="width: fit-content;">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('vista-parts')">
+                            <div class="act-icon">👁️</div>
+                            <div class="card-content">
+                                <div class="card-title">Parts de l'Ull</div>
+                                <div class="card-desc">Identifica l'anatomia de l'ull</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('vista-quiz')">
+                            <div class="act-icon">❓</div>
+                            <div class="card-content">
+                                <div class="card-title">Quiz de la Vista</div>
+                                <div class="card-desc">Preguntes sobre el funcionament de la vista</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-oida-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="openSenseMenu()" style="width: fit-content;">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('oida-parts')">
+                            <div class="act-icon">👂</div>
+                            <div class="card-content">
+                                <div class="card-title">Parts de l'Orella</div>
+                                <div class="card-desc">Identifica l'anatomia de l'orella</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('oida-quiz')">
+                            <div class="act-icon">❓</div>
+                            <div class="card-content">
+                                <div class="card-title">Quiz de l'Oïda</div>
+                                <div class="card-desc">Preguntes sobre el funcionament de l'oïda</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-olfacte-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="openSenseMenu()" style="width: fit-content;">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('olfacte-parts')">
+                            <div class="act-icon">👃</div>
+                            <div class="card-content">
+                                <div class="card-title">Parts del Nas</div>
+                                <div class="card-desc">Identifica l'anatomia del nas</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('olfacte-quiz')">
+                            <div class="act-icon">❓</div>
+                            <div class="card-content">
+                                <div class="card-title">Quiz de l'Olfacte</div>
+                                <div class="card-desc">Preguntes sobre l'olfacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-gust-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="openSenseMenu()" style="width: fit-content;">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('gust-parts')">
+                            <div class="act-icon">👅</div>
+                            <div class="card-content">
+                                <div class="card-title">Parts de la Llengua</div>
+                                <div class="card-desc">Identifica l'anatomia del gust</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('gust-quiz')">
+                            <div class="act-icon">❓</div>
+                            <div class="card-content">
+                                <div class="card-title">Quiz del Gust</div>
+                                <div class="card-desc">Preguntes sobre el gust</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-tacte-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="openSenseMenu()" style="width: fit-content;">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('tacte-parts')">
+                            <div class="act-icon">✋</div>
+                            <div class="card-content">
+                                <div class="card-title">Parts de la Pell</div>
+                                <div class="card-desc">Identifica l'anatomia de la pell</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('tacte-quiz')">
+                            <div class="act-icon">❓</div>
+                            <div class="card-content">
+                                <div class="card-title">Quiz del Tacte</div>
+                                <div class="card-desc">Preguntes sobre el tacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JOCS DE LES PARTS DELS SENTITS -->
+                    <div id="bio-activity-vista-parts" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
+                        <div id="vista-parts-container"></div>
+                    </div>
+                    <div id="bio-activity-oida-parts" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
+                        <div id="oida-parts-container"></div>
+                    </div>
+                    <div id="bio-activity-olfacte-parts" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <div id="olfacte-parts-container"></div>
+                    </div>
+                    <div id="bio-activity-gust-parts" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
+                        <div id="gust-parts-container"></div>
+                    </div>
+                    <div id="bio-activity-tacte-parts" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <div id="tacte-parts-container"></div>
+                    </div>
+
+                    <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÍ) -->
+                    <div id="bio-activity-vista-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz de la Vista</h3>
+                        </div>
+                        <div id="bio-vista-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-vista-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-vista-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-vista-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="vista-quiz-progress">Pregunta 1</div>
+                                <div id="vista-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="vista-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="vista-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="vista-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-vista-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="vista-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="vista-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initVistaQuiz()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-oida-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz de l'Oïda</h3>
+                        </div>
+                        <div id="bio-oida-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-oida-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-oida-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-oida-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="oida-quiz-progress">Pregunta 1</div>
+                                <div id="oida-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="oida-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="oida-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="oida-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-oida-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="oida-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="oida-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initOidaQuiz()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-olfacte-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz de l'Olfacte</h3>
+                        </div>
+                        <div id="bio-olfacte-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-olfacte-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-olfacte-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-olfacte-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="olfacte-quiz-progress">Pregunta 1</div>
+                                <div id="olfacte-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="olfacte-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="olfacte-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="olfacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-olfacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="olfacte-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="olfacte-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initOlfacteQuiz()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-gust-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz del Gust</h3>
+                        </div>
+                        <div id="bio-gust-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-gust-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-gust-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-gust-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="gust-quiz-progress">Pregunta 1</div>
+                                <div id="gust-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="gust-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="gust-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="gust-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-activity-gust-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="gust-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="gust-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initGustQuiz()" class="btn-primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-tacte-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <div class="game-header text-center">
+                            <h3>Quiz del Tacte</h3>
+                        </div>
+                        <div id="bio-tacte-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-tacte-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-tacte-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-tacte-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="tacte-quiz-progress">Pregunta 1</div>
+                                <div id="tacte-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="tacte-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="tacte-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="tacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-tacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="tacte-quiz-final-score" class="text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="tacte-quiz-final-msg" class="text-lg mb-8"></p>
+                            <button onclick="initTacteQuiz()" class="btn-primary">Tornar a jugar</button>
                         </div>
                     </div>
                 </div>
