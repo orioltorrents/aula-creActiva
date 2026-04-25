@@ -67,6 +67,10 @@ function handleRequest(e) {
             result = getRadioConnectionsQuestions();
         } else if (action === 'getCirculatoriQuestions') {
             result = getCirculatoriQuestions();
+        } else if (action === 'getReproductorQuestions') {
+            result = getReproductorQuestions();
+        } else if (action === 'getImmunitariQuestions') {
+            result = getImmunitariQuestions();
         } else if (action === 'getEndocriQuestions') {
             result = getEndocriQuestions();
         } else if (action === 'getLocomotorQuestions') {
@@ -1111,3 +1115,129 @@ function getOidaQuestions() { return getSentitQuestions('Oida'); }
 function getOlfacteQuestions() { return getSentitQuestions('Olfacte'); }
 function getGustQuestions() { return getSentitQuestions('Gust'); }
 function getTacteQuestions() { return getSentitQuestions('Tacte'); }
+
+function getReproductorQuestions() {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+
+    const findSheet = (name) => {
+        const sheets = ss.getSheets();
+        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
+        const normTarget = normalize(name);
+        return sheets.find(s => normalize(s.getName()) === normTarget)
+            || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
+    };
+
+    const sheet = findSheet('aparell-reproductor');
+    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-reproductor" no trobada al Google Sheet' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-reproductor"' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
+    const findIdx = (names) => {
+        for (let name of names) {
+            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            let idx = headers.indexOf(norm);
+            if (idx !== -1) return idx;
+        }
+        return -1;
+    };
+
+    // Cerca les columnes pel nom: accepta tant "Tipus de pregunta" com "Tipus"
+    const typeIdx = findIdx(['tipus de pregunta', 'tipus pregunta', 'tipus', 'tipo de pregunta', 'tipo']);
+    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
+    const qIdx = findIdx(['pregunta', 'question']);
+    const correctIdx = findIdx(['correcta', 'correct']);
+    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
+    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
+    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
+
+    if (qIdx === -1 || correctIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
+    }
+
+    const questions = data.slice(1)
+        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
+        .map(row => {
+            const correct = row[correctIdx];
+            const wrongs = [
+                wrong1Idx !== -1 ? row[wrong1Idx] : "",
+                wrong2Idx !== -1 ? row[wrong2Idx] : "",
+                wrong3Idx !== -1 ? row[wrong3Idx] : ""
+            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
+
+            return {
+                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
+                level: levelIdx !== -1 ? String(row[levelIdx] || "").trim() : "",
+                q: String(row[qIdx]).trim(),
+                correct: correct,
+                alternatives: [correct, ...wrongs]
+            };
+        });
+
+    return { status: 'success', data: questions };
+}
+
+function getImmunitariQuestions() {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+
+    const findSheet = (name) => {
+        const sheets = ss.getSheets();
+        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
+        const normTarget = normalize(name);
+        return sheets.find(s => normalize(s.getName()) === normTarget)
+            || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
+    };
+
+    const sheet = findSheet('sistema-immunitari');
+    if (!sheet) return { status: 'error', message: 'Pestanya "sistema-immunitari" no trobada al Google Sheet' };
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "sistema-immunitari"' };
+
+    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
+    const findIdx = (names) => {
+        for (let name of names) {
+            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            let idx = headers.indexOf(norm);
+            if (idx !== -1) return idx;
+        }
+        return -1;
+    };
+
+    const typeIdx = findIdx(['tipus de pregunta', 'tipus pregunta', 'tipus', 'tipo de pregunta', 'tipo']);
+    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
+    const qIdx = findIdx(['pregunta', 'question']);
+    const correctIdx = findIdx(['correcta', 'correct']);
+    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
+    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
+    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
+
+    if (qIdx === -1 || correctIdx === -1) {
+        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
+    }
+
+    const questions = data.slice(1)
+        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
+        .map(row => {
+            const correct = row[correctIdx];
+            const wrongs = [
+                wrong1Idx !== -1 ? row[wrong1Idx] : "",
+                wrong2Idx !== -1 ? row[wrong2Idx] : "",
+                wrong3Idx !== -1 ? row[wrong3Idx] : ""
+            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
+
+            return {
+                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
+                level: levelIdx !== -1 ? String(row[levelIdx] || "").trim() : "",
+                q: String(row[qIdx]).trim(),
+                correct: correct,
+                alternatives: [correct, ...wrongs]
+            };
+        });
+
+    return { status: 'success', data: questions };
+}
+

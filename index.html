@@ -1244,26 +1244,105 @@
                         </div>
 
                         <!-- 8. Sistema Immunitari -->
-                        <div class="activity-card disabled-card">
+                        <div class="activity-card" onclick="openBioSystem('immunitari')">
                             <div class="act-icon">
                                 <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Sistema Immunitari</div>
                                 <div class="card-desc">Defenses de l'organisme</div>
-                                <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
 
                         <!-- 9. Aparell Reproductor -->
-                        <div class="activity-card disabled-card">
+                        <div class="activity-card" onclick="openBioSystem('reproductor')">
                             <div class="act-icon">
                                 <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Aparell Reproductor</div>
                                 <div class="card-desc">Aparell reproductor masculí i femení</div>
-                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ACTIVITATS: Sistema Immunitari -->
+                    <div id="bio-immunitari-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
+                            <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full"
+                                style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
+                            <div class="act-icon">🛡️</div>
+                            <div class="card-content">
+                                <div class="card-title">Repàs del Sistema Immunitari</div>
+                                <div class="card-desc">Posa a prova els teus coneixements</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Sistema Immunitari -->
+                    <div id="bio-activity-immunitari-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('immunitari')">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3>🛡️ Repàs del Sistema Immunitari</h3>
+                        </div>
+
+                        <!-- Loader -->
+                        <div id="bio-immunitari-quiz-loader" class="text-center p-8">
+                            <div class="loader"></div> Carregant preguntes...
+                        </div>
+
+                        <!-- Selector de Tema / Nivell -->
+                        <div id="bio-immunitari-quiz-level-selector"
+                            class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-immunitari-quiz-level-buttons"
+                                class="flex flex-wrap justify-center gap-4 mb-4"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="bio-immunitari-quiz-ui"
+                            class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="immun-quiz-progress">Pregunta 1 de 10</div>
+                                <div id="immun-quiz-score">Punts: 100</div>
+                            </div>
+                            <div id="immun-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="immun-quiz-options" class="flex flex-col gap-3 mb-4"></div>
+                            <div id="immun-quiz-feedback" class="text-center font-bold mt-2"></div>
+                        </div>
+
+                        <!-- Resultats Finals -->
+                        <div id="bio-immunitari-quiz-final"
+                            class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <div id="immun-quiz-final-score"
+                                class="text-5xl font-extrabold text-green-600 mb-6">0 / 100</div>
+                            <p id="immun-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initImmunitariQuiz()" class="btn-primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Aparell Reproductor -->
+                    <div id="bio-reproductor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
+                            <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full"
+                                style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                        </div>
+                        <!-- Quiz de l'Aparell Reproductor -->
+                        <div class="activity-card" onclick="openBioActivity('reproductor-quiz')">
+                            <div class="act-icon">🧬</div>
+                            <div class="card-content">
+                                <div class="card-title">Repàs de l'Aparell Reproductor</div>
+                                <div class="card-desc">Posa a prova els teus coneixements</div>
                             </div>
                         </div>
                     </div>
@@ -1372,7 +1451,53 @@
                         </div>
                     </div>
 
+                    <!-- ACTIVITAT: Quiz Aparell Reproductor -->
+                    <div id="bio-activity-reproductor-quiz" class="sub-activity hidden">
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('reproductor')">← Tornar al
+                            menú</button>
+                        <div class="game-header">
+                            <h3>🧬 Repàs de l'Aparell Reproductor</h3>
+                        </div>
+
+                        <!-- Loader -->
+                        <div id="bio-reproductor-quiz-loader" class="text-center p-8">
+                            <div class="loader"></div> Carregant preguntes...
+                        </div>
+
+                        <!-- Selector de Tema / Nivell (generat dinàmicament per JS) -->
+                        <div id="bio-reproductor-quiz-level-selector"
+                            class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-reproductor-quiz-level-buttons"
+                                class="flex flex-wrap justify-center gap-4 mb-4"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="bio-reproductor-quiz-ui"
+                            class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="reprod-quiz-progress">Pregunta 1 de 10</div>
+                                <div id="reprod-quiz-score">Punts: 100</div>
+                            </div>
+                            <div id="reprod-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="reprod-quiz-options" class="flex flex-col gap-3 mb-4"></div>
+                            <div id="reprod-quiz-feedback" class="text-center font-bold mt-2"></div>
+                        </div>
+
+                        <!-- Resultats Finals -->
+                        <div id="bio-reproductor-quiz-final"
+                            class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <div id="reprod-quiz-final-score"
+                                class="text-5xl font-extrabold text-pink-600 mb-6">0 / 100</div>
+                            <p id="reprod-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initReproductorQuiz()" class="btn-primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
+
                     <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
                             menú</button>
@@ -2551,6 +2676,8 @@
     <script src="js/games/bio-cor.js"></script>
     <script src="js/games/bio-excretor.js"></script>
     <script src="js/games/bio-circulatori-quiz.js"></script>
+    <script src="js/games/bio-reproductor-quiz.js"></script>
+    <script src="js/games/bio-immunitari-quiz.js"></script>
     <script src="js/games/bio-endocri-quiz.js"></script>
     <script src="js/games/bio-cells.js"></script>
     <script src="js/games/bio-vista-quiz.js"></script>

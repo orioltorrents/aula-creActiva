@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycby9zndcmJCG3jla9GE19ZjDhxKict06ojvFecRNxSR_s8aCDl885AWfhV1SqIfT-DVQMg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxQU3dTZ5zLa6FMcG2BRPI0hExZNRBLTR9wq-QOQSIP29ZfTYLxeSy01YiYQe4Dk5XJ4Q/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -640,6 +640,16 @@ function openBioActivity(actId) {
         document.getElementById('bio-activity-cor').classList.remove('hidden');
         if (typeof initBioHeartGame === 'function') {
             initBioHeartGame();
+        }
+    } else if (actId === 'immunitari-quiz') {
+        document.getElementById('bio-activity-immunitari-quiz').classList.remove('hidden');
+        if (typeof initImmunitariQuiz === 'function') {
+            initImmunitariQuiz();
+        }
+    } else if (actId === 'reproductor-quiz') {
+        document.getElementById('bio-activity-reproductor-quiz').classList.remove('hidden');
+        if (typeof initReproductorQuiz === 'function') {
+            initReproductorQuiz();
         }
     } else if (actId === 'circulatori-quiz') {
         document.getElementById('bio-activity-circulatori-quiz').classList.remove('hidden');
