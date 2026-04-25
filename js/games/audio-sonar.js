@@ -20,7 +20,8 @@ const sonarGame = {
         { key: 'act_audio_q8', x: 338, y: 435, w: 22, h: 22 }, // Write (W)
         { key: 'act_audio_q9', x: 180, y: 512, w: 50, h: 18 }  // Consola tab
     ],
-    isFinished: false
+    isFinished: false,
+    debugMode: false
 };
 
 function initSonarGame() {
@@ -90,7 +91,14 @@ function handleSonarClick(event) {
     const clickX = (event.clientX - rect.left) * scaleX;
     const clickY = (event.clientY - rect.top) * scaleY;
 
-    // DEBUG: console.log(`Click at: ${clickX.toFixed(0)}, ${clickY.toFixed(0)}`);
+    // DEBUG mode: show coordinates
+    if (sonarGame.debugMode) {
+        console.log(`Click at: ${clickX.toFixed(0)}, ${clickY.toFixed(0)}`);
+        const coordDisplay = document.getElementById('sonar-coord-display');
+        if (coordDisplay) {
+            coordDisplay.innerText = `Click: x=${clickX.toFixed(0)}, y=${clickY.toFixed(0)}`;
+        }
+    }
 
     const target = sonarGame.targets[sonarGame.currentStep];
     const feedbackEl = document.getElementById('sonar-feedback');
@@ -129,4 +137,103 @@ async function saveSonarResult() {
     };
 
     await callApi('saveResult', result);
+}
+
+// ============ DEBUG HELPERS ============
+
+function toggleSonarDebugMode() {
+    sonarGame.debugMode = !sonarGame.debugMode;
+    const btn = document.getElementById('sonar-debug-btn');
+    if (btn) {
+        btn.innerText = sonarGame.debugMode ? '🔧 Debug: ON' : '🔧 Debug: OFF';
+        btn.style.backgroundColor = sonarGame.debugMode ? '#10b981' : '#6b7280';
+    }
+
+    if (sonarGame.debugMode) {
+        drawDebugOverlay();
+    } else {
+        removeDebugOverlay();
+    }
+}
+
+function drawDebugOverlay() {
+    removeDebugOverlay(); // Clear existing overlay
+
+    const wrapper = document.querySelector('.image-interactive-wrapper');
+    const img = document.getElementById('sonar-image');
+    if (!wrapper || !img) return;
+
+    const rect = img.getBoundingClientRect();
+    const logicalWidth = 1000;
+    const logicalHeight = 531;
+
+    const scaleX = rect.width / logicalWidth;
+    const scaleY = rect.height / logicalHeight;
+
+    // Create overlay container
+    const overlay = document.createElement('div');
+    overlay.id = 'sonar-debug-overlay';
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.zIndex = '10';
+
+    // Draw each target
+    sonarGame.targets.forEach((target, index) => {
+        const box = document.createElement('div');
+        box.className = 'debug-box';
+        box.style.position = 'absolute';
+        box.style.left = (target.x * scaleX) + 'px';
+        box.style.top = (target.y * scaleY) + 'px';
+        box.style.width = (target.w * scaleX) + 'px';
+        box.style.height = (target.h * scaleY) + 'px';
+        box.style.border = '2px solid #ef4444';
+        box.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+        box.style.boxSizing = 'border-box';
+
+        // Label
+        const label = document.createElement('div');
+        label.style.position = 'absolute';
+        label.style.top = '-20px';
+        label.style.left = '0';
+        label.style.fontSize = '11px';
+        label.style.fontWeight = 'bold';
+        label.style.color = '#ef4444';
+        label.style.backgroundColor = 'white';
+        label.style.padding = '2px 4px';
+        label.style.borderRadius = '3px';
+        label.style.whiteSpace = 'nowrap';
+        label.innerText = `${index}: ${target.key}`;
+
+        box.appendChild(label);
+        overlay.appendChild(box);
+    });
+
+    wrapper.appendChild(overlay);
+
+    // Add coordinate display
+    let coordDisplay = document.getElementById('sonar-coord-display');
+    if (!coordDisplay) {
+        coordDisplay = document.createElement('div');
+        coordDisplay.id = 'sonar-coord-display';
+        coordDisplay.style.marginTop = '10px';
+        coordDisplay.style.padding = '8px';
+        coordDisplay.style.backgroundColor = '#f3f4f6';
+        coordDisplay.style.borderRadius = '4px';
+        coordDisplay.style.fontFamily = 'monospace';
+        coordDisplay.style.fontSize = '12px';
+        coordDisplay.innerText = 'Clica sobre la imatge per veure coordenades';
+        wrapper.parentElement.appendChild(coordDisplay);
+    }
+}
+
+function removeDebugOverlay() {
+    const overlay = document.getElementById('sonar-debug-overlay');
+    if (overlay) overlay.remove();
+
+    const coordDisplay = document.getElementById('sonar-coord-display');
+    if (coordDisplay) coordDisplay.remove();
 }

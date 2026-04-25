@@ -453,8 +453,14 @@
                             <div class="sonar-activity-container">
                                 <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                     <div id="sonar-score-display" class="font-bold">Punts: 100</div>
-                                    <button id="sonar-skip-btn" class="btn-secondary btn-sm" onclick="skipQuestion()"
-                                        data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button id="sonar-debug-btn" class="btn-secondary btn-sm"
+                                            onclick="toggleSonarDebugMode()" style="background-color: #6b7280;">🔧
+                                            Debug: OFF</button>
+                                        <button id="sonar-skip-btn" class="btn-secondary btn-sm"
+                                            onclick="skipQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                            punts)</button>
+                                    </div>
                                 </div>
                                 <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
                                 <div class="image-interactive-wrapper mt-4"
