@@ -1,0 +1,110 @@
+<!-- =========================================================
+     PROJECTE: ENTORNS DE NATURA
+     Aquest bloc només conté el menú principal del projecte.
+     Les activitats es defineixen per separat en altres fragments.
+========================================================== -->
+<div id="project-hub-natura" class="game-module hidden">
+
+    <!-- Títol del projecte -->
+    <h3 data-i18n="natura_project_title">Entorns de Natura</h3>
+
+    <!-- Menú d'activitats del projecte -->
+    <div id="natura-activities-menu" class="activities-grid">
+
+        <!-- Activitat: Xarxes Tròfiques -->
+        <div class="activity-card" onclick="openNaturaActivity('xarxes')">
+            <div class="act-icon">
+                <img src="assets/images/targeta_xarxes-trofiques.png"
+                    alt="Xarxes Tròfiques" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_xarxes_title">
+                    Xarxes Tròfiques
+                </div>
+                <div class="card-desc" data-i18n="act_xarxes_desc">
+                    Ordena els passos per crear una xarxa tròfica
+                </div>
+            </div>
+        </div>
+
+        <!-- Activitat: Rols Tròfics -->
+        <div class="activity-card" onclick="openNaturaActivity('rols')">
+            <div class="act-icon">
+                <img src="assets/images/targeta_rols-trofics.png"
+                    alt="Rols Tròfics" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_rols_title">
+                    Rols Tròfics
+                </div>
+                <div class="card-desc" data-i18n="act_rols_desc">
+                    Classifica espècies segons la seva dieta
+                </div>
+            </div>
+        </div>
+
+        <!-- Activitat: Estudi d'impacte ambiental -->
+        <div class="activity-card" onclick="openNaturaActivity('impacte')">
+            <div class="act-icon">
+                <img src="assets/images/targeta_fases-eia.png"
+                    alt="Impacte Ambiental" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_impacte_title">
+                    Estudi d'impacte ambiental
+                </div>
+                <div class="card-desc" data-i18n="act_impacte_desc">
+                    Ordena les fases de creació de l'estudi
+                </div>
+            </div>
+        </div>
+
+        <!-- Activitat: Bibliografia i Cites -->
+        <div class="activity-card" onclick="openNaturaActivity('biblio')">
+            <div class="act-icon">
+                <img src="assets/images/targeta_biblio-APA.png"
+                    alt="Bibliografia i Cites" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_biblio_title">
+                    Bibliografia i Cites
+                </div>
+                <div class="card-desc" data-i18n="act_biblio_desc">
+                    Aprèn a citar correctament les teves fonts
+                </div>
+            </div>
+        </div>
+
+        <!-- Activitat: Preguntes Investigables -->
+        <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+            <div class="act-icon">
+                <img src="assets/images/targeta-preguntes-investigables.png"
+                    alt="Preguntes Investigables" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_tr_preguntes_title">
+                    Preguntes Investigables
+                </div>
+                <div class="card-desc" data-i18n="act_tr_preguntes_desc">
+                    Aprèn a diferenciar preguntes investigables de les que no ho són.
+                </div>
+            </div>
+        </div>
+
+        <!-- Activitat: Temes i preguntes -->
+        <div class="activity-card" onclick="openNaturaActivity('temes')">
+            <div class="act-icon">
+                <img src="assets/images/targeta-temes-preguntes.png"
+                    alt="Temes i preguntes" class="act-img">
+            </div>
+            <div class="card-content">
+                <div class="card-title" data-i18n="act_tr_temes_title">
+                    Temes i preguntes
+                </div>
+                <div class="card-desc" data-i18n="act_tr_temes_desc">
+                    Tria bones preguntes d'un tema de recerca.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

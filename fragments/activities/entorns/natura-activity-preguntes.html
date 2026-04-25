@@ -1,0 +1,99 @@
+<!-- =========================================================
+     ACTIVITAT: PREGUNTES INVESTIGABLES
+     Projecte: Entorns de Natura
+
+     Aquest fragment conté:
+     - la pantalla inicial de l'activitat
+     - la zona del quiz
+     - la zona de feedback
+     - la pantalla final de resultats
+========================================================== -->
+<div id="natura-activity-preguntes" class="sub-activity hidden">
+    <!-- Pantalla inicial -->
+    <div id="natura-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
+        <!-- Botó per tornar al menú del projecte -->
+        <button class="btn-secondary btn-sm mb-8" onclick="showNaturaMenu()">
+            ← Tornar al menú
+        </button>
+
+        <!-- Caixa principal de presentació -->
+        <div id="natura-preguntes-setup"
+            class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
+            <h3 class="text-3xl font-bold mb-8 text-emerald-600 flex items-center justify-center gap-3">
+                <i class="fas fa-question-circle"></i>
+                <span data-i18n="natura_project_title">Entorns de Natura</span> —
+                <span data-i18n="act_tr_preguntes_title">Preguntes investigables</span>
+            </h3>
+
+            <p class="mb-10 text-xl text-gray-600">
+                Escull una categoria per començar a practicar.
+            </p>
+
+            <!-- Contenidor dinàmic de categories -->
+            <div id="natura-preguntes-categories-container"></div>
+        </div>
+    </div>
+
+    <!-- Zona del quiz -->
+    <div id="natura-preguntes-quiz-container" class="hidden">
+        <!-- Barra de progrés -->
+        <div class="stats-bar flex justify-between">
+            <span id="natura-preguntes-progress">Pregunta 1 / 15</span>
+        </div>
+
+        <!-- Caixa principal de la pregunta -->
+        <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+            <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
+
+            <!-- Botons de resposta -->
+            <div class="flex justify-center gap-4 flex-wrap">
+                <button id="btn-natura-investigable"
+                    class="btn-primary"
+                    style="background-color: var(--success);"
+                    onclick="checkNaturaPreguntaRespuesta('Investigable')">
+                    Investigable
+                </button>
+
+                <button id="btn-natura-no-investigable"
+                    class="btn-primary"
+                    style="background-color: var(--error);"
+                    onclick="checkNaturaPreguntaRespuesta('No investigable')">
+                    No investigable
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div id="natura-preguntes-feedback-area"
+            class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+            <p id="natura-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
+            <p id="natura-preguntes-feedback-desc" class="mb-4"></p>
+
+            <button id="natura-preguntes-next-btn"
+                class="btn-primary"
+                onclick="nextNaturaPregunta()">
+                Següent pregunta
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla final de resultats -->
+    <div id="natura-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+        <h3 data-i18n="final_score">Resultat final</h3>
+
+        <p id="natura-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+            0 / 15
+        </p>
+
+        <p id="natura-preguntes-final-percentage"
+            class="text-2xl font-semibold mb-4 text-gray-700">
+            0%
+        </p>
+
+        <p id="natura-preguntes-final-msg" class="text-lg mb-8"></p>
+
+        <button onclick="showNaturaMenu()" class="btn-secondary">
+            Tornar
+        </button>
+    </div>
+</div>

@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbzTFZnGpdCGmeyox1AzncTXdD3A8NZChkkNLoWRy11AuHXDpWFed1xpFQRlKbAsJSSl2w/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycby9zndcmJCG3jla9GE19ZjDhxKict06ojvFecRNxSR_s8aCDl885AWfhV1SqIfT-DVQMg/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulate Game Save
     document.getElementById('simulate-score-btn').addEventListener('click', simulateGameSave);
+
+    // Fullscreen Toggle
+    document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
 });
 
 // **********************************************************
@@ -87,6 +90,18 @@ function showScreen(screenName) {
     if (screens[screenName]) {
         screens[screenName].classList.add('active');
         screens[screenName].classList.remove('hidden');
+    }
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Error entering fullscreen: ${err.message}`);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
     }
 }
 
@@ -215,12 +230,32 @@ async function loadDashboard() {
 
     grid.innerHTML = ''; // Netejar
 
+    // Configuració visual dels projectes
+    const projectVisuals = {
+        'p1_rates': { icon: '<img src="assets/images/targeta_rates-a-la-carrera.png" alt="Rates" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/targeta_mediterrani.png" alt="Mediterrani" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/targeta_solidart.png" alt="SolidArt" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_natura': { icon: '<img src="assets/images/targeta_entorns.png" alt="Entorns de Natura" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '<img src="assets/images/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '<img src="assets/images/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/targeta-tr.png" alt="Treball de recerca" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+    };
+
     if (allProjects.length > 0) {
         allProjects.forEach(proj => {
+            const visual = projectVisuals[proj.id] || { icon: '📁', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
+
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="card-image">📁</div>
+                <div class="card-image" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+                    ${proj.imatge
+                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-img-thumb">`
+                    : visual.icon}
+                </div>
                 <div class="card-content">
                     <div class="card-title">${proj.titol}</div>
                     <div class="card-desc">${proj.descripcio}</div>
@@ -246,7 +281,10 @@ function openProject(project) {
     // Carregar joc específic segons ID del projecte
     if (project.id === 'p1_rates') {
         const gameDiv = document.getElementById('game-container-p1_rates');
-        if (gameDiv) gameDiv.classList.remove('hidden');
+        if (gameDiv) {
+            gameDiv.classList.remove('hidden');
+            showRatesMenu();
+        }
     } else if (project.id === 'p1_mediterrani') {
         const hubDiv = document.getElementById('project-hub-mediterrani');
         if (hubDiv) {
@@ -261,6 +299,20 @@ function openProject(project) {
             hubDiv.classList.remove('hidden');
             if (typeof showParalimpicsMenu === 'function') {
                 showParalimpicsMenu();
+            }
+        }
+    } else if (project.id === 'p3_solidart') {
+        const hubDiv = document.getElementById('project-hub-solidart');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            showSolidartMenu();
+        }
+    } else if (project.id === 'batx1_tr') {
+        const hubDiv = document.getElementById('project-hub-tr');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showTrMenu === 'function') {
+                showTrMenu();
             }
         }
     } else if (project.id === 'p1_natura' || project.id === 'p4_natura') {
@@ -281,10 +333,20 @@ function openProject(project) {
         }
     } else if (project.id === 'p2_biologia') {
         const hubDiv = document.getElementById('project-hub-biologia');
-        if (hubDiv) hubDiv.classList.remove('hidden');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showBioMenu === 'function') {
+                showBioMenu();
+            }
+        }
     } else if (project.id === 'p2_radio') {
         const hubDiv = document.getElementById('project-hub-radio');
-        if (hubDiv) hubDiv.classList.remove('hidden');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            if (typeof showRadioMenu === 'function') {
+                showRadioMenu();
+            }
+        }
     } else {
         // Fallback genèric
         document.getElementById('game-container-generic').classList.remove('hidden');
@@ -370,6 +432,30 @@ function openMediterraniActivity(actId) {
     document.getElementById(`med-activity-${actId}`).classList.remove('hidden');
 }
 
+// --- TREBALL DE RECERCA NAVIGATION ---
+function showTrMenu() {
+    const hub = document.getElementById('project-hub-tr');
+    if (hub) {
+        document.getElementById('tr-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openTrActivity(actId) {
+    document.getElementById('tr-activities-menu').classList.add('hidden');
+    document.getElementById(`tr-activity-${actId}`).classList.remove('hidden');
+
+    if (actId === 'preguntes' && typeof loadTrCategories === 'function') {
+        loadTrCategories();
+    } else if (actId === 'temes' && typeof loadTrTemesCategories === 'function') {
+        loadTrTemesCategories();
+    } else if (actId === 'biblio' && typeof initTrBiblioGame === 'function') {
+        initTrBiblioGame();
+    } else if (actId === 'diagnostic' && typeof initTrDiagnostic === 'function') {
+        initTrDiagnostic();
+    }
+}
+
 // --- PARALIMPICS NAVIGATION ---
 function showParalimpicsMenu() {
     const hub = document.getElementById('project-hub-paralimpics');
@@ -399,5 +485,256 @@ function openDigitalitzacioActivity(actId) {
 
     if (actId === 'audio' && typeof initSonarGame === 'function') {
         initSonarGame();
+    }
+}
+
+// --- SOLIDART NAVIGATION ---
+function showSolidartMenu() {
+    const hub = document.getElementById('project-hub-solidart');
+    if (hub) {
+        document.getElementById('solidart-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openSolidartActivity(actId) {
+    document.getElementById('solidart-activities-menu').classList.add('hidden');
+    document.getElementById(`solidart-activity-${actId}`).classList.remove('hidden');
+
+    if (actId === 'quadres') {
+        // Reset sub-activity state
+        const setupDiv = document.getElementById('solidart-quadres-setup');
+        setupDiv.classList.remove('hidden');
+        document.getElementById('solidart-quadres-quiz-container').classList.add('hidden');
+        document.getElementById('solidart-quadres-results').classList.add('hidden');
+
+        // Role-based visibility for feedback config
+        const configDiv = document.getElementById('solidart-feedback-config');
+        if (state.user && state.user.rol === 'prof') {
+            configDiv.classList.remove('hidden');
+        } else {
+            configDiv.classList.add('hidden');
+            // Reset to default for students if needed, or keep last selected by prof
+            const selector = document.getElementById('solidart-feedback-level');
+            if (selector) selector.value = 'simple';
+        }
+    } else if (actId === 'quadres2') {
+        const setupDiv = document.getElementById('solidart-quadres2-setup');
+        setupDiv.classList.remove('hidden');
+        document.getElementById('solidart-quadres2-quiz-container').classList.add('hidden');
+        document.getElementById('solidart-quadres2-results').classList.add('hidden');
+
+        const configDiv = document.getElementById('solidart-feedback-config2');
+        if (state.user && state.user.rol === 'prof') {
+            configDiv.classList.remove('hidden');
+        } else {
+            configDiv.classList.add('hidden');
+            const selector = document.getElementById('solidart-feedback-level2');
+            if (selector) selector.value = 'simple';
+        }
+    }
+}
+
+// --- NATURA NAVIGATION ---
+function showNaturaMenu() {
+    const hub = document.getElementById('project-hub-natura');
+    if (hub) {
+        document.getElementById('natura-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+// **********************************************************
+// RATES A LA CARRERA (HUB)
+// **********************************************************
+function showRatesMenu() {
+    document.getElementById('rates-activities-menu').classList.remove('hidden');
+    document.querySelectorAll('#game-container-p1_rates .sub-activity').forEach(el => el.classList.add('hidden'));
+}
+
+function openRatesActivity(activityId) {
+    // Amagar menú
+    document.getElementById('rates-activities-menu').classList.add('hidden');
+
+    // Amagar totes les sub-activitats
+    document.querySelectorAll('#game-container-p1_rates .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    // Mostrar la seleccionada
+    const subAct = document.getElementById(`rates-activity-${activityId}`);
+    if (subAct) {
+        subAct.classList.remove('hidden');
+        if (activityId === 'preguntes') {
+            loadRatesCategories();
+        }
+    }
+}
+
+function openNaturaActivity(actId) {
+    document.getElementById('natura-activities-menu').classList.add('hidden');
+    document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    if (actId === 'xarxes') {
+        document.getElementById('natura-activity-xarxes').classList.remove('hidden');
+        if (typeof initXarxesGame === 'function') initXarxesGame();
+    } else if (actId === 'impacte') {
+        document.getElementById('natura-activity-impacte').classList.remove('hidden');
+        if (typeof initImpacteGame === 'function') initImpacteGame();
+    } else if (actId === 'rols') {
+        document.getElementById('natura-activity-rols').classList.remove('hidden');
+        if (typeof initRolsGame === 'function') initRolsGame();
+    } else if (actId === 'biblio') {
+        document.getElementById('natura-activity-biblio').classList.remove('hidden');
+        if (typeof initBiblioGame === 'function') initBiblioGame();
+    } else if (actId === 'preguntes') {
+        document.getElementById('natura-activity-preguntes').classList.remove('hidden');
+        if (typeof loadNaturaCategories === 'function') {
+            document.getElementById('natura-preguntes-setup').classList.remove('hidden');
+            document.getElementById('natura-preguntes-quiz-container').classList.add('hidden');
+            document.getElementById('natura-preguntes-results').classList.add('hidden');
+            loadNaturaCategories();
+        }
+    } else if (actId === 'temes') {
+        document.getElementById('natura-activity-temes').classList.remove('hidden');
+        if (typeof loadNaturaTemesCategories === 'function') {
+            document.getElementById('natura-temes-setup').classList.remove('hidden');
+            document.getElementById('natura-temes-quiz-container').classList.add('hidden');
+            document.getElementById('natura-temes-results').classList.add('hidden');
+            loadNaturaTemesCategories();
+        }
+    }
+}
+
+// --- BIOLOGIA NAVIGATION ---
+function showBioMenu() {
+    const hub = document.getElementById('project-hub-biologia');
+    if (hub) {
+        document.getElementById('bio-systems-menu').classList.remove('hidden');
+        // Hide all sub-activity lists and individual activities
+        document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openBioSystem(systemId) {
+    // Amagar el menú principal de sistemes i totes les activitats individuals
+    document.getElementById('bio-systems-menu')?.classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    // Mostrar el menú d'activitats del sistema seleccionat
+    const systemDiv = document.getElementById(`bio-${systemId}-activities`);
+    if (systemDiv) {
+        systemDiv.classList.remove('hidden');
+    }
+}
+
+
+
+function openBioActivity(actId) {
+    // Hide all activity menus
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    // Hide all individual activity containers
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+
+
+    if (actId === 'cor') {
+        document.getElementById('bio-activity-cor').classList.remove('hidden');
+        if (typeof initBioHeartGame === 'function') {
+            initBioHeartGame();
+        }
+    } else if (actId === 'circulatori-quiz') {
+        document.getElementById('bio-activity-circulatori-quiz').classList.remove('hidden');
+        if (typeof initCircQuiz === 'function') {
+            initCircQuiz();
+        }
+    } else if (actId === 'cells') {
+        document.getElementById('bio-activity-cells').classList.remove('hidden');
+        if (typeof initCellsGame === 'function') {
+            initCellsGame();
+        }
+    } else if (actId === 'excretor-game') {
+        document.getElementById('bio-activity-excretor-game').classList.remove('hidden');
+        if (typeof initBioExcretorGame === 'function') {
+            initBioExcretorGame();
+        }
+    } else if (actId === 'endocri-quiz') {
+        document.getElementById('bio-activity-endocri-quiz').classList.remove('hidden');
+        if (typeof initEndocriQuiz === 'function') {
+            initEndocriQuiz();
+        }
+    } else if (actId === 'endocri-glands') {
+        document.getElementById('bio-activity-endocri-glands').classList.remove('hidden');
+        if (typeof initBioEndocriGlandsGame === 'function') {
+            initBioEndocriGlandsGame();
+        }
+    } else if (actId === 'locomotor-quiz') {
+        document.getElementById('bio-activity-locomotor-quiz').classList.remove('hidden');
+        if (typeof initLocomotorQuiz === 'function') {
+            initLocomotorQuiz();
+        }
+    } else if (actId.endsWith('-quiz')) {
+        const sense = actId.split('-')[0];
+        document.getElementById('bio-activity-' + actId).classList.remove('hidden');
+        const initFnName = 'init' + sense.charAt(0).toUpperCase() + sense.slice(1) + 'Quiz';
+        if (typeof window[initFnName] === 'function') {
+            window[initFnName]();
+        }
+    } else if (actId.endsWith('-parts')) {
+        const sense = actId.split('-')[0];
+        document.getElementById('bio-activity-' + actId).classList.remove('hidden');
+        const initFnName = 'initBio' + sense.charAt(0).toUpperCase() + sense.slice(1) + 'PartsGame';
+        if (typeof window[initFnName] === 'function') {
+            window[initFnName]();
+        }
+    }
+}
+
+function openSenseMenu() {
+    document.getElementById('bio-systems-menu').classList.add('hidden');
+    // Amagar totes les llistes d'activitats de sistemes
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    // Amagar totes les sub-activitats (jocs)
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+    
+    // Mostrar el menú principal dels sentits
+    document.getElementById('bio-senses-activities').classList.remove('hidden');
+}
+
+function openSenseSubActivity(senseId) {
+    // Amagar el menú principal dels sentits i totes les llistes d'activitats
+    document.getElementById('bio-senses-activities').classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
+    
+    // Mostrar el sub-menú del sentit seleccionat (ex: sense-vista-menu)
+    const menuId = 'sense-' + senseId + '-menu';
+    const menu = document.getElementById(menuId);
+    if (menu) menu.classList.remove('hidden');
+}
+
+
+
+// --- RADIO NAVIGATION ---
+function showRadioMenu() {
+    const hub = document.getElementById('project-hub-radio');
+    if (hub) {
+        document.getElementById('radio-activities-menu').classList.remove('hidden');
+        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    }
+}
+
+function openRadioActivity(actId) {
+    document.getElementById('radio-activities-menu').classList.add('hidden');
+    document.querySelectorAll('#project-hub-radio .sub-activity').forEach(el => el.classList.add('hidden'));
+
+    if (actId === 'taula') {
+        document.getElementById('radio-activity-taula').classList.remove('hidden');
+        if (typeof initRadioBoardGame === 'function') {
+            initRadioBoardGame();
+        }
+    } else if (actId === 'conexions') {
+        document.getElementById('radio-activity-conexions').classList.remove('hidden');
+        if (typeof initConnectionsQuiz === 'function') {
+            initConnectionsQuiz();
+        }
     }
 }

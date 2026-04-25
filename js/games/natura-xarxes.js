@@ -36,6 +36,10 @@ function openNaturaActivity(actId) {
         initXarxesGame();
     } else if (actId === 'rols') {
         initRolsActivity();
+    } else if (actId === 'impacte' && typeof initImpacteGame === 'function') {
+        initImpacteGame();
+    } else if (actId === 'biblio' && typeof initBiblioGame === 'function') {
+        initBiblioGame();
     }
 }
 

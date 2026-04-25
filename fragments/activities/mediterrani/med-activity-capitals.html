@@ -1,0 +1,28 @@
+<div id="med-activity-capitals" class="sub-activity hidden">
+    <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+    <div class="game-header">
+        <h3 id="med-title">Capitals del Mediterrani</h3>
+        <div class="game-controls">
+            <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
+                data-i18n="hide_country">Amagar País</button>
+            <button onclick="initMediterraniGame('practice')" class="btn-secondary"
+                data-i18n="btn_practice">Pràctica</button>
+            <button onclick="initMediterraniGame('exam')" class="btn-primary"
+                data-i18n="btn_exam">Examen</button>
+        </div>
+    </div>
+
+    <div id="med-game-area" class="hidden">
+        <div class="stats-bar">
+            <span id="med-score">Punts: 0</span>
+            <span id="med-time" class="hidden">Temps: 60s</span>
+        </div>
+
+        <div class="question-container">
+            <h4 id="med-question">Pregunta...</h4>
+            <div id="med-options" class="options-grid"></div>
+        </div>
+
+        <p id="med-feedback" class="feedback-msg"></p>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!-- =========================================================
+     ACTIVITAT: BIBLIOGRAFIA I CITES
+     Projecte: Entorns de Natura
+
+     Aquest fragment conté:
+     - la pantalla inicial de selecció
+     - la zona del quiz
+     - la pantalla final de resultats
+========================================================== -->
+<div id="natura-activity-biblio" class="sub-activity hidden">
+    <!-- Botó per tornar al menú del projecte -->
+    <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenuFromBiblio()" data-i18n="back">
+        ← Tornar
+    </button>
+
+    <!-- Capçalera de l'activitat -->
+    <div class="game-header">
+        <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
+    </div>
+
+    <!-- Instruccions -->
+    <div class="activity-instructions">
+        <p data-i18n="instruction_biblio">
+            Pots o bé triar el nivell de les preguntes o bé triar un tipus de preguntes a treballar:
+        </p>
+    </div>
+
+    <!-- Pantalla inicial de selecció -->
+    <div class="game-controls py-4" id="biblio-level-selection">
+        <!-- Selecció dinàmica per tema -->
+        <div id="biblio-topic-selection" class="flex flex-col items-center"></div>
+
+        <!-- Selecció per nivell -->
+        <div class="flex flex-col items-center mt-4">
+            <p class="font-bold mb-3 text-center" data-i18n="select_level">
+                O tria per nivell (tots els temes):
+            </p>
+
+            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <button onclick="startGameWithFilter('all', 'facil')"
+                    class="btn-primary"
+                    style="background-color: var(--success); width: auto;"
+                    data-i18n="level_easy">
+                    Fàcil
+                </button>
+
+                <button onclick="startGameWithFilter('all', 'dificil')"
+                    class="btn-primary"
+                    style="background-color: #f59e0b; width: auto;"
+                    data-i18n="level_hard">
+                    Difícil
+                </button>
+
+                <button onclick="startGameWithFilter('all', 'mixed')"
+                    class="btn-primary"
+                    style="background-color: var(--error); width: auto;"
+                    data-i18n="level_mixed">
+                    Barrejat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zona del quiz -->
+    <div id="biblio-quiz-container" class="hidden">
+        <div class="stats-bar">
+            <span id="biblio-progress">Pregunta 1/8</span>
+            <span id="biblio-score">Punts: 0</span>
+        </div>
+
+        <div class="question-container">
+            <h4 id="biblio-question-text">Pregunta...</h4>
+            <div id="biblio-options" class="options-list"></div>
+        </div>
+
+        <p id="biblio-feedback" class="feedback-msg"></p>
+    </div>
+
+    <!-- Pantalla final de resultats -->
+    <div id="biblio-results" class="hidden text-center">
+        <h3 data-i18n="final_score">Resultats</h3>
+        <p id="biblio-final-score" class="text-2xl font-bold">0 / 80</p>
+        <p id="biblio-message"></p>
+        <button onclick="showNaturaMenuFromBiblio()" class="btn-secondary">
+            Tornar
+        </button>
+    </div>
+</div>
