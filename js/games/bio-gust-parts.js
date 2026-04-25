@@ -23,7 +23,7 @@ function initBioGustPartsGame() {
     bioGustPartsGame.isFinished = false;
 
     const img = document.getElementById('bio-gust-parts-image');
-    img.src = 'assets/images/llengua-gustos.png';
+    img.src = 'assets/images/biologia/sentit-gust.png';
 
     const shuffled = [...bioGustPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

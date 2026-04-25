@@ -54,7 +54,7 @@ function renderConnectionQuestion() {
 
     // Update image
     // Si la imatge no existeix, podem mostrar un placeholder o el nom
-    imgEl.src = `assets/images/connections/${question.image}`;
+    imgEl.src = `assets/images/radio/${question.image}`;
     imgEl.onerror = () => {
         imgEl.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(question.correct);
     };

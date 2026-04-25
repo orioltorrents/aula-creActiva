@@ -79,7 +79,7 @@ function renderSolidartQuadres2() {
         const btn = document.createElement('div');
         btn.className = 'activity-card p-2 cursor-pointer border-2 hover:border-primary transition-all';
         btn.innerHTML = `
-            <img src="assets/images/${imgName}" class="w-full h-40 object-contain rounded" onerror="this.src='assets/images/placeholder-art.png'">
+            <img src="assets/images/art/${imgName}" class="w-full h-40 object-contain rounded" onerror="this.src='assets/images/ui/placeholder-art.png'">
         `;
         btn.onclick = () => checkSolidartQuadres2(imgName, btn);
         optionsDiv.appendChild(btn);

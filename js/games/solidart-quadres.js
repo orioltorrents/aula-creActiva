@@ -77,10 +77,10 @@ function renderSolidartQuadre() {
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
 
     const img = document.getElementById('solidart-quadres-img');
-    img.src = `assets/images/${q.imatge}`;
+    img.src = `assets/images/art/${q.imatge}`;
     img.onerror = () => {
-        img.src = 'assets/images/placeholder-art.png';
-        console.warn(`Imatge no trobada: assets/images/${q.imatge}`);
+        img.src = 'assets/images/ui/placeholder-art.png';
+        console.warn(`Imatge no trobada: assets/images/art/${q.imatge}`);
     };
 
     document.getElementById('solidart-quadres-text').textContent = q.pregunta;
