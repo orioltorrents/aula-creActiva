@@ -117,7 +117,8 @@ function finishConnectionsQuiz() {
     const totalQuestions = connectionsQuiz.questions.length;
     const maxScore = totalQuestions * 10;
 
-    document.getElementById('connections-final-score').innerText = `${finalScore} / ${maxScore}`;
+    const percentage = Math.round((finalScore / maxScore) * 100);
+    document.getElementById('connections-final-score').innerText = `${percentage}%`;
 
     let msg = '';
     if (finalScore >= maxScore * 0.9) msg = i18n.t('final_message_expert');
@@ -126,10 +127,10 @@ function finishConnectionsQuiz() {
 
     document.getElementById('connections-final-msg').innerText = msg;
 
-    saveConnectionsResult(finalScore);
+    saveConnectionsResult(percentage);
 }
 
-async function saveConnectionsResult(score) {
+async function saveConnectionsResult(percentage) {
     if (typeof state === 'undefined' || !state.user) return;
 
     const result = {
@@ -138,7 +139,7 @@ async function saveConnectionsResult(score) {
         projecte: state.currentProject.titol,
         app: 'Conexions d\'Àudio',
         nivell: 'Identificació de connectors',
-        puntuacio: score,
+        puntuacio: percentage,
         temps_segons: 0,
         feedback_pos: 'Bon coneixement dels connectors físics.',
         feedback_neg: ''

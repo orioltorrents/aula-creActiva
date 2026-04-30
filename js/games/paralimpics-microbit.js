@@ -247,10 +247,10 @@ async function finishParalimpicsGame() {
     document.getElementById('paralimpics-results').classList.remove('hidden');
 
     const totalPossible = paralimpicsState.activeQuestions.length * 10;
-    document.getElementById('paralimpics-final-score').innerText = `${paralimpicsState.score} / ${totalPossible}`;
+    const percentage = Math.round((paralimpicsState.score / totalPossible) * 100);
+    document.getElementById('paralimpics-final-score').innerText = `${percentage}%`;
 
     // Missatge de feedback segons puntuació
-    const percentage = (paralimpicsState.score / totalPossible) * 100;
     let msg = "";
     if (percentage >= 90) msg = "Excel·lent! Ets un expert en micro:bit!";
     else if (percentage >= 70) msg = "Molt bé! Tens un bon control de la placa.";
@@ -268,7 +268,7 @@ async function finishParalimpicsGame() {
             projecte: 'Paralímpics',
             app: 'Microbit Control',
             nivell: paralimpicsState.level.charAt(0).toUpperCase() + paralimpicsState.level.slice(1),
-            puntuacio: paralimpicsState.score,
+            puntuacio: percentage,
             temps_segons: 0,
             feedback_pos: '',
             feedback_neg: ''

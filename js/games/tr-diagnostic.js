@@ -220,7 +220,7 @@ async function saveDiagnosticResult(correct) {
         projecte: state.currentProject.titol,
         app: 'Diagnòstic de preguntes',
         nivell: 'Estàndard',
-        puntuacio: correct ? 1 : 0,
+        puntuacio: correct ? 100 : 0,
         temps_segons: 0,
         feedback_pos: correct ? 'Identificació correcta' : '',
         feedback_neg: correct ? '' : 'Cal revisar els criteris d\'investigabilitat'

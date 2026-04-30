@@ -148,7 +148,7 @@ async function finishSolidartQuadres2() {
     const score = solidartQuadres2State.score;
     const percentage = Math.round((score / total) * 100);
 
-    document.getElementById('solidart-quadres2-final-score').textContent = `${score} / ${total}`;
+    document.getElementById('solidart-quadres2-final-score').textContent = `${percentage}%`;
     document.getElementById('solidart-quadres2-final-percentage').textContent = `${percentage}%`;
 
     let msg = "";
@@ -165,7 +165,7 @@ async function finishSolidartQuadres2() {
         projecte: 'SolidArt',
         app: 'Quadres i autors 2',
         nivell: solidartQuadres2State.dificultat,
-        puntuacio: score,
+        puntuacio: percentage,
         temps_segons: Math.round((new Date() - solidartQuadres2State.startTime) / 1000),
         feedback_pos: msg,
         feedback_neg: percentage < 50 ? "Repassa les obres clau de cada corrent." : ""

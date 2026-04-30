@@ -206,7 +206,7 @@ function showTrResults() {
     const totalQs = trPreguntesList.length;
     const percent = Math.round((trCorrectAnswers / totalQs) * 100);
 
-    document.getElementById('tr-preguntes-final-score').textContent = `${trCorrectAnswers} / ${totalQs}`;
+    document.getElementById('tr-preguntes-final-score').textContent = `${percent}%`;
     document.getElementById('tr-preguntes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('tr-preguntes-final-msg');
@@ -225,6 +225,8 @@ function showTrResults() {
 }
 
 async function saveTrResult() {
+    const totalQs = trPreguntesList.length;
+    const percent = totalQs ? Math.round((trCorrectAnswers / totalQs) * 100) : 0;
     if (!state.user) return; // Si no hi ha sessió, no guardem
 
     // Temps fictici per no crear timer ara
@@ -248,7 +250,7 @@ async function saveTrResult() {
         projecte: 'Treball de Recerca',
         app: 'Preguntes investigables (Targetes)',
         nivell: (trPreguntesList[0] ? trPreguntesList[0].tipus_batxillerat : 'Mix').substring(0, 50),
-        puntuacio: trCorrectAnswers,
+        puntuacio: percent,
         temps_segons: temps,
         feedback_pos: feedPos.join(" | ").substring(0, 400),
         feedback_neg: feedNeg.join(" | ").substring(0, 400)

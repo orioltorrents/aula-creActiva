@@ -181,7 +181,7 @@ function showRatesResults() {
     const totalQs = ratesPreguntesList.length;
     const percent = Math.round((ratesCorrectAnswers / totalQs) * 100);
 
-    document.getElementById('rates-preguntes-final-score').textContent = `${ratesCorrectAnswers} / ${totalQs}`;
+    document.getElementById('rates-preguntes-final-score').textContent = `${percent}%`;
     document.getElementById('rates-preguntes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('rates-preguntes-final-msg');
@@ -201,6 +201,8 @@ function showRatesResults() {
 
 async function saveRatesPreguntaResult() {
     if (!state.user) return;
+    const totalQs = ratesPreguntesList.length;
+    const percent = totalQs ? Math.round((ratesCorrectAnswers / totalQs) * 100) : 0;
 
     let feedPos = [];
     let feedNeg = [];
@@ -219,7 +221,7 @@ async function saveRatesPreguntaResult() {
         projecte: 'Rates a la carrera',
         app: 'Preguntes investigables',
         nivell: 'Mix',
-        puntuacio: ratesCorrectAnswers,
+        puntuacio: percent,
         temps_segons: 30,
         feedback_pos: feedPos.join(" | ").substring(0, 400),
         feedback_neg: feedNeg.join(" | ").substring(0, 400)

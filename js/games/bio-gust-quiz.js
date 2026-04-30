@@ -202,7 +202,7 @@ async function endGustQuiz() {
 
     const resultMsg = document.getElementById('endo-quiz-message'); // reuse class styling, ID might need change
     if(resultMsg) resultMsg.innerText = `Molt bé! Has aconseguit ${bioGustQuiz.score} punts.`;
-    document.getElementById('gust-quiz-final-score').innerText = `${bioGustQuiz.score} / 100`;
+    document.getElementById('gust-quiz-final-score').innerText = `${bioGustQuiz.score}%`;
 
     if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
         const result = {

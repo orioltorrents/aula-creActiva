@@ -205,7 +205,7 @@ async function endVistaQuiz() {
 
     const resultMsg = document.getElementById('endo-quiz-message'); // reuse class styling, ID might need change
     if(resultMsg) resultMsg.innerText = `Molt bé! Has aconseguit ${bioVistaQuiz.score} punts.`;
-    document.getElementById('vista-quiz-final-score').innerText = `${bioVistaQuiz.score} / 100`;
+    document.getElementById('vista-quiz-final-score').innerText = `${bioVistaQuiz.score}%`;
 
     if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
         const result = {

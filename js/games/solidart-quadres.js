@@ -170,7 +170,7 @@ async function finishSolidartQuadres() {
     const score = solidartQuadresState.score;
     const percentage = Math.round((score / total) * 100);
 
-    document.getElementById('solidart-quadres-final-score').textContent = `${score} / ${total}`;
+    document.getElementById('solidart-quadres-final-score').textContent = `${percentage}%`;
     document.getElementById('solidart-quadres-final-percentage').textContent = `${percentage}%`;
 
     let msg = "";
@@ -188,7 +188,7 @@ async function finishSolidartQuadres() {
         projecte: 'SolidArt',
         app: 'Quadres i autors',
         nivell: solidartQuadresState.dificultat,
-        puntuacio: score,
+        puntuacio: percentage,
         temps_segons: Math.round((new Date() - solidartQuadresState.startTime) / 1000),
         feedback_pos: msg,
         feedback_neg: percentage < 50 ? "Cal repassar més els autors i estils." : ""

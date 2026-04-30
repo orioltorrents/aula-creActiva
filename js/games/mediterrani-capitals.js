@@ -205,7 +205,7 @@ async function finishGame() {
     // Hide questions
     document.getElementById('med-options').innerHTML = '';
     document.getElementById('med-question').innerText = i18n.t('final_score');
-    document.getElementById('med-feedback').innerText = `${medGameState.score} / 100`;
+    document.getElementById('med-feedback').innerText = `${medGameState.score}%`;
     document.getElementById('med-feedback').style.color = 'black';
 
     if (medGameState.mode === 'exam') {

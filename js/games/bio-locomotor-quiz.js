@@ -249,7 +249,7 @@ async function finishLocomotorQuiz() {
 
     const totalPossible = locomotorQuizState.activeQuestions.length * 10;
     const percentage = Math.round((locomotorQuizState.score / totalPossible) * 100);
-    document.getElementById('locomotor-quiz-final-score').innerText = `${locomotorQuizState.score} / ${totalPossible} (${percentage}%)`;
+    document.getElementById('locomotor-quiz-final-score').innerText = `${percentage}%`;
 
     let msg = "";
     if (percentage >= 90) msg = "Excel·lent! Tens un domini total de l'aparell locomotor! 🦴";

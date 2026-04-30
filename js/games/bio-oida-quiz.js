@@ -202,7 +202,7 @@ async function endOidaQuiz() {
 
     const resultMsg = document.getElementById('endo-quiz-message'); // reuse class styling, ID might need change
     if(resultMsg) resultMsg.innerText = `Molt bé! Has aconseguit ${bioOidaQuiz.score} punts.`;
-    document.getElementById('oida-quiz-final-score').innerText = `${bioOidaQuiz.score} / 100`;
+    document.getElementById('oida-quiz-final-score').innerText = `${bioOidaQuiz.score}%`;
 
     if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
         const result = {

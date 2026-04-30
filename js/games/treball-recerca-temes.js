@@ -261,7 +261,7 @@ function showTrTemesResults() {
 
     const percent = Math.round((trTotalPoints / trMaxPossiblePoints) * 100);
 
-    document.getElementById('tr-temes-final-score').textContent = `${trTotalPoints} / ${trMaxPossiblePoints}`;
+    document.getElementById('tr-temes-final-score').textContent = `${percent}%`;
     document.getElementById('tr-temes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('tr-temes-final-msg');
@@ -286,13 +286,15 @@ async function saveTrTemesResult(topicObj, puntsAconseguits, puntsPossibles, fee
     const fPosStr = feedbacksPos.join(" | ");
     const fNegStr = feedbacksNeg.join(" | ");
 
+    const percent = puntsPossibles ? Math.round((puntsAconseguits / puntsPossibles) * 100) : 0;
+
     const resultData = {
         email: state.user.email,
         curs: state.user.curs,
         projecte: 'Treball de Recerca',
         app: 'Temes i preguntes',
         nivell: topicObj.tema.substring(0, 50),
-        puntuacio: puntsAconseguits,
+        puntuacio: percent,
         temps_segons: temps,
         feedback_pos: fPosStr.substring(0, 400),
         feedback_neg: fNegStr.substring(0, 400)

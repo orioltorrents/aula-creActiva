@@ -161,7 +161,7 @@ function showNaturaTemesResults() {
     const maxScore = naturaTemesList.length * 10;
     const percent = Math.round((naturaTemesScore / maxScore) * 100);
 
-    document.getElementById('natura-temes-final-score').textContent = `${naturaTemesScore} / ${maxScore}`;
+    document.getElementById('natura-temes-final-score').textContent = `${percent}%`;
     document.getElementById('natura-temes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('natura-temes-final-msg');
@@ -174,13 +174,15 @@ function showNaturaTemesResults() {
 
 async function saveNaturaTemesResult() {
     if (!state.user) return;
+    const maxScore = naturaTemesList.length * 10;
+    const percent = maxScore ? Math.round((naturaTemesScore / maxScore) * 100) : 0;
     const resultData = {
         email: state.user.email,
         curs: state.user.curs,
         projecte: 'Entorns de Natura',
         app: 'Temes i Preguntes',
         nivell: 'Mix',
-        puntuacio: naturaTemesScore,
+        puntuacio: percent,
         temps_segons: 60,
         feedback_pos: `Punts totals: ${naturaTemesScore}`,
         feedback_neg: ""

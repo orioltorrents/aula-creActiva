@@ -310,8 +310,10 @@ async function finishMapGame() {
     medMapState.examFinished = true;
     medMapState.locked = false;
 
+    const totalPossible = medMapState.questions.length * 10;
+    const percentage = totalPossible ? Math.round((medMapState.score / totalPossible) * 100) : 0;
     document.getElementById('med-map-question').innerText = i18n.t('final_score');
-    document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
+    document.getElementById('med-map-feedback').innerText = `${percentage}%`;
     document.getElementById('med-map-feedback').style.color = 'black';
 
     if (medMapState.mode === 'exam') {
@@ -325,7 +327,7 @@ async function finishMapGame() {
                 projecte: 'Mediterrani',
                 app: 'Mapa',
                 nivell: 'General',
-                puntuacio: medMapState.score,
+                puntuacio: percentage,
                 temps_segons: 60 - medMapState.timeLeft,
                 feedback_pos: '',
                 feedback_neg: ''

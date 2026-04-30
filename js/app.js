@@ -398,7 +398,7 @@ async function simulateGameSave() {
         projecte: state.currentProject.titol,
         app: 'Simulador',
         nivell: 'Fàcil',
-        puntuacio: Math.floor(Math.random() * 10) + 1,
+        puntuacio: Math.floor(Math.random() * 101),
         temps_segons: 120,
         feedback_pos: 'Has estat ràpid',
         feedback_neg: 'Cal millorar la precisió'

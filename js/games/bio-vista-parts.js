@@ -9,7 +9,7 @@ const bioVistaPartsGame = {
     allQuestions: [
         { key: 'act_vista_part_cornea', x: 200, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_pupilla', x: 300, y: 500, w: 50, h: 50 },
-        { key: 'act_vista_part_iris', x: 160 y:335 w:40 h:330 },
+        { key: 'act_vista_part_iris', x: 160, y: 335, w: 40, h: 330 },
         { key: 'act_vista_part_cristalli', x: 400, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_retina', x: 800, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_nervi', x: 900, y: 500, w: 50, h: 50 }
