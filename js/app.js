@@ -618,6 +618,9 @@ function openNaturaActivity(actId) {
             document.getElementById('natura-temes-results').classList.add('hidden');
             loadNaturaTemesCategories();
         }
+    } else if (actId === 'orenetes') {
+        document.getElementById('natura-activity-orenetes').classList.remove('hidden');
+        if (typeof initOrenetesGame === 'function') initOrenetesGame();
     }
 }
 

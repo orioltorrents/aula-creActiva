@@ -101,6 +101,8 @@ function handleRequest(e) {
             result = getSolidartQuadres2(data.dificultat);
         } else if (action === 'getDiagnosticQuestions') {
             result = getDiagnosticQuestions();
+        } else if (action === 'getOrenetesData') {
+            result = getOrenetesData();
         } else {
             result = { status: 'error', message: 'Acció desconeguda' };
         }
@@ -1529,3 +1531,59 @@ function getImmunitariQuestions() {
 
     return { status: 'success', data: questions };
 }
+
+function getOrenetesData() {
+    try {
+        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('orenetes_nius');
+        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya orenetes_nius' };
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', data: [] };
+
+        const headers = data[0].map(h => String(h).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+        
+        const findIdx = (names) => {
+            for (let name of names) {
+                let norm = name.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                let idx = headers.indexOf(norm);
+                if (idx !== -1) return idx;
+            }
+            return -1;
+        };
+
+        const dificultatIdx = findIdx(['dificultat']);
+        const imgIdx = findIdx(['imatge', 'nom_imatge']);
+        const descIdx = findIdx(['descripcio', 'descripció', 'descripcio imatge']);
+        const bonEstatIdx = findIdx(['nius en bon estat', 'bon estat']);
+        const actiusIdx = findIdx(['nius actius', 'actius']);
+        const trencatsIdx = findIdx(['nius trencats', 'trencats']);
+        const restesIdx = findIdx(['restes', 'nius restes']);
+
+        if (imgIdx === -1) {
+            return { status: 'error', message: 'Falta la columna nom_imatge a la pestanya orenetes_nius' };
+        }
+
+        const questions = [];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            if (row[imgIdx]) {
+                questions.push({
+                    dificultat: dificultatIdx !== -1 ? String(row[dificultatIdx] || '').trim() : '',
+                    imatge: row[imgIdx],
+                    descripcio: descIdx !== -1 ? String(row[descIdx] || '').trim() : '',
+                    bonEstat: bonEstatIdx !== -1 ? Number(row[bonEstatIdx]) || 0 : 0,
+                    actius: actiusIdx !== -1 ? Number(row[actiusIdx]) || 0 : 0,
+                    trencats: trencatsIdx !== -1 ? Number(row[trencatsIdx]) || 0 : 0,
+                    restes: restesIdx !== -1 ? Number(row[restesIdx]) || 0 : 0
+                });
+            }
+        }
+
+        return { status: 'success', data: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+

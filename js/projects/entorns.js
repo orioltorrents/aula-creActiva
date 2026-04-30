@@ -83,7 +83,8 @@ function renderEntornsActivities() {
       "natura-activity-impacte",
       "natura-activity-biblio",
       "natura-activity-preguntes",
-      "natura-activity-temes"
+      "natura-activity-temes",
+      "natura-activity-orenetes"
     ];
   
     // Recorrem cada id i amaguem el bloc si existeix
@@ -132,5 +133,8 @@ function renderEntornsActivities() {
     // Mostrem la subactivitat si existeix
     if (activityElement) {
       activityElement.classList.remove("hidden");
+      if (activityName === "orenetes" && typeof initOrenetesGame === "function") {
+        initOrenetesGame();
+      }
     }
   }

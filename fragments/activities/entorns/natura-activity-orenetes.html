@@ -1,0 +1,71 @@
+<!-- =========================================================
+     ACTIVITAT: PROJECTE ORENETES
+     Projecte: Entorns de Natura
+========================================================== -->
+<div id="natura-activity-orenetes" class="sub-activity hidden">
+    <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al menú</button>
+
+    <div class="game-header text-center">
+        <h3>
+            <span data-i18n="natura_project_title">Entorns de Natura</span> —
+            <span data-i18n="act_orenetes_title">Projecte Orenetes</span>
+        </h3>
+        <p class="mb-4" data-i18n="act_orenetes_desc">Estudi i seguiment de les orenetes</p>
+    </div>
+
+    <div id="orenetes-setup" class="text-center p-6 bg-white rounded shadow-sm">
+        <p class="mb-4 text-gray-700">Carregant fitxes de camp...</p>
+    </div>
+
+    <div id="orenetes-game" class="hidden">
+        <div class="stats-bar flex justify-between mb-4">
+            <span id="orenetes-progress">Imatge 1 / X</span>
+            <span>Puntuació: <span id="orenetes-score" class="font-bold text-blue-600">0%</span></span>
+        </div>
+
+        <p id="orenetes-description" class="orenetes-description">Observa la imatge i completa la fitxa de camp.</p>
+
+        <div class="orenetes-field-sheet">
+            <div class="orenetes-photo-panel">
+                <img id="orenetes-image" src="" alt="Nius d'oreneta" class="orenetes-photo">
+            </div>
+
+            <div class="orenetes-form-panel">
+                <div class="orenetes-form-title">
+                    <span>Fitxa de camp</span>
+                    <small>Recompte de nius</small>
+                </div>
+
+                <div class="orenetes-input-grid">
+                    <label for="orenetes-input-bonestat">
+                        <span>Nius en bon estat</span>
+                        <input type="number" id="orenetes-input-bonestat" min="0" inputmode="numeric">
+                    </label>
+                    <label for="orenetes-input-actius">
+                        <span>Nius actius</span>
+                        <input type="number" id="orenetes-input-actius" min="0" inputmode="numeric">
+                    </label>
+                    <label for="orenetes-input-trencats">
+                        <span>Nius trencats</span>
+                        <input type="number" id="orenetes-input-trencats" min="0" inputmode="numeric">
+                    </label>
+                    <label for="orenetes-input-restes">
+                        <span>Restes</span>
+                        <input type="number" id="orenetes-input-restes" min="0" inputmode="numeric">
+                    </label>
+                </div>
+
+                <button id="orenetes-check-btn" class="btn-primary" onclick="checkOrenetesAnswer()">Comprovar</button>
+                <div id="orenetes-feedback" class="orenetes-feedback hidden"></div>
+                <button id="orenetes-next-btn" class="btn-secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="orenetes-results" class="hidden text-center p-8 bg-white rounded shadow">
+        <h3>Resultat final</h3>
+        <p id="orenetes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0%</p>
+        <p id="orenetes-final-msg" class="text-lg mt-4 mb-8"></p>
+        <button onclick="showNaturaMenu()" class="btn-secondary">Tornar al menú</button>
+    </div>
+</div>
