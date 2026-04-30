@@ -408,6 +408,67 @@ body {
     margin-top: 20px;
 }
 
+#med-biodiv-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
+#med-biodiv-filter-buttons p {
+    flex-basis: 100%;
+    margin: 18px 0 6px;
+}
+
+#med-biodiv-options {
+    gap: 18px;
+    margin-top: 24px;
+}
+
+#med-biodiv-results button {
+    margin: 8px;
+}
+
+.med-biodiv-image-option,
+.radio-connection-image-option {
+    width: min(240px, 100%);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.med-biodiv-image-option img,
+.radio-connection-image-option img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.med-biodiv-image-option span,
+.radio-connection-image-option span {
+    font-size: 0.95rem;
+    line-height: 1.25;
+}
+
+#connections-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
+#connections-filter-buttons p {
+    flex-basis: 100%;
+    margin: 18px 0 6px;
+}
+
+#connections-results button {
+    margin: 8px;
+}
+
 .btn-option {
     padding: 20px;
     font-size: 1.1rem;
@@ -510,6 +571,8 @@ body {
     border: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
+    color: inherit;
+    text-decoration: none;
 }
 
 .activity-card:hover {
@@ -572,6 +635,32 @@ body {
 }
 
 /* QUIZ BUTTONS (SolidArt & Others) */
+#solidart-quadres-setup,
+#solidart-quadres2-setup {
+    max-width: 860px;
+    min-height: 46vh;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.solidart-difficulty-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem 1.25rem;
+    width: 100%;
+}
+
+#solidart-quadres-setup .btn-primary,
+#solidart-quadres2-setup .btn-primary {
+    width: min(160px, 100%);
+}
+
 .quiz-option-btn {
     padding: 1rem 1.25rem;
     font-size: 1.1rem;
@@ -935,6 +1024,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    color: inherit;
+    text-decoration: none;
 }
 
 .activity-card:hover {

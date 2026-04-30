@@ -29,23 +29,23 @@ No és només un repositori de continguts, sinó una eina per:
 La web inclou activitats relacionades amb diversos projectes educatius de l’ESO, entre els quals destaquen:
 
 ### 1ESO - Projecte "Rates a la carrera"
-<img src="assets/images/targeta_rates-a-la-carrera.png" alt="Rates a la carrera" width="400">
+<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates a la carrera" width="400">
 Projecte amb activitats i recursos específics per treballar continguts i dinàmiques pròpies d’aquest entorn de treball.
 
 ### 1ESO - Projecte "Mediterrani"
-<img src="assets/images/targeta_mediterrani.png" alt="Mediterrani" width="400">
+<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" width="400">
 Projecte amb activitats vinculades a continguts geogràfics, culturals i d’anàlisi del món mediterrani.
 
 ### 2ESO - Projecte "Paralímpics"
-<img src="assets/images/targeta-paralimpics.png" alt="Paralímpics" width="400">
+<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" width="400">
 Projecte amb activitats relacionades amb l’esport, la inclusió, la tecnologia i altres aspectes educatius vinculats als Jocs Paralímpics.
 
 ### 3ESO - Projecte "Solidart"
-<img src="assets/images/targeta_solidart.png" alt="Solidart" width="400">
+<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="Solidart" width="400">
 Projecte orientat a activitats creatives, artístiques i de sensibilització, amb diferents recursos dins la web.
 
 ### 4ESO - Projecte "Entorns de Natura"
-<img src="assets/images/targeta_entorns.png" alt="Entorns de Natura" width="400">
+<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" width="400">
 Projecte amb activitats relacionades amb el medi natural, la investigació, els rols de treball i l’anàlisi d’entorns.
 
 ---
@@ -55,19 +55,19 @@ Projecte amb activitats relacionades amb el medi natural, la investigació, els 
 A més dels projectes principals, la web app també incorpora activitats i recursos per a altres àrees i matèries, com ara:
 
 ### 2ESO - Optativa "Ràdio"
-<img src="assets/images/targeta-radio.png" alt="Ràdio" width="400">
+<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" width="400">
 Activitats relacionades amb llenguatge radiofònic, connectors, àudio i producció de continguts.
 
 ### 2ESO - "Biologia"
-<img src="assets/images/targeta-biologia-humana.png" alt="Biologia" width="400">
+<img src="assets/images/activities/biologia/cards/targeta-biologia-humana.png" alt="Biologia" width="400">
 Recursos i activitats per treballar continguts de biologia de manera visual i interactiva.
 
 ### 4ESO - Optativa "Digitalització"
-<img src="assets/images/targeta-digitalitzacio.png" alt="Digitalització" width="400">
+<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" width="400">
 Activitats orientades al desenvolupament de la competència digital i a l’ús d’eines tecnològiques.
 
 ### BAT - Treball de recerca de Batxillerat
-<img src="assets/images/targeta-tr.png" alt="Treball de recerca" width="400">
+<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" width="400">
 Materials i activitats per ajudar l’alumnat a pensar preguntes investigables, enfocar temes, treballar bibliografia i estructurar millor el procés de recerca.
 
 ---

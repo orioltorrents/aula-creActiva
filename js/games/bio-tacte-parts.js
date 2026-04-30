@@ -24,7 +24,7 @@ function initBioTactePartsGame() {
     bioTactePartsGame.isFinished = false;
 
     const img = document.getElementById('bio-tacte-parts-image');
-    img.src = 'assets/images/sentit-tacte.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png'; 
 
     const shuffled = [...bioTactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

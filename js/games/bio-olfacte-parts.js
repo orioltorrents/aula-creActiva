@@ -24,7 +24,7 @@ function initBioOlfactePartsGame() {
     bioOlfactePartsGame.isFinished = false;
 
     const img = document.getElementById('bio-olfacte-parts-image');
-    img.src = 'assets/images/sentit-olfacte.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-olfacte.png'; 
 
     const shuffled = [...bioOlfactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

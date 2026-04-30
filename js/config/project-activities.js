@@ -1,4 +1,4 @@
-// js/config/project-activities.js
+﻿// js/config/project-activities.js
 /*
 ==========================================================
 CONFIGURACIÓ DE LES ACTIVITATS DELS PROJECTES
@@ -64,7 +64,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_capitals_desc",
       fallbackTitle: "Capitals",
       fallbackDesc: "Aprèn les capitals del Mediterrani",
-      image: "assets/images/targeta_mediterrani_capitals.png",
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png",
       action: "capitals"
     },
     {
@@ -73,7 +73,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_sea_desc",
       fallbackTitle: "El Mar del Mig",
       fallbackDesc: "Vídeo i Test de coneixements",
-      image: "assets/images/targeta_mediterrani_elmardelmig.png",
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_elmardelmig.png",
       action: "test_mar"
     },
     {
@@ -82,8 +82,17 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_map_desc",
       fallbackTitle: "Mapa del Mediterrani",
       fallbackDesc: "Identifica els països al mapa",
-      image: "assets/images/targeta_mediterrani_paisos.png",
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png",
       action: "map"
+    },
+    {
+      id: "biodiversitat",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Biodiversitat del Mediterrani",
+      fallbackDesc: "Descobreix espècies i ecosistemes mediterranis",
+      image: "assets/images/activities/mediterrani/biodiversitat/targeta_mediterrani_biodiversitat.png",
+      action: "biodiversitat"
     }
   ],
 
@@ -94,7 +103,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_tr_preguntes_desc",
       fallbackTitle: "Preguntes Investigables",
       fallbackDesc: "Aprèn a diferenciar preguntes investigables de les que no ho són.",
-      image: "assets/images/targeta-preguntes-investigables.png",
+      image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
       action: "preguntes"
     },
     {
@@ -103,7 +112,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_tr_temes_desc",
       fallbackTitle: "Temes i preguntes",
       fallbackDesc: "Tria bones preguntes d'un tema de recerca.",
-      image: "assets/images/targeta-temes-preguntes.png",
+      image: "assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png",
       action: "temes"
     },
     {
@@ -112,7 +121,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "",
       fallbackTitle: "Diagnòstic de preguntes",
       fallbackDesc: "Aprèn a identificar què li falta a una pregunta per ser investigable.",
-      image: "assets/images/targeta_diagnostic-preguntes.png",
+      image: "assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png",
       action: "diagnostic"
     },
     {
@@ -121,8 +130,9 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_biblio_desc",
       fallbackTitle: "Bibliografia i Cites",
       fallbackDesc: "Aprèn a citar correctament les teves fonts",
-      image: "assets/images/targeta_biblio-APA.png",
+      image: "assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png",
       action: "biblio"
     }
   ]
 };
+

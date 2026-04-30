@@ -80,7 +80,8 @@ function hideMediterraniActivities() {
   const activityIds = [
     "med-activity-capitals",
     "med-activity-test_mar",
-    "med-activity-map"
+    "med-activity-map",
+    "med-activity-biodiversitat"
   ];
 
   // Recorrem cada id i amaguem el bloc si existeix
@@ -129,5 +130,9 @@ function openMediterraniActivity(activityName) {
   // Mostrem la subactivitat si existeix
   if (activityElement) {
     activityElement.classList.remove("hidden");
+  }
+
+  if (activityName === "biodiversitat" && typeof initMediterraniBiodiversitatQuiz === "function") {
+    initMediterraniBiodiversitatQuiz();
   }
 }

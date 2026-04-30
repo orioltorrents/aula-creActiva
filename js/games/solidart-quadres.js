@@ -9,8 +9,11 @@ let solidartQuadresState = {
     score: 0,
     startTime: null,
     dificultat: '',
-    feedbackLevel: 'simple'
+    feedbackLevel: 'simple',
+    autoAdvanceTimer: null
 };
+
+const SOLIDART_QUADRES_AUTO_ADVANCE_MS = 1200;
 
 async function initSolidartQuadres(dificultat) {
     const setupDiv = document.getElementById('solidart-quadres-setup');
@@ -35,6 +38,7 @@ async function initSolidartQuadres(dificultat) {
                 dificultat: dificultat,
                 feedbackLevel: document.getElementById('solidart-feedback-level')?.value || 'simple'
             };
+            clearSolidartQuadresAutoAdvance();
             if (typeof toggleFullscreen === 'function' && !document.fullscreenElement) {
                 toggleFullscreen();
             }
@@ -67,20 +71,21 @@ function renderSolidartQuadre() {
         </div>
         <div id="solidart-quadres-feedback-area" class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <button id="solidart-quadres-next-btn" class="btn-primary" onclick="nextSolidartQuadre()">Següent</button>
+            <button id="solidart-quadres-next-btn" class="btn-primary hidden" onclick="nextSolidartQuadre()">Següent</button>
         </div>
     `;
 
+    clearSolidartQuadresAutoAdvance();
     const q = solidartQuadresState.questions[solidartQuadresState.currentIndex];
 
     document.getElementById('solidart-quadres-progress').textContent = `Pregunta ${solidartQuadresState.currentIndex + 1} / ${solidartQuadresState.questions.length}`;
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
 
     const img = document.getElementById('solidart-quadres-img');
-    img.src = `assets/images/${q.imatge}`;
+    img.src = `assets/images/activities/solidart/artworks/${q.imatge}`;
     img.onerror = () => {
-        img.src = 'assets/images/placeholder-art.png';
-        console.warn(`Imatge no trobada: assets/images/${q.imatge}`);
+        img.src = buildSolidartPlaceholder(q.imatge);
+        console.warn(`Imatge no trobada: assets/images/activities/solidart/artworks/${q.imatge}`);
     };
 
     document.getElementById('solidart-quadres-text').textContent = q.pregunta;
@@ -95,6 +100,23 @@ function renderSolidartQuadre() {
         btn.onclick = () => checkSolidartQuadre(opt);
         optionsDiv.appendChild(btn);
     });
+}
+
+function buildSolidartPlaceholder(text) {
+    const safeText = String(text || 'Imatge no trobada')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+            <rect width="640" height="420" fill="#f8f5f0"/>
+            <rect x="48" y="48" width="544" height="324" rx="10" fill="#ffffff" stroke="#d8cbb8" stroke-width="3"/>
+            <text x="320" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#7a4f2b">Imatge no trobada</text>
+            <text x="320" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#8a6b4d">${safeText}</text>
+        </svg>`;
+
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 
 function checkSolidartQuadre(selected) {
@@ -148,9 +170,12 @@ function checkSolidartQuadre(selected) {
 
     // Update score display immediately
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
+
+    scheduleSolidartQuadresAutoAdvance();
 }
 
 function nextSolidartQuadre() {
+    clearSolidartQuadresAutoAdvance();
     solidartQuadresState.currentIndex++;
 
     if (solidartQuadresState.currentIndex < solidartQuadresState.questions.length) {
@@ -158,6 +183,21 @@ function nextSolidartQuadre() {
         document.getElementById('solidart-quadres-feedback-area').classList.add('hidden');
     } else {
         finishSolidartQuadres();
+    }
+}
+
+function scheduleSolidartQuadresAutoAdvance() {
+    clearSolidartQuadresAutoAdvance();
+    solidartQuadresState.autoAdvanceTimer = setTimeout(() => {
+        solidartQuadresState.autoAdvanceTimer = null;
+        nextSolidartQuadre();
+    }, SOLIDART_QUADRES_AUTO_ADVANCE_MS);
+}
+
+function clearSolidartQuadresAutoAdvance() {
+    if (solidartQuadresState.autoAdvanceTimer) {
+        clearTimeout(solidartQuadresState.autoAdvanceTimer);
+        solidartQuadresState.autoAdvanceTimer = null;
     }
 }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ca">
 
 <head>
@@ -90,7 +90,7 @@
                         <div id="rates-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openRatesActivity('preguntes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-preguntes-investigables.png" alt="Preguntes"
+                                    <img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates a la carrera"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -99,6 +99,17 @@
                                     <div class="card-desc">Practica com formular bones preguntes investigables.</div>
                                 </div>
                             </div>
+                            <a class="activity-card" href="https://motiontracklab.github.io/" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="act-icon">
+                                    <img src="assets/images/activities/rates/cards/targeta_motiontracklab.png"
+                                        alt="MotionTrackLab" class="act-img">
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-title">MotionTrackLab</div>
+                                    <div class="card-desc">Obre el simulador per analitzar moviment i trajectòries.</div>
+                                </div>
+                            </a>
                         </div>
 
                         <!-- ACTIVITAT 1: Preguntes Investigables -->
@@ -170,7 +181,7 @@
                         <div id="med-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openMediterraniActivity('capitals')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_mediterrani_capitals.png" alt="Capitals"
+                                    <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png" alt="Capitals"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -181,7 +192,7 @@
                             </div>
                             <div class="activity-card" onclick="openMediterraniActivity('test_mar')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_mediterrani_elmardelmig.png" alt="Mar del Mig"
+                                    <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_elmardelmig.png" alt="Mar del Mig"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -191,11 +202,20 @@
                             </div>
                             <div class="activity-card" onclick="openMediterraniActivity('map')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_mediterrani_paisos.png" alt="Mapa" class="act-img">
+                                    <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png" alt="Mapa" class="act-img">
                                 </div>
                                 <div class="card-content">
                                     <div class="card-title" data-i18n="act_map_title">Mapa del Mediterrani</div>
                                     <div class="card-desc" data-i18n="act_map_desc">Identifica els països al mapa</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openMediterraniActivity('biodiversitat')">
+                                <div class="act-icon">
+                                    <img src="assets/images/activities/mediterrani/biodiversitat/targeta_mediterrani_biodiversitat.png" alt="Biodiversitat del Mediterrani" class="act-img">
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-title">Biodiversitat del Mediterrani</div>
+                                    <div class="card-desc">Descobreix espècies i ecosistemes mediterranis</div>
                                 </div>
                             </div>
                         </div>
@@ -209,9 +229,9 @@
                                 <div class="game-controls">
                                     <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
                                         data-i18n="hide_country">Amagar País</button>
-                                    <button onclick="initMediterraniGame('practice')" class="btn-secondary"
+                                    <button id="btn-med-capitals-practice" onclick="initMediterraniGame('practice')" class="btn-secondary"
                                         data-i18n="btn_practice">Pràctica</button>
-                                    <button onclick="initMediterraniGame('exam')" class="btn-primary"
+                                    <button id="btn-med-capitals-exam" onclick="initMediterraniGame('exam')" class="btn-secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
                             </div>
@@ -271,9 +291,9 @@
                                 <div class="game-controls">
                                     <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()"
                                         class="btn-secondary" data-i18n="hide_country">Amagar País</button>
-                                    <button onclick="initMediterraniMapGame('practice')" class="btn-secondary"
+                                    <button id="btn-med-map-practice" onclick="initMediterraniMapGame('practice')" class="btn-secondary"
                                         data-i18n="btn_practice">Pràctica</button>
-                                    <button onclick="initMediterraniMapGame('exam')" class="btn-primary"
+                                    <button id="btn-med-map-exam" onclick="initMediterraniMapGame('exam')" class="btn-secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
                             </div>
@@ -287,6 +307,42 @@
                                 <p id="med-map-feedback" class="feedback-msg"></p>
                             </div>
                         </div>
+
+                        <!-- ACTIVITAT 4: Biodiversitat del Mediterrani -->
+                        <div id="med-activity-biodiversitat" class="sub-activity hidden">
+                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-header">
+                                <h3>Biodiversitat del Mediterrani</h3>
+                            </div>
+                            <div id="med-biodiv-selector"
+                                class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white text-center">
+                                <p class="mb-4 text-center font-bold">Tria com vols practicar:</p>
+                                <div id="med-biodiv-filter-buttons" class="flex flex-wrap gap-2 justify-center"></div>
+                            </div>
+                            <div id="med-biodiv-quiz-container" class="hidden">
+                                <div class="stats-bar">
+                                    <span id="med-biodiv-progress">Pregunta 1/20</span>
+                                    <span id="med-biodiv-score">Punts: 0</span>
+                                </div>
+                                <div class="question-container text-center">
+                                    <img id="med-biodiv-img" src="" alt="Imatge de biodiversitat mediterrània"
+                                        style="width: 100%; max-width: 520px; max-height: 340px; object-fit: contain; margin: 0 auto 1rem; display: block;">
+                                    <p id="med-biodiv-meta" class="text-muted hidden"></p>
+                                    <h4 id="med-biodiv-question-text">Carregant pregunta...</h4>
+                                    <div id="med-biodiv-options" class="options-grid"></div>
+                                </div>
+                                <p id="med-biodiv-feedback" class="feedback-msg"></p>
+                            </div>
+                            <div id="med-biodiv-results" class="hidden text-center p-8">
+                                <h3 data-i18n="final_score">Resultats</h3>
+                                <p id="med-biodiv-final-score" class="text-4xl font-bold">0%</p>
+                                <p id="med-biodiv-final-msg"></p>
+                                <button class="btn-primary" onclick="initMediterraniBiodiversitatQuiz()">Tornar a jugar</button>
+                                <button class="btn-secondary mt-4" onclick="startMediterraniBiodiversitatSelector()">Tornar a triar</button>
+                                <button class="btn-secondary mt-4" onclick="showMediterraniMenu()">Tornar al menú</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- PROJECTE: Treball de recerca (1r Batx) -->
@@ -297,7 +353,7 @@
                         <div id="tr-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openTrActivity('preguntes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-preguntes-investigables.png"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png"
                                         alt="Preguntes Investigables" class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -309,7 +365,7 @@
                             </div>
                             <div class="activity-card" onclick="openTrActivity('temes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-temes-preguntes.png" alt="Temes i preguntes"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png" alt="Temes i preguntes"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -320,7 +376,7 @@
                             </div>
                             <div class="activity-card" onclick="openTrActivity('diagnostic')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_diagnostic-preguntes.png"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png"
                                         alt="Diagnòstic de preguntes" class="act-img"
                                         onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                                 </div>
@@ -332,7 +388,7 @@
                             </div>
                             <div class="activity-card" onclick="openTrActivity('biblio')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_biblio-APA.png" alt="Bibliografia i Cites"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png" alt="Bibliografia i Cites"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -621,7 +677,7 @@
                         <div id="par-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openParalimpicsActivity('microbit')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-microbit.png" alt="Microbit" class="act-img">
+                                    <img src="assets/images/activities/paralimpics/cards/targeta-microbit.png" alt="Microbit" class="act-img">
                                 </div>
                                 <div class="card-content">
                                     <div class="card-title" data-i18n="act_microbit_title">Control de la Micro:bit</div>
@@ -674,7 +730,7 @@
                         <div id="natura-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openNaturaActivity('xarxes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques"
+                                    <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -685,7 +741,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaActivity('rols')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_rols-trofics.png" alt="Rols Tròfics"
+                                    <img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols Tròfics"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -696,7 +752,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaActivity('impacte')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_fases-eia.png" alt="Impacte Ambiental"
+                                    <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Impacte Ambiental"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -708,7 +764,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaActivity('biblio')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta_biblio-APA.png" alt="Bibliografia" class="act-img">
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png" alt="Bibliografia" class="act-img">
                                 </div>
                                 <div class="card-content">
                                     <div class="card-title" data-i18n="act_biblio_title">Bibliografia i Cites</div>
@@ -718,7 +774,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaActivity('preguntes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-preguntes-investigables.png"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png"
                                         alt="Preguntes Investigables" class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -730,7 +786,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaActivity('temes')">
                                 <div class="act-icon">
-                                    <img src="assets/images/targeta-temes-preguntes.png" alt="Temes i preguntes"
+                                    <img src="assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png" alt="Temes i preguntes"
                                         class="act-img">
                                 </div>
                                 <div class="card-content">
@@ -1125,7 +1181,7 @@
                             </div>
                             <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
                             <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
-                                <img id="sonar-image" src="assets/images/sonar_interface.png"
+                                <img id="sonar-image" src="assets/images/activities/digitalitzacio/sonar/sonar_interface.png"
                                     alt="Cakewalk Sonar Interface"
                                     style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
@@ -1167,7 +1223,7 @@
                         <!-- 1. Digestiu -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-digestiu.png" alt="Aparell Digestiu" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/aparell-digestiu.png" alt="Aparell Digestiu" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_digestiu">Aparell Digestiu</div>
@@ -1179,7 +1235,7 @@
                         <!-- 2. Circulatori -->
                         <div class="activity-card" onclick="openBioSystem('circulatori')">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-ciculatori.png" alt="Aparell Circulatori" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/aparell-ciculatori.png" alt="Aparell Circulatori" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_circulatori">Aparell Circulatori</div>
@@ -1190,7 +1246,7 @@
                         <!-- 3. Respiratori -->
                         <div class="activity-card disabled-card">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-respiratori.png" alt="Aparell Respiratori" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/aparell-respiratori.png" alt="Aparell Respiratori" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_respiratori">Aparell Respiratori</div>
@@ -1202,7 +1258,7 @@
                         <!-- 4. Excretor -->
                         <div class="activity-card" onclick="openBioSystem('excretor')">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_excretor">Aparell Excretor</div>
@@ -1213,7 +1269,7 @@
                         <!-- 5. Òrgans dels Sentits -->
                         <div class="activity-card" onclick="openSenseMenu()">
                             <div class="act-icon">
-                                <img src="assets/images/organs-sentits.png" alt="Òrgans dels Sentits" class="act-img">
+                                <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Òrgans dels Sentits" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="act_senses_title">Els Òrgans dels Sentits</div>
@@ -1224,7 +1280,7 @@
                         <!-- 6. Sistema Endocrí -->
                         <div class="activity-card" onclick="openBioSystem('endocri')">
                             <div class="act-icon">
-                                <img src="assets/images/sistema-endocri.png" alt="Sistema Endocrí" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema Endocrí" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_endocri">Sistema Endocrí</div>
@@ -1235,7 +1291,7 @@
                         <!-- 7. Aparell Locomotor -->
                         <div class="activity-card" onclick="openBioSystem('locomotor')">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-locomotor.png" alt="Aparell Locomotor" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/aparell-locomotor.png" alt="Aparell Locomotor" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="sec_locomotor">Aparell Locomotor</div>
@@ -1246,7 +1302,7 @@
                         <!-- 8. Sistema Immunitari -->
                         <div class="activity-card" onclick="openBioSystem('immunitari')">
                             <div class="act-icon">
-                                <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                                <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Sistema Immunitari</div>
@@ -1257,7 +1313,7 @@
                         <!-- 9. Aparell Reproductor -->
                         <div class="activity-card" onclick="openBioSystem('reproductor')">
                             <div class="act-icon">
-                                <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                                <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="act-img" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
                             <div class="card-content">
                                 <div class="card-title">Aparell Reproductor</div>
@@ -1272,7 +1328,7 @@
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full"
+                            <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full"
                                 style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                         </div>
                         <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
@@ -1334,7 +1390,7 @@
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full"
+                            <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full"
                                 style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                         </div>
                         <!-- Quiz de l'Aparell Reproductor -->
@@ -1354,7 +1410,7 @@
                             style="width: fit-content;">← Tornar als Sistemes</button>
                          <div class="activity-card" onclick="openBioActivity('cor')">
                             <div class="act-icon">
-                                <img src="assets/images/cor-huma.png" alt="El Cor Humà" class="act-img">
+                                <img src="assets/images/activities/biologia/heart/cor-huma.png" alt="El Cor Humà" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="act_heart_title">El Cor Humà</div>
@@ -1375,7 +1431,7 @@
                         <!-- NOU: Cèl·lules de la Sang -->
                         <div class="activity-card" onclick="openBioActivity('cells')">
                             <div class="act-icon">
-                                <img src="assets/images/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
+                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
                                     class="act-img">
                             </div>
                             <div class="card-content">
@@ -1395,13 +1451,13 @@
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/aparell-excretor.png" alt="Aparell Excretor" class="w-full"
+                            <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="w-full"
                                 style="max-height:180px; object-fit:cover;">
                         </div>
 
                         <div class="activity-card" onclick="openBioActivity('excretor-game')">
                             <div class="act-icon">
-                                <img src="assets/images/sistema_excretor.png" alt="El Sistema Excretor" class="act-img">
+                                <img src="assets/images/activities/biologia/systems/sistema_excretor.png" alt="El Sistema Excretor" class="act-img">
                             </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="act_excretor_title">El Sistema Excretor</div>
@@ -1589,7 +1645,7 @@
                                 <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-blue-500 flex flex-col items-center p-4 w-56" 
                                      onclick="startBioEndocriGlandsGame('home')">
                                     <div class="w-full h-40 bg-blue-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-blue-100">
-                                        <img src="assets/images/glandules-endocrines-home.png" class="w-full h-full object-contain">
+                                        <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-home.png" class="w-full h-full object-contain">
                                     </div>
                                     <p class="font-bold text-lg text-blue-800">Model Masculí</p>
                                 </div>
@@ -1598,7 +1654,7 @@
                                 <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-pink-500 flex flex-col items-center p-4 w-56" 
                                      onclick="startBioEndocriGlandsGame('dona')">
                                     <div class="w-full h-40 bg-pink-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-pink-100">
-                                        <img src="assets/images/glandules-endocrines-dona.png" class="w-full h-full object-contain">
+                                        <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-dona.png" class="w-full h-full object-contain">
                                     </div>
                                     <p class="font-bold text-lg text-pink-800">Model Femení</p>
                                 </div>
@@ -1699,7 +1755,7 @@
                             <!-- Imatge del diagrama -->
                             <div
                                 class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
-                                <img src="assets/images/cellules-sanguinies-microscopi-electronic.png"
+                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies-microscopi-electronic.png"
                                     alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
                                     style="max-height: 280px;">
                             </div>
@@ -1799,7 +1855,7 @@
                                     style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-heart-image" src="assets/images/cor.png" alt="Cor Humà"
+                                <img id="bio-heart-image" src="assets/images/activities/biologia/heart/cor.png" alt="Cor Humà"
                                     style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
 
@@ -1866,7 +1922,7 @@
                                     style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-excretor-image" src="assets/images/sistema_excretor.png"
+                                <img id="bio-excretor-image" src="assets/images/activities/biologia/systems/sistema_excretor.png"
                                     alt="Sistema Excretor"
                                     style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
@@ -1923,35 +1979,35 @@
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         
                         <div class="activity-card" onclick="openSenseSubActivity('vista')">
-                            <div class="act-icon"><img src="assets/images/sentit-vista.png" class="act-img"></div>
+                            <div class="act-icon"><img src="assets/images/activities/biologia/senses/sentit-vista.png" class="act-img"></div>
                             <div class="card-content">
                                 <div class="card-title">La Vista</div>
                                 <div class="card-desc">L'ull i el sentit de la vista</div>
                             </div>
                         </div>
                         <div class="activity-card" onclick="openSenseSubActivity('oida')">
-                            <div class="act-icon"><img src="assets/images/sentit-oida.png" class="act-img"></div>
+                            <div class="act-icon"><img src="assets/images/activities/biologia/senses/sentit-oida.png" class="act-img"></div>
                             <div class="card-content">
                                 <div class="card-title">L'Oïda</div>
                                 <div class="card-desc">L'orella i el sentit de l'oïda</div>
                             </div>
                         </div>
                         <div class="activity-card" onclick="openSenseSubActivity('olfacte')">
-                            <div class="act-icon"><img src="assets/images/sentit-olfacte.png" class="act-img"></div>
+                            <div class="act-icon"><img src="assets/images/activities/biologia/senses/sentit-olfacte.png" class="act-img"></div>
                             <div class="card-content">
                                 <div class="card-title">L'Olfacte</div>
                                 <div class="card-desc">El nas i el sentit de l'olfacte</div>
                             </div>
                         </div>
                         <div class="activity-card" onclick="openSenseSubActivity('gust')">
-                            <div class="act-icon"><img src="assets/images/sentit-gust.png" class="act-img"></div>
+                            <div class="act-icon"><img src="assets/images/activities/biologia/senses/sentit-gust.png" class="act-img"></div>
                             <div class="card-content">
                                 <div class="card-title">El Gust</div>
                                 <div class="card-desc">La llengua i el sentit del gust</div>
                             </div>
                         </div>
                         <div class="activity-card" onclick="openSenseSubActivity('tacte')">
-                            <div class="act-icon"><img src="assets/images/sentit-tacte.png" class="act-img"></div>
+                            <div class="act-icon"><img src="assets/images/activities/biologia/senses/sentit-tacte.png" class="act-img"></div>
                             <div class="card-content">
                                 <div class="card-title">El Tacte</div>
                                 <div class="card-desc">La pell i el sentit del tacte</div>
@@ -2070,7 +2126,7 @@
                                 <div id="bio-vista-parts-feedback" class="feedback-msg font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-vista-parts-image" src="assets/images/sentit-vista.png" alt="Parts de l'ull" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                                <img id="bio-vista-parts-image" src="assets/images/activities/biologia/senses/sentit-vista.png" alt="Parts de l'ull" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
@@ -2130,7 +2186,7 @@
 
                             <div class="image-interactive-wrapper mt-2" style="position:relative;cursor:crosshair;">
                                 <img id="bio-oida-parts-image"
-                                     src="assets/images/orella-externa.png"
+                                     src="assets/images/activities/biologia/senses/orella-externa.png"
                                      alt="Parts de l'orella"
                                      style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:opacity 0.3s;"
                                      onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
@@ -2375,7 +2431,10 @@
                     <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
                     <div id="radio-activities-menu" class="activities-grid mt-4">
                         <div class="activity-card" onclick="openRadioActivity('taula')">
-                            <div class="act-icon">🎚️</div>
+                            <div class="act-icon">
+                                <img src="assets/images/activities/radio/taula/targeta-taula-so.png"
+                                    alt="La Taula de So" class="act-img">
+                            </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="act_radio_title">La Taula de So</div>
                                 <div class="card-desc" data-i18n="act_radio_desc">Identifica els controls de la taula
@@ -2383,7 +2442,10 @@
                             </div>
                         </div>
                         <div class="activity-card" onclick="openRadioActivity('conexions')">
-                            <div class="act-icon">🔌</div>
+                            <div class="act-icon">
+                                <img src="assets/images/activities/radio/connectors/targeta-connectors.png"
+                                    alt="Connexions d'àudio" class="act-img">
+                            </div>
                             <div class="card-content">
                                 <div class="card-title" data-i18n="act_connections_title">Conexions d'Àudio</div>
                                 <div class="card-desc" data-i18n="act_connections_desc">Identifica els diferents tipus
@@ -2414,7 +2476,7 @@
                             <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">
                                 Clica...</div>
                             <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
-                                <img id="radio-board-image" src="assets/images/taula-de-so.png" alt="Taula de So"
+                                <img id="radio-board-image" src="assets/images/activities/radio/taula/taula-de-so.png" alt="Taula de So"
                                     style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
                             <p id="radio-board-feedback" class="feedback-msg mt-2"></p>
@@ -2449,7 +2511,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
                 <!-- ACTIVITAT: Conexions d'Àudio -->
                 <div id="radio-activity-conexions" class="sub-activity hidden">
@@ -2457,7 +2518,12 @@
                     <div class="game-header">
                         <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
                     </div>
-                    <div id="connections-quiz-container">
+                    <div id="connections-selector"
+                        class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white text-center">
+                        <p class="mb-4 text-center font-bold">Tria com vols practicar:</p>
+                        <div id="connections-filter-buttons" class="flex flex-wrap gap-2 justify-center"></div>
+                    </div>
+                    <div id="connections-quiz-container" class="hidden">
                         <div class="stats-bar flex justify-between items-center bg-gray-100 p-2 rounded mb-4">
                             <div id="connections-progress">Pregunta 1/20</div>
                             <div id="connections-score" class="font-bold">Punts: 0</div>
@@ -2467,7 +2533,7 @@
                                 <img id="connection-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Connector"
                                     style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             </div>
-                            <h4 class="mb-4" data-i18n="select_answer">Tria la resposta correcta:</h4>
+                            <h4 id="connection-question-text" class="mb-4">Tria la resposta correcta:</h4>
                             <div id="connection-options" class="options-grid">
                                 <!-- Options will be loaded here -->
                             </div>
@@ -2478,6 +2544,8 @@
                         <h3 data-i18n="final_score">Resultats</h3>
                         <p id="connections-final-score" class="text-4xl font-bold my-4">0 / 200</p>
                         <p id="connections-final-msg"></p>
+                        <button onclick="initConnectionsQuiz()" class="btn-primary mt-4">Tornar a jugar</button>
+                        <button onclick="startConnectionsSelector()" class="btn-secondary mt-4">Tornar a triar</button>
                         <button onclick="showRadioMenu()" class="btn-secondary mt-4">Tornar</button>
                     </div>
                 </div>
@@ -2491,7 +2559,7 @@
                 <div id="solidart-activities-menu" class="activities-grid">
                     <div class="activity-card" onclick="openSolidartActivity('quadres')">
                         <div class="act-icon">
-                            <img src="assets/images/the_scream.jpg" alt="Quadres" class="act-img">
+                            <img src="assets/images/activities/solidart/artworks/the_scream.jpg" alt="Quadres" class="act-img">
                         </div>
                         <div class="card-content">
                             <div class="card-title" data-i18n="act_tr_quadres_title">Quadres i autors</div>
@@ -2528,7 +2596,7 @@
                         </div>
                         <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">O tria per nivell (tots els
                             temes):</p>
-                        <div class="flex flex-col items-center gap-3 mt-6">
+                        <div class="solidart-difficulty-row mt-6">
                             <button class="btn-primary"
                                 style="background-color: #22c55e; border-color: #16a34a; max-width: 250px;"
                                 onclick="initSolidartQuadres('Fàcil')">Fàcil</button>
@@ -2567,7 +2635,7 @@
                         <div id="solidart-quadres-feedback-area"
                             class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                             <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
-                            <button id="solidart-quadres-next-btn" class="btn-primary"
+                            <button id="solidart-quadres-next-btn" class="btn-primary hidden"
                                 onclick="nextSolidartQuadre()">Següent</button>
                         </div>
                     </div>
@@ -2582,19 +2650,7 @@
                         <button onclick="showSolidartMenu()" class="btn-secondary">Tornar al menú</button>
                     </div>
                 </div>
-            </div>
 
-
-            <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
-            <div id="game-container-generic" class="game-module hidden">
-                <h3>Simulació Genèrica (Mode Examen)</h3>
-                <p>Aquest projecte encara no té activitats específiques.</p>
-                <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
-                <p id="simulation-result"></p>
-            </div>
-
-            </div>
-            </div>
             <!-- ACTIVITAT: Quadres 2 -->
             <div id="solidart-activity-quadres2" class="sub-activity hidden">
                 <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
@@ -2611,7 +2667,7 @@
                         </select>
                     </div>
                     <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">Selecciona el nivell:</p>
-                    <div class="flex flex-col items-center gap-3 mt-6">
+                    <div class="solidart-difficulty-row mt-6">
                         <button class="btn-primary" style="background-color: #22c55e; max-width: 250px;"
                             onclick="initSolidartQuadres2('Fàcil')">Fàcil</button>
                         <button class="btn-primary" style="background-color: #eab308; max-width: 250px;"
@@ -2636,7 +2692,7 @@
                     <div id="solidart-quadres2-feedback-area"
                         class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                         <p id="solidart-quadres2-feedback-msg" class="text-xl font-bold mb-2"></p>
-                        <button class="btn-primary" onclick="nextSolidartQuadres2()">Següent</button>
+                        <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
                     </div>
                 </div>
 
@@ -2658,6 +2714,14 @@
                 </div>
             </div>
             </div>
+
+            <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
+            <div id="game-container-generic" class="game-module hidden">
+                <h3>Simulació Genèrica (Mode Examen)</h3>
+                <p>Aquest projecte encara no té activitats específiques.</p>
+                <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                <p id="simulation-result"></p>
+            </div>
         </main>
     </section>
 
@@ -2666,6 +2730,7 @@
     <script src="js/games/mediterrani-capitals.js"></script>
     <script src="js/games/mediterrani-test.js"></script>
     <script src="js/games/mediterrani-map.js"></script>
+    <script src="js/games/mediterrani-biodiversitat.js"></script>
     <script src="js/games/paralimpics-microbit.js"></script>
     <script src="js/games/natura-xarxes.js"></script>
     <script src="js/games/natura-impacte.js"></script>
@@ -2708,3 +2773,4 @@
 </body>
 
 </html>
+

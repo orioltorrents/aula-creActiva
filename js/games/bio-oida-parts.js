@@ -1,15 +1,15 @@
 /**
  * Joc de l'Oïda - Senyalar Parts (Multi-Imatge)
  * La imatge canvia automàticament segons la secció de cada pregunta:
- *   section: 'externa'  → assets/images/orella-externa.png
- *   section: 'mitjana'  → assets/images/orella-mitjana.png
- *   section: 'interna'  → assets/images/orella-interna.png
+ *   section: 'externa'  -> assets/images/activities/biologia/senses/orella-externa.png
+ *   section: 'mitjana'  -> assets/images/activities/biologia/senses/orella-mitjana.png
+ *   section: 'interna'  -> assets/images/activities/biologia/senses/orella-interna.png
  */
 
 const OIDA_IMAGES = {
-    externa: 'assets/images/orella-externa.png',
-    mitjana: 'assets/images/orella-mitjana.png',
-    interna: 'assets/images/orella-interna.png'
+    externa: 'assets/images/activities/biologia/senses/orella-externa.png',
+    mitjana: 'assets/images/activities/biologia/senses/orella-mitjana.png',
+    interna: 'assets/images/activities/biologia/senses/orella-interna.png'
 };
 
 const bioOidaPartsGame = {

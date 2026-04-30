@@ -9,8 +9,11 @@ let solidartQuadres2State = {
     score: 0,
     startTime: null,
     dificultat: '',
-    feedbackLevel: 'simple'
+    feedbackLevel: 'simple',
+    autoAdvanceTimer: null
 };
+
+const SOLIDART_QUADRES2_AUTO_ADVANCE_MS = 1200;
 
 async function initSolidartQuadres2(dificultat) {
     const setupDiv = document.getElementById('solidart-quadres2-setup');
@@ -34,6 +37,7 @@ async function initSolidartQuadres2(dificultat) {
                 dificultat: dificultat,
                 feedbackLevel: document.getElementById('solidart-feedback-level2')?.value || 'simple'
             };
+            clearSolidartQuadres2AutoAdvance();
             if (typeof toggleFullscreen === 'function' && !document.fullscreenElement) {
                 toggleFullscreen();
             }
@@ -62,10 +66,11 @@ function renderSolidartQuadres2() {
         </div>
         <div id="solidart-quadres2-feedback-area" class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres2-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <button class="btn-primary" onclick="nextSolidartQuadres2()">Següent</button>
+            <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
         </div>
     `;
 
+    clearSolidartQuadres2AutoAdvance();
     const q = solidartQuadres2State.questions[solidartQuadres2State.currentIndex];
 
     document.getElementById('solidart-quadres2-progress').textContent = `Pregunta ${solidartQuadres2State.currentIndex + 1} / ${solidartQuadres2State.questions.length}`;
@@ -78,12 +83,31 @@ function renderSolidartQuadres2() {
     q.opcions.forEach(imgName => {
         const btn = document.createElement('div');
         btn.className = 'activity-card p-2 cursor-pointer border-2 hover:border-primary transition-all';
+        const imgSrc = `assets/images/activities/solidart/artworks/${imgName}`;
+        const placeholderSrc = buildSolidartQuadres2Placeholder(imgName);
         btn.innerHTML = `
-            <img src="assets/images/${imgName}" class="w-full h-40 object-contain rounded" onerror="this.src='assets/images/placeholder-art.png'">
+            <img src="${imgSrc}" class="w-full h-40 object-contain rounded" onerror="this.onerror=null; this.src='${placeholderSrc}'">
         `;
         btn.onclick = () => checkSolidartQuadres2(imgName, btn);
         optionsDiv.appendChild(btn);
     });
+}
+
+function buildSolidartQuadres2Placeholder(text) {
+    const safeText = String(text || 'Imatge no trobada')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+            <rect width="640" height="420" fill="#f8f5f0"/>
+            <rect x="48" y="48" width="544" height="324" rx="10" fill="#ffffff" stroke="#d8cbb8" stroke-width="3"/>
+            <text x="320" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#7a4f2b">Imatge no trobada</text>
+            <text x="320" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#8a6b4d">${safeText}</text>
+        </svg>`;
+
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 
 function checkSolidartQuadres2(selectedImg, selectedBtn) {
@@ -128,14 +152,32 @@ function checkSolidartQuadres2(selectedImg, selectedBtn) {
     }
 
     document.getElementById('solidart-quadres2-score-display').textContent = `Punts: ${solidartQuadres2State.score}`;
+
+    scheduleSolidartQuadres2AutoAdvance();
 }
 
 function nextSolidartQuadres2() {
+    clearSolidartQuadres2AutoAdvance();
     solidartQuadres2State.currentIndex++;
     if (solidartQuadres2State.currentIndex < solidartQuadres2State.questions.length) {
         renderSolidartQuadres2();
     } else {
         finishSolidartQuadres2();
+    }
+}
+
+function scheduleSolidartQuadres2AutoAdvance() {
+    clearSolidartQuadres2AutoAdvance();
+    solidartQuadres2State.autoAdvanceTimer = setTimeout(() => {
+        solidartQuadres2State.autoAdvanceTimer = null;
+        nextSolidartQuadres2();
+    }, SOLIDART_QUADRES2_AUTO_ADVANCE_MS);
+}
+
+function clearSolidartQuadres2AutoAdvance() {
+    if (solidartQuadres2State.autoAdvanceTimer) {
+        clearTimeout(solidartQuadres2State.autoAdvanceTimer);
+        solidartQuadres2State.autoAdvanceTimer = null;
     }
 }
 

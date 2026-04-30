@@ -41,6 +41,18 @@ let medGameState = {
 
 let showCountryName = true;
 
+function updateMediterraniModeButtons(mode) {
+    const practiceBtn = document.getElementById('btn-med-capitals-practice');
+    const examBtn = document.getElementById('btn-med-capitals-exam');
+
+    if (!practiceBtn || !examBtn) return;
+
+    practiceBtn.classList.toggle('btn-primary', mode === 'practice');
+    practiceBtn.classList.toggle('btn-secondary', mode !== 'practice');
+    examBtn.classList.toggle('btn-primary', mode === 'exam');
+    examBtn.classList.toggle('btn-secondary', mode !== 'exam');
+}
+
 function toggleCountryName() {
     showCountryName = !showCountryName;
     const btn = document.getElementById('btn-toggle-country');
@@ -59,6 +71,7 @@ function toggleCountryName() {
 // Inicialitza el joc
 function initMediterraniGame(mode) {
     medGameState.mode = mode;
+    updateMediterraniModeButtons(mode);
     medGameState.score = 0;
     medGameState.currentQuestionIndex = 0;
     medGameState.examFinished = false;

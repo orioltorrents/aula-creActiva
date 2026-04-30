@@ -65,6 +65,8 @@ function handleRequest(e) {
             result = getRadioConfig();
         } else if (action === 'getRadioConnectionsQuestions') {
             result = getRadioConnectionsQuestions();
+        } else if (action === 'getMediterraniBiodiversitatQuestions') {
+            result = getMediterraniBiodiversitatQuestions();
         } else if (action === 'getCirculatoriQuestions') {
             result = getCirculatoriQuestions();
         } else if (action === 'getReproductorQuestions') {
@@ -730,7 +732,7 @@ function getRadioConfig() {
     };
 }
 
-function getRadioConnectionsQuestions() {
+function getRadioConnectionsQuestionsLegacy() {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_radio_conexions');
     if (!sheet) {
         // Fallback or development questions if sheet doesn't exist yet
@@ -777,6 +779,293 @@ function getRadioConnectionsQuestions() {
     });
 
     return { status: 'success', questions: questions };
+}
+
+function getRadioConnectionsQuestions() {
+    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+    const sheetNames = ['radio_connectors', 'preguntes_radio_conexions'];
+    let sheet = null;
+
+    for (let i = 0; i < sheetNames.length; i++) {
+        sheet = spreadsheet.getSheetByName(sheetNames[i]);
+        if (sheet) break;
+    }
+
+    if (!sheet) {
+        return {
+            status: 'success',
+            questions: [
+                { id: 1, difficulty: '', image: 'xlr_male.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estereo'], imageAlternatives: [] },
+                { id: 2, difficulty: '', image: 'xlr_female.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estereo'], imageAlternatives: [] },
+                { id: 3, difficulty: '', image: 'jack_mono.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'Jack 6.35mm Mono (TS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estereo (TRS)', 'Mini-Jack 3.5mm', 'RCA'], imageAlternatives: [] },
+                { id: 4, difficulty: '', image: 'jack_stereo.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'Jack 6.35mm Estereo (TRS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estereo (TRS)', 'Mini-Jack 3.5mm', 'RCA'], imageAlternatives: [] }
+            ]
+        };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a ' + sheet.getName() };
+
+    const normalizedHeaders = data[0].map(normalizeRadioConnectionsHeader);
+    const hasNewSchema = normalizedHeaders.indexOf('pregunta') !== -1 || normalizedHeaders.indexOf('resposta_correcta') !== -1;
+
+    if (!hasNewSchema) {
+        const originalHeaders = data[0];
+        const imgIdx = originalHeaders.indexOf('Imatge');
+        const correctIdx = originalHeaders.indexOf('Correcta');
+
+        const legacyQuestions = data.slice(1).map((row, index) => {
+            const correct = cleanRadioConnectionsCell(row[correctIdx]);
+            return {
+                id: index + 1,
+                difficulty: '',
+                image: cleanRadioConnectionsCell(row[imgIdx]),
+                topic: '',
+                type: 'text',
+                question: 'Tria la resposta correcta:',
+                correct: correct,
+                alternatives: [row[1], row[2], row[3], row[4]]
+                    .map(cleanRadioConnectionsCell)
+                    .filter(value => value !== ''),
+                imageAlternatives: []
+            };
+        }).filter(question => question.image && question.correct && question.alternatives.length >= 2);
+
+        return { status: 'success', questions: legacyQuestions };
+    }
+
+    const difficultyIdx = normalizedHeaders.indexOf('dificultat');
+    const imageIdx = normalizedHeaders.indexOf('nom_imatge');
+    const topicIdx = normalizedHeaders.indexOf('tema');
+    const typeIdx = normalizedHeaders.indexOf('tipus_pregunta');
+    const questionIdx = normalizedHeaders.indexOf('pregunta');
+    const correctIdx = normalizedHeaders.indexOf('resposta_correcta');
+    const wrongIdxs = [
+        normalizedHeaders.indexOf('incorrecta_1'),
+        normalizedHeaders.indexOf('incorrecta_2'),
+        normalizedHeaders.indexOf('incorrecta_3')
+    ];
+    const correctImageIdx = normalizedHeaders.indexOf('imatge_correcta');
+    const wrongImageIdxs = [
+        normalizedHeaders.indexOf('imatge_incorrecta_1'),
+        normalizedHeaders.indexOf('imatge_incorrecta_2'),
+        normalizedHeaders.indexOf('imatge_incorrecta_3')
+    ];
+
+    const questions = data.slice(1)
+        .map((row, index) => {
+            const type = typeIdx === -1 ? '' : cleanRadioConnectionsCell(row[typeIdx]);
+            const isImageType = isRadioConnectionsImageQuestion({ type: type });
+            const textCorrect = correctIdx === -1 ? '' : cleanRadioConnectionsCell(row[correctIdx]);
+            const correctImage = correctImageIdx === -1 ? '' : cleanRadioConnectionsCell(row[correctImageIdx]);
+            const correct = isImageType && !textCorrect ? correctImage : textCorrect;
+            const rawWrongs = wrongIdxs.map(idx => idx === -1 ? '' : cleanRadioConnectionsCell(row[idx]));
+            const wrongs = rawWrongs.filter(value => value !== '');
+            const wrongImages = wrongImageIdxs.map(idx => idx === -1 ? '' : cleanRadioConnectionsCell(row[idx]));
+            let imageAlternatives = [
+                { text: textCorrect, value: correctImage || textCorrect, image: correctImage, correct: true }
+            ].concat(rawWrongs.map((wrong, wrongIndex) => ({
+                text: wrong,
+                value: wrongImages[wrongIndex] || wrong,
+                image: wrongImages[wrongIndex] || '',
+                correct: false
+            }))).filter(option => option.image !== '');
+
+            if (isImageType && imageAlternatives.length < 2) {
+                imageAlternatives = [correct].concat(wrongs)
+                    .filter(value => isRadioConnectionsImageFile(value))
+                    .map(value => ({
+                        text: '',
+                        value: value,
+                        image: value,
+                        correct: value === correct
+                    }));
+            }
+
+            return {
+                id: index + 1,
+                difficulty: difficultyIdx === -1 ? '' : cleanRadioConnectionsCell(row[difficultyIdx]),
+                image: imageIdx === -1 ? '' : cleanRadioConnectionsCell(row[imageIdx]),
+                topic: topicIdx === -1 ? '' : cleanRadioConnectionsCell(row[topicIdx]),
+                type: type,
+                question: questionIdx === -1 ? 'Tria la resposta correcta:' : cleanRadioConnectionsCell(row[questionIdx]),
+                correct: correct,
+                alternatives: [correct].concat(wrongs).filter(value => value !== ''),
+                imageAlternatives: imageAlternatives
+            };
+        })
+        .filter(question => {
+            if (!question.question || !question.correct) return false;
+            if (isRadioConnectionsImageQuestion(question)) return question.imageAlternatives.length >= 2;
+            return question.alternatives.length >= 2;
+        });
+
+    return { status: 'success', questions: questions };
+}
+
+function normalizeRadioConnectionsHeader(value) {
+    return String(value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\s-]+/g, '_');
+}
+
+function cleanRadioConnectionsCell(value) {
+    return String(value === undefined || value === null ? '' : value).trim();
+}
+
+function isRadioConnectionsImageQuestion(question) {
+    const type = normalizeRadioConnectionsHeader(question.type);
+    return type === 'imatge' || type === 'imatges' || type === 'foto' || type === 'fotos' || type === 'image';
+}
+
+function isRadioConnectionsImageFile(value) {
+    return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(value || '').trim());
+}
+
+function getMediterraniBiodiversitatQuestions() {
+    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+    const sheetNames = ['mediterrani_biodiversitat', 'biodiversitat_mediterrani'];
+    let sheet = null;
+
+    for (let i = 0; i < sheetNames.length; i++) {
+        sheet = spreadsheet.getSheetByName(sheetNames[i]);
+        if (sheet) break;
+    }
+
+    if (!sheet) {
+        return {
+            status: 'error',
+            message: 'No he trobat la pestanya mediterrani_biodiversitat al Google Sheet'
+        };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) {
+        return { status: 'error', message: 'Sense dades a ' + sheet.getName() };
+    }
+
+    const headers = data[0].map(normalizeMediterraniBiodiversitatHeader);
+    const difficultyIdx = headers.indexOf('dificultat');
+    const imageIdx = headers.indexOf('nom_imatge');
+    const topicIdx = headers.indexOf('tema');
+    const typeIdx = headers.indexOf('tipus_pregunta');
+    const questionIdx = headers.indexOf('pregunta');
+    const correctIdx = headers.indexOf('resposta_correcta');
+    const wrongIdxs = [
+        headers.indexOf('incorrecta_1'),
+        headers.indexOf('incorrecta_2'),
+        headers.indexOf('incorrecta_3')
+    ];
+    const correctImageIdx = headers.indexOf('imatge_correcta');
+    const wrongImageIdxs = [
+        headers.indexOf('imatge_incorrecta_1'),
+        headers.indexOf('imatge_incorrecta_2'),
+        headers.indexOf('imatge_incorrecta_3')
+    ];
+
+    const requiredColumns = [
+        { name: 'nom_imatge', index: imageIdx },
+        { name: 'pregunta', index: questionIdx },
+        { name: 'resposta_correcta', index: correctIdx },
+        { name: 'incorrecta_1', index: wrongIdxs[0] },
+        { name: 'incorrecta_2', index: wrongIdxs[1] },
+        { name: 'incorrecta_3', index: wrongIdxs[2] }
+    ];
+
+    const missingColumns = requiredColumns
+        .filter(column => column.index === -1)
+        .map(column => column.name);
+
+    if (missingColumns.length > 0) {
+        return {
+            status: 'error',
+            message: 'Falten columnes a ' + sheet.getName() + ': ' + missingColumns.join(', ')
+        };
+    }
+
+    const questions = data.slice(1)
+        .map((row, index) => {
+            const type = typeIdx === -1 ? '' : cleanMediterraniBiodiversitatCell(row[typeIdx]);
+            const isImageType = isMediterraniBiodiversitatImageQuestion({ type: type });
+            const textCorrect = cleanMediterraniBiodiversitatCell(row[correctIdx]);
+            const correctImage = correctImageIdx === -1 ? '' : cleanMediterraniBiodiversitatCell(row[correctImageIdx]);
+            const correct = isImageType && !textCorrect ? correctImage : textCorrect;
+            const rawWrongs = wrongIdxs
+                .map(idx => cleanMediterraniBiodiversitatCell(row[idx]));
+            const wrongs = rawWrongs.filter(value => value !== '');
+            const wrongImages = wrongImageIdxs
+                .map(idx => idx === -1 ? '' : cleanMediterraniBiodiversitatCell(row[idx]));
+            let imageAlternatives = [
+                { text: textCorrect, value: correctImage || textCorrect, image: correctImage, correct: true }
+            ].concat(rawWrongs.map((wrong, wrongIndex) => ({
+                text: wrong,
+                value: wrongImages[wrongIndex] || wrong,
+                image: wrongImages[wrongIndex] || '',
+                correct: false
+            }))).filter(option => option.image !== '');
+
+            if (isImageType && imageAlternatives.length < 2) {
+                imageAlternatives = [correct].concat(wrongs)
+                    .filter(value => isMediterraniBiodiversitatImageFile(value))
+                    .map(value => ({
+                        text: '',
+                        value: value,
+                        image: value,
+                        correct: value === correct
+                    }));
+            }
+
+            return {
+                id: index + 1,
+                difficulty: difficultyIdx === -1 ? '' : cleanMediterraniBiodiversitatCell(row[difficultyIdx]),
+                image: cleanMediterraniBiodiversitatCell(row[imageIdx]),
+                topic: topicIdx === -1 ? '' : cleanMediterraniBiodiversitatCell(row[topicIdx]),
+                type: type,
+                question: cleanMediterraniBiodiversitatCell(row[questionIdx]),
+                correct: correct,
+                correctImage: correctImage,
+                alternatives: [correct].concat(wrongs).filter(value => value !== ''),
+                imageAlternatives: imageAlternatives
+            };
+        })
+        .filter(question => {
+            if (!question.question || !question.correct) return false;
+            if (isMediterraniBiodiversitatImageQuestion(question)) {
+                return question.imageAlternatives.length >= 2;
+            }
+            return question.alternatives.length >= 2;
+        });
+
+    if (questions.length === 0) {
+        return { status: 'error', message: 'No hi ha preguntes completes a ' + sheet.getName() };
+    }
+
+    return { status: 'success', questions: questions };
+}
+
+function normalizeMediterraniBiodiversitatHeader(value) {
+    return String(value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\s-]+/g, '_');
+}
+
+function cleanMediterraniBiodiversitatCell(value) {
+    return String(value === undefined || value === null ? '' : value).trim();
+}
+
+function isMediterraniBiodiversitatImageQuestion(question) {
+    const type = normalizeMediterraniBiodiversitatHeader(question.type);
+    return type === 'imatge' || type === 'imatges' || type === 'foto' || type === 'fotos' || type === 'image';
+}
+
+function isMediterraniBiodiversitatImageFile(value) {
+    return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(value || '').trim());
 }
 
 // --- UTILITATS ---
@@ -1240,4 +1529,3 @@ function getImmunitariQuestions() {
 
     return { status: 'success', data: questions };
 }
-

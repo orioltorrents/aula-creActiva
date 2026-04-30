@@ -24,7 +24,7 @@ function initBioVistaPartsGame() {
     bioVistaPartsGame.isFinished = false;
 
     const img = document.getElementById('bio-vista-parts-image');
-    img.src = 'assets/images/sentit-vista.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png'; 
 
     const shuffled = [...bioVistaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

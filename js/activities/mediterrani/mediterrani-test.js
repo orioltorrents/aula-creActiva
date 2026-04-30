@@ -79,6 +79,12 @@ function openMediterraniActivity(activityId) {
     } else if (activityId === 'map') {
         const mapDiv = document.getElementById('med-activity-map');
         if (mapDiv) mapDiv.classList.remove('hidden');
+    } else if (activityId === 'biodiversitat') {
+        const biodiversitatDiv = document.getElementById('med-activity-biodiversitat');
+        if (biodiversitatDiv) biodiversitatDiv.classList.remove('hidden');
+        if (typeof initMediterraniBiodiversitatQuiz === 'function') {
+            initMediterraniBiodiversitatQuiz();
+        }
     }
 }
 
