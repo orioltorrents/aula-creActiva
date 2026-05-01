@@ -23,6 +23,9 @@
 // ID del Google Sheet que fa de base de dades.
 const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 
+// Durant 5 minuts reutilitzem lectures del Sheet per no demanar les mateixes dades a Google en cada petició.
+const CACHE_TTL_SECONDS = 300;
+
 function doGet(e) {
     return handleRequest(e);
 }
@@ -221,7 +224,7 @@ function getNaturaQuestions(ecosistema) {
     const sheet = getSheet('preguntes_natura');
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_natura no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     const headers = data[0];
     const ecoIdx = headers.indexOf('Ecosistema');
 
@@ -244,7 +247,7 @@ function getImpactePhases() {
     const sheet = getSheet('fases_impacte');
     if (!sheet) return { status: 'error', message: 'Pestanya fases_impacte no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a fases_impacte' };
 
     const headers = data[0];
@@ -295,7 +298,7 @@ function getBiblioQuestions() {
     const sheet = getSheet('bibliografia-APA');
     if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
 
     // Fem les capçaleres més fàcils de comparar: minúscules, sense accents ni espais sobrants.
@@ -359,7 +362,7 @@ function getTrTemesQuestions(tipusBatxillerat) {
     const sheet = getSheet('temes-TR-preguntes');
     if (!sheet) return { status: 'error', message: 'Pestanya temes-TR-preguntes no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a temes-TR-preguntes' };
 
     const headers = data[0].map(normalizeHeader);
@@ -443,7 +446,7 @@ function getTrQuestions(subambit, tipusBatxillerat) {
     const sheet = getSheet('preguntes_investigables');
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_investigables no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_investigables' };
 
     const headers = data[0].map(normalizeHeader);
@@ -519,7 +522,7 @@ function getStandardTextQuizQuestions(config) {
     const sheet = findFlexibleSheet(config.sheetNames);
     if (!sheet) return { status: 'error', message: config.missingMessage };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) {
         if (config.emptySuccess) return { status: 'success', [config.returnKey]: [] };
         return { status: 'error', message: config.emptyMessage };
@@ -653,7 +656,7 @@ function getRadioConnectionsQuestionsLegacy() {
         return { status: 'success', questions: defaultQuestions };
     }
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_radio_conexions' };
 
     const headers = data[0];
@@ -688,7 +691,7 @@ function getRadioConnectionsQuestions() {
         };
     }
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a ' + sheet.getName() };
 
     const normalizedHeaders = data[0].map(normalizeRadioConnectionsHeader);
@@ -815,7 +818,7 @@ function getMediterraniBiodiversitatQuestions() {
         };
     }
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) {
         return { status: 'error', message: 'Sense dades a ' + sheet.getName() };
     }
@@ -946,6 +949,26 @@ function getSheet(sheetName) {
     return getSpreadsheet().getSheetByName(sheetName);
 }
 
+function getCachedSheetValues(sheet) {
+    const cache = CacheService.getScriptCache();
+    const cacheKey = 'sheet_values_' + sheet.getSheetId();
+    const cached = cache.get(cacheKey);
+
+    if (cached) {
+        return JSON.parse(cached);
+    }
+
+    const values = sheet.getDataRange().getValues();
+
+    try {
+        cache.put(cacheKey, JSON.stringify(values), CACHE_TTL_SECONDS);
+    } catch (error) {
+        // Si una pestanya és massa gran per a la cache, simplement la llegim normal.
+    }
+
+    return values;
+}
+
 function getFirstExistingSheet(sheetNames) {
     const spreadsheet = getSpreadsheet();
 
@@ -1049,7 +1072,7 @@ function getNaturaPreguntes(subambit, tipusBatxillerat) {
     const sheet = getSheet('natura_preguntes');
     if (!sheet) return { status: 'error', message: 'Pestanya natura_preguntes no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_preguntes' };
 
     const headers = data[0].map(normalizeHeader);
@@ -1111,7 +1134,7 @@ function getNaturaTemesQuestions(tipusBatxillerat) {
     const sheet = getSheet('natura_temes');
     if (!sheet) return { status: 'error', message: 'Pestanya natura_temes no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_temes' };
 
     const headers = data[0].map(normalizeHeader);
@@ -1176,7 +1199,7 @@ function getSolidartQuadres(dificultat) {
     const sheet = getSheet('quadres');
     if (!sheet) return { status: 'error', message: 'Pestanya quadres no trobada' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a la pestanya quadres' };
 
     const headers = data[0].map(normalizeHeader);
@@ -1230,7 +1253,7 @@ function getSolidartQuadres2(dificultat) {
     const sheet = getSheet('quadres2');
     if (!sheet) return { status: 'error', message: 'ERROR: La pestanya "quadres2" no existeix al Google Sheet.' };
 
-    const data = sheet.getDataRange().getValues();
+    const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'ERROR: La pestanya "quadres2" està buida (només té la capçalera o res).' };
 
     const headers = data[0].map(normalizeHeader);
@@ -1288,7 +1311,7 @@ function getDiagnosticQuestions() {
         const sheet = getSheet('diagnostic_preguntes');
         if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya diagnostic_preguntes' };
 
-        const data = sheet.getDataRange().getValues();
+        const data = getCachedSheetValues(sheet);
         const headers = data[0];
         const questions = [];
 
@@ -1349,7 +1372,7 @@ function getOrenetesData() {
         const sheet = getSheet('orenetes_nius');
         if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya orenetes_nius' };
 
-        const data = sheet.getDataRange().getValues();
+        const data = getCachedSheetValues(sheet);
         if (data.length <= 1) return { status: 'success', data: [] };
 
         const headers = data[0].map(normalizeHeader);
@@ -1398,7 +1421,7 @@ function getOrenetesPreguntes() {
             return { status: 'error', message: 'No s\'ha trobat la pestanya orenetes_preguntes' };
         }
 
-        const data = sheet.getDataRange().getValues();
+        const data = getCachedSheetValues(sheet);
         if (data.length <= 1) return { status: 'success', questions: [] };
 
         const headers = data[0].map(normalizeOrenetesPreguntesHeader);
