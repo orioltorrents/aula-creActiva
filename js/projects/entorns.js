@@ -84,7 +84,13 @@ function renderEntornsActivities() {
       "natura-activity-biblio",
       "natura-activity-preguntes",
       "natura-activity-temes",
-      "natura-activity-orenetes"
+      "natura-activity-orenetes",
+      "natura-activity-orenetes-preguntes",
+      "natura-project-rius",
+      "natura-project-impacte",
+      "natura-project-orenetes",
+      "natura-project-vespa",
+      "natura-project-liquencity"
     ];
   
     // Recorrem cada id i amaguem el bloc si existeix
@@ -108,6 +114,21 @@ function renderEntornsActivities() {
     // Mostrem el menú si existeix
     if (menu) {
       menu.classList.remove("hidden");
+    }
+  }
+
+  // Obre un submenÃº de projecte dins d'Entorns de Natura
+  function openNaturaProject(projectName) {
+    const menu = document.getElementById("natura-activities-menu");
+    if (menu) {
+      menu.classList.add("hidden");
+    }
+
+    hideNaturaActivities();
+
+    const projectElement = document.getElementById(`natura-project-${projectName}`);
+    if (projectElement) {
+      projectElement.classList.remove("hidden");
     }
   }
   
@@ -135,6 +156,8 @@ function renderEntornsActivities() {
       activityElement.classList.remove("hidden");
       if (activityName === "orenetes" && typeof initOrenetesGame === "function") {
         initOrenetesGame();
+      } else if (activityName === "orenetes-preguntes" && typeof initOrenetesPreguntesQuiz === "function") {
+        initOrenetesPreguntesQuiz();
       }
     }
   }

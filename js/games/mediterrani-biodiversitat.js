@@ -238,7 +238,7 @@ function checkMediterraniBiodiversitatAnswer(selected, correct, btn) {
     } else {
         btn.classList.add('incorrect');
         if (feedbackEl) {
-            feedbackEl.innerText = `${typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte'} (${correct})`;
+            feedbackEl.innerText = typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte';
             feedbackEl.style.color = 'red';
         }
 

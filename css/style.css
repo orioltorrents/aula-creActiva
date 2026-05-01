@@ -415,7 +415,19 @@ body {
     gap: 14px;
 }
 
+#orenetes-questions-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
 #med-biodiv-filter-buttons p {
+    flex-basis: 100%;
+    margin: 18px 0 6px;
+}
+
+#orenetes-questions-filter-buttons p {
     flex-basis: 100%;
     margin: 18px 0 6px;
 }
@@ -425,11 +437,21 @@ body {
     margin-top: 24px;
 }
 
+#orenetes-questions-options {
+    gap: 18px;
+    margin-top: 24px;
+}
+
 #med-biodiv-results button {
     margin: 8px;
 }
 
+#orenetes-questions-results button {
+    margin: 8px;
+}
+
 .med-biodiv-image-option,
+.orenetes-questions-image-option,
 .radio-connection-image-option {
     width: min(240px, 100%);
     padding: 10px;
@@ -440,6 +462,7 @@ body {
 }
 
 .med-biodiv-image-option img,
+.orenetes-questions-image-option img,
 .radio-connection-image-option img {
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -448,6 +471,7 @@ body {
 }
 
 .med-biodiv-image-option span,
+.orenetes-questions-image-option span,
 .radio-connection-image-option span {
     font-size: 0.95rem;
     line-height: 1.25;

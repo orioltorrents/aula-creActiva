@@ -561,6 +561,16 @@ function showNaturaMenu() {
     }
 }
 
+function openNaturaProject(projectId) {
+    const hub = document.getElementById('project-hub-natura');
+    const menu = document.getElementById('natura-activities-menu');
+    const projectMenu = document.getElementById(`natura-project-${projectId}`);
+
+    if (menu) menu.classList.add('hidden');
+    if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    if (projectMenu) projectMenu.classList.remove('hidden');
+}
+
 // **********************************************************
 // RATES A LA CARRERA (HUB)
 // **********************************************************
@@ -587,7 +597,7 @@ function openRatesActivity(activityId) {
 }
 
 function openNaturaActivity(actId) {
-    document.getElementById('natura-activities-menu').classList.add('hidden');
+    document.getElementById('natura-activities-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
 
     if (actId === 'xarxes') {
@@ -621,6 +631,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'orenetes') {
         document.getElementById('natura-activity-orenetes').classList.remove('hidden');
         if (typeof initOrenetesGame === 'function') initOrenetesGame();
+    } else if (actId === 'orenetes-preguntes') {
+        document.getElementById('natura-activity-orenetes-preguntes').classList.remove('hidden');
+        if (typeof initOrenetesPreguntesQuiz === 'function') initOrenetesPreguntesQuiz();
     }
 }
 

@@ -42,6 +42,8 @@ function openNaturaActivity(actId) {
         initBiblioGame();
     } else if (actId === 'orenetes' && typeof initOrenetesGame === 'function') {
         initOrenetesGame();
+    } else if (actId === 'orenetes-preguntes' && typeof initOrenetesPreguntesQuiz === 'function') {
+        initOrenetesPreguntesQuiz();
     }
 }
 

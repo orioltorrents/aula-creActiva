@@ -1,7 +1,11 @@
 /**
- * API Backend per a l'Escola Web App
+ * API backend de l'app.
+ *
+ * Aquest fitxer viu a Google Apps Script i fa de pont entre el frontend i el
+ * Google Sheet. El frontend envia una "action" i aquest codi decideix quina
+ * funció executar: login, carregar preguntes, guardar resultats, etc.
  * 
- * INSTRUCCIONS:
+ * Configuració bàsica:
  * 1. Crea un nou Google Sheet.
  * 2. Crea les pestanyes: "usuaris", "resultats", "preguntes_natura", "resultats_rols" i "fases_impacte".
  * 3. A "usuaris", crea les capçaleres: id, email, password, cognoms, nom, curs, grup
@@ -13,7 +17,8 @@
  * 9. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
  */
 
-const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8'; // <--- IMPORTANT: CANVIAR AIXÒ
+// ID del Google Sheet que fa de base de dades.
+const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 
 function doGet(e) {
     return handleRequest(e);
@@ -23,95 +28,78 @@ function doPost(e) {
     return handleRequest(e);
 }
 
-function handleRequest(e) {
-    const lock = LockService.getScriptLock();
-    lock.tryLock(10000);
+const ACTIONS = {
+    login: data => loginUser(data.email, data.password),
+    getProjects: data => getProjects(data.curs),
+    saveResult: data => saveResult(data),
+    getNaturaQuestions: data => getNaturaQuestions(data.ecosistema),
+    saveNaturaQuizResult: data => saveNaturaQuizResult(data),
+    getImpactePhases: () => getImpactePhases(),
+    getBiblioQuestions: () => getBiblioQuestions(),
+    getRadioConfig: () => getRadioConfig(),
+    getRadioConnectionsQuestions: () => getRadioConnectionsQuestions(),
+    getMediterraniBiodiversitatQuestions: () => getMediterraniBiodiversitatQuestions(),
+    getCirculatoriQuestions: () => getCirculatoriQuestions(),
+    getReproductorQuestions: () => getReproductorQuestions(),
+    getImmunitariQuestions: () => getImmunitariQuestions(),
+    getEndocriQuestions: () => getEndocriQuestions(),
+    getLocomotorQuestions: () => getLocomotorQuestions(),
+    getVistaQuestions: () => getVistaQuestions(),
+    getOidaQuestions: () => getOidaQuestions(),
+    getOlfacteQuestions: () => getOlfacteQuestions(),
+    getGustQuestions: () => getGustQuestions(),
+    getTacteQuestions: () => getTacteQuestions(),
+    getTrQuestions: data => getTrQuestions(data.subambit, data.tipusBatxillerat || data.ambit),
+    getTrTemesQuestions: data => getTrTemesQuestions(data.tipusBatxillerat || data.ambit),
+    getNaturaPreguntes: data => getNaturaPreguntes(data.subambit, data.tipusBatxillerat || data.ambit),
+    getNaturaTemesQuestions: data => getNaturaTemesQuestions(data.tipusBatxillerat || data.ambit),
+    getSolidartQuadres: data => getSolidartQuadres(data.dificultat),
+    getSolidartQuadres2: data => getSolidartQuadres2(data.dificultat),
+    getDiagnosticQuestions: () => getDiagnosticQuestions(),
+    getOrenetesData: () => getOrenetesData(),
+    getOrenetesPreguntes: () => getOrenetesPreguntes()
+};
 
+function handleRequest(e) {
     try {
-        // Estratègia Robusta: Fusionar paràmetres de URL (e.parameter) i del Body (e.postData)
-        let data = { ...e.parameter }; // Comencem amb els query params
+        // Una petició pot arribar amb dades a la URL o al cos del POST.
+        // Ajuntem totes dues fonts en un sol objecte perquè la resta del codi sigui simple.
+        let data = { ...e.parameter };
 
         if (e.postData && e.postData.contents) {
             try {
                 const bodyJson = JSON.parse(e.postData.contents);
-                // Fusionem: El body té preferència si hi ha duplicats, però mantenim el que ja tenim
+                // Si una dada existeix als dos llocs, la del body mana.
                 data = { ...data, ...bodyJson };
             } catch (err) {
-                // Si falla el parseig JSON, assumim que són paràmetres de formulari normals o text
-                // No fem res, ens quedem amb e.parameter
+                // Si el body no és JSON, ignorem el body i treballem només amb els paràmetres de la URL.
             }
         }
 
-        // Ara busquem l'acció al objecte fusionat
+        // "action" diu al backend què ha de fer: login, guardar resultat, carregar preguntes...
         const action = data.action;
+        const handler = ACTIONS[action];
 
-        let result = {};
-
-        if (action === 'login') {
-            result = loginUser(data.email, data.password);
-        } else if (action === 'getProjects') {
-            result = getProjects(data.curs);
-        } else if (action === 'saveResult') {
-            result = saveResult(data);
-        } else if (action === 'getNaturaQuestions') {
-            result = getNaturaQuestions(data.ecosistema);
-        } else if (action === 'saveNaturaQuizResult') {
-            result = saveNaturaQuizResult(data);
-        } else if (action === 'getImpactePhases') {
-            result = getImpactePhases();
-        } else if (action === 'getBiblioQuestions') {
-            result = getBiblioQuestions();
-        } else if (action === 'getRadioConfig') {
-            result = getRadioConfig();
-        } else if (action === 'getRadioConnectionsQuestions') {
-            result = getRadioConnectionsQuestions();
-        } else if (action === 'getMediterraniBiodiversitatQuestions') {
-            result = getMediterraniBiodiversitatQuestions();
-        } else if (action === 'getCirculatoriQuestions') {
-            result = getCirculatoriQuestions();
-        } else if (action === 'getReproductorQuestions') {
-            result = getReproductorQuestions();
-        } else if (action === 'getImmunitariQuestions') {
-            result = getImmunitariQuestions();
-        } else if (action === 'getEndocriQuestions') {
-            result = getEndocriQuestions();
-        } else if (action === 'getLocomotorQuestions') {
-            result = getLocomotorQuestions();
-        } else if (action === 'getVistaQuestions') {
-            result = getVistaQuestions();
-        } else if (action === 'getOidaQuestions') {
-            result = getOidaQuestions();
-        } else if (action === 'getOlfacteQuestions') {
-            result = getOlfacteQuestions();
-        } else if (action === 'getGustQuestions') {
-            result = getGustQuestions();
-        } else if (action === 'getTacteQuestions') {
-            result = getTacteQuestions();
-        } else if (action === 'getTrQuestions') {
-            result = getTrQuestions(data.subambit, data.tipusBatxillerat || data.ambit);
-        } else if (action === 'getTrTemesQuestions') {
-            result = getTrTemesQuestions(data.tipusBatxillerat || data.ambit);
-        } else if (action === 'getNaturaPreguntes') {
-            result = getNaturaPreguntes(data.subambit, data.tipusBatxillerat || data.ambit);
-        } else if (action === 'getNaturaTemesQuestions') {
-            result = getNaturaTemesQuestions(data.tipusBatxillerat || data.ambit);
-        } else if (action === 'getSolidartQuadres') {
-            result = getSolidartQuadres(data.dificultat);
-        } else if (action === 'getSolidartQuadres2') {
-            result = getSolidartQuadres2(data.dificultat);
-        } else if (action === 'getDiagnosticQuestions') {
-            result = getDiagnosticQuestions();
-        } else if (action === 'getOrenetesData') {
-            result = getOrenetesData();
-        } else {
-            result = { status: 'error', message: 'Acció desconeguda' };
-        }
-
+        const result = handler
+            ? handler(data)
+            : { status: 'error', message: 'Acció desconeguda' };
 
         return createJSONOutput(result);
 
     } catch (error) {
         return createJSONOutput({ status: 'error', message: error.toString() });
+    }
+}
+
+function withWriteLock(callback) {
+    const lock = LockService.getScriptLock();
+
+    if (!lock.tryLock(10000)) {
+        return { status: 'error', message: 'No s\'ha pogut guardar ara mateix. Torna-ho a provar en uns segons.' };
+    }
+
+    try {
+        return callback();
     } finally {
         lock.releaseLock();
     }
@@ -120,24 +108,23 @@ function handleRequest(e) {
 // --- FUNCIONS DE NEGOCI ---
 
 function loginUser(email, password) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('usuaris');
+    const sheet = getSheet('usuaris');
     const data = sheet.getDataRange().getValues();
     const headers = data[0];
 
-    // Índexs de columnes
     const emailIdx = headers.indexOf('email');
     const passIdx = headers.indexOf('password');
 
-    // Cerca d'usuari (ignorant majúscules/minúscules al mail)
-    // Comencem a 1 per saltar capçaleres
+    // Comencem a la fila 1 perquè la fila 0 són les capçaleres.
+    // El correu no distingeix majúscules/minúscules; la contrasenya sí.
     for (let i = 1; i < data.length; i++) {
         if (String(data[i][emailIdx]).toLowerCase() === String(email).toLowerCase() &&
             String(data[i][passIdx]) === String(password)) {
 
-            // Usuari trobat
             const user = {};
             headers.forEach((header, index) => {
-                if (header !== 'password') { // No enviem la contrasenya al client
+                // Mai retornem la contrasenya al navegador.
+                if (header !== 'password') {
                     user[header] = data[i][index];
                 }
             });
@@ -150,11 +137,11 @@ function loginUser(email, password) {
 }
 
 function getProjects(curs) {
-    // Aquí definim els projectes hardcoded o els podem llegir d'una pestanya "projectes" si es vol dinàmic.
-    // Per simplicitat i segons requisits, ho fem estàtic al backend per ara.
+    // Catàleg manual de projectes. Si algun dia vols que sigui editable sense tocar codi,
+    // aquest objecte es pot moure a una pestanya "projectes" del Google Sheet.
 
     const catalog = {
-        // Formats estàndard
+        // Noms de curs habituals.
         '1r ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
@@ -171,12 +158,12 @@ function getProjects(curs) {
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' }
         ],
-        // Batxillerat
+        // Batxillerat.
         '1r Batxillerat': [
             { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
         ],
         '2n Batxillerat': [],
-        // Aliases per si al Sheet posen "1ESO" en comptes de "1r ESO"
+        // Aliases: acceptem també versions curtes que poden aparèixer al Sheet.
         '1ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matemàtiques.' },
             { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Història i geografia del mar Mediterrani.' }
@@ -205,39 +192,40 @@ function getProjects(curs) {
 }
 
 function saveResult(data) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('resultats');
+    return withWriteLock(() => {
+        const sheet = getSheet('resultats');
 
-    // Ordre: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
-    const row = [
-        new Date(),
-        data.email,
-        data.curs,
-        data.projecte,
-        data.app,
-        data.nivell,
-        data.puntuacio,
-        data.temps_segons,
-        data.feedback_pos,
-        data.feedback_neg
-    ];
+        // Aquesta llista ha de seguir el mateix ordre que les capçaleres de la pestanya "resultats".
+        const row = [
+            new Date(),
+            data.email,
+            data.curs,
+            data.projecte,
+            data.app,
+            data.nivell,
+            data.puntuacio,
+            data.temps_segons,
+            data.feedback_pos,
+            data.feedback_neg
+        ];
 
-    sheet.appendRow(row);
-    return { status: 'success', message: 'Resultat guardat correctament' };
+        sheet.appendRow(row);
+        return { status: 'success', message: 'Resultat guardat correctament' };
+    });
 }
 
 function getNaturaQuestions(ecosistema) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_natura');
+    const sheet = getSheet('preguntes_natura');
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_natura no trobada' };
 
     const data = sheet.getDataRange().getValues();
     const headers = data[0];
     const ecoIdx = headers.indexOf('Ecosistema');
 
-    // Filtrar per ecosistema i saltar capçalera
     let filtered = data.slice(1).filter(row => row[ecoIdx] === ecosistema);
 
-    // Aleatoritzar i agafar max 10
-    filtered = filtered.sort(() => Math.random() - 0.5).slice(0, 10);
+    // Mostrem com a màxim 10 preguntes diferents cada vegada.
+    filtered = sample(filtered, 10);
 
     const questions = filtered.map(row => {
         const q = {};
@@ -250,7 +238,7 @@ function getNaturaQuestions(ecosistema) {
 
 
 function getImpactePhases() {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('fases_impacte');
+    const sheet = getSheet('fases_impacte');
     if (!sheet) return { status: 'error', message: 'Pestanya fases_impacte no trobada' };
 
     const data = sheet.getDataRange().getValues();
@@ -266,7 +254,7 @@ function getImpactePhases() {
         .filter(row => row[faseIdx])
         .map((row, i) => ({
             id: `impacte_${ordreIdx !== -1 && row[ordreIdx] ? row[ordreIdx] : (i + 1)}`,
-            text: String(row[faseIdx]).trim(),
+            text: cleanCell(row[faseIdx]),
             order: ordreIdx !== -1 && row[ordreIdx] ? Number(row[ordreIdx]) : (i + 1)
         }))
         .sort((a, b) => a.order - b.order)
@@ -277,50 +265,41 @@ function getImpactePhases() {
 }
 
 function saveNaturaQuizResult(data) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('resultats_rols');
-    if (!sheet) return { status: 'error', message: 'Pestanya resultats_rols no trobada' };
+    return withWriteLock(() => {
+        const sheet = getSheet('resultats_rols');
+        if (!sheet) return { status: 'error', message: 'Pestanya resultats_rols no trobada' };
 
-    // Columnes: Timestamp, Email, ID pregunta, Règim alumne, Nivell alumne, Justificació, Punts Règim, Punts Nivell, Punts Just., Punts Total
-    const row = [
-        new Date(),
-        data.email,
-        data.questionId,
-        data.regimAlumne,
-        data.nivellAlumne,
-        data.justificacio,
-        data.puntuacioRegim,
-        data.puntuacioNivell,
-        data.puntuacioJustificacio,
-        data.puntuacioTotal
-    ];
+        // Aquesta llista ha de seguir l'ordre de capçaleres de la pestanya "resultats_rols".
+        const row = [
+            new Date(),
+            data.email,
+            data.questionId,
+            data.regimAlumne,
+            data.nivellAlumne,
+            data.justificacio,
+            data.puntuacioRegim,
+            data.puntuacioNivell,
+            data.puntuacioJustificacio,
+            data.puntuacioTotal
+        ];
 
-    sheet.appendRow(row);
-    return { status: 'success', message: 'Resposta guardada' };
+        sheet.appendRow(row);
+        return { status: 'success', message: 'Resposta guardada' };
+    });
 }
 
 function getBiblioQuestions() {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('bibliografia-APA');
+    const sheet = getSheet('bibliografia-APA');
     if (!sheet) return { status: 'error', message: 'Pestanya bibliografia-APA no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a bibliografia-APA' };
 
-    // Normalitzem headers (minúscules, trim, fora accents)
-    const rawHeaders = data[0].map(h => String(h).replace(/^\uFEFF/, '').trim());
-    const headers = rawHeaders.map(h =>
-        h.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    );
+    // Fem les capçaleres més fàcils de comparar: minúscules, sense accents ni espais sobrants.
+    const rawHeaders = data[0].map(cleanCell);
+    const headers = rawHeaders.map(normalizeHeader);
+    const findIdx = names => findHeaderIndex(headers, names);
 
-    const findIdx = (names) => {
-        for (let name of names) {
-            const norm = String(name).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            const idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    // ✅ Aquests són els teus headers reals
     const typeIdx = findIdx(['Tipus de pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo']);
     const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
     const qIdx = findIdx(['Pregunta', 'Question']);
@@ -334,25 +313,25 @@ function getBiblioQuestions() {
     if (correctIdx === -1) return { status: 'error', message: 'Falta la columna "Correcta"' };
 
     const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
+        .filter(row => cleanCell(row[qIdx]) !== "")
         .map(row => {
-            const type = String(row[typeIdx] ?? "").trim();
-            const level = String(row[levelIdx] ?? "").trim(); // deixa'l tal qual ("Fàcil", "Difícil")
-            const q = String(row[qIdx] ?? "").trim();
-            const correct = String(row[correctIdx] ?? "").trim();
+            const type = cleanCell(row[typeIdx]);
+            const level = cleanCell(row[levelIdx]);
+            const q = cleanCell(row[qIdx]);
+            const correct = cleanCell(row[correctIdx]);
 
             const wrongs = [
                 wrong1Idx !== -1 ? row[wrong1Idx] : "",
                 wrong2Idx !== -1 ? row[wrong2Idx] : "",
                 wrong3Idx !== -1 ? row[wrong3Idx] : ""
             ]
-                .map(v => String(v ?? "").trim())
+                .map(cleanCell)
                 .filter(v => v);
 
             const alternatives = [correct, ...wrongs].filter(v => v);
 
             return {
-                // ✅ IMPORTANT: retorna també amb headers “compatibles” amb el teu frontend actual
+                // Format antic: algunes pantalles encara llegeixen aquests noms exactes.
                 "Tipus de pregunta": type,
                 "Nivell": level,
                 "Pregunta": q,
@@ -361,7 +340,7 @@ function getBiblioQuestions() {
                 "Incorrecta2": wrongs[1] || "",
                 "Incorrecta3": wrongs[2] || "",
 
-                // ✅ i també en format normalitzat (per si el frontend llegeix .type/.level/.q)
+                // Format nou: més còmode per treballar des de JavaScript.
                 type,
                 level,
                 q,
@@ -374,23 +353,22 @@ function getBiblioQuestions() {
 }
 
 function getTrTemesQuestions(tipusBatxillerat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('temes-TR-preguntes');
+    const sheet = getSheet('temes-TR-preguntes');
     if (!sheet) return { status: 'error', message: 'Pestanya temes-TR-preguntes no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a temes-TR-preguntes' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
+    const headers = data[0].map(normalizeHeader);
 
-    // Busquem les columnes per nom (normalitzat)
-    const temaIdx = headers.indexOf('tema');
-    const tipusBtxIdx = headers.indexOf('tipus_batxillerat');
+    const temaIdx = findHeaderIndex(headers, ['tema']);
+    const tipusBtxIdx = findHeaderIndex(headers, ['tipus_batxillerat']);
 
     const colIdxs = [];
     for (let i = 1; i <= 10; i++) {
         colIdxs.push({
-            pIdx: headers.indexOf(`pregunta_${i}`),
-            tIdx: headers.indexOf(`tipus_${i}`)
+            pIdx: findHeaderIndex(headers, [`pregunta_${i}`]),
+            tIdx: findHeaderIndex(headers, [`tipus_${i}`])
         });
     }
 
@@ -398,17 +376,17 @@ function getTrTemesQuestions(tipusBatxillerat) {
         return { status: 'error', message: 'Falten columnes crítiques (com a mínim cal "tema" i "pregunta_1") a temes-TR-preguntes' };
     }
 
-    // Extracció de categories úniques (si no passem tipus)
+    // Si encara no s'ha triat categoria, retornem les opcions disponibles per muntar la pantalla inicial.
     if (!tipusBatxillerat || tipusBatxillerat.trim() === '') {
         const categoriesSet = new Set();
         if (tipusBtxIdx !== -1) {
             for (let i = 1; i < data.length; i++) {
-                const cat = String(data[i][tipusBtxIdx]).trim();
+                const cat = cleanCell(data[i][tipusBtxIdx]);
                 if (cat) categoriesSet.add(cat);
             }
         }
 
-        // Si no hi ha categories pero hi ha dades, oferim un botó "General" per poder jugar
+        // Si la pestanya té dades però no té categories, donem una opció genèrica per poder jugar igualment.
         if (categoriesSet.size === 0 && data.length > 1) {
             categoriesSet.add('General');
         }
@@ -416,41 +394,38 @@ function getTrTemesQuestions(tipusBatxillerat) {
         return { status: 'success', categories: Array.from(categoriesSet) };
     }
 
-    // Filtrar per temes vàlids (ignorarem les que estiguin buides de tema) i pel tipus de batxillerat demanat
+    // Quan ja tenim categoria, filtrem els temes i ignorem files sense tema.
     let questionsFiltered = data.slice(1).filter(row => {
-        const hasTema = row[temaIdx] && String(row[temaIdx]).trim() !== '';
+        const hasTema = cleanCell(row[temaIdx]) !== '';
 
-        // Si hem triat "General" i no hi havia categories, mostrem tot
         const isGeneralFallback = (tipusBatxillerat || "").toLowerCase() === 'general';
         const isTargetType = (tipusBtxIdx !== -1 && !isGeneralFallback)
-            ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase())
+            ? (cleanCell(row[tipusBtxIdx]).toLowerCase() === cleanCell(tipusBatxillerat).toLowerCase())
             : true;
 
         return hasTema && isTargetType;
     });
 
-    // Remenar aleatòriament els temes i quedar-nos amd 10 màxim
-    questionsFiltered = questionsFiltered.sort(() => Math.random() - 0.5).slice(0, 10);
+    // Triem fins a 10 temes a l'atzar.
+    questionsFiltered = sample(questionsFiltered, 10);
 
     const topics = questionsFiltered.map(row => {
         const tema = row[temaIdx];
 
-        // Preparem l'array de preguntes
         let qs = [];
         for (let i = 0; i < 10; i++) {
             const idxs = colIdxs[i];
             qs.push({
                 id: `q${i + 1}`,
-                text: idxs.pIdx !== -1 ? String(row[idxs.pIdx]).trim() : '',
-                type: idxs.tIdx !== -1 ? String(row[idxs.tIdx]).trim() : ''
+                text: idxs.pIdx !== -1 ? cleanCell(row[idxs.pIdx]) : '',
+                type: idxs.tIdx !== -1 ? cleanCell(row[idxs.tIdx]) : ''
             });
         }
 
-        // Filtrem aquelles que no tinguin text per si un tema en té menys de 10
-        qs = qs.filter(q => q.text && String(q.text).trim() !== '');
+        // Un tema pot tenir menys de 10 preguntes; descartem les columnes buides.
+        qs = qs.filter(q => cleanCell(q.text) !== '');
 
-        // Barregem sempre les preguntes dins de l'array perquè no surtin ordenades per com estan a l'Excel
-        qs = qs.sort(() => Math.random() - 0.5);
+        qs = shuffle(qs);
 
         return {
             tema: tema,
@@ -462,36 +437,35 @@ function getTrTemesQuestions(tipusBatxillerat) {
 }
 
 function getTrQuestions(subambit, tipusBatxillerat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_investigables');
+    const sheet = getSheet('preguntes_investigables');
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_investigables no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_investigables' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
+    const headers = data[0].map(normalizeHeader);
 
-    // Busquem les columnes per nom (normalitzat)
-    const idIdx = headers.indexOf('id');
-    const pqIdx = headers.indexOf('pregunta');
-    const invIdx = headers.indexOf('investigable/no investigable');
-    const subIdx = headers.indexOf('subambit');
-    const tipusIdx = headers.indexOf('tipus_batxillerat');
-    const raoIdx = headers.indexOf('perquè_no_investigable');
-    const tipusErrorIdx = headers.indexOf('tipus_error');
-    const escalaIdx = headers.indexOf('escala_tr');
+    const idIdx = findHeaderIndex(headers, ['id']);
+    const pqIdx = findHeaderIndex(headers, ['pregunta']);
+    const invIdx = findHeaderIndex(headers, ['investigable/no investigable']);
+    const subIdx = findHeaderIndex(headers, ['subambit']);
+    const tipusIdx = findHeaderIndex(headers, ['tipus_batxillerat']);
+    const raoIdx = findHeaderIndex(headers, ['perquè_no_investigable']);
+    const tipusErrorIdx = findHeaderIndex(headers, ['tipus_error']);
+    const escalaIdx = findHeaderIndex(headers, ['escala_tr']);
 
     if (pqIdx === -1 || invIdx === -1) {
         return { status: 'error', message: 'Falten columnes crítiques (cal "pregunta" i "investigable/no investigable")' };
     }
 
-    // Step 1: No filters provided -> Return both lists of options
+    // Primer pas del joc: si no hi ha filtres, retornem les opcions perquè l'alumne pugui triar.
     if (!subambit && !tipusBatxillerat) {
         const subambitsSet = new Set();
         const ambitsSet = new Set();
         for (let i = 1; i < data.length; i++) {
             if (data[i][pqIdx]) {
-                const s = String(data[i][subIdx] || "").trim();
-                const a = String(data[i][tipusIdx] || "").trim();
+                const s = cleanCell(data[i][subIdx]);
+                const a = cleanCell(data[i][tipusIdx]);
                 if (s) subambitsSet.add(s);
                 if (a) ambitsSet.add(a);
             }
@@ -504,22 +478,24 @@ function getTrQuestions(subambit, tipusBatxillerat) {
         };
     }
 
-    // Step 2: Filter and return questions
+    // Segon pas del joc: amb els filtres triats, retornem les preguntes.
     let questionsFiltered = data.slice(1).filter(row => {
-        const hasQuestion = row[pqIdx] && String(row[pqIdx]).trim() !== '';
+        const hasQuestion = cleanCell(row[pqIdx]) !== '';
 
-        // "Barrejat" or "Mix" means no filtering
-        const isMixSub = !subambit || subambit.toLowerCase() === 'mix' || subambit.toLowerCase() === 'barrejat';
-        const isMixAmbit = !tipusBatxillerat || tipusBatxillerat.toLowerCase() === 'mix' || tipusBatxillerat.toLowerCase() === 'barrejat';
+        // "Barrejat" o "Mix" vol dir: no filtris per aquest camp.
+        const normalizedSubambit = cleanCell(subambit).toLowerCase();
+        const normalizedBatxillerat = cleanCell(tipusBatxillerat).toLowerCase();
+        const isMixSub = !subambit || normalizedSubambit === 'mix' || normalizedSubambit === 'barrejat';
+        const isMixAmbit = !tipusBatxillerat || normalizedBatxillerat === 'mix' || normalizedBatxillerat === 'barrejat';
 
-        const matchesSub = isMixSub ? true : (String(row[subIdx] || "").trim().toLowerCase() === String(subambit).toLowerCase());
-        const matchesAmbit = isMixAmbit ? true : (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase());
+        const matchesSub = isMixSub ? true : (cleanCell(row[subIdx]).toLowerCase() === normalizedSubambit);
+        const matchesAmbit = isMixAmbit ? true : (cleanCell(row[tipusIdx]).toLowerCase() === normalizedBatxillerat);
 
         return hasQuestion && matchesSub && matchesAmbit;
     });
 
-    // Remenar i agafar 15
-    questionsFiltered = questionsFiltered.sort(() => Math.random() - 0.5).slice(0, 15);
+    // Triem fins a 15 preguntes a l'atzar.
+    questionsFiltered = sample(questionsFiltered, 15);
 
     const questions = questionsFiltered.map(row => {
         return {
@@ -536,179 +512,90 @@ function getTrQuestions(subambit, tipusBatxillerat) {
     return { status: 'success', level: 'questions', questions: questions };
 }
 
-function getCirculatoriQuestions() {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-
-    // Funció d'ajuda per trobar pestanya per nom (insensible a majúscules/espais)
-    const findSheet = (name) => {
-        const sheets = ss.getSheets();
-        const norm = name.toLowerCase().trim();
-        return sheets.find(s => s.getName().toLowerCase().trim() === norm);
-    };
-
-    const sheet = findSheet('aparell-circulatori');
-    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-circulatori" no trobada al Google Sheet' };
+function getStandardTextQuizQuestions(config) {
+    const sheet = findFlexibleSheet(config.sheetNames);
+    if (!sheet) return { status: 'error', message: config.missingMessage };
 
     const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-circulatori"' };
+    if (data.length <= 1) {
+        if (config.emptySuccess) return { status: 'success', [config.returnKey]: [] };
+        return { status: 'error', message: config.emptyMessage };
+    }
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    const headers = data[0].map(normalizeHeader);
+    const findIdx = names => findHeaderIndex(headers, names);
 
-    // Funció d'ajuda per trobar índex de columna per múltiples noms possibles
-    const findIdx = (names) => {
-        for (let name of names) {
-            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            let idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    const typeIdx = findIdx(['Tipus de pregunta', 'Tipus pregunta', 'Tipus', 'Tipo de pregunta', 'Tipo pregunta', 'Tipo']);
-    const levelIdx = findIdx(['Nivell', 'Nivel', 'Level']);
-    const qIdx = findIdx(['Pregunta', 'Question']);
-    const correctIdx = findIdx(['Correcta', 'Correct']);
+    const typeIdx = findIdx(config.typeNames || ['tipus de pregunta', 'tipus pregunta', 'tipus', 'tema', 'type', 'tipo de pregunta', 'tipo pregunta', 'tipo']);
+    const levelIdx = findIdx(config.levelNames || ['nivell', 'nivel', 'level']);
+    const effectiveTypeIdx = config.useLevelAsTypeFallback && typeIdx === -1 ? levelIdx : typeIdx;
+    const qIdx = findIdx(config.questionNames || ['pregunta', 'question']);
+    const correctIdx = findIdx(config.correctNames || ['correcta', 'correct']);
+    const wrongIdxs = [
+        findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']),
+        findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']),
+        findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3'])
+    ];
 
     if (qIdx === -1 || correctIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
+        return { status: 'error', message: 'Falten columnes critiques al Google Sheet (calen "Pregunta" i "Correcta")' };
     }
 
     const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "") // Ignorar files buides
+        .filter(row => cleanCell(row[qIdx]) !== '' && (!config.requireCorrectForFilter || cleanCell(row[correctIdx]) !== ''))
         .map(row => {
+            const correct = row[correctIdx];
+            const wrongs = wrongIdxs
+                .map(idx => idx !== -1 ? row[idx] : '')
+                .filter(value => cleanCell(value) !== '');
+            const alternatives = config.alternativesFromFixedColumns
+                ? config.alternativesFromFixedColumns.map(idx => row[idx]).filter(value => cleanCell(value) !== '')
+                : [correct, ...wrongs];
+            const rawLevel = levelIdx !== -1 ? cleanCell(row[levelIdx]) : (config.levelDefault || '');
+
             return {
-                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
-                level: levelIdx !== -1 ? String(row[levelIdx] || "").toLowerCase().trim() : "mixed",
-                q: row[qIdx],
-                correct: row[correctIdx],
-                alternatives: [row[3], row[4], row[5], row[6], row[7]]
-                    .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+                type: effectiveTypeIdx !== -1 ? cleanCell(row[effectiveTypeIdx]) : '',
+                level: config.lowercaseLevel ? rawLevel.toLowerCase() : rawLevel,
+                q: config.cleanQuestion ? cleanCell(row[qIdx]) : row[qIdx],
+                correct: correct,
+                alternatives: alternatives
             };
         });
 
-    return { status: 'success', questions: questions };
+    return { status: 'success', [config.returnKey || 'questions']: questions };
+}
+
+function getCirculatoriQuestions() {
+    return getStandardTextQuizQuestions({
+        sheetNames: ['aparell-circulatori'],
+        missingMessage: 'Pestanya "aparell-circulatori" no trobada al Google Sheet',
+        emptyMessage: 'No hi ha dades a la pestanya "aparell-circulatori"',
+        levelDefault: 'mixed',
+        lowercaseLevel: true,
+        alternativesFromFixedColumns: [3, 4, 5, 6, 7],
+        returnKey: 'questions'
+    });
 }
 
 function getEndocriQuestions() {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-
-    const findSheet = (name) => {
-        const sheets = ss.getSheets();
-        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
-        const normTarget = normalize(name);
-        return sheets.find(s => normalize(s.getName()) === normTarget) || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
-    };
-
-    const sheet = findSheet('sistema-endocri');
-    if (!sheet) return { status: 'error', message: 'Pestanya "sistema-endocri" no trobada al Google Sheet' };
-
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "sistema-endocri"' };
-
-    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-
-    const findIdx = (names) => {
-        for (let name of names) {
-            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            let idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    const typeIdx = findIdx(['tipus de pregunta', 'tipus', 'tipo de pregunta']);
-    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
-    const qIdx = findIdx(['pregunta', 'question']);
-    const correctIdx = findIdx(['correcta', 'correct']);
-    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
-    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
-    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
-
-    if (qIdx === -1 || correctIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
-    }
-
-    const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "") // Ignorar files buides
-        .map(row => {
-            const correct = row[correctIdx];
-            const wrongs = [
-                wrong1Idx !== -1 ? row[wrong1Idx] : "",
-                wrong2Idx !== -1 ? row[wrong2Idx] : "",
-                wrong3Idx !== -1 ? row[wrong3Idx] : ""
-            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
-            
-            return {
-                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
-                level: levelIdx !== -1 ? String(row[levelIdx] || "").toLowerCase().trim() : "mixed",
-                q: row[qIdx],
-                correct: correct,
-                alternatives: [correct, ...wrongs]
-            };
-        });
-
-    return { status: 'success', questions: questions };
+    return getStandardTextQuizQuestions({
+        sheetNames: ['sistema-endocri'],
+        missingMessage: 'Pestanya "sistema-endocri" no trobada al Google Sheet',
+        emptyMessage: 'No hi ha dades a la pestanya "sistema-endocri"',
+        levelDefault: 'mixed',
+        lowercaseLevel: true,
+        returnKey: 'questions'
+    });
 }
 
 function getLocomotorQuestions() {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-
-    const findSheet = (name) => {
-        const sheets = ss.getSheets();
-        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
-        const normTarget = normalize(name);
-        return sheets.find(s => normalize(s.getName()) === normTarget) || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
-    };
-
-    const sheet = findSheet('aparell-locomotor') || findSheet('sistema-locomotor');
-    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-locomotor" no trobada al Google Sheet' };
-
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-locomotor"' };
-
-    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-
-    const findIdx = (names) => {
-        for (let name of names) {
-            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            let idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    const typeIdx = findIdx(['tipus de pregunta', 'tipus', 'tipo de pregunta']);
-    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
-    const qIdx = findIdx(['pregunta', 'question']);
-    const correctIdx = findIdx(['correcta', 'correct']);
-    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
-    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
-    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
-
-    if (qIdx === -1 || correctIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
-    }
-
-    const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
-        .map(row => {
-            const correct = row[correctIdx];
-            const wrongs = [
-                wrong1Idx !== -1 ? row[wrong1Idx] : "",
-                wrong2Idx !== -1 ? row[wrong2Idx] : "",
-                wrong3Idx !== -1 ? row[wrong3Idx] : ""
-            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
-            
-            return {
-                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
-                level: levelIdx !== -1 ? String(row[levelIdx] || "").toLowerCase().trim() : "mixed",
-                q: row[qIdx],
-                correct: correct,
-                alternatives: [correct, ...wrongs]
-            };
-        });
-
-    return { status: 'success', questions: questions };
+    return getStandardTextQuizQuestions({
+        sheetNames: ['aparell-locomotor', 'sistema-locomotor'],
+        missingMessage: 'Pestanya "aparell-locomotor" no trobada al Google Sheet',
+        emptyMessage: 'No hi ha dades a la pestanya "aparell-locomotor"',
+        levelDefault: 'mixed',
+        lowercaseLevel: true,
+        returnKey: 'questions'
+    });
 }
 
 function getRadioConfig() {
@@ -735,9 +622,9 @@ function getRadioConfig() {
 }
 
 function getRadioConnectionsQuestionsLegacy() {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('preguntes_radio_conexions');
+    const sheet = getSheet('preguntes_radio_conexions');
     if (!sheet) {
-        // Fallback or development questions if sheet doesn't exist yet
+        // Preguntes de reserva perquè l'activitat no quedi buida si falta la pestanya.
         const defaultQuestions = [
             { id: 1, image: 'xlr_male.png', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
             { id: 2, image: 'xlr_female.png', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
@@ -775,8 +662,8 @@ function getRadioConnectionsQuestionsLegacy() {
             id: index + 1,
             image: row[imgIdx],
             correct: row[correctIdx],
-            alternatives: [row[1], row[2], row[3], row[4]] // Suposem que les opcions estan a les columnes B-E
-                .filter(val => val !== undefined && val !== null && String(val).trim() !== "")
+            alternatives: [row[1], row[2], row[3], row[4]]
+                .filter(val => cleanCell(val) !== "")
         };
     });
 
@@ -784,14 +671,7 @@ function getRadioConnectionsQuestionsLegacy() {
 }
 
 function getRadioConnectionsQuestions() {
-    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
-    const sheetNames = ['radio_connectors', 'preguntes_radio_conexions'];
-    let sheet = null;
-
-    for (let i = 0; i < sheetNames.length; i++) {
-        sheet = spreadsheet.getSheetByName(sheetNames[i]);
-        if (sheet) break;
-    }
+    const sheet = getFirstExistingSheet(['radio_connectors', 'preguntes_radio_conexions']);
 
     if (!sheet) {
         return {
@@ -906,16 +786,11 @@ function getRadioConnectionsQuestions() {
 }
 
 function normalizeRadioConnectionsHeader(value) {
-    return String(value || '')
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[\s-]+/g, '_');
+    return normalizeHeader(value);
 }
 
 function cleanRadioConnectionsCell(value) {
-    return String(value === undefined || value === null ? '' : value).trim();
+    return cleanCell(value);
 }
 
 function isRadioConnectionsImageQuestion(question) {
@@ -924,18 +799,11 @@ function isRadioConnectionsImageQuestion(question) {
 }
 
 function isRadioConnectionsImageFile(value) {
-    return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(value || '').trim());
+    return /\.(png|jpe?g|webp|gif|svg)$/i.test(cleanCell(value));
 }
 
 function getMediterraniBiodiversitatQuestions() {
-    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
-    const sheetNames = ['mediterrani_biodiversitat', 'biodiversitat_mediterrani'];
-    let sheet = null;
-
-    for (let i = 0; i < sheetNames.length; i++) {
-        sheet = spreadsheet.getSheetByName(sheetNames[i]);
-        if (sheet) break;
-    }
+    const sheet = getFirstExistingSheet(['mediterrani_biodiversitat', 'biodiversitat_mediterrani']);
 
     if (!sheet) {
         return {
@@ -1049,16 +917,11 @@ function getMediterraniBiodiversitatQuestions() {
 }
 
 function normalizeMediterraniBiodiversitatHeader(value) {
-    return String(value || '')
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[\s-]+/g, '_');
+    return normalizeHeader(value);
 }
 
 function cleanMediterraniBiodiversitatCell(value) {
-    return String(value === undefined || value === null ? '' : value).trim();
+    return cleanCell(value);
 }
 
 function isMediterraniBiodiversitatImageQuestion(question) {
@@ -1067,47 +930,144 @@ function isMediterraniBiodiversitatImageQuestion(question) {
 }
 
 function isMediterraniBiodiversitatImageFile(value) {
-    return /\.(png|jpe?g|webp|gif|svg)$/i.test(String(value || '').trim());
+    return /\.(png|jpe?g|webp|gif|svg)$/i.test(cleanCell(value));
 }
 
 // --- UTILITATS ---
+
+function getSpreadsheet() {
+    return SpreadsheetApp.openById(SHEET_ID);
+}
+
+function getSheet(sheetName) {
+    return getSpreadsheet().getSheetByName(sheetName);
+}
+
+function getFirstExistingSheet(sheetNames) {
+    const spreadsheet = getSpreadsheet();
+
+    for (let i = 0; i < sheetNames.length; i++) {
+        const sheet = spreadsheet.getSheetByName(sheetNames[i]);
+        if (sheet) return sheet;
+    }
+
+    return null;
+}
+
+function normalizeHeader(value) {
+    return String(value || '')
+        .replace(/^\uFEFF/, '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\s-]+/g, '_');
+}
+
+function normalizeLoose(value) {
+    return normalizeHeader(value).replace(/_/g, '');
+}
+
+function cleanCell(value) {
+    return String(value === undefined || value === null ? '' : value).trim();
+}
+
+function findHeaderIndex(headers, names) {
+    const normalizedHeaders = headers.map(normalizeHeader);
+
+    for (let i = 0; i < names.length; i++) {
+        const index = normalizedHeaders.indexOf(normalizeHeader(names[i]));
+        if (index !== -1) return index;
+    }
+
+    return -1;
+}
+
+function findLooseHeaderIndex(headers, names) {
+    const normalizedHeaders = headers.map(normalizeLoose);
+
+    for (let i = 0; i < names.length; i++) {
+        const index = normalizedHeaders.indexOf(normalizeLoose(names[i]));
+        if (index !== -1) return index;
+    }
+
+    return -1;
+}
+
+function findFlexibleSheet(sheetNames) {
+    const spreadsheet = getSpreadsheet();
+    const sheets = spreadsheet.getSheets();
+    const normalizedNames = sheetNames.map(normalizeLoose);
+
+    for (let i = 0; i < sheets.length; i++) {
+        if (normalizedNames.indexOf(normalizeLoose(sheets[i].getName())) !== -1) {
+            return sheets[i];
+        }
+    }
+
+    return null;
+}
+
+function shuffle(array) {
+    const result = array.slice();
+
+    for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+    }
+
+    return result;
+}
+
+function sample(array, maxItems) {
+    return shuffle(array).slice(0, maxItems);
+}
+
+function rowToObject(headers, row) {
+    const object = {};
+
+    headers.forEach((header, index) => {
+        object[header] = row[index];
+    });
+
+    return object;
+}
 
 function createJSONOutput(object) {
     return ContentService.createTextOutput(JSON.stringify(object))
         .setMimeType(ContentService.MimeType.JSON);
 }
 
-// CORRECCIÓ CORS: Google Apps Script Web App no permet configurar capçaleres CORS directament en el `doGet`/`doPost`
-// d'una manera que el navegador accepti en pre-flight (OPTIONS).
-// PERÒ: Si es fa el desplegament "Who has access: Anyone", Google fa un redirect 302 que sol funcionar amb `fetch`
-// si es segueixen les redireccions.
-// El return JSON estàndard sol funcionar per GET/POST simple.
+// Nota CORS: Apps Script no deixa posar capçaleres CORS reals aquí.
+// Per evitar problemes, el frontend hauria de fer peticions GET/POST simples i seguir redireccions.
 function getNaturaPreguntes(subambit, tipusBatxillerat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('natura_preguntes');
+    const sheet = getSheet('natura_preguntes');
     if (!sheet) return { status: 'error', message: 'Pestanya natura_preguntes no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_preguntes' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
-    const pqIdx = headers.indexOf('pregunta');
-    const invIdx = headers.indexOf('investigable/no investigable');
-    const subIdx = headers.indexOf('subambit');
-    const tipusIdx = headers.indexOf('tipus_batxillerat');
-    const raoIdx = headers.indexOf('perquè_no_investigable');
+    const headers = data[0].map(normalizeHeader);
+    const pqIdx = findHeaderIndex(headers, ['pregunta']);
+    const invIdx = findHeaderIndex(headers, ['investigable/no investigable']);
+    const subIdx = findHeaderIndex(headers, ['subambit']);
+    const tipusIdx = findHeaderIndex(headers, ['tipus_batxillerat']);
+    const raoIdx = findHeaderIndex(headers, ['perquè_no_investigable']);
 
     if (pqIdx === -1 || invIdx === -1) {
         return { status: 'error', message: 'Falten columnes crítiques a natura_preguntes' };
     }
 
-    // Step 1: No filters provided -> Return both lists of options
+    // Primer pas: sense filtres, retornem les opcions de configuració del joc.
     if (!subambit && !tipusBatxillerat) {
         const subambitsSet = new Set();
         const ambitsSet = new Set();
         for (let i = 1; i < data.length; i++) {
             if (data[i][pqIdx]) {
-                const s = String(data[i][subIdx] || "").trim();
-                const a = String(data[i][tipusIdx] || "").trim();
+                const s = cleanCell(data[i][subIdx]);
+                const a = cleanCell(data[i][tipusIdx]);
                 if (s) subambitsSet.add(s);
                 if (a) ambitsSet.add(a);
             }
@@ -1120,20 +1080,22 @@ function getNaturaPreguntes(subambit, tipusBatxillerat) {
         };
     }
 
-    // Step 2: Filter and return questions
+    // Segon pas: amb filtres, retornem les preguntes que toquen.
     let filtered = data.slice(1).filter(row => {
-        const hasQ = row[pqIdx] && String(row[pqIdx]).trim() !== '';
+        const hasQ = cleanCell(row[pqIdx]) !== '';
 
-        const isMixSub = !subambit || subambit.toLowerCase() === 'mix' || subambit.toLowerCase() === 'barrejat';
-        const isMixAmbit = !tipusBatxillerat || tipusBatxillerat.toLowerCase() === 'mix' || tipusBatxillerat.toLowerCase() === 'barrejat';
+        const normalizedSubambit = cleanCell(subambit).toLowerCase();
+        const normalizedBatxillerat = cleanCell(tipusBatxillerat).toLowerCase();
+        const isMixSub = !subambit || normalizedSubambit === 'mix' || normalizedSubambit === 'barrejat';
+        const isMixAmbit = !tipusBatxillerat || normalizedBatxillerat === 'mix' || normalizedBatxillerat === 'barrejat';
 
-        const matchesSub = isMixSub ? true : (String(row[subIdx] || "").trim().toLowerCase() === String(subambit).toLowerCase());
-        const matchesAmbit = isMixAmbit ? true : (String(row[tipusIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase());
+        const matchesSub = isMixSub ? true : (cleanCell(row[subIdx]).toLowerCase() === normalizedSubambit);
+        const matchesAmbit = isMixAmbit ? true : (cleanCell(row[tipusIdx]).toLowerCase() === normalizedBatxillerat);
 
         return hasQ && matchesSub && matchesAmbit;
     });
 
-    const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 15).map(row => ({
+    const questions = sample(filtered, 15).map(row => ({
         pregunta: row[pqIdx],
         investigable: row[invIdx],
         perque_no_investigable: raoIdx !== -1 ? row[raoIdx] : ''
@@ -1143,21 +1105,21 @@ function getNaturaPreguntes(subambit, tipusBatxillerat) {
 }
 
 function getNaturaTemesQuestions(tipusBatxillerat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('natura_temes');
+    const sheet = getSheet('natura_temes');
     if (!sheet) return { status: 'error', message: 'Pestanya natura_temes no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a natura_temes' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
-    const temaIdx = headers.indexOf('tema');
-    const tipusBtxIdx = headers.indexOf('tipus_batxillerat');
+    const headers = data[0].map(normalizeHeader);
+    const temaIdx = findHeaderIndex(headers, ['tema']);
+    const tipusBtxIdx = findHeaderIndex(headers, ['tipus_batxillerat']);
 
     const colIdxs = [];
     for (let i = 1; i <= 10; i++) {
         colIdxs.push({
-            pIdx: headers.indexOf(`pregunta_${i}`),
-            tIdx: headers.indexOf(`tipus_${i}`)
+            pIdx: findHeaderIndex(headers, [`pregunta_${i}`]),
+            tIdx: findHeaderIndex(headers, [`tipus_${i}`])
         });
     }
 
@@ -1169,7 +1131,7 @@ function getNaturaTemesQuestions(tipusBatxillerat) {
         const categoriesSet = new Set();
         if (tipusBtxIdx !== -1) {
             for (let i = 1; i < data.length; i++) {
-                const cat = String(data[i][tipusBtxIdx]).trim();
+                const cat = cleanCell(data[i][tipusBtxIdx]);
                 if (cat) categoriesSet.add(cat);
             }
         }
@@ -1178,50 +1140,50 @@ function getNaturaTemesQuestions(tipusBatxillerat) {
     }
 
     let filtered = data.slice(1).filter(row => {
-        const hasTema = row[temaIdx] && String(row[temaIdx]).trim() !== '';
+        const hasTema = cleanCell(row[temaIdx]) !== '';
         const isGen = tipusBatxillerat.toLowerCase() === 'general';
-        const isType = (tipusBtxIdx !== -1 && !isGen) ? (String(row[tipusBtxIdx] || "").trim().toLowerCase() === String(tipusBatxillerat).toLowerCase()) : true;
+        const isType = (tipusBtxIdx !== -1 && !isGen) ? (cleanCell(row[tipusBtxIdx]).toLowerCase() === cleanCell(tipusBatxillerat).toLowerCase()) : true;
         return hasTema && isType;
     });
 
-    const topics = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
+    const topics = sample(filtered, 10).map(row => {
         let qs = [];
         for (let i = 0; i < 10; i++) {
             const idxs = colIdxs[i];
-            if (idxs.pIdx !== -1 && String(row[idxs.pIdx]).trim()) {
+            if (idxs.pIdx !== -1 && cleanCell(row[idxs.pIdx])) {
                 qs.push({
-                    text: String(row[idxs.pIdx]).trim(),
-                    type: idxs.tIdx !== -1 ? String(row[idxs.tIdx]).trim() : ''
+                    text: cleanCell(row[idxs.pIdx]),
+                    type: idxs.tIdx !== -1 ? cleanCell(row[idxs.tIdx]) : ''
                 });
             }
         }
-        return { tema: row[temaIdx], preguntes: qs.sort(() => Math.random() - 0.5) };
+        return { tema: row[temaIdx], preguntes: shuffle(qs) };
     });
 
     return { status: 'success', topics };
 }
 
-// Helper per normalitzar strings (treu accents, espais i passa a minúscules)
+// Normalitza text per comparar valors escrits de formes una mica diferents.
 function normalizeStr(str) {
     if (!str) return "";
-    return String(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    return cleanCell(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
 
 function getSolidartQuadres(dificultat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('quadres');
+    const sheet = getSheet('quadres');
     if (!sheet) return { status: 'error', message: 'Pestanya quadres no trobada' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a la pestanya quadres' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
-    const difIdx = headers.indexOf('dificultat');
-    const imgIdx = headers.indexOf('nom_imatge');
-    const qIdx = headers.indexOf('pregunta');
-    const ansIdx = headers.indexOf('resposta_correcta');
-    const inc1Idx = headers.indexOf('incorrecta_1');
-    const inc2Idx = headers.indexOf('incorrecta_2');
-    const inc3Idx = headers.indexOf('incorrecta_3');
+    const headers = data[0].map(normalizeHeader);
+    const difIdx = findHeaderIndex(headers, ['dificultat']);
+    const imgIdx = findHeaderIndex(headers, ['nom_imatge']);
+    const qIdx = findHeaderIndex(headers, ['pregunta']);
+    const ansIdx = findHeaderIndex(headers, ['resposta_correcta']);
+    const inc1Idx = findHeaderIndex(headers, ['incorrecta_1']);
+    const inc2Idx = findHeaderIndex(headers, ['incorrecta_2']);
+    const inc3Idx = findHeaderIndex(headers, ['incorrecta_3']);
 
     if (imgIdx === -1 || qIdx === -1 || ansIdx === -1) {
         return { status: 'error', message: 'Falten columnes crítiques a la pestanya quadres' };
@@ -1241,13 +1203,13 @@ function getSolidartQuadres(dificultat) {
         };
     }
 
-    const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
-        const options = [
+    const questions = sample(filtered, 10).map(row => {
+        const options = shuffle([
             row[ansIdx],
             row[inc1Idx],
             row[inc2Idx],
             row[inc3Idx]
-        ].filter(o => o !== "").sort(() => Math.random() - 0.5);
+        ].filter(o => cleanCell(o) !== ""));
 
         return {
             dificultat: row[difIdx],
@@ -1262,22 +1224,22 @@ function getSolidartQuadres(dificultat) {
 }
 
 function getSolidartQuadres2(dificultat) {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('quadres2');
+    const sheet = getSheet('quadres2');
     if (!sheet) return { status: 'error', message: 'ERROR: La pestanya "quadres2" no existeix al Google Sheet.' };
 
     const data = sheet.getDataRange().getValues();
     if (data.length <= 1) return { status: 'error', message: 'ERROR: La pestanya "quadres2" està buida (només té la capçalera o res).' };
 
-    const headers = data[0].map(h => String(h).toLowerCase().trim());
-    const difIdx = headers.indexOf('dificultat');
-    const qIdx = headers.indexOf('pregunta');
-    const imgCorrectIdx = headers.indexOf('img_correcta');
-    const inc1Idx = headers.indexOf('incorrecta_1');
-    const inc2Idx = headers.indexOf('incorrecta_2');
-    const inc3Idx = headers.indexOf('incorrecta_3');
+    const headers = data[0].map(normalizeHeader);
+    const difIdx = findHeaderIndex(headers, ['dificultat']);
+    const qIdx = findHeaderIndex(headers, ['pregunta']);
+    const imgCorrectIdx = findHeaderIndex(headers, ['img_correcta']);
+    const inc1Idx = findHeaderIndex(headers, ['incorrecta_1']);
+    const inc2Idx = findHeaderIndex(headers, ['incorrecta_2']);
+    const inc3Idx = findHeaderIndex(headers, ['incorrecta_3']);
 
-    // Més flexible: si no troba img_correcta, potser es diu nom_imatge?
-    const finalImgIdx = imgCorrectIdx !== -1 ? imgCorrectIdx : headers.indexOf('nom_imatge');
+    // Acceptem dos noms de columna per no trencar Sheets antics.
+    const finalImgIdx = imgCorrectIdx !== -1 ? imgCorrectIdx : findHeaderIndex(headers, ['nom_imatge']);
 
     if (qIdx === -1 || finalImgIdx === -1) {
         return {
@@ -1286,7 +1248,7 @@ function getSolidartQuadres2(dificultat) {
         };
     }
 
-    let filtered = data.slice(1).filter(row => row[qIdx] && String(row[qIdx]).trim() !== "");
+    let filtered = data.slice(1).filter(row => cleanCell(row[qIdx]) !== "");
     const normalizedTarget = normalizeStr(dificultat);
 
     if (dificultat && normalizedTarget !== 'mix' && difIdx !== -1) {
@@ -1300,13 +1262,13 @@ function getSolidartQuadres2(dificultat) {
         };
     }
 
-    const questions = filtered.sort(() => Math.random() - 0.5).slice(0, 10).map(row => {
-        const options = [
+    const questions = sample(filtered, 10).map(row => {
+        const options = shuffle([
             row[finalImgIdx],
             row[inc1Idx] || "",
             row[inc2Idx] || "",
             row[inc3Idx] || ""
-        ].filter(o => o !== "").sort(() => Math.random() - 0.5);
+        ].filter(o => cleanCell(o) !== ""));
 
         return {
             dificultat: difIdx !== -1 ? row[difIdx] : 'Mix',
@@ -1320,7 +1282,7 @@ function getSolidartQuadres2(dificultat) {
 }
 function getDiagnosticQuestions() {
     try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('diagnostic_preguntes');
+        const sheet = getSheet('diagnostic_preguntes');
         if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya diagnostic_preguntes' };
 
         const data = sheet.getDataRange().getValues();
@@ -1328,12 +1290,7 @@ function getDiagnosticQuestions() {
         const questions = [];
 
         for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            const q = {};
-            headers.forEach((header, index) => {
-                q[header] = row[index];
-            });
-            questions.push(q);
+            questions.push(rowToObject(headers, data[i]));
         }
 
         return { status: 'success', questions: questions };
@@ -1345,57 +1302,14 @@ function getDiagnosticQuestions() {
 
 function getSentitQuestions(senseName) {
     try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('sentit-' + senseName.toLowerCase());
-        if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya sentit-' + senseName.toLowerCase() };
-
-        const data = sheet.getDataRange().getValues();
-        if (data.length <= 1) return { status: 'success', data: [] };
-
-        const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-        
-        const findIdx = (names) => {
-            for (let name of names) {
-                let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                let idx = headers.indexOf(norm);
-                if (idx !== -1) return idx;
-            }
-            return -1;
-        };
-
-        const temaIdx = findIdx(['tipus de pregunta', 'tipus', 'tema', 'type']);
-        const nivellIdx = findIdx(['nivell', 'nivel', 'level']);
-        // Si no hi ha columna de tema, usem la columna de nivell per al tipus també
-        const effectiveTemaIdx = temaIdx !== -1 ? temaIdx : nivellIdx;
-        const qIdx = findIdx(['pregunta', 'question']);
-        const correctIdx = findIdx(['correcta', 'correct']);
-        const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
-        const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
-        const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
-
-        const questions = [];
-
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            if (qIdx !== -1 && correctIdx !== -1 && row[qIdx] && row[correctIdx]) {
-                const alternatives = [
-                    row[correctIdx],
-                    wrong1Idx !== -1 ? row[wrong1Idx] : '',
-                    wrong2Idx !== -1 ? row[wrong2Idx] : '',
-                    wrong3Idx !== -1 ? row[wrong3Idx] : ''
-                ].filter(a => a && String(a).trim() !== '');
-
-                let qObj = {
-                    type: effectiveTemaIdx !== -1 && row[effectiveTemaIdx] ? String(row[effectiveTemaIdx]).trim() : '',
-                    level: nivellIdx !== -1 && row[nivellIdx] ? String(row[nivellIdx]).trim() : '',
-                    q: row[qIdx],
-                    correct: row[correctIdx],
-                    alternatives: alternatives
-                };
-                questions.push(qObj);
-            }
-        }
-
-        return { status: 'success', data: questions };
+        return getStandardTextQuizQuestions({
+            sheetNames: ['sentit-' + senseName.toLowerCase()],
+            missingMessage: 'No s\'ha trobat la pestanya sentit-' + senseName.toLowerCase(),
+            emptySuccess: true,
+            returnKey: 'data',
+            useLevelAsTypeFallback: true,
+            requireCorrectForFilter: true
+        });
     } catch(e) {
         return { status: 'error', message: e.toString() };
     }
@@ -1408,148 +1322,35 @@ function getGustQuestions() { return getSentitQuestions('Gust'); }
 function getTacteQuestions() { return getSentitQuestions('Tacte'); }
 
 function getReproductorQuestions() {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-
-    const findSheet = (name) => {
-        const sheets = ss.getSheets();
-        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
-        const normTarget = normalize(name);
-        return sheets.find(s => normalize(s.getName()) === normTarget)
-            || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
-    };
-
-    const sheet = findSheet('aparell-reproductor');
-    if (!sheet) return { status: 'error', message: 'Pestanya "aparell-reproductor" no trobada al Google Sheet' };
-
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "aparell-reproductor"' };
-
-    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-
-    const findIdx = (names) => {
-        for (let name of names) {
-            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            let idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    // Cerca les columnes pel nom: accepta tant "Tipus de pregunta" com "Tipus"
-    const typeIdx = findIdx(['tipus de pregunta', 'tipus pregunta', 'tipus', 'tipo de pregunta', 'tipo']);
-    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
-    const qIdx = findIdx(['pregunta', 'question']);
-    const correctIdx = findIdx(['correcta', 'correct']);
-    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
-    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
-    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
-
-    if (qIdx === -1 || correctIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
-    }
-
-    const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
-        .map(row => {
-            const correct = row[correctIdx];
-            const wrongs = [
-                wrong1Idx !== -1 ? row[wrong1Idx] : "",
-                wrong2Idx !== -1 ? row[wrong2Idx] : "",
-                wrong3Idx !== -1 ? row[wrong3Idx] : ""
-            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
-
-            return {
-                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
-                level: levelIdx !== -1 ? String(row[levelIdx] || "").trim() : "",
-                q: String(row[qIdx]).trim(),
-                correct: correct,
-                alternatives: [correct, ...wrongs]
-            };
-        });
-
-    return { status: 'success', data: questions };
+    return getStandardTextQuizQuestions({
+        sheetNames: ['aparell-reproductor'],
+        missingMessage: 'Pestanya "aparell-reproductor" no trobada al Google Sheet',
+        emptyMessage: 'No hi ha dades a la pestanya "aparell-reproductor"',
+        cleanQuestion: true,
+        returnKey: 'data'
+    });
 }
 
 function getImmunitariQuestions() {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-
-    const findSheet = (name) => {
-        const sheets = ss.getSheets();
-        const normalize = (str) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-\s_]/g, "");
-        const normTarget = normalize(name);
-        return sheets.find(s => normalize(s.getName()) === normTarget)
-            || sheets.find(s => s.getName().toLowerCase().trim() === name.toLowerCase().trim());
-    };
-
-    const sheet = findSheet('sistema-immunitari');
-    if (!sheet) return { status: 'error', message: 'Pestanya "sistema-immunitari" no trobada al Google Sheet' };
-
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return { status: 'error', message: 'No hi ha dades a la pestanya "sistema-immunitari"' };
-
-    const headers = data[0].map(h => String(h).toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-
-    const findIdx = (names) => {
-        for (let name of names) {
-            let norm = name.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            let idx = headers.indexOf(norm);
-            if (idx !== -1) return idx;
-        }
-        return -1;
-    };
-
-    const typeIdx = findIdx(['tipus de pregunta', 'tipus pregunta', 'tipus', 'tipo de pregunta', 'tipo']);
-    const levelIdx = findIdx(['nivell', 'nivel', 'level']);
-    const qIdx = findIdx(['pregunta', 'question']);
-    const correctIdx = findIdx(['correcta', 'correct']);
-    const wrong1Idx = findIdx(['incorrecta1', 'incorrecta 1', 'incorrecta_1']);
-    const wrong2Idx = findIdx(['incorrecta2', 'incorrecta 2', 'incorrecta_2']);
-    const wrong3Idx = findIdx(['incorrecta3', 'incorrecta 3', 'incorrecta_3']);
-
-    if (qIdx === -1 || correctIdx === -1) {
-        return { status: 'error', message: 'Falten columnes crítiques al Google Sheet (calen "Pregunta" i "Correcta")' };
-    }
-
-    const questions = data.slice(1)
-        .filter(row => row[qIdx] && String(row[qIdx]).trim() !== "")
-        .map(row => {
-            const correct = row[correctIdx];
-            const wrongs = [
-                wrong1Idx !== -1 ? row[wrong1Idx] : "",
-                wrong2Idx !== -1 ? row[wrong2Idx] : "",
-                wrong3Idx !== -1 ? row[wrong3Idx] : ""
-            ].filter(val => val !== undefined && val !== null && String(val).trim() !== "");
-
-            return {
-                type: typeIdx !== -1 ? String(row[typeIdx] || "").trim() : "",
-                level: levelIdx !== -1 ? String(row[levelIdx] || "").trim() : "",
-                q: String(row[qIdx]).trim(),
-                correct: correct,
-                alternatives: [correct, ...wrongs]
-            };
-        });
-
-    return { status: 'success', data: questions };
+    return getStandardTextQuizQuestions({
+        sheetNames: ['sistema-immunitari'],
+        missingMessage: 'Pestanya "sistema-immunitari" no trobada al Google Sheet',
+        emptyMessage: 'No hi ha dades a la pestanya "sistema-immunitari"',
+        cleanQuestion: true,
+        returnKey: 'data'
+    });
 }
 
 function getOrenetesData() {
     try {
-        const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('orenetes_nius');
+        const sheet = getSheet('orenetes_nius');
         if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya orenetes_nius' };
 
         const data = sheet.getDataRange().getValues();
         if (data.length <= 1) return { status: 'success', data: [] };
 
-        const headers = data[0].map(h => String(h).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
-        
-        const findIdx = (names) => {
-            for (let name of names) {
-                let norm = name.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-                let idx = headers.indexOf(norm);
-                if (idx !== -1) return idx;
-            }
-            return -1;
-        };
+        const headers = data[0].map(normalizeHeader);
+        const findIdx = names => findHeaderIndex(headers, names);
 
         const dificultatIdx = findIdx(['dificultat']);
         const imgIdx = findIdx(['imatge', 'nom_imatge']);
@@ -1569,9 +1370,9 @@ function getOrenetesData() {
             const row = data[i];
             if (row[imgIdx]) {
                 questions.push({
-                    dificultat: dificultatIdx !== -1 ? String(row[dificultatIdx] || '').trim() : '',
+                    dificultat: dificultatIdx !== -1 ? cleanCell(row[dificultatIdx]) : '',
                     imatge: row[imgIdx],
-                    descripcio: descIdx !== -1 ? String(row[descIdx] || '').trim() : '',
+                    descripcio: descIdx !== -1 ? cleanCell(row[descIdx]) : '',
                     bonEstat: bonEstatIdx !== -1 ? Number(row[bonEstatIdx]) || 0 : 0,
                     actius: actiusIdx !== -1 ? Number(row[actiusIdx]) || 0 : 0,
                     trencats: trencatsIdx !== -1 ? Number(row[trencatsIdx]) || 0 : 0,
@@ -1584,6 +1385,119 @@ function getOrenetesData() {
     } catch(e) {
         return { status: 'error', message: e.toString() };
     }
+}
+
+function getOrenetesPreguntes() {
+    try {
+        const sheet = getFirstExistingSheet(['orenetes_preguntes', 'preguntes_orenetes']);
+
+        if (!sheet) {
+            return { status: 'error', message: 'No s\'ha trobat la pestanya orenetes_preguntes' };
+        }
+
+        const data = sheet.getDataRange().getValues();
+        if (data.length <= 1) return { status: 'success', questions: [] };
+
+        const headers = data[0].map(normalizeOrenetesPreguntesHeader);
+        const findIdx = names => findHeaderIndex(headers, names);
+
+        const difficultyIdx = findIdx(['dificultat']);
+        const topicIdx = findIdx(['tema']);
+        const imageIdx = findIdx(['nom_imatge', 'imatge', 'imatge_pregunta']);
+        const questionIdx = findIdx(['pregunta']);
+        const correctIdx = findIdx(['resposta_correcta', 'correcta']);
+        const correctImageIdx = findIdx(['imatge_correcta', 'foto_correcta']);
+        const wrongIdxs = [
+            findIdx(['incorrecta_1', 'resposta_incorrecta_1']),
+            findIdx(['incorrecta_2', 'resposta_incorrecta_2']),
+            findIdx(['incorrecta_3', 'resposta_incorrecta_3'])
+        ];
+        const wrongImageIdxs = [
+            findIdx(['imatge_incorrecta_1', 'foto_incorrecta_1']),
+            findIdx(['imatge_incorrecta_2', 'foto_incorrecta_2']),
+            findIdx(['imatge_incorrecta_3', 'foto_incorrecta_3'])
+        ];
+
+        const missingColumns = [
+            { name: 'pregunta', index: questionIdx },
+            { name: 'resposta_correcta', index: correctIdx }
+        ].filter(column => column.index === -1).map(column => column.name);
+
+        if (missingColumns.length > 0) {
+            return {
+                status: 'error',
+                message: 'Falten columnes a ' + sheet.getName() + ': ' + missingColumns.join(', ')
+            };
+        }
+
+        const questions = [];
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            const questionText = cleanOrenetesPreguntesCell(row[questionIdx]);
+            const correctText = cleanOrenetesPreguntesCell(row[correctIdx]);
+            const correctImage = correctImageIdx === -1
+                ? getOrenetesPreguntesImageFromCell(correctText)
+                : cleanOrenetesPreguntesCell(row[correctImageIdx]);
+            const wrongTexts = wrongIdxs.map(idx => idx === -1 ? '' : cleanOrenetesPreguntesCell(row[idx]));
+            const wrongImages = wrongTexts.map((wrong, index) => {
+                const imageIdx = wrongImageIdxs[index];
+                if (imageIdx !== -1) return cleanOrenetesPreguntesCell(row[imageIdx]);
+                return getOrenetesPreguntesImageFromCell(wrong);
+            });
+
+            const options = [
+                {
+                    text: getOrenetesPreguntesOptionText(correctText, correctImage),
+                    value: correctText || correctImage,
+                    image: correctImage,
+                    correct: true
+                }
+            ].concat(wrongImages.map((image, index) => ({
+                text: getOrenetesPreguntesOptionText(wrongTexts[index], image),
+                value: wrongTexts[index] || image,
+                image: image,
+                correct: false
+            }))).filter(option => option.value !== '');
+
+            if (questionText && (correctText || correctImage) && options.length >= 2) {
+                questions.push({
+                    id: i,
+                    difficulty: difficultyIdx === -1 ? '' : cleanOrenetesPreguntesCell(row[difficultyIdx]),
+                    topic: topicIdx === -1 ? '' : cleanOrenetesPreguntesCell(row[topicIdx]),
+                    image: imageIdx === -1 ? '' : cleanOrenetesPreguntesCell(row[imageIdx]),
+                    question: questionText,
+                    correct: correctText || correctImage,
+                    options: options
+                });
+            }
+        }
+
+        return { status: 'success', questions: questions };
+    } catch(e) {
+        return { status: 'error', message: e.toString() };
+    }
+}
+
+function normalizeOrenetesPreguntesHeader(value) {
+    return normalizeHeader(value);
+}
+
+function cleanOrenetesPreguntesCell(value) {
+    return cleanCell(value);
+}
+
+function getOrenetesPreguntesImageFromCell(value) {
+    const cleanValue = cleanOrenetesPreguntesCell(value);
+    return isOrenetesPreguntesImageFile(cleanValue) ? cleanValue : '';
+}
+
+function getOrenetesPreguntesOptionText(text, image) {
+    const cleanText = cleanOrenetesPreguntesCell(text);
+    return cleanText === cleanOrenetesPreguntesCell(image) ? '' : cleanText;
+}
+
+function isOrenetesPreguntesImageFile(value) {
+    return /\.(png|jpe?g|webp|gif|svg)$/i.test(cleanCell(value));
 }
 
 
