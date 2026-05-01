@@ -2,19 +2,22 @@
  * API backend de l'app.
  *
  * Aquest fitxer viu a Google Apps Script i fa de pont entre el frontend i el
- * Google Sheet. El frontend envia una "action" i aquest codi decideix quina
- * funció executar: login, carregar preguntes, guardar resultats, etc.
- * 
- * Configuració bàsica:
- * 1. Crea un nou Google Sheet.
- * 2. Crea les pestanyes: "usuaris", "resultats", "preguntes_natura", "resultats_rols" i "fases_impacte".
- * 3. A "usuaris", crea les capçaleres: id, email, password, cognoms, nom, curs, grup
- * 4. A "resultats", crea les capçaleres: timestamp, email, curs, projecte, app, nivell, puntuacio, temps_segons, feedback_pos, feedback_neg
- * 5. A "fases_impacte", crea les capçaleres: Ordre, Fase (fins a 10 files per l'activitat d'ordenació)
- * 6. Obre Extensions > Apps Script.
- * 7. Copia aquest codi a "Codi.gs".
- * 8. Substitueix SHEET_ID pel teu ID del full de càlcul.
- * 9. Desplega com a aplicació web (Deploy > New deployment > type: Web App > Execute as: Me > Who has access: Anyone).
+ * Google Sheet. El frontend envia una "action" i aquest codi executa la funció
+ * corresponent: login, carregar preguntes, guardar resultats, etc.
+ *
+ * Organització del fitxer:
+ * - SHEET_ID: ID del Google Sheet que fa de base de dades.
+ * - doGet/doPost: punts d'entrada públics de l'API.
+ * - handleRequest i ACTIONS: llegeixen l'action rebuda i la connecten amb la funció correcta.
+ * - withWriteLock: bloqueig només per a accions que escriuen al Sheet.
+ * - Funcions de negoci: login, projectes, preguntes, activitats i resultats.
+ * - Utilitats: helpers per llegir pestanyes, normalitzar capçaleres, netejar cel·les i barrejar preguntes.
+ *
+ * Configuració i desplegament:
+ * 1. Crea un Google Sheet i les pestanyes necessàries per a cada activitat.
+ * 2. Revisa que les capçaleres del Sheet coincideixin amb les que busca cada funció.
+ * 3. Enganxa aquest codi a Apps Script i posa el teu ID real a SHEET_ID.
+ * 4. Desplega'l com a Web App: Execute as "Me" i Who has access "Anyone".
  */
 
 // ID del Google Sheet que fa de base de dades.
