@@ -1,3 +1,4 @@
+
 /**
  * CLIENT-SIDE LOGIC
  * Connecta amb Google Apps Script API
@@ -17,6 +18,48 @@ const state = {
     user: null,
     currentProject: null
 };
+
+async function loadFragment(containerSelector, fragmentPath) {
+    const container = document.querySelector(containerSelector);
+
+    if (!container) {
+        throw new Error(`No existeix el contenidor: ${containerSelector}`);
+    }
+
+    const response = await fetch(fragmentPath, {
+        cache: "no-cache"
+    });
+
+    if (!response.ok) {
+        throw new Error(`No s'ha pogut carregar el fragment: ${fragmentPath}`);
+    }
+
+    container.innerHTML = await response.text();
+
+    return container;
+}
+
+async function showDashboardFragment() {
+    await loadFragment("#app", "fragments/screens/dashboard.html");
+
+    const logoutBtn = document.getElementById("logout-btn");
+    const languageSelector = document.getElementById("language-selector");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
+    }
+
+    if (languageSelector) {
+        languageSelector.addEventListener("change", (event) => {
+            const lang = event.target.value;
+
+            if (typeof i18n !== "undefined") {
+                i18n.setLanguage(lang);
+                translateUI();
+            }
+        });
+    }
+}
 
 function getCurrentUserRole() {
     if (typeof state === 'undefined' || !state.user) return '';
@@ -50,78 +93,48 @@ function setElementStateColor(element, stateName) {
     }
 }
 
-// **********************************************************
-// ELEMENTS DEL DOM
-// **********************************************************
-const screens = {
-    login: document.getElementById('login-screen'),
-    dashboard: document.getElementById('dashboard-screen'),
-    game: document.getElementById('game-screen')
-};
-
-const forms = {
-    login: document.getElementById('login-form')
-};
 
 // **********************************************************
 // INICIALITZACIÓ
 // **********************************************************
 document.addEventListener('DOMContentLoaded', () => {
-    // Comprovar si hi ha sessió guardada (localStorage)
     const savedUser = localStorage.getItem('user');
-
-    // Inicialitzar traduccions
-    translateUI();
 
     if (savedUser) {
         state.user = JSON.parse(savedUser);
-        loadDashboard();
+
+        loadDashboard().catch(error => {
+            console.error("Error carregant dashboard:", error);
+        });
     } else {
-        showScreen('login');
+        showLoginFragment().catch(error => {
+            console.error("Error carregant login:", error);
+        });
     }
-
-    // Login Listener
-    forms.login.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        await handleLogin(email, password);
-    });
-
-    // Logout
-    document.getElementById('logout-btn').addEventListener('click', logout);
-
-    // Back from Game
-    document.getElementById('back-dashboard-btn').addEventListener('click', () => {
-        showScreen('dashboard');
-    });
-
-    // Simulate Game Save
-    document.getElementById('simulate-score-btn').addEventListener('click', simulateGameSave);
-
-    // Fullscreen Toggle
-    document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
 });
 
 // **********************************************************
 // FUNCIONS DE NAVEGACIÓ
 // **********************************************************
+
+
 function showScreen(screenName) {
-    // Amagar totes
-    Object.values(screens).forEach(screen => {
+    const currentScreens = {
+        login: document.getElementById('login-screen'),
+        dashboard: document.getElementById('dashboard-screen'),
+        game: document.getElementById('game-screen')
+    };
+
+    Object.values(currentScreens).forEach(screen => {
+        if (!screen) return;
+
         screen.classList.remove('active');
-        screen.classList.add('hidden'); // Ensure hidden class is applied
-        // Wait, logic here: .active is display block, .hidden is display none.
-        // My CSS has .screen { display: none } by default. .active { display: block }.
-        // So removing active should be enough, but adding hidden is safe explicitly if needed.
-        // Actually CSS: .screen { display: none } .screen.active { display: block }
-        // So just removing .active is sufficient.
+        screen.classList.add('hidden');
     });
 
-    // Mostrar la desitjada
-    if (screens[screenName]) {
-        screens[screenName].classList.add('active');
-        screens[screenName].classList.remove('hidden');
+    if (currentScreens[screenName]) {
+        currentScreens[screenName].classList.add('active');
+        currentScreens[screenName].classList.remove('hidden');
     }
 }
 
@@ -193,7 +206,6 @@ async function handleLogin(email, password) {
     const loader = document.getElementById('login-loader');
     const errorMsg = document.getElementById('login-error');
 
-    // UI Loading
     btn.disabled = true;
     loader.classList.remove('hidden');
     errorMsg.textContent = '';
@@ -204,11 +216,15 @@ async function handleLogin(email, password) {
         if (response && response.status === 'success') {
             state.user = response.user;
             localStorage.setItem('user', JSON.stringify(state.user));
-            loadDashboard();
+
+            loadDashboard().catch(error => {
+                console.error("Error carregant dashboard:", error);
+            });
         } else {
             errorMsg.textContent = response ? response.message : 'Error desconegut';
         }
     } catch (e) {
+        console.error("Error dins handleLogin:", e);
         errorMsg.textContent = 'Error de xarxa. Comprova la URL.';
     } finally {
         btn.disabled = false;
@@ -220,11 +236,39 @@ function logout() {
     state.user = null;
     state.currentProject = null;
     localStorage.removeItem('user');
-    showScreen('login');
+
+    showLoginFragment().catch(error => {
+        console.error("Error carregant login:", error);
+    });
+}
+
+async function showLoginFragment() {
+    await loadFragment("#app", "fragments/screens/login.html");
+
+    const loginForm = document.getElementById("login-form");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            await handleLogin(email, password);
+        });
+    }
+
+    if (typeof translateUI === "function") {
+        translateUI();
+    }
 }
 
 async function loadDashboard() {
+    await showDashboardFragment();
+
     showScreen('dashboard');
+
+    
 
     // Update User Info
     document.getElementById('user-name').textContent = `${state.user.nom} ${state.user.cognoms}`;
@@ -385,30 +429,24 @@ function openProject(project) {
     }
 }
 
-// Listener pel canvi d'idioma
-document.getElementById('language-selector').addEventListener('change', (e) => {
-    const lang = e.target.value;
-    if (typeof i18n !== 'undefined') {
-        i18n.setLanguage(lang);
-        translateUI();
-    }
-});
+;
 
 function translateUI() {
     if (typeof i18n === 'undefined') return;
 
-    // Actualitzar textos UI comuns que tinguin l'atribut data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         el.innerText = i18n.t(key);
     });
 
-    // Actualitzar textos dinàmics si cal
     if (state.user) {
-        document.getElementById('welcome-msg').textContent = `${i18n.t('hi')}, ${state.user.nom}!`;
+        const welcomeMsg = document.getElementById('welcome-msg');
+
+        if (welcomeMsg) {
+            welcomeMsg.textContent = `${i18n.t('hi')}, ${state.user.nom}!`;
+        }
     }
 
-    // Si estem dins d'un joc, potser cal refrescar-lo
     if (state.currentProject) {
         if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
             updateMediterraniLanguage();
@@ -813,4 +851,3 @@ function openRadioActivity(actId) {
         }
     }
 }
-
