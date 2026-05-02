@@ -113,7 +113,7 @@ async function initTrBiblioGame() {
     const feedback = document.getElementById("tr-biblio-feedback");
     if (feedback) {
         feedback.innerText = "Carregant dades...";
-        feedback.style.color = "var(--text-main)";
+        setElementStateColor(feedback, 'muted');
     }
 
     try {
@@ -127,14 +127,14 @@ async function initTrBiblioGame() {
             const errorMsg = response && response.message ? response.message : "Error al carregar dades.";
             if (feedback) {
                 feedback.innerText = `Error: ${errorMsg}`;
-                feedback.style.color = "var(--error)";
+                setElementStateColor(feedback, 'error');
             }
         }
     } catch (e) {
         console.error("Error fetching biblio questions", e);
         if (feedback) {
             feedback.innerText = "Error de connexió.";
-            feedback.style.color = "var(--error)";
+            setElementStateColor(feedback, 'error');
         }
     }
 }
@@ -208,7 +208,7 @@ function startTrBiblioWithFilter(type = "all", level = "mixed") {
         const feedback = document.getElementById("tr-biblio-feedback");
         if (feedback) {
             feedback.innerText = "No s'han trobat preguntes per a aquesta combinació.";
-            feedback.style.color = "var(--error)";
+            setElementStateColor(feedback, 'error');
         }
         return;
     }
@@ -238,7 +238,7 @@ function startTrBiblioWithFilter(type = "all", level = "mixed") {
         const feedback = document.getElementById("tr-biblio-feedback");
         if (feedback) {
             feedback.innerText = "Error en el format de les preguntes.";
-            feedback.style.color = "var(--error)";
+            setElementStateColor(feedback, 'error');
         }
         return;
     }
@@ -303,10 +303,10 @@ function handleTrBiblioAnswer(selectedIndex) {
     if (isCorrect) {
         trBiblioState.score += 10;
         fb.innerText = "Correcte!";
-        fb.style.color = "var(--success)";
+        setElementStateColor(fb, 'success');
     } else {
         fb.innerText = "Incorrecte!";
-        fb.style.color = "var(--error)";
+        setElementStateColor(fb, 'error');
     }
 
     setTimeout(() => {

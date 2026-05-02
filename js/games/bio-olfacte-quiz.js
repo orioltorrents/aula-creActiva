@@ -58,7 +58,7 @@ function startOlfacteQuizLevelSelector() {
         topics.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--topic');
             btn.innerText = cat;
             btn.onclick = () => startOlfacteQuiz(cat, 'type');
             container.appendChild(btn);
@@ -74,7 +74,7 @@ function startOlfacteQuizLevelSelector() {
         levels.forEach(lvl => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--success');
             btn.innerText = lvl;
             btn.onclick = () => startOlfacteQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -87,7 +87,7 @@ function startOlfacteQuizLevelSelector() {
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startOlfacteQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -169,7 +169,7 @@ function handleOlfacteQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             bioOlfacteQuiz.currentStep++;
@@ -181,7 +181,7 @@ function handleOlfacteQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioOlfacteQuiz.score = Math.max(0, bioOlfacteQuiz.score - 10);
         document.getElementById('olfacte-quiz-score-display').innerText = `Punts: ${bioOlfacteQuiz.score}`;
 

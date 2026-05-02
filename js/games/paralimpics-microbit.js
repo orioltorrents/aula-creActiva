@@ -224,10 +224,10 @@ function handleParalimpicsAnswer(selectedIndex) {
     if (isCorrect) {
         paralimpicsState.score += 10;
         document.getElementById('paralimpics-feedback').innerText = i18n.t('correct');
-        document.getElementById('paralimpics-feedback').style.color = 'green';
+        setElementStateColor(document.getElementById('paralimpics-feedback'), 'success');
     } else {
         document.getElementById('paralimpics-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('paralimpics-feedback').style.color = 'red';
+        setElementStateColor(document.getElementById('paralimpics-feedback'), 'error');
     }
 
     setTimeout(() => {

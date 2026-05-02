@@ -41,6 +41,15 @@ function canUseTeacherTools() {
     return isAdminUser() || isTeacherUser();
 }
 
+function setElementStateColor(element, stateName) {
+    if (!element) return;
+    element.classList.remove('state-success', 'state-error', 'state-warning', 'state-muted');
+
+    if (stateName) {
+        element.classList.add(`state-${stateName}`);
+    }
+}
+
 // **********************************************************
 // ELEMENTS DEL DOM
 // **********************************************************
@@ -434,10 +443,10 @@ async function simulateGameSave() {
 
     if (response && response.status === 'success') {
         statusP.textContent = 'Resultat guardat correctament!';
-        statusP.style.color = 'green';
+        setElementStateColor(statusP, 'success');
     } else {
         statusP.textContent = 'Error al guardar.';
-        statusP.style.color = 'red';
+        setElementStateColor(statusP, 'error');
     }
 }
 

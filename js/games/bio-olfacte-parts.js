@@ -116,13 +116,7 @@ function renderBioOlfactePartsHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-olfacte-parts-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-olfacte-parts-help-hint target-hint';
         hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -228,14 +222,14 @@ function handleBioOlfactePartsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_olfacte_parts_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             feedbackEl.innerText = '';
             nextBioOlfactePartsStep();
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_olfacte_parts_feedback_incorrect') || 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioOlfactePartsGame.score = Math.max(0, bioOlfactePartsGame.score - 10);
         updateBioOlfactePartsUI();
     }

@@ -94,7 +94,7 @@ function renderHelpHint(target) {
     const wrapper = img.parentElement;
 
     const hint = document.createElement('div');
-    hint.className = 'sonar-help-hint';
+    hint.className = 'sonar-help-hint target-hint';
 
     const rect = img.getBoundingClientRect();
     const logicalWidth = 1000;
@@ -204,7 +204,7 @@ function handleSonarClick(event) {
         clickY >= target.y && clickY <= target.y + target.h) {
 
         feedbackEl.innerText = i18n.t('act_audio_feedback_correct');
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             feedbackEl.innerText = '';
@@ -212,7 +212,7 @@ function handleSonarClick(event) {
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_audio_feedback_incorrect');
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         sonarGame.score = Math.max(0, sonarGame.score - 1);
         updateSonarUI();
     }

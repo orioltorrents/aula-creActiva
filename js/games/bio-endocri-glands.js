@@ -152,13 +152,7 @@ function renderBioEndocriGlandsHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-endocri-glands-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-endocri-glands-help-hint target-hint';
         hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -273,7 +267,7 @@ function handleBioEndocriGlandsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_endo_glands_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             feedbackEl.innerText = '';
@@ -281,7 +275,7 @@ function handleBioEndocriGlandsClick(event) {
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_endo_glands_feedback_incorrect') || 'Incorrecte. Torna-ho a provar o utilitza l\'ajuda.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioEndocriGlandsGame.score = Math.max(0, bioEndocriGlandsGame.score - 10);
         updateBioEndocriGlandsUI();
     }

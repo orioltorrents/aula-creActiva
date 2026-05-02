@@ -72,7 +72,7 @@ function startConnectionsSelector() {
 
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (totes)';
     mixBtn.onclick = () => startConnectionsQuiz('Barrejat', null);
     buttonsContainer.appendChild(mixBtn);
@@ -90,7 +90,8 @@ function addConnectionsFilterSection(container, labelText, field, color) {
     values.forEach(value => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+        btn.classList.add('quiz-filter-button');
+            btn.style.backgroundColor = color;
         btn.innerText = value;
         btn.onclick = () => startConnectionsQuiz(value, field);
         container.appendChild(btn);
@@ -221,13 +222,13 @@ function checkConnectionAnswer(selected, correct, btn) {
         btn.classList.add('correct');
         if (feedbackEl) {
             feedbackEl.innerText = typeof i18n !== 'undefined' ? i18n.t('correct') : 'Correcte!';
-            feedbackEl.style.color = 'green';
+            setElementStateColor(feedbackEl, 'success');
         }
     } else {
         btn.classList.add('incorrect');
         if (feedbackEl) {
             feedbackEl.innerText = `${typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte'} (${correct})`;
-            feedbackEl.style.color = 'red';
+            setElementStateColor(feedbackEl, 'error');
         }
 
         options.forEach(option => {

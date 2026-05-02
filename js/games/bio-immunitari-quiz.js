@@ -73,7 +73,7 @@ function startImmunitariQuizLevelSelector() {
         topics.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:140px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--success');
             btn.innerText = cat;
             btn.onclick = () => startImmunitariQuiz(cat, 'type');
             container.appendChild(btn);
@@ -103,7 +103,8 @@ function startImmunitariQuizLevelSelector() {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
             const color = levelColors[lvl] || '#6366f1';
-            btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+            btn.classList.add('quiz-filter-button');
+            btn.style.backgroundColor = color;
             btn.innerText = lvl;
             btn.onclick = () => startImmunitariQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -117,7 +118,7 @@ function startImmunitariQuizLevelSelector() {
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tot)';
     mixBtn.onclick = () => startImmunitariQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -205,7 +206,7 @@ function handleImmunitariQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = '✅ Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             bioImmunitariQuiz.currentStep++;
             if (bioImmunitariQuiz.currentStep >= bioImmunitariQuiz.sessionQuestions.length) {
@@ -216,7 +217,7 @@ function handleImmunitariQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = '❌ Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioImmunitariQuiz.score = Math.max(0, bioImmunitariQuiz.score - 10);
         document.getElementById('immun-quiz-score').innerText = `Punts: ${bioImmunitariQuiz.score}`;
         setTimeout(() => {

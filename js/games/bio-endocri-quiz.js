@@ -190,7 +190,7 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             bioEndocriQuiz.currentStep++;
@@ -202,7 +202,7 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioEndocriQuiz.score = Math.max(0, bioEndocriQuiz.score - 10);
         document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
 

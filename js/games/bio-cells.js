@@ -86,7 +86,7 @@ function checkCellsAnswers() {
         // Parcialment correcte: donar feedback i deixar corregir
         const feedback = document.getElementById('cells-feedback');
         feedback.innerText = `${correctCount} / ${total} correctes. Corregeix els vermells i torna-ho a provar!`;
-        feedback.style.color = 'var(--error)';
+        setElementStateColor(feedback, 'error');
     }
 }
 

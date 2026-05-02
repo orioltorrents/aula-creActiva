@@ -84,7 +84,7 @@ function startOrenetesPreguntesSelector() {
 
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.textContent = 'Barrejat (totes)';
     mixBtn.onclick = () => startOrenetesPreguntesQuiz('Barrejat', null);
     buttonsContainer.appendChild(mixBtn);
@@ -102,7 +102,8 @@ function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
     values.forEach(value => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+        btn.classList.add('quiz-filter-button');
+            btn.style.backgroundColor = color;
         btn.textContent = value;
         btn.onclick = () => startOrenetesPreguntesQuiz(value, field);
         container.appendChild(btn);
@@ -246,13 +247,13 @@ function checkOrenetesPreguntesAnswer(selected, correct, btn) {
         btn.classList.add('correct');
         if (feedbackEl) {
             feedbackEl.textContent = typeof i18n !== 'undefined' ? i18n.t('correct') : 'Correcte!';
-            feedbackEl.style.color = 'green';
+            setElementStateColor(feedbackEl, 'success');
         }
     } else {
         btn.classList.add('incorrect');
         if (feedbackEl) {
             feedbackEl.textContent = typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte';
-            feedbackEl.style.color = 'red';
+            setElementStateColor(feedbackEl, 'error');
         }
     }
 

@@ -94,14 +94,8 @@ function renderRadioBoardHelpHint(target) {
     const wrapper = img.parentElement;
 
     const hint = document.createElement('div');
-    hint.className = 'radio-board-help-hint';
-    hint.style.position = 'absolute';
-    hint.style.border = '2px solid red';
-    hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-    hint.style.pointerEvents = 'none';
-    hint.style.zIndex = '10';
-
-    const rect = img.getBoundingClientRect();
+    hint.className = 'radio-board-help-hint target-hint';
+        const rect = img.getBoundingClientRect();
     // Use natural dimensions or a fixed logical scale
     const logicalWidth = 1000;
     const logicalHeight = 1000;
@@ -203,7 +197,7 @@ function handleRadioBoardClick(event) {
         clickY >= target.y && clickY <= target.y + target.h) {
 
         feedbackEl.innerText = i18n.t('act_radio_feedback_correct');
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             feedbackEl.innerText = '';
@@ -211,7 +205,7 @@ function handleRadioBoardClick(event) {
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_radio_feedback_incorrect');
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         radioBoardGame.score = Math.max(0, radioBoardGame.score - 1);
         updateRadioBoardUI();
     }

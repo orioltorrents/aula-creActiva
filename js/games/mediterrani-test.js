@@ -125,10 +125,10 @@ function handleTestAnswer(selectedIndex, btnElement) {
     if (isCorrect) {
         medTestState.score++;
         document.getElementById('test-feedback').innerText = "Correcte!";
-        document.getElementById('test-feedback').style.color = 'green';
+        setElementStateColor(document.getElementById('test-feedback'), 'success');
     } else {
         document.getElementById('test-feedback').innerText = "Incorrecte.";
-        document.getElementById('test-feedback').style.color = 'red';
+        setElementStateColor(document.getElementById('test-feedback'), 'error');
     }
 
     // Mostrar botó següent

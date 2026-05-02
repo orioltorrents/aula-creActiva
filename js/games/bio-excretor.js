@@ -127,13 +127,7 @@ function renderBioExcretorHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-excretor-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-excretor-help-hint target-hint';
         hint.style.left = (t.x * scaleX) + 'px';
         hint.style.top = (t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -248,7 +242,7 @@ function handleBioExcretorClick(event) {
     if (hit) {
 
         feedbackEl.innerText = i18n.t('act_excretor_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             feedbackEl.innerText = '';
@@ -256,7 +250,7 @@ function handleBioExcretorClick(event) {
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_excretor_feedback_incorrect') || 'Incorrecte. Torna-ho a provar o utilitza l\'ajuda.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioExcretorGame.score = Math.max(0, bioExcretorGame.score - 10);
         updateBioExcretorUI();
     }

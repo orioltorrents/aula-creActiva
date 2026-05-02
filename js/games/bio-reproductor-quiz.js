@@ -73,7 +73,7 @@ function startReproductorQuizLevelSelector() {
         topics.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#ec4899;width:auto;min-width:140px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--pink');
             btn.innerText = cat;
             btn.onclick = () => startReproductorQuiz(cat, 'type');
             container.appendChild(btn);
@@ -103,7 +103,8 @@ function startReproductorQuizLevelSelector() {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
             const color = levelColors[lvl] || '#6366f1';
-            btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+            btn.classList.add('quiz-filter-button');
+            btn.style.backgroundColor = color;
             btn.innerText = lvl;
             btn.onclick = () => startReproductorQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -117,7 +118,7 @@ function startReproductorQuizLevelSelector() {
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tot)';
     mixBtn.onclick = () => startReproductorQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -210,7 +211,7 @@ function handleReproductorQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = '✅ Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             bioReproductorQuiz.currentStep++;
@@ -222,7 +223,7 @@ function handleReproductorQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = '❌ Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioReproductorQuiz.score = Math.max(0, bioReproductorQuiz.score - 10);
         document.getElementById('reprod-quiz-score').innerText = `Punts: ${bioReproductorQuiz.score}`;
 

@@ -27,7 +27,7 @@ async function initCircQuiz() {
 
     const feedback = document.getElementById('circ-quiz-feedback');
     feedback.innerText = i18n.t('loading') || 'Carregant dades...';
-    feedback.style.color = 'var(--text-main)';
+    setElementStateColor(feedback, 'muted');
     feedback.style.fontWeight = 'normal';
 
 
@@ -46,7 +46,7 @@ async function initCircQuiz() {
         } else {
             const errorMsg = response && response.message ? response.message : 'Error al carregar dades.';
             feedback.innerText = `Error: ${errorMsg}. Revisa que la pestanya al Google Sheet es digui "aparell-circulatori" i contingui dades amb les capçaleres correctes (Pregunta, Correcta, etc).`;
-            feedback.style.color = 'var(--error)';
+            setElementStateColor(feedback, 'error');
             feedback.style.fontWeight = 'bold';
         }
 
@@ -105,7 +105,7 @@ function startCircQuizWithFilter(type = 'all', level = 'mixed') {
     if (pool.length === 0) {
         const feedback = document.getElementById('circ-quiz-feedback');
         feedback.innerText = `No s'han trobat preguntes per a aquesta combinació.`;
-        feedback.style.color = 'var(--error)';
+        setElementStateColor(feedback, 'error');
         return;
     }
 
@@ -186,10 +186,10 @@ function handleCircQuizAnswer(selectedIndex) {
     if (isCorrect) {
         circQuizState.score += 10;
         document.getElementById('circ-quiz-feedback').innerText = i18n.t('correct');
-        document.getElementById('circ-quiz-feedback').style.color = 'var(--success)';
+        setElementStateColor(document.getElementById('circ-quiz-feedback'), 'success');
     } else {
         document.getElementById('circ-quiz-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('circ-quiz-feedback').style.color = 'var(--error)';
+        setElementStateColor(document.getElementById('circ-quiz-feedback'), 'error');
     }
 
     setTimeout(() => {

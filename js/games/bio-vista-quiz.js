@@ -59,7 +59,7 @@ function startVistaQuizLevelSelector() {
         topics.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--topic');
             btn.innerText = cat;
             btn.onclick = () => startVistaQuiz(cat, 'type');
             container.appendChild(btn);
@@ -76,7 +76,7 @@ function startVistaQuizLevelSelector() {
         levels.forEach(lvl => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--success');
             btn.innerText = lvl;
             btn.onclick = () => startVistaQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -90,7 +90,7 @@ function startVistaQuizLevelSelector() {
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startVistaQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -172,7 +172,7 @@ function handleVistaQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             bioVistaQuiz.currentStep++;
@@ -184,7 +184,7 @@ function handleVistaQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioVistaQuiz.score = Math.max(0, bioVistaQuiz.score - 10);
         document.getElementById('vista-quiz-score-display').innerText = `Punts: ${bioVistaQuiz.score}`;
 

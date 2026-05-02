@@ -151,8 +151,7 @@ function renderBioOidaPartsHelpHint(target) {
     const matchingTargets = bioOidaPartsGame.allQuestions.filter(q => q.key === target.key);
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-oida-parts-help-hint';
-        hint.style.cssText = `position:absolute;border:2px solid red;background:rgba(255,0,0,0.3);pointer-events:none;z-index:10;`;
+        hint.className = 'bio-oida-parts-help-hint target-hint';
         hint.style.left   = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top    = (img.offsetTop  + t.y * scaleY) + 'px';
         hint.style.width  = (t.w * scaleX) + 'px';
@@ -250,14 +249,14 @@ function handleBioOidaPartsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_oida_parts_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             feedbackEl.innerText = '';
             nextBioOidaPartsStep();
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_oida_parts_feedback_incorrect') || 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioOidaPartsGame.score = Math.max(0, bioOidaPartsGame.score - 10);
         updateBioOidaPartsUI();
     }

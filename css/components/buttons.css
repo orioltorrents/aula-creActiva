@@ -172,3 +172,34 @@
     border-color: var(--primary-color);
 }
 
+.quiz-filter-button {
+    width: auto;
+    min-width: 120px;
+}
+
+.quiz-filter-button--wide {
+    min-width: 140px;
+}
+
+.quiz-filter-button--topic {
+    background-color: #3b82f6;
+}
+
+.quiz-filter-button--success {
+    background-color: #10b981;
+}
+
+.quiz-filter-button--mixed {
+    background-color: #7c3aed;
+}
+
+.quiz-filter-button--pink {
+    background-color: #ec4899;
+}
+
+.quiz-filter-button--compact {
+    min-width: 120px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+

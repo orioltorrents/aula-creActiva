@@ -145,7 +145,7 @@ function verifyXarxesOrder() {
     const feedback = document.getElementById('xarxes-feedback');
     if (percentage === 100) {
         feedback.textContent = i18n.t('correct') + ` (Nota final: ${finalScore}%)`;
-        feedback.style.color = 'var(--success)';
+        setElementStateColor(feedback, 'success');
 
         // Guardar resultat quan el tinguin correcte
         if (state.user && state.currentProject) {
@@ -153,10 +153,10 @@ function verifyXarxesOrder() {
         }
     } else if (percentage >= 50) {
         feedback.textContent = 'Molt bé! Gairebé ho tens. Recorda que cada error resta punts.';
-        feedback.style.color = 'orange';
+        setElementStateColor(feedback, 'warning');
     } else {
         feedback.textContent = 'Segueix intentant-ho. Revisa l\'ordre lògic. Recorda que cada error resta punts.';
-        feedback.style.color = 'var(--error)';
+        setElementStateColor(feedback, 'error');
     }
 }
 

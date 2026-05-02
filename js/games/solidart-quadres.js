@@ -63,8 +63,8 @@ function renderSolidartQuadre() {
             <span id="solidart-quadres-score-display"></span>
         </div>
         <div class="game-panel__question text-center">
-            <div id="solidart-quadres-image-container" class="mb-4 mx-auto" style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
-                <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
+            <div id="solidart-quadres-image-container" class="mb-4 mx-auto image-frame">
+                <img id="solidart-quadres-img" src="" alt="Obra d'art" class="image-frame__image">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
             <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
