@@ -21,16 +21,16 @@
             <div class="login-card">
                 <div class="login-header">
                     <h1 data-i18n="login_title">Aula CreActiva</h1>
-                    <p data-i18n="login_subtitle">Accés a l'Entorn d'Aprenentatge</p>
+                    <p data-i18n="login_subtitle">AccÃ©s a l'Entorn d'Aprenentatge</p>
                 </div>
                 <form id="login-form">
                     <div class="form-group">
-                        <label for="email" data-i18n="label_email">Correu electrònic</label>
+                        <label for="email" data-i18n="label_email">Correu electrÃ²nic</label>
                         <input type="email" id="email" placeholder="alumne@escola.cat" required>
                     </div>
                     <div class="form-group">
                         <label for="password" data-i18n="label_password">Contrasenya</label>
-                        <input type="password" id="password" placeholder="••••••" required>
+                        <input type="password" id="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢" required>
                     </div>
                     <button type="submit" class="btn-primary" id="login-btn">
                         <span class="btn-text" data-i18n="btn_login">Entrar</span>
@@ -48,8 +48,8 @@
             <div class="logo">Aula CreActiva</div>
             <div class="user-info">
                 <select id="language-selector" class="lang-select">
-                    <option value="ca">Català</option>
-                    <option value="es">Español</option>
+                    <option value="ca">CatalÃ </option>
+                    <option value="es">EspaÃ±ol</option>
                     <option value="en">English</option>
                     <option value="ar">???????</option>
                 </select>
@@ -62,11 +62,11 @@
         <main class="dashboard-content">
             <div class="welcome-banner">
                 <h2 id="welcome-msg" data-i18n="hi">Hola!</h2>
-                <p data-i18n="active_projects">Aquests són els teus projectes actius.</p>
+                <p data-i18n="active_projects">Aquests sÃ³n els teus projectes actius.</p>
             </div>
 
             <div id="projects-grid" class="projects-grid">
-                <!-- Els projectes es carregaran aquí dinàmicament -->
+                <!-- Els projectes es carregaran aquÃ­ dinÃ micament -->
                 <div class="loader" data-i18n="loading_projects">Carregant projectes...</div>
             </div>
         </main>
@@ -81,12 +81,12 @@
         </header>
         <main class="game-content">
             <div class="game-container">
-                <!-- Aquí aniria l'iframe o el canvas del joc -->
+                <!-- AquÃ­ aniria l'iframe o el canvas del joc -->
                 <div id="activity-area">
 
                     <!-- PROJECTE: Rates a la carrera (1r ESO) -->
                     <div id="game-container-p1_rates" class="game-module hidden">
-                        <!-- MENÚ D'ACTIVITATS -->
+                        <!-- MENÃš D'ACTIVITATS -->
                         <div id="rates-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openRatesActivity('preguntes')">
                                 <div class="activity-card__media">
@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title">MotionTrackLab</div>
-                                    <div class="activity-card__description">Obre el simulador per analitzar moviment i trajectòries.</div>
+                                    <div class="activity-card__description">Obre el simulador per analitzar moviment i trajectÃ²ries.</div>
                                 </div>
                             </a>
                         </div>
@@ -116,17 +116,17 @@
                         <div id="rates-activity-preguntes" class="sub-activity hidden">
                             <div id="rates-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
                                 <button class="btn-secondary btn-sm mb-8" onclick="showRatesMenu()">? Tornar al
-                                    menú</button>
+                                    menÃº</button>
 
                                 <div id="rates-preguntes-setup"
                                     class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
                                     <h3
                                         class="text-3xl font-bold mb-8 text-pink-600 flex items-center justify-center gap-3">
                                         <i class="fas fa-question-circle"></i>
-                                        <span data-i18n="p1_rates_title">Rates a la carrera</span> — <span
+                                        <span data-i18n="p1_rates_title">Rates a la carrera</span> â€” <span
                                             data-i18n="act_tr_preguntes_title">Preguntes investigables</span>
                                     </h3>
-                                    <p class="mb-10 text-xl text-gray-600">Escull una categoria per començar a
+                                    <p class="mb-10 text-xl text-gray-600">Escull una categoria per comenÃ§ar a
                                         practicar.</p>
                                     <div id="rates-preguntes-categories-container">
                                     </div>
@@ -154,7 +154,7 @@
                                     <p id="rates-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="rates-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
                                     <button id="rates-preguntes-next-btn" class="btn-primary"
-                                        onclick="nextRatesPregunta()">Següent pregunta</button>
+                                        onclick="nextRatesPregunta()">SegÃ¼ent pregunta</button>
                                 </div>
                             </div>
 
@@ -165,7 +165,7 @@
                                 <p id="rates-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
                                     0%</p>
                                 <p id="rates-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showRatesMenu()" class="btn-secondary">Tornar al menú</button>
+                                <button onclick="showRatesMenu()" class="btn-secondary">Tornar al menÃº</button>
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                     <div id="project-hub-mediterrani" class="game-module hidden">
                         <h3 data-i18n="med_project_title">Projecte Mediterrani</h3>
 
-                        <!-- MENÚ D'ACTIVITATS -->
+                        <!-- MENÃš D'ACTIVITATS -->
                         <div id="med-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openMediterraniActivity('capitals')">
                                 <div class="activity-card__media">
@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_capitals_title">Capitals</div>
-                                    <div class="activity-card__description" data-i18n="act_capitals_desc">Aprèn les capitals del
+                                    <div class="activity-card__description" data-i18n="act_capitals_desc">AprÃ¨n les capitals del
                                         Mediterrani</div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_sea_title">El Mar del Mig</div>
-                                    <div class="activity-card__description" data-i18n="act_sea_desc">Vídeo i Test de coneixements</div>
+                                    <div class="activity-card__description" data-i18n="act_sea_desc">VÃ­deo i Test de coneixements</div>
                                 </div>
                             </div>
                             <div class="activity-card" onclick="openMediterraniActivity('map')">
@@ -204,7 +204,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_map_title">Mapa del Mediterrani</div>
-                                    <div class="activity-card__description" data-i18n="act_map_desc">Identifica els països al mapa</div>
+                                    <div class="activity-card__description" data-i18n="act_map_desc">Identifica els paÃ¯sos al mapa</div>
                                 </div>
                             </div>
                             <div class="activity-card" onclick="openMediterraniActivity('biodiversitat')">
@@ -213,7 +213,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title">Biodiversitat del Mediterrani</div>
-                                    <div class="activity-card__description">Descobreix espècies i ecosistemes mediterranis</div>
+                                    <div class="activity-card__description">Descobreix espÃ¨cies i ecosistemes mediterranis</div>
                                 </div>
                             </div>
                         </div>
@@ -221,14 +221,14 @@
                         <!-- ACTIVITAT 1: Capitals -->
                         <div id="med-activity-capitals" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
                             <div class="game-panel__header">
                                 <h3 id="med-title">Capitals del Mediterrani</h3>
                                 <div class="game-panel__controls">
                                     <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
-                                        data-i18n="hide_country">Amagar País</button>
+                                        data-i18n="hide_country">Amagar PaÃ­s</button>
                                     <button id="btn-med-capitals-practice" onclick="initMediterraniGame('practice')" class="btn-secondary"
-                                        data-i18n="btn_practice">Pràctica</button>
+                                        data-i18n="btn_practice">PrÃ ctica</button>
                                     <button id="btn-med-capitals-exam" onclick="initMediterraniGame('exam')" class="btn-secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
@@ -249,7 +249,7 @@
                         <!-- ACTIVITAT 2: El Mar del Mig (Test) -->
                         <div id="med-activity-test_mar" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
                             <h3 data-i18n="act_sea_title">El Mar del Mig</h3>
                             <div class="video-container mb-4">
                                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/LumufzHA8wA"
@@ -258,7 +258,7 @@
                             <div id="med-test-area">
                                 <div class="game-panel__controls mb-4">
                                     <button onclick="initMediterraniTest()" class="btn-primary"
-                                        data-i18n="btn_start_test">Començar Test</button>
+                                        data-i18n="btn_start_test">ComenÃ§ar Test</button>
                                 </div>
                                 <div id="test-container" class="hidden">
                                     <div class="game-panel__stats"><span id="test-progress">Pregunta 1/25</span><span
@@ -269,7 +269,7 @@
                                     </div>
                                     <p id="test-feedback" class="game-panel__feedback"></p>
                                     <button id="test-next-btn" class="btn-primary hidden" onclick="nextTestQuestion()"
-                                        data-i18n="btn_next">Següent</button>
+                                        data-i18n="btn_next">SegÃ¼ent</button>
                                 </div>
                                 <div id="test-results" class="result-screen hidden text-center">
                                     <h3 data-i18n="final_score">Resultats</h3>
@@ -283,14 +283,14 @@
                         <!-- ACTIVITAT 3: Mapa del Mediterrani -->
                         <div id="med-activity-map" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_map_title">Mapa del Mediterrani</h3>
                                 <div class="game-panel__controls">
                                     <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()"
-                                        class="btn-secondary" data-i18n="hide_country">Amagar País</button>
+                                        class="btn-secondary" data-i18n="hide_country">Amagar PaÃ­s</button>
                                     <button id="btn-med-map-practice" onclick="initMediterraniMapGame('practice')" class="btn-secondary"
-                                        data-i18n="btn_practice">Pràctica</button>
+                                        data-i18n="btn_practice">PrÃ ctica</button>
                                     <button id="btn-med-map-exam" onclick="initMediterraniMapGame('exam')" class="btn-secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
@@ -309,7 +309,7 @@
                         <!-- ACTIVITAT 4: Biodiversitat del Mediterrani -->
                         <div id="med-activity-biodiversitat" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
                             <div class="game-panel__header">
                                 <h3>Biodiversitat del Mediterrani</h3>
                             </div>
@@ -324,7 +324,7 @@
                                     <span id="med-biodiv-score">Punts: 0</span>
                                 </div>
                                 <div class="game-panel__question text-center">
-                                    <img id="med-biodiv-img" src="" alt="Imatge de biodiversitat mediterrània"
+                                    <img id="med-biodiv-img" src="" alt="Imatge de biodiversitat mediterrÃ nia"
                                         style="width: 100%; max-width: 520px; max-height: 340px; object-fit: contain; margin: 0 auto 1rem; display: block;">
                                     <p id="med-biodiv-meta" class="text-muted hidden"></p>
                                     <h4 id="med-biodiv-question-text">Carregant pregunta...</h4>
@@ -338,7 +338,7 @@
                                 <p id="med-biodiv-final-msg" class="result-screen__message"></p>
                                 <button class="btn-primary" onclick="initMediterraniBiodiversitatQuiz()">Tornar a jugar</button>
                                 <button class="btn-secondary mt-4" onclick="startMediterraniBiodiversitatSelector()">Tornar a triar</button>
-                                <button class="btn-secondary mt-4" onclick="showMediterraniMenu()">Tornar al menú</button>
+                                <button class="btn-secondary mt-4" onclick="showMediterraniMenu()">Tornar al menÃº</button>
                             </div>
                         </div>
                     </div>
@@ -347,7 +347,7 @@
                     <div id="project-hub-tr" class="game-module hidden">
                         <h3 data-i18n="tr_project_title">Projecte Treball de Recerca</h3>
 
-                        <!-- MENÚ D'ACTIVITATS -->
+                        <!-- MENÃš D'ACTIVITATS -->
                         <div id="tr-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openTrActivity('preguntes')">
                                 <div class="activity-card__media">
@@ -357,8 +357,8 @@
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables
                                     </div>
-                                    <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar
-                                        preguntes investigables de les que no ho són.</div>
+                                    <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar
+                                        preguntes investigables de les que no ho sÃ³n.</div>
                                 </div>
                             </div>
                             <div class="activity-card" onclick="openTrActivity('temes')">
@@ -375,12 +375,12 @@
                             <div class="activity-card" onclick="openTrActivity('diagnostic')">
                                 <div class="activity-card__media">
                                     <img src="assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png"
-                                        alt="Diagnòstic de preguntes" class="activity-card__image"
+                                        alt="DiagnÃ²stic de preguntes" class="activity-card__image"
                                         onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                                 </div>
                                 <div class="activity-card__content">
-                                    <div class="activity-card__title">Diagnòstic de preguntes</div>
-                                    <div class="activity-card__description">Aprèn a identificar què li falta a una pregunta per ser
+                                    <div class="activity-card__title">DiagnÃ²stic de preguntes</div>
+                                    <div class="activity-card__description">AprÃ¨n a identificar quÃ¨ li falta a una pregunta per ser
                                         investigable.</div>
                                 </div>
                             </div>
@@ -391,30 +391,30 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_biblio_title">Bibliografia i Cites</div>
-                                    <div class="activity-card__description" data-i18n="act_biblio_desc">Aprèn a citar correctament les
+                                    <div class="activity-card__description" data-i18n="act_biblio_desc">AprÃ¨n a citar correctament les
                                         teves fonts</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- ACTIVITAT: Diagnòstic de preguntes -->
+                        <!-- ACTIVITAT: DiagnÃ²stic de preguntes -->
                         <div id="tr-activity-diagnostic" class="sub-activity hidden">
                             <div id="tr-diagnostic-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
                                 <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">? Tornar al
-                                    menú</button>
+                                    menÃº</button>
 
                                 <div id="tr-diagnostic-setup"
                                     class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
                                     <h3
                                         class="text-3xl font-bold mb-8 text-indigo-600 flex items-center justify-center gap-3">
                                         <i class="fas fa-stethoscope"></i>
-                                        <span>Diagnòstic de preguntes</span>
+                                        <span>DiagnÃ²stic de preguntes</span>
                                     </h3>
                                     <p class="mb-4 text-xl text-gray-700 font-semibold italic">Analitza la pregunta que
-                                        apareix. Primer decideix si és investigable. Després identifica què li falta
-                                        perquè sigui una bona pregunta de recerca.</p>
+                                        apareix. Primer decideix si Ã©s investigable. DesprÃ©s identifica quÃ¨ li falta
+                                        perquÃ¨ sigui una bona pregunta de recerca.</p>
                                     <button onclick="startTrDiagnostic()"
-                                        class="btn-primary mt-8 px-10 py-4 text-xl">Comença l'activitat</button>
+                                        class="btn-primary mt-8 px-10 py-4 text-xl">ComenÃ§a l'activitat</button>
                                 </div>
                             </div>
 
@@ -428,7 +428,7 @@
                                     </div>
 
                                     <div class="mb-10 text-center">
-                                        <p class="text-xl font-bold mb-6">Aquesta pregunta és investigable?</p>
+                                        <p class="text-xl font-bold mb-6">Aquesta pregunta Ã©s investigable?</p>
                                         <div class="flex justify-center gap-6">
                                             <button id="btn-diag-yes" class="btn-choice px-8 py-3 text-lg border-2"
                                                 onclick="selectDiagInvestigable(true)">Investigable</button>
@@ -439,7 +439,7 @@
 
                                     <div id="tr-diagnostic-problems-area"
                                         class="mb-10 p-6 bg-gray-50 rounded-lg border border-gray-200 opacity-50 pointer-events-none transition-all">
-                                        <p class="text-xl font-bold mb-6 text-center">Què li falta a aquesta pregunta?
+                                        <p class="text-xl font-bold mb-6 text-center">QuÃ¨ li falta a aquesta pregunta?
                                         </p>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto"
                                             id="diagnostic-options">
@@ -465,7 +465,7 @@
                                                 class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                                                 <input type="checkbox" name="problem" value="no_comparacio"
                                                     class="w-6 h-6">
-                                                <span class="text-lg">No indica què comparar</span>
+                                                <span class="text-lg">No indica quÃ¨ comparar</span>
                                             </label>
                                             <label
                                                 class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
@@ -498,7 +498,7 @@
                                     </div>
                                     <div class="flex justify-center">
                                         <button class="btn-primary bg-gray-800 text-white px-10 py-4 text-xl"
-                                            onclick="loadNextDiagnosticQuestion()">SEGÜENT PREGUNTA</button>
+                                            onclick="loadNextDiagnosticQuestion()">SEGÃœENT PREGUNTA</button>
                                     </div>
                                 </div>
                             </div>
@@ -508,20 +508,20 @@
                         <div id="tr-activity-preguntes" class="sub-activity hidden">
                             <div id="tr-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
                                 <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">? Tornar al
-                                    menú</button>
+                                    menÃº</button>
 
                                 <div id="tr-preguntes-setup"
                                     class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
                                     <h3
                                         class="text-3xl font-bold mb-8 text-blue-600 flex items-center justify-center gap-3">
                                         <i class="fas fa-question-circle"></i>
-                                        <span data-i18n="tr_project_title">Treball de recerca</span> — <span>Temes i
+                                        <span data-i18n="tr_project_title">Treball de recerca</span> â€” <span>Temes i
                                             preguntes</span>
                                     </h3>
                                     <p class="mb-4 text-xl text-gray-700 font-semibold italic">"Has escollit aquest tema
                                         pel teu treball de recerca, marca les possibles preguntes investigables que et
                                         podries plantejar-te"</p>
-                                    <p class="mb-10 text-lg text-gray-500">Escull una categoria per començar a
+                                    <p class="mb-10 text-lg text-gray-500">Escull una categoria per comenÃ§ar a
                                         practicar.</p>
                                     <div id="tr-preguntes-categories-container">
                                     </div>
@@ -549,7 +549,7 @@
                                     <p id="tr-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="tr-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
                                     <button id="tr-preguntes-next-btn" class="btn-primary"
-                                        onclick="nextTrPregunta()">Següent pregunta</button>
+                                        onclick="nextTrPregunta()">SegÃ¼ent pregunta</button>
                                 </div>
                             </div>
 
@@ -566,10 +566,10 @@
 
                         <!-- ACTIVITAT: Temes i Preguntes -->
                         <div id="tr-activity-temes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">? Tornar al menú</button>
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">? Tornar al menÃº</button>
 
                             <div id="tr-temes-setup" class="game-panel__header text-center">
-                                <h3><span data-i18n="tr_project_title">Treball de recerca</span> — <span
+                                <h3><span data-i18n="tr_project_title">Treball de recerca</span> â€” <span
                                         data-i18n="act_tr_temes_title">Temes i Preguntes</span></h3>
                                 <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de
                                     recerca.</p>
@@ -596,13 +596,13 @@
 
                                     <div class="mt-8">
                                         <button id="tr-temes-check-btn" class="btn-primary w-full text-xl py-3"
-                                            onclick="checkTrTemesRespostes()">Comprovar Selecció</button>
+                                            onclick="checkTrTemesRespostes()">Comprovar SelecciÃ³</button>
                                     </div>
                                 </div>
                                 <div id="tr-temes-feedback-area" class="feedback-panel hidden mt-6">
                                     <div id="tr-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
                                     <button id="tr-temes-next-btn" class="btn-primary w-full text-lg py-3"
-                                        onclick="nextTrTema()">Següent Tema</button>
+                                        onclick="nextTrTema()">SegÃ¼ent Tema</button>
                                 </div>
                             </div>
 
@@ -618,12 +618,12 @@
 
                         <!-- ACTIVITAT: Bibliografia i Cites (TR) -->
                         <div id="tr-activity-biblio" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">? Tornar al menú</button>
+                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">? Tornar al menÃº</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
                             </div>
                             <div class="activity-instructions">
-                                <p data-i18n="instruction_biblio">Pots o bé triar el nivell de les preguntes o bé triar
+                                <p data-i18n="instruction_biblio">Pots o bÃ© triar el nivell de les preguntes o bÃ© triar
                                     un tipus de preguntes a treballar:</p>
                             </div>
                             <div class="game-panel__controls py-4" id="tr-biblio-level-selection">
@@ -634,10 +634,10 @@
                                     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
                                         <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn-primary"
                                             style="background-color: var(--success); width: auto;"
-                                            data-i18n="level_easy">Fàcil</button>
+                                            data-i18n="level_easy">FÃ cil</button>
                                         <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn-primary"
                                             style="background-color: #f59e0b; width: auto;"
-                                            data-i18n="level_hard">Difícil</button>
+                                            data-i18n="level_hard">DifÃ­cil</button>
                                         <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn-primary"
                                             style="background-color: var(--error); width: auto;"
                                             data-i18n="level_mixed">Barrejat</button>
@@ -667,9 +667,9 @@
 
                     </div>
 
-                    <!-- PROJECTE: Paralímpics -->
+                    <!-- PROJECTE: ParalÃ­mpics -->
                     <div id="project-hub-paralimpics" class="game-module hidden">
-                        <h3 data-i18n="par_project_title">Projecte Paralímpics</h3>
+                        <h3 data-i18n="par_project_title">Projecte ParalÃ­mpics</h3>
                         <div id="par-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openParalimpicsActivity('microbit')">
                                 <div class="activity-card__media">
@@ -677,7 +677,7 @@
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title" data-i18n="act_microbit_title">Control de la Micro:bit</div>
-                                    <div class="activity-card__description" data-i18n="act_microbit_desc">Demostra què saps sobre la
+                                    <div class="activity-card__description" data-i18n="act_microbit_desc">Demostra quÃ¨ saps sobre la
                                         placa</div>
                                 </div>
                             </div>
@@ -686,16 +686,16 @@
                         <!-- ACTIVITAT: Microbit -->
                         <div id="paralimpics-activity-microbit" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showParalimpicsMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_microbit_title">Control de la Micro:bit</h3>
                                 <div class="game-panel__controls quiz-difficulty-selection">
                                     <button onclick="initParalimpicsMicrobit('easy')" class="btn-secondary"
-                                        data-i18n="level_easy">Fàcil</button>
+                                        data-i18n="level_easy">FÃ cil</button>
                                     <button onclick="initParalimpicsMicrobit('medium')" class="btn-secondary"
-                                        data-i18n="level_medium">Mitjà</button>
+                                        data-i18n="level_medium">MitjÃ </button>
                                     <button onclick="initParalimpicsMicrobit('hard')" class="btn-secondary"
-                                        data-i18n="level_hard">Difícil</button>
+                                        data-i18n="level_hard">DifÃ­cil</button>
                                     <button onclick="initParalimpicsMicrobit('mixed')" class="btn-primary"
                                         data-i18n="level_mixed">Barrejat</button>
                                 </div>
@@ -722,11 +722,11 @@
                     <!-- PROJECTE: Entorns de Natura -->
                     <div id="project-hub-natura" class="game-module hidden">
                         <h3 data-i18n="natura_project_title">Entorns de Natura</h3>
-                        <!-- MENÚ D'ACTIVITATS -->
+                        <!-- MENÃš D'ACTIVITATS -->
                         <div id="natura-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openNaturaProject('rius')">
                                 <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques"
+                                    <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes TrÃ²fiques"
                                         class="activity-card__image">
                                 </div>
                                 <div class="activity-card__content">
@@ -782,20 +782,20 @@
                             <div class="activities-grid">
                                 <div class="activity-card" onclick="openNaturaActivity('xarxes')">
                                     <div class="activity-card__media">
-                                        <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques" class="activity-card__image">
+                                        <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes TrÃ²fiques" class="activity-card__image">
                                     </div>
                                     <div class="activity-card__content">
-                                        <div class="activity-card__title" data-i18n="act_xarxes_title">Xarxes Tròfiques</div>
-                                        <div class="activity-card__description" data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</div>
+                                        <div class="activity-card__title" data-i18n="act_xarxes_title">Xarxes TrÃ²fiques</div>
+                                        <div class="activity-card__description" data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa trÃ²fica</div>
                                     </div>
                                 </div>
                                 <div class="activity-card" onclick="openNaturaActivity('rols')">
                                     <div class="activity-card__media">
-                                        <img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols Tròfics" class="activity-card__image">
+                                        <img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols TrÃ²fics" class="activity-card__image">
                                     </div>
                                     <div class="activity-card__content">
-                                        <div class="activity-card__title" data-i18n="act_rols_title">Rols Tròfics</div>
-                                        <div class="activity-card__description" data-i18n="act_rols_desc">Classifica espècies segons la seva dieta</div>
+                                        <div class="activity-card__title" data-i18n="act_rols_title">Rols TrÃ²fics</div>
+                                        <div class="activity-card__description" data-i18n="act_rols_desc">Classifica espÃ¨cies segons la seva dieta</div>
                                     </div>
                                 </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
@@ -804,7 +804,7 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar preguntes investigables de les que no ho sÃ³n.</div>
                                     </div>
                                 </div>
                             </div>
@@ -822,7 +822,7 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_impacte_title">Estudi d'impacte ambiental</div>
-                                        <div class="activity-card__description" data-i18n="act_impacte_desc">Ordena les fases de creació de l'estudi</div>
+                                        <div class="activity-card__description" data-i18n="act_impacte_desc">Ordena les fases de creaciÃ³ de l'estudi</div>
                                     </div>
                                 </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
@@ -831,7 +831,7 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar preguntes investigables de les que no ho sÃ³n.</div>
                                     </div>
                                 </div>
                             </div>
@@ -867,7 +867,7 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar preguntes investigables de les que no ho sÃ³n.</div>
                                     </div>
                                 </div>
                             </div>
@@ -885,7 +885,7 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar preguntes investigables de les que no ho sÃ³n.</div>
                                     </div>
                                 </div>
                             </div>
@@ -903,20 +903,20 @@
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">AprÃ¨n a diferenciar preguntes investigables de les que no ho sÃ³n.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- ACTIVITAT: Xarxes Tròfiques -->
+                        <!-- ACTIVITAT: Xarxes TrÃ²fiques -->
                         <div id="natura-activity-xarxes" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">?
                                 Tornar</button>
                             <div class="game-panel__header">
-                                <h3 data-i18n="act_xarxes_title">Xarxes Tròfiques</h3>
+                                <h3 data-i18n="act_xarxes_title">Xarxes TrÃ²fiques</h3>
                             </div>
                             <div class="activity-instructions">
-                                <p data-i18n="instruction_xarxes">Ordena aquestes accions per establir una xarxa tròfica
+                                <p data-i18n="instruction_xarxes">Ordena aquestes accions per establir una xarxa trÃ²fica
                                     amb dades reals:</p>
                             </div>
                             <div id="xarxes-game-area">
@@ -925,7 +925,7 @@
                                 </ul>
                                 <div class="game-panel__controls mt-4">
                                     <button onclick="verifyXarxesOrder()" class="btn-primary"
-                                        data-i18n="btn_verify">Verificar Ordenació</button>
+                                        data-i18n="btn_verify">Verificar OrdenaciÃ³</button>
                                 </div>
                                 <div id="xarxes-result" class="hidden mt-4">
                                     <p class="text-xl font-bold"><span data-i18n="result_order">Accions ben
@@ -951,7 +951,7 @@
                                 </ul>
                                 <div class="game-panel__controls mt-4">
                                     <button onclick="verifyImpacteOrder()" class="btn-primary"
-                                        data-i18n="btn_verify">Verificar Ordenació</button>
+                                        data-i18n="btn_verify">Verificar OrdenaciÃ³</button>
                                 </div>
                                 <div id="impacte-result" class="hidden mt-4">
                                     <p class="text-xl font-bold"><span data-i18n="result_order">Accions ben
@@ -968,7 +968,7 @@
                                 <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
                             </div>
                             <div class="activity-instructions">
-                                <p data-i18n="instruction_biblio">Pots o bé triar el nivell de les preguntes o bé triar
+                                <p data-i18n="instruction_biblio">Pots o bÃ© triar el nivell de les preguntes o bÃ© triar
                                     un tipus de preguntes a treballar:</p>
                             </div>
                             <div class="game-panel__controls py-4" id="biblio-level-selection">
@@ -981,10 +981,10 @@
                                     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
                                         <button onclick="startGameWithFilter('all', 'facil')" class="btn-primary"
                                             style="background-color: var(--success); width: auto;"
-                                            data-i18n="level_easy">Fàcil</button>
+                                            data-i18n="level_easy">FÃ cil</button>
                                         <button onclick="startGameWithFilter('all', 'dificil')" class="btn-primary"
                                             style="background-color: #f59e0b; width: auto;"
-                                            data-i18n="level_hard">Difícil</button>
+                                            data-i18n="level_hard">DifÃ­cil</button>
                                         <button onclick="startGameWithFilter('all', 'mixed')" class="btn-primary"
                                             style="background-color: var(--error); width: auto;"
                                             data-i18n="level_mixed">Barrejat</button>
@@ -1009,12 +1009,12 @@
                                 <button onclick="showNaturaMenuFromBiblio()" class="btn-secondary">Tornar</button>
                             </div>
                         </div>
-                        <!-- ACTIVITAT: Rols Tròfics -->
+                        <!-- ACTIVITAT: Rols TrÃ²fics -->
                         <div id="natura-activity-rols" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">?
                                 Tornar</button>
 
-                            <!-- SELECCIÓ ECOSISTEMA -->
+                            <!-- SELECCIÃ“ ECOSISTEMA -->
                             <div id="rols-ecosystem-selection">
                                 <h3 data-i18n="choose_ecosystem" class="mb-4">Tria un ecosistema</h3>
                                 <div class="ecosystem-grid">
@@ -1039,30 +1039,30 @@
                                 </div>
                                 <div class="game-panel__card">
                                     <div id="rols-species-img-container" class="hidden mb-4">
-                                        <img id="rols-species-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Espècie" class="species-quiz-img">
+                                        <img id="rols-species-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="EspÃ¨cie" class="species-quiz-img">
                                     </div>
-                                    <h4 id="rols-species-name" class="text-2xl font-bold mb-2">Espècie</h4>
-                                    <p id="rols-diet-desc" class="italic mb-4">Descripció de la dieta...</p>
+                                    <h4 id="rols-species-name" class="text-2xl font-bold mb-2">EspÃ¨cie</h4>
+                                    <p id="rols-diet-desc" class="italic mb-4">DescripciÃ³ de la dieta...</p>
 
                                     <div class="quiz-options grid grid-2 gap-4">
                                         <div class="option-group">
-                                            <label data-i18n="regime" class="block font-bold mb-2">Règim</label>
+                                            <label data-i18n="regime" class="block font-bold mb-2">RÃ¨gim</label>
                                             <div class="btn-group-vertical" id="rols-regime-options">
                                                 <button class="btn-outline w-full mb-1"
                                                     onclick="selectRegime('herbivore', this)"
-                                                    data-i18n="herbivore">Herbívor</button>
+                                                    data-i18n="herbivore">HerbÃ­vor</button>
                                                 <button class="btn-outline w-full mb-1"
                                                     onclick="selectRegime('carnivore', this)"
-                                                    data-i18n="carnivore">Carnívor</button>
+                                                    data-i18n="carnivore">CarnÃ­vor</button>
                                                 <button class="btn-outline w-full mb-1"
                                                     onclick="selectRegime('omnivore', this)"
-                                                    data-i18n="omnivore">Omnívor</button>
+                                                    data-i18n="omnivore">OmnÃ­vor</button>
                                                 <button class="btn-outline w-full mb-1"
                                                     onclick="selectRegime('decomposer', this)"
                                                     data-i18n="decomposer">Descomponedor</button>
                                                 <button class="btn-outline w-full mb-1"
                                                     onclick="selectRegime('autotroph', this)"
-                                                    data-i18n="autotroph">Autòtrof</button>
+                                                    data-i18n="autotroph">AutÃ²trof</button>
                                             </div>
                                         </div>
                                         <div class="option-group">
@@ -1086,7 +1086,7 @@
 
                                     <div class="justification-area mt-4">
                                         <label data-i18n="justification"
-                                            class="block font-bold mb-1">Justificació</label>
+                                            class="block font-bold mb-1">JustificaciÃ³</label>
                                         <textarea id="rols-justification" class="form-control w-full"
                                             data-i18n-ph="justification_ph" rows="3"></textarea>
                                     </div>
@@ -1095,7 +1095,7 @@
                                         <button id="rols-submit-btn" onclick="submitRolsAnswer()" class="btn-primary"
                                             data-i18n="btn_send_answer">Enviar resposta</button>
                                         <button id="rols-next-btn" onclick="nextRolsQuestion()"
-                                            class="btn-primary hidden" data-i18n="btn_next_question">Següent
+                                            class="btn-primary hidden" data-i18n="btn_next_question">SegÃ¼ent
                                             pregunta</button>
                                     </div>
 
@@ -1120,17 +1120,17 @@
                         <div id="natura-activity-preguntes" class="sub-activity hidden">
                             <div id="natura-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
                                 <button class="btn-secondary btn-sm mb-8" onclick="showNaturaMenu()">? Tornar al
-                                    menú</button>
+                                    menÃº</button>
 
                                 <div id="natura-preguntes-setup"
                                     class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
                                     <h3
                                         class="text-3xl font-bold mb-8 text-emerald-600 flex items-center justify-center gap-3">
                                         <i class="fas fa-question-circle"></i>
-                                        <span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                        <span data-i18n="natura_project_title">Entorns de Natura</span> â€” <span
                                             data-i18n="act_tr_preguntes_title">Preguntes investigables</span>
                                     </h3>
-                                    <p class="mb-10 text-xl text-gray-600">Escull una categoria per començar a
+                                    <p class="mb-10 text-xl text-gray-600">Escull una categoria per comenÃ§ar a
                                         practicar.</p>
                                     <div id="natura-preguntes-categories-container">
                                     </div>
@@ -1158,7 +1158,7 @@
                                     <p id="natura-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="natura-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
                                     <button id="natura-preguntes-next-btn" class="btn-primary"
-                                        onclick="nextNaturaPregunta()">Següent pregunta</button>
+                                        onclick="nextNaturaPregunta()">SegÃ¼ent pregunta</button>
                                 </div>
                             </div>
 
@@ -1177,10 +1177,10 @@
                         <!-- ACTIVITAT DUPLICADA: Temes i Preguntes (Natura) -->
                         <div id="natura-activity-temes" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
 
                             <div id="natura-temes-setup" class="game-panel__header text-center">
-                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> â€” <span
                                         data-i18n="act_tr_temes_title">Temes i Preguntes</span></h3>
                                 <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de
                                     recerca.</p>
@@ -1207,13 +1207,13 @@
 
                                     <div class="mt-8">
                                         <button id="natura-temes-check-btn" class="btn-primary w-full text-xl py-3"
-                                            onclick="checkNaturaTemesRespostes()">Comprovar Selecció</button>
+                                            onclick="checkNaturaTemesRespostes()">Comprovar SelecciÃ³</button>
                                     </div>
                                 </div>
                                 <div id="natura-temes-feedback-area" class="feedback-panel hidden mt-6">
                                     <div id="natura-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
                                     <button id="natura-temes-next-btn" class="btn-primary w-full text-lg py-3"
-                                        onclick="nextNaturaTema()">Següent Tema</button>
+                                        onclick="nextNaturaTema()">SegÃ¼ent Tema</button>
                                 </div>
                             </div>
 
@@ -1232,14 +1232,14 @@
                         <!-- ACTIVITAT: Projecte Orenetes -->
                         <div id="natura-activity-orenetes" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
 
                             <div class="game-panel__header text-center">
-                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> â€” <span
                                         data-i18n="act_orenetes_title">Projecte Orenetes</span></h3>
                                 <p class="mb-4" data-i18n="act_orenetes_desc">Estudi i seguiment de les orenetes</p>
                             </div>
-                            
+
                             <div id="orenetes-setup" class="text-center p-6 bg-white rounded shadow-sm">
                                 <p class="mb-4 text-gray-700">Carregant dades...</p>
                             </div>
@@ -1247,7 +1247,7 @@
                             <div id="orenetes-game" class="hidden">
                                 <div class="game-panel__stats flex justify-between mb-4">
                                     <span id="orenetes-progress">Imatge 1 / X</span>
-                                    <span>Puntuació: <span id="orenetes-score" class="font-bold text-blue-600">0%</span></span>
+                                    <span>PuntuaciÃ³: <span id="orenetes-score" class="font-bold text-blue-600">0%</span></span>
                                 </div>
                                 <p id="orenetes-description" class="orenetes-description">Observa la imatge i completa la fitxa de camp.</p>
                                 <div class="orenetes-field-sheet">
@@ -1279,7 +1279,7 @@
                                         </div>
                                         <button id="orenetes-check-btn" class="btn-primary" onclick="checkOrenetesAnswer()">Comprovar</button>
                                         <div id="orenetes-feedback" class="feedback-panel orenetes-feedback hidden"></div>
-                                        <button id="orenetes-next-btn" class="btn-secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
+                                        <button id="orenetes-next-btn" class="btn-secondary hidden" onclick="nextOrenetesImage()">SegÃ¼ent imatge</button>
                                     </div>
                                 </div>
                             </div>
@@ -1288,17 +1288,17 @@
                                 <h3>Resultat final</h3>
                                 <p id="orenetes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
                                 <p id="orenetes-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
-                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar al menú</button>
+                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar al menÃº</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT: Preguntes del Projecte Orenetes -->
                         <div id="natura-activity-orenetes-preguntes" class="sub-activity hidden">
                             <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">? Tornar al
-                                menú</button>
+                                menÃº</button>
 
                             <div class="game-panel__header text-center">
-                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — Preguntes del
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> â€” Preguntes del
                                     Projecte Orenetes</h3>
                             </div>
 
@@ -1328,22 +1328,22 @@
                                 <p id="orenetes-questions-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
                                 <button class="btn-primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
                                 <button class="btn-secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
-                                <button onclick="showNaturaMenu()" class="btn-secondary mt-4">Tornar al menú</button>
+                                <button onclick="showNaturaMenu()" class="btn-secondary mt-4">Tornar al menÃº</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- PROJECTE: Digitalització -->
+                <!-- PROJECTE: DigitalitzaciÃ³ -->
                 <div id="project-hub-digitalitzacio" class="game-module hidden">
-                    <h3 data-i18n="digi_project_title">Digitalització</h3>
+                    <h3 data-i18n="digi_project_title">DigitalitzaciÃ³</h3>
                     <p data-i18n="digi_project_desc">Eines i recursos digitals per al segle XXI.</p>
 
                     <div id="digi-activities-menu" class="activities-grid mt-4">
                         <div class="activity-card" onclick="openDigitalitzacioActivity('audio')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_audio_title">Edició d'àudio</div>
-                                <div class="activity-card__description" data-i18n="act_audio_desc">Aprèn a gravar i editar els teus
+                                <div class="activity-card__title" data-i18n="act_audio_title">EdiciÃ³ d'Ã udio</div>
+                                <div class="activity-card__description" data-i18n="act_audio_desc">AprÃ¨n a gravar i editar els teus
                                     propis sons.</div>
                             </div>
                         </div>
@@ -1351,7 +1351,7 @@
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title" data-i18n="act_docs_title">Google Docs</div>
-                                <div class="activity-card__description" data-i18n="act_docs_desc">Processador de textos en el núvol.
+                                <div class="activity-card__description" data-i18n="act_docs_desc">Processador de textos en el nÃºvol.
                                 </div>
                                 <span class="badge-soon">Aviat</span>
                             </div>
@@ -1360,7 +1360,7 @@
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title" data-i18n="act_sheets_title">Google Sheets</div>
-                                <div class="activity-card__description" data-i18n="act_sheets_desc">Fulls de càlcul i dades.</div>
+                                <div class="activity-card__description" data-i18n="act_sheets_desc">Fulls de cÃ lcul i dades.</div>
                                 <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
@@ -1368,18 +1368,18 @@
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title" data-i18n="act_devices_title">Dispositius digitals</div>
-                                <div class="activity-card__description" data-i18n="act_devices_desc">Maquinari i perifèrics.</div>
+                                <div class="activity-card__description" data-i18n="act_devices_desc">Maquinari i perifÃ¨rics.</div>
                                 <span class="badge-soon">Aviat</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
+                    <!-- ACTIVITAT: EdiciÃ³ d'Ã€udio (Cakewalk Sonar) -->
                     <div id="digi-activity-audio" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="showDigitalitzacioMenu()">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
-                            <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
+                            <h3 data-i18n="act_audio_title">EdiciÃ³ d'Ã udio</h3>
                         </div>
                         <div class="sonar-activity-container">
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
@@ -1427,7 +1427,7 @@
                                 <div class="mt-2 text-center">
                                     <button onclick="exportSonarConfig()" class="bg-blue-600 px-3 py-1 rounded text-white">Copiar codi</button>
                                 </div>
-                                <p class="mt-2 text-yellow-400 text-center italic">Està ben posat ara?</p>
+                                <p class="mt-2 text-yellow-400 text-center italic">EstÃ  ben posat ara?</p>
                             </div>
                         </div>
                     </div>
@@ -1478,29 +1478,29 @@
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title" data-i18n="sec_excretor">Aparell Excretor</div>
-                                <div class="activity-card__description" data-i18n="sec_excr_desc">Ronyons i eliminació de residus</div>
+                                <div class="activity-card__description" data-i18n="sec_excr_desc">Ronyons i eliminaciÃ³ de residus</div>
                             </div>
                         </div>
 
-                        <!-- 5. Òrgans dels Sentits -->
+                        <!-- 5. Ã’rgans dels Sentits -->
                         <div class="activity-card" onclick="openSenseMenu()">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Òrgans dels Sentits" class="activity-card__image">
+                                <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Ã’rgans dels Sentits" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_senses_title">Els Òrgans dels Sentits</div>
+                                <div class="activity-card__title" data-i18n="act_senses_title">Els Ã’rgans dels Sentits</div>
                                 <div class="activity-card__description" data-i18n="act_senses_desc">Explora els 5 sentits</div>
                             </div>
                         </div>
 
-                        <!-- 6. Sistema Endocrí -->
+                        <!-- 6. Sistema EndocrÃ­ -->
                         <div class="activity-card" onclick="openBioSystem('endocri')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema Endocrí" class="activity-card__image">
+                                <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema EndocrÃ­" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="sec_endocri">Sistema Endocrí</div>
-                                <div class="activity-card__description" data-i18n="sec_endo_desc">Glàndules i hormones</div>
+                                <div class="activity-card__title" data-i18n="sec_endocri">Sistema EndocrÃ­</div>
+                                <div class="activity-card__description" data-i18n="sec_endo_desc">GlÃ ndules i hormones</div>
                             </div>
                         </div>
 
@@ -1533,7 +1533,7 @@
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Aparell Reproductor</div>
-                                <div class="activity-card__description">Aparell reproductor masculí i femení</div>
+                                <div class="activity-card__description">Aparell reproductor masculÃ­ i femenÃ­</div>
                             </div>
                         </div>
                     </div>
@@ -1550,7 +1550,7 @@
                         <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
                             <div class="activity-card__media">???</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Repàs del Sistema Immunitari</div>
+                                <div class="activity-card__title">RepÃ s del Sistema Immunitari</div>
                                 <div class="activity-card__description">Posa a prova els teus coneixements</div>
                             </div>
                         </div>
@@ -1559,9 +1559,9 @@
                     <!-- ACTIVITAT: Quiz Sistema Immunitari -->
                     <div id="bio-activity-immunitari-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('immunitari')">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
-                            <h3>??? Repàs del Sistema Immunitari</h3>
+                            <h3>??? RepÃ s del Sistema Immunitari</h3>
                         </div>
 
                         <!-- Loader -->
@@ -1593,10 +1593,10 @@
                         <!-- Resultats Finals -->
                         <div id="bio-immunitari-quiz-final"
                             class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4">PuntuaciÃ³ Final</h4>
                             <div id="immun-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-green-600 mb-6">0 / 100</div>
                             <p id="immun-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initImmunitariQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initImmunitariQuiz()" class="btn-primary">Tornar a comenÃ§ar</button>
                         </div>
                     </div>
 
@@ -1612,7 +1612,7 @@
                         <div class="activity-card" onclick="openBioActivity('reproductor-quiz')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Repàs de l'Aparell Reproductor</div>
+                                <div class="activity-card__title">RepÃ s de l'Aparell Reproductor</div>
                                 <div class="activity-card__description">Posa a prova els teus coneixements</div>
                             </div>
                         </div>
@@ -1625,10 +1625,10 @@
                             style="width: fit-content;">? Tornar als Sistemes</button>
                          <div class="activity-card" onclick="openBioActivity('cor')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/heart/cor-huma.png" alt="El Cor Humà" class="activity-card__image">
+                                <img src="assets/images/activities/biologia/heart/cor-huma.png" alt="El Cor HumÃ " class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_heart_title">El Cor Humà</div>
+                                <div class="activity-card__title" data-i18n="act_heart_title">El Cor HumÃ </div>
                                 <div class="activity-card__description" data-i18n="act_heart_desc">Identifica les parts i cavitats del
                                     cor</div>
                             </div>
@@ -1638,19 +1638,19 @@
                         <div class="activity-card" onclick="openBioActivity('circulatori-quiz')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_circ_quiz_title">Repàs del Circulatori</div>
+                                <div class="activity-card__title" data-i18n="act_circ_quiz_title">RepÃ s del Circulatori</div>
                                 <div class="activity-card__description" data-i18n="act_circ_quiz_desc">Posa a prova els teus coneixements
                                 </div>
                             </div>
                         </div>
-                        <!-- NOU: Cèl·lules de la Sang -->
+                        <!-- NOU: CÃ¨lÂ·lules de la Sang -->
                         <div class="activity-card" onclick="openBioActivity('cells')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
+                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies.png" alt="Les CÃ¨lÂ·lules de la Sang"
                                     class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_cells_title">Les Cèl·lules de la Sang</div>
+                                <div class="activity-card__title" data-i18n="act_cells_title">Les CÃ¨lÂ·lules de la Sang</div>
                                 <div class="activity-card__description" data-i18n="act_cells_desc">Identifica els elements de la sang
                                 </div>
                             </div>
@@ -1682,27 +1682,27 @@
                         </div>
                     </div>
 
-                    <!-- ACTIVITATS: Sistema Endocrí -->
+                    <!-- ACTIVITATS: Sistema EndocrÃ­ -->
                     <div id="bio-endocri-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">? Tornar als Sistemes</button>
-                        
-                        <!-- Quiz del Sistema Endocrí -->
+
+                        <!-- Quiz del Sistema EndocrÃ­ -->
                         <div class="activity-card" onclick="openBioActivity('endocri-quiz')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_endo_quiz_title">Repàs de l'Endocrí</div>
+                                <div class="activity-card__title" data-i18n="act_endo_quiz_title">RepÃ s de l'EndocrÃ­</div>
                                 <div class="activity-card__description" data-i18n="act_endo_quiz_desc">Posa a prova els teus coneixements
                                 </div>
                             </div>
                         </div>
 
-                        <!-- NOU: Situar les Glàndules -->
+                        <!-- NOU: Situar les GlÃ ndules -->
                         <div class="activity-card" onclick="openBioActivity('endocri-glands')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_endo_glands_title">Situar les Glàndules</div>
-                                <div class="activity-card__description" data-i18n="act_endo_glands_desc">Identifica la posició de les glàndules endocrines</div>
+                                <div class="activity-card__title" data-i18n="act_endo_glands_title">Situar les GlÃ ndules</div>
+                                <div class="activity-card__description" data-i18n="act_endo_glands_desc">Identifica la posiciÃ³ de les glÃ ndules endocrines</div>
                             </div>
                         </div>
                     </div>
@@ -1711,13 +1711,13 @@
                     <div id="bio-locomotor-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">? Tornar als Sistemes</button>
-                        
+
                         <!-- Quiz de l'Aparell Locomotor -->
                         <div class="activity-card" onclick="openBioActivity('locomotor-quiz')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Repàs del Locomotor</div>
-                                <div class="activity-card__description">Posa a prova els teus coneixements sobre ossos i músculs</div>
+                                <div class="activity-card__title">RepÃ s del Locomotor</div>
+                                <div class="activity-card__description">Posa a prova els teus coneixements sobre ossos i mÃºsculs</div>
                             </div>
                         </div>
                     </div>
@@ -1725,9 +1725,9 @@
                     <!-- ACTIVITAT: Quiz Aparell Reproductor -->
                     <div id="bio-activity-reproductor-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('reproductor')">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
-                            <h3>?? Repàs de l'Aparell Reproductor</h3>
+                            <h3>?? RepÃ s de l'Aparell Reproductor</h3>
                         </div>
 
                         <!-- Loader -->
@@ -1735,7 +1735,7 @@
                             <div class="loader"></div> Carregant preguntes...
                         </div>
 
-                        <!-- Selector de Tema / Nivell (generat dinàmicament per JS) -->
+                        <!-- Selector de Tema / Nivell (generat dinÃ micament per JS) -->
                         <div id="bio-reproductor-quiz-level-selector"
                             class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
                             <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
@@ -1759,10 +1759,10 @@
                         <!-- Resultats Finals -->
                         <div id="bio-reproductor-quiz-final"
                             class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4">PuntuaciÃ³ Final</h4>
                             <div id="reprod-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-pink-600 mb-6">0 / 100</div>
                             <p id="reprod-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initReproductorQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initReproductorQuiz()" class="btn-primary">Tornar a comenÃ§ar</button>
                         </div>
                     </div>
 
@@ -1770,25 +1770,25 @@
 
                     <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
-                            <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
+                            <h3 data-i18n="act_circ_quiz_title">RepÃ s del Circulatori</h3>
                         </div>
 
                         <div id="circ-quiz-feedback" class="text-center mb-4"></div>
 
-                        <!-- Selecció de Nivell/Tema -->
+                        <!-- SelecciÃ³ de Nivell/Tema -->
                         <div id="circ-quiz-selection"
                             class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
                             <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
                                 temes):</p>
                             <div class="flex flex-wrap justify-center gap-4 mb-8">
                                 <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn-primary"
-                                    data-i18n="level_easy">Fàcil</button>
+                                    data-i18n="level_easy">FÃ cil</button>
                                 <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn-primary"
-                                    data-i18n="level_medium">Mitjà</button>
+                                    data-i18n="level_medium">MitjÃ </button>
                                 <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn-primary"
-                                    data-i18n="level_hard">Difícil</button>
+                                    data-i18n="level_hard">DifÃ­cil</button>
                                 <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn-primary"
                                     data-i18n="level_mixed">Barrejat</button>
                             </div>
@@ -1808,19 +1808,19 @@
 
                         <!-- Resultats -->
                         <div id="circ-quiz-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="circ-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
                             </div>
                             <p id="circ-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initCircQuiz()" class="btn-primary">Tornar a comenÃ§ar</button>
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Quiz Sistema Endocrí -->
+                    <!-- ACTIVITAT: Quiz Sistema EndocrÃ­ -->
                     <div id="bio-activity-endocri-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">? Tornar al menÃº</button>
                         <div class="game-panel__header text-center">
-                            <h3>Quiz del Sistema Endocrí</h3>
+                            <h3>Quiz del Sistema EndocrÃ­</h3>
                         </div>
                         <div id="bio-endocri-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
                         <div id="bio-endocri-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
@@ -1837,40 +1837,40 @@
                             <div id="endo-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-endocri-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="endo-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="endo-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initEndocriQuiz()" class="btn-primary">Tornar a jugar</button>
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Situar les Glàndules (Anatomia) -->
+                    <!-- ACTIVITAT: Situar les GlÃ ndules (Anatomia) -->
                     <div id="bio-activity-endocri-glands" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">? Tornar al menÃº</button>
                         <div class="game-panel__header">
-                            <h3 data-i18n="act_endo_glands_title">Situar les Glàndules</h3>
+                            <h3 data-i18n="act_endo_glands_title">Situar les GlÃ ndules</h3>
                         </div>
 
                         <!-- Selector de Model -->
                         <div id="bio-endocri-glands-selector" class="container-white p-6 rounded-lg shadow-sm border mb-6 text-center">
                             <p class="mb-6 text-xl font-bold">Tria el model per a l'activitat:</p>
                             <div class="flex flex-wrap justify-center gap-8">
-                                <!-- Model Masculí -->
-                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-blue-500 flex flex-col items-center p-4 w-56" 
+                                <!-- Model MasculÃ­ -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-blue-500 flex flex-col items-center p-4 w-56"
                                      onclick="startBioEndocriGlandsGame('home')">
                                     <div class="w-full h-40 bg-blue-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-blue-100">
                                         <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-home.png" class="w-full h-full object-contain">
                                     </div>
-                                    <p class="font-bold text-lg text-blue-800">Model Masculí</p>
+                                    <p class="font-bold text-lg text-blue-800">Model MasculÃ­</p>
                                 </div>
-                                
-                                <!-- Model Femení -->
-                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-pink-500 flex flex-col items-center p-4 w-56" 
+
+                                <!-- Model FemenÃ­ -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-pink-500 flex flex-col items-center p-4 w-56"
                                      onclick="startBioEndocriGlandsGame('dona')">
                                     <div class="w-full h-40 bg-pink-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-pink-100">
                                         <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-dona.png" class="w-full h-full object-contain">
                                     </div>
-                                    <p class="font-bold text-lg text-pink-800">Model Femení</p>
+                                    <p class="font-bold text-lg text-pink-800">Model FemenÃ­</p>
                                 </div>
                             </div>
                         </div>
@@ -1889,13 +1889,13 @@
                                 <div id="bio-endocri-glands-feedback" class="game-panel__feedback font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Glàndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="GlÃ ndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
                             <div id="bio-endocri-glands-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span>?? Ajust de diana (Endocrí)</span>
+                                    <span>?? Ajust de diana (EndocrÃ­)</span>
                                     <button onclick="closeBioEndocriGlandsCalibration()" class="text-red-400">?</button>
                                 </div>
                                 <div class="grid grid-cols-3 gap-1 mb-2 text-center">
@@ -1912,7 +1912,7 @@
                                         <button onclick="nudgeBioEndocriGlandsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <span class="text-gray-400 mb-1 block">AlÃ§ada (H)</span>
                                         <button onclick="nudgeBioEndocriGlandsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
                                         <button onclick="nudgeBioEndocriGlandsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
@@ -1927,13 +1927,13 @@
 
                     <!-- ACTIVITAT: Quiz Aparell Locomotor -->
                     <div id="bio-activity-locomotor-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('locomotor')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('locomotor')">? Tornar al menÃº</button>
                         <div class="game-panel__header text-center">
-                            <h3>Repàs del Locomotor</h3>
+                            <h3>RepÃ s del Locomotor</h3>
                         </div>
-                        
+
                         <div id="locomotor-quiz-feedback" class="text-center mb-4 font-bold text-lg h-8"></div>
-                        
+
                         <div id="locomotor-quiz-selection" class="text-center p-8 bg-white rounded-lg shadow-sm border mb-6 hidden">
                             <div id="locomotor-quiz-topic-selection"></div>
                         </div>
@@ -1955,14 +1955,14 @@
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Cèl·lules de la Sang -->
+                    <!-- ACTIVITAT: CÃ¨lÂ·lules de la Sang -->
                     <div id="bio-activity-cells" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header text-center mb-6">
-                            <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
+                            <h3 data-i18n="act_cells_title">Les CÃ¨lÂ·lules de la Sang</h3>
                             <p id="cells-instruction" class="text-lg opacity-75" data-i18n="cells_instruction">
-                                Identifica la cèl·lula que demana l'enunciat:</p>
+                                Identifica la cÃ¨lÂ·lula que demana l'enunciat:</p>
                         </div>
 
                         <div class="cells-game-container max-w-2xl mx-auto">
@@ -1970,53 +1970,53 @@
                             <div
                                 class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
                                 <img src="assets/images/activities/biologia/cells/cellules-sanguinies-microscopi-electronic.png"
-                                    alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
+                                    alt="Esquema cÃ¨lÂ·lules sang" class="mx-auto rounded-lg shadow-sm"
                                     style="max-height: 280px;">
                             </div>
 
                             <div id="cells-matching-ui" class="container-white p-6 rounded-xl shadow-sm border mb-6">
                                 <!-- Files per 1, 2, 3 -->
                                 <div class="space-y-5">
-                                    <!-- Cèl·lula 1 -->
+                                    <!-- CÃ¨lÂ·lula 1 -->
                                     <div id="row-cell-1"
                                         class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                        <span class="font-bold">La cèl·lula 1 és un</span>
+                                        <span class="font-bold">La cÃ¨lÂ·lula 1 Ã©s un</span>
                                         <select id="select-common-1"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom comú...</option>
+                                            <option value="" disabled selected>Tria nom comÃº...</option>
                                         </select>
-                                        <span class="font-bold">o també es diu</span>
+                                        <span class="font-bold">o tambÃ© es diu</span>
                                         <select id="select-scientific-1"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom científic...</option>
+                                            <option value="" disabled selected>Tria nom cientÃ­fic...</option>
                                         </select>
                                     </div>
-                                    <!-- Cèl·lula 2 -->
+                                    <!-- CÃ¨lÂ·lula 2 -->
                                     <div id="row-cell-2"
                                         class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                        <span class="font-bold">La cèl·lula 2 és un</span>
+                                        <span class="font-bold">La cÃ¨lÂ·lula 2 Ã©s un</span>
                                         <select id="select-common-2"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom comú...</option>
+                                            <option value="" disabled selected>Tria nom comÃº...</option>
                                         </select>
-                                        <span class="font-bold">o també es diu</span>
+                                        <span class="font-bold">o tambÃ© es diu</span>
                                         <select id="select-scientific-2"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom científic...</option>
+                                            <option value="" disabled selected>Tria nom cientÃ­fic...</option>
                                         </select>
                                     </div>
-                                    <!-- Cèl·lula 3 -->
+                                    <!-- CÃ¨lÂ·lula 3 -->
                                     <div id="row-cell-3"
                                         class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
-                                        <span class="font-bold">La cèl·lula 3 és un</span>
+                                        <span class="font-bold">La cÃ¨lÂ·lula 3 Ã©s un</span>
                                         <select id="select-common-3"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom comú...</option>
+                                            <option value="" disabled selected>Tria nom comÃº...</option>
                                         </select>
-                                        <span class="font-bold">o també es diu</span>
+                                        <span class="font-bold">o tambÃ© es diu</span>
                                         <select id="select-scientific-3"
                                             class="form-select form-select--compact flex-1 min-w-[160px]">
-                                            <option value="" disabled selected>Tria nom científic...</option>
+                                            <option value="" disabled selected>Tria nom cientÃ­fic...</option>
                                         </select>
                                     </div>
                                 </div>
@@ -2033,7 +2033,7 @@
 
                         <!-- Resultats Cells -->
                         <div id="cells-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border max-w-md mx-auto">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="cells-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
                             </div>
                             <p id="cells-message" class="text-lg mb-8"></p>
@@ -2044,12 +2044,12 @@
 
 
 
-                    <!-- ACTIVITAT: El Cor Humà -->
+                    <!-- ACTIVITAT: El Cor HumÃ  -->
 
                     <div id="bio-activity-cor" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">? Tornar al menÃº</button>
                         <div class="game-panel__header">
-                            <h3 data-i18n="act_heart_title">El Cor Humà</h3>
+                            <h3 data-i18n="act_heart_title">El Cor HumÃ </h3>
                         </div>
                         <div class="bio-activity-container">
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
@@ -2068,7 +2068,7 @@
                                     style="margin: 0; min-width: 120px; text-align: right;"></div>
                             </div>
                             <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-heart-image" src="assets/images/activities/biologia/heart/cor.png" alt="Cor Humà"
+                                <img id="bio-heart-image" src="assets/images/activities/biologia/heart/cor.png" alt="Cor HumÃ "
                                     style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             </div>
 
@@ -2113,7 +2113,7 @@
                     <!-- ACTIVITAT: Sistema Excretor Joc Principal -->
                     <div id="bio-activity-excretor-game" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('excretor')">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_excretor_title">El Sistema Excretor</h3>
                         </div>
@@ -2166,7 +2166,7 @@
                                             class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <span class="text-gray-400 mb-1 block">AlÃ§ada (H)</span>
                                         <button onclick="nudgeBioExcretorTarget('h', -5)"
                                             class="bg-gray-700 px-2 rounded">-</button>
                                         <button onclick="nudgeBioExcretorTarget('h', 5)"
@@ -2184,11 +2184,11 @@
                         </div>
                     </div>
 
-                    <!-- ACTIVITATS: Òrgans dels Sentits (Sub-menú) -->
+                    <!-- ACTIVITATS: Ã’rgans dels Sentits (Sub-menÃº) -->
                     <div id="bio-senses-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">? Tornar als Sistemes</button>
-                        
+
                         <div class="activity-card" onclick="openSenseSubActivity('vista')">
                             <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-vista.png" class="activity-card__image"></div>
                             <div class="activity-card__content">
@@ -2199,8 +2199,8 @@
                         <div class="activity-card" onclick="openSenseSubActivity('oida')">
                             <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-oida.png" class="activity-card__image"></div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">L'Oïda</div>
-                                <div class="activity-card__description">L'orella i el sentit de l'oïda</div>
+                                <div class="activity-card__title">L'OÃ¯da</div>
+                                <div class="activity-card__description">L'orella i el sentit de l'oÃ¯da</div>
                             </div>
                         </div>
                         <div class="activity-card" onclick="openSenseSubActivity('olfacte')">
@@ -2226,7 +2226,7 @@
                         </div>
                     </div>
 
-                    <!-- SUB-MENÚS INDIVIDUALS PER CADA SENTIT -->
+                    <!-- SUB-MENÃšS INDIVIDUALS PER CADA SENTIT -->
                     <div id="sense-vista-menu" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">? Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('vista-parts')">
@@ -2257,8 +2257,8 @@
                         <div class="activity-card" onclick="openBioActivity('oida-quiz')">
                             <div class="activity-card__media">?</div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Quiz de l'Oïda</div>
-                                <div class="activity-card__description">Preguntes sobre el funcionament de l'oïda</div>
+                                <div class="activity-card__title">Quiz de l'OÃ¯da</div>
+                                <div class="activity-card__description">Preguntes sobre el funcionament de l'oÃ¯da</div>
                             </div>
                         </div>
                     </div>
@@ -2319,7 +2319,7 @@
 
                     <!-- JOCS DE LES PARTS DELS SENTITS -->
                     <div id="bio-activity-vista-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">? Tornar al menÃº</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_vista_parts_title">Les Parts de l'Ull</h3>
                         </div>
@@ -2360,7 +2360,7 @@
                                         <button onclick="nudgeBioVistaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <span class="text-gray-400 mb-1 block">AlÃ§ada (H)</span>
                                         <button onclick="nudgeBioVistaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
                                         <button onclick="nudgeBioVistaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
@@ -2374,7 +2374,7 @@
                     </div>
 
                     <div id="bio-activity-oida-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">? Tornar al menÃº</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_oida_parts_title">Les Parts de l'Orella</h3>
                         </div>
@@ -2388,7 +2388,7 @@
                                 </div>
                             </div>
 
-                            <!-- Indicador de secció (canvia automàticament) -->
+                            <!-- Indicador de secciÃ³ (canvia automÃ ticament) -->
                             <div class="flex items-center gap-3 p-2 bg-blue-50 rounded mb-2">
                                 <span id="bio-oida-parts-section-label" class="font-bold text-blue-700 text-sm px-3 py-1 rounded-full bg-blue-100">?? Orella Externa</span>
                                 <div id="bio-oida-parts-question" class="text-lg font-bold flex-1">Clica a la imatge...</div>
@@ -2406,7 +2406,7 @@
                             <!-- CALIBRATION UI (DEBUG) -->
                             <div id="bio-oida-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family:monospace;font-size:12px;">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span>?? Ajust de diana (Oïda)</span>
+                                    <span>?? Ajust de diana (OÃ¯da)</span>
                                     <button onclick="closeBioOidaPartsCalibration()" class="text-red-400">?</button>
                                 </div>
                                 <div class="grid grid-cols-3 gap-1 mb-2 text-center">
@@ -2423,7 +2423,7 @@
                                         <button onclick="nudgeBioOidaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <span class="text-gray-400 mb-1 block">AlÃ§ada (H)</span>
                                         <button onclick="nudgeBioOidaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
                                         <button onclick="nudgeBioOidaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
@@ -2441,7 +2441,7 @@
                         <div id="olfacte-parts-container"></div>
                     </div>
                     <div id="bio-activity-gust-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">? Tornar al menú</button>
+                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">? Tornar al menÃº</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_gust_parts_title">Les Zones del Gust</h3>
                         </div>
@@ -2482,7 +2482,7 @@
                                         <button onclick="nudgeBioGustPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
                                     <div class="text-center">
-                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <span class="text-gray-400 mb-1 block">AlÃ§ada (H)</span>
                                         <button onclick="nudgeBioGustPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
                                         <button onclick="nudgeBioGustPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
                                     </div>
@@ -2499,7 +2499,7 @@
                         <div id="tacte-parts-container"></div>
                     </div>
 
-                    <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÍ) -->
+                    <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÃ) -->
                     <div id="bio-activity-vista-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">? Tornar</button>
                         <div class="game-panel__header text-center">
@@ -2520,7 +2520,7 @@
                             <div id="vista-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-vista-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="vista-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="vista-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initVistaQuiz()" class="btn-primary">Tornar a jugar</button>
@@ -2530,7 +2530,7 @@
                     <div id="bio-activity-oida-quiz" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">? Tornar</button>
                         <div class="game-panel__header text-center">
-                            <h3>Quiz de l'Oïda</h3>
+                            <h3>Quiz de l'OÃ¯da</h3>
                         </div>
                         <div id="bio-oida-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
                         <div id="bio-oida-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
@@ -2547,7 +2547,7 @@
                             <div id="oida-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-oida-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="oida-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="oida-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initOidaQuiz()" class="btn-primary">Tornar a jugar</button>
@@ -2574,7 +2574,7 @@
                             <div id="olfacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-olfacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="olfacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="olfacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initOlfacteQuiz()" class="btn-primary">Tornar a jugar</button>
@@ -2601,7 +2601,7 @@
                             <div id="gust-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-gust-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="gust-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="gust-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initGustQuiz()" class="btn-primary">Tornar a jugar</button>
@@ -2628,7 +2628,7 @@
                             <div id="tacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
                         </div>
                         <div id="bio-tacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
-                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">PuntuaciÃ³ Final</h4>
                             <div id="tacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="tacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
                             <button onclick="initTacteQuiz()" class="btn-primary">Tornar a jugar</button>
@@ -2636,10 +2636,10 @@
                     </div>
                 </div>
 
-                <!-- PROJECTE: Ràdio -->
+                <!-- PROJECTE: RÃ dio -->
                 <div id="project-hub-radio" class="game-module hidden">
-                    <h3 data-i18n="radio_project_title">Ràdio</h3>
-                    <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
+                    <h3 data-i18n="radio_project_title">RÃ dio</h3>
+                    <p data-i18n="radio_project_desc">ComunicaciÃ³, locuciÃ³ i ediciÃ³ radiofÃ²nica.</p>
                     <div id="radio-activities-menu" class="activities-grid mt-4">
                         <div class="activity-card" onclick="openRadioActivity('taula')">
                             <div class="activity-card__media">
@@ -2655,10 +2655,10 @@
                         <div class="activity-card" onclick="openRadioActivity('conexions')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/radio/connectors/targeta-connectors.png"
-                                    alt="Connexions d'àudio" class="activity-card__image">
+                                    alt="Connexions d'Ã udio" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title" data-i18n="act_connections_title">Conexions d'Àudio</div>
+                                <div class="activity-card__title" data-i18n="act_connections_title">Conexions d'Ã€udio</div>
                                 <div class="activity-card__description" data-i18n="act_connections_desc">Identifica els diferents tipus
                                     de connectors i cables</div>
                             </div>
@@ -2668,7 +2668,7 @@
                     <!-- ACTIVITAT: Taula de So -->
                     <div id="radio-activity-taula" class="sub-activity hidden">
                         <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">? Tornar al
-                            menú</button>
+                            menÃº</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_radio_title">La Taula de So</h3>
                         </div>
@@ -2696,7 +2696,7 @@
                             <div id="radio-board-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
                                 style="font-family: monospace; font-size: 12px;">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span>?? Ajust de diana (Ràdio)</span>
+                                    <span>?? Ajust de diana (RÃ dio)</span>
                                     <button onclick="closeRadioBoardCalibration()" class="text-red-400">?</button>
                                 </div>
                                 <div class="grid grid-cols-3 gap-1 mb-2 text-center">
@@ -2729,11 +2729,11 @@
                         </div>
                     </div>
 
-                <!-- ACTIVITAT: Conexions d'Àudio -->
+                <!-- ACTIVITAT: Conexions d'Ã€udio -->
                 <div id="radio-activity-conexions" class="sub-activity hidden">
-                    <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">? Tornar al menú</button>
+                    <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">? Tornar al menÃº</button>
                     <div class="game-panel__header">
-                        <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
+                        <h3 data-i18n="act_connections_title">Conexions d'Ã€udio</h3>
                     </div>
                     <div id="connections-selector"
                         class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white text-center">
@@ -2772,7 +2772,7 @@
             <!-- PROJECTE: SolidArt (3r ESO) -->
             <div id="project-hub-solidart" class="game-module hidden">
 
-                <!-- MENÚ D'ACTIVITATS -->
+                <!-- MENÃš D'ACTIVITATS -->
                 <div id="solidart-activities-menu" class="activities-grid">
                     <div class="activity-card" onclick="openSolidartActivity('quadres')">
                         <div class="activity-card__media">
@@ -2781,7 +2781,7 @@
                         <div class="activity-card__content">
                             <div class="activity-card__title" data-i18n="act_tr_quadres_title">Quadres i autors</div>
                             <div class="activity-card__description" data-i18n="act_tr_quadres_desc">Endevina l'autor o el corrent
-                                artístic de cada obra.</div>
+                                artÃ­stic de cada obra.</div>
                         </div>
                     </div>
                     <div class="activity-card" onclick="openSolidartActivity('quadres2')">
@@ -2796,7 +2796,7 @@
                 <!-- ACTIVITAT: Quadres -->
                 <div id="solidart-activity-quadres" class="sub-activity hidden">
                     <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">? Tornar al
-                        menú</button>
+                        menÃº</button>
 
                     <div id="solidart-quadres-setup" class="game-panel__header text-center">
                         <div id="solidart-feedback-config" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
@@ -2804,22 +2804,22 @@
                             <label for="solidart-feedback-level" class="block mb-2 font-semibold">Nivell de feedback per
                                 a l'alumne:</label>
                             <select id="solidart-feedback-level" class="form-select form-select--compact w-full">
-                                <option value="none">Cap (el botó no canvia de color)</option>
-                                <option value="simple" selected>Simple (només verd/vermell al botó triat)</option>
+                                <option value="none">Cap (el botÃ³ no canvia de color)</option>
+                                <option value="simple" selected>Simple (nomÃ©s verd/vermell al botÃ³ triat)</option>
                                 <option value="full">Complet (marca la correcta i l'error)</option>
                             </select>
-                            <p class="text-xs text-gray-500 mt-2">Tria "Cap" per a exàmens o per evitar que es copiïn.
+                            <p class="text-xs text-gray-500 mt-2">Tria "Cap" per a exÃ mens o per evitar que es copiÃ¯n.
                             </p>
                         </div>
                         <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">O tria per nivell (tots els
                             temes):</p>
                         <div class="solidart-difficulty-row mt-6">
                             <button class="btn-primary btn-difficulty-easy btn-w-250"
-                                onclick="initSolidartQuadres('Fàcil')">Fàcil</button>
+                                onclick="initSolidartQuadres('FÃ cil')">FÃ cil</button>
                             <button class="btn-primary btn-difficulty-medium btn-w-250"
-                                onclick="initSolidartQuadres('Mitjà')">Mitjà</button>
+                                onclick="initSolidartQuadres('MitjÃ ')">MitjÃ </button>
                             <button class="btn-primary btn-difficulty-hard btn-w-250"
-                                onclick="initSolidartQuadres('Difícil')">Difícil</button>
+                                onclick="initSolidartQuadres('DifÃ­cil')">DifÃ­cil</button>
                             <button class="btn-primary btn-difficulty-mixed btn-w-250"
                                 onclick="initSolidartQuadres('Mix')">Barrejat</button>
                         </div>
@@ -2841,14 +2841,14 @@
                             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6">Pregunta...</h4>
 
                             <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4">
-                                <!-- Opcions dinàmiques -->
+                                <!-- Opcions dinÃ miques -->
                             </div>
                         </div>
 
                         <div id="solidart-quadres-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                             <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                             <button id="solidart-quadres-next-btn" class="btn-primary hidden"
-                                onclick="nextSolidartQuadre()">Següent</button>
+                                onclick="nextSolidartQuadre()">SegÃ¼ent</button>
                         </div>
                     </div>
 
@@ -2859,13 +2859,13 @@
                         <p id="solidart-quadres-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">0%
                         </p>
                         <p id="solidart-quadres-final-msg" class="result-screen__message text-lg mb-8"></p>
-                        <button onclick="showSolidartMenu()" class="btn-secondary">Tornar al menú</button>
+                        <button onclick="showSolidartMenu()" class="btn-secondary">Tornar al menÃº</button>
                     </div>
                 </div>
 
             <!-- ACTIVITAT: Quadres 2 -->
             <div id="solidart-activity-quadres2" class="sub-activity hidden">
-                <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">? Tornar al menú</button>
+                <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">? Tornar al menÃº</button>
 
                 <div id="solidart-quadres2-setup" class="game-panel__header text-center">
                     <div id="solidart-feedback-config2" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
@@ -2874,18 +2874,18 @@
                             l'alumne:</label>
                         <select id="solidart-feedback-level2" class="form-select form-select--compact w-full">
                             <option value="none">Cap (no es marquen les imatges)</option>
-                            <option value="simple" selected>Simple (només la triada)</option>
+                            <option value="simple" selected>Simple (nomÃ©s la triada)</option>
                             <option value="full">Complet (marca correcta i error)</option>
                         </select>
                     </div>
                     <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">Selecciona el nivell:</p>
                     <div class="solidart-difficulty-row mt-6">
                         <button class="btn-primary btn-difficulty-easy btn-w-250"
-                            onclick="initSolidartQuadres2('Fàcil')">Fàcil</button>
+                            onclick="initSolidartQuadres2('FÃ cil')">FÃ cil</button>
                         <button class="btn-primary btn-difficulty-medium btn-w-250"
-                            onclick="initSolidartQuadres2('Mitjà')">Mitjà</button>
+                            onclick="initSolidartQuadres2('MitjÃ ')">MitjÃ </button>
                         <button class="btn-primary btn-difficulty-hard btn-w-250"
-                            onclick="initSolidartQuadres2('Difícil')">Difícil</button>
+                            onclick="initSolidartQuadres2('DifÃ­cil')">DifÃ­cil</button>
                         <button class="btn-primary btn-difficulty-mixed btn-w-250"
                             onclick="initSolidartQuadres2('Mix')">Barrejat</button>
                     </div>
@@ -2903,7 +2903,7 @@
                     </div>
                     <div id="solidart-quadres2-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                         <p id="solidart-quadres2-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-                        <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
+                        <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">SegÃ¼ent</button>
                     </div>
                 </div>
 
@@ -2911,7 +2911,7 @@
                     <h2 class="text-3xl font-bold mb-4">Resultat Final</h2>
                     <div class="flex justify-center gap-10 mb-6">
                         <div>
-                            <p class="text-gray-500">Puntuació</p>
+                            <p class="text-gray-500">PuntuaciÃ³</p>
                             <p id="solidart-quadres2-final-score" class="result-screen__score text-4xl font-bold text-primary"></p>
                         </div>
                         <div>
@@ -2921,16 +2921,16 @@
                     </div>
                     <p id="solidart-quadres2-final-msg" class="result-screen__message text-xl mb-6"></p>
                     <button class="btn-primary btn-w-200 btn-centered"
-                        onclick="showSolidartMenu()">Tornar al menú</button>
+                        onclick="showSolidartMenu()">Tornar al menÃº</button>
                 </div>
             </div>
             </div>
 
-            <!-- SIMULADOR GENÈRIC (Per a altres projectes) -->
+            <!-- SIMULADOR GENÃˆRIC (Per a altres projectes) -->
             <div id="game-container-generic" class="game-module hidden">
-                <h3>Simulació Genèrica (Mode Examen)</h3>
-                <p>Aquest projecte encara no té activitats específiques.</p>
-                <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                <h3>SimulaciÃ³ GenÃ¨rica (Mode Examen)</h3>
+                <p>Aquest projecte encara no tÃ© activitats especÃ­fiques.</p>
+                <button id="simulate-score-btn" class="btn-primary">Simular FinalitzaciÃ³ (Test)</button>
                 <p id="simulation-result"></p>
             </div>
         </main>
