@@ -71,7 +71,7 @@ function startConnectionsSelector() {
     buttonsContainer.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
     mixBtn.innerText = 'Barrejat (totes)';
     mixBtn.onclick = () => startConnectionsQuiz('Barrejat', null);
@@ -89,7 +89,7 @@ function addConnectionsFilterSection(container, labelText, field, color) {
 
     values.forEach(value => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
         btn.innerText = value;
         btn.onclick = () => startConnectionsQuiz(value, field);
@@ -179,7 +179,7 @@ function renderConnectionQuestion() {
 
     shuffledOptions.forEach(option => {
         const btn = document.createElement('button');
-        btn.className = isImageQuestion ? 'btn-option radio-connection-image-option' : 'btn-option';
+        btn.className = isImageQuestion ? 'answer-option radio-connection-image-option' : 'answer-option';
         btn.dataset.value = option.value || option.text;
         btn.onclick = () => checkConnectionAnswer(option.value || option.text, question.correct, btn);
 
@@ -210,7 +210,7 @@ function checkConnectionAnswer(selected, correct, btn) {
     if (connectionsQuiz.isFinished) return;
 
     const feedbackEl = document.getElementById('connection-feedback');
-    const options = document.querySelectorAll('#connection-options .btn-option');
+    const options = document.querySelectorAll('#connection-options .answer-option');
 
     options.forEach(option => {
         option.disabled = true;

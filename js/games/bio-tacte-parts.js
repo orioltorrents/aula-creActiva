@@ -25,7 +25,7 @@ function initBioTactePartsGame() {
     bioTactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-tacte-parts-image');
-    img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png';
 
     const shuffled = [...bioTactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -103,7 +103,7 @@ function renderBioTactePartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-tacte-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();

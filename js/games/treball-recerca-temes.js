@@ -34,7 +34,7 @@ async function loadTrTemesCategories() {
 
             categories.forEach((cat) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-primary shadow-md';
+                btn.className = 'btn btn--primary shadow-md';
                 btn.style.padding = '1.5rem 2rem';
                 btn.style.fontSize = '1.2rem';
                 btn.style.fontWeight = 'bold';
@@ -188,7 +188,7 @@ async function checkTrTemesRespostes() {
 
     currentTopic.preguntes.forEach((q, idx) => {
         const isSelected = trSelectedQuestions.has(idx);
-        // "investigable" check based on the type stored in the DB row. 
+        // "investigable" check based on the type stored in the DB row.
         const correctIsInvestigable = String(q.type).toLowerCase().includes('investigable') && !String(q.type).toLowerCase().includes('no investigable');
 
         let isCorrect = false;

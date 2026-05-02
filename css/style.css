@@ -1,5 +1,8 @@
 /* ==========================================================================
    Design Tokens
+   Variables globals reutilitzables. No formen part del BEM, però són la base
+   visual que consumeixen blocs com `project-card`, `activity-card` i
+   `game-panel` per mantenir colors, radis i ombres coherents.
    ========================================================================== */
 :root {
     --primary-color: #000000;
@@ -57,6 +60,8 @@ body {
 
 /* ==========================================================================
    Utilities
+   Classes petites i genèriques. Són deliberadament fora del BEM perquè poden
+   combinar-se amb qualsevol bloc quan cal ajustar layout o espaiat.
    ========================================================================== */
 .hidden {
     display: none !important;
@@ -188,10 +193,14 @@ body {
 
 /* ==========================================================================
    Buttons
+   Bloc BEM: `btn`
+
+   Classes noves recomanades:
+   - `btn`: base comuna
+   - `btn--primary`, `btn--secondary`, `btn--info`: variants visuals
+   - `btn--sm`, `btn--fit-content`, `btn--auto-width`, etc.: modificadors
    ========================================================================== */
-.btn-primary,
-.btn-secondary,
-.btn-info {
+.btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -207,130 +216,124 @@ body {
     transition: var(--transition-fast);
 }
 
-.btn-primary {
+.btn--primary {
     background-color: var(--primary-color);
     color: var(--white);
     width: 100%;
 }
 
-.btn-primary:hover {
+.btn--primary:hover {
     background-color: var(--primary-hover);
 }
 
-.btn-secondary {
+.btn--secondary {
     background-color: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-color);
 }
 
-.btn-secondary:hover {
+.btn--secondary:hover {
     background-color: var(--border-muted);
 }
 
-.btn-info {
+.btn--info {
     background-color: var(--info-bg);
     border-color: var(--info-border);
     color: var(--info-text);
 }
 
-.btn-info:hover {
+.btn--info:hover {
     background-color: #dbeafe;
 }
 
-.btn-option,
-.quiz-option-btn,
-.btn-outline {
+.answer-option,
+.quiz-option,
+.btn--outline {
     cursor: pointer;
     transition: var(--transition-fast);
 }
 
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible,
-.btn-info:focus-visible,
-.btn-option:focus-visible,
-.quiz-option-btn:focus-visible,
-.btn-outline:focus-visible {
+.btn:focus-visible,
+.answer-option:focus-visible,
+.quiz-option:focus-visible,
+.btn--outline:focus-visible {
     outline: 3px solid rgba(59, 130, 246, 0.35);
     outline-offset: 2px;
 }
 
-.btn-primary:disabled,
-.btn-secondary:disabled,
-.btn-info:disabled,
-.btn-option:disabled,
-.quiz-option-btn:disabled,
-.btn-outline:disabled {
+.btn:disabled,
+.answer-option:disabled,
+.quiz-option:disabled,
+.btn--outline:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-/* Button modifiers
-   These variants replace inline button styles in the HTML and keep color and
-   sizing decisions centralized in one place. */
-.btn-fit-content {
+/* Modificadors BEM del bloc `btn`. */
+.btn--fit-content {
     width: fit-content;
 }
 
-.btn-auto-width {
+.btn--auto-width {
     width: auto;
 }
 
-.btn-centered {
+.btn--centered {
     margin-inline: auto;
 }
 
-.btn-w-200 {
+.btn--w-200 {
     max-width: 200px;
 }
 
-.btn-w-250 {
+.btn--w-250 {
     max-width: 250px;
 }
 
-.btn-export {
+.btn--export {
     background-color: #059669;
     border-color: #047857;
     font-size: 10px;
     padding-block: 4px;
 }
 
-.btn-export:hover {
+.btn--export:hover {
     background-color: #047857;
 }
 
-.btn-difficulty-easy {
+.btn--difficulty-easy {
     background-color: #22c55e;
     border-color: #16a34a;
 }
 
-.btn-difficulty-easy:hover {
+.btn--difficulty-easy:hover {
     background-color: #16a34a;
 }
 
-.btn-difficulty-medium {
+.btn--difficulty-medium {
     background-color: var(--warning);
     border-color: var(--warning-border);
 }
 
-.btn-difficulty-medium:hover {
+.btn--difficulty-medium:hover {
     background-color: var(--warning-border);
 }
 
-.btn-difficulty-hard {
+.btn--difficulty-hard {
     background-color: var(--danger);
     border-color: var(--danger-border);
 }
 
-.btn-difficulty-hard:hover {
+.btn--difficulty-hard:hover {
     background-color: var(--danger-border);
 }
 
-.btn-difficulty-mixed {
+.btn--difficulty-mixed {
     background-color: var(--purple);
     border-color: var(--purple-border);
 }
 
-.btn-difficulty-mixed:hover {
+.btn--difficulty-mixed:hover {
     background-color: var(--purple-border);
 }
 
@@ -526,12 +529,28 @@ body {
 
 /* ==========================================================================
    Project Cards (BEM)
-   El dashboard principal fa servir un component diferent del de les
-   activitats. El separem amb noms propis per evitar col·lisions i fer més
-   fàcil mantenir els dos patrons en paral·lel.
+   Bloc: `project-card`
+   Ús: targetes del dashboard principal.
+
+   Estructura esperada:
+   <div class="project-card">
+       <div class="project-card__media">
+           <img class="project-card__image">
+       </div>
+       <div class="project-card__content">
+           <div class="project-card__title"></div>
+           <div class="project-card__description"></div>
+       </div>
+   </div>
+
+   El dashboard principal fa servir un component diferent del de les activitats.
+   Per això aquest bloc es diu `project-card` i no reutilitza `activity-card`.
+   Això evita col·lisions visuals quan una targeta de projecte i una targeta
+   d'activitat necessiten mides o proporcions diferents.
    ========================================================================== */
 
 .project-card__media {
+    /* Element BEM: zona visual superior de la targeta de projecte. */
     height: 220px;
     background-color: var(--surface-muted);
     display: flex;
@@ -546,6 +565,7 @@ body {
 }
 
 .project-card__image {
+    /* Element BEM: imatge de portada que omple la zona media. */
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -554,21 +574,25 @@ body {
 
 .project-card:hover .project-card__image,
 .project-card:hover .project-card__media {
+    /* Estat interactiu del bloc aplicat als seus elements interns. */
     transform: scale(1.05);
 }
 
 
 .project-card__content {
+    /* Element BEM: contenidor textual de la targeta. */
     padding: 20px;
 }
 
 .project-card__title {
+    /* Element BEM: títol principal de la targeta de projecte. */
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
 .project-card__description {
+    /* Element BEM: text secundari de la targeta de projecte. */
     font-size: 0.9rem;
     color: var(--text-light);
 }
@@ -611,7 +635,10 @@ body {
 
 /* ==========================================================================
    Shared Game UI
-   BEM compartit per pantalles de joc:
+   Bloc conceptual: `game-panel`
+   Ús: estructura compartida per pantalles de joc i activitats.
+
+   Elements BEM principals:
    - `game-panel__header`: capçalera superior del mòdul
    - `game-panel__controls`: accions i selectors del joc
    - `game-panel__stats`: barra d'estat amb progrés, punts o temps
@@ -620,8 +647,13 @@ body {
    - `game-panel__feedback`: missatge curt de retorn
    - `game-panel__progress*`: variants per a barres de progrés
    - `game-panel__card`: targeta/panell específic dins d'un joc
+
+   Nota: ara mateix no sempre existeix un contenidor `.game-panel` al HTML.
+   Tot i així, els elements mantenen el prefix per indicar que pertanyen al
+   mateix patró visual compartit.
    ========================================================================== */
 .game-panel__options {
+    /* Element BEM: llista flexible d'opcions de resposta. */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -688,7 +720,7 @@ body {
     margin: 8px;
 }
 
-.btn-option {
+.answer-option {
     padding: 20px;
     font-size: 1.1rem;
     background-color: var(--card-bg);
@@ -696,24 +728,27 @@ body {
     border-radius: var(--radius-lg);
 }
 
-.btn-option:hover {
+.answer-option:hover {
     background-color: var(--primary-color);
     color: white;
 }
 
-.btn-option.correct {
+.answer-option.correct,
+.answer-option--correct {
     background-color: #4CAF50 !important;
     color: white !important;
     border-color: #4CAF50 !important;
 }
 
-.btn-option.incorrect {
+.answer-option.incorrect,
+.answer-option--incorrect {
     background-color: #f44336 !important;
     color: white !important;
     border-color: #f44336 !important;
 }
 
 .game-panel__header {
+    /* Element BEM: capçalera interna d'un joc o subactivitat. */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -721,11 +756,13 @@ body {
 }
 
 .game-panel__controls {
+    /* Element BEM: grup d'accions, botons o selectors del joc. */
     display: flex;
     gap: 10px;
 }
 
 .game-panel__stats {
+    /* Element BEM: barra d'estat amb progrés, puntuació o temps. */
     display: flex;
     justify-content: space-between;
     font-weight: bold;
@@ -737,16 +774,19 @@ body {
 }
 
 .game-panel__question {
+    /* Element BEM: àrea principal on es mostra l'enunciat o la prova. */
     margin-bottom: 20px;
 }
 
 .game-panel__question h4 {
+    /* Selector descendent puntual: estil del títol dins l'element question. */
     font-size: 1.5rem;
     margin-bottom: 20px;
     color: var(--primary-color);
 }
 
 .game-panel__feedback {
+    /* Element BEM: feedback breu després d'una resposta o acció. */
     font-weight: bold;
     min-height: 24px;
     margin-top: 15px;
@@ -755,12 +795,17 @@ body {
 
 /* ==========================================================================
    Feedback Panels & Result Screens
-   Components compartits per feedback ampliat i pantalles de resultat final.
-   Els `id` dels jocs es mantenen estables; només afegim una capa semàntica
-   de classes perquè el marcatge sigui més previsible i reusable.
+   Blocs BEM:
+   - `feedback-panel`: feedback ampliat, amb estat i missatge.
+   - `result-screen`: pantalla de resultat final.
+
+   Els `id` dels jocs es mantenen estables per compatibilitat amb el JS.
+   Aquestes classes BEM afegeixen una capa semàntica reutilitzable perquè el
+   marcatge sigui més previsible i menys dependent d'estils inline.
    ========================================================================== */
 
 .feedback-panel {
+    /* Bloc BEM: caixa base de feedback. */
     padding: 16px;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-muted);
@@ -768,14 +813,17 @@ body {
 }
 
 .feedback-panel__title {
+    /* Element BEM: títol o frase principal del feedback. */
     margin: 0;
 }
 
 .feedback-panel__body {
+    /* Element BEM: explicació secundària o text llarg del feedback. */
     color: var(--text-light);
 }
 
 .feedback-panel__list {
+    /* Element BEM: llista vertical de punts de feedback. */
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -784,6 +832,7 @@ body {
 .feedback-panel--correct,
 .feedback-correct,
 #rols-feedback.correct {
+    /* Modificador BEM `--correct`; els altres selectors són aliases legacy. */
     background: #dcfce7;
     color: #166534;
     border: 1px solid #bbf7d0;
@@ -792,6 +841,7 @@ body {
 .feedback-panel--incorrect,
 .feedback-incorrect,
 #rols-feedback.incorrect {
+    /* Modificador BEM `--incorrect`; els altres selectors són aliases legacy. */
     background: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
@@ -799,6 +849,7 @@ body {
 
 .feedback-panel--good,
 .orenetes-feedback-good {
+    /* Modificador semàntic per resultats bons; alias legacy d'Orenetes. */
     color: #166534;
     background: #dcfce7;
     border: 1px solid #86efac;
@@ -806,6 +857,7 @@ body {
 
 .feedback-panel--mid,
 .orenetes-feedback-mid {
+    /* Modificador semàntic per resultats intermedis; alias legacy d'Orenetes. */
     color: #854d0e;
     background: #fef3c7;
     border: 1px solid #facc15;
@@ -813,12 +865,14 @@ body {
 
 .feedback-panel--low,
 .orenetes-feedback-low {
+    /* Modificador semàntic per resultats baixos; alias legacy d'Orenetes. */
     color: #991b1b;
     background: #fee2e2;
     border: 1px solid #fecaca;
 }
 
 .result-screen {
+    /* Bloc BEM: contenidor base de pantalles de resultat. */
     background: var(--white);
     border: 1px solid var(--border-muted);
     border-radius: var(--radius-lg);
@@ -826,20 +880,24 @@ body {
 }
 
 .result-screen__score {
+    /* Element BEM: valor de puntuació destacat. */
     line-height: 1.1;
 }
 
 .result-screen__percentage {
+    /* Element BEM: percentatge final o valor secundari. */
     color: var(--text-light);
 }
 
 .result-screen__message {
+    /* Element BEM: missatge final llegible i amb amplada controlada. */
     max-width: 60ch;
     margin-inline: auto;
 }
 
 .result-screen__display,
 .results-display {
+    /* `result-screen__display` és el nom BEM; `results-display` és legacy. */
     background: #f8fafc;
     padding: 30px;
     border-radius: 20px;
@@ -890,6 +948,9 @@ body {
 
 /* ==========================================================================
    Activity Cards (BEM)
+   Bloc: `activity-card`
+   Ús: targetes dels menús interns d'activitats.
+
    Cada targeta d'activitat es compon de:
    - `activity-card__media`: zona superior d'icona o imatge
    - `activity-card__image`: imatge de portada
@@ -897,9 +958,14 @@ body {
    - `activity-card__title`: títol de l'activitat
    - `activity-card__description`: text descriptiu
    - `activity-card--disabled`: estat desactivat
+
+   Diferència amb `project-card`: `activity-card` és més compacta i pensada
+   per aparèixer dins d'un projecte o submenú. No barrejar els elements dels
+   dos blocs; per exemple, evitar `project-card__image` dins `activity-card`.
    ========================================================================== */
 
 .activity-card__content {
+    /* Element BEM: contenidor textual de la targeta d'activitat. */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -908,6 +974,7 @@ body {
 }
 
 .activity-card__title {
+    /* Element BEM: títol curt de l'activitat. */
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-color);
@@ -915,24 +982,28 @@ body {
 }
 
 .activity-card__description {
+    /* Element BEM: explicació breu de què farà l'activitat. */
     font-size: 0.9rem;
     color: var(--text-light);
     margin: 0;
 }
 
 .activity-card:hover {
+    /* Estat interactiu del bloc base. */
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border-color: var(--primary-color);
 }
 
 .activity-card--disabled {
+    /* Modificador BEM: activitat visible però no clicable o encara no disponible. */
     opacity: 0.6;
     cursor: not-allowed;
     filter: grayscale(0.5);
 }
 
 .activity-card--disabled:hover {
+    /* El modificador desactivat anul·la el moviment del hover normal. */
     transform: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-color: var(--border-muted);
@@ -951,6 +1022,7 @@ body {
 }
 
 .activity-card__media {
+    /* Element BEM: zona visual superior, més baixa que la de `project-card`. */
     height: 140px;
     background-color: var(--surface-muted);
     display: flex;
@@ -964,6 +1036,7 @@ body {
 }
 
 .activity-card__image {
+    /* Element BEM: imatge de portada de la targeta d'activitat. */
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -971,10 +1044,11 @@ body {
 }
 
 .activity-card:hover .activity-card__image {
+    /* Hover intern: només escala la imatge, no el contingut textual. */
     transform: scale(1.05);
 }
 
-.btn-sm {
+.btn--sm {
     padding: 6px 12px;
     font-size: 0.85rem;
 }
@@ -1162,12 +1236,12 @@ body {
     width: 100%;
 }
 
-#solidart-quadres-setup .btn-primary,
-#solidart-quadres2-setup .btn-primary {
+#solidart-quadres-setup .btn--primary,
+#solidart-quadres2-setup .btn--primary {
     width: min(160px, 100%);
 }
 
-.quiz-option-btn {
+.quiz-option {
     padding: 1rem 1.25rem;
     font-size: 1.1rem;
     font-weight: 700;
@@ -1183,7 +1257,7 @@ body {
     min-height: 80px;
 }
 
-.quiz-option-btn:hover:not(:disabled) {
+.quiz-option:hover:not(:disabled) {
     border-color: var(--primary-color);
     background-color: #f5f3ff;
     transform: translateY(-4px);
@@ -1191,11 +1265,11 @@ body {
     color: var(--primary-hover);
 }
 
-.quiz-option-btn:active:not(:disabled) {
+.quiz-option:active:not(:disabled) {
     transform: translateY(0);
 }
 
-.quiz-option-btn:disabled {
+.quiz-option:disabled {
     cursor: default;
     opacity: 0.8;
 }
@@ -1212,7 +1286,7 @@ body {
         gap: 1rem !important;
     }
 
-    .quiz-option-btn {
+    .quiz-option {
         font-size: 1.1rem;
         padding: 1rem 0.75rem;
         min-height: 70px;
@@ -1438,7 +1512,7 @@ body {
     gap: 8px;
 }
 
-.btn-outline {
+.btn--outline {
     background: white;
     border: 2px solid #e5e7eb;
     padding: 10px 15px;
@@ -1447,12 +1521,13 @@ body {
     font-weight: 500;
 }
 
-.btn-outline:hover {
+.btn--outline:hover {
     border-color: var(--primary-color);
     background: #f5f3ff;
 }
 
-.btn-outline.selected {
+.btn--outline.selected,
+.btn--outline--selected {
     background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
@@ -1504,5 +1579,3 @@ body {
         transform: translateY(0);
     }
 }
-
-

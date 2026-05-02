@@ -232,7 +232,7 @@ function generateTopicButtons(questions) {
 
   // Botó TOTES
   const allBtn = document.createElement("button");
-  allBtn.className = "btn-primary";
+  allBtn.className = "btn btn--primary";
   allBtn.style =
     "background-color: var(--primary-color); width:auto; font-size:0.95rem; padding:10px 20px; min-width:120px;";
   allBtn.innerText = "Totes";
@@ -252,7 +252,7 @@ function generateTopicButtons(questions) {
   // Botons per cada tipus
   types.forEach((type) => {
     const btn = document.createElement("button");
-    btn.className = "btn-primary";
+    btn.className = "btn btn--primary";
     btn.style =
       "background-color: var(--primary-color); width:auto; font-size:0.95rem; padding:10px 20px; min-width:120px;";
     btn.innerText = type;
@@ -363,7 +363,7 @@ function showBiblioQuestion() {
 
   qData.a.forEach((optText, idx) => {
     const btn = document.createElement("button");
-    btn.className = "btn-option w-full text-left mb-2";
+    btn.className = "answer-option w-full text-left mb-2";
     btn.innerText = optText;
     btn.onclick = () => handleBiblioAnswer(idx);
     optsContainer.appendChild(btn);

@@ -57,7 +57,7 @@ function startOidaQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
             btn.innerText = cat;
             btn.onclick = () => startOidaQuiz(cat, 'type');
@@ -73,7 +73,7 @@ function startOidaQuizLevelSelector() {
         container.appendChild(levelLabel);
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
             btn.innerText = lvl;
             btn.onclick = () => startOidaQuiz(lvl, 'level');
@@ -86,7 +86,7 @@ function startOidaQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startOidaQuiz('Barrejat', null);
@@ -122,10 +122,10 @@ function startOidaQuiz(value, filterBy) {
 
 function renderOidaQuizQuestion() {
     const questionData = bioOidaQuiz.sessionQuestions[bioOidaQuiz.currentStep];
-    
+
     document.getElementById('oida-quiz-progress').innerText = `Pregunta ${bioOidaQuiz.currentStep + 1} de ${bioOidaQuiz.sessionQuestions.length}`;
     document.getElementById('oida-quiz-score-display').innerText = `Punts: ${bioOidaQuiz.score}`;
-    
+
     document.getElementById('oida-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
     const correctText = questionData.correct || questionData.Correcta;
@@ -141,7 +141,7 @@ function renderOidaQuizQuestion() {
 
     answers.forEach((ans) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ans.text;
         btn.dataset.correct = ans.correct;
         btn.onclick = () => handleOidaQuizAnswer(ans.correct, btn);
@@ -170,7 +170,7 @@ function handleOidaQuizAnswer(isCorrect, btnElement) {
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
         feedbackEl.style.color = 'var(--success)';
-        
+
         setTimeout(() => {
             bioOidaQuiz.currentStep++;
             if (bioOidaQuiz.currentStep >= bioOidaQuiz.sessionQuestions.length) {
@@ -184,7 +184,7 @@ function handleOidaQuizAnswer(isCorrect, btnElement) {
         feedbackEl.style.color = 'var(--error)';
         bioOidaQuiz.score = Math.max(0, bioOidaQuiz.score - 10);
         document.getElementById('oida-quiz-score-display').innerText = `Punts: ${bioOidaQuiz.score}`;
-        
+
         setTimeout(() => {
             feedbackEl.innerText = '';
             buttons.forEach(b => {

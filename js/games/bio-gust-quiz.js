@@ -57,7 +57,7 @@ function startGustQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
             btn.innerText = cat;
             btn.onclick = () => startGustQuiz(cat, 'type');
@@ -73,7 +73,7 @@ function startGustQuizLevelSelector() {
         container.appendChild(levelLabel);
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
             btn.innerText = lvl;
             btn.onclick = () => startGustQuiz(lvl, 'level');
@@ -86,7 +86,7 @@ function startGustQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startGustQuiz('Barrejat', null);
@@ -122,10 +122,10 @@ function startGustQuiz(value, filterBy) {
 
 function renderGustQuizQuestion() {
     const questionData = bioGustQuiz.sessionQuestions[bioGustQuiz.currentStep];
-    
+
     document.getElementById('gust-quiz-progress').innerText = `Pregunta ${bioGustQuiz.currentStep + 1} de ${bioGustQuiz.sessionQuestions.length}`;
     document.getElementById('gust-quiz-score-display').innerText = `Punts: ${bioGustQuiz.score}`;
-    
+
     document.getElementById('gust-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
     const correctText = questionData.correct || questionData.Correcta;
@@ -141,7 +141,7 @@ function renderGustQuizQuestion() {
 
     answers.forEach((ans) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ans.text;
         btn.dataset.correct = ans.correct;
         btn.onclick = () => handleGustQuizAnswer(ans.correct, btn);
@@ -170,7 +170,7 @@ function handleGustQuizAnswer(isCorrect, btnElement) {
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
         feedbackEl.style.color = 'var(--success)';
-        
+
         setTimeout(() => {
             bioGustQuiz.currentStep++;
             if (bioGustQuiz.currentStep >= bioGustQuiz.sessionQuestions.length) {
@@ -184,7 +184,7 @@ function handleGustQuizAnswer(isCorrect, btnElement) {
         feedbackEl.style.color = 'var(--error)';
         bioGustQuiz.score = Math.max(0, bioGustQuiz.score - 10);
         document.getElementById('gust-quiz-score-display').innerText = `Punts: ${bioGustQuiz.score}`;
-        
+
         setTimeout(() => {
             feedbackEl.innerText = '';
             buttons.forEach(b => {

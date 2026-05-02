@@ -25,7 +25,7 @@ function initBioOlfactePartsGame() {
     bioOlfactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-olfacte-parts-image');
-    img.src = 'assets/images/activities/biologia/senses/sentit-olfacte.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-olfacte.png';
 
     const shuffled = [...bioOlfactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -103,7 +103,7 @@ function renderBioOlfactePartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-olfacte-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();

@@ -192,7 +192,7 @@ function generateTrBiblioTopicButtons(questions) {
 
     // Botó TOTES
     const allBtn = document.createElement("button");
-    allBtn.className = "btn-primary";
+    allBtn.className = "btn btn--primary";
     allBtn.style = "background-color: var(--primary-color); width:auto; font-size:0.95rem; padding:10px 20px; min-width:120px;";
     allBtn.innerText = "Totes";
     allBtn.onclick = () => startTrBiblioWithFilter("all", "mixed");
@@ -200,7 +200,7 @@ function generateTrBiblioTopicButtons(questions) {
 
     types.forEach((type) => {
         const btn = document.createElement("button");
-        btn.className = "btn-primary";
+        btn.className = "btn btn--primary";
         btn.style = "background-color: var(--primary-color); width:auto; font-size:0.95rem; padding:10px 20px; min-width:120px;";
         btn.innerText = type;
         btn.onclick = () => startTrBiblioWithFilter(type, "mixed");
@@ -297,7 +297,7 @@ function showTrBiblioQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement("button");
-        btn.className = "btn-option w-full text-left mb-2";
+        btn.className = "answer-option w-full text-left mb-2";
         btn.innerText = optText;
         btn.onclick = () => handleTrBiblioAnswer(idx);
         optsContainer.appendChild(btn);

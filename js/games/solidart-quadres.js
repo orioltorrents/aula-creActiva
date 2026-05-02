@@ -46,7 +46,7 @@ async function initSolidartQuadres(dificultat) {
         } else {
             const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
             quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
-                                 <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
+                                 <button class="btn btn--secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {
         console.error("Error initSolidartQuadres:", e);
@@ -71,7 +71,7 @@ function renderSolidartQuadre() {
         </div>
         <div id="solidart-quadres-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-            <button id="solidart-quadres-next-btn" class="btn-primary hidden" onclick="nextSolidartQuadre()">Següent</button>
+            <button id="solidart-quadres-next-btn" class="btn btn--primary hidden" onclick="nextSolidartQuadre()">Següent</button>
         </div>
     `;
 
@@ -95,7 +95,7 @@ function renderSolidartQuadre() {
 
     q.opcions.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-option-btn';
+        btn.className = 'quiz-option';
         btn.textContent = opt;
         btn.onclick = () => checkSolidartQuadre(opt);
         optionsDiv.appendChild(btn);

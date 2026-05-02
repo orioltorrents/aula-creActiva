@@ -41,7 +41,7 @@ async function initOrenetesGame() {
             setup.innerHTML = `
                 <div class="orenetes-empty">
                     <p>${message}</p>
-                    <button class="btn-secondary mt-4" onclick="showNaturaMenu()">Tornar al menu</button>
+                    <button class="btn btn--secondary mt-4" onclick="showNaturaMenu()">Tornar al menu</button>
                 </div>
             `;
             return;

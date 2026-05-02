@@ -63,7 +63,7 @@ function startEndocriQuizLevelSelector() {
 
     topics.forEach(cat => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style.backgroundColor = '#3b82f6';
         btn.style.width = 'auto';
         btn.style.minWidth = '120px';
@@ -85,7 +85,7 @@ function startEndocriQuizLevelSelector() {
 
     levels.forEach(lvl => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style.backgroundColor = '#10b981';
         btn.style.width = 'auto';
         btn.style.minWidth = '120px';
@@ -101,7 +101,7 @@ function startEndocriQuizLevelSelector() {
     container.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.backgroundColor = '#7c3aed';
     mixBtn.style.width = 'auto';
     mixBtn.style.minWidth = '120px';
@@ -115,11 +115,11 @@ function startEndocriQuiz(value, filterBy) {
 
     let pool = bioEndocriQuiz.allQuestions;
     if (filterBy === 'type') {
-        pool = bioEndocriQuiz.allQuestions.filter(q => 
+        pool = bioEndocriQuiz.allQuestions.filter(q =>
             q.type && q.type.toString().toLowerCase() === value.toString().toLowerCase()
         );
     } else if (filterBy === 'level') {
-        pool = bioEndocriQuiz.allQuestions.filter(q => 
+        pool = bioEndocriQuiz.allQuestions.filter(q =>
             q.level && q.level.toString().toLowerCase() === value.toString().toLowerCase()
         );
     }
@@ -151,10 +151,10 @@ function startEndocriQuiz(value, filterBy) {
 
 function renderEndocriQuizQuestion() {
     const questionData = bioEndocriQuiz.sessionQuestions[bioEndocriQuiz.currentStep];
-    
+
     document.getElementById('endo-quiz-progress').innerText = `Pregunta ${bioEndocriQuiz.currentStep + 1} de ${bioEndocriQuiz.sessionQuestions.length}`;
     document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
-    
+
     document.getElementById('endo-quiz-text').innerText = questionData.q || '';
 
     const container = document.getElementById('endo-quiz-options');
@@ -162,7 +162,7 @@ function renderEndocriQuizQuestion() {
 
     questionData.a.forEach((ansText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ansText;
         btn.dataset.isCorrect = (idx === questionData.correct);
         btn.onclick = () => handleEndocriQuizAnswer(btn.dataset.isCorrect === 'true', btn);
@@ -191,7 +191,7 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
         feedbackEl.style.color = 'var(--success)';
-        
+
         setTimeout(() => {
             bioEndocriQuiz.currentStep++;
             if (bioEndocriQuiz.currentStep >= bioEndocriQuiz.sessionQuestions.length) {
@@ -205,7 +205,7 @@ function handleEndocriQuizAnswer(isCorrect, btnElement) {
         feedbackEl.style.color = 'var(--error)';
         bioEndocriQuiz.score = Math.max(0, bioEndocriQuiz.score - 10);
         document.getElementById('endo-quiz-score-display').innerText = `Punts: ${bioEndocriQuiz.score}`;
-        
+
         setTimeout(() => {
             feedbackEl.innerText = '';
             buttons.forEach(b => {

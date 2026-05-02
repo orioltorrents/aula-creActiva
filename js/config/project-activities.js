@@ -1,4 +1,4 @@
-﻿// js/config/project-activities.js
+// js/config/project-activities.js
 /*
 ==========================================================
 CONFIGURACIÓ DE LES ACTIVITATS DELS PROJECTES

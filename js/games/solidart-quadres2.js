@@ -45,7 +45,7 @@ async function initSolidartQuadres2(dificultat) {
         } else {
             const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
             quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
-                                 <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
+                                 <button class="btn btn--secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {
         console.error("Error initSolidartQuadres2:", e);
@@ -66,7 +66,7 @@ function renderSolidartQuadres2() {
         </div>
         <div id="solidart-quadres2-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
             <p id="solidart-quadres2-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-            <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
+            <button class="btn btn--primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
         </div>
     `;
 

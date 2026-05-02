@@ -65,7 +65,7 @@ async function loadTrCategories() {
 
 function createTrBtn(text, onClick, bgColor = '#3b82f6') {
     const btn = document.createElement('button');
-    btn.className = 'btn-primary shadow-md';
+    btn.className = 'btn btn--primary shadow-md';
     btn.style.padding = '0.6rem 1.2rem';
     btn.style.margin = '4px';
     btn.style.width = 'auto';
@@ -155,7 +155,7 @@ function checkTrPreguntaRespuesta(respostaHabilitada) {
 
     const currentQ = trPreguntesList[trCurrentQuestionIndex];
 
-    // Check if what user clicked matches what db says 
+    // Check if what user clicked matches what db says
     // Usually 'investigable/no investigable' column says "Investigable" or "No investigable"
     const isInvestigableDB = String(currentQ.investigable).toLowerCase().includes('no') ? false : true;
     const isInvestigableUser = respostaHabilitada === 'Investigable';

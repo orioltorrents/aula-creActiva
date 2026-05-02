@@ -177,7 +177,7 @@ function renderOptions(options, correctQ) {
 
     options.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option'; // Caldrà definir aquest estil CSS
+        btn.className = 'answer-option'; // Caldrà definir aquest estil CSS
         btn.innerText = opt.capital;
         btn.onclick = () => handleAnswer(opt, correctQ, btn);
         container.appendChild(btn);
@@ -211,7 +211,7 @@ function handleAnswer(selected, correct, btnElement) {
 
         // Mostrem quina era la bona breument en mode pràctica
         if (medGameState.mode === 'practice') {
-            const btns = document.querySelectorAll('.btn-option');
+            const btns = document.querySelectorAll('.answer-option');
             btns.forEach(b => {
                 if (b.innerText === correct.capital) b.classList.add('correct');
             });
@@ -304,7 +304,7 @@ function updateMediterraniLanguage() {
         const feedbackEl = document.getElementById('med-feedback');
         if (feedbackEl.innerText !== '') {
             // Si estem mostrant 'correct'/'incorrect', ho traduïm.
-            // Això és una mica 'tricky' si no sabem l'estat exacte, 
+            // Això és una mica 'tricky' si no sabem l'estat exacte,
             // però podem deduir-ho pel color o estil, o simplificar mostrant 'select_answer'
             // Per simplicitat, si no hem respost (color negre o buit), posem 'select_answer'.
             if (!feedbackEl.style.color || feedbackEl.style.color === 'black') {

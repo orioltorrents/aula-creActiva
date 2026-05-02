@@ -74,7 +74,7 @@ function startMediterraniBiodiversitatSelector() {
     buttonsContainer.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
     mixBtn.innerText = 'Barrejat (totes)';
     mixBtn.onclick = () => startMediterraniBiodiversitatQuiz('Barrejat', null);
@@ -92,7 +92,7 @@ function addMediterraniBiodiversitatFilterSection(container, labelText, field, c
 
     values.forEach(value => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
         btn.innerText = value;
         btn.onclick = () => startMediterraniBiodiversitatQuiz(value, field);
@@ -192,7 +192,7 @@ function renderMediterraniBiodiversitatQuestion() {
     const shuffledOptions = [...optionList].sort(() => 0.5 - Math.random());
     shuffledOptions.forEach(option => {
         const btn = document.createElement('button');
-        btn.className = isImageQuestion ? 'btn-option med-biodiv-image-option' : 'btn-option';
+        btn.className = isImageQuestion ? 'answer-option med-biodiv-image-option' : 'answer-option';
         btn.onclick = () => checkMediterraniBiodiversitatAnswer(option.value || option.text, question.correct, btn);
 
         if (isImageQuestion && option.image) {
@@ -222,7 +222,7 @@ function checkMediterraniBiodiversitatAnswer(selected, correct, btn) {
     if (mediterraniBiodiversitatQuiz.isFinished) return;
 
     const feedbackEl = document.getElementById('med-biodiv-feedback');
-    const options = document.querySelectorAll('#med-biodiv-options .btn-option');
+    const options = document.querySelectorAll('#med-biodiv-options .answer-option');
 
     options.forEach(option => {
         option.disabled = true;

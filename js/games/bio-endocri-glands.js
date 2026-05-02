@@ -30,7 +30,7 @@ const bioEndocriGlandsGame = {
         { key: 'act_endo_gland_pancrees', x: 955, y: 1065, w: 130, h: 65 },
         { key: 'act_endo_gland_gonades', x: 900, y: 1260, w: 55, h: 40 },
         { key: 'act_endo_gland_gonades', x: 1050, y: 1260, w: 55, h: 40 }
-        
+
     ],
     isFinished: false,
     debugMode: false
@@ -60,7 +60,7 @@ function startBioEndocriGlandsGame(model) {
     document.getElementById('bio-endocri-glands-ui').classList.remove('hidden');
 
     const sourceQuestions = model === 'home' ? bioEndocriGlandsGame.allQuestionsHome : bioEndocriGlandsGame.allQuestionsDona;
-    
+
     // Barregem i assegurem úniques
     const shuffled = [...sourceQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -107,7 +107,7 @@ function updateBioEndocriGlandsUI() {
 
     const modelName = bioEndocriGlandsGame.model === 'home' ? 'Home' : 'Dona';
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
-    
+
     // Si és testicles/ovaris depèn del model
     let finalTargetName = translatedTarget;
     if (currentTarget.key === 'act_endo_gland_gonades') {
@@ -138,7 +138,7 @@ function renderBioEndocriGlandsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-endocri-glands-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();
@@ -200,7 +200,7 @@ function closeBioEndocriGlandsCalibration() {
 function exportBioEndocriGlandsConfig() {
     const currentTarget = bioEndocriGlandsGame.sessionQuestions[bioEndocriGlandsGame.currentStep];
     const sourceQuestions = bioEndocriGlandsGame.model === 'home' ? bioEndocriGlandsGame.allQuestionsHome : bioEndocriGlandsGame.allQuestionsDona;
-    
+
     const originalIndex = sourceQuestions.findIndex(q => q.key === currentTarget.key);
 
     if (originalIndex !== -1) {

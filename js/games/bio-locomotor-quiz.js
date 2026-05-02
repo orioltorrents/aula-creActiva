@@ -74,7 +74,7 @@ function generateLocomotorTopicButtons(questions) {
 
         types.forEach(type => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style = "background-color: #3b82f6; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
             btn.innerText = type;
             btn.onclick = () => startLocomotorQuizWithFilter(type, 'mixed');
@@ -97,7 +97,7 @@ function generateLocomotorTopicButtons(questions) {
 
         rawLevels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style = "background-color: #10b981; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
             btn.innerText = lvl;
             btn.onclick = () => startLocomotorQuizWithFilter('all', lvl);
@@ -116,7 +116,7 @@ function generateLocomotorTopicButtons(questions) {
     mixWrapper.className = 'flex flex-wrap justify-center gap-4';
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style = "background-color: #7c3aed; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startLocomotorQuizWithFilter('all', 'mixed');
@@ -198,7 +198,7 @@ function showLocomotorQuizQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = optText;
         btn.onclick = () => handleLocomotorQuizAnswer(idx);
         optsContainer.appendChild(btn);

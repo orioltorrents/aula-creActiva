@@ -83,7 +83,7 @@ function startOrenetesPreguntesSelector() {
     buttonsContainer.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
     mixBtn.textContent = 'Barrejat (totes)';
     mixBtn.onclick = () => startOrenetesPreguntesQuiz('Barrejat', null);
@@ -101,7 +101,7 @@ function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
 
     values.forEach(value => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
         btn.textContent = value;
         btn.onclick = () => startOrenetesPreguntesQuiz(value, field);
@@ -200,7 +200,7 @@ function renderOrenetesPreguntesQuestion() {
     [...question.options].sort(() => 0.5 - Math.random()).forEach(option => {
         const btn = document.createElement('button');
         const optionValue = option.value || option.text || option.image;
-        btn.className = isImageQuestion ? 'btn-option orenetes-questions-image-option' : 'btn-option';
+        btn.className = isImageQuestion ? 'answer-option orenetes-questions-image-option' : 'answer-option';
         btn.dataset.value = optionValue;
         btn.onclick = () => checkOrenetesPreguntesAnswer(optionValue, question.correct, btn);
 
@@ -233,7 +233,7 @@ function checkOrenetesPreguntesAnswer(selected, correct, btn) {
     if (orenetesPreguntesState.answered) return;
 
     const feedbackEl = document.getElementById('orenetes-questions-feedback');
-    const options = document.querySelectorAll('#orenetes-questions-options .btn-option');
+    const options = document.querySelectorAll('#orenetes-questions-options .answer-option');
     orenetesPreguntesState.answered = true;
 
     options.forEach(option => {

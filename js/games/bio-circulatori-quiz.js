@@ -75,7 +75,7 @@ function generateCircTopicButtons(questions) {
 
     types.forEach(type => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
+        btn.className = 'btn btn--primary';
         btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
         btn.innerText = type;
         btn.onclick = () => startCircQuizWithFilter(type, 'mixed');
@@ -159,7 +159,7 @@ function showCircQuizQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = optText;
         btn.onclick = () => handleCircQuizAnswer(idx);
         optsContainer.appendChild(btn);

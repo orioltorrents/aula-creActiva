@@ -164,10 +164,10 @@ function updateMediterraniMapModeButtons(mode) {
 
     if (!practiceBtn || !examBtn) return;
 
-    practiceBtn.classList.toggle('btn-primary', mode === 'practice');
-    practiceBtn.classList.toggle('btn-secondary', mode !== 'practice');
-    examBtn.classList.toggle('btn-primary', mode === 'exam');
-    examBtn.classList.toggle('btn-secondary', mode !== 'exam');
+    practiceBtn.classList.toggle('btn--primary', mode === 'practice');
+    practiceBtn.classList.toggle('btn--secondary', mode !== 'practice');
+    examBtn.classList.toggle('btn--primary', mode === 'exam');
+    examBtn.classList.toggle('btn--secondary', mode !== 'exam');
 }
 
 async function loadExternalSvg() {

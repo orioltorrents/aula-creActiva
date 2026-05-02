@@ -95,7 +95,7 @@ function showTestQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2'; // w-full i text-left si tinguéssim tailwind, sino CSS normal a sota
+        btn.className = 'answer-option w-full text-left mb-2'; // w-full i text-left si tinguéssim tailwind, sino CSS normal a sota
         btn.innerText = optText;
         btn.onclick = () => handleTestAnswer(idx, btn);
         optsContainer.appendChild(btn);

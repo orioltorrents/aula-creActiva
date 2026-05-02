@@ -198,7 +198,7 @@ function showParalimpicsQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = optText;
         btn.onclick = () => handleParalimpicsAnswer(idx);
         optsContainer.appendChild(btn);

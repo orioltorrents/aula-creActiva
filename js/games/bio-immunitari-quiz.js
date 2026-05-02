@@ -72,7 +72,7 @@ function startImmunitariQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#10b981;width:auto;min-width:140px;';
             btn.innerText = cat;
             btn.onclick = () => startImmunitariQuiz(cat, 'type');
@@ -101,7 +101,7 @@ function startImmunitariQuizLevelSelector() {
         const levelColors = { 'Fàcil': '#22c55e', 'Mitjà': '#f59e0b', 'Difícil': '#ef4444' };
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             const color = levelColors[lvl] || '#6366f1';
             btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
             btn.innerText = lvl;
@@ -116,7 +116,7 @@ function startImmunitariQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
     mixBtn.innerText = 'Barrejat (Tot)';
     mixBtn.onclick = () => startImmunitariQuiz('Barrejat', null);
@@ -180,7 +180,7 @@ function renderImmunitariQuizQuestion() {
 
     questionData.a.forEach(ansText => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ansText;
         btn.dataset.correct = (ansText === questionData.correctText).toString();
         btn.onclick = () => handleImmunitariQuizAnswer(ansText === questionData.correctText, btn);

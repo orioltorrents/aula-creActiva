@@ -25,7 +25,7 @@ function initBioVistaPartsGame() {
     bioVistaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-vista-parts-image');
-    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png';
 
     const shuffled = [...bioVistaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -96,7 +96,7 @@ function renderBioVistaPartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-vista-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();

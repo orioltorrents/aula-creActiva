@@ -32,7 +32,7 @@
                         <label for="password" data-i18n="label_password">Contrasenya</label>
                         <input type="password" id="password" placeholder="••••••" required>
                     </div>
-                    <button type="submit" class="btn-primary" id="login-btn">
+                    <button type="submit" class="btn btn--primary" id="login-btn">
                         <span class="btn-text" data-i18n="btn_login">Entrar</span>
                         <div class="loader hidden" id="login-loader"></div>
                     </button>
@@ -55,7 +55,7 @@
                 </select>
                 <span id="user-name" data-i18n="loading">Carregant...</span>
                 <span id="user-course" class="badge">...</span>
-                <button id="logout-btn" class="btn-secondary" data-i18n="logout">Sortir</button>
+                <button id="logout-btn" class="btn btn--secondary" data-i18n="logout">Sortir</button>
             </div>
         </header>
 
@@ -75,9 +75,9 @@
     <!-- JOC / ACTIVITAT (Placeholder per ara) -->
     <section id="game-screen" class="screen hidden">
         <header class="top-bar">
-            <button id="back-dashboard-btn" class="btn-secondary" data-i18n="back">← Tornar</button>
+            <button id="back-dashboard-btn" class="btn btn--secondary" data-i18n="back">← Tornar</button>
             <div id="game-title" class="title" data-i18n="loading">Activitat</div>
-            <button id="fullscreen-btn" class="btn-secondary" title="Pantalla completa">⛶</button>
+            <button id="fullscreen-btn" class="btn btn--secondary" title="Pantalla completa">⛶</button>
         </header>
         <main class="game-content">
             <div class="game-container">
@@ -115,7 +115,7 @@
                         <!-- ACTIVITAT 1: Preguntes Investigables -->
                         <div id="rates-activity-preguntes" class="sub-activity hidden">
                             <div id="rates-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
-                                <button class="btn-secondary btn-sm mb-8" onclick="showRatesMenu()">← Tornar al
+                                <button class="btn btn--secondary btn--sm mb-8" onclick="showRatesMenu()">← Tornar al
                                     menú</button>
 
                                 <div id="rates-preguntes-setup"
@@ -141,10 +141,10 @@
                                     <h4 id="rates-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-rates-investigable" class="btn-primary"
+                                        <button id="btn-rates-investigable" class="btn btn--primary"
                                             style="background-color: var(--success);"
                                             onclick="checkRatesPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-rates-no-investigable" class="btn-primary"
+                                        <button id="btn-rates-no-investigable" class="btn btn--primary"
                                             style="background-color: var(--error);"
                                             onclick="checkRatesPreguntaRespuesta('No investigable')">No
                                             investigable</button>
@@ -153,7 +153,7 @@
                                 <div id="rates-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
                                     <p id="rates-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="rates-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
-                                    <button id="rates-preguntes-next-btn" class="btn-primary"
+                                    <button id="rates-preguntes-next-btn" class="btn btn--primary"
                                         onclick="nextRatesPregunta()">Següent pregunta</button>
                                 </div>
                             </div>
@@ -165,7 +165,7 @@
                                 <p id="rates-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
                                     0%</p>
                                 <p id="rates-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showRatesMenu()" class="btn-secondary">Tornar al menú</button>
+                                <button onclick="showRatesMenu()" class="btn btn--secondary">Tornar al menú</button>
                             </div>
                         </div>
                     </div>
@@ -220,16 +220,16 @@
 
                         <!-- ACTIVITAT 1: Capitals -->
                         <div id="med-activity-capitals" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al
                                 menú</button>
                             <div class="game-panel__header">
                                 <h3 id="med-title">Capitals del Mediterrani</h3>
                                 <div class="game-panel__controls">
-                                    <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
+                                    <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn btn--secondary"
                                         data-i18n="hide_country">Amagar País</button>
-                                    <button id="btn-med-capitals-practice" onclick="initMediterraniGame('practice')" class="btn-secondary"
+                                    <button id="btn-med-capitals-practice" onclick="initMediterraniGame('practice')" class="btn btn--secondary"
                                         data-i18n="btn_practice">Pràctica</button>
-                                    <button id="btn-med-capitals-exam" onclick="initMediterraniGame('exam')" class="btn-secondary"
+                                    <button id="btn-med-capitals-exam" onclick="initMediterraniGame('exam')" class="btn btn--secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@
 
                         <!-- ACTIVITAT 2: El Mar del Mig (Test) -->
                         <div id="med-activity-test_mar" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al
                                 menú</button>
                             <h3 data-i18n="act_sea_title">El Mar del Mig</h3>
                             <div class="video-container mb-4">
@@ -257,7 +257,7 @@
                             </div>
                             <div id="med-test-area">
                                 <div class="game-panel__controls mb-4">
-                                    <button onclick="initMediterraniTest()" class="btn-primary"
+                                    <button onclick="initMediterraniTest()" class="btn btn--primary"
                                         data-i18n="btn_start_test">Començar Test</button>
                                 </div>
                                 <div id="test-container" class="hidden">
@@ -268,30 +268,30 @@
                                         <div id="test-options" class="options-list"></div>
                                     </div>
                                     <p id="test-feedback" class="game-panel__feedback"></p>
-                                    <button id="test-next-btn" class="btn-primary hidden" onclick="nextTestQuestion()"
+                                    <button id="test-next-btn" class="btn btn--primary hidden" onclick="nextTestQuestion()"
                                         data-i18n="btn_next">Següent</button>
                                 </div>
                                 <div id="test-results" class="result-screen hidden text-center">
                                     <h3 data-i18n="final_score">Resultats</h3>
                                     <p id="test-final-score" class="result-screen__score text-2xl font-bold">0 / 25</p>
                                     <p id="test-message"></p>
-                                    <button onclick="showMediterraniMenu()" class="btn-secondary">Tornar</button>
+                                    <button onclick="showMediterraniMenu()" class="btn btn--secondary">Tornar</button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT 3: Mapa del Mediterrani -->
                         <div id="med-activity-map" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al
                                 menú</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_map_title">Mapa del Mediterrani</h3>
                                 <div class="game-panel__controls">
                                     <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()"
-                                        class="btn-secondary" data-i18n="hide_country">Amagar País</button>
-                                    <button id="btn-med-map-practice" onclick="initMediterraniMapGame('practice')" class="btn-secondary"
+                                        class="btn btn--secondary" data-i18n="hide_country">Amagar País</button>
+                                    <button id="btn-med-map-practice" onclick="initMediterraniMapGame('practice')" class="btn btn--secondary"
                                         data-i18n="btn_practice">Pràctica</button>
-                                    <button id="btn-med-map-exam" onclick="initMediterraniMapGame('exam')" class="btn-secondary"
+                                    <button id="btn-med-map-exam" onclick="initMediterraniMapGame('exam')" class="btn btn--secondary"
                                         data-i18n="btn_exam">Examen</button>
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
 
                         <!-- ACTIVITAT 4: Biodiversitat del Mediterrani -->
                         <div id="med-activity-biodiversitat" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al
                                 menú</button>
                             <div class="game-panel__header">
                                 <h3>Biodiversitat del Mediterrani</h3>
@@ -336,9 +336,9 @@
                                 <h3 data-i18n="final_score">Resultats</h3>
                                 <p id="med-biodiv-final-score" class="result-screen__score text-4xl font-bold">0%</p>
                                 <p id="med-biodiv-final-msg" class="result-screen__message"></p>
-                                <button class="btn-primary" onclick="initMediterraniBiodiversitatQuiz()">Tornar a jugar</button>
-                                <button class="btn-secondary mt-4" onclick="startMediterraniBiodiversitatSelector()">Tornar a triar</button>
-                                <button class="btn-secondary mt-4" onclick="showMediterraniMenu()">Tornar al menú</button>
+                                <button class="btn btn--primary" onclick="initMediterraniBiodiversitatQuiz()">Tornar a jugar</button>
+                                <button class="btn btn--secondary mt-4" onclick="startMediterraniBiodiversitatSelector()">Tornar a triar</button>
+                                <button class="btn btn--secondary mt-4" onclick="showMediterraniMenu()">Tornar al menú</button>
                             </div>
                         </div>
                     </div>
@@ -400,7 +400,7 @@
                         <!-- ACTIVITAT: Diagnòstic de preguntes -->
                         <div id="tr-activity-diagnostic" class="sub-activity hidden">
                             <div id="tr-diagnostic-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
-                                <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">← Tornar al
+                                <button class="btn btn--secondary btn--sm mb-8" onclick="showTrMenu()">← Tornar al
                                     menú</button>
 
                                 <div id="tr-diagnostic-setup"
@@ -414,7 +414,7 @@
                                         apareix. Primer decideix si és investigable. Després identifica què li falta
                                         perquè sigui una bona pregunta de recerca.</p>
                                     <button onclick="startTrDiagnostic()"
-                                        class="btn-primary mt-8 px-10 py-4 text-xl">Comença l'activitat</button>
+                                        class="btn btn--primary mt-8 px-10 py-4 text-xl">Comença l'activitat</button>
                                 </div>
                             </div>
 
@@ -483,7 +483,7 @@
 
                                     <div class="flex justify-center mt-10">
                                         <button id="btn-diag-check"
-                                            class="btn-primary px-12 py-4 text-xl font-bold shadow-lg"
+                                            class="btn btn--primary px-12 py-4 text-xl font-bold shadow-lg"
                                             onclick="checkDiagnosticAnswer()" disabled>COMPROVA LA RESPOSTA</button>
                                     </div>
                                 </div>
@@ -497,7 +497,7 @@
                                         <p id="tr-diagnostic-suggestion-text" class="text-xl italic font-medium"></p>
                                     </div>
                                     <div class="flex justify-center">
-                                        <button class="btn-primary bg-gray-800 text-white px-10 py-4 text-xl"
+                                        <button class="btn btn--primary bg-gray-800 text-white px-10 py-4 text-xl"
                                             onclick="loadNextDiagnosticQuestion()">SEGÜENT PREGUNTA</button>
                                     </div>
                                 </div>
@@ -507,7 +507,7 @@
                         <!-- ACTIVITAT: Preguntes Investigables (Original) -->
                         <div id="tr-activity-preguntes" class="sub-activity hidden">
                             <div id="tr-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
-                                <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">← Tornar al
+                                <button class="btn btn--secondary btn--sm mb-8" onclick="showTrMenu()">← Tornar al
                                     menú</button>
 
                                 <div id="tr-preguntes-setup"
@@ -536,10 +536,10 @@
                                     <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-investigable" class="btn-primary"
+                                        <button id="btn-investigable" class="btn btn--primary"
                                             style="background-color: var(--success);"
                                             onclick="checkTrPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-no-investigable" class="btn-primary"
+                                        <button id="btn-no-investigable" class="btn btn--primary"
                                             style="background-color: var(--error);"
                                             onclick="checkTrPreguntaRespuesta('No investigable')">No
                                             investigable</button>
@@ -548,7 +548,7 @@
                                 <div id="tr-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
                                     <p id="tr-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="tr-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
-                                    <button id="tr-preguntes-next-btn" class="btn-primary"
+                                    <button id="tr-preguntes-next-btn" class="btn btn--primary"
                                         onclick="nextTrPregunta()">Següent pregunta</button>
                                 </div>
                             </div>
@@ -560,13 +560,13 @@
                                 <p id="tr-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
                                     0%</p>
                                 <p id="tr-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showTrMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT: Temes i Preguntes -->
                         <div id="tr-activity-temes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
 
                             <div id="tr-temes-setup" class="game-panel__header text-center">
                                 <h3><span data-i18n="tr_project_title">Treball de recerca</span> — <span
@@ -595,13 +595,13 @@
                                     </div>
 
                                     <div class="mt-8">
-                                        <button id="tr-temes-check-btn" class="btn-primary w-full text-xl py-3"
+                                        <button id="tr-temes-check-btn" class="btn btn--primary w-full text-xl py-3"
                                             onclick="checkTrTemesRespostes()">Comprovar Selecció</button>
                                     </div>
                                 </div>
                                 <div id="tr-temes-feedback-area" class="feedback-panel hidden mt-6">
                                     <div id="tr-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
-                                    <button id="tr-temes-next-btn" class="btn-primary w-full text-lg py-3"
+                                    <button id="tr-temes-next-btn" class="btn btn--primary w-full text-lg py-3"
                                         onclick="nextTrTema()">Següent Tema</button>
                                 </div>
                             </div>
@@ -612,13 +612,13 @@
                                 <p id="tr-temes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">0%
                                 </p>
                                 <p id="tr-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showTrMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT: Bibliografia i Cites (TR) -->
                         <div id="tr-activity-biblio" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
                             </div>
@@ -632,13 +632,13 @@
                                     <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
                                         (tots els temes):</p>
                                     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                                        <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn-primary"
+                                        <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn btn--primary"
                                             style="background-color: var(--success); width: auto;"
                                             data-i18n="level_easy">Fàcil</button>
-                                        <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn-primary"
+                                        <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn btn--primary"
                                             style="background-color: #f59e0b; width: auto;"
                                             data-i18n="level_hard">Difícil</button>
-                                        <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn-primary"
+                                        <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn btn--primary"
                                             style="background-color: var(--error); width: auto;"
                                             data-i18n="level_mixed">Barrejat</button>
                                     </div>
@@ -659,7 +659,7 @@
                                 <h3 data-i18n="final_score">Resultats</h3>
                                 <p id="tr-biblio-final-score" class="result-screen__score text-2xl font-bold">0 / 80</p>
                                 <p id="tr-biblio-message"></p>
-                                <button onclick="showTrMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showTrMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
 
@@ -685,18 +685,18 @@
 
                         <!-- ACTIVITAT: Microbit -->
                         <div id="paralimpics-activity-microbit" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showParalimpicsMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showParalimpicsMenu()">← Tornar al
                                 menú</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_microbit_title">Control de la Micro:bit</h3>
                                 <div class="game-panel__controls quiz-difficulty-selection">
-                                    <button onclick="initParalimpicsMicrobit('easy')" class="btn-secondary"
+                                    <button onclick="initParalimpicsMicrobit('easy')" class="btn btn--secondary"
                                         data-i18n="level_easy">Fàcil</button>
-                                    <button onclick="initParalimpicsMicrobit('medium')" class="btn-secondary"
+                                    <button onclick="initParalimpicsMicrobit('medium')" class="btn btn--secondary"
                                         data-i18n="level_medium">Mitjà</button>
-                                    <button onclick="initParalimpicsMicrobit('hard')" class="btn-secondary"
+                                    <button onclick="initParalimpicsMicrobit('hard')" class="btn btn--secondary"
                                         data-i18n="level_hard">Difícil</button>
-                                    <button onclick="initParalimpicsMicrobit('mixed')" class="btn-primary"
+                                    <button onclick="initParalimpicsMicrobit('mixed')" class="btn btn--primary"
                                         data-i18n="level_mixed">Barrejat</button>
                                 </div>
                             </div>
@@ -715,7 +715,7 @@
                                 <h3 data-i18n="final_score">Resultats</h3>
                                 <p id="paralimpics-final-score" class="result-screen__score text-2xl font-bold">0 / 200</p>
                                 <p id="paralimpics-message"></p>
-                                <button onclick="showParalimpicsMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showParalimpicsMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
                     </div>
@@ -775,7 +775,7 @@
                         </div>
 
                         <div id="natura-project-rius" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
                                 <h3>Projecte Rius</h3>
                             </div>
@@ -793,7 +793,7 @@
                         </div>
 
                         <div id="natura-project-impacte" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
                                 <h3>Estudi d'impacte ambiental</h3>
                             </div>
@@ -838,7 +838,7 @@
                         </div>
 
                         <div id="natura-project-orenetes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
                                 <h3>Projecte Orenetes</h3>
                             </div>
@@ -874,7 +874,7 @@
                         </div>
 
                         <div id="natura-project-vespa" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
                                 <h3>Vespa velutina</h3>
                             </div>
@@ -892,7 +892,7 @@
                         </div>
 
                         <div id="natura-project-liquencity" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
                                 <h3>Liquencity</h3>
                             </div>
@@ -910,8 +910,7 @@
                         </div>
                         <!-- ACTIVITAT: Xarxes Tròfiques -->
                         <div id="natura-activity-xarxes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">?
-                                Tornar</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_xarxes_title">Xarxes Tròfiques</h3>
                             </div>
@@ -924,7 +923,7 @@
                                     <!-- Els elements s'ompliran per JS -->
                                 </ul>
                                 <div class="game-panel__controls mt-4">
-                                    <button onclick="verifyXarxesOrder()" class="btn-primary"
+                                    <button onclick="verifyXarxesOrder()" class="btn btn--primary"
                                         data-i18n="btn_verify">Verificar Ordenació</button>
                                 </div>
                                 <div id="xarxes-result" class="hidden mt-4">
@@ -936,8 +935,7 @@
                         </div>
                         <!-- ACTIVITAT: Estudi d'Impacte Ambiental -->
                         <div id="natura-activity-impacte" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">?
-                                Tornar</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_impacte_title">Estudi d'impacte ambiental</h3>
                             </div>
@@ -950,7 +948,7 @@
                                     <!-- Els elements s'ompliran per JS -->
                                 </ul>
                                 <div class="game-panel__controls mt-4">
-                                    <button onclick="verifyImpacteOrder()" class="btn-primary"
+                                    <button onclick="verifyImpacteOrder()" class="btn btn--primary"
                                         data-i18n="btn_verify">Verificar Ordenació</button>
                                 </div>
                                 <div id="impacte-result" class="hidden mt-4">
@@ -962,7 +960,7 @@
                         </div>
                         <!-- ACTIVITAT: Bibliografia i Cites -->
                         <div id="natura-activity-biblio" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenuFromBiblio()"
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenuFromBiblio()"
                                 data-i18n="back">← Tornar</button>
                             <div class="game-panel__header">
                                 <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
@@ -979,13 +977,13 @@
                                     <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
                                         (tots els temes):</p>
                                     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn-primary"
+                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn btn--primary"
                                             style="background-color: var(--success); width: auto;"
                                             data-i18n="level_easy">Fàcil</button>
-                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn-primary"
+                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn btn--primary"
                                             style="background-color: #f59e0b; width: auto;"
                                             data-i18n="level_hard">Difícil</button>
-                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn-primary"
+                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn btn--primary"
                                             style="background-color: var(--error); width: auto;"
                                             data-i18n="level_mixed">Barrejat</button>
                                     </div>
@@ -1006,13 +1004,12 @@
                                 <h3 data-i18n="final_score">Resultats</h3>
                                 <p id="biblio-final-score" class="result-screen__score text-2xl font-bold">0 / 80</p>
                                 <p id="biblio-message"></p>
-                                <button onclick="showNaturaMenuFromBiblio()" class="btn-secondary">Tornar</button>
+                                <button onclick="showNaturaMenuFromBiblio()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
                         <!-- ACTIVITAT: Rols Tròfics -->
                         <div id="natura-activity-rols" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()" data-i18n="back">?
-                                Tornar</button>
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
 
                             <!-- SELECCIÓ ECOSISTEMA -->
                             <div id="rols-ecosystem-selection">
@@ -1048,19 +1045,19 @@
                                         <div class="option-group">
                                             <label data-i18n="regime" class="block font-bold mb-2">Règim</label>
                                             <div class="btn-group-vertical" id="rols-regime-options">
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectRegime('herbivore', this)"
                                                     data-i18n="herbivore">Herbívor</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectRegime('carnivore', this)"
                                                     data-i18n="carnivore">Carnívor</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectRegime('omnivore', this)"
                                                     data-i18n="omnivore">Omnívor</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectRegime('decomposer', this)"
                                                     data-i18n="decomposer">Descomponedor</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectRegime('autotroph', this)"
                                                     data-i18n="autotroph">Autòtrof</button>
                                             </div>
@@ -1068,16 +1065,16 @@
                                         <div class="option-group">
                                             <label data-i18n="trophic_level" class="block font-bold mb-2">Nivell</label>
                                             <div class="btn-group-vertical" id="rols-level-options">
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectLevel('producer', this)"
                                                     data-i18n="producer">Productor</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectLevel('primary_consumer', this)"
                                                     data-i18n="primary_consumer">Consumidor Primari</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectLevel('secondary_consumer', this)"
                                                     data-i18n="secondary_consumer">Consumidor Secundari</button>
-                                                <button class="btn-outline w-full mb-1"
+                                                <button class="btn btn--outline w-full mb-1"
                                                     onclick="selectLevel('tertiary_consumer', this)"
                                                     data-i18n="tertiary_consumer">Consumidor Terciari</button>
                                             </div>
@@ -1092,10 +1089,10 @@
                                     </div>
 
                                     <div class="mt-4 text-center">
-                                        <button id="rols-submit-btn" onclick="submitRolsAnswer()" class="btn-primary"
+                                        <button id="rols-submit-btn" onclick="submitRolsAnswer()" class="btn btn--primary"
                                             data-i18n="btn_send_answer">Enviar resposta</button>
                                         <button id="rols-next-btn" onclick="nextRolsQuestion()"
-                                            class="btn-primary hidden" data-i18n="btn_next_question">Següent
+                                            class="btn btn--primary hidden" data-i18n="btn_next_question">Següent
                                             pregunta</button>
                                     </div>
 
@@ -1111,7 +1108,7 @@
                                     <p id="rols-final-percentage" class="result-screen__percentage text-xl">0%</p>
                                 </div>
                                 <div id="rols-final-msg" class="result-screen__message alert p-4 rounded mb-4"></div>
-                                <button onclick="showNaturaMenu()" class="btn-secondary"
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary"
                                     data-i18n="back">Tornar</button>
                             </div>
                         </div>
@@ -1119,7 +1116,7 @@
                         <!-- ACTIVITAT DUPLICADA: Preguntes Investigables (Natura) -->
                         <div id="natura-activity-preguntes" class="sub-activity hidden">
                             <div id="natura-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
-                                <button class="btn-secondary btn-sm mb-8" onclick="showNaturaMenu()">← Tornar al
+                                <button class="btn btn--secondary btn--sm mb-8" onclick="showNaturaMenu()">← Tornar al
                                     menú</button>
 
                                 <div id="natura-preguntes-setup"
@@ -1145,10 +1142,10 @@
                                     <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-natura-investigable" class="btn-primary"
+                                        <button id="btn-natura-investigable" class="btn btn--primary"
                                             style="background-color: var(--success);"
                                             onclick="checkNaturaPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-natura-no-investigable" class="btn-primary"
+                                        <button id="btn-natura-no-investigable" class="btn btn--primary"
                                             style="background-color: var(--error);"
                                             onclick="checkNaturaPreguntaRespuesta('No investigable')">No
                                             investigable</button>
@@ -1157,7 +1154,7 @@
                                 <div id="natura-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
                                     <p id="natura-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
                                     <p id="natura-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
-                                    <button id="natura-preguntes-next-btn" class="btn-primary"
+                                    <button id="natura-preguntes-next-btn" class="btn btn--primary"
                                         onclick="nextNaturaPregunta()">Següent pregunta</button>
                                 </div>
                             </div>
@@ -1170,13 +1167,13 @@
                                 <p id="natura-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
                                     0%</p>
                                 <p id="natura-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT DUPLICADA: Temes i Preguntes (Natura) -->
                         <div id="natura-activity-temes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
                                 menú</button>
 
                             <div id="natura-temes-setup" class="game-panel__header text-center">
@@ -1206,13 +1203,13 @@
                                     </div>
 
                                     <div class="mt-8">
-                                        <button id="natura-temes-check-btn" class="btn-primary w-full text-xl py-3"
+                                        <button id="natura-temes-check-btn" class="btn btn--primary w-full text-xl py-3"
                                             onclick="checkNaturaTemesRespostes()">Comprovar Selecció</button>
                                     </div>
                                 </div>
                                 <div id="natura-temes-feedback-area" class="feedback-panel hidden mt-6">
                                     <div id="natura-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
-                                    <button id="natura-temes-next-btn" class="btn-primary w-full text-lg py-3"
+                                    <button id="natura-temes-next-btn" class="btn btn--primary w-full text-lg py-3"
                                         onclick="nextNaturaTema()">Següent Tema</button>
                                 </div>
                             </div>
@@ -1225,13 +1222,13 @@
                                     0%
                                 </p>
                                 <p id="natura-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar</button>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT: Projecte Orenetes -->
                         <div id="natura-activity-orenetes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
                                 menú</button>
 
                             <div class="game-panel__header text-center">
@@ -1277,9 +1274,9 @@
                                                 <input type="number" id="orenetes-input-restes" min="0" inputmode="numeric">
                                             </label>
                                         </div>
-                                        <button id="orenetes-check-btn" class="btn-primary" onclick="checkOrenetesAnswer()">Comprovar</button>
+                                        <button id="orenetes-check-btn" class="btn btn--primary" onclick="checkOrenetesAnswer()">Comprovar</button>
                                         <div id="orenetes-feedback" class="feedback-panel orenetes-feedback hidden"></div>
-                                        <button id="orenetes-next-btn" class="btn-secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
+                                        <button id="orenetes-next-btn" class="btn btn--secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
                                     </div>
                                 </div>
                             </div>
@@ -1288,13 +1285,13 @@
                                 <h3>Resultat final</h3>
                                 <p id="orenetes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
                                 <p id="orenetes-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
-                                <button onclick="showNaturaMenu()" class="btn-secondary">Tornar al menú</button>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar al menú</button>
                             </div>
                         </div>
 
                         <!-- ACTIVITAT: Preguntes del Projecte Orenetes -->
                         <div id="natura-activity-orenetes-preguntes" class="sub-activity hidden">
-                            <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
                                 menú</button>
 
                             <div class="game-panel__header text-center">
@@ -1326,9 +1323,9 @@
                                 <h3>Resultat final</h3>
                                 <p id="orenetes-questions-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
                                 <p id="orenetes-questions-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
-                                <button class="btn-primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
-                                <button class="btn-secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
-                                <button onclick="showNaturaMenu()" class="btn-secondary mt-4">Tornar al menú</button>
+                                <button class="btn btn--primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
+                                <button class="btn btn--secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary mt-4">Tornar al menú</button>
                             </div>
                         </div>
                     </div>
@@ -1376,7 +1373,7 @@
 
                     <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
                     <div id="digi-activity-audio" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
@@ -1385,9 +1382,9 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="sonar-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="sonar-help-btn" class="btn-info btn-sm" onclick="showSonarHelp()"
+                                    <button id="sonar-help-btn" class="btn btn--info btn--sm" onclick="showSonarHelp()"
                                         data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="sonar-skip-btn" class="btn-secondary btn-sm" onclick="skipQuestion()"
+                                    <button id="sonar-skip-btn" class="btn btn--secondary btn--sm" onclick="skipQuestion()"
                                         data-i18n="btn_skip">Passar pregunta (-5
                                         punts)</button>
                                 </div>
@@ -1541,7 +1538,7 @@
 
                     <!-- ACTIVITATS: Sistema Immunitari -->
                     <div id="bio-immunitari-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
                             <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full"
@@ -1558,7 +1555,7 @@
 
                     <!-- ACTIVITAT: Quiz Sistema Immunitari -->
                     <div id="bio-activity-immunitari-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('immunitari')">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('immunitari')">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3>??? Repàs del Sistema Immunitari</h3>
@@ -1596,13 +1593,13 @@
                             <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
                             <div id="immun-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-green-600 mb-6">0 / 100</div>
                             <p id="immun-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initImmunitariQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initImmunitariQuiz()" class="btn btn--primary">Tornar a començar</button>
                         </div>
                     </div>
 
                     <!-- ACTIVITATS: Aparell Reproductor -->
                     <div id="bio-reproductor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
                             <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full"
@@ -1621,7 +1618,7 @@
 
                     <!-- ACTIVITATS: Aparell Circulatori -->
                     <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                          <div class="activity-card" onclick="openBioActivity('cor')">
                             <div class="activity-card__media">
@@ -1663,7 +1660,7 @@
 
                     <!-- ACTIVITATS: Aparell Excretor -->
                     <div id="bio-excretor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
                             <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="w-full"
@@ -1684,7 +1681,7 @@
 
                     <!-- ACTIVITATS: Sistema Endocrí -->
                     <div id="bio-endocri-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
 
                         <!-- Quiz del Sistema Endocrí -->
@@ -1709,7 +1706,7 @@
 
                     <!-- ACTIVITATS: Aparell Locomotor -->
                     <div id="bio-locomotor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
 
                         <!-- Quiz de l'Aparell Locomotor -->
@@ -1724,7 +1721,7 @@
 
                     <!-- ACTIVITAT: Quiz Aparell Reproductor -->
                     <div id="bio-activity-reproductor-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('reproductor')">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('reproductor')">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3>?? Repàs de l'Aparell Reproductor</h3>
@@ -1762,14 +1759,14 @@
                             <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
                             <div id="reprod-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-pink-600 mb-6">0 / 100</div>
                             <p id="reprod-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initReproductorQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initReproductorQuiz()" class="btn btn--primary">Tornar a començar</button>
                         </div>
                     </div>
 
                     <!-- ACTIVITAT: Quiz Aparell Circulatori -->
 
                     <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
@@ -1783,13 +1780,13 @@
                             <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
                                 temes):</p>
                             <div class="flex flex-wrap justify-center gap-4 mb-8">
-                                <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn-primary"
+                                <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn btn--primary"
                                     data-i18n="level_easy">Fàcil</button>
-                                <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn-primary"
+                                <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn btn--primary"
                                     data-i18n="level_medium">Mitjà</button>
-                                <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn-primary"
+                                <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn btn--primary"
                                     data-i18n="level_hard">Difícil</button>
-                                <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn-primary"
+                                <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn btn--primary"
                                     data-i18n="level_mixed">Barrejat</button>
                             </div>
                             <div id="circ-quiz-topic-selection"></div>
@@ -1812,13 +1809,13 @@
                             <div id="circ-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
                             </div>
                             <p id="circ-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initCircQuiz()" class="btn-primary">Tornar a començar</button>
+                            <button onclick="initCircQuiz()" class="btn btn--primary">Tornar a començar</button>
                         </div>
                     </div>
 
                     <!-- ACTIVITAT: Quiz Sistema Endocrí -->
                     <div id="bio-activity-endocri-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz del Sistema Endocrí</h3>
                         </div>
@@ -1840,13 +1837,13 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="endo-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="endo-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initEndocriQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initEndocriQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <!-- ACTIVITAT: Situar les Glàndules (Anatomia) -->
                     <div id="bio-activity-endocri-glands" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_endo_glands_title">Situar les Glàndules</h3>
                         </div>
@@ -1880,8 +1877,8 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-endocri-glands-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-endocri-glands-help-btn" class="btn-info btn-sm" onclick="showBioEndocriGlandsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-endocri-glands-skip-btn" class="btn-secondary btn-sm" onclick="skipBioEndocriGlandsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <button id="bio-endocri-glands-help-btn" class="btn btn--info btn--sm" onclick="showBioEndocriGlandsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-endocri-glands-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioEndocriGlandsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
@@ -1919,7 +1916,7 @@
                                 </div>
                                 <div id="bio-endocri-glands-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
-                                    <button onclick="exportBioEndocriGlandsConfig()" class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar Codi</button>
+                                    <button onclick="exportBioEndocriGlandsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
                                 </div>
                             </div>
                         </div>
@@ -1927,7 +1924,7 @@
 
                     <!-- ACTIVITAT: Quiz Aparell Locomotor -->
                     <div id="bio-activity-locomotor-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('locomotor')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('locomotor')">← Tornar al menú</button>
                         <div class="game-panel__header text-center">
                             <h3>Repàs del Locomotor</h3>
                         </div>
@@ -1951,13 +1948,13 @@
                             <h4 class="text-2xl font-bold mb-4">Resultat Final</h4>
                             <div id="locomotor-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="locomotor-quiz-message" class="text-lg mb-8"></p>
-                            <button onclick="initLocomotorQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initLocomotorQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <!-- ACTIVITAT: Cèl·lules de la Sang -->
                     <div id="bio-activity-cells" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
                             menú</button>
                         <div class="game-panel__header text-center mb-6">
                             <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
@@ -2024,7 +2021,7 @@
 
                                 <div class="mt-8 text-center">
                                     <button onclick="checkCellsAnswers()"
-                                        class="btn-primary px-10 py-3 text-lg">Comprovar respostes</button>
+                                        class="btn btn--primary px-10 py-3 text-lg">Comprovar respostes</button>
                                 </div>
                             </div>
 
@@ -2037,7 +2034,7 @@
                             <div id="cells-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
                             </div>
                             <p id="cells-message" class="text-lg mb-8"></p>
-                            <button onclick="initCellsGame()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initCellsGame()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
 
                     </div>
@@ -2047,7 +2044,7 @@
                     <!-- ACTIVITAT: El Cor Humà -->
 
                     <div id="bio-activity-cor" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_heart_title">El Cor Humà</h3>
                         </div>
@@ -2055,9 +2052,9 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-heart-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-heart-help-btn" class="btn-info btn-sm" onclick="showBioHeartHelp()"
+                                    <button id="bio-heart-help-btn" class="btn btn--info btn--sm" onclick="showBioHeartHelp()"
                                         data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-heart-skip-btn" class="btn-secondary btn-sm"
+                                    <button id="bio-heart-skip-btn" class="btn btn--secondary btn--sm"
                                         onclick="skipBioHeartQuestion()" data-i18n="btn_skip">Passar pregunta (-5
                                         punts)</button>
                                 </div>
@@ -2102,7 +2099,7 @@
                                     y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
                                     <button onclick="exportBioHeartConfig()"
-                                        class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar
+                                        class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar
                                         Codi</button>
                                 </div>
 
@@ -2112,7 +2109,7 @@
 
                     <!-- ACTIVITAT: Sistema Excretor Joc Principal -->
                     <div id="bio-activity-excretor-game" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openBioSystem('excretor')">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('excretor')">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_excretor_title">El Sistema Excretor</h3>
@@ -2121,9 +2118,9 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-excretor-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-excretor-help-btn" class="btn-info btn-sm"
+                                    <button id="bio-excretor-help-btn" class="btn btn--info btn--sm"
                                         onclick="showBioExcretorHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-excretor-skip-btn" class="btn-secondary btn-sm"
+                                    <button id="bio-excretor-skip-btn" class="btn btn--secondary btn--sm"
                                         onclick="skipBioExcretorQuestion()" data-i18n="btn_skip">Passar pregunta (-5
                                         punts)</button>
                                 </div>
@@ -2177,7 +2174,7 @@
                                     y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
                                     <button onclick="exportBioExcretorConfig()"
-                                        class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar
+                                        class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar
                                         Codi</button>
                                 </div>
                             </div>
@@ -2186,7 +2183,7 @@
 
                     <!-- ACTIVITATS: Òrgans dels Sentits (Sub-menú) -->
                     <div id="bio-senses-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm mb-2" onclick="showBioMenu()"
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
                             style="width: fit-content;">← Tornar als Sistemes</button>
 
                         <div class="activity-card" onclick="openSenseSubActivity('vista')">
@@ -2228,7 +2225,7 @@
 
                     <!-- SUB-MENÚS INDIVIDUALS PER CADA SENTIT -->
                     <div id="sense-vista-menu" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('vista-parts')">
                             <div class="activity-card__media">???</div>
                             <div class="activity-card__content">
@@ -2246,7 +2243,7 @@
                     </div>
 
                     <div id="sense-oida-menu" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('oida-parts')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
@@ -2264,7 +2261,7 @@
                     </div>
 
                     <div id="sense-olfacte-menu" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('olfacte-parts')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
@@ -2282,7 +2279,7 @@
                     </div>
 
                     <div id="sense-gust-menu" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('gust-parts')">
                             <div class="activity-card__media">??</div>
                             <div class="activity-card__content">
@@ -2300,7 +2297,7 @@
                     </div>
 
                     <div id="sense-tacte-menu" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn-secondary btn-sm btn-fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
                         <div class="activity-card" onclick="openBioActivity('tacte-parts')">
                             <div class="activity-card__media">?</div>
                             <div class="activity-card__content">
@@ -2319,7 +2316,7 @@
 
                     <!-- JOCS DE LES PARTS DELS SENTITS -->
                     <div id="bio-activity-vista-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_vista_parts_title">Les Parts de l'Ull</h3>
                         </div>
@@ -2328,8 +2325,8 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-vista-parts-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-vista-parts-help-btn" class="btn-info btn-sm" onclick="showBioVistaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-vista-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioVistaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <button id="bio-vista-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioVistaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-vista-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioVistaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
@@ -2367,14 +2364,14 @@
                                 </div>
                                 <div id="bio-vista-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
-                                    <button onclick="exportBioVistaPartsConfig()" class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar Codi</button>
+                                    <button onclick="exportBioVistaPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div id="bio-activity-oida-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_oida_parts_title">Les Parts de l'Orella</h3>
                         </div>
@@ -2383,8 +2380,8 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-oida-parts-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-oida-parts-help-btn" class="btn-info btn-sm" onclick="showBioOidaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-oida-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioOidaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <button id="bio-oida-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioOidaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-oida-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioOidaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
                                 </div>
                             </div>
 
@@ -2430,18 +2427,18 @@
                                 </div>
                                 <div id="bio-oida-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
-                                    <button onclick="exportBioOidaPartsConfig()" class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar Codi</button>
+                                    <button onclick="exportBioOidaPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div id="bio-activity-olfacte-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
                         <div id="olfacte-parts-container"></div>
                     </div>
                     <div id="bio-activity-gust-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar al menú</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_gust_parts_title">Les Zones del Gust</h3>
                         </div>
@@ -2450,8 +2447,8 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="bio-gust-parts-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="bio-gust-parts-help-btn" class="btn-info btn-sm" onclick="showBioGustPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
-                                    <button id="bio-gust-parts-skip-btn" class="btn-secondary btn-sm" onclick="skipBioGustPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                    <button id="bio-gust-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioGustPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-gust-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioGustPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between p-2 bg-pink-50 rounded mb-2">
@@ -2489,19 +2486,19 @@
                                 </div>
                                 <div id="bio-gust-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
                                 <div class="mt-2 text-center">
-                                    <button onclick="exportBioGustPartsConfig()" class="btn-primary btn-sm btn-export btn-auto-width">Exportar / Copiar Codi</button>
+                                    <button onclick="exportBioGustPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="bio-activity-tacte-parts" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
                         <div id="tacte-parts-container"></div>
                     </div>
 
                     <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÍ) -->
                     <div id="bio-activity-vista-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz de la Vista</h3>
                         </div>
@@ -2523,12 +2520,12 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="vista-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="vista-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initVistaQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initVistaQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <div id="bio-activity-oida-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz de l'Oïda</h3>
                         </div>
@@ -2550,12 +2547,12 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="oida-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="oida-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initOidaQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initOidaQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <div id="bio-activity-olfacte-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz de l'Olfacte</h3>
                         </div>
@@ -2577,12 +2574,12 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="olfacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="olfacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initOlfacteQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initOlfacteQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <div id="bio-activity-gust-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz del Gust</h3>
                         </div>
@@ -2604,12 +2601,12 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="gust-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="gust-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initGustQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initGustQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 
                     <div id="bio-activity-tacte-quiz" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
                         <div class="game-panel__header text-center">
                             <h3>Quiz del Tacte</h3>
                         </div>
@@ -2631,7 +2628,7 @@
                             <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
                             <div id="tacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
                             <p id="tacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initTacteQuiz()" class="btn-primary">Tornar a jugar</button>
+                            <button onclick="initTacteQuiz()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
                 </div>
@@ -2667,7 +2664,7 @@
 
                     <!-- ACTIVITAT: Taula de So -->
                     <div id="radio-activity-taula" class="sub-activity hidden">
-                        <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="showRadioMenu()">← Tornar al
                             menú</button>
                         <div class="game-panel__header">
                             <h3 data-i18n="act_radio_title">La Taula de So</h3>
@@ -2676,10 +2673,10 @@
                             <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
                                 <div id="radio-board-score-display" class="font-bold">Punts: 100</div>
                                 <div class="flex gap-2">
-                                    <button id="radio-board-help-btn" class="btn-info btn-sm"
+                                    <button id="radio-board-help-btn" class="btn btn--info btn--sm"
                                         onclick="showRadioBoardHelp()" data-i18n="btn_help">Ajuda (-10
                                         punts)</button>
-                                    <button id="radio-board-skip-btn" class="btn-secondary btn-sm"
+                                    <button id="radio-board-skip-btn" class="btn btn--secondary btn--sm"
                                         onclick="skipRadioBoardQuestion()" data-i18n="btn_skip">Passar pregunta
                                         (-5 punts)</button>
                                 </div>
@@ -2731,7 +2728,7 @@
 
                 <!-- ACTIVITAT: Conexions d'Àudio -->
                 <div id="radio-activity-conexions" class="sub-activity hidden">
-                    <button class="btn-secondary btn-sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+                    <button class="btn btn--secondary btn--sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
                     <div class="game-panel__header">
                         <h3 data-i18n="act_connections_title">Conexions d'Àudio</h3>
                     </div>
@@ -2761,9 +2758,9 @@
                         <h3 data-i18n="final_score">Resultats</h3>
                         <p id="connections-final-score" class="result-screen__score text-4xl font-bold my-4">0 / 200</p>
                         <p id="connections-final-msg" class="result-screen__message"></p>
-                        <button onclick="initConnectionsQuiz()" class="btn-primary mt-4">Tornar a jugar</button>
-                        <button onclick="startConnectionsSelector()" class="btn-secondary mt-4">Tornar a triar</button>
-                        <button onclick="showRadioMenu()" class="btn-secondary mt-4">Tornar</button>
+                        <button onclick="initConnectionsQuiz()" class="btn btn--primary mt-4">Tornar a jugar</button>
+                        <button onclick="startConnectionsSelector()" class="btn btn--secondary mt-4">Tornar a triar</button>
+                        <button onclick="showRadioMenu()" class="btn btn--secondary mt-4">Tornar</button>
                     </div>
                 </div>
             </div>
@@ -2795,7 +2792,7 @@
 
                 <!-- ACTIVITAT: Quadres -->
                 <div id="solidart-activity-quadres" class="sub-activity hidden">
-                    <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">← Tornar al
+                    <button class="btn btn--secondary btn--sm mb-4" onclick="showSolidartMenu()">← Tornar al
                         menú</button>
 
                     <div id="solidart-quadres-setup" class="game-panel__header text-center">
@@ -2814,13 +2811,13 @@
                         <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">O tria per nivell (tots els
                             temes):</p>
                         <div class="solidart-difficulty-row mt-6">
-                            <button class="btn-primary btn-difficulty-easy btn-w-250"
+                            <button class="btn btn--primary btn--difficulty-easy btn--w-250"
                                 onclick="initSolidartQuadres('Fàcil')">Fàcil</button>
-                            <button class="btn-primary btn-difficulty-medium btn-w-250"
+                            <button class="btn btn--primary btn--difficulty-medium btn--w-250"
                                 onclick="initSolidartQuadres('Mitjà')">Mitjà</button>
-                            <button class="btn-primary btn-difficulty-hard btn-w-250"
+                            <button class="btn btn--primary btn--difficulty-hard btn--w-250"
                                 onclick="initSolidartQuadres('Difícil')">Difícil</button>
-                            <button class="btn-primary btn-difficulty-mixed btn-w-250"
+                            <button class="btn btn--primary btn--difficulty-mixed btn--w-250"
                                 onclick="initSolidartQuadres('Mix')">Barrejat</button>
                         </div>
                     </div>
@@ -2847,7 +2844,7 @@
 
                         <div id="solidart-quadres-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                             <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-                            <button id="solidart-quadres-next-btn" class="btn-primary hidden"
+                            <button id="solidart-quadres-next-btn" class="btn btn--primary hidden"
                                 onclick="nextSolidartQuadre()">Següent</button>
                         </div>
                     </div>
@@ -2859,13 +2856,13 @@
                         <p id="solidart-quadres-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">0%
                         </p>
                         <p id="solidart-quadres-final-msg" class="result-screen__message text-lg mb-8"></p>
-                        <button onclick="showSolidartMenu()" class="btn-secondary">Tornar al menú</button>
+                        <button onclick="showSolidartMenu()" class="btn btn--secondary">Tornar al menú</button>
                     </div>
                 </div>
 
             <!-- ACTIVITAT: Quadres 2 -->
             <div id="solidart-activity-quadres2" class="sub-activity hidden">
-                <button class="btn-secondary btn-sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
+                <button class="btn btn--secondary btn--sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
 
                 <div id="solidart-quadres2-setup" class="game-panel__header text-center">
                     <div id="solidart-feedback-config2" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
@@ -2880,13 +2877,13 @@
                     </div>
                     <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">Selecciona el nivell:</p>
                     <div class="solidart-difficulty-row mt-6">
-                        <button class="btn-primary btn-difficulty-easy btn-w-250"
+                        <button class="btn btn--primary btn--difficulty-easy btn--w-250"
                             onclick="initSolidartQuadres2('Fàcil')">Fàcil</button>
-                        <button class="btn-primary btn-difficulty-medium btn-w-250"
+                        <button class="btn btn--primary btn--difficulty-medium btn--w-250"
                             onclick="initSolidartQuadres2('Mitjà')">Mitjà</button>
-                        <button class="btn-primary btn-difficulty-hard btn-w-250"
+                        <button class="btn btn--primary btn--difficulty-hard btn--w-250"
                             onclick="initSolidartQuadres2('Difícil')">Difícil</button>
-                        <button class="btn-primary btn-difficulty-mixed btn-w-250"
+                        <button class="btn btn--primary btn--difficulty-mixed btn--w-250"
                             onclick="initSolidartQuadres2('Mix')">Barrejat</button>
                     </div>
                 </div>
@@ -2903,7 +2900,7 @@
                     </div>
                     <div id="solidart-quadres2-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
                         <p id="solidart-quadres2-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-                        <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
+                        <button class="btn btn--primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
                     </div>
                 </div>
 
@@ -2920,7 +2917,7 @@
                         </div>
                     </div>
                     <p id="solidart-quadres2-final-msg" class="result-screen__message text-xl mb-6"></p>
-                    <button class="btn-primary btn-w-200 btn-centered"
+                    <button class="btn btn--primary btn--w-200 btn--centered"
                         onclick="showSolidartMenu()">Tornar al menú</button>
                 </div>
             </div>
@@ -2930,7 +2927,7 @@
             <div id="game-container-generic" class="game-module hidden">
                 <h3>Simulació Genèrica (Mode Examen)</h3>
                 <p>Aquest projecte encara no té activitats específiques.</p>
-                <button id="simulate-score-btn" class="btn-primary">Simular Finalització (Test)</button>
+                <button id="simulate-score-btn" class="btn btn--primary">Simular Finalització (Test)</button>
                 <p id="simulation-result"></p>
             </div>
         </main>

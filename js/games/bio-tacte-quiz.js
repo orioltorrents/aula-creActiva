@@ -57,7 +57,7 @@ function startTacteQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
             btn.innerText = cat;
             btn.onclick = () => startTacteQuiz(cat, 'type');
@@ -73,7 +73,7 @@ function startTacteQuizLevelSelector() {
         container.appendChild(levelLabel);
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
             btn.innerText = lvl;
             btn.onclick = () => startTacteQuiz(lvl, 'level');
@@ -86,7 +86,7 @@ function startTacteQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startTacteQuiz('Barrejat', null);
@@ -122,10 +122,10 @@ function startTacteQuiz(value, filterBy) {
 
 function renderTacteQuizQuestion() {
     const questionData = bioTacteQuiz.sessionQuestions[bioTacteQuiz.currentStep];
-    
+
     document.getElementById('tacte-quiz-progress').innerText = `Pregunta ${bioTacteQuiz.currentStep + 1} de ${bioTacteQuiz.sessionQuestions.length}`;
     document.getElementById('tacte-quiz-score-display').innerText = `Punts: ${bioTacteQuiz.score}`;
-    
+
     document.getElementById('tacte-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
     const correctText = questionData.correct || questionData.Correcta;
@@ -141,7 +141,7 @@ function renderTacteQuizQuestion() {
 
     answers.forEach((ans) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ans.text;
         btn.dataset.correct = ans.correct;
         btn.onclick = () => handleTacteQuizAnswer(ans.correct, btn);
@@ -170,7 +170,7 @@ function handleTacteQuizAnswer(isCorrect, btnElement) {
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
         feedbackEl.style.color = 'var(--success)';
-        
+
         setTimeout(() => {
             bioTacteQuiz.currentStep++;
             if (bioTacteQuiz.currentStep >= bioTacteQuiz.sessionQuestions.length) {
@@ -184,7 +184,7 @@ function handleTacteQuizAnswer(isCorrect, btnElement) {
         feedbackEl.style.color = 'var(--error)';
         bioTacteQuiz.score = Math.max(0, bioTacteQuiz.score - 10);
         document.getElementById('tacte-quiz-score-display').innerText = `Punts: ${bioTacteQuiz.score}`;
-        
+
         setTimeout(() => {
             feedbackEl.innerText = '';
             buttons.forEach(b => {

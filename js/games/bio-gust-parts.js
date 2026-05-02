@@ -95,7 +95,7 @@ function renderBioGustPartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-gust-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();

@@ -49,7 +49,7 @@ async function loadRatesCategories() {
 
 function createRatesBtn(text, onClick, bgColor = '#f43f5e') {
     const btn = document.createElement('button');
-    btn.className = 'btn-primary shadow-md';
+    btn.className = 'btn btn--primary shadow-md';
     btn.style.padding = '0.8rem 1.5rem';
     btn.style.margin = '5px';
     btn.style.width = 'auto';

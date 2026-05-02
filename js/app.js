@@ -760,7 +760,7 @@ function openSenseMenu() {
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     // Amagar totes les sub-activitats (jocs)
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
-    
+
     // Mostrar el menú principal dels sentits
     document.getElementById('bio-senses-activities').classList.remove('hidden');
 }
@@ -770,7 +770,7 @@ function openSenseSubActivity(senseId) {
     document.getElementById('bio-senses-activities').classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
-    
+
     // Mostrar el sub-menú del sentit seleccionat (ex: sense-vista-menu)
     const menuId = 'sense-' + senseId + '-menu';
     const menu = document.getElementById(menuId);
