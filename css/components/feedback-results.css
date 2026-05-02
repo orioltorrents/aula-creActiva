@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Feedback Panels & Result Screens
+   Blocs BEM:
+   - `feedback-panel`: feedback ampliat, amb estat i missatge.
+   - `result-screen`: pantalla de resultat final.
+
+   Els `id` dels jocs es mantenen estables per compatibilitat amb el JS.
+   Aquestes classes BEM afegeixen una capa semàntica reutilitzable perquè el
+   marcatge sigui més previsible i menys dependent d'estils inline.
+   ========================================================================== */
+
+.feedback-panel {
+    /* Bloc BEM: caixa base de feedback. */
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-muted);
+    background: var(--surface-muted);
+}
+
+.feedback-panel__title {
+    /* Element BEM: títol o frase principal del feedback. */
+    margin: 0;
+}
+
+.feedback-panel__body {
+    /* Element BEM: explicació secundària o text llarg del feedback. */
+    color: var(--text-light);
+}
+
+.feedback-panel__list {
+    /* Element BEM: llista vertical de punts de feedback. */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feedback-panel--correct,
+.feedback-correct,
+#rols-feedback.correct {
+    /* Modificador BEM `--correct`; els altres selectors són aliases legacy. */
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.feedback-panel--incorrect,
+.feedback-incorrect,
+#rols-feedback.incorrect {
+    /* Modificador BEM `--incorrect`; els altres selectors són aliases legacy. */
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.feedback-panel--good,
+.orenetes-feedback-good {
+    /* Modificador semàntic per resultats bons; alias legacy d'Orenetes. */
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.feedback-panel--mid,
+.orenetes-feedback-mid {
+    /* Modificador semàntic per resultats intermedis; alias legacy d'Orenetes. */
+    color: #854d0e;
+    background: #fef3c7;
+    border: 1px solid #facc15;
+}
+
+.feedback-panel--low,
+.orenetes-feedback-low {
+    /* Modificador semàntic per resultats baixos; alias legacy d'Orenetes. */
+    color: #991b1b;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+}
+
+.result-screen {
+    /* Bloc BEM: contenidor base de pantalles de resultat. */
+    background: var(--white);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+}
+
+.result-screen__score {
+    /* Element BEM: valor de puntuació destacat. */
+    line-height: 1.1;
+}
+
+.result-screen__percentage {
+    /* Element BEM: percentatge final o valor secundari. */
+    color: var(--text-light);
+}
+
+.result-screen__message {
+    /* Element BEM: missatge final llegible i amb amplada controlada. */
+    max-width: 60ch;
+    margin-inline: auto;
+}
+
+.result-screen__display,
+.results-display {
+    /* `result-screen__display` és el nom BEM; `results-display` és legacy. */
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+

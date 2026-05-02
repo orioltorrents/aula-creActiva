@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Forms & Inputs
+   ========================================================================== */
+/* Shared form controls for selects, textareas and text-like inputs.
+   The goal is to make form styling predictable and remove presentational
+   utility clutter from the HTML. */
+.form-control,
+.form-select,
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-color);
+    background: var(--white);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.form-control,
+.form-select {
+    min-height: 44px;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+}
+
+.form-control::placeholder,
+.form-group input::placeholder {
+    color: var(--text-light);
+}
+
+.form-select {
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--text-light) 50%),
+        linear-gradient(135deg, var(--text-light) 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+}
+
+.form-control--compact,
+.form-select--compact {
+    padding: 8px 12px;
+    min-height: 40px;
+}
+
+.justification-area .form-control {
+    resize: none;
+    border-width: 2px;
+}
+

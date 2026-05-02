@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Utilities
+   Classes petites i genèriques. Són deliberadament fora del BEM perquè poden
+   combinar-se amb qualsevol bloc quan cal ajustar layout o espaiat.
+   ========================================================================== */
+.hidden {
+    display: none !important;
+}
+
+.screen {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+.screen.active {
+    display: block;
+}
+
+.error-msg {
+    color: var(--error);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* GRID UTILITIES */
+.grid {
+    display: grid;
+}
+
+.grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 640px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.gap-8 {
+    gap: 2rem;
+}
+
+.gap-10 {
+    gap: 2.5rem;
+}
+
+.gap-12 {
+    gap: 3rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+.mt-8 {
+    margin-top: 2rem;
+}
+
+.block {
+    display: block;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.level-button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.feedback-inline {
+    margin: 0;
+    min-width: 120px;
+    text-align: right;
+}
+
+.calibration-panel {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.text-strong-lg {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+

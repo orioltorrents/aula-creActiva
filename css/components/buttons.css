@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Buttons
+   Bloc BEM: `btn`
+
+   Classes noves recomanades:
+   - `btn`: base comuna
+   - `btn--primary`, `btn--secondary`, `btn--info`: variants visuals
+   - `btn--sm`, `btn--fit-content`, `btn--auto-width`, etc.: modificadors
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.btn--primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    width: 100%;
+}
+
+.btn--primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn--secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn--secondary:hover {
+    background-color: var(--border-muted);
+}
+
+.btn--info {
+    background-color: var(--info-bg);
+    border-color: var(--info-border);
+    color: var(--info-text);
+}
+
+.btn--info:hover {
+    background-color: #dbeafe;
+}
+
+.btn:focus-visible,
+.answer-option:focus-visible,
+.quiz-option:focus-visible,
+.btn--outline:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.35);
+    outline-offset: 2px;
+}
+
+.btn:disabled,
+.answer-option:disabled,
+.quiz-option:disabled,
+.btn--outline:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Modificadors BEM del bloc `btn`. */
+.btn--fit-content {
+    width: fit-content;
+}
+
+.btn--auto-width {
+    width: auto;
+}
+
+.btn--centered {
+    margin-inline: auto;
+}
+
+.btn--w-200 {
+    max-width: 200px;
+}
+
+.btn--w-250 {
+    max-width: 250px;
+}
+
+.btn--export {
+    background-color: #059669;
+    border-color: #047857;
+    font-size: 10px;
+    padding-block: 4px;
+}
+
+.btn--export:hover {
+    background-color: #047857;
+}
+
+.btn--difficulty-easy {
+    background-color: #22c55e;
+    border-color: #16a34a;
+}
+
+.btn--difficulty-easy:hover {
+    background-color: #16a34a;
+}
+
+.btn--difficulty-medium {
+    background-color: var(--warning);
+    border-color: var(--warning-border);
+}
+
+.btn--difficulty-medium:hover {
+    background-color: var(--warning-border);
+}
+
+.btn--difficulty-hard {
+    background-color: var(--danger);
+    border-color: var(--danger-border);
+}
+
+.btn--difficulty-hard:hover {
+    background-color: var(--danger-border);
+}
+
+.btn--difficulty-mixed {
+    background-color: var(--purple);
+    border-color: var(--purple-border);
+}
+
+.btn--difficulty-mixed:hover {
+    background-color: var(--purple-border);
+}
+
+.btn--success {
+    background-color: var(--success);
+}
+
+.btn--danger {
+    background-color: var(--error);
+}
+
+.btn--warning {
+    background-color: #f59e0b;
+}
+
+.btn--outline {
+    cursor: pointer;
+    transition: var(--transition-fast);
+    background: white;
+    border: 2px solid #e5e7eb;
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+    text-align: left;
+    font-weight: 500;
+}
+
+.btn--outline:hover {
+    border-color: var(--primary-color);
+    background: #f5f3ff;
+}
+
+.btn--outline.selected,
+.btn--outline--selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+

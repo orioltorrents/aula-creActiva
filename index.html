@@ -141,11 +141,9 @@
                                     <h4 id="rates-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-rates-investigable" class="btn btn--primary"
-                                            style="background-color: var(--success);"
+                                        <button id="btn-rates-investigable" class="btn btn--primary btn--success"
                                             onclick="checkRatesPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-rates-no-investigable" class="btn btn--primary"
-                                            style="background-color: var(--error);"
+                                        <button id="btn-rates-no-investigable" class="btn btn--primary btn--danger"
                                             onclick="checkRatesPreguntaRespuesta('No investigable')">No
                                             investigable</button>
                                     </div>
@@ -325,7 +323,7 @@
                                 </div>
                                 <div class="game-panel__question text-center">
                                     <img id="med-biodiv-img" src="" alt="Imatge de biodiversitat mediterrània"
-                                        style="width: 100%; max-width: 520px; max-height: 340px; object-fit: contain; margin: 0 auto 1rem; display: block;">
+                                        class="media-contained-md">
                                     <p id="med-biodiv-meta" class="text-muted hidden"></p>
                                     <h4 id="med-biodiv-question-text">Carregant pregunta...</h4>
                                     <div id="med-biodiv-options" class="game-panel__options"></div>
@@ -536,11 +534,9 @@
                                     <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-investigable" class="btn btn--primary"
-                                            style="background-color: var(--success);"
+                                        <button id="btn-investigable" class="btn btn--primary btn--success"
                                             onclick="checkTrPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-no-investigable" class="btn btn--primary"
-                                            style="background-color: var(--error);"
+                                        <button id="btn-no-investigable" class="btn btn--primary btn--danger"
                                             onclick="checkTrPreguntaRespuesta('No investigable')">No
                                             investigable</button>
                                     </div>
@@ -631,15 +627,12 @@
                                 <div class="flex flex-col items-center mt-4">
                                     <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
                                         (tots els temes):</p>
-                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                                        <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn btn--primary"
-                                            style="background-color: var(--success); width: auto;"
+                                    <div class="level-button-row">
+                                        <button onclick="startTrBiblioWithFilter('all', 'facil')" class="btn btn--primary btn--success btn--auto-width"
                                             data-i18n="level_easy">Fàcil</button>
-                                        <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn btn--primary"
-                                            style="background-color: #f59e0b; width: auto;"
+                                        <button onclick="startTrBiblioWithFilter('all', 'dificil')" class="btn btn--primary btn--warning btn--auto-width"
                                             data-i18n="level_hard">Difícil</button>
-                                        <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn btn--primary"
-                                            style="background-color: var(--error); width: auto;"
+                                        <button onclick="startTrBiblioWithFilter('all', 'mixed')" class="btn btn--primary btn--danger btn--auto-width"
                                             data-i18n="level_mixed">Barrejat</button>
                                     </div>
                                 </div>
@@ -976,15 +969,12 @@
                                 <div class="flex flex-col items-center mt-4">
                                     <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
                                         (tots els temes):</p>
-                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn btn--primary"
-                                            style="background-color: var(--success); width: auto;"
+                                    <div class="level-button-row">
+                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn btn--primary btn--success btn--auto-width"
                                             data-i18n="level_easy">Fàcil</button>
-                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn btn--primary"
-                                            style="background-color: #f59e0b; width: auto;"
+                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn btn--primary btn--warning btn--auto-width"
                                             data-i18n="level_hard">Difícil</button>
-                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn btn--primary"
-                                            style="background-color: var(--error); width: auto;"
+                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn btn--primary btn--danger btn--auto-width"
                                             data-i18n="level_mixed">Barrejat</button>
                                     </div>
                                 </div>
@@ -1142,11 +1132,9 @@
                                     <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
                                     <div class="flex justify-center gap-4 flex-wrap">
-                                        <button id="btn-natura-investigable" class="btn btn--primary"
-                                            style="background-color: var(--success);"
+                                        <button id="btn-natura-investigable" class="btn btn--primary btn--success"
                                             onclick="checkNaturaPreguntaRespuesta('Investigable')">Investigable</button>
-                                        <button id="btn-natura-no-investigable" class="btn btn--primary"
-                                            style="background-color: var(--error);"
+                                        <button id="btn-natura-no-investigable" class="btn btn--primary btn--danger"
                                             onclick="checkNaturaPreguntaRespuesta('No investigable')">No
                                             investigable</button>
                                     </div>
@@ -1312,7 +1300,7 @@
                                 <div class="game-panel__question text-center">
                                     <p id="orenetes-questions-meta" class="text-sm font-semibold text-gray-500 mb-2 hidden"></p>
                                     <img id="orenetes-questions-img" src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes"
-                                        style="max-height:260px;width:100%;object-fit:contain;border-radius:12px;margin-bottom:18px;">
+                                        class="media-full-contained">
                                     <h4 id="orenetes-questions-text" class="text-2xl font-semibold mb-6">Pregunta...</h4>
                                     <div id="orenetes-questions-options" class="game-panel__options"></div>
                                 </div>
@@ -1390,16 +1378,15 @@
                                 </div>
                             </div>
                             <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
-                            <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-4">
                                 <img id="sonar-image" src="assets/images/activities/digitalitzacio/sonar/sonar_interface.png"
                                     alt="Cakewalk Sonar Interface"
-                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    class="interactive-image">
                             </div>
                             <p id="sonar-feedback" class="game-panel__feedback mt-2"></p>
 
                             <!-- CALIBRATION UI (USER DEBUG) -->
-                            <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                style="font-family: monospace; font-size: 12px;">
+                            <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana</span>
                                     <button onclick="closeCalibration()" class="text-red-400">⛶</button>
@@ -1538,11 +1525,9 @@
 
                     <!-- ACTIVITATS: Sistema Immunitari -->
                     <div id="bio-immunitari-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full"
-                                style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                            <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="w-full media-contained-sm" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                         </div>
                         <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
                             <div class="activity-card__media">???</div>
@@ -1599,11 +1584,9 @@
 
                     <!-- ACTIVITATS: Aparell Reproductor -->
                     <div id="bio-reproductor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full"
-                                style="max-height:180px; object-fit:cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                            <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="w-full media-contained-sm" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                         </div>
                         <!-- Quiz de l'Aparell Reproductor -->
                         <div class="activity-card" onclick="openBioActivity('reproductor-quiz')">
@@ -1618,8 +1601,7 @@
 
                     <!-- ACTIVITATS: Aparell Circulatori -->
                     <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
                          <div class="activity-card" onclick="openBioActivity('cor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/heart/cor-huma.png" alt="El Cor Humà" class="activity-card__image">
@@ -1660,11 +1642,9 @@
 
                     <!-- ACTIVITATS: Aparell Excretor -->
                     <div id="bio-excretor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
                         <div class="col-span-full mb-2 rounded-xl overflow-hidden shadow-sm border">
-                            <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="w-full"
-                                style="max-height:180px; object-fit:cover;">
+                            <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="w-full media-contained-sm">
                         </div>
 
                         <div class="activity-card" onclick="openBioActivity('excretor-game')">
@@ -1681,8 +1661,7 @@
 
                     <!-- ACTIVITATS: Sistema Endocrí -->
                     <div id="bio-endocri-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
 
                         <!-- Quiz del Sistema Endocrí -->
                         <div class="activity-card" onclick="openBioActivity('endocri-quiz')">
@@ -1706,8 +1685,7 @@
 
                     <!-- ACTIVITATS: Aparell Locomotor -->
                     <div id="bio-locomotor-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
 
                         <!-- Quiz de l'Aparell Locomotor -->
                         <div class="activity-card" onclick="openBioActivity('locomotor-quiz')">
@@ -1883,14 +1861,14 @@
                             </div>
                             <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
                                 <div id="bio-endocri-glands-question" class="text-lg font-bold">Clica...</div>
-                                <div id="bio-endocri-glands-feedback" class="game-panel__feedback font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                                <div id="bio-endocri-glands-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
-                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Glàndules Endocrines" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Glàndules Endocrines" class="interactive-image">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-endocri-glands-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                            <div id="bio-endocri-glands-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Endocrí)</span>
                                     <button onclick="closeBioEndocriGlandsCalibration()" class="text-red-400">⛶</button>
@@ -1967,8 +1945,7 @@
                             <div
                                 class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
                                 <img src="assets/images/activities/biologia/cells/cellules-sanguinies-microscopi-electronic.png"
-                                    alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm"
-                                    style="max-height: 280px;">
+                                    alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm media-contained-tall">
                             </div>
 
                             <div id="cells-matching-ui" class="container-white p-6 rounded-xl shadow-sm border mb-6">
@@ -2061,18 +2038,16 @@
                             </div>
                             <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
                                 <div id="bio-heart-question" class="text-lg font-bold">Clica...</div>
-                                <div id="bio-heart-feedback" class="game-panel__feedback font-bold"
-                                    style="margin: 0; min-width: 120px; text-align: right;"></div>
+                                <div id="bio-heart-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
-                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
                                 <img id="bio-heart-image" src="assets/images/activities/biologia/heart/cor.png" alt="Cor Humà"
-                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    class="interactive-image">
                             </div>
 
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-heart-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                style="font-family: monospace; font-size: 12px;">
+                            <div id="bio-heart-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Cor)</span>
                                     <button onclick="closeBioHeartCalibration()" class="text-red-400">⛶</button>
@@ -2127,18 +2102,16 @@
                             </div>
                             <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
                                 <div id="bio-excretor-question" class="text-lg font-bold">Clica...</div>
-                                <div id="bio-excretor-feedback" class="game-panel__feedback font-bold"
-                                    style="margin: 0; min-width: 120px; text-align: right;"></div>
+                                <div id="bio-excretor-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
-                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
                                 <img id="bio-excretor-image" src="assets/images/activities/biologia/systems/sistema_excretor.png"
                                     alt="Sistema Excretor"
-                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    class="interactive-image">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-excretor-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                style="font-family: monospace; font-size: 12px;">
+                            <div id="bio-excretor-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Excretor)</span>
                                     <button onclick="closeBioExcretorCalibration()" class="text-red-400">⛶</button>
@@ -2183,8 +2156,7 @@
 
                     <!-- ACTIVITATS: Òrgans dels Sentits (Sub-menú) -->
                     <div id="bio-senses-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2" onclick="showBioMenu()"
-                            style="width: fit-content;">← Tornar als Sistemes</button>
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
 
                         <div class="activity-card" onclick="openSenseSubActivity('vista')">
                             <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-vista.png" class="activity-card__image"></div>
@@ -2331,14 +2303,14 @@
                             </div>
                             <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
                                 <div id="bio-vista-parts-question" class="text-lg font-bold">Clica...</div>
-                                <div id="bio-vista-parts-feedback" class="game-panel__feedback font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                                <div id="bio-vista-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
-                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-vista-parts-image" src="assets/images/activities/biologia/senses/sentit-vista.png" alt="Parts de l'ull" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-vista-parts-image" src="assets/images/activities/biologia/senses/sentit-vista.png" alt="Parts de l'ull" class="interactive-image" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-vista-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                            <div id="bio-vista-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Vista)</span>
                                     <button onclick="closeBioVistaPartsCalibration()" class="text-red-400">⛶</button>
@@ -2389,19 +2361,19 @@
                             <div class="flex items-center gap-3 p-2 bg-blue-50 rounded mb-2">
                                 <span id="bio-oida-parts-section-label" class="font-bold text-blue-700 text-sm px-3 py-1 rounded-full bg-blue-100">?? Orella Externa</span>
                                 <div id="bio-oida-parts-question" class="text-lg font-bold flex-1">Clica a la imatge...</div>
-                                <div id="bio-oida-parts-feedback" class="game-panel__feedback font-bold" style="margin:0;min-width:120px;text-align:right;"></div>
+                                <div id="bio-oida-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
 
-                            <div class="image-interactive-wrapper mt-2" style="position:relative;cursor:crosshair;">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
                                 <img id="bio-oida-parts-image"
                                      src="assets/images/activities/biologia/senses/orella-externa.png"
                                      alt="Parts de l'orella"
-                                     style="width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:opacity 0.3s;"
+                                     class="interactive-image interactive-image--fade"
                                      onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-oida-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family:monospace;font-size:12px;">
+                            <div id="bio-oida-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Oïda)</span>
                                     <button onclick="closeBioOidaPartsCalibration()" class="text-red-400">⛶</button>
@@ -2453,14 +2425,14 @@
                             </div>
                             <div class="flex items-center justify-between p-2 bg-pink-50 rounded mb-2">
                                 <div id="bio-gust-parts-question" class="text-lg font-bold">Clica...</div>
-                                <div id="bio-gust-parts-feedback" class="game-panel__feedback font-bold" style="margin: 0; min-width: 120px; text-align: right;"></div>
+                                <div id="bio-gust-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
                             </div>
-                            <div class="image-interactive-wrapper mt-2" style="position: relative; cursor: crosshair;">
-                                <img id="bio-gust-parts-image" src="assets/images/llengua-gustos.png" alt="Llengua i Gustos" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-gust-parts-image" src="assets/images/llengua-gustos.png" alt="Llengua i Gustos" class="interactive-image" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
                             </div>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="bio-gust-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden" style="font-family: monospace; font-size: 12px;">
+                            <div id="bio-gust-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Gust)</span>
                                     <button onclick="closeBioGustPartsCalibration()" class="text-red-400">⛶</button>
@@ -2683,15 +2655,14 @@
                             </div>
                             <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">
                                 Clica...</div>
-                            <div class="image-interactive-wrapper mt-4" style="position: relative; cursor: crosshair;">
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-4">
                                 <img id="radio-board-image" src="assets/images/activities/radio/taula/taula-de-so3.png" alt="Taula de So"
-                                    style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    class="interactive-image">
                             </div>
                             <p id="radio-board-feedback" class="game-panel__feedback mt-2"></p>
 
                             <!-- CALIBRATION UI (DEBUG) -->
-                            <div id="radio-board-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden"
-                                style="font-family: monospace; font-size: 12px;">
+                            <div id="radio-board-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
                                 <div class="flex justify-between items-center mb-2">
                                     <span>?? Ajust de diana (Ràdio)</span>
                                     <button onclick="closeRadioBoardCalibration()" class="text-red-400">⛶</button>
@@ -2743,9 +2714,9 @@
                             <div id="connections-score" class="font-bold">Punts: 0</div>
                         </div>
                         <div class="game-panel__question text-center">
-                            <div class="image-display mb-4" style="max-width: 400px; margin: 0 auto;">
+                            <div class="image-display image-display--narrow mb-4">
                                 <img id="connection-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Connector"
-                                    style="width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                    class="image-display__image">
                             </div>
                             <h4 id="connection-question-text" class="mb-4">Tria la resposta correcta:</h4>
                             <div id="connection-options" class="game-panel__options">
@@ -2796,8 +2767,7 @@
                         menú</button>
 
                     <div id="solidart-quadres-setup" class="game-panel__header text-center">
-                        <div id="solidart-feedback-config" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
-                            style="max-width: 400px;">
+                        <div id="solidart-feedback-config" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden image-display--max-400">
                             <label for="solidart-feedback-level" class="block mb-2 font-semibold">Nivell de feedback per
                                 a l'alumne:</label>
                             <select id="solidart-feedback-level" class="form-select form-select--compact w-full">
@@ -2808,7 +2778,7 @@
                             <p class="text-xs text-gray-500 mt-2">Tria "Cap" per a exàmens o per evitar que es copiïn.
                             </p>
                         </div>
-                        <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">O tria per nivell (tots els
+                        <p class="mb-2 text-strong-lg">O tria per nivell (tots els
                             temes):</p>
                         <div class="solidart-difficulty-row mt-6">
                             <button class="btn btn--primary btn--difficulty-easy btn--w-250"
@@ -2829,10 +2799,9 @@
                         </div>
 
                         <div class="game-panel__question text-center">
-                            <div id="solidart-quadres-image-container" class="mb-4 mx-auto"
-                                style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
+                            <div id="solidart-quadres-image-container" class="mb-4 mx-auto image-frame">
                                 <img id="solidart-quadres-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Obra d'art"
-                                    style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
+                                    class="image-frame__image">
                             </div>
 
                             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6">Pregunta...</h4>
@@ -2865,8 +2834,7 @@
                 <button class="btn btn--secondary btn--sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
 
                 <div id="solidart-quadres2-setup" class="game-panel__header text-center">
-                    <div id="solidart-feedback-config2" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden"
-                        style="max-width: 400px;">
+                    <div id="solidart-feedback-config2" class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden image-display--max-400">
                         <label for="solidart-feedback-level2" class="block mb-2 font-semibold">Nivell de feedback per a
                             l'alumne:</label>
                         <select id="solidart-feedback-level2" class="form-select form-select--compact w-full">
@@ -2875,7 +2843,7 @@
                             <option value="full">Complet (marca correcta i error)</option>
                         </select>
                     </div>
-                    <p class="mb-2" style="font-weight: bold; font-size: 1.1rem;">Selecciona el nivell:</p>
+                    <p class="mb-2 text-strong-lg">Selecciona el nivell:</p>
                     <div class="solidart-difficulty-row mt-6">
                         <button class="btn btn--primary btn--difficulty-easy btn--w-250"
                             onclick="initSolidartQuadres2('Fàcil')">Fàcil</button>
