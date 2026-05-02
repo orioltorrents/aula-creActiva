@@ -118,7 +118,7 @@ const MAP_SVG = `
 </svg>
 `;
 
-// Mapatge d'IDs per al mapa extern (assets/maps/mediterrani.svg)
+// Mapatge d'IDs per al mapa extern (assets/images/activities/mediterrani/maps/mediterrani.svg)
 // A mesura que identifiquis països, els afegirem aquí.
 const COUNTRY_ID_MAP = {
     'idx-51': 'esp',
@@ -187,7 +187,7 @@ function onSvgMapClick(e) {
     handleMapClick(countryId);
 }
 
-const SVG_PATH = 'assets/maps/mediterrani.svg';
+const SVG_PATH = 'assets/images/activities/mediterrani/maps/mediterrani.svg';
 
 async function loadExternalSvg() {
     try {

@@ -425,8 +425,7 @@ async function finishBiblioGame() {
   const totalPossible = biblioState.activeQuestions.length * 10;
   const percentage = Math.round((biblioState.score / totalPossible) * 100);
 
-  document.getElementById("biblio-final-score").innerText =
-    `${biblioState.score} / ${totalPossible} (${percentage}%)`;
+  document.getElementById("biblio-final-score").innerText = `${percentage}%`;
 
   let msg = "";
   if (percentage >= 90) msg = "Excel·lent! Domines la bibliografia APA! 🎓";

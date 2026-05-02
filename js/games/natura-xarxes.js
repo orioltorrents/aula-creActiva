@@ -40,6 +40,10 @@ function openNaturaActivity(actId) {
         initImpacteGame();
     } else if (actId === 'biblio' && typeof initBiblioGame === 'function') {
         initBiblioGame();
+    } else if (actId === 'orenetes' && typeof initOrenetesGame === 'function') {
+        initOrenetesGame();
+    } else if (actId === 'orenetes-preguntes' && typeof initOrenetesPreguntesQuiz === 'function') {
+        initOrenetesPreguntesQuiz();
     }
 }
 

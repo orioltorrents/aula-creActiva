@@ -221,7 +221,7 @@ async function endEndocriQuiz() {
     document.getElementById('bio-endocri-quiz-ui').classList.add('hidden');
     document.getElementById('bio-endocri-quiz-final').classList.remove('hidden');
 
-    document.getElementById('endo-quiz-final-score').innerText = `${bioEndocriQuiz.score} / 100`;
+    document.getElementById('endo-quiz-final-score').innerText = `${bioEndocriQuiz.score}%`;
     const finalMsg = document.getElementById('endo-quiz-final-msg');
     if (finalMsg) finalMsg.innerText = `Molt bé! Has completat el quiz del sistema endocrí.`;
 
@@ -240,3 +240,5 @@ async function endEndocriQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

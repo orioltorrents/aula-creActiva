@@ -167,7 +167,7 @@ function showFinalResults() {
     const finalScore = naturaRolsState.score;
     const percentage = Math.round((finalScore / 40) * 100);
 
-    document.getElementById('rols-final-score').innerText = finalScore;
+    document.getElementById('rols-final-score').innerText = `${percentage}%`;
     document.getElementById('rols-final-percentage').innerText = `${percentage}%`;
 
     const msgEl = document.getElementById('rols-final-msg');

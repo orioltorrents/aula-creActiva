@@ -241,7 +241,7 @@ async function endReproductorQuiz() {
     document.getElementById('bio-reproductor-quiz-ui').classList.add('hidden');
     document.getElementById('bio-reproductor-quiz-final').classList.remove('hidden');
 
-    document.getElementById('reprod-quiz-final-score').innerText = `${bioReproductorQuiz.score} / 100`;
+    document.getElementById('reprod-quiz-final-score').innerText = `${bioReproductorQuiz.score}%`;
 
     let msg = '';
     if (bioReproductorQuiz.score >= 90) msg = "Excel·lent! Domines l'aparell reproductor! 🌟";
@@ -267,3 +267,5 @@ async function endReproductorQuiz() {
         });
     }
 }
+
+

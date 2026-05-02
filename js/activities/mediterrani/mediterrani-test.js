@@ -79,6 +79,12 @@ function openMediterraniActivity(activityId) {
     } else if (activityId === 'map') {
         const mapDiv = document.getElementById('med-activity-map');
         if (mapDiv) mapDiv.classList.remove('hidden');
+    } else if (activityId === 'biodiversitat') {
+        const biodiversitatDiv = document.getElementById('med-activity-biodiversitat');
+        if (biodiversitatDiv) biodiversitatDiv.classList.remove('hidden');
+        if (typeof initMediterraniBiodiversitatQuiz === 'function') {
+            initMediterraniBiodiversitatQuiz();
+        }
     }
 }
 
@@ -97,7 +103,7 @@ function initMediterraniTest() {
 
     document.getElementById('test-container').classList.remove('hidden');
     document.getElementById('test-results').classList.add('hidden');
-    document.querySelector('#med-activity-test_mar .game-controls').classList.add('hidden'); // Amagar botó començar
+    document.querySelector('#med-activity-test_mar .game-panel__controls').classList.add('hidden'); // Amagar botó començar
 
     showTestQuestion();
 }
@@ -211,3 +217,4 @@ async function finishTest() {
         }
     }
 }
+

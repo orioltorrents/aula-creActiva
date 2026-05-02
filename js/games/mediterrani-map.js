@@ -87,7 +87,7 @@ const MAP_SVG = `
 </svg>
 `;
 
-// Mapatge d'IDs per al mapa extern (assets/maps/mediterrani.svg)
+// Mapatge d'IDs per al mapa extern (assets/images/activities/mediterrani/maps/mediterrani.svg)
 // A mesura que identifiquis països, els afegirem aquí.
 const COUNTRY_ID_MAP = {
     'idx-51': 'esp',
@@ -156,7 +156,19 @@ function onSvgMapClick(e) {
     handleMapClick(countryId);
 }
 
-const SVG_PATH = 'assets/maps/mediterrani.svg';
+const SVG_PATH = 'assets/images/activities/mediterrani/maps/mediterrani.svg';
+
+function updateMediterraniMapModeButtons(mode) {
+    const practiceBtn = document.getElementById('btn-med-map-practice');
+    const examBtn = document.getElementById('btn-med-map-exam');
+
+    if (!practiceBtn || !examBtn) return;
+
+    practiceBtn.classList.toggle('btn-primary', mode === 'practice');
+    practiceBtn.classList.toggle('btn-secondary', mode !== 'practice');
+    examBtn.classList.toggle('btn-primary', mode === 'exam');
+    examBtn.classList.toggle('btn-secondary', mode !== 'exam');
+}
 
 async function loadExternalSvg() {
     try {
@@ -172,6 +184,7 @@ async function loadExternalSvg() {
 
 async function initMediterraniMapGame(mode) {
     medMapState.mode = mode;
+    updateMediterraniMapModeButtons(mode);
     medMapState.score = 0;
     medMapState.currentQuestionIndex = 0;
     medMapState.examFinished = false;
@@ -310,8 +323,10 @@ async function finishMapGame() {
     medMapState.examFinished = true;
     medMapState.locked = false;
 
+    const totalPossible = medMapState.questions.length * 10;
+    const percentage = totalPossible ? Math.round((medMapState.score / totalPossible) * 100) : 0;
     document.getElementById('med-map-question').innerText = i18n.t('final_score');
-    document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
+    document.getElementById('med-map-feedback').innerText = `${percentage}%`;
     document.getElementById('med-map-feedback').style.color = 'black';
 
     if (medMapState.mode === 'exam') {
@@ -325,7 +340,7 @@ async function finishMapGame() {
                 projecte: 'Mediterrani',
                 app: 'Mapa',
                 nivell: 'General',
-                puntuacio: medMapState.score,
+                puntuacio: percentage,
                 temps_segons: 60 - medMapState.timeLeft,
                 feedback_pos: '',
                 feedback_neg: ''

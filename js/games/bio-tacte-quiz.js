@@ -202,7 +202,7 @@ async function endTacteQuiz() {
 
     const resultMsg = document.getElementById('endo-quiz-message'); // reuse class styling, ID might need change
     if(resultMsg) resultMsg.innerText = `Molt bé! Has aconseguit ${bioTacteQuiz.score} punts.`;
-    document.getElementById('tacte-quiz-final-score').innerText = `${bioTacteQuiz.score} / 100`;
+    document.getElementById('tacte-quiz-final-score').innerText = `${bioTacteQuiz.score}%`;
 
     if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
         const result = {
@@ -219,3 +219,5 @@ async function endTacteQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

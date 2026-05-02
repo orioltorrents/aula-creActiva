@@ -9,8 +9,11 @@ let solidartQuadresState = {
     score: 0,
     startTime: null,
     dificultat: '',
-    feedbackLevel: 'simple'
+    feedbackLevel: 'simple',
+    autoAdvanceTimer: null
 };
+
+const SOLIDART_QUADRES_AUTO_ADVANCE_MS = 1200;
 
 async function initSolidartQuadres(dificultat) {
     const setupDiv = document.getElementById('solidart-quadres-setup');
@@ -35,6 +38,7 @@ async function initSolidartQuadres(dificultat) {
                 dificultat: dificultat,
                 feedbackLevel: document.getElementById('solidart-feedback-level')?.value || 'simple'
             };
+            clearSolidartQuadresAutoAdvance();
             if (typeof toggleFullscreen === 'function' && !document.fullscreenElement) {
                 toggleFullscreen();
             }
@@ -54,34 +58,43 @@ function renderSolidartQuadre() {
     const quizDiv = document.getElementById('solidart-quadres-quiz-container');
     // Restaurar estructura original si s'havia sobreescrit pel loader
     quizDiv.innerHTML = `
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="solidart-quadres-progress"></span>
             <span id="solidart-quadres-score-display"></span>
         </div>
-        <div class="question-container text-center">
+        <div class="game-panel__question text-center">
             <div id="solidart-quadres-image-container" class="mb-4 mx-auto" style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
                 <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
             <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
         </div>
-        <div id="solidart-quadres-feedback-area" class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
-            <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <button id="solidart-quadres-next-btn" class="btn-primary" onclick="nextSolidartQuadre()">Següent</button>
+        <div id="solidart-quadres-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+            <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <button id="solidart-quadres-next-btn" class="btn-primary hidden" onclick="nextSolidartQuadre()">Següent</button>
         </div>
     `;
 
+    clearSolidartQuadresAutoAdvance();
     const q = solidartQuadresState.questions[solidartQuadresState.currentIndex];
 
     document.getElementById('solidart-quadres-progress').textContent = `Pregunta ${solidartQuadresState.currentIndex + 1} / ${solidartQuadresState.questions.length}`;
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
 
     const img = document.getElementById('solidart-quadres-img');
+<<<<<<< HEAD
     img.src = `assets/images/art/${q.imatge}`;
     img.onerror = () => {
         img.src = 'assets/images/ui/placeholder-art.png';
         console.warn(`Imatge no trobada: assets/images/art/${q.imatge}`);
     };
+=======
+    img.src = `assets/images/activities/solidart/artworks/${q.imatge}`;
+    img.onerror = () => {
+        img.src = buildSolidartPlaceholder(q.imatge);
+        console.warn(`Imatge no trobada: assets/images/activities/solidart/artworks/${q.imatge}`);
+    };
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     document.getElementById('solidart-quadres-text').textContent = q.pregunta;
 
@@ -95,6 +108,23 @@ function renderSolidartQuadre() {
         btn.onclick = () => checkSolidartQuadre(opt);
         optionsDiv.appendChild(btn);
     });
+}
+
+function buildSolidartPlaceholder(text) {
+    const safeText = String(text || 'Imatge no trobada')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+            <rect width="640" height="420" fill="#f8f5f0"/>
+            <rect x="48" y="48" width="544" height="324" rx="10" fill="#ffffff" stroke="#d8cbb8" stroke-width="3"/>
+            <text x="320" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#7a4f2b">Imatge no trobada</text>
+            <text x="320" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#8a6b4d">${safeText}</text>
+        </svg>`;
+
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 
 function checkSolidartQuadre(selected) {
@@ -148,9 +178,12 @@ function checkSolidartQuadre(selected) {
 
     // Update score display immediately
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
+
+    scheduleSolidartQuadresAutoAdvance();
 }
 
 function nextSolidartQuadre() {
+    clearSolidartQuadresAutoAdvance();
     solidartQuadresState.currentIndex++;
 
     if (solidartQuadresState.currentIndex < solidartQuadresState.questions.length) {
@@ -158,6 +191,21 @@ function nextSolidartQuadre() {
         document.getElementById('solidart-quadres-feedback-area').classList.add('hidden');
     } else {
         finishSolidartQuadres();
+    }
+}
+
+function scheduleSolidartQuadresAutoAdvance() {
+    clearSolidartQuadresAutoAdvance();
+    solidartQuadresState.autoAdvanceTimer = setTimeout(() => {
+        solidartQuadresState.autoAdvanceTimer = null;
+        nextSolidartQuadre();
+    }, SOLIDART_QUADRES_AUTO_ADVANCE_MS);
+}
+
+function clearSolidartQuadresAutoAdvance() {
+    if (solidartQuadresState.autoAdvanceTimer) {
+        clearTimeout(solidartQuadresState.autoAdvanceTimer);
+        solidartQuadresState.autoAdvanceTimer = null;
     }
 }
 
@@ -170,7 +218,7 @@ async function finishSolidartQuadres() {
     const score = solidartQuadresState.score;
     const percentage = Math.round((score / total) * 100);
 
-    document.getElementById('solidart-quadres-final-score').textContent = `${score} / ${total}`;
+    document.getElementById('solidart-quadres-final-score').textContent = `${percentage}%`;
     document.getElementById('solidart-quadres-final-percentage').textContent = `${percentage}%`;
 
     let msg = "";
@@ -188,7 +236,7 @@ async function finishSolidartQuadres() {
         projecte: 'SolidArt',
         app: 'Quadres i autors',
         nivell: solidartQuadresState.dificultat,
-        puntuacio: score,
+        puntuacio: percentage,
         temps_segons: Math.round((new Date() - solidartQuadresState.startTime) / 1000),
         feedback_pos: msg,
         feedback_neg: percentage < 50 ? "Cal repassar més els autors i estils." : ""
@@ -200,3 +248,6 @@ async function finishSolidartQuadres() {
         console.error("Error saving SolidArt results:", e);
     }
 }
+
+
+

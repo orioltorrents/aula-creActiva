@@ -333,7 +333,7 @@ async function finishTrBiblioGame() {
     const totalPossible = trBiblioState.activeQuestions.length * 10;
     const percentage = Math.round((trBiblioState.score / totalPossible) * 100);
 
-    document.getElementById("tr-biblio-final-score").innerText = `${trBiblioState.score} / ${totalPossible} (${percentage}%)`;
+    document.getElementById("tr-biblio-final-score").innerText = `${percentage}%`;
 
     let msg = "";
     if (percentage >= 90) msg = "Excel·lent! Domines la bibliografia APA! 🎓";

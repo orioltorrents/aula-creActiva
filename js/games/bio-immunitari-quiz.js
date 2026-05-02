@@ -234,7 +234,7 @@ async function endImmunitariQuiz() {
     document.getElementById('bio-immunitari-quiz-ui').classList.add('hidden');
     document.getElementById('bio-immunitari-quiz-final').classList.remove('hidden');
 
-    document.getElementById('immun-quiz-final-score').innerText = `${bioImmunitariQuiz.score} / 100`;
+    document.getElementById('immun-quiz-final-score').innerText = `${bioImmunitariQuiz.score}%`;
 
     let msg = '';
     if (bioImmunitariQuiz.score >= 90) msg = "Excel·lent! Ets tot un expert del sistema immunitari! 🛡️";
@@ -259,3 +259,5 @@ async function endImmunitariQuiz() {
         });
     }
 }
+
+

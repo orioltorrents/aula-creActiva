@@ -51,6 +51,12 @@ function openMediterraniActivity(activityId) {
     } else if (activityId === 'map') {
         const mapDiv = document.getElementById('med-activity-map');
         if (mapDiv) mapDiv.classList.remove('hidden');
+    } else if (activityId === 'biodiversitat') {
+        const biodiversitatDiv = document.getElementById('med-activity-biodiversitat');
+        if (biodiversitatDiv) biodiversitatDiv.classList.remove('hidden');
+        if (typeof initMediterraniBiodiversitatQuiz === 'function') {
+            initMediterraniBiodiversitatQuiz();
+        }
     }
 }
 
@@ -69,7 +75,7 @@ function initMediterraniTest() {
 
     document.getElementById('test-container').classList.remove('hidden');
     document.getElementById('test-results').classList.add('hidden');
-    document.querySelector('#med-activity-test_mar .game-controls').classList.add('hidden'); // Amagar botó començar
+    document.querySelector('#med-activity-test_mar .game-panel__controls').classList.add('hidden'); // Amagar botó començar
 
     showTestQuestion();
 }
@@ -144,9 +150,8 @@ async function finishTest() {
     document.getElementById('test-container').classList.add('hidden');
     document.getElementById('test-results').classList.remove('hidden');
 
-    document.getElementById('test-final-score').innerText = `${medTestState.score} / ${marDelMigQuestions.length}`;
-
-    const percentage = (medTestState.score / marDelMigQuestions.length) * 100;
+    const percentage = Math.round((medTestState.score / marDelMigQuestions.length) * 100);
+    document.getElementById('test-final-score').innerText = `${percentage}%`;
     let msg = "";
     if (percentage >= 90) msg = "Excel·lent!";
     else if (percentage >= 70) msg = "Molt bé!";
@@ -164,7 +169,7 @@ async function finishTest() {
             projecte: 'Mediterrani',
             app: 'Mar del Mig (Test)',
             nivell: 'Nivell 1',
-            puntuacio: medTestState.score, // Sobre 25
+            puntuacio: percentage,
             temps_segons: 0, // No calculem temps aquí
             feedback_pos: '',
             feedback_neg: ''
@@ -183,3 +188,4 @@ async function finishTest() {
         }
     }
 }
+

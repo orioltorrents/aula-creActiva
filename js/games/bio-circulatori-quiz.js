@@ -210,7 +210,7 @@ async function finishCircQuiz() {
 
     const totalPossible = circQuizState.activeQuestions.length * 10;
     const percentage = Math.round((circQuizState.score / totalPossible) * 100);
-    document.getElementById('circ-quiz-final-score').innerText = `${circQuizState.score} / ${totalPossible} (${percentage}%)`;
+    document.getElementById('circ-quiz-final-score').innerText = `${percentage}%`;
 
     let msg = "";
     if (percentage >= 90) msg = "Excel·lent! Tens un domini total de l'aparell circulatori! 🩸";
@@ -241,3 +241,5 @@ async function finishCircQuiz() {
         }).catch(err => console.error("Error guardant resultat", err));
     }
 }
+
+

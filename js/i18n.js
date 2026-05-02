@@ -337,6 +337,8 @@ const i18n = {
             'act_tr_preguntes_desc': 'Aprèn a diferenciar preguntes investigables de les que no ho són.',
             'act_tr_temes_title': 'Temes i preguntes',
             'act_tr_temes_desc': 'Tria grups de preguntes d\'un tema de recerca.',
+            'act_orenetes_title': 'Projecte Orenetes',
+            'act_orenetes_desc': 'Estudi i seguiment de les orenetes',
             'p1_rates_title': 'Rates a la carrera',
             'p3_solidart_title': 'SolidArt',
             'act_tr_quadres_title': 'Quadres i autors',
@@ -671,6 +673,8 @@ const i18n = {
             'act_tr_preguntes_desc': 'Aprende a diferenciar preguntas investigables de las que no lo son.',
             'act_tr_temes_title': 'Temas y preguntas',
             'act_tr_temes_desc': 'Elige grupos de preguntas de un tema de investigación.',
+            'act_orenetes_title': 'Proyecto Golondrinas',
+            'act_orenetes_desc': 'Estudio y seguimiento de las golondrinas',
             'p1_rates_title': 'Ratas a la carrera',
             'p3_solidart_title': 'SolidArt',
             'act_tr_quadres_title': 'Cuadros y autores',
@@ -967,6 +971,8 @@ const i18n = {
             'act_tr_preguntes_desc': 'Learn to differentiate investigable questions from those that are not.',
             'act_tr_temes_title': 'Topics and questions',
             'act_tr_temes_desc': 'Choose groups of questions from a research topic.',
+            'act_orenetes_title': 'Swallows Project',
+            'act_orenetes_desc': 'Study and monitoring of swallows',
             'p1_rates_title': 'Rats on the run',
             'p3_solidart_title': 'SolidArt',
             'act_tr_quadres_title': 'Paintings and authors',
@@ -1173,7 +1179,9 @@ const i18n = {
             'act_tr_preguntes_title': 'أسئلة قابلة للتحقيق',
             'act_tr_preguntes_desc': 'تعلم كيفية التمييز بين الأسئلة القابلة للبحث وغيرها.',
             'act_tr_temes_title': 'المواضيع والأسئلة',
-            'act_tr_temes_desc': 'اختر مجموعات من الأسئلة من موضوع بحث.'
+            'act_tr_temes_desc': 'اختر مجموعات من الأسئلة من موضوع بحث.',
+            'act_orenetes_title': 'مشروع السنونو',
+            'act_orenetes_desc': 'دراسة ومراقبة السنونو'
         },
     },
 

@@ -95,7 +95,7 @@ function showCellsResults(correct, total, percentage) {
     document.getElementById('cells-results').classList.remove('hidden');
     document.getElementById('cells-feedback').innerText = '';
 
-    document.getElementById('cells-final-score').innerText = `${correct} / ${total}  (${percentage}%)`;
+    document.getElementById('cells-final-score').innerText = `${percentage}%`;
 
     let msg;
     if (percentage === 100) msg = 'Perfecte! Coneixes tots els noms! 🔬🩸';
@@ -105,18 +105,17 @@ function showCellsResults(correct, total, percentage) {
     document.getElementById('cells-message').innerText = msg;
 
     // Guardar resultat
-    if (typeof saveResult === 'function') {
-        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-        saveResult({
-            email: userData.email,
-            curs: userData.curs,
-            projecte: 'Biologia',
+    if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
+        callApi('saveResult', {
+            email: state.user.email,
+            curs: state.user.curs,
+            projecte: state.currentProject ? state.currentProject.titol : 'Biologia',
             app: 'Les Cèl·lules de la Sang',
             nivell: 'Estàndard',
             puntuacio: percentage,
             temps_segons: 0,
             feedback_pos: '',
             feedback_neg: ''
-        });
+        }).catch(e => console.error("Error guardant resultat de cel.lules:", e));
     }
 }

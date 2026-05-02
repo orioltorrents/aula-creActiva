@@ -30,6 +30,7 @@ function initRadioBoardGame() {
     radioBoardGame.currentStep = 0;
     radioBoardGame.score = 100;
     radioBoardGame.isFinished = false;
+    radioBoardGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
     updateRadioBoardUI();
 
     const img = document.getElementById('radio-board-image');
@@ -59,6 +60,7 @@ function updateRadioBoardUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !radioBoardGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = radioBoardGame.targets[radioBoardGame.currentStep];
     questionEl.innerText = i18n.t(currentTarget.key);
@@ -143,6 +145,21 @@ function closeRadioBoardCalibration() {
     if (hint) hint.remove();
 }
 
+function exportRadioBoardConfig() {
+    const code = JSON.stringify(radioBoardGame.targets, null, 4);
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert("Codi copiat al portapapers! Enganxa'l a radioBoardGame.targets");
+    } catch (err) {
+        prompt("Copia aquest codi i enganxa'l a radio-taula.js:", code);
+    }
+    document.body.removeChild(textArea);
+}
+
 function skipRadioBoardQuestion() {
     if (radioBoardGame.isFinished) return;
     radioBoardGame.score = Math.max(0, radioBoardGame.score - 5);
@@ -171,6 +188,13 @@ function handleRadioBoardClick(event) {
 
     const clickX = (event.clientX - rect.left) * scaleX;
     const clickY = (event.clientY - rect.top) * scaleY;
+
+    if (radioBoardGame.debugMode) {
+        const coordDisplay = document.getElementById('radio-board-coord-display');
+        if (coordDisplay) {
+            coordDisplay.innerText = `Click: x=${clickX.toFixed(0)}, y=${clickY.toFixed(0)}`;
+        }
+    }
 
     const target = radioBoardGame.targets[radioBoardGame.currentStep];
     const feedbackEl = document.getElementById('radio-board-feedback');

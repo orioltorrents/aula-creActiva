@@ -179,8 +179,8 @@ function showDiagnosticFeedback(correct, q) {
     const text = document.getElementById('tr-diagnostic-feedback-text');
     const suggestionText = document.getElementById('tr-diagnostic-suggestion-text');
 
-    feedbackDiv.classList.remove('hidden', 'feedback-correct', 'feedback-incorrect');
-    feedbackDiv.classList.add(correct ? 'feedback-correct' : 'feedback-incorrect');
+    feedbackDiv.classList.remove('hidden', 'feedback-panel--correct', 'feedback-panel--incorrect');
+    feedbackDiv.classList.add(correct ? 'feedback-panel--correct' : 'feedback-panel--incorrect');
 
     header.innerHTML = correct ? '✔ Resposta correcta' : '❌ Resposta incorrecta';
     text.textContent = q.explicacio;
@@ -220,7 +220,7 @@ async function saveDiagnosticResult(correct) {
         projecte: state.currentProject.titol,
         app: 'Diagnòstic de preguntes',
         nivell: 'Estàndard',
-        puntuacio: correct ? 1 : 0,
+        puntuacio: correct ? 100 : 0,
         temps_segons: 0,
         feedback_pos: correct ? 'Identificació correcta' : '',
         feedback_neg: correct ? '' : 'Cal revisar els criteris d\'investigabilitat'

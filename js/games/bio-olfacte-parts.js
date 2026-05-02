@@ -15,16 +15,21 @@ const bioOlfactePartsGame = {
         { key: 'act_olfacte_part_nervi', x: 900, y: 500, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioOlfactePartsGame() {
     bioOlfactePartsGame.currentStep = 0;
     bioOlfactePartsGame.score = 100;
     bioOlfactePartsGame.isFinished = false;
+    bioOlfactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-olfacte-parts-image');
+<<<<<<< HEAD
     img.src = 'assets/images/biologia/sentit-olfacte.png'; 
+=======
+    img.src = 'assets/images/activities/biologia/senses/sentit-olfacte.png'; 
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     const shuffled = [...bioOlfactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -64,14 +69,15 @@ function updateBioOlfactePartsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
+    const isProfe = typeof isTeacherUser === 'function' ? isTeacherUser() : false;
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) {
         if (isProfe || isAdmin) helpBtn.classList.remove('hidden');
         else helpBtn.classList.add('hidden');
     }
+    if (calibrationUI && !isAdmin) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioOlfactePartsGame.sessionQuestions[bioOlfactePartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -89,7 +95,7 @@ function showBioOlfactePartsHelp() {
     renderBioOlfactePartsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-olfacte-parts-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
     if (calibrationUI && isAdmin) {
         calibrationUI.classList.remove('hidden');
         updateBioOlfactePartsCalibrationDisplay();
@@ -129,7 +135,7 @@ function renderBioOlfactePartsHelpHint(target) {
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
     if (!isAdmin) {
         setTimeout(() => {
             const currentHints = document.querySelectorAll('.bio-olfacte-parts-help-hint');

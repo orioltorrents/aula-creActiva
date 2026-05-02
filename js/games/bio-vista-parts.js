@@ -9,22 +9,27 @@ const bioVistaPartsGame = {
     allQuestions: [
         { key: 'act_vista_part_cornea', x: 200, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_pupilla', x: 300, y: 500, w: 50, h: 50 },
-        { key: 'act_vista_part_iris', x: 160 y:335 w:40 h:330 },
+        { key: 'act_vista_part_iris', x: 160, y: 335, w: 40, h: 330 },
         { key: 'act_vista_part_cristalli', x: 400, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_retina', x: 800, y: 500, w: 50, h: 50 },
         { key: 'act_vista_part_nervi', x: 900, y: 500, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioVistaPartsGame() {
     bioVistaPartsGame.currentStep = 0;
     bioVistaPartsGame.score = 100;
     bioVistaPartsGame.isFinished = false;
+    bioVistaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-vista-parts-image');
+<<<<<<< HEAD
     img.src = 'assets/images/biologia/sentit-vista.png'; 
+=======
+    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png'; 
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     const shuffled = [...bioVistaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -66,6 +71,7 @@ function updateBioVistaPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioVistaPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioVistaPartsGame.sessionQuestions[bioVistaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;

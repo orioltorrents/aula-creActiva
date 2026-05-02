@@ -1,4 +1,4 @@
-// js/config/project-activities.js
+﻿// js/config/project-activities.js
 /*
 ==========================================================
 CONFIGURACIÓ DE LES ACTIVITATS DELS PROJECTES
@@ -64,7 +64,11 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_capitals_desc",
       fallbackTitle: "Capitals",
       fallbackDesc: "Aprèn les capitals del Mediterrani",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta_mediterrani_capitals.png",
+=======
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "capitals"
     },
     {
@@ -73,7 +77,11 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_sea_desc",
       fallbackTitle: "El Mar del Mig",
       fallbackDesc: "Vídeo i Test de coneixements",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta_mediterrani_elmardelmig.png",
+=======
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_elmardelmig.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "test_mar"
     },
     {
@@ -82,8 +90,21 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_map_desc",
       fallbackTitle: "Mapa del Mediterrani",
       fallbackDesc: "Identifica els països al mapa",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta_mediterrani_paisos.png",
+=======
+      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "map"
+    },
+    {
+      id: "biodiversitat",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Biodiversitat del Mediterrani",
+      fallbackDesc: "Descobreix espècies i ecosistemes mediterranis",
+      image: "assets/images/activities/mediterrani/biodiversitat/targeta_mediterrani_biodiversitat.png",
+      action: "biodiversitat"
     }
   ],
 
@@ -94,7 +115,11 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_tr_preguntes_desc",
       fallbackTitle: "Preguntes Investigables",
       fallbackDesc: "Aprèn a diferenciar preguntes investigables de les que no ho són.",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta-preguntes-investigables.png",
+=======
+      image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "preguntes"
     },
     {
@@ -103,7 +128,11 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_tr_temes_desc",
       fallbackTitle: "Temes i preguntes",
       fallbackDesc: "Tria bones preguntes d'un tema de recerca.",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta-temes-preguntes.png",
+=======
+      image: "assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "temes"
     },
     {
@@ -112,7 +141,11 @@ const PROJECT_ACTIVITIES = {
       descKey: "",
       fallbackTitle: "Diagnòstic de preguntes",
       fallbackDesc: "Aprèn a identificar què li falta a una pregunta per ser investigable.",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta_diagnostic-preguntes.png",
+=======
+      image: "assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "diagnostic"
     },
     {
@@ -121,8 +154,88 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_biblio_desc",
       fallbackTitle: "Bibliografia i Cites",
       fallbackDesc: "Aprèn a citar correctament les teves fonts",
+<<<<<<< HEAD
       image: "assets/images/ui/targeta_biblio-APA.png",
+=======
+      image: "assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png",
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
       action: "biblio"
+    }
+  ],
+
+  entorns: [
+    {
+      id: "xarxes",
+      titleKey: "act_xarxes_title",
+      descKey: "act_xarxes_desc",
+      fallbackTitle: "Xarxes Tròfiques",
+      fallbackDesc: "Ordena els passos per crear una xarxa tròfica",
+      image: "assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png",
+      action: "xarxes"
+    },
+    {
+      id: "rols",
+      titleKey: "act_rols_title",
+      descKey: "act_rols_desc",
+      fallbackTitle: "Rols Tròfics",
+      fallbackDesc: "Classifica espècies segons la seva dieta",
+      image: "assets/images/activities/entorns/cards/targeta_rols-trofics.png",
+      action: "rols"
+    },
+    {
+      id: "impacte",
+      titleKey: "act_impacte_title",
+      descKey: "act_impacte_desc",
+      fallbackTitle: "Estudi d'impacte ambiental",
+      fallbackDesc: "Ordena les fases de creació de l'estudi",
+      image: "assets/images/activities/entorns/cards/targeta_fases-eia.png",
+      action: "impacte"
+    },
+    {
+      id: "biblio",
+      titleKey: "act_biblio_title",
+      descKey: "act_biblio_desc",
+      fallbackTitle: "Bibliografia i Cites",
+      fallbackDesc: "Aprèn a citar correctament les teves fonts",
+      image: "assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png",
+      action: "biblio"
+    },
+    {
+      id: "preguntes",
+      titleKey: "act_tr_preguntes_title",
+      descKey: "act_tr_preguntes_desc",
+      fallbackTitle: "Preguntes Investigables",
+      fallbackDesc: "Aprèn a diferenciar preguntes investigables de les que no ho són.",
+      image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
+      action: "preguntes"
+    },
+    {
+      id: "temes",
+      titleKey: "act_tr_temes_title",
+      descKey: "act_tr_temes_desc",
+      fallbackTitle: "Temes i preguntes",
+      fallbackDesc: "Tria bones preguntes d'un tema de recerca.",
+      image: "assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png",
+      action: "temes"
+    },
+    {
+      id: "orenetes",
+      titleKey: "act_orenetes_title",
+      descKey: "act_orenetes_desc",
+      fallbackTitle: "Projecte Orenetes",
+      fallbackDesc: "Estudi i seguiment de les orenetes",
+      image: "assets/images/activities/entorns/cards/targeta-projecte-orentes.png",
+      action: "orenetes"
+    },
+    {
+      id: "orenetes-preguntes",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Preguntes del Projecte Orenetes",
+      fallbackDesc: "Tria la foto correcta entre quatre opcions",
+      image: "assets/images/activities/entorns/cards/targeta-projecte-orentes.png",
+      action: "orenetes-preguntes"
     }
   ]
 };
+

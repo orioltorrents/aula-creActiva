@@ -33,10 +33,11 @@ const bioEndocriGlandsGame = {
         
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioEndocriGlandsGame() {
+    bioEndocriGlandsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
     document.getElementById('bio-endocri-glands-selector').classList.remove('hidden');
     document.getElementById('bio-endocri-glands-ui').classList.add('hidden');
 }
@@ -50,9 +51,15 @@ function startBioEndocriGlandsGame(model) {
     // Actualitzem la imatge
     const img = document.getElementById('bio-endocri-glands-image');
     if (model === 'home') {
+<<<<<<< HEAD
         img.src = 'assets/images/biologia/glandules-endocrines-home.png';
     } else {
         img.src = 'assets/images/biologia/glandules-endocrines-dona.png';
+=======
+        img.src = 'assets/images/activities/biologia/endocrine/glandules-endocrines-home.png';
+    } else {
+        img.src = 'assets/images/activities/biologia/endocrine/glandules-endocrines-dona.png';
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
     }
 
     document.getElementById('bio-endocri-glands-selector').classList.add('hidden');
@@ -100,6 +107,7 @@ function updateBioEndocriGlandsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioEndocriGlandsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioEndocriGlandsGame.sessionQuestions[bioEndocriGlandsGame.currentStep];
 

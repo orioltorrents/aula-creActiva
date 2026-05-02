@@ -193,7 +193,7 @@ function showNaturaResults() {
     const totalQs = naturaPreguntesList.length;
     const percent = Math.round((naturaCorrectAnswers / totalQs) * 100);
 
-    document.getElementById('natura-preguntes-final-score').textContent = `${naturaCorrectAnswers} / ${totalQs}`;
+    document.getElementById('natura-preguntes-final-score').textContent = `${percent}%`;
     document.getElementById('natura-preguntes-final-percentage').textContent = `${percent}%`;
 
     const msgEl = document.getElementById('natura-preguntes-final-msg');
@@ -213,6 +213,8 @@ function showNaturaResults() {
 
 async function saveNaturaPreguntaResult() {
     if (!state.user) return;
+    const totalQs = naturaPreguntesList.length;
+    const percent = totalQs ? Math.round((naturaCorrectAnswers / totalQs) * 100) : 0;
 
     let feedPos = [];
     let feedNeg = [];
@@ -231,7 +233,7 @@ async function saveNaturaPreguntaResult() {
         projecte: 'Entorns de Natura',
         app: 'Preguntes investigables',
         nivell: 'Mix',
-        puntuacio: naturaCorrectAnswers,
+        puntuacio: percent,
         temps_segons: 30,
         feedback_pos: feedPos.join(" | ").substring(0, 400),
         feedback_neg: feedNeg.join(" | ").substring(0, 400)
@@ -239,3 +241,5 @@ async function saveNaturaPreguntaResult() {
 
     callApi('saveResult', resultData).catch(e => console.error("Error guardant resultats Natura: ", e));
 }
+
+

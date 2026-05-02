@@ -8,7 +8,7 @@
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
-const API_URL = 'https://script.google.com/macros/s/AKfycbxQU3dTZ5zLa6FMcG2BRPI0hExZNRBLTR9wq-QOQSIP29ZfTYLxeSy01YiYQe4Dk5XJ4Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwY3h5mvbmO64iWskhqoXb4xKbyMs-W5SwWLabV50QbmEINsjFMYvMcsSPIaqFM9bmu9w/exec';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -17,6 +17,29 @@ const state = {
     user: null,
     currentProject: null
 };
+
+function getCurrentUserRole() {
+    if (typeof state === 'undefined' || !state.user) return '';
+    return String(state.user.rol || '').trim().toLowerCase();
+}
+
+function hasUserRole(roleFragment) {
+    const normalizedRole = String(roleFragment || '').trim().toLowerCase();
+    if (!normalizedRole) return false;
+    return getCurrentUserRole().includes(normalizedRole);
+}
+
+function isAdminUser() {
+    return hasUserRole('admin');
+}
+
+function isTeacherUser() {
+    return hasUserRole('profe') || hasUserRole('prof');
+}
+
+function canUseTeacherTools() {
+    return isAdminUser() || isTeacherUser();
+}
 
 // **********************************************************
 // ELEMENTS DEL DOM
@@ -232,6 +255,7 @@ async function loadDashboard() {
 
     // Configuració visual dels projectes
     const projectVisuals = {
+<<<<<<< HEAD
         'p1_rates': { icon: '<img src="assets/images/ui/targeta_rates-a-la-carrera.png" alt="Rates" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
         'p1_mediterrani': { icon: '<img src="assets/images/ui/targeta_mediterrani.png" alt="Mediterrani" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '<img src="assets/images/ui/targeta_biologia.png" alt="Biologia" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
@@ -242,6 +266,18 @@ async function loadDashboard() {
         'p2_biologia': { icon: '<img src="assets/images/biologia/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p2_radio': { icon: '<img src="assets/images/ui/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/ui/targeta-tr.png" alt="Treball de recerca" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+=======
+        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-card__image">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-card__image">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
     };
 
     if (allProjects.length > 0) {
@@ -251,14 +287,14 @@ async function loadDashboard() {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="card-image" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+                <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
                     ${proj.imatge
-                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-img-thumb">`
+                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image">`
                     : visual.icon}
                 </div>
-                <div class="card-content">
-                    <div class="card-title">${proj.titol}</div>
-                    <div class="card-desc">${proj.descripcio}</div>
+                <div class="project-card__content">
+                    <div class="project-card__title">${proj.titol}</div>
+                    <div class="project-card__description">${proj.descripcio}</div>
                 </div>
             `;
             card.addEventListener('click', () => openProject(proj));
@@ -398,7 +434,7 @@ async function simulateGameSave() {
         projecte: state.currentProject.titol,
         app: 'Simulador',
         nivell: 'Fàcil',
-        puntuacio: Math.floor(Math.random() * 10) + 1,
+        puntuacio: Math.floor(Math.random() * 101),
         temps_segons: 120,
         feedback_pos: 'Has estat ràpid',
         feedback_neg: 'Cal millorar la precisió'
@@ -428,8 +464,17 @@ function showMediterraniMenu() {
 }
 
 function openMediterraniActivity(actId) {
-    document.getElementById('med-activities-menu').classList.add('hidden');
-    document.getElementById(`med-activity-${actId}`).classList.remove('hidden');
+    const hub = document.getElementById('project-hub-mediterrani');
+    const menu = document.getElementById('med-activities-menu');
+    const activity = document.getElementById(`med-activity-${actId}`);
+
+    if (menu) menu.classList.add('hidden');
+    if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    if (activity) activity.classList.remove('hidden');
+
+    if (actId === 'biodiversitat' && typeof initMediterraniBiodiversitatQuiz === 'function') {
+        initMediterraniBiodiversitatQuiz();
+    }
 }
 
 // --- TREBALL DE RECERCA NAVIGATION ---
@@ -490,6 +535,9 @@ function openDigitalitzacioActivity(actId) {
 
 // --- SOLIDART NAVIGATION ---
 function showSolidartMenu() {
+    if (typeof clearSolidartQuadresAutoAdvance === 'function') clearSolidartQuadresAutoAdvance();
+    if (typeof clearSolidartQuadres2AutoAdvance === 'function') clearSolidartQuadres2AutoAdvance();
+
     const hub = document.getElementById('project-hub-solidart');
     if (hub) {
         document.getElementById('solidart-activities-menu').classList.remove('hidden');
@@ -498,7 +546,12 @@ function showSolidartMenu() {
 }
 
 function openSolidartActivity(actId) {
+    if (typeof clearSolidartQuadresAutoAdvance === 'function') clearSolidartQuadresAutoAdvance();
+    if (typeof clearSolidartQuadres2AutoAdvance === 'function') clearSolidartQuadres2AutoAdvance();
+
+    const hub = document.getElementById('project-hub-solidart');
     document.getElementById('solidart-activities-menu').classList.add('hidden');
+    if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
     document.getElementById(`solidart-activity-${actId}`).classList.remove('hidden');
 
     if (actId === 'quadres') {
@@ -544,6 +597,16 @@ function showNaturaMenu() {
     }
 }
 
+function openNaturaProject(projectId) {
+    const hub = document.getElementById('project-hub-natura');
+    const menu = document.getElementById('natura-activities-menu');
+    const projectMenu = document.getElementById(`natura-project-${projectId}`);
+
+    if (menu) menu.classList.add('hidden');
+    if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+    if (projectMenu) projectMenu.classList.remove('hidden');
+}
+
 // **********************************************************
 // RATES A LA CARRERA (HUB)
 // **********************************************************
@@ -570,7 +633,7 @@ function openRatesActivity(activityId) {
 }
 
 function openNaturaActivity(actId) {
-    document.getElementById('natura-activities-menu').classList.add('hidden');
+    document.getElementById('natura-activities-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
 
     if (actId === 'xarxes') {
@@ -601,6 +664,12 @@ function openNaturaActivity(actId) {
             document.getElementById('natura-temes-results').classList.add('hidden');
             loadNaturaTemesCategories();
         }
+    } else if (actId === 'orenetes') {
+        document.getElementById('natura-activity-orenetes').classList.remove('hidden');
+        if (typeof initOrenetesGame === 'function') initOrenetesGame();
+    } else if (actId === 'orenetes-preguntes') {
+        document.getElementById('natura-activity-orenetes-preguntes').classList.remove('hidden');
+        if (typeof initOrenetesPreguntesQuiz === 'function') initOrenetesPreguntesQuiz();
     }
 }
 
@@ -748,3 +817,4 @@ function openRadioActivity(actId) {
         }
     }
 }
+

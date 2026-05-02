@@ -202,7 +202,7 @@ async function endOlfacteQuiz() {
 
     const resultMsg = document.getElementById('endo-quiz-message'); // reuse class styling, ID might need change
     if(resultMsg) resultMsg.innerText = `Molt bé! Has aconseguit ${bioOlfacteQuiz.score} punts.`;
-    document.getElementById('olfacte-quiz-final-score').innerText = `${bioOlfacteQuiz.score} / 100`;
+    document.getElementById('olfacte-quiz-final-score').innerText = `${bioOlfacteQuiz.score}%`;
 
     if (typeof state !== 'undefined' && state.user && typeof callApi === 'function') {
         const result = {
@@ -219,3 +219,5 @@ async function endOlfacteQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

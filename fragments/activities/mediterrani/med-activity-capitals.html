@@ -1,8 +1,8 @@
 <div id="med-activity-capitals" class="sub-activity hidden">
     <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
-    <div class="game-header">
+    <div class="game-panel__header">
         <h3 id="med-title">Capitals del Mediterrani</h3>
-        <div class="game-controls">
+        <div class="game-panel__controls">
             <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
                 data-i18n="hide_country">Amagar País</button>
             <button onclick="initMediterraniGame('practice')" class="btn-secondary"
@@ -13,16 +13,16 @@
     </div>
 
     <div id="med-game-area" class="hidden">
-        <div class="stats-bar">
+        <div class="game-panel__stats">
             <span id="med-score">Punts: 0</span>
             <span id="med-time" class="hidden">Temps: 60s</span>
         </div>
 
-        <div class="question-container">
+        <div class="game-panel__question">
             <h4 id="med-question">Pregunta...</h4>
-            <div id="med-options" class="options-grid"></div>
+            <div id="med-options" class="game-panel__options"></div>
         </div>
 
-        <p id="med-feedback" class="feedback-msg"></p>
+        <p id="med-feedback" class="game-panel__feedback"></p>
     </div>
 </div>

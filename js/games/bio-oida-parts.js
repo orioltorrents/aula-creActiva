@@ -1,15 +1,21 @@
 /**
  * Joc de l'Oïda - Senyalar Parts (Multi-Imatge)
  * La imatge canvia automàticament segons la secció de cada pregunta:
- *   section: 'externa'  → assets/images/orella-externa.png
- *   section: 'mitjana'  → assets/images/orella-mitjana.png
- *   section: 'interna'  → assets/images/orella-interna.png
+ *   section: 'externa'  -> assets/images/activities/biologia/senses/orella-externa.png
+ *   section: 'mitjana'  -> assets/images/activities/biologia/senses/orella-mitjana.png
+ *   section: 'interna'  -> assets/images/activities/biologia/senses/orella-interna.png
  */
 
 const OIDA_IMAGES = {
+<<<<<<< HEAD
     externa: 'assets/images/biologia/orella-externa.png',
     mitjana: 'assets/images/biologia/orella-mitjana.png',
     interna: 'assets/images/biologia/orella-interna.png'
+=======
+    externa: 'assets/images/activities/biologia/senses/orella-externa.png',
+    mitjana: 'assets/images/activities/biologia/senses/orella-mitjana.png',
+    interna: 'assets/images/activities/biologia/senses/orella-interna.png'
+>>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 };
 
 const bioOidaPartsGame = {
@@ -35,13 +41,14 @@ const bioOidaPartsGame = {
         { key: 'act_oida_part_vestibul',  section: 'interna', x: 400, y: 300, w: 100, h: 100 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioOidaPartsGame() {
     bioOidaPartsGame.currentStep = 0;
     bioOidaPartsGame.score = 100;
     bioOidaPartsGame.isFinished = false;
+    bioOidaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     // Barrejar mantenint l'ordre per seccions (opcional: barreja total)
     const shuffled = [...bioOidaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
@@ -107,6 +114,7 @@ function updateBioOidaPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioOidaPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key
