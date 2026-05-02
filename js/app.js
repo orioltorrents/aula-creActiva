@@ -490,6 +490,9 @@ async function openProject(project) {
         );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderMediterraniActivities === 'function') {
+                renderMediterraniActivities();
+            }
             if (typeof showMediterraniMenu === 'function') {
                 showMediterraniMenu();
             }
@@ -521,6 +524,9 @@ async function openProject(project) {
         );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderTrActivities === 'function') {
+                renderTrActivities();
+            }
             if (typeof showTrMenu === 'function') {
                 showTrMenu();
             }
@@ -532,6 +538,9 @@ async function openProject(project) {
         );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderEntornsActivities === 'function') {
+                renderEntornsActivities();
+            }
             if (typeof showNaturaMenu === 'function') {
                 showNaturaMenu();
             }
