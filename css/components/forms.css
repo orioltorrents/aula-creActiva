@@ -55,7 +55,7 @@
     min-height: 40px;
 }
 
-.justification-area .form-control {
+.form-control--justification {
     resize: none;
     border-width: 2px;
 }
