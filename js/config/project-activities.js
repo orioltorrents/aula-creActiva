@@ -210,4 +210,3 @@ const PROJECT_ACTIVITIES = {
     }
   ]
 };
-
