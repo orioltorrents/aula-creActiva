@@ -23,8 +23,7 @@ Aquesta guia dona orientacions pràctiques per treballar de forma coherent amb l
 
 ## Notes sobre l'estructura real
 
-- Actualment no hi ha carpetes `css/base/`, `css/layout/`, `css/components/`, `css/pages/` ni `css/utilities/` al projecte.
-- La guia preveu una organització més modular de CSS, però abans de migrar-la cal revisar totes les dependències i evitar trencar el carregament de l'estil.
+- Actualment hi ha carpetes `css/base/`, `css/layout/`, `css/components/`, `css/pages/` ni `css/utilities/` al projecte.
 - Si fas una migració de CSS, fes-la per fases i comprova que l'interfície segueix funcionant a cada pas.
 
 ## CSS
