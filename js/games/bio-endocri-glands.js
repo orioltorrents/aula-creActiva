@@ -51,15 +51,9 @@ function startBioEndocriGlandsGame(model) {
     // Actualitzem la imatge
     const img = document.getElementById('bio-endocri-glands-image');
     if (model === 'home') {
-<<<<<<< HEAD
-        img.src = 'assets/images/biologia/glandules-endocrines-home.png';
-    } else {
-        img.src = 'assets/images/biologia/glandules-endocrines-dona.png';
-=======
         img.src = 'assets/images/activities/biologia/endocrine/glandules-endocrines-home.png';
     } else {
         img.src = 'assets/images/activities/biologia/endocrine/glandules-endocrines-dona.png';
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
     }
 
     document.getElementById('bio-endocri-glands-selector').classList.add('hidden');

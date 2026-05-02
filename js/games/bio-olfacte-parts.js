@@ -25,11 +25,7 @@ function initBioOlfactePartsGame() {
     bioOlfactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-olfacte-parts-image');
-<<<<<<< HEAD
-    img.src = 'assets/images/biologia/sentit-olfacte.png'; 
-=======
     img.src = 'assets/images/activities/biologia/senses/sentit-olfacte.png'; 
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     const shuffled = [...bioOlfactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

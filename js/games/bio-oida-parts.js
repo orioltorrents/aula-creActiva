@@ -7,15 +7,9 @@
  */
 
 const OIDA_IMAGES = {
-<<<<<<< HEAD
-    externa: 'assets/images/biologia/orella-externa.png',
-    mitjana: 'assets/images/biologia/orella-mitjana.png',
-    interna: 'assets/images/biologia/orella-interna.png'
-=======
     externa: 'assets/images/activities/biologia/senses/orella-externa.png',
     mitjana: 'assets/images/activities/biologia/senses/orella-mitjana.png',
     interna: 'assets/images/activities/biologia/senses/orella-interna.png'
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 };
 
 const bioOidaPartsGame = {

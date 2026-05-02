@@ -82,19 +82,11 @@ function renderSolidartQuadre() {
     document.getElementById('solidart-quadres-score-display').textContent = `Punts: ${solidartQuadresState.score}`;
 
     const img = document.getElementById('solidart-quadres-img');
-<<<<<<< HEAD
-    img.src = `assets/images/art/${q.imatge}`;
-    img.onerror = () => {
-        img.src = 'assets/images/ui/placeholder-art.png';
-        console.warn(`Imatge no trobada: assets/images/art/${q.imatge}`);
-    };
-=======
     img.src = `assets/images/activities/solidart/artworks/${q.imatge}`;
     img.onerror = () => {
         img.src = buildSolidartPlaceholder(q.imatge);
         console.warn(`Imatge no trobada: assets/images/activities/solidart/artworks/${q.imatge}`);
     };
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     document.getElementById('solidart-quadres-text').textContent = q.pregunta;
 

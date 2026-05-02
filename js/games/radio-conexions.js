@@ -154,14 +154,6 @@ function renderConnectionQuestion() {
 
     if (feedbackEl) feedbackEl.innerText = '';
 
-<<<<<<< HEAD
-    // Update image
-    // Si la imatge no existeix, podem mostrar un placeholder o el nom
-    imgEl.src = `assets/images/radio/${question.image}`;
-    imgEl.onerror = () => {
-        imgEl.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(question.correct);
-    };
-=======
     progressEl.innerText = (typeof i18n !== 'undefined' ? i18n.t('question') : 'Pregunta') + ` ${connectionsQuiz.currentStep + 1}/${connectionsQuiz.questions.length}`;
     scoreEl.innerText = (typeof i18n !== 'undefined' ? i18n.t('score') : 'Punts') + `: ${connectionsQuiz.score}`;
     questionTextEl.innerText = question.question || 'Tria la resposta correcta:';
@@ -178,7 +170,6 @@ function renderConnectionQuestion() {
         imgEl.removeAttribute('src');
         imgEl.style.display = 'none';
     }
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     optionsGrid.innerHTML = '';
 

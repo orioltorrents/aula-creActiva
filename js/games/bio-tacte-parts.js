@@ -25,11 +25,7 @@ function initBioTactePartsGame() {
     bioTactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-tacte-parts-image');
-<<<<<<< HEAD
-    img.src = 'assets/images/biologia/sentit-tacte.png'; 
-=======
     img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png'; 
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
     const shuffled = [...bioTactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();

@@ -80,18 +80,6 @@ function renderSolidartQuadres2() {
     const optionsDiv = document.getElementById('solidart-quadres2-options');
     optionsDiv.innerHTML = '';
 
-<<<<<<< HEAD
-    q.opcions.forEach(imgName => {
-        const btn = document.createElement('div');
-        btn.className = 'activity-card p-2 cursor-pointer border-2 hover:border-primary transition-all';
-        btn.innerHTML = `
-            <img src="assets/images/art/${imgName}" class="w-full h-40 object-contain rounded" onerror="this.src='assets/images/ui/placeholder-art.png'">
-        `;
-        btn.onclick = () => checkSolidartQuadres2(imgName, btn);
-        optionsDiv.appendChild(btn);
-    });
-}
-=======
     q.opcions.forEach(imgName => {
         const btn = document.createElement('div');
         btn.className = 'activity-card p-2 cursor-pointer border-2 hover:border-primary transition-all';
@@ -121,7 +109,6 @@ function buildSolidartQuadres2Placeholder(text) {
 
     return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
->>>>>>> c1a29bccb178cf83c078d0ac2a8ab710a7bcf757
 
 function checkSolidartQuadres2(selectedImg, selectedBtn) {
     const q = solidartQuadres2State.questions[solidartQuadres2State.currentIndex];
