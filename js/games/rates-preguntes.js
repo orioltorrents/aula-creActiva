@@ -229,3 +229,5 @@ async function saveRatesPreguntaResult() {
 
     callApi('saveResult', resultData).catch(e => console.error("Error guardant resultats Rates: ", e));
 }
+
+

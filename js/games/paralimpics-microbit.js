@@ -180,7 +180,7 @@ function initParalimpicsMicrobit(selectedLevel) {
 
     document.getElementById('paralimpics-quiz-container').classList.remove('hidden');
     document.getElementById('paralimpics-results').classList.add('hidden');
-    document.querySelector('#paralimpics-activity-microbit .game-controls').classList.add('hidden');
+    document.querySelector('#paralimpics-activity-microbit .game-panel__controls').classList.add('hidden');
 
     showParalimpicsQuestion();
 }
@@ -290,3 +290,4 @@ function updateParalimpicsLanguage() {
         showParalimpicsQuestion();
     }
 }
+

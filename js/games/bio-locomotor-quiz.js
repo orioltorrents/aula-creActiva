@@ -279,3 +279,5 @@ async function finishLocomotorQuiz() {
         }).catch(err => console.error("Error guardant resultat", err));
     }
 }
+
+

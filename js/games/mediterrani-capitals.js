@@ -213,8 +213,6 @@ function handleAnswer(selected, correct, btnElement) {
 async function finishGame() {
     if (medGameState.timer) clearInterval(medGameState.timer);
     medGameState.examFinished = true;
-
-    const container = document.getElementById('question-container');
     // Hide questions
     document.getElementById('med-options').innerHTML = '';
     document.getElementById('med-question').innerText = i18n.t('final_score');
@@ -305,3 +303,4 @@ function updateMediterraniLanguage() {
         }
     }
 }
+

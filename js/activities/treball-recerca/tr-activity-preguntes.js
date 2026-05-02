@@ -284,3 +284,5 @@ async function saveTrResult() {
 
     callApi('saveResult', resultData).catch(e => console.error("Error guardant resultats TR: ", e));
 }
+
+

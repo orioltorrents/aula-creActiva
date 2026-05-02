@@ -39,15 +39,15 @@
     <!-- Zona del quiz -->
     <div id="rols-quiz-area" class="hidden">
         <!-- Barra de progrés -->
-        <div class="quiz-progress mb-2">
+        <div class="game-panel__progress mb-2">
             <span id="rols-current-q">1</span>/10
-            <div class="progress-bar-bg">
-                <div id="rols-progress-fill" class="progress-bar-fill"></div>
+            <div class="game-panel__progress-track">
+                <div id="rols-progress-fill" class="game-panel__progress-fill"></div>
             </div>
         </div>
 
         <!-- Targeta principal de la pregunta -->
-        <div class="question-card">
+        <div class="game-panel__card">
             <!-- Imatge de l'espècie -->
             <div id="rols-species-img-container" class="hidden mb-4">
                 <img id="rols-species-img" src="" alt="Espècie" class="species-quiz-img">
@@ -158,25 +158,27 @@
             </div>
 
             <!-- Feedback -->
-            <div id="rols-feedback" class="hidden mt-4 p-3 rounded text-left"></div>
+            <div id="rols-feedback" class="feedback-panel hidden mt-4 p-3 rounded text-left"></div>
         </div>
     </div>
 
     <!-- Pantalla final de resultats -->
-    <div id="rols-results-area" class="hidden text-center">
+    <div id="rols-results-area" class="result-screen hidden text-center">
         <h3 data-i18n="results">Resultats</h3>
 
-        <div class="results-display my-4">
+        <div class="result-screen__display results-display my-4">
             <p class="text-4xl font-bold">
-                <span id="rols-final-score">0</span> / 40
+                <span id="rols-final-score" class="result-screen__score">0</span> / 40
             </p>
-            <p id="rols-final-percentage" class="text-xl">0%</p>
+            <p id="rols-final-percentage" class="result-screen__percentage text-xl">0%</p>
         </div>
 
-        <div id="rols-final-msg" class="alert p-4 rounded mb-4"></div>
+        <div id="rols-final-msg" class="result-screen__message alert p-4 rounded mb-4"></div>
 
         <button onclick="showNaturaMenu()" class="btn-secondary" data-i18n="back">
             Tornar
         </button>
     </div>
 </div>
+
+

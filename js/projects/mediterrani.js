@@ -1,26 +1,26 @@
-/*
+﻿/*
 ==========================================================
-MÒDUL DEL PROJECTE MEDITERRANI
+MÃ’DUL DEL PROJECTE MEDITERRANI
 ==========================================================
 
-Aquest fitxer JavaScript s'encarrega de gestionar la navegació
-i la visualització del projecte Mediterrani.
+Aquest fitxer JavaScript s'encarrega de gestionar la navegaciÃ³
+i la visualitzaciÃ³ del projecte Mediterrani.
 
-Què fa aquest fitxer?
-- Pinta dinàmicament les targetes del menú d'activitats.
-- Mostra el menú principal del projecte.
+QuÃ¨ fa aquest fitxer?
+- Pinta dinÃ micament les targetes del menÃº d'activitats.
+- Mostra el menÃº principal del projecte.
 - Amaga totes les subactivitats quan cal.
 - Obre la subactivitat que l'usuari selecciona.
 
-Què NO fa aquest fitxer?
-- No gestiona la lògica interna de cada joc o activitat.
+QuÃ¨ NO fa aquest fitxer?
+- No gestiona la lÃ²gica interna de cada joc o activitat.
 - No comprova respostes.
 - No calcula puntuacions.
 - No controla temporitzadors.
 
 Per tant, aquest fitxer actua com a "controlador del projecte":
-organitza la navegació entre les diferents pantalles del
-Mediterrani, però la lògica específica de cada activitat
+organitza la navegaciÃ³ entre les diferents pantalles del
+Mediterrani, perÃ² la lÃ²gica especÃ­fica de cada activitat
 hauria d'estar dins de js/games/.
 
 Exemples de funcions que hi poden anar:
@@ -38,7 +38,7 @@ Exemples de funcions que NO hi haurien d'anar:
 ==========================================================
 */
 
-// Dibuixa les targetes del menú d'activitats del projecte Mediterrani
+// Dibuixa les targetes del menÃº d'activitats del projecte Mediterrani
 function renderMediterraniActivities() {
   // Contenidor on es pinten les targetes
   const container = document.getElementById("med-activities-menu");
@@ -50,24 +50,24 @@ function renderMediterraniActivities() {
   // Si no existeix el contenidor o no hi ha activitats definides, sortim
   if (!container || activities.length === 0) return;
 
-  // Generem les targetes a partir de la configuració
+  // Generem les targetes a partir de la configuraciÃ³
   container.innerHTML = activities.map(activity => `
     <div class="activity-card" onclick="openMediterraniActivity('${activity.action}')">
-      <div class="act-icon">
-        <img src="${activity.image}" alt="${activity.fallbackTitle}" class="act-img">
+      <div class="activity-card__media">
+        <img src="${activity.image}" alt="${activity.fallbackTitle}" class="activity-card__image">
       </div>
-      <div class="card-content">
-        <div class="card-title" data-i18n="${activity.titleKey}">
+      <div class="activity-card__content">
+        <div class="activity-card__title" data-i18n="${activity.titleKey}">
           ${activity.fallbackTitle}
         </div>
-        <div class="card-desc" data-i18n="${activity.descKey}">
+        <div class="activity-card__description" data-i18n="${activity.descKey}">
           ${activity.fallbackDesc}
         </div>
       </div>
     </div>
   `).join("");
 
-  // Reapliquem les traduccions si la funció existeix
+  // Reapliquem les traduccions si la funciÃ³ existeix
   if (typeof applyTranslations === "function") {
     applyTranslations();
   }
@@ -76,7 +76,7 @@ function renderMediterraniActivities() {
 // Amaga totes les subactivitats del projecte Mediterrani
 function hideMediterraniActivities() {
   // Llista d'identificadors de les subactivitats del projecte.
-  // Si en el futur s'afegeixen noves activitats, caldrà afegir-les aquí.
+  // Si en el futur s'afegeixen noves activitats, caldrÃ  afegir-les aquÃ­.
   const activityIds = [
     "med-activity-capitals",
     "med-activity-test_mar",
@@ -94,15 +94,15 @@ function hideMediterraniActivities() {
   });
 }
 
-// Mostra el menú principal del projecte Mediterrani
+// Mostra el menÃº principal del projecte Mediterrani
 function showMediterraniMenu() {
-  // Recuperem el menú d'activitats
+  // Recuperem el menÃº d'activitats
   const menu = document.getElementById("med-activities-menu");
 
-  // Abans de mostrar el menú, amaguem totes les subactivitats
+  // Abans de mostrar el menÃº, amaguem totes les subactivitats
   hideMediterraniActivities();
 
-  // Mostrem el menú si existeix
+  // Mostrem el menÃº si existeix
   if (menu) {
     menu.classList.remove("hidden");
   }
@@ -110,10 +110,10 @@ function showMediterraniMenu() {
 
 // Obre una activitat concreta del projecte Mediterrani
 function openMediterraniActivity(activityName) {
-  // Recuperem el menú principal del projecte
+  // Recuperem el menÃº principal del projecte
   const menu = document.getElementById("med-activities-menu");
 
-  // Amaguem el menú si existeix
+  // Amaguem el menÃº si existeix
   if (menu) {
     menu.classList.add("hidden");
   }
@@ -121,7 +121,7 @@ function openMediterraniActivity(activityName) {
   // Amaguem totes les subactivitats abans d'obrir-ne una
   hideMediterraniActivities();
 
-  // Construïm l'id HTML de la subactivitat a partir del nom rebut
+  // ConstruÃ¯m l'id HTML de la subactivitat a partir del nom rebut
   const activityId = `med-activity-${activityName}`;
 
   // Recuperem el bloc de la subactivitat corresponent
@@ -136,3 +136,4 @@ function openMediterraniActivity(activityName) {
     initMediterraniBiodiversitatQuiz();
   }
 }
+

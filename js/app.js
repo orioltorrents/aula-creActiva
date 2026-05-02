@@ -255,16 +255,16 @@ async function loadDashboard() {
 
     // Configuració visual dels projectes
     const projectVisuals = {
-        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
-        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
-        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
-        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
-        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
-        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-card__image">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-card__image">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
 
     if (allProjects.length > 0) {
@@ -274,14 +274,14 @@ async function loadDashboard() {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="card-image" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+                <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
                     ${proj.imatge
-                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-img-thumb">`
+                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image">`
                     : visual.icon}
                 </div>
-                <div class="card-content">
-                    <div class="card-title">${proj.titol}</div>
-                    <div class="card-desc">${proj.descripcio}</div>
+                <div class="project-card__content">
+                    <div class="project-card__title">${proj.titol}</div>
+                    <div class="project-card__description">${proj.descripcio}</div>
                 </div>
             `;
             card.addEventListener('click', () => openProject(proj));
@@ -804,3 +804,4 @@ function openRadioActivity(actId) {
         }
     }
 }
+

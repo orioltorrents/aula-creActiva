@@ -241,3 +241,5 @@ async function finishCircQuiz() {
         }).catch(err => console.error("Error guardant resultat", err));
     }
 }
+
+

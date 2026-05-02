@@ -103,7 +103,7 @@ function initMediterraniTest() {
 
     document.getElementById('test-container').classList.remove('hidden');
     document.getElementById('test-results').classList.add('hidden');
-    document.querySelector('#med-activity-test_mar .game-controls').classList.add('hidden'); // Amagar botó començar
+    document.querySelector('#med-activity-test_mar .game-panel__controls').classList.add('hidden'); // Amagar botó començar
 
     showTestQuestion();
 }
@@ -217,3 +217,4 @@ async function finishTest() {
         }
     }
 }
+

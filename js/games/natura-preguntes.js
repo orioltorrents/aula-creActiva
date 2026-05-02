@@ -241,3 +241,5 @@ async function saveNaturaPreguntaResult() {
 
     callApi('saveResult', resultData).catch(e => console.error("Error guardant resultats Natura: ", e));
 }
+
+

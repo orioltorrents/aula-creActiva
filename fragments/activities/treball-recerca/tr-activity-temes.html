@@ -20,7 +20,7 @@
          Aquí l'alumne veu la presentació de l'activitat
          i pot escollir una categoria per començar.
     ====================================================== -->
-    <div id="tr-temes-setup" class="game-header text-center">
+    <div id="tr-temes-setup" class="game-panel__header text-center">
 
         <!-- Títol de l'activitat -->
         <h3>
@@ -45,7 +45,7 @@
     <div id="tr-temes-quiz-container" class="hidden">
 
         <!-- Barra d'estat amb progrés i puntuació -->
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="tr-temes-progress">Tema 1 / X</span>
             <span id="tr-temes-score">Punts: 0</span>
         </div>
@@ -83,10 +83,10 @@
              FEEDBACK DE LA RESPOSTA
              Aquesta zona apareix després de comprovar.
         ================================================== -->
-        <div id="tr-temes-feedback-area" class="hidden mt-6">
+        <div id="tr-temes-feedback-area" class="feedback-panel hidden mt-6">
 
             <!-- Llista de feedback detallat sobre cada opció -->
-            <div id="tr-temes-feedback-list" class="flex flex-col gap-3 mb-6"></div>
+            <div id="tr-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
 
             <!-- Botó per avançar al següent tema -->
             <button id="tr-temes-next-btn"
@@ -101,23 +101,23 @@
          PANTALLA FINAL DE RESULTATS
          Es mostra quan l'activitat s'ha completat.
     ====================================================== -->
-    <div id="tr-temes-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="tr-temes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
 
         <!-- Títol de resultats -->
         <h3 data-i18n="final_score">Resultat final</h3>
 
         <!-- Puntuació final -->
-        <p id="tr-temes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+        <p id="tr-temes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
             0 / 15
         </p>
 
         <!-- Percentatge final -->
-        <p id="tr-temes-final-percentage" class="text-2xl font-semibold mb-4 text-gray-700">
+        <p id="tr-temes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
             0%
         </p>
 
         <!-- Missatge final personalitzat -->
-        <p id="tr-temes-final-msg" class="text-lg mb-8"></p>
+        <p id="tr-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
 
         <!-- Botó per tornar al menú del projecte -->
         <button onclick="showTrMenu()" class="btn-secondary">
@@ -125,3 +125,4 @@
         </button>
     </div>
 </div>
+

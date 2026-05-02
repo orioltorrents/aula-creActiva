@@ -219,3 +219,5 @@ async function endTacteQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

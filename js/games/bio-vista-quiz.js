@@ -222,3 +222,5 @@ async function endVistaQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

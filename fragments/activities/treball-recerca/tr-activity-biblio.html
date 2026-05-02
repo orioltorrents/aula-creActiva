@@ -15,7 +15,7 @@
     </button>
 
     <!-- Capçalera de l'activitat -->
-    <div class="game-header">
+    <div class="game-panel__header">
         <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
     </div>
 
@@ -30,7 +30,7 @@
          PANTALLA INICIAL
          Aquí l'alumne selecciona tema o nivell.
     ====================================================== -->
-    <div class="game-controls py-4" id="tr-biblio-level-selection">
+    <div class="game-panel__controls py-4" id="tr-biblio-level-selection">
 
         <!-- Contenidor on es carregaran dinàmicament els temes -->
         <div id="tr-biblio-topic-selection" class="flex flex-col items-center"></div>
@@ -74,32 +74,32 @@
     <div id="tr-biblio-quiz-container" class="hidden">
 
         <!-- Barra d'estat amb progrés i puntuació -->
-        <div class="stats-bar">
+        <div class="game-panel__stats">
             <span id="tr-biblio-progress">Pregunta 1/8</span>
             <span id="tr-biblio-score">Punts: 0</span>
         </div>
 
         <!-- Caixa principal de la pregunta -->
-        <div class="question-container">
+        <div class="game-panel__question">
             <h4 id="tr-biblio-question-text">Pregunta...</h4>
             <div id="tr-biblio-options" class="options-list"></div>
         </div>
 
         <!-- Missatge de feedback -->
-        <p id="tr-biblio-feedback" class="feedback-msg"></p>
+        <p id="tr-biblio-feedback" class="game-panel__feedback"></p>
     </div>
 
     <!-- =====================================================
          PANTALLA FINAL DE RESULTATS
          Es mostra quan l'activitat s'ha completat.
     ====================================================== -->
-    <div id="tr-biblio-results" class="hidden text-center">
+    <div id="tr-biblio-results" class="result-screen hidden text-center">
 
         <!-- Títol de resultats -->
         <h3 data-i18n="final_score">Resultats</h3>
 
         <!-- Puntuació final -->
-        <p id="tr-biblio-final-score" class="text-2xl font-bold">0 / 80</p>
+        <p id="tr-biblio-final-score" class="result-screen__score text-2xl font-bold">0 / 80</p>
 
         <!-- Missatge final -->
         <p id="tr-biblio-message"></p>
@@ -110,3 +110,4 @@
         </button>
     </div>
 </div>
+

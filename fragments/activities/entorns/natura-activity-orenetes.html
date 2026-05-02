@@ -5,7 +5,7 @@
 <div id="natura-activity-orenetes" class="sub-activity hidden">
     <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al menú</button>
 
-    <div class="game-header text-center">
+    <div class="game-panel__header text-center">
         <h3>
             <span data-i18n="natura_project_title">Entorns de Natura</span> —
             <span data-i18n="act_orenetes_title">Projecte Orenetes</span>
@@ -18,7 +18,7 @@
     </div>
 
     <div id="orenetes-game" class="hidden">
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="orenetes-progress">Imatge 1 / X</span>
             <span>Puntuació: <span id="orenetes-score" class="font-bold text-blue-600">0%</span></span>
         </div>
@@ -56,16 +56,18 @@
                 </div>
 
                 <button id="orenetes-check-btn" class="btn-primary" onclick="checkOrenetesAnswer()">Comprovar</button>
-                <div id="orenetes-feedback" class="orenetes-feedback hidden"></div>
+                <div id="orenetes-feedback" class="feedback-panel orenetes-feedback hidden"></div>
                 <button id="orenetes-next-btn" class="btn-secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
             </div>
         </div>
     </div>
 
-    <div id="orenetes-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="orenetes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
         <h3>Resultat final</h3>
-        <p id="orenetes-final-score" class="text-4xl font-bold text-blue-600 mt-4">0%</p>
-        <p id="orenetes-final-msg" class="text-lg mt-4 mb-8"></p>
+        <p id="orenetes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
+        <p id="orenetes-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
         <button onclick="showNaturaMenu()" class="btn-secondary">Tornar al menú</button>
     </div>
 </div>
+
+

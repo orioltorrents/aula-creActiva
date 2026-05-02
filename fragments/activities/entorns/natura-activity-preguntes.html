@@ -37,12 +37,12 @@
     <!-- Zona del quiz -->
     <div id="natura-preguntes-quiz-container" class="hidden">
         <!-- Barra de progrés -->
-        <div class="stats-bar flex justify-between">
+        <div class="game-panel__stats flex justify-between">
             <span id="natura-preguntes-progress">Pregunta 1 / 15</span>
         </div>
 
         <!-- Caixa principal de la pregunta -->
-        <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+        <div class="game-panel__question mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
             <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
             <!-- Botons de resposta -->
@@ -64,10 +64,9 @@
         </div>
 
         <!-- Feedback -->
-        <div id="natura-preguntes-feedback-area"
-            class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
-            <p id="natura-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <p id="natura-preguntes-feedback-desc" class="mb-4"></p>
+        <div id="natura-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+            <p id="natura-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <p id="natura-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
 
             <button id="natura-preguntes-next-btn"
                 class="btn-primary"
@@ -78,22 +77,23 @@
     </div>
 
     <!-- Pantalla final de resultats -->
-    <div id="natura-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="natura-preguntes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
         <h3 data-i18n="final_score">Resultat final</h3>
 
-        <p id="natura-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+        <p id="natura-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
             0 / 15
         </p>
 
-        <p id="natura-preguntes-final-percentage"
-            class="text-2xl font-semibold mb-4 text-gray-700">
+        <p id="natura-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
             0%
         </p>
 
-        <p id="natura-preguntes-final-msg" class="text-lg mb-8"></p>
+        <p id="natura-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
 
         <button onclick="showNaturaMenu()" class="btn-secondary">
             Tornar
         </button>
     </div>
 </div>
+
+

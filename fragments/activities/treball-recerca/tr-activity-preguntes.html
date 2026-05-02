@@ -56,12 +56,12 @@
     <div id="tr-preguntes-quiz-container" class="hidden">
 
         <!-- Barra de progrés -->
-        <div class="stats-bar flex justify-between">
+        <div class="game-panel__stats flex justify-between">
             <span id="tr-preguntes-progress">Pregunta 1 / 15</span>
         </div>
 
         <!-- Caixa principal de la pregunta -->
-        <div class="question-container mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+        <div class="game-panel__question mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
 
             <!-- Text de la pregunta actual -->
             <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">
@@ -91,14 +91,13 @@
              FEEDBACK DE LA RESPOSTA
              Aquesta zona apareix després de respondre.
         ================================================== -->
-        <div id="tr-preguntes-feedback-area"
-            class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+        <div id="tr-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
 
             <!-- Missatge principal de feedback -->
-            <p id="tr-preguntes-feedback-msg" class="text-xl font-bold mb-2"></p>
+            <p id="tr-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
 
             <!-- Explicació complementària -->
-            <p id="tr-preguntes-feedback-desc" class="mb-4"></p>
+            <p id="tr-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
 
             <!-- Botó per avançar a la següent pregunta -->
             <button id="tr-preguntes-next-btn"
@@ -113,24 +112,23 @@
          PANTALLA FINAL DE RESULTATS
          Es mostra quan l'activitat s'ha completat.
     ====================================================== -->
-    <div id="tr-preguntes-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="tr-preguntes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
 
         <!-- Títol de resultats -->
         <h3 data-i18n="final_score">Resultat final</h3>
 
         <!-- Puntuació total -->
-        <p id="tr-preguntes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+        <p id="tr-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
             0 / 15
         </p>
 
         <!-- Percentatge final -->
-        <p id="tr-preguntes-final-percentage"
-            class="text-2xl font-semibold mb-4 text-gray-700">
+        <p id="tr-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
             0%
         </p>
 
         <!-- Missatge final personalitzat -->
-        <p id="tr-preguntes-final-msg" class="text-lg mb-8"></p>
+        <p id="tr-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
 
         <!-- Botó per tornar al menú del projecte -->
         <button onclick="showTrMenu()" class="btn-secondary">
@@ -138,3 +136,5 @@
         </button>
     </div>
 </div>
+
+

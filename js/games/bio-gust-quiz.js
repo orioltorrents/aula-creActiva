@@ -219,3 +219,5 @@ async function endGustQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

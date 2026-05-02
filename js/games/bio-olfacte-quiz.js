@@ -219,3 +219,5 @@ async function endOlfacteQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+
