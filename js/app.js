@@ -217,7 +217,7 @@ async function handleLogin(email, password) {
             state.user = response.user;
             localStorage.setItem('user', JSON.stringify(state.user));
 
-            loadDashboard().catch(error => {
+            await loadDashboard().catch(error => {
                 console.error("Error carregant dashboard:", error);
             });
         } else {
