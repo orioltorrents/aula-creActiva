@@ -65,8 +65,8 @@ function startMediterraniBiodiversitatSelector() {
     selector.classList.remove('hidden');
     buttonsContainer.innerHTML = '';
 
-    addMediterraniBiodiversitatFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty', '#10b981');
-    addMediterraniBiodiversitatFilterSection(buttonsContainer, 'Per tema:', 'topic', '#3b82f6');
+    addMediterraniBiodiversitatFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty');
+    addMediterraniBiodiversitatFilterSection(buttonsContainer, 'Per tema:', 'topic');
 
     const mixLabel = document.createElement('p');
     mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
@@ -81,7 +81,7 @@ function startMediterraniBiodiversitatSelector() {
     buttonsContainer.appendChild(mixBtn);
 }
 
-function addMediterraniBiodiversitatFilterSection(container, labelText, field, color) {
+function addMediterraniBiodiversitatFilterSection(container, labelText, field) {
     const values = getMediterraniBiodiversitatUniqueValues(field);
     if (values.length === 0) return;
 
@@ -93,8 +93,7 @@ function addMediterraniBiodiversitatFilterSection(container, labelText, field, c
     values.forEach(value => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.classList.add('quiz-filter-button');
-            btn.style.backgroundColor = color;
+        btn.classList.add('quiz-filter-button', getQuizFilterButtonModifier(field, value));
         btn.innerText = value;
         btn.onclick = () => startMediterraniBiodiversitatQuiz(value, field);
         container.appendChild(btn);

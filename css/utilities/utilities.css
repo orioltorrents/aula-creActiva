@@ -154,19 +154,26 @@
     font-size: 1.1rem;
 }
 
-.state-success {
+/* Feedback reutilitzable de quizzes.
+   `state-*` queda com utilitat general i `quiz-feedback--*` com a nom semantic
+   per als missatges generats per les activitats. */
+.state-success,
+.quiz-feedback--success {
     color: var(--success);
 }
 
-.state-error {
+.state-error,
+.quiz-feedback--error {
     color: var(--error);
 }
 
-.state-warning {
+.state-warning,
+.quiz-feedback--warning {
     color: orange;
 }
 
-.state-muted {
+.state-muted,
+.quiz-feedback--muted {
     color: var(--text-color);
 }
 

@@ -74,7 +74,7 @@ function startOlfacteQuizLevelSelector() {
         levels.forEach(lvl => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.classList.add('quiz-filter-button', 'quiz-filter-button--success');
+            btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
             btn.innerText = lvl;
             btn.onclick = () => startOlfacteQuiz(lvl, 'level');
             container.appendChild(btn);

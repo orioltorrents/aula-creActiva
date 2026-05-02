@@ -34,24 +34,7 @@ async function loadTrTemesCategories() {
 
             categories.forEach((cat) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn--primary shadow-md';
-                btn.style.padding = '1.5rem 2rem';
-                btn.style.fontSize = '1.2rem';
-                btn.style.fontWeight = 'bold';
-                btn.style.textTransform = 'capitalize';
-                btn.style.backgroundColor = '#3b82f6';
-                btn.style.transition = 'background-color 0.3s ease, transform 0.1s ease';
-
-                btn.onmouseover = () => {
-                    btn.style.backgroundColor = '#ef4444';
-                    btn.style.transform = 'scale(1.05)';
-                };
-
-                btn.onmouseout = () => {
-                    btn.style.backgroundColor = '#3b82f6';
-                    btn.style.transform = 'scale(1)';
-                };
-
+                btn.className = 'btn btn--primary shadow-md quiz-category-button quiz-filter-button--topic';
                 btn.textContent = cat;
                 btn.onclick = () => initTrTemes(cat);
                 container.appendChild(btn);

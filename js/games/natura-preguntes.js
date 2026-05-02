@@ -24,7 +24,7 @@ async function loadNaturaCategories() {
             topBlock.appendChild(topTitle);
 
             subambits.forEach(opt => {
-                const btn = createNaturaBtn(opt, () => initNaturaPreguntes(opt, ''), '#059669');
+                const btn = createNaturaBtn(opt, () => initNaturaPreguntes(opt, ''), 'quiz-filter-button--easy');
                 topBlock.appendChild(btn);
             });
 
@@ -46,7 +46,7 @@ async function loadNaturaCategories() {
 
             const mixContainer = document.createElement('div');
             mixContainer.className = 'col-span-full flex justify-center mt-8';
-            const mixBtn = createNaturaBtn('Totes barrejades', () => initNaturaPreguntes('Mix', 'Mix'), '#8b5cf6');
+            const mixBtn = createNaturaBtn('Totes barrejades', () => initNaturaPreguntes('Mix', 'Mix'), 'quiz-filter-button--mixed');
             mixBtn.style.padding = '1.2rem 3rem';
             mixContainer.appendChild(mixBtn);
             container.appendChild(mixContainer);
@@ -59,26 +59,9 @@ async function loadNaturaCategories() {
     }
 }
 
-function createNaturaBtn(text, onClick, bgColor = '#10b981') {
+function createNaturaBtn(text, onClick, modifierClass = 'quiz-filter-button--easy') {
     const btn = document.createElement('button');
-    btn.className = 'btn btn--primary shadow-md';
-    btn.style.padding = '0.8rem 1.5rem';
-    btn.style.margin = '5px';
-    btn.style.width = 'auto';
-    btn.style.fontSize = '1.1rem';
-    btn.style.fontWeight = 'bold';
-    btn.style.backgroundColor = bgColor;
-    btn.style.transition = 'all 0.3s ease';
-
-    btn.onmouseover = () => {
-        btn.style.filter = 'brightness(1.1)';
-        btn.style.transform = 'translateY(-2px)';
-    };
-    btn.onmouseout = () => {
-        btn.style.filter = 'brightness(1)';
-        btn.style.transform = 'translateY(0)';
-    };
-
+    btn.className = `btn btn--primary shadow-md quiz-option-button ${modifierClass}`;
     btn.textContent = text;
     btn.onclick = onClick;
     return btn;

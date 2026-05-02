@@ -86,11 +86,49 @@ function canUseTeacherTools() {
 
 function setElementStateColor(element, stateName) {
     if (!element) return;
-    element.classList.remove('state-success', 'state-error', 'state-warning', 'state-muted');
+    element.classList.remove(
+        'state-success',
+        'state-error',
+        'state-warning',
+        'state-muted',
+        'quiz-feedback--success',
+        'quiz-feedback--error',
+        'quiz-feedback--warning',
+        'quiz-feedback--muted'
+    );
 
     if (stateName) {
         element.classList.add(`state-${stateName}`);
+        element.classList.add(`quiz-feedback--${stateName}`);
     }
+}
+
+function getQuizLevelButtonModifier(levelName) {
+    const normalizedLevel = (levelName || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    if (normalizedLevel.includes('facil') || normalizedLevel.includes('easy')) {
+        return 'quiz-filter-button--easy';
+    }
+
+    if (normalizedLevel.includes('mitj') || normalizedLevel.includes('medium')) {
+        return 'quiz-filter-button--medium';
+    }
+
+    if (normalizedLevel.includes('dificil') || normalizedLevel.includes('hard')) {
+        return 'quiz-filter-button--hard';
+    }
+
+    return 'quiz-filter-button--topic';
+}
+
+function getQuizFilterButtonModifier(fieldName, value) {
+    return fieldName === 'difficulty'
+        ? getQuizLevelButtonModifier(value)
+        : 'quiz-filter-button--topic';
 }
 
 

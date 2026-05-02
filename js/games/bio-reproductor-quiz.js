@@ -73,7 +73,7 @@ function startReproductorQuizLevelSelector() {
         topics.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            btn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--pink');
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--topic');
             btn.innerText = cat;
             btn.onclick = () => startReproductorQuiz(cat, 'type');
             container.appendChild(btn);
@@ -98,13 +98,10 @@ function startReproductorQuizLevelSelector() {
         levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
         levelLabel.innerText = 'Per Nivell:';
         container.appendChild(levelLabel);
-        const levelColors = { 'Fàcil': '#22c55e', 'Mitjà': '#f59e0b', 'Difícil': '#ef4444' };
         levels.forEach(lvl => {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
-            const color = levelColors[lvl] || '#6366f1';
-            btn.classList.add('quiz-filter-button');
-            btn.style.backgroundColor = color;
+            btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
             btn.innerText = lvl;
             btn.onclick = () => startReproductorQuiz(lvl, 'level');
             container.appendChild(btn);

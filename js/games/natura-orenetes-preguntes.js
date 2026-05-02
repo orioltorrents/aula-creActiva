@@ -74,8 +74,8 @@ function startOrenetesPreguntesSelector() {
     selector.classList.remove('hidden');
     buttonsContainer.innerHTML = '';
 
-    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty', '#10b981');
-    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per tema:', 'topic', '#3b82f6');
+    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty');
+    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per tema:', 'topic');
 
     const mixLabel = document.createElement('p');
     mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
@@ -90,7 +90,7 @@ function startOrenetesPreguntesSelector() {
     buttonsContainer.appendChild(mixBtn);
 }
 
-function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
+function addOrenetesPreguntesFilterSection(container, labelText, field) {
     const values = getOrenetesPreguntesUniqueValues(field);
     if (values.length === 0) return;
 
@@ -102,8 +102,7 @@ function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
     values.forEach(value => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.classList.add('quiz-filter-button');
-            btn.style.backgroundColor = color;
+        btn.classList.add('quiz-filter-button', getQuizFilterButtonModifier(field, value));
         btn.textContent = value;
         btn.onclick = () => startOrenetesPreguntesQuiz(value, field);
         container.appendChild(btn);

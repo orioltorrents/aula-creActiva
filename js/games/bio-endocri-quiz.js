@@ -64,9 +64,7 @@ function startEndocriQuizLevelSelector() {
     topics.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.style.backgroundColor = '#3b82f6';
-        btn.style.width = 'auto';
-        btn.style.minWidth = '120px';
+        btn.classList.add('quiz-filter-button', 'quiz-filter-button--topic');
         btn.innerText = cat;
         btn.onclick = () => startEndocriQuiz(cat, 'type');
         container.appendChild(btn);
@@ -86,9 +84,7 @@ function startEndocriQuizLevelSelector() {
     levels.forEach(lvl => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
-        btn.style.backgroundColor = '#10b981';
-        btn.style.width = 'auto';
-        btn.style.minWidth = '120px';
+        btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
         btn.innerText = lvl;
         btn.onclick = () => startEndocriQuiz(lvl, 'level');
         container.appendChild(btn);
@@ -102,9 +98,7 @@ function startEndocriQuizLevelSelector() {
 
     const mixBtn = document.createElement('button');
     mixBtn.className = 'btn btn--primary';
-    mixBtn.style.backgroundColor = '#7c3aed';
-    mixBtn.style.width = 'auto';
-    mixBtn.style.minWidth = '120px';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startEndocriQuiz('Barrejat', null);
     container.appendChild(mixBtn);

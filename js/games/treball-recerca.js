@@ -39,7 +39,7 @@ async function loadTrCategories() {
             bottomBlock.appendChild(bottomTitle);
 
             subambits.forEach(opt => {
-                const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), '#ef4444');
+                const btn = createTrBtn(opt, () => initTrPreguntes(opt, ''), 'quiz-filter-button--hard');
                 bottomBlock.appendChild(btn);
             });
 
@@ -50,7 +50,7 @@ async function loadTrCategories() {
             // Botó Barrejat al mig/baix
             const mixContainer = document.createElement('div');
             mixContainer.className = 'col-span-full flex justify-center mt-8';
-            const mixBtn = createTrBtn('Totes barrejades', () => initTrPreguntes('Mix', 'Mix'), '#8b5cf6');
+            const mixBtn = createTrBtn('Totes barrejades', () => initTrPreguntes('Mix', 'Mix'), 'quiz-filter-button--mixed');
             mixBtn.style.padding = '1.2rem 3rem';
             mixContainer.appendChild(mixBtn);
             container.appendChild(mixContainer);
@@ -63,26 +63,9 @@ async function loadTrCategories() {
     }
 }
 
-function createTrBtn(text, onClick, bgColor = '#3b82f6') {
+function createTrBtn(text, onClick, modifierClass = 'quiz-filter-button--topic') {
     const btn = document.createElement('button');
-    btn.className = 'btn btn--primary shadow-md';
-    btn.style.padding = '0.6rem 1.2rem';
-    btn.style.margin = '4px';
-    btn.style.width = 'auto';
-    btn.style.fontSize = '0.95rem';
-    btn.style.fontWeight = 'bold';
-    btn.style.backgroundColor = bgColor;
-    btn.style.transition = 'all 0.3s ease';
-
-    btn.onmouseover = () => {
-        btn.style.filter = 'brightness(1.1)';
-        btn.style.transform = 'translateY(-2px)';
-    };
-    btn.onmouseout = () => {
-        btn.style.filter = 'brightness(1)';
-        btn.style.transform = 'translateY(0)';
-    };
-
+    btn.className = `btn btn--primary shadow-md quiz-option-button quiz-option-button--compact ${modifierClass}`;
     btn.textContent = text;
     btn.onclick = onClick;
     return btn;

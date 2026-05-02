@@ -172,6 +172,9 @@
     border-color: var(--primary-color);
 }
 
+/* Bloc BEM: `quiz-filter-button`
+   Botons reutilitzables per filtres i nivells dels quizzes generats per JS.
+   La base controla mida; els modificadors indiquen rol visual o dificultat. */
 .quiz-filter-button {
     width: auto;
     min-width: 120px;
@@ -185,21 +188,62 @@
     background-color: #3b82f6;
 }
 
-.quiz-filter-button--success {
-    background-color: #10b981;
+.quiz-filter-button--easy {
+    background-color: var(--success);
+}
+
+.quiz-filter-button--medium {
+    background-color: var(--warning);
+    color: var(--text-color);
+}
+
+.quiz-filter-button--hard {
+    background-color: var(--error);
 }
 
 .quiz-filter-button--mixed {
     background-color: #7c3aed;
 }
 
-.quiz-filter-button--pink {
-    background-color: #ec4899;
-}
-
 .quiz-filter-button--compact {
     min-width: 120px;
     padding: 10px 20px;
     font-size: 0.95rem;
+}
+
+/* Bloc BEM: `quiz-option-button`
+   Opcions de resposta generades per JS; comparteixen mida, pes i hover.
+   El color s'agafa dels modificadors `quiz-filter-button--*` quan cal. */
+.quiz-option-button {
+    width: auto;
+    padding: 0.8rem 1.5rem;
+    margin: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.quiz-option-button--compact {
+    padding: 0.6rem 1.2rem;
+    margin: 4px;
+    font-size: 0.95rem;
+}
+
+.quiz-option-button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.quiz-category-button {
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.quiz-category-button:hover {
+    background-color: var(--error);
+    transform: scale(1.05);
 }
 
