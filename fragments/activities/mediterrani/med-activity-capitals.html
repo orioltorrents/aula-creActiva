@@ -1,13 +1,14 @@
 <div id="med-activity-capitals" class="sub-activity hidden">
-    <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+
     <div class="game-panel__header">
         <h3 id="med-title">Capitals del Mediterrani</h3>
         <div class="game-panel__controls">
-            <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn-secondary"
+            <button id="btn-toggle-country" onclick="toggleCountryName()" class="btn btn--secondary"
                 data-i18n="hide_country">Amagar País</button>
-            <button onclick="initMediterraniGame('practice')" class="btn-secondary"
-                data-i18n="btn_practice">Pràctica</button>
-            <button onclick="initMediterraniGame('exam')" class="btn-primary"
+            <button id="btn-med-capitals-practice" onclick="initMediterraniGame('practice')"
+                class="btn btn--secondary" data-i18n="btn_practice">Pràctica</button>
+            <button id="btn-med-capitals-exam" onclick="initMediterraniGame('exam')" class="btn btn--secondary"
                 data-i18n="btn_exam">Examen</button>
         </div>
     </div>
@@ -17,12 +18,10 @@
             <span id="med-score">Punts: 0</span>
             <span id="med-time" class="hidden">Temps: 60s</span>
         </div>
-
         <div class="game-panel__question">
             <h4 id="med-question">Pregunta...</h4>
             <div id="med-options" class="game-panel__options"></div>
         </div>
-
         <p id="med-feedback" class="game-panel__feedback"></p>
     </div>
 </div>

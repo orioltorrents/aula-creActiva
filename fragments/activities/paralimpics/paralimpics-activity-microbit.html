@@ -1,0 +1,35 @@
+                        <!-- ACTIVITAT: Microbit -->
+                        <div id="paralimpics-activity-microbit" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showParalimpicsMenu()">← Tornar al
+                                menú</button>
+                            <div class="game-panel__header">
+                                <h3 data-i18n="act_microbit_title">Control de la Micro:bit</h3>
+                                <div class="game-panel__controls quiz-difficulty-selection">
+                                    <button onclick="initParalimpicsMicrobit('easy')" class="btn btn--secondary"
+                                        data-i18n="level_easy">Fàcil</button>
+                                    <button onclick="initParalimpicsMicrobit('medium')" class="btn btn--secondary"
+                                        data-i18n="level_medium">Mitjà</button>
+                                    <button onclick="initParalimpicsMicrobit('hard')" class="btn btn--secondary"
+                                        data-i18n="level_hard">Difícil</button>
+                                    <button onclick="initParalimpicsMicrobit('mixed')" class="btn btn--primary"
+                                        data-i18n="level_mixed">Barrejat</button>
+                                </div>
+                            </div>
+                            <div id="paralimpics-quiz-container" class="hidden">
+                                <div class="game-panel__stats">
+                                    <span id="paralimpics-progress">Pregunta 1/20</span>
+                                    <span id="paralimpics-score">Punts: 0</span>
+                                </div>
+                                <div class="game-panel__question">
+                                    <h4 id="paralimpics-question-text">Pregunta...</h4>
+                                    <div id="paralimpics-options" class="options-list"></div>
+                                </div>
+                                <p id="paralimpics-feedback" class="game-panel__feedback"></p>
+                            </div>
+                            <div id="paralimpics-results" class="result-screen hidden text-center">
+                                <h3 data-i18n="final_score">Resultats</h3>
+                                <p id="paralimpics-final-score" class="result-screen__score text-2xl font-bold">0 / 200</p>
+                                <p id="paralimpics-message"></p>
+                                <button onclick="showParalimpicsMenu()" class="btn btn--secondary">Tornar</button>
+                            </div>
+                        </div>

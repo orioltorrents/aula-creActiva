@@ -1,3 +1,26 @@
-<section id="login-screen" class="screen active">
-    ...
-</section>
+<div id="game-container-p1_rates" class="game-module hidden">
+    <div id="rates-activities-menu" class="activities-grid">
+        <div class="activity-card" onclick="openRatesActivity('preguntes')">
+            <div class="activity-card__media">
+                <img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png"
+                    alt="Rates a la carrera" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes investigables</div>
+                <div class="activity-card__description">Practica com formular bones preguntes investigables.</div>
+            </div>
+        </div>
+        <a class="activity-card" href="https://motiontracklab.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="activity-card__media">
+                <img src="assets/images/activities/rates/cards/targeta_motiontracklab.png" alt="MotionTrackLab"
+                    class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">MotionTrackLab</div>
+                <div class="activity-card__description">Obre el simulador per analitzar moviment i trajectòries.</div>
+            </div>
+        </a>
+    </div>
+
+    <div data-fragment="fragments/activities/rates/rates-activity-preguntes.html"></div>
+</div>

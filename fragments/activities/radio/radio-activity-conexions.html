@@ -1,0 +1,38 @@
+<div id="radio-activity-conexions" class="sub-activity hidden">
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+
+    <div class="game-panel__header">
+        <h3 data-i18n="act_connections_title">Connexions d'Àudio</h3>
+    </div>
+
+    <div id="connections-selector"
+        class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white text-center">
+        <p class="mb-4 text-center font-bold">Tria com vols practicar:</p>
+        <div id="connections-filter-buttons" class="flex flex-wrap gap-2 justify-center"></div>
+    </div>
+
+    <div id="connections-quiz-container" class="hidden">
+        <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-4">
+            <div id="connections-progress">Pregunta 1/20</div>
+            <div id="connections-score" class="font-bold">Punts: 0</div>
+        </div>
+        <div class="game-panel__question text-center">
+            <div class="image-display image-display--narrow mb-4">
+                <img id="connection-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                    alt="Connector" class="image-display__image">
+            </div>
+            <h4 id="connection-question-text" class="mb-4">Tria la resposta correcta:</h4>
+            <div id="connection-options" class="game-panel__options"></div>
+        </div>
+        <p id="connection-feedback" class="game-panel__feedback mt-4 text-center"></p>
+    </div>
+
+    <div id="connections-results" class="result-screen hidden text-center p-8">
+        <h3 data-i18n="final_score">Resultats</h3>
+        <p id="connections-final-score" class="result-screen__score text-4xl font-bold my-4">0 / 200</p>
+        <p id="connections-final-msg" class="result-screen__message"></p>
+        <button onclick="initConnectionsQuiz()" class="btn btn--primary mt-4">Tornar a jugar</button>
+        <button onclick="startConnectionsSelector()" class="btn btn--secondary mt-4">Tornar a triar</button>
+        <button onclick="showRadioMenu()" class="btn btn--secondary mt-4">Tornar</button>
+    </div>
+</div>

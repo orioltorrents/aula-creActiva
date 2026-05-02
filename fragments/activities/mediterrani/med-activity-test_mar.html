@@ -1,5 +1,5 @@
 <div id="med-activity-test_mar" class="sub-activity hidden">
-    <button class="btn-secondary btn-sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
     <h3 data-i18n="act_sea_title">El Mar del Mig</h3>
 
     <div class="video-container mb-4">
@@ -9,8 +9,9 @@
 
     <div id="med-test-area">
         <div class="game-panel__controls mb-4">
-            <button onclick="initMediterraniTest()" class="btn-primary"
-                data-i18n="btn_start_test">Començar Test</button>
+            <button onclick="initMediterraniTest()" class="btn btn--primary" data-i18n="btn_start_test">
+                Començar Test
+            </button>
         </div>
 
         <div id="test-container" class="hidden">
@@ -18,15 +19,12 @@
                 <span id="test-progress">Pregunta 1/25</span>
                 <span id="test-score">Encerts: 0</span>
             </div>
-
             <div class="game-panel__question">
                 <h4 id="test-question-text">Pregunta...</h4>
                 <div id="test-options" class="options-list"></div>
             </div>
-
             <p id="test-feedback" class="game-panel__feedback"></p>
-
-            <button id="test-next-btn" class="btn-primary hidden" onclick="nextTestQuestion()"
+            <button id="test-next-btn" class="btn btn--primary hidden" onclick="nextTestQuestion()"
                 data-i18n="btn_next">Següent</button>
         </div>
 
@@ -34,8 +32,7 @@
             <h3 data-i18n="final_score">Resultats</h3>
             <p id="test-final-score" class="result-screen__score text-2xl font-bold">0 / 25</p>
             <p id="test-message"></p>
-            <button onclick="showMediterraniMenu()" class="btn-secondary">Tornar</button>
+            <button onclick="showMediterraniMenu()" class="btn btn--secondary">Tornar</button>
         </div>
     </div>
 </div>
-

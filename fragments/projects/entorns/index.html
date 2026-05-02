@@ -1,166 +1,606 @@
-<!-- =========================================================
-     PROJECTE: ENTORNS DE NATURA
-     Menú principal amb projectes interns i submenús d'activitats.
-========================================================== -->
-<div id="project-hub-natura" class="game-module hidden">
+﻿                    <!-- PROJECTE: Entorns de Natura -->
+                    <div id="project-hub-natura" class="game-module hidden">
+                        <h3 data-i18n="natura_project_title">Entorns de Natura</h3>
+                        <!-- MENÚ D'ACTIVITATS -->
+                        <div id="natura-activities-menu" class="activities-grid">
+                            <div class="activity-card" onclick="openNaturaProject('rius')">
+                                <div class="activity-card__media">
+                                    <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques"
+                                        class="activity-card__image">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">Projecte Rius</div>
+                                    <div class="activity-card__description">Activitats sobre ecosistemes fluvials</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openNaturaProject('impacte')">
+                                <div class="activity-card__media">
+                                    <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Estudi d'impacte ambiental"
+                                        class="activity-card__image">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">Estudi d'impacte ambiental</div>
+                                    <div class="activity-card__description">Fases i preguntes del projecte</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openNaturaProject('orenetes')">
+                                <div class="activity-card__media">
+                                    <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes"
+                                        class="activity-card__image">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">Projecte Orenetes</div>
+                                    <div class="activity-card__description">Seguiment, imatges i preguntes</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openNaturaProject('vespa')">
+                                <div class="activity-card__media">
+                                    <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Vespa velutina" class="activity-card__image">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">Vespa velutina</div>
+                                    <div class="activity-card__description">Preguntes del projecte</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openNaturaProject('liquencity')">
+                                <div class="activity-card__media">
+                                    <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Liquencity" class="activity-card__image">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">Liquencity</div>
+                                    <div class="activity-card__description">Preguntes del projecte</div>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 data-i18n="natura_project_title">Entorns de Natura</h3>
+                        <div id="natura-project-rius" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>Projecte Rius</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div id="natura-activities-menu" class="activities-grid">
-        <div class="activity-card" onclick="openNaturaProject('rius')">
-            <div class="act-icon">
-                <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Projecte Rius" class="act-img">
-            </div>
-            <div class="card-content">
-                <div class="card-title">Projecte Rius</div>
-                <div class="card-desc">Activitats sobre ecosistemes fluvials</div>
-            </div>
-        </div>
+                        <div id="natura-project-impacte" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>Estudi d'impacte ambiental</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('impacte')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Impacte Ambiental" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_impacte_title">Estudi d'impacte ambiental</div>
+                                        <div class="activity-card__description" data-i18n="act_impacte_desc">Ordena les fases de creació de l'estudi</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('xarxes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_xarxes_title">Xarxes Tròfiques</div>
+                                        <div class="activity-card__description" data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('rols')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols Tròfics" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_rols_title">Rols Tròfics</div>
+                                        <div class="activity-card__description" data-i18n="act_rols_desc">Classifica espècies segons la seva dieta</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="activity-card" onclick="openNaturaProject('impacte')">
-            <div class="act-icon">
-                <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Estudi d'impacte ambiental" class="act-img">
-            </div>
-            <div class="card-content">
-                <div class="card-title">Estudi d'impacte ambiental</div>
-                <div class="card-desc">Fases i preguntes del projecte</div>
-            </div>
-        </div>
+                        <div id="natura-project-orenetes" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>Projecte Orenetes</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('orenetes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_orenetes_title">Projecte Orenetes</div>
+                                        <div class="activity-card__description" data-i18n="act_orenetes_desc">Estudi i seguiment de les orenetes</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('orenetes-preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Preguntes del Projecte Orenetes" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Preguntes del Projecte Orenetes</div>
+                                        <div class="activity-card__description">Tria la resposta correcta</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="activity-card" onclick="openNaturaProject('orenetes')">
-            <div class="act-icon">
-                <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes" class="act-img">
-            </div>
-            <div class="card-content">
-                <div class="card-title">Projecte Orenetes</div>
-                <div class="card-desc">Seguiment, imatges i preguntes</div>
-            </div>
-        </div>
+                        <div id="natura-project-vespa" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>Vespa velutina</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="activity-card" onclick="openNaturaProject('vespa')">
-            <div class="act-icon">
-                <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Vespa velutina" class="act-img">
-            </div>
-            <div class="card-content">
-                <div class="card-title">Vespa velutina</div>
-                <div class="card-desc">Preguntes del projecte</div>
-            </div>
-        </div>
+                        <div id="natura-project-liquencity" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>Liquencity</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ACTIVITAT: Xarxes Tròfiques -->
+                        <div id="natura-activity-xarxes" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
+                            <div class="game-panel__header">
+                                <h3 data-i18n="act_xarxes_title">Xarxes Tròfiques</h3>
+                            </div>
+                            <div class="activity-instructions">
+                                <p data-i18n="instruction_xarxes">Ordena aquestes accions per establir una xarxa tròfica
+                                    amb dades reals:</p>
+                            </div>
+                            <div id="xarxes-game-area">
+                                <ul id="xarxes-sortable-list" class="sortable-list">
+                                    <!-- Els elements s'ompliran per JS -->
+                                </ul>
+                                <div class="game-panel__controls mt-4">
+                                    <button onclick="verifyXarxesOrder()" class="btn btn--primary"
+                                        data-i18n="btn_verify">Verificar Ordenació</button>
+                                </div>
+                                <div id="xarxes-result" class="hidden mt-4">
+                                    <p class="text-xl font-bold"><span data-i18n="result_order">Accions ben
+                                            ordenades:</span> <span id="xarxes-percentage">0%</span></p>
+                                    <p id="xarxes-feedback" class="game-panel__feedback"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ACTIVITAT: Estudi d'Impacte Ambiental -->
+                        <div id="natura-activity-impacte" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
+                            <div class="game-panel__header">
+                                <h3 data-i18n="act_impacte_title">Estudi d'impacte ambiental</h3>
+                            </div>
+                            <div class="activity-instructions">
+                                <p data-i18n="instruction_impacte">Ordena aquestes fases per construir un estudi
+                                    d'impacte ambiental complet:</p>
+                            </div>
+                            <div id="impacte-game-area">
+                                <ul id="impacte-sortable-list" class="sortable-list">
+                                    <!-- Els elements s'ompliran per JS -->
+                                </ul>
+                                <div class="game-panel__controls mt-4">
+                                    <button onclick="verifyImpacteOrder()" class="btn btn--primary"
+                                        data-i18n="btn_verify">Verificar Ordenació</button>
+                                </div>
+                                <div id="impacte-result" class="hidden mt-4">
+                                    <p class="text-xl font-bold"><span data-i18n="result_order">Accions ben
+                                            ordenades:</span> <span id="impacte-percentage">0%</span></p>
+                                    <p id="impacte-feedback" class="game-panel__feedback"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ACTIVITAT: Bibliografia i Cites -->
+                        <div id="natura-activity-biblio" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenuFromBiblio()"
+                                data-i18n="back">← Tornar</button>
+                            <div class="game-panel__header">
+                                <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
+                            </div>
+                            <div class="activity-instructions">
+                                <p data-i18n="instruction_biblio">Pots o bé triar el nivell de les preguntes o bé triar
+                                    un tipus de preguntes a treballar:</p>
+                            </div>
+                            <div class="game-panel__controls py-4" id="biblio-level-selection">
+                                <!-- Dynamic Topic Selection -->
+                                <div id="biblio-topic-selection" class="flex flex-col items-center"></div>
 
-        <div class="activity-card" onclick="openNaturaProject('liquencity')">
-            <div class="act-icon">
-                <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Liquencity" class="act-img">
-            </div>
-            <div class="card-content">
-                <div class="card-title">Liquencity</div>
-                <div class="card-desc">Preguntes del projecte</div>
-            </div>
-        </div>
-    </div>
+                                <div class="flex flex-col items-center mt-4">
+                                    <p class="font-bold mb-3 text-center" data-i18n="select_level">O tria per nivell
+                                        (tots els temes):</p>
+                                    <div class="level-button-row">
+                                        <button onclick="startGameWithFilter('all', 'facil')" class="btn btn--primary quiz-filter-button quiz-filter-button--easy"
+                                            data-i18n="level_easy">Fàcil</button>
+                                        <button onclick="startGameWithFilter('all', 'dificil')" class="btn btn--primary quiz-filter-button quiz-filter-button--hard"
+                                            data-i18n="level_hard">Difícil</button>
+                                        <button onclick="startGameWithFilter('all', 'mixed')" class="btn btn--primary quiz-filter-button quiz-filter-button--mixed"
+                                            data-i18n="level_mixed">Barrejat</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="biblio-quiz-container" class="hidden">
+                                <div class="game-panel__stats">
+                                    <span id="biblio-progress">Pregunta 1/8</span>
+                                    <span id="biblio-score">Punts: 0</span>
+                                </div>
+                                <div class="game-panel__question">
+                                    <h4 id="biblio-question-text">Pregunta...</h4>
+                                    <div id="biblio-options" class="options-list"></div>
+                                </div>
+                                <p id="biblio-feedback" class="game-panel__feedback"></p>
+                            </div>
+                            <div id="biblio-results" class="result-screen hidden text-center">
+                                <h3 data-i18n="final_score">Resultats</h3>
+                                <p id="biblio-final-score" class="result-screen__score text-2xl font-bold">0 / 80</p>
+                                <p id="biblio-message"></p>
+                                <button onclick="showNaturaMenuFromBiblio()" class="btn btn--secondary">Tornar</button>
+                            </div>
+                        </div>
+                        <!-- ACTIVITAT: Rols Tròfics -->
+                        <div id="natura-activity-rols" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back">← Tornar</button>
 
-    <div id="natura-project-rius" class="sub-activity hidden">
-        <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
-        <div class="game-panel__header text-center"><h3>Projecte Rius</h3></div>
-        <div class="activities-grid">
-            <div class="activity-card" onclick="openNaturaActivity('xarxes')">
-                <div class="act-icon"><img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_xarxes_title">Xarxes Tròfiques</div>
-                    <div class="card-desc" data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</div>
+                            <!-- SELECCIÓ ECOSISTEMA -->
+                            <div id="rols-ecosystem-selection">
+                                <h3 data-i18n="choose_ecosystem" class="mb-4">Tria un ecosistema</h3>
+                                <div class="ecosystem-grid">
+                                    <div class="eco-card" onclick="startRolsQuiz('Bosc mediterrani')">?? <span
+                                            data-i18n="eco_forest">Bosc mediterrani</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Mar mediterrani')">?? <span
+                                            data-i18n="eco_sea">Mar mediterrani</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Riu mediterrani')">?? <span
+                                            data-i18n="eco_river">Riu mediterrani</span></div>
+                                    <div class="eco-card" onclick="startRolsQuiz('Hort')">?? <span
+                                            data-i18n="eco_garden">Hort</span></div>
+                                </div>
+                            </div>
+
+                            <!-- QUIZ AREA -->
+                            <div id="rols-quiz-area" class="hidden">
+                                <div class="game-panel__progress mb-2">
+                                    <span id="rols-current-q">1</span>/10
+                                    <div class="game-panel__progress-track">
+                                        <div id="rols-progress-fill" class="game-panel__progress-fill"></div>
+                                    </div>
+                                </div>
+                                <div class="game-panel__card">
+                                    <div id="rols-species-img-container" class="hidden mb-4">
+                                        <img id="rols-species-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Espècie" class="species-quiz-img">
+                                    </div>
+                                    <h4 id="rols-species-name" class="text-2xl font-bold mb-2">Espècie</h4>
+                                    <p id="rols-diet-desc" class="italic mb-4">Descripció de la dieta...</p>
+
+                                    <div class="quiz-options grid grid-2 gap-4">
+                                        <div class="option-group">
+                                            <label data-i18n="regime" class="block font-bold mb-2">Règim</label>
+                                            <div class="btn-group-vertical" id="rols-regime-options">
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectRegime('herbivore', this)"
+                                                    data-i18n="herbivore">Herbívor</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectRegime('carnivore', this)"
+                                                    data-i18n="carnivore">Carnívor</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectRegime('omnivore', this)"
+                                                    data-i18n="omnivore">Omnívor</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectRegime('decomposer', this)"
+                                                    data-i18n="decomposer">Descomponedor</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectRegime('autotroph', this)"
+                                                    data-i18n="autotroph">Autòtrof</button>
+                                            </div>
+                                        </div>
+                                        <div class="option-group">
+                                            <label data-i18n="trophic_level" class="block font-bold mb-2">Nivell</label>
+                                            <div class="btn-group-vertical" id="rols-level-options">
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectLevel('producer', this)"
+                                                    data-i18n="producer">Productor</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectLevel('primary_consumer', this)"
+                                                    data-i18n="primary_consumer">Consumidor Primari</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectLevel('secondary_consumer', this)"
+                                                    data-i18n="secondary_consumer">Consumidor Secundari</button>
+                                                <button class="btn btn--outline w-full mb-1"
+                                                    onclick="selectLevel('tertiary_consumer', this)"
+                                                    data-i18n="tertiary_consumer">Consumidor Terciari</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="justification-area mt-4">
+                                        <label data-i18n="justification"
+                                            class="block font-bold mb-1">Justificació</label>
+                                        <textarea id="rols-justification" class="form-control w-full"
+                                            data-i18n-ph="justification_ph" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="mt-4 text-center">
+                                        <button id="rols-submit-btn" onclick="submitRolsAnswer()" class="btn btn--primary"
+                                            data-i18n="btn_send_answer">Enviar resposta</button>
+                                        <button id="rols-next-btn" onclick="nextRolsQuestion()"
+                                            class="btn btn--primary hidden" data-i18n="btn_next_question">Següent
+                                            pregunta</button>
+                                    </div>
+
+                                    <div id="rols-feedback" class="feedback-panel hidden mt-4 p-3 rounded text-left"></div>
+                                </div>
+                            </div>
+
+                            <!-- RESULTS AREA -->
+                            <div id="rols-results-area" class="result-screen hidden text-center">
+                                <h3 data-i18n="results">Resultats</h3>
+                                <div class="result-screen__display results-display my-4">
+                                    <p class="text-4xl font-bold"><span id="rols-final-score" class="result-screen__score">0%</span></p>
+                                    <p id="rols-final-percentage" class="result-screen__percentage text-xl">0%</p>
+                                </div>
+                                <div id="rols-final-msg" class="result-screen__message alert p-4 rounded mb-4"></div>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary"
+                                    data-i18n="back">Tornar</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT DUPLICADA: Preguntes Investigables (Natura) -->
+                        <div id="natura-activity-preguntes" class="sub-activity hidden">
+                            <div id="natura-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
+                                <button class="btn btn--secondary btn--sm mb-8" onclick="showNaturaMenu()">← Tornar al
+                                    menú</button>
+
+                                <div id="natura-preguntes-setup"
+                                    class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
+                                    <h3
+                                        class="text-3xl font-bold mb-8 text-emerald-600 flex items-center justify-center gap-3">
+                                        <i class="fas fa-question-circle"></i>
+                                        <span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                            data-i18n="act_tr_preguntes_title">Preguntes investigables</span>
+                                    </h3>
+                                    <p class="mb-10 text-xl text-gray-600">Escull una categoria per començar a
+                                        practicar.</p>
+                                    <div id="natura-preguntes-categories-container">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="natura-preguntes-quiz-container" class="hidden">
+                                <div class="game-panel__stats flex justify-between">
+                                    <span id="natura-preguntes-progress">Pregunta 1 / 15</span>
+                                </div>
+                                <div class="game-panel__question mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+                                    <h4 id="natura-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
+
+                                    <div class="flex justify-center gap-4 flex-wrap">
+                                        <button id="btn-natura-investigable" class="btn btn--primary btn--success"
+                                            onclick="checkNaturaPreguntaRespuesta('Investigable')">Investigable</button>
+                                        <button id="btn-natura-no-investigable" class="btn btn--primary btn--danger"
+                                            onclick="checkNaturaPreguntaRespuesta('No investigable')">No
+                                            investigable</button>
+                                    </div>
+                                </div>
+                                <div id="natura-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+                                    <p id="natura-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+                                    <p id="natura-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
+                                    <button id="natura-preguntes-next-btn" class="btn btn--primary"
+                                        onclick="nextNaturaPregunta()">Següent pregunta</button>
+                                </div>
+                            </div>
+
+                            <div id="natura-preguntes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="natura-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0 /
+                                    15
+                                </p>
+                                <p id="natura-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
+                                    0%</p>
+                                <p id="natura-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT DUPLICADA: Temes i Preguntes (Natura) -->
+                        <div id="natura-activity-temes" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                                menú</button>
+
+                            <div id="natura-temes-setup" class="game-panel__header text-center">
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                        data-i18n="act_tr_temes_title">Temes i Preguntes</span></h3>
+                                <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de
+                                    recerca.</p>
+                                <div id="natura-temes-categories-container"
+                                    class="flex justify-center gap-4 flex-wrap mt-4">
+                                </div>
+                            </div>
+
+                            <div id="natura-temes-quiz-container" class="hidden">
+                                <div class="game-panel__stats flex justify-between mb-4">
+                                    <span id="natura-temes-progress">Tema 1 / X</span>
+                                    <span id="natura-temes-score">Punts: 0</span>
+                                </div>
+
+                                <div class="bg-white rounded shadow-sm p-6 text-center">
+                                    <h3 id="natura-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">TEMA</h3>
+                                    <p class="mb-6 text-gray-600">Selecciona <strong class="text-black">totes</strong>
+                                        les preguntes que consideris <strong
+                                            class="text-blue-600">INVESTIGABLES</strong>.</p>
+
+                                    <div id="natura-temes-options" class="flex flex-col gap-3 text-left">
+                                        <!-- Buttons generated dynamically -->
+                                    </div>
+
+                                    <div class="mt-8">
+                                        <button id="natura-temes-check-btn" class="btn btn--primary w-full text-xl py-3"
+                                            onclick="checkNaturaTemesRespostes()">Comprovar Selecció</button>
+                                    </div>
+                                </div>
+                                <div id="natura-temes-feedback-area" class="feedback-panel hidden mt-6">
+                                    <div id="natura-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
+                                    <button id="natura-temes-next-btn" class="btn btn--primary w-full text-lg py-3"
+                                        onclick="nextNaturaTema()">Següent Tema</button>
+                                </div>
+                            </div>
+
+                            <div id="natura-temes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+                                <h3 data-i18n="final_score">Resultat final</h3>
+                                <p id="natura-temes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0 / 15
+                                </p>
+                                <p id="natura-temes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
+                                    0%
+                                </p>
+                                <p id="natura-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Projecte Orenetes -->
+                        <div id="natura-activity-orenetes" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                                menú</button>
+
+                            <div class="game-panel__header text-center">
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — <span
+                                        data-i18n="act_orenetes_title">Projecte Orenetes</span></h3>
+                                <p class="mb-4" data-i18n="act_orenetes_desc">Estudi i seguiment de les orenetes</p>
+                            </div>
+
+                            <div id="orenetes-setup" class="text-center p-6 bg-white rounded shadow-sm">
+                                <p class="mb-4 text-gray-700">Carregant dades...</p>
+                            </div>
+
+                            <div id="orenetes-game" class="hidden">
+                                <div class="game-panel__stats flex justify-between mb-4">
+                                    <span id="orenetes-progress">Imatge 1 / X</span>
+                                    <span>Puntuació: <span id="orenetes-score" class="font-bold text-blue-600">0%</span></span>
+                                </div>
+                                <p id="orenetes-description" class="orenetes-description">Observa la imatge i completa la fitxa de camp.</p>
+                                <div class="orenetes-field-sheet">
+                                    <div class="orenetes-photo-panel">
+                                        <img id="orenetes-image" src="" alt="Nius d'oreneta" class="orenetes-photo">
+                                    </div>
+                                    <div class="orenetes-form-panel">
+                                        <div class="orenetes-form-title">
+                                            <span>Fitxa de camp</span>
+                                            <small>Recompte de nius</small>
+                                        </div>
+                                        <div class="orenetes-input-grid">
+                                            <label for="orenetes-input-bonestat">
+                                                <span>Nius en bon estat</span>
+                                                <input type="number" id="orenetes-input-bonestat" min="0" inputmode="numeric">
+                                            </label>
+                                            <label for="orenetes-input-actius">
+                                                <span>Nius actius</span>
+                                                <input type="number" id="orenetes-input-actius" min="0" inputmode="numeric">
+                                            </label>
+                                            <label for="orenetes-input-trencats">
+                                                <span>Nius trencats</span>
+                                                <input type="number" id="orenetes-input-trencats" min="0" inputmode="numeric">
+                                            </label>
+                                            <label for="orenetes-input-restes">
+                                                <span>Restes</span>
+                                                <input type="number" id="orenetes-input-restes" min="0" inputmode="numeric">
+                                            </label>
+                                        </div>
+                                        <button id="orenetes-check-btn" class="btn btn--primary" onclick="checkOrenetesAnswer()">Comprovar</button>
+                                        <div id="orenetes-feedback" class="feedback-panel orenetes-feedback hidden"></div>
+                                        <button id="orenetes-next-btn" class="btn btn--secondary hidden" onclick="nextOrenetesImage()">Següent imatge</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="orenetes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+                                <h3>Resultat final</h3>
+                                <p id="orenetes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
+                                <p id="orenetes-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary">Tornar al menú</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Preguntes del Projecte Orenetes -->
+                        <div id="natura-activity-orenetes-preguntes" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al
+                                menú</button>
+
+                            <div class="game-panel__header text-center">
+                                <h3><span data-i18n="natura_project_title">Entorns de Natura</span> — Preguntes del
+                                    Projecte Orenetes</h3>
+                            </div>
+
+                            <div id="orenetes-questions-selector" class="text-center p-6 bg-white rounded shadow-sm hidden">
+                                <h4 class="text-2xl font-bold mb-4">Tria com vols practicar</h4>
+                                <div id="orenetes-questions-filter-buttons"></div>
+                            </div>
+
+                            <div id="orenetes-questions-quiz-container" class="hidden">
+                                <div class="game-panel__stats flex justify-between mb-4">
+                                    <span id="orenetes-questions-progress">Pregunta 1/X</span>
+                                    <span id="orenetes-questions-score">Punts: 0</span>
+                                </div>
+                                <div class="game-panel__question text-center">
+                                    <p id="orenetes-questions-meta" class="text-sm font-semibold text-gray-500 mb-2 hidden"></p>
+                                    <img id="orenetes-questions-img" src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes"
+                                        class="media-full-contained">
+                                    <h4 id="orenetes-questions-text" class="text-2xl font-semibold mb-6">Pregunta...</h4>
+                                    <div id="orenetes-questions-options" class="game-panel__options"></div>
+                                </div>
+                                <p id="orenetes-questions-feedback" class="game-panel__feedback text-center mt-4"></p>
+                            </div>
+
+                            <div id="orenetes-questions-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+                                <h3>Resultat final</h3>
+                                <p id="orenetes-questions-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
+                                <p id="orenetes-questions-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
+                                <button class="btn btn--primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
+                                <button class="btn btn--secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
+                                <button onclick="showNaturaMenu()" class="btn btn--secondary mt-4">Tornar al menú</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="activity-card" onclick="openNaturaActivity('rols')">
-                <div class="act-icon"><img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols Tròfics" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_rols_title">Rols Tròfics</div>
-                    <div class="card-desc" data-i18n="act_rols_desc">Classifica espècies segons la seva dieta</div>
-                </div>
-            </div>
-            <div class="activity-card" onclick="openNaturaActivity('preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                    <div class="card-desc" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="natura-project-impacte" class="sub-activity hidden">
-        <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
-        <div class="game-panel__header text-center"><h3>Estudi d'impacte ambiental</h3></div>
-        <div class="activities-grid">
-            <div class="activity-card" onclick="openNaturaActivity('impacte')">
-                <div class="act-icon"><img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Impacte Ambiental" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_impacte_title">Estudi d'impacte ambiental</div>
-                    <div class="card-desc" data-i18n="act_impacte_desc">Ordena les fases de creació de l'estudi</div>
-                </div>
-            </div>
-            <div class="activity-card" onclick="openNaturaActivity('preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                    <div class="card-desc" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="natura-project-orenetes" class="sub-activity hidden">
-        <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
-        <div class="game-panel__header text-center"><h3>Projecte Orenetes</h3></div>
-        <div class="activities-grid">
-            <div class="activity-card" onclick="openNaturaActivity('orenetes')">
-                <div class="act-icon"><img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_orenetes_title">Projecte Orenetes</div>
-                    <div class="card-desc" data-i18n="act_orenetes_desc">Estudi i seguiment de les orenetes</div>
-                </div>
-            </div>
-            <div class="activity-card" onclick="openNaturaActivity('orenetes-preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Preguntes del Projecte Orenetes" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title">Preguntes del Projecte Orenetes</div>
-                    <div class="card-desc">Tria la resposta correcta</div>
-                </div>
-            </div>
-            <div class="activity-card" onclick="openNaturaActivity('preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                    <div class="card-desc" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="natura-project-vespa" class="sub-activity hidden">
-        <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
-        <div class="game-panel__header text-center"><h3>Vespa velutina</h3></div>
-        <div class="activities-grid">
-            <div class="activity-card" onclick="openNaturaActivity('preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                    <div class="card-desc" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="natura-project-liquencity" class="sub-activity hidden">
-        <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
-        <div class="game-panel__header text-center"><h3>Liquencity</h3></div>
-        <div class="activities-grid">
-            <div class="activity-card" onclick="openNaturaActivity('preguntes')">
-                <div class="act-icon"><img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="act-img"></div>
-                <div class="card-content">
-                    <div class="card-title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
-                    <div class="card-desc" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-

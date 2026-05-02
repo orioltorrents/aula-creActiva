@@ -1,0 +1,60 @@
+<div id="radio-activity-taula" class="sub-activity hidden">
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showRadioMenu()">← Tornar al menú</button>
+
+    <div class="game-panel__header">
+        <h3 data-i18n="act_radio_title">La Taula de So</h3>
+    </div>
+
+    <div class="radio-activity-container">
+        <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+            <div id="radio-board-score-display" class="font-bold">Punts: 100</div>
+            <div class="flex gap-2">
+                <button id="radio-board-help-btn" class="btn btn--info btn--sm" onclick="showRadioBoardHelp()"
+                    data-i18n="btn_help">Ajuda (-10 punts)</button>
+                <button id="radio-board-skip-btn" class="btn btn--secondary btn--sm" onclick="skipRadioBoardQuestion()"
+                    data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+            </div>
+        </div>
+
+        <div id="radio-board-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
+
+        <div class="image-interactive-wrapper interactive-image-wrapper mt-4">
+            <img id="radio-board-image" src="assets/images/activities/radio/taula/taula-de-so3.png"
+                alt="Taula de So" class="interactive-image">
+        </div>
+
+        <p id="radio-board-feedback" class="game-panel__feedback mt-2"></p>
+
+        <div id="radio-board-calibration-ui"
+            class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+            <div class="flex justify-between items-center mb-2">
+                <span>Ajust de diana (Ràdio)</span>
+                <button onclick="closeRadioBoardCalibration()" class="text-red-400">×</button>
+            </div>
+            <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                <div></div>
+                <button onclick="nudgeRadioTarget('y', -1)" class="bg-gray-700 p-1 rounded">↑</button>
+                <div></div>
+                <button onclick="nudgeRadioTarget('x', -1)" class="bg-gray-700 p-1 rounded">←</button>
+                <button onclick="nudgeRadioTarget('y', 1)" class="bg-gray-700 p-1 rounded">↓</button>
+                <button onclick="nudgeRadioTarget('x', 1)" class="bg-gray-700 p-1 rounded">→</button>
+            </div>
+            <div class="flex gap-2 justify-center mb-2">
+                <button onclick="nudgeRadioTarget('w', 1); nudgeRadioTarget('h', 1)"
+                    class="bg-gray-700 px-2 rounded">+</button>
+                <button onclick="nudgeRadioTarget('w', -1); nudgeRadioTarget('h', -1)"
+                    class="bg-gray-700 px-2 rounded">-</button>
+                <span class="ml-2">Mida</span>
+            </div>
+            <div id="radio-board-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+            <div id="radio-board-coord-display" class="text-center text-xs opacity-75 mt-2">
+                Clica sobre la imatge per veure coordenades
+            </div>
+            <div class="mt-2 text-center">
+                <button onclick="exportRadioBoardConfig()" class="bg-blue-600 px-3 py-1 rounded text-white">
+                    Copiar codi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

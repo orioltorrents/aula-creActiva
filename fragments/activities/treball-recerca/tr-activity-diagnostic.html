@@ -1,122 +1,66 @@
-<!-- =========================================================
-     ACTIVITAT: DIAGNÒSTIC DE PREGUNTES
-     Projecte: Treball de Recerca
-
-     Aquest fragment conté:
-     - la pantalla inicial de l'activitat
-     - la zona del quiz
-     - la zona de feedback
-========================================================== -->
 <div id="tr-activity-diagnostic" class="sub-activity hidden">
-
-    <!-- =====================================================
-         PANTALLA INICIAL
-         Aquí l'alumne veu la presentació de l'activitat
-         i pot començar el diagnòstic.
-    ====================================================== -->
     <div id="tr-diagnostic-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
+        <button class="btn btn--secondary btn--sm mb-8" onclick="showTrMenu()">← Tornar al menú</button>
 
-        <!-- Botó per tornar al menú principal del projecte -->
-        <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">
-            ← Tornar al menú
-        </button>
-
-        <!-- Caixa principal de presentació -->
         <div id="tr-diagnostic-setup"
             class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
-
-            <!-- Títol de l'activitat -->
             <h3 class="text-3xl font-bold mb-8 text-indigo-600 flex items-center justify-center gap-3">
                 <i class="fas fa-stethoscope"></i>
                 <span>Diagnòstic de preguntes</span>
             </h3>
-
-            <!-- Explicació breu -->
             <p class="mb-4 text-xl text-gray-700 font-semibold italic">
-                Analitza la pregunta que apareix. Primer decideix si és investigable.
-                Després identifica què li falta perquè sigui una bona pregunta de recerca.
+                Analitza la pregunta que apareix. Primer decideix si és investigable. Després identifica què li falta
+                perquè sigui una bona pregunta de recerca.
             </p>
-
-            <!-- Botó per començar -->
-            <button onclick="startTrDiagnostic()" class="btn-primary mt-8 px-10 py-4 text-xl">
+            <button onclick="startTrDiagnostic()" class="btn btn--primary mt-8 px-10 py-4 text-xl">
                 Comença l'activitat
             </button>
         </div>
     </div>
 
-    <!-- =====================================================
-         ZONA DEL QUIZ
-         Aquí es mostra la pregunta i les opcions de diagnòstic.
-    ====================================================== -->
     <div id="tr-diagnostic-quiz-container" class="hidden max-w-4xl mx-auto pb-10">
-
         <div class="game-panel__question p-8 bg-white rounded-xl shadow-md border mb-8">
-
-            <!-- Caixa destacada amb la pregunta -->
             <div id="tr-diagnostic-question-box"
                 class="p-8 bg-blue-50 rounded-lg border-2 border-blue-100 text-center mb-10">
-                <h4 id="tr-diagnostic-text"
-                    class="text-2xl font-bold text-blue-900 leading-relaxed">
+                <h4 id="tr-diagnostic-text" class="text-2xl font-bold text-blue-900 leading-relaxed">
                     Carregant pregunta...
                 </h4>
             </div>
 
-            <!-- Primera decisió: investigable o no -->
             <div class="mb-10 text-center">
                 <p class="text-xl font-bold mb-6">Aquesta pregunta és investigable?</p>
-
                 <div class="flex justify-center gap-6">
-                    <button id="btn-diag-yes"
-                        class="btn-choice px-8 py-3 text-lg border-2"
-                        onclick="selectDiagInvestigable(true)">
-                        Investigable
-                    </button>
-
-                    <button id="btn-diag-no"
-                        class="btn-choice px-8 py-3 text-lg border-2"
-                        onclick="selectDiagInvestigable(false)">
-                        No investigable
-                    </button>
+                    <button id="btn-diag-yes" class="btn-choice px-8 py-3 text-lg border-2"
+                        onclick="selectDiagInvestigable(true)">Investigable</button>
+                    <button id="btn-diag-no" class="btn-choice px-8 py-3 text-lg border-2"
+                        onclick="selectDiagInvestigable(false)">No investigable</button>
                 </div>
             </div>
 
-            <!-- Segona decisió: problemes detectats a la pregunta -->
             <div id="tr-diagnostic-problems-area"
                 class="mb-10 p-6 bg-gray-50 rounded-lg border border-gray-200 opacity-50 pointer-events-none transition-all">
-
-                <p class="text-xl font-bold mb-6 text-center">
-                    Què li falta a aquesta pregunta?
-                </p>
-
-                <!-- Graella d'opcions de diagnòstic -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto"
-                    id="diagnostic-options">
-
+                <p class="text-xl font-bold mb-6 text-center">Què li falta a aquesta pregunta?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto" id="diagnostic-options">
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="massa_general" class="w-6 h-6">
                         <span class="text-lg">Massa general</span>
                     </label>
-
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="sense_variables" class="w-6 h-6">
                         <span class="text-lg">No defineix variables</span>
                     </label>
-
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="no_mesurable" class="w-6 h-6">
                         <span class="text-lg">No es pot mesurar</span>
                     </label>
-
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="no_comparacio" class="w-6 h-6">
                         <span class="text-lg">No indica què comparar</span>
                     </label>
-
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="inabordable" class="w-6 h-6">
                         <span class="text-lg">Massa complexa o inabordable</span>
                     </label>
-
                     <label class="flex items-center gap-4 p-3 bg-white border rounded shadow-sm cursor-pointer hover:bg-indigo-50 transition-colors">
                         <input type="checkbox" name="problem" value="ambigua" class="w-6 h-6">
                         <span class="text-lg">Ambigua o poc clara</span>
@@ -124,44 +68,24 @@
                 </div>
             </div>
 
-            <!-- Botó per comprovar la resposta -->
             <div class="flex justify-center mt-10">
-                <button id="btn-diag-check"
-                    class="btn-primary px-12 py-4 text-xl font-bold shadow-lg"
-                    onclick="checkDiagnosticAnswer()"
-                    disabled>
-                    COMPROVA LA RESPOSTA
-                </button>
+                <button id="btn-diag-check" class="btn btn--primary px-12 py-4 text-xl font-bold shadow-lg"
+                    onclick="checkDiagnosticAnswer()" disabled>COMPROVA LA RESPOSTA</button>
             </div>
         </div>
 
-        <!-- =================================================
-             FEEDBACK DE LA RESPOSTA
-             Aquesta zona apareix després de comprovar.
-        ================================================== -->
         <div id="tr-diagnostic-feedback" class="feedback-panel hidden p-8 rounded-xl shadow-md mb-12 border-l-8">
-
-            <!-- Títol o resum del feedback -->
             <div id="tr-diagnostic-feedback-header" class="feedback-panel__title text-2xl font-bold mb-4"></div>
-
-            <!-- Explicació principal -->
             <div id="tr-diagnostic-feedback-text" class="feedback-panel__body text-xl mb-6 leading-relaxed"></div>
-
-            <!-- Proposta de millora -->
             <div id="tr-diagnostic-suggestion"
                 class="p-6 bg-white bg-opacity-50 rounded-lg border border-current mb-8">
                 <p class="font-bold mb-2">Una possible millora seria:</p>
                 <p id="tr-diagnostic-suggestion-text" class="text-xl italic font-medium"></p>
             </div>
-
-            <!-- Botó per passar a la següent pregunta -->
             <div class="flex justify-center">
-                <button class="btn-primary bg-gray-800 text-white px-10 py-4 text-xl"
-                    onclick="loadNextDiagnosticQuestion()">
-                    SEGÜENT PREGUNTA
-                </button>
+                <button class="btn btn--primary bg-gray-800 text-white px-10 py-4 text-xl"
+                    onclick="loadNextDiagnosticQuestion()">SEGÜENT PREGUNTA</button>
             </div>
         </div>
     </div>
 </div>
-

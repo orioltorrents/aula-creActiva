@@ -1,0 +1,65 @@
+<div id="solidart-activity-quadres" class="sub-activity hidden">
+    <button class="btn btn--secondary btn--sm mb-4" onclick="showSolidartMenu()">← Tornar al menú</button>
+
+    <div id="solidart-quadres-setup" class="game-panel__header text-center">
+        <div id="solidart-feedback-config"
+            class="mb-6 p-4 bg-gray-50 border rounded-lg mx-auto hidden image-display--max-400">
+            <label for="solidart-feedback-level" class="block mb-2 font-semibold">
+                Nivell de feedback per a l'alumne:
+            </label>
+            <select id="solidart-feedback-level" class="form-select form-select--compact w-full">
+                <option value="none">Cap (el botó no canvia de color)</option>
+                <option value="simple" selected>Simple (només verd/vermell al botó triat)</option>
+                <option value="full">Complet (marca la correcta i l'error)</option>
+            </select>
+            <p class="text-xs text-gray-500 mt-2">Tria "Cap" per a exàmens o per evitar que es copiïn.</p>
+        </div>
+
+        <p class="mb-2 text-strong-lg">O tria per nivell (tots els temes):</p>
+        <div class="solidart-difficulty-row mt-6">
+            <button class="btn btn--primary btn--difficulty-easy btn--w-250"
+                onclick="initSolidartQuadres('Fàcil')">Fàcil</button>
+            <button class="btn btn--primary btn--difficulty-medium btn--w-250"
+                onclick="initSolidartQuadres('Mitjà')">Mitjà</button>
+            <button class="btn btn--primary btn--difficulty-hard btn--w-250"
+                onclick="initSolidartQuadres('Difícil')">Difícil</button>
+            <button class="btn btn--primary btn--difficulty-mixed btn--w-250"
+                onclick="initSolidartQuadres('Mix')">Barrejat</button>
+        </div>
+    </div>
+
+    <div id="solidart-quadres-quiz-container" class="hidden">
+        <div class="game-panel__stats flex justify-between mb-4">
+            <span id="solidart-quadres-progress">Pregunta 1 / 10</span>
+            <span id="solidart-quadres-score-display">Punts: 0</span>
+        </div>
+
+        <div class="game-panel__question text-center">
+            <div id="solidart-quadres-image-container" class="mb-4 mx-auto image-frame">
+                <img id="solidart-quadres-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                    alt="Obra d'art" class="image-frame__image">
+            </div>
+
+            <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6">Pregunta...</h4>
+            <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
+        </div>
+
+        <div id="solidart-quadres-feedback-area"
+            class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
+            <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <button id="solidart-quadres-next-btn" class="btn btn--primary hidden"
+                onclick="nextSolidartQuadre()">Següent</button>
+        </div>
+    </div>
+
+    <div id="solidart-quadres-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+        <h3 data-i18n="final_score">Resultat final</h3>
+        <p id="solidart-quadres-final-score" class="result-screen__score text-4xl font-bold text-pink-600 mt-4">
+            0 / 10
+        </p>
+        <p id="solidart-quadres-final-percentage"
+            class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">0%</p>
+        <p id="solidart-quadres-final-msg" class="result-screen__message text-lg mb-8"></p>
+        <button onclick="showSolidartMenu()" class="btn btn--secondary">Tornar al menú</button>
+    </div>
+</div>

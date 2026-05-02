@@ -39,6 +39,57 @@ async function loadFragment(containerSelector, fragmentPath) {
     return container;
 }
 
+async function loadFragmentInto(container, fragmentPath) {
+    if (!container) {
+        throw new Error(`No existeix el contenidor per al fragment: ${fragmentPath}`);
+    }
+
+    const response = await fetch(fragmentPath, {
+        cache: "no-cache"
+    });
+
+    if (!response.ok) {
+        throw new Error(`No s'ha pogut carregar el fragment: ${fragmentPath}`);
+    }
+
+    container.innerHTML = await response.text();
+
+    return container;
+}
+
+async function loadNestedFragments(root = document) {
+    const placeholders = [...root.querySelectorAll('[data-fragment]')];
+
+    await Promise.all(placeholders.map(async placeholder => {
+        const fragmentPath = placeholder.dataset.fragment;
+        await loadFragmentInto(placeholder, fragmentPath);
+        const fragmentRoot = placeholder.firstElementChild || placeholder;
+        await loadNestedFragments(fragmentRoot);
+    }));
+}
+
+async function ensureProjectFragment(projectId, fragmentPath) {
+    const existingProject = document.getElementById(projectId);
+    if (existingProject) return existingProject;
+
+    const activityArea = document.getElementById('activity-area');
+    if (!activityArea) {
+        throw new Error('No existeix el contenidor #activity-area');
+    }
+
+    const placeholder = document.createElement('div');
+    activityArea.appendChild(placeholder);
+
+    await loadFragmentInto(placeholder, fragmentPath);
+    await loadNestedFragments(placeholder);
+
+    if (typeof translateUI === 'function') {
+        translateUI();
+    }
+
+    return document.getElementById(projectId);
+}
+
 async function showDashboardFragment() {
     await loadFragment("#app", "fragments/screens/dashboard.html");
 
@@ -58,6 +109,30 @@ async function showDashboardFragment() {
                 translateUI();
             }
         });
+    }
+}
+
+async function showGameFragment() {
+    await loadFragment("#app", "fragments/screens/game-screen.html");
+    await loadNestedFragments(document.getElementById("game-screen"));
+
+    const backDashboardBtn = document.getElementById("back-dashboard-btn");
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
+
+    if (backDashboardBtn) {
+        backDashboardBtn.addEventListener("click", () => {
+            loadDashboard().catch(error => {
+                console.error("Error carregant dashboard:", error);
+            });
+        });
+    }
+
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", toggleFullscreen);
+    }
+
+    if (typeof translateUI === "function") {
+        translateUI();
     }
 }
 
@@ -375,7 +450,11 @@ async function loadDashboard() {
                     <div class="project-card__description">${proj.descripcio}</div>
                 </div>
             `;
-            card.addEventListener('click', () => openProject(proj));
+            card.addEventListener('click', () => {
+                openProject(proj).catch(error => {
+                    console.error('Error obrint projecte:', error);
+                });
+            });
             grid.appendChild(card);
         });
     } else {
@@ -383,24 +462,32 @@ async function loadDashboard() {
     }
 }
 
-function openProject(project) {
+async function openProject(project) {
     state.currentProject = project;
+    await showGameFragment();
     showScreen('game');
     document.getElementById('game-title').textContent = project.titol;
 
     // Reset UIs
     document.querySelectorAll('.game-module').forEach(el => el.classList.add('hidden'));
-    document.getElementById('simulation-result').textContent = '';
+    const simulationResult = document.getElementById('simulation-result');
+    if (simulationResult) simulationResult.textContent = '';
 
     // Carregar joc específic segons ID del projecte
     if (project.id === 'p1_rates') {
-        const gameDiv = document.getElementById('game-container-p1_rates');
+        const gameDiv = await ensureProjectFragment(
+            'game-container-p1_rates',
+            'fragments/projects/rates/projecte-rates.html'
+        );
         if (gameDiv) {
             gameDiv.classList.remove('hidden');
             showRatesMenu();
         }
     } else if (project.id === 'p1_mediterrani') {
-        const hubDiv = document.getElementById('project-hub-mediterrani');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-mediterrani',
+            'fragments/projects/mediterrani/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showMediterraniMenu === 'function') {
@@ -408,7 +495,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p2_paralimpics') {
-        const hubDiv = document.getElementById('project-hub-paralimpics');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-paralimpics',
+            'fragments/projects/paralimpics/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showParalimpicsMenu === 'function') {
@@ -416,13 +506,19 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p3_solidart') {
-        const hubDiv = document.getElementById('project-hub-solidart');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-solidart',
+            'fragments/projects/solidart/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             showSolidartMenu();
         }
     } else if (project.id === 'batx1_tr') {
-        const hubDiv = document.getElementById('project-hub-tr');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-tr',
+            'fragments/projects/treball-recerca/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showTrMenu === 'function') {
@@ -430,7 +526,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p1_natura' || project.id === 'p4_natura') {
-        const hubDiv = document.getElementById('project-hub-natura');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-natura',
+            'fragments/projects/entorns/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showNaturaMenu === 'function') {
@@ -438,7 +537,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p4_digitalitzacio') {
-        const hubDiv = document.getElementById('project-hub-digitalitzacio');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-digitalitzacio',
+            'fragments/projects/digitalitzacio/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showDigitalitzacioMenu === 'function') {
@@ -446,7 +548,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p2_biologia') {
-        const hubDiv = document.getElementById('project-hub-biologia');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-biologia',
+            'fragments/projects/biologia/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showBioMenu === 'function') {
@@ -454,7 +559,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p2_radio') {
-        const hubDiv = document.getElementById('project-hub-radio');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-radio',
+            'fragments/projects/radio/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showRadioMenu === 'function') {

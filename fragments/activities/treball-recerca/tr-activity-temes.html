@@ -1,128 +1,50 @@
-<!-- =========================================================
-     ACTIVITAT: TEMES I PREGUNTES
-     Projecte: Treball de Recerca
-
-     Aquest fragment conté:
-     - la pantalla inicial de l'activitat
-     - la zona del quiz
-     - la zona de feedback
-     - la pantalla final de resultats
-========================================================== -->
 <div id="tr-activity-temes" class="sub-activity hidden">
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showTrMenu()">← Tornar al menú</button>
 
-    <!-- Botó per tornar al menú principal del projecte -->
-    <button class="btn-secondary btn-sm mb-2" onclick="showTrMenu()">
-        ← Tornar al menú
-    </button>
-
-    <!-- =====================================================
-         PANTALLA INICIAL
-         Aquí l'alumne veu la presentació de l'activitat
-         i pot escollir una categoria per començar.
-    ====================================================== -->
     <div id="tr-temes-setup" class="game-panel__header text-center">
-
-        <!-- Títol de l'activitat -->
         <h3>
             <span data-i18n="tr_project_title">Treball de recerca</span> —
             <span data-i18n="act_tr_temes_title">Temes i Preguntes</span>
         </h3>
-
-        <!-- Explicació breu de l'activitat -->
-        <p class="mb-4" data-i18n="act_tr_temes_desc">
-            Tria grups de preguntes d'un tema de recerca.
-        </p>
-
-        <!-- Contenidor on es carregaran dinàmicament les categories -->
-        <div id="tr-temes-categories-container" class="flex justify-center gap-4 flex-wrap mt-4">
-        </div>
+        <p class="mb-4" data-i18n="act_tr_temes_desc">Tria grups de preguntes d'un tema de recerca.</p>
+        <div id="tr-temes-categories-container" class="flex justify-center gap-4 flex-wrap mt-4"></div>
     </div>
 
-    <!-- =====================================================
-         ZONA DEL QUIZ
-         Aquí es mostra cada tema amb les seves opcions.
-    ====================================================== -->
     <div id="tr-temes-quiz-container" class="hidden">
-
-        <!-- Barra d'estat amb progrés i puntuació -->
         <div class="game-panel__stats flex justify-between mb-4">
             <span id="tr-temes-progress">Tema 1 / X</span>
             <span id="tr-temes-score">Punts: 0</span>
         </div>
 
-        <!-- Caixa principal del tema i de les opcions -->
         <div class="bg-white rounded shadow-sm p-6 text-center">
-
-            <!-- Títol del tema actual -->
-            <h3 id="tr-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">
-                TEMA
-            </h3>
-
-            <!-- Instrucció principal -->
+            <h3 id="tr-temes-tema" class="text-3xl font-bold mb-2 text-blue-800">TEMA</h3>
             <p class="mb-6 text-gray-600">
                 Selecciona <strong class="text-black">totes</strong> les preguntes que consideris
                 <strong class="text-blue-600">INVESTIGABLES</strong>.
             </p>
 
-            <!-- Contenidor on es generaran dinàmicament les opcions -->
-            <div id="tr-temes-options" class="flex flex-col gap-3 text-left">
-                <!-- Botons generats dinàmicament -->
-            </div>
+            <div id="tr-temes-options" class="flex flex-col gap-3 text-left"></div>
 
-            <!-- Botó per comprovar la selecció -->
             <div class="mt-8">
-                <button id="tr-temes-check-btn"
-                    class="btn-primary w-full text-xl py-3"
-                    onclick="checkTrTemesRespostes()">
-                    Comprovar Selecció
-                </button>
+                <button id="tr-temes-check-btn" class="btn btn--primary w-full text-xl py-3"
+                    onclick="checkTrTemesRespostes()">Comprovar Selecció</button>
             </div>
         </div>
-
-        <!-- =================================================
-             FEEDBACK DE LA RESPOSTA
-             Aquesta zona apareix després de comprovar.
-        ================================================== -->
         <div id="tr-temes-feedback-area" class="feedback-panel hidden mt-6">
-
-            <!-- Llista de feedback detallat sobre cada opció -->
             <div id="tr-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
-
-            <!-- Botó per avançar al següent tema -->
-            <button id="tr-temes-next-btn"
-                class="btn-primary w-full text-lg py-3"
-                onclick="nextTrTema()">
+            <button id="tr-temes-next-btn" class="btn btn--primary w-full text-lg py-3" onclick="nextTrTema()">
                 Següent Tema
             </button>
         </div>
     </div>
 
-    <!-- =====================================================
-         PANTALLA FINAL DE RESULTATS
-         Es mostra quan l'activitat s'ha completat.
-    ====================================================== -->
     <div id="tr-temes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
-
-        <!-- Títol de resultats -->
         <h3 data-i18n="final_score">Resultat final</h3>
-
-        <!-- Puntuació final -->
-        <p id="tr-temes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
-            0 / 15
-        </p>
-
-        <!-- Percentatge final -->
+        <p id="tr-temes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0 / 15</p>
         <p id="tr-temes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
             0%
         </p>
-
-        <!-- Missatge final personalitzat -->
         <p id="tr-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
-
-        <!-- Botó per tornar al menú del projecte -->
-        <button onclick="showTrMenu()" class="btn-secondary">
-            Tornar
-        </button>
+        <button onclick="showTrMenu()" class="btn btn--secondary">Tornar</button>
     </div>
 </div>
-

@@ -1,140 +1,50 @@
-<!-- =========================================================
-     ACTIVITAT: PREGUNTES INVESTIGABLES
-     Projecte: Treball de Recerca
-
-     Aquest fragment conté:
-     - la pantalla inicial de l'activitat
-     - la zona del quiz
-     - la zona de feedback
-     - la pantalla final de resultats
-========================================================== -->
 <div id="tr-activity-preguntes" class="sub-activity hidden">
-
-    <!-- =====================================================
-         PANTALLA INICIAL
-         Aquí l'alumne veu la presentació de l'activitat
-         i pot escollir una categoria per començar.
-    ====================================================== -->
     <div id="tr-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
+        <button class="btn btn--secondary btn--sm mb-8" onclick="showTrMenu()">← Tornar al menú</button>
 
-        <!-- Botó per tornar al menú principal del projecte -->
-        <button class="btn-secondary btn-sm mb-8" onclick="showTrMenu()">
-            ← Tornar al menú
-        </button>
-
-        <!-- Caixa principal de presentació de l'activitat -->
         <div id="tr-preguntes-setup"
             class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
-
-            <!-- Títol de l'activitat -->
             <h3 class="text-3xl font-bold mb-8 text-blue-600 flex items-center justify-center gap-3">
                 <i class="fas fa-question-circle"></i>
-                <span data-i18n="tr_project_title">Treball de recerca</span> —
-                <span data-i18n="act_tr_preguntes_title">Preguntes Investigables</span>
+                <span data-i18n="tr_project_title">Treball de recerca</span> — <span>Temes i preguntes</span>
             </h3>
-
-            <!-- Explicació breu de l'objectiu -->
             <p class="mb-4 text-xl text-gray-700 font-semibold italic">
-                Has escollit aquest tema pel teu treball de recerca, marca les possibles
-                preguntes investigables que et podries plantejar.
+                "Has escollit aquest tema pel teu treball de recerca, marca les possibles preguntes investigables que et
+                podries plantejar-te"
             </p>
-
-            <!-- Instrucció per començar -->
-            <p class="mb-10 text-lg text-gray-500">
-                Escull una categoria per començar a practicar.
-            </p>
-
-            <!-- Contenidor on es carregaran dinàmicament les categories -->
+            <p class="mb-10 text-lg text-gray-500">Escull una categoria per començar a practicar.</p>
             <div id="tr-preguntes-categories-container"></div>
         </div>
     </div>
 
-    <!-- =====================================================
-         ZONA DEL QUIZ
-         Aquí es mostra cada pregunta i els botons de resposta.
-    ====================================================== -->
     <div id="tr-preguntes-quiz-container" class="hidden">
-
-        <!-- Barra de progrés -->
         <div class="game-panel__stats flex justify-between">
             <span id="tr-preguntes-progress">Pregunta 1 / 15</span>
         </div>
-
-        <!-- Caixa principal de la pregunta -->
         <div class="game-panel__question mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+            <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
 
-            <!-- Text de la pregunta actual -->
-            <h4 id="tr-preguntes-text" class="text-2xl font-semibold mb-8">
-                Pregunta...
-            </h4>
-
-            <!-- Botons per indicar si la pregunta és investigable o no -->
             <div class="flex justify-center gap-4 flex-wrap">
-
-                <button id="btn-investigable"
-                    class="btn-primary"
-                    style="background-color: var(--success);"
-                    onclick="checkTrPreguntaRespuesta('Investigable')">
-                    Investigable
-                </button>
-
-                <button id="btn-no-investigable"
-                    class="btn-primary"
-                    style="background-color: var(--error);"
-                    onclick="checkTrPreguntaRespuesta('No investigable')">
-                    No investigable
-                </button>
+                <button id="btn-investigable" class="btn btn--primary btn--success"
+                    onclick="checkTrPreguntaRespuesta('Investigable')">Investigable</button>
+                <button id="btn-no-investigable" class="btn btn--primary btn--danger"
+                    onclick="checkTrPreguntaRespuesta('No investigable')">No investigable</button>
             </div>
         </div>
-
-        <!-- =================================================
-             FEEDBACK DE LA RESPOSTA
-             Aquesta zona apareix després de respondre.
-        ================================================== -->
-        <div id="tr-preguntes-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
-
-            <!-- Missatge principal de feedback -->
+        <div id="tr-preguntes-feedback-area"
+            class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
             <p id="tr-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
-
-            <!-- Explicació complementària -->
             <p id="tr-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
-
-            <!-- Botó per avançar a la següent pregunta -->
-            <button id="tr-preguntes-next-btn"
-                class="btn-primary"
-                onclick="nextTrPregunta()">
-                Següent pregunta
-            </button>
+            <button id="tr-preguntes-next-btn" class="btn btn--primary" onclick="nextTrPregunta()">Següent pregunta</button>
         </div>
     </div>
 
-    <!-- =====================================================
-         PANTALLA FINAL DE RESULTATS
-         Es mostra quan l'activitat s'ha completat.
-    ====================================================== -->
     <div id="tr-preguntes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
-
-        <!-- Títol de resultats -->
         <h3 data-i18n="final_score">Resultat final</h3>
-
-        <!-- Puntuació total -->
-        <p id="tr-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
-            0 / 15
-        </p>
-
-        <!-- Percentatge final -->
-        <p id="tr-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
-            0%
-        </p>
-
-        <!-- Missatge final personalitzat -->
+        <p id="tr-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0 / 15</p>
+        <p id="tr-preguntes-final-percentage"
+            class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">0%</p>
         <p id="tr-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
-
-        <!-- Botó per tornar al menú del projecte -->
-        <button onclick="showTrMenu()" class="btn-secondary">
-            Tornar
-        </button>
+        <button onclick="showTrMenu()" class="btn btn--secondary">Tornar</button>
     </div>
 </div>
-
-
