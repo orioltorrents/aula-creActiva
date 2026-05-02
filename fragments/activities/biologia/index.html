@@ -1,0 +1,1179 @@
+                <div id="project-hub-biologia" class="game-module hidden">
+
+                    <div id="bio-systems-menu" class="activities-grid mt-4">
+                        <!-- 1. Digestiu -->
+                        <div class="activity-card activity-card--disabled">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-digestiu.png" alt="Aparell Digestiu" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_digestiu">Aparell Digestiu</div>
+                                <div class="activity-card__description" data-i18n="sec_dig_desc">Processament d'aliments i nutrients</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Circulatori -->
+                        <div class="activity-card" onclick="openBioSystem('circulatori')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-ciculatori.png" alt="Aparell Circulatori" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_circulatori">Aparell Circulatori</div>
+                                <div class="activity-card__description" data-i18n="sec_circ_desc">Cor, sang i vasos sanguinis</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Respiratori -->
+                        <div class="activity-card activity-card--disabled">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-respiratori.png" alt="Aparell Respiratori" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_respiratori">Aparell Respiratori</div>
+                                <div class="activity-card__description" data-i18n="sec_resp_desc">Pulmons i intercanvi de gasos</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Excretor -->
+                        <div class="activity-card" onclick="openBioSystem('excretor')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_excretor">Aparell Excretor</div>
+                                <div class="activity-card__description" data-i18n="sec_excr_desc">Ronyons i eliminació de residus</div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Òrgans dels Sentits -->
+                        <div class="activity-card" onclick="openSenseMenu()">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Òrgans dels Sentits" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_senses_title">Els Òrgans dels Sentits</div>
+                                <div class="activity-card__description" data-i18n="act_senses_desc">Explora els 5 sentits</div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Sistema Endocrí -->
+                        <div class="activity-card" onclick="openBioSystem('endocri')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema Endocrí" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_endocri">Sistema Endocrí</div>
+                                <div class="activity-card__description" data-i18n="sec_endo_desc">Glàndules i hormones</div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Aparell Locomotor -->
+                        <div class="activity-card" onclick="openBioSystem('locomotor')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-locomotor.png" alt="Aparell Locomotor" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="sec_locomotor">Aparell Locomotor</div>
+                                <div class="activity-card__description" data-i18n="sec_loco_desc">Esquelet i musculatura</div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Sistema Immunitari -->
+                        <div class="activity-card" onclick="openBioSystem('immunitari')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Sistema Immunitari</div>
+                                <div class="activity-card__description">Defenses de l'organisme</div>
+                            </div>
+                        </div>
+
+                        <!-- 9. Aparell Reproductor -->
+                        <div class="activity-card" onclick="openBioSystem('reproductor')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Aparell Reproductor</div>
+                                <div class="activity-card__description">Aparell reproductor masculí i femení</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ACTIVITATS: Sistema Immunitari -->
+                    <div id="bio-immunitari-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+                        
+                        <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
+                            <div class="activity-card__media">???</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Repàs del Sistema Immunitari</div>
+                                <div class="activity-card__description">Posa a prova els teus coneixements</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Sistema Immunitari -->
+                    <div id="bio-activity-immunitari-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('immunitari')">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header">
+                            <h3>??? Repàs del Sistema Immunitari</h3>
+                        </div>
+
+                        <!-- Loader -->
+                        <div id="bio-immunitari-quiz-loader" class="text-center p-8">
+                            <div class="loader"></div> Carregant preguntes...
+                        </div>
+
+                        <!-- Selector de Tema / Nivell -->
+                        <div id="bio-immunitari-quiz-level-selector"
+                            class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-immunitari-quiz-level-buttons"
+                                class="flex flex-wrap justify-center gap-4 mb-4"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="bio-immunitari-quiz-ui"
+                            class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="immun-quiz-progress">Pregunta 1 de 10</div>
+                                <div id="immun-quiz-score">Punts: 100</div>
+                            </div>
+                            <div id="immun-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="immun-quiz-options" class="flex flex-col gap-3 mb-4"></div>
+                            <div id="immun-quiz-feedback" class="text-center font-bold mt-2"></div>
+                        </div>
+
+                        <!-- Resultats Finals -->
+                        <div id="bio-immunitari-quiz-final"
+                            class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <div id="immun-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-green-600 mb-6">0 / 100</div>
+                            <p id="immun-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initImmunitariQuiz()" class="btn btn--primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Aparell Reproductor -->
+                    <div id="bio-reproductor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+                        
+                        <!-- Quiz de l'Aparell Reproductor -->
+                        <div class="activity-card" onclick="openBioActivity('reproductor-quiz')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Repàs de l'Aparell Reproductor</div>
+                                <div class="activity-card__description">Posa a prova els teus coneixements</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ACTIVITATS: Aparell Circulatori -->
+                    <div id="bio-circulatori-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+                         <div class="activity-card" onclick="openBioActivity('cor')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/heart/cor-huma.png" alt="El Cor Humà" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_heart_title">El Cor Humà</div>
+                                <div class="activity-card__description" data-i18n="act_heart_desc">Identifica les parts i cavitats del
+                                    cor</div>
+                            </div>
+                        </div>
+
+                        <!-- NOU: Quiz de l'Aparell Circulatori -->
+                        <div class="activity-card" onclick="openBioActivity('circulatori-quiz')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_circ_quiz_title">Repàs del Circulatori</div>
+                                <div class="activity-card__description" data-i18n="act_circ_quiz_desc">Posa a prova els teus coneixements
+                                </div>
+                            </div>
+                        </div>
+                        <!-- NOU: Cèl·lules de la Sang -->
+                        <div class="activity-card" onclick="openBioActivity('cells')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies.png" alt="Les Cèl·lules de la Sang"
+                                    class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_cells_title">Les Cèl·lules de la Sang</div>
+                                <div class="activity-card__description" data-i18n="act_cells_desc">Identifica els elements de la sang
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- ACTIVITATS: Aparell Excretor -->
+                    <div id="bio-excretor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+
+                        <div class="activity-card" onclick="openBioActivity('excretor-game')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/sistema_excretor.png" alt="El Sistema Excretor" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_excretor_title">El Sistema Excretor</div>
+                                <div class="activity-card__description" data-i18n="act_excretor_desc">Identifica les parts de l'aparell
+                                    excretor</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Sistema Endocrí -->
+                    <div id="bio-endocri-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+
+                        <!-- Quiz del Sistema Endocrí -->
+                        <div class="activity-card" onclick="openBioActivity('endocri-quiz')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_endo_quiz_title">Repàs de l'Endocrí</div>
+                                <div class="activity-card__description" data-i18n="act_endo_quiz_desc">Posa a prova els teus coneixements
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NOU: Situar les Glàndules -->
+                        <div class="activity-card" onclick="openBioActivity('endocri-glands')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title" data-i18n="act_endo_glands_title">Situar les Glàndules</div>
+                                <div class="activity-card__description" data-i18n="act_endo_glands_desc">Identifica la posició de les glàndules endocrines</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Aparell Locomotor -->
+                    <div id="bio-locomotor-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+
+                        <!-- Quiz de l'Aparell Locomotor -->
+                        <div class="activity-card" onclick="openBioActivity('locomotor-quiz')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Repàs del Locomotor</div>
+                                <div class="activity-card__description">Posa a prova els teus coneixements sobre ossos i músculs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Aparell Reproductor -->
+                    <div id="bio-activity-reproductor-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('reproductor')">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header">
+                            <h3>?? Repàs de l'Aparell Reproductor</h3>
+                        </div>
+
+                        <!-- Loader -->
+                        <div id="bio-reproductor-quiz-loader" class="text-center p-8">
+                            <div class="loader"></div> Carregant preguntes...
+                        </div>
+
+                        <!-- Selector de Tema / Nivell (generat dinàmicament per JS) -->
+                        <div id="bio-reproductor-quiz-level-selector"
+                            class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-reproductor-quiz-level-buttons"
+                                class="flex flex-wrap justify-center gap-4 mb-4"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="bio-reproductor-quiz-ui"
+                            class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="reprod-quiz-progress">Pregunta 1 de 10</div>
+                                <div id="reprod-quiz-score">Punts: 100</div>
+                            </div>
+                            <div id="reprod-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="reprod-quiz-options" class="flex flex-wrap justify-center gap-4 mb-4"></div>
+                            <div id="reprod-quiz-feedback" class="text-center font-bold mt-2"></div>
+                        </div>
+
+                        <!-- Resultats Finals -->
+                        <div id="bio-reproductor-quiz-final"
+                            class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Puntuació Final</h4>
+                            <div id="reprod-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-pink-600 mb-6">0 / 100</div>
+                            <p id="reprod-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initReproductorQuiz()" class="btn btn--primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Aparell Circulatori -->
+
+                    <div id="bio-activity-circulatori-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_circ_quiz_title">Repàs del Circulatori</h3>
+                        </div>
+
+                        <div id="circ-quiz-feedback" class="text-center mb-4"></div>
+
+                        <!-- Selecció de Nivell/Tema -->
+                        <div id="circ-quiz-selection"
+                            class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold" data-i18n="select_level">Tria per nivell (tots els
+                                temes):</p>
+                            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                                <button onclick="startCircQuizWithFilter('all', 'easy')" class="btn btn--primary"
+                                    data-i18n="level_easy">Fàcil</button>
+                                <button onclick="startCircQuizWithFilter('all', 'medium')" class="btn btn--primary"
+                                    data-i18n="level_medium">Mitjà</button>
+                                <button onclick="startCircQuizWithFilter('all', 'hard')" class="btn btn--primary"
+                                    data-i18n="level_hard">Difícil</button>
+                                <button onclick="startCircQuizWithFilter('all', 'mixed')" class="btn btn--primary"
+                                    data-i18n="level_mixed">Barrejat</button>
+                            </div>
+                            <div id="circ-quiz-topic-selection"></div>
+                        </div>
+
+                        <!-- Quiz UI -->
+                        <div id="circ-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div
+                                class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="circ-quiz-progress">Pregunta 1/10</div>
+                                <div id="circ-quiz-score">Punts: 0</div>
+                            </div>
+                            <div id="circ-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="circ-quiz-options" class="flex flex-wrap justify-center gap-4 mb-6"></div>
+                        </div>
+
+                        <!-- Resultats -->
+                        <div id="circ-quiz-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="circ-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            </div>
+                            <p id="circ-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initCircQuiz()" class="btn btn--primary">Tornar a començar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Sistema Endocrí -->
+                    <div id="bio-activity-endocri-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz del Sistema Endocrí</h3>
+                        </div>
+                        <div id="bio-endocri-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-endocri-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-endocri-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-endocri-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="endo-quiz-progress">Pregunta 1</div>
+                                <div id="endo-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="endo-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="endo-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="endo-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-endocri-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="endo-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="endo-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initEndocriQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Situar les Glàndules (Anatomia) -->
+                    <div id="bio-activity-endocri-glands" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('endocri')">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_endo_glands_title">Situar les Glàndules</h3>
+                        </div>
+
+                        <!-- Selector de Model -->
+                        <div id="bio-endocri-glands-selector" class="container-white p-6 rounded-lg shadow-sm border mb-6 text-center">
+                            <p class="mb-6 text-xl font-bold">Tria el model per a l'activitat:</p>
+                            <div class="flex flex-wrap justify-center gap-8">
+                                <!-- Model Masculí -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-blue-500 flex flex-col items-center p-4 w-56"
+                                     onclick="startBioEndocriGlandsGame('home')">
+                                    <div class="w-full h-40 bg-blue-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-blue-100">
+                                        <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-home.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <p class="font-bold text-lg text-blue-800">Model Masculí</p>
+                                </div>
+
+                                <!-- Model Femení -->
+                                <div class="cursor-pointer hover:scale-105 transition-transform bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:border-pink-500 flex flex-col items-center p-4 w-56"
+                                     onclick="startBioEndocriGlandsGame('dona')">
+                                    <div class="w-full h-40 bg-pink-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-pink-100">
+                                        <img src="assets/images/activities/biologia/endocrine/glandules-endocrines-dona.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <p class="font-bold text-lg text-pink-800">Model Femení</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Joc UI -->
+                        <div id="bio-endocri-glands-ui" class="hidden bio-activity-container">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-endocri-glands-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-endocri-glands-help-btn" class="btn btn--info btn--sm" onclick="showBioEndocriGlandsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-endocri-glands-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioEndocriGlandsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
+                                <div id="bio-endocri-glands-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-endocri-glands-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-endocri-glands-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Glàndules Endocrines" class="interactive-image">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-endocri-glands-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Endocrí)</span>
+                                    <button onclick="closeBioEndocriGlandsCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioEndocriGlandsTarget('y', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('x', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('y', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioEndocriGlandsTarget('x', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioEndocriGlandsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-endocri-glands-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioEndocriGlandsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Quiz Aparell Locomotor -->
+                    <div id="bio-activity-locomotor-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('locomotor')">← Tornar al menú</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Repàs del Locomotor</h3>
+                        </div>
+
+                        <div id="locomotor-quiz-feedback" class="text-center mb-4 font-bold text-lg h-8"></div>
+
+                        <div id="locomotor-quiz-selection" class="text-center p-8 bg-white rounded-lg shadow-sm border mb-6 hidden">
+                            <div id="locomotor-quiz-topic-selection"></div>
+                        </div>
+
+                        <div id="locomotor-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="locomotor-quiz-progress">Pregunta 1</div>
+                                <div id="locomotor-quiz-score">Punts: 0</div>
+                            </div>
+                            <div id="locomotor-quiz-question-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="locomotor-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                        </div>
+
+                        <div id="locomotor-quiz-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Resultat Final</h4>
+                            <div id="locomotor-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="locomotor-quiz-message" class="text-lg mb-8"></p>
+                            <button onclick="initLocomotorQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Cèl·lules de la Sang -->
+                    <div id="bio-activity-cells" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('circulatori')">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header text-center mb-6">
+                            <h3 data-i18n="act_cells_title">Les Cèl·lules de la Sang</h3>
+                            <p id="cells-instruction" class="text-lg opacity-75" data-i18n="cells_instruction">
+                                Identifica la cèl·lula que demana l'enunciat:</p>
+                        </div>
+
+                        <div class="cells-game-container max-w-2xl mx-auto">
+                            <!-- Imatge del diagrama -->
+                            <div
+                                class="mb-8 text-center bg-white p-4 rounded-xl border-2 border-dashed border-gray-200">
+                                <img src="assets/images/activities/biologia/cells/cellules-sanguinies-microscopi-electronic.png"
+                                    alt="Esquema cèl·lules sang" class="mx-auto rounded-lg shadow-sm media-contained-tall">
+                            </div>
+
+                            <div id="cells-matching-ui" class="container-white p-6 rounded-xl shadow-sm border mb-6">
+                                <!-- Files per 1, 2, 3 -->
+                                <div class="space-y-5">
+                                    <!-- Cèl·lula 1 -->
+                                    <div id="row-cell-1"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 1 és un</span>
+                                        <select id="select-common-1"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-1"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                    <!-- Cèl·lula 2 -->
+                                    <div id="row-cell-2"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 2 és un</span>
+                                        <select id="select-common-2"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-2"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                    <!-- Cèl·lula 3 -->
+                                    <div id="row-cell-3"
+                                        class="flex flex-wrap items-center gap-2 p-4 rounded-lg bg-gray-50 border text-lg">
+                                        <span class="font-bold">La cèl·lula 3 és un</span>
+                                        <select id="select-common-3"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom comú...</option>
+                                        </select>
+                                        <span class="font-bold">o també es diu</span>
+                                        <select id="select-scientific-3"
+                                            class="form-select form-select--compact flex-1 min-w-[160px]">
+                                            <option value="" disabled selected>Tria nom científic...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="mt-8 text-center">
+                                    <button onclick="checkCellsAnswers()"
+                                        class="btn btn--primary px-10 py-3 text-lg">Comprovar respostes</button>
+                                </div>
+                            </div>
+
+                            <div id="cells-feedback" class="text-center h-8 font-bold text-lg mb-4"></div>
+                        </div>
+
+                        <!-- Resultats Cells -->
+                        <div id="cells-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border max-w-md mx-auto">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="cells-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0
+                            </div>
+                            <p id="cells-message" class="text-lg mb-8"></p>
+                            <button onclick="initCellsGame()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACTIVITAT: El Cor Humà -->
+
+                    <div id="bio-activity-cor" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="showBioMenu()">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_heart_title">El Cor Humà</h3>
+                        </div>
+                        <div class="bio-activity-container">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-heart-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-heart-help-btn" class="btn btn--info btn--sm" onclick="showBioHeartHelp()"
+                                        data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-heart-skip-btn" class="btn btn--secondary btn--sm"
+                                        onclick="skipBioHeartQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
+                                <div id="bio-heart-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-heart-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-heart-image" src="assets/images/activities/biologia/heart/cor.png" alt="Cor Humà"
+                                    class="interactive-image">
+                            </div>
+
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-heart-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Cor)</span>
+                                    <button onclick="closeBioHeartCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioHeartTarget('y', -1)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioHeartTarget('x', -1)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioHeartTarget('y', 1)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioHeartTarget('x', 1)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-2 justify-center mb-2">
+                                    <button onclick="nudgeBioHeartTarget('w', 1); nudgeBioHeartTarget('h', 1)"
+                                        class="bg-gray-700 px-2 rounded">+</button>
+                                    <button onclick="nudgeBioHeartTarget('w', -1); nudgeBioHeartTarget('h', -1)"
+                                        class="bg-gray-700 px-2 rounded">-</button>
+                                    <span class="ml-2">Mida</span>
+                                </div>
+                                <div id="bio-heart-calibration-values" class="text-center text-xs opacity-75">x:0
+                                    y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioHeartConfig()"
+                                        class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar
+                                        Codi</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Sistema Excretor Joc Principal -->
+                    <div id="bio-activity-excretor-game" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('excretor')">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_excretor_title">El Sistema Excretor</h3>
+                        </div>
+                        <div class="bio-activity-container">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-excretor-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-excretor-help-btn" class="btn btn--info btn--sm"
+                                        onclick="showBioExcretorHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-excretor-skip-btn" class="btn btn--secondary btn--sm"
+                                        onclick="skipBioExcretorQuestion()" data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-red-50 rounded mb-2">
+                                <div id="bio-excretor-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-excretor-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-excretor-image" src="assets/images/activities/biologia/systems/sistema_excretor.png"
+                                    alt="Sistema Excretor"
+                                    class="interactive-image">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-excretor-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Excretor)</span>
+                                    <button onclick="closeBioExcretorCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioExcretorTarget('y', -5)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioExcretorTarget('x', -5)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioExcretorTarget('y', 5)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioExcretorTarget('x', 5)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioExcretorTarget('w', -5)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioExcretorTarget('w', 5)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioExcretorTarget('h', -5)"
+                                            class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioExcretorTarget('h', 5)"
+                                            class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-excretor-calibration-values" class="text-center text-xs opacity-75">x:0
+                                    y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioExcretorConfig()"
+                                        class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar
+                                        Codi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Òrgans dels Sentits (Sub-menú) -->
+                    <div id="bio-senses-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+
+                        <div class="activity-card" onclick="openSenseSubActivity('vista')">
+                            <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-vista.png" class="activity-card__image"></div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">La Vista</div>
+                                <div class="activity-card__description">L'ull i el sentit de la vista</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('oida')">
+                            <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-oida.png" class="activity-card__image"></div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">L'Oïda</div>
+                                <div class="activity-card__description">L'orella i el sentit de l'oïda</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('olfacte')">
+                            <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-olfacte.png" class="activity-card__image"></div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">L'Olfacte</div>
+                                <div class="activity-card__description">El nas i el sentit de l'olfacte</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('gust')">
+                            <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-gust.png" class="activity-card__image"></div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">El Gust</div>
+                                <div class="activity-card__description">La llengua i el sentit del gust</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openSenseSubActivity('tacte')">
+                            <div class="activity-card__media"><img src="assets/images/activities/biologia/senses/sentit-tacte.png" class="activity-card__image"></div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">El Tacte</div>
+                                <div class="activity-card__description">La pell i el sentit del tacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-MENÚS INDIVIDUALS PER CADA SENTIT -->
+                    <div id="sense-vista-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('vista-parts')">
+                            <div class="activity-card__media">???</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts de l'Ull</div>
+                                <div class="activity-card__description">Identifica l'anatomia de l'ull</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('vista-quiz')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Quiz de la Vista</div>
+                                <div class="activity-card__description">Preguntes sobre el funcionament de la vista</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-oida-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('oida-parts')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts de l'Orella</div>
+                                <div class="activity-card__description">Identifica l'anatomia de l'orella</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('oida-quiz')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Quiz de l'Oïda</div>
+                                <div class="activity-card__description">Preguntes sobre el funcionament de l'oïda</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-olfacte-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('olfacte-parts')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts del Nas</div>
+                                <div class="activity-card__description">Identifica l'anatomia del nas</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('olfacte-quiz')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Quiz de l'Olfacte</div>
+                                <div class="activity-card__description">Preguntes sobre l'olfacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-gust-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('gust-parts')">
+                            <div class="activity-card__media">??</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts de la Llengua</div>
+                                <div class="activity-card__description">Identifica l'anatomia del gust</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('gust-quiz')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Quiz del Gust</div>
+                                <div class="activity-card__description">Preguntes sobre el gust</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sense-tacte-menu" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm btn--fit-content mb-2" onclick="openSenseMenu()">← Tornar als Sentits</button>
+                        <div class="activity-card" onclick="openBioActivity('tacte-parts')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts de la Pell</div>
+                                <div class="activity-card__description">Identifica l'anatomia de la pell</div>
+                            </div>
+                        </div>
+                        <div class="activity-card" onclick="openBioActivity('tacte-quiz')">
+                            <div class="activity-card__media">?</div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Quiz del Tacte</div>
+                                <div class="activity-card__description">Preguntes sobre el tacte</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JOCS DE LES PARTS DELS SENTITS -->
+                    <div id="bio-activity-vista-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_vista_parts_title">Les Parts de l'Ull</h3>
+                        </div>
+
+                        <div id="bio-vista-parts-ui" class="bio-activity-container hidden">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-vista-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-vista-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioVistaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-vista-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioVistaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-blue-50 rounded mb-2">
+                                <div id="bio-vista-parts-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-vista-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-vista-parts-image" src="assets/images/activities/biologia/senses/sentit-vista.png" alt="Parts de l'ull" class="interactive-image" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-vista-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Vista)</span>
+                                    <button onclick="closeBioVistaPartsCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioVistaPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioVistaPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioVistaPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioVistaPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioVistaPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioVistaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioVistaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioVistaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-vista-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioVistaPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-oida-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_oida_parts_title">Les Parts de l'Orella</h3>
+                        </div>
+
+                        <div id="bio-oida-parts-ui" class="bio-activity-container hidden">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-oida-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-oida-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioOidaPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-oida-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioOidaPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+
+                            <!-- Indicador de secció (canvia automàticament) -->
+                            <div class="flex items-center gap-3 p-2 bg-blue-50 rounded mb-2">
+                                <span id="bio-oida-parts-section-label" class="font-bold text-blue-700 text-sm px-3 py-1 rounded-full bg-blue-100">?? Orella Externa</span>
+                                <div id="bio-oida-parts-question" class="text-lg font-bold flex-1">Clica a la imatge...</div>
+                                <div id="bio-oida-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-oida-parts-image"
+                                     src="assets/images/activities/biologia/senses/orella-externa.png"
+                                     alt="Parts de l'orella"
+                                     class="interactive-image interactive-image--fade"
+                                     onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-oida-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Oïda)</span>
+                                    <button onclick="closeBioOidaPartsCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioOidaPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioOidaPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioOidaPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioOidaPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioOidaPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioOidaPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioOidaPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioOidaPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-oida-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioOidaPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-olfacte-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <div id="olfacte-parts-container"></div>
+                    </div>
+                    <div id="bio-activity-gust-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_gust_parts_title">Les Zones del Gust</h3>
+                        </div>
+
+                        <div id="bio-gust-parts-ui" class="bio-activity-container hidden">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="bio-gust-parts-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="bio-gust-parts-help-btn" class="btn btn--info btn--sm" onclick="showBioGustPartsHelp()" data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="bio-gust-parts-skip-btn" class="btn btn--secondary btn--sm" onclick="skipBioGustPartsQuestion()" data-i18n="btn_skip">Passar pregunta (-5 punts)</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-pink-50 rounded mb-2">
+                                <div id="bio-gust-parts-question" class="text-lg font-bold">Clica...</div>
+                                <div id="bio-gust-parts-feedback" class="game-panel__feedback font-bold feedback-inline"></div>
+                            </div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-2">
+                                <img id="bio-gust-parts-image" src="assets/images/llengua-gustos.png" alt="Llengua i Gustos" class="interactive-image" onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';">
+                            </div>
+
+                            <!-- CALIBRATION UI (DEBUG) -->
+                            <div id="bio-gust-parts-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana (Gust)</span>
+                                    <button onclick="closeBioGustPartsCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeBioGustPartsTarget('y', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeBioGustPartsTarget('x', -5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioGustPartsTarget('y', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeBioGustPartsTarget('x', 5)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-4 justify-center mb-2">
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Amplada (W)</span>
+                                        <button onclick="nudgeBioGustPartsTarget('w', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioGustPartsTarget('w', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-gray-400 mb-1 block">Alçada (H)</span>
+                                        <button onclick="nudgeBioGustPartsTarget('h', -5)" class="bg-gray-700 px-2 rounded">-</button>
+                                        <button onclick="nudgeBioGustPartsTarget('h', 5)" class="bg-gray-700 px-2 rounded">+</button>
+                                    </div>
+                                </div>
+                                <div id="bio-gust-parts-calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0</div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportBioGustPartsConfig()" class="btn btn--primary btn--sm btn--export btn--auto-width">Exportar / Copiar Codi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bio-activity-tacte-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <div id="tacte-parts-container"></div>
+                    </div>
+
+                    <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÍ) -->
+                    <div id="bio-activity-vista-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('vista')">← Tornar</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz de la Vista</h3>
+                        </div>
+                        <div id="bio-vista-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-vista-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-vista-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-vista-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="vista-quiz-progress">Pregunta 1</div>
+                                <div id="vista-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="vista-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="vista-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="vista-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-vista-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="vista-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="vista-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initVistaQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-oida-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('oida')">← Tornar</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz de l'Oïda</h3>
+                        </div>
+                        <div id="bio-oida-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-oida-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-oida-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-oida-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="oida-quiz-progress">Pregunta 1</div>
+                                <div id="oida-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="oida-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="oida-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="oida-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-oida-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="oida-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="oida-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initOidaQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-olfacte-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('olfacte')">← Tornar</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz de l'Olfacte</h3>
+                        </div>
+                        <div id="bio-olfacte-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-olfacte-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-olfacte-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-olfacte-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="olfacte-quiz-progress">Pregunta 1</div>
+                                <div id="olfacte-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="olfacte-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="olfacte-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="olfacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-olfacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="olfacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="olfacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initOlfacteQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-gust-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('gust')">← Tornar</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz del Gust</h3>
+                        </div>
+                        <div id="bio-gust-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-gust-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-gust-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-gust-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="gust-quiz-progress">Pregunta 1</div>
+                                <div id="gust-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="gust-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="gust-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="gust-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-gust-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="gust-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="gust-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initGustQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+
+                    <div id="bio-activity-tacte-quiz" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
+                        <div class="game-panel__header text-center">
+                            <h3>Quiz del Tacte</h3>
+                        </div>
+                        <div id="bio-tacte-quiz-loader" class="text-center p-8"><div class="loader"></div> Carregant preguntes...</div>
+                        <div id="bio-tacte-quiz-level-selector" class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-tacte-quiz-level-buttons" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+                        </div>
+                        <div id="bio-tacte-quiz-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="tacte-quiz-progress">Pregunta 1</div>
+                                <div id="tacte-quiz-score-display">Punts: 0</div>
+                            </div>
+                            <div id="tacte-quiz-text" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="tacte-quiz-options" class="flex flex-col gap-2 mb-4"></div>
+                            <div id="tacte-quiz-feedback" class="text-center font-bold text-lg h-8"></div>
+                        </div>
+                        <div id="bio-tacte-quiz-final" class="hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4" data-i18n="final_score">Puntuació Final</h4>
+                            <div id="tacte-quiz-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-6">0 / 0</div>
+                            <p id="tacte-quiz-final-msg" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initTacteQuiz()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
+                    </div>
+                </div>

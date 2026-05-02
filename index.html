@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aula CreActiva és una web educativa de projectes escolars amb activitats interactives de biologia, natura, mediterrani, ràdio i recerca.">
+    <meta name="theme-color" content="#1a202c">
+    <meta name="color-scheme" content="light dark">
     <title>Aula CreActiva - Escola Projectes</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>??</text></svg>">
+    <link rel="preload" href="css/style.css" as="style">
     <link rel="stylesheet" href="css/style.css">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,50 +21,50 @@
     <div id="app"></div>
 
     <!-- Scripts -->
-    <script src="js/i18n.js"></script>
-    <script src="js/games/mediterrani-capitals.js"></script>
-    <script src="js/games/mediterrani-test.js"></script>
-    <script src="js/games/mediterrani-map.js"></script>
-    <script src="js/games/mediterrani-biodiversitat.js"></script>
-    <script src="js/games/paralimpics-microbit.js"></script>
-    <script src="js/games/natura-xarxes.js"></script>
-    <script src="js/games/natura-impacte.js"></script>
-    <script src="js/games/natura-rols.js"></script>
-    <script src="js/games/natura-bibliografia.js"></script>
-    <script src="js/games/treball-recerca.js"></script>
-    <script src="js/games/treball-recerca-temes.js"></script>
-    <script src="js/games/bio-cor.js"></script>
-    <script src="js/games/bio-excretor.js"></script>
-    <script src="js/games/bio-circulatori-quiz.js"></script>
-    <script src="js/games/bio-reproductor-quiz.js"></script>
-    <script src="js/games/bio-immunitari-quiz.js"></script>
-    <script src="js/games/bio-endocri-quiz.js"></script>
-    <script src="js/games/bio-cells.js"></script>
-    <script src="js/games/bio-vista-quiz.js"></script>
-    <script src="js/games/bio-vista-parts.js"></script>
-    <script src="js/games/bio-oida-quiz.js"></script>
-    <script src="js/games/bio-oida-parts.js"></script>
-    <script src="js/games/bio-olfacte-quiz.js"></script>
-    <script src="js/games/bio-olfacte-parts.js"></script>
-    <script src="js/games/bio-gust-quiz.js"></script>
-    <script src="js/games/bio-gust-parts.js"></script>
-    <script src="js/games/bio-tacte-quiz.js"></script>
-    <script src="js/games/bio-tacte-parts.js"></script>
-    <script src="js/games/bio-endocri-glands.js"></script>
-    <script src="js/games/bio-locomotor-quiz.js"></script>
-    <script src="js/games/audio-sonar.js"></script>
-    <script src="js/games/radio-taula.js"></script>
-    <script src="js/games/radio-conexions.js"></script>
-    <script src="js/games/natura-preguntes.js"></script>
-    <script src="js/games/natura-temes.js"></script>
-    <script src="js/games/rates-preguntes.js"></script>
-    <script src="js/games/treball-recerca-biblio.js"></script>
-    <script src="js/games/solidart-quadres.js"></script>
-    <script src="js/games/solidart-quadres2.js"></script>
-    <script src="js/games/tr-diagnostic.js"></script>
-    <script src="js/games/natura-orenetes.js"></script>
-    <script src="js/games/natura-orenetes-preguntes.js"></script>
-    <script src="js/app.js"></script>
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/games/mediterrani-capitals.js"></script>
+    <script defer src="js/games/mediterrani-test.js"></script>
+    <script defer src="js/games/mediterrani-map.js"></script>
+    <script defer src="js/games/mediterrani-biodiversitat.js"></script>
+    <script defer src="js/games/paralimpics-microbit.js"></script>
+    <script defer src="js/games/natura-xarxes.js"></script>
+    <script defer src="js/games/natura-impacte.js"></script>
+    <script defer src="js/games/natura-rols.js"></script>
+    <script defer src="js/games/natura-bibliografia.js"></script>
+    <script defer src="js/games/treball-recerca.js"></script>
+    <script defer src="js/games/treball-recerca-temes.js"></script>
+    <script defer src="js/games/bio-cor.js"></script>
+    <script defer src="js/games/bio-excretor.js"></script>
+    <script defer src="js/games/bio-circulatori-quiz.js"></script>
+    <script defer src="js/games/bio-reproductor-quiz.js"></script>
+    <script defer src="js/games/bio-immunitari-quiz.js"></script>
+    <script defer src="js/games/bio-endocri-quiz.js"></script>
+    <script defer src="js/games/bio-cells.js"></script>
+    <script defer src="js/games/bio-vista-quiz.js"></script>
+    <script defer src="js/games/bio-vista-parts.js"></script>
+    <script defer src="js/games/bio-oida-quiz.js"></script>
+    <script defer src="js/games/bio-oida-parts.js"></script>
+    <script defer src="js/games/bio-olfacte-quiz.js"></script>
+    <script defer src="js/games/bio-olfacte-parts.js"></script>
+    <script defer src="js/games/bio-gust-quiz.js"></script>
+    <script defer src="js/games/bio-gust-parts.js"></script>
+    <script defer src="js/games/bio-tacte-quiz.js"></script>
+    <script defer src="js/games/bio-tacte-parts.js"></script>
+    <script defer src="js/games/bio-endocri-glands.js"></script>
+    <script defer src="js/games/bio-locomotor-quiz.js"></script>
+    <script defer src="js/games/audio-sonar.js"></script>
+    <script defer src="js/games/radio-taula.js"></script>
+    <script defer src="js/games/radio-conexions.js"></script>
+    <script defer src="js/games/natura-preguntes.js"></script>
+    <script defer src="js/games/natura-temes.js"></script>
+    <script defer src="js/games/rates-preguntes.js"></script>
+    <script defer src="js/games/treball-recerca-biblio.js"></script>
+    <script defer src="js/games/solidart-quadres.js"></script>
+    <script defer src="js/games/solidart-quadres2.js"></script>
+    <script defer src="js/games/tr-diagnostic.js"></script>
+    <script defer src="js/games/natura-orenetes.js"></script>
+    <script defer src="js/games/natura-orenetes-preguntes.js"></script>
+    <script defer src="js/app.js"></script>
 </body>
 
 </html>
