@@ -35,13 +35,14 @@ const bioOidaPartsGame = {
         { key: 'act_oida_part_vestibul',  section: 'interna', x: 400, y: 300, w: 100, h: 100 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioOidaPartsGame() {
     bioOidaPartsGame.currentStep = 0;
     bioOidaPartsGame.score = 100;
     bioOidaPartsGame.isFinished = false;
+    bioOidaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     // Barrejar mantenint l'ordre per seccions (opcional: barreja total)
     const shuffled = [...bioOidaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
@@ -107,6 +108,7 @@ function updateBioOidaPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioOidaPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioOidaPartsGame.sessionQuestions[bioOidaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key

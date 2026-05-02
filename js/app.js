@@ -18,6 +18,29 @@ const state = {
     currentProject: null
 };
 
+function getCurrentUserRole() {
+    if (typeof state === 'undefined' || !state.user) return '';
+    return String(state.user.rol || '').trim().toLowerCase();
+}
+
+function hasUserRole(roleFragment) {
+    const normalizedRole = String(roleFragment || '').trim().toLowerCase();
+    if (!normalizedRole) return false;
+    return getCurrentUserRole().includes(normalizedRole);
+}
+
+function isAdminUser() {
+    return hasUserRole('admin');
+}
+
+function isTeacherUser() {
+    return hasUserRole('profe') || hasUserRole('prof');
+}
+
+function canUseTeacherTools() {
+    return isAdminUser() || isTeacherUser();
+}
+
 // **********************************************************
 // ELEMENTS DEL DOM
 // **********************************************************

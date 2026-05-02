@@ -28,6 +28,7 @@ function initSonarGame() {
     sonarGame.currentStep = 0;
     sonarGame.score = 100;
     sonarGame.isFinished = false;
+    sonarGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
     updateSonarUI();
 
     const img = document.getElementById('sonar-image');
@@ -57,6 +58,7 @@ function updateSonarUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !sonarGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = sonarGame.targets[sonarGame.currentStep];
     questionEl.innerText = i18n.t(currentTarget.key);
@@ -139,6 +141,21 @@ function closeCalibration() {
     const hint = document.querySelector('.sonar-help-hint');
     if (calibrationUI) calibrationUI.classList.add('hidden');
     if (hint) hint.remove();
+}
+
+function exportSonarConfig() {
+    const code = JSON.stringify(sonarGame.targets, null, 4);
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert("Codi copiat al portapapers! Enganxa'l a sonarGame.targets");
+    } catch (err) {
+        prompt("Copia aquest codi i enganxa'l a audio-sonar.js:", code);
+    }
+    document.body.removeChild(textArea);
 }
 
 function skipQuestion() {

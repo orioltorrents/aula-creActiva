@@ -33,10 +33,11 @@ const bioEndocriGlandsGame = {
         
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioEndocriGlandsGame() {
+    bioEndocriGlandsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
     document.getElementById('bio-endocri-glands-selector').classList.remove('hidden');
     document.getElementById('bio-endocri-glands-ui').classList.add('hidden');
 }
@@ -100,6 +101,7 @@ function updateBioEndocriGlandsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioEndocriGlandsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioEndocriGlandsGame.sessionQuestions[bioEndocriGlandsGame.currentStep];
 

@@ -25,6 +25,7 @@ const SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 
 // Durant 5 minuts reutilitzem lectures del Sheet per no demanar les mateixes dades a Google en cada petició.
 const CACHE_TTL_SECONDS = 300;
+let spreadsheetInstance = null;
 
 function doGet(e) {
     return handleRequest(e);
@@ -70,11 +71,12 @@ function handleRequest(e) {
     try {
         // Una petició pot arribar amb dades a la URL o al cos del POST.
         // Ajuntem totes dues fonts en un sol objecte perquè la resta del codi sigui simple.
-        let data = { ...e.parameter };
+        const request = e || {};
+        let data = { ...(request.parameter || {}) };
 
-        if (e.postData && e.postData.contents) {
+        if (request.postData && request.postData.contents) {
             try {
-                const bodyJson = JSON.parse(e.postData.contents);
+                const bodyJson = JSON.parse(request.postData.contents);
                 // Si una dada existeix als dos llocs, la del body mana.
                 data = { ...data, ...bodyJson };
             } catch (err) {
@@ -115,11 +117,19 @@ function withWriteLock(callback) {
 
 function loginUser(email, password) {
     const sheet = getSheet('usuaris');
-    const data = sheet.getDataRange().getValues();
-    const headers = data[0];
+    if (!sheet) return { status: 'error', message: 'Pestanya usuaris no trobada' };
 
-    const emailIdx = headers.indexOf('email');
-    const passIdx = headers.indexOf('password');
+    const data = getCachedSheetValues(sheet);
+    if (data.length <= 1) return { status: 'error', message: 'No hi ha usuaris registrats' };
+
+    const headers = data[0].map(normalizeHeader);
+
+    const emailIdx = findHeaderIndex(headers, ['email']);
+    const passIdx = findHeaderIndex(headers, ['password']);
+
+    if (emailIdx === -1 || passIdx === -1) {
+        return { status: 'error', message: 'Falten les columnes email o password a la pestanya usuaris' };
+    }
 
     // Comencem a la fila 1 perquè la fila 0 són les capçaleres.
     // El correu no distingeix majúscules/minúscules; la contrasenya sí.
@@ -128,7 +138,7 @@ function loginUser(email, password) {
             String(data[i][passIdx]) === String(password)) {
 
             const user = {};
-            headers.forEach((header, index) => {
+            data[0].forEach((header, index) => {
                 // Mai retornem la contrasenya al navegador.
                 if (header !== 'password') {
                     user[header] = data[i][index];
@@ -200,6 +210,7 @@ function getProjects(curs) {
 function saveResult(data) {
     return withWriteLock(() => {
         const sheet = getSheet('resultats');
+        if (!sheet) return { status: 'error', message: 'Pestanya resultats no trobada' };
 
         // Aquesta llista ha de seguir el mateix ordre que les capçaleres de la pestanya "resultats".
         const row = [
@@ -216,6 +227,7 @@ function saveResult(data) {
         ];
 
         sheet.appendRow(row);
+        clearSheetCache(sheet);
         return { status: 'success', message: 'Resultat guardat correctament' };
     });
 }
@@ -225,17 +237,22 @@ function getNaturaQuestions(ecosistema) {
     if (!sheet) return { status: 'error', message: 'Pestanya preguntes_natura no trobada' };
 
     const data = getCachedSheetValues(sheet);
-    const headers = data[0];
-    const ecoIdx = headers.indexOf('Ecosistema');
+    if (data.length <= 1) return { status: 'error', message: 'Sense dades a preguntes_natura' };
 
-    let filtered = data.slice(1).filter(row => row[ecoIdx] === ecosistema);
+    const headers = data[0].map(normalizeHeader);
+    const ecoIdx = findHeaderIndex(headers, ['ecosistema']);
+
+    if (ecoIdx === -1) return { status: 'error', message: 'Falta la columna Ecosistema a preguntes_natura' };
+
+    const normalizedEcosistema = cleanCell(ecosistema).toLowerCase();
+    let filtered = data.slice(1).filter(row => cleanCell(row[ecoIdx]).toLowerCase() === normalizedEcosistema);
 
     // Mostrem com a màxim 10 preguntes diferents cada vegada.
     filtered = sample(filtered, 10);
 
     const questions = filtered.map(row => {
         const q = {};
-        headers.forEach((h, i) => q[h] = row[i]);
+        data[0].forEach((h, i) => q[h] = row[i]);
         return q;
     });
 
@@ -250,9 +267,9 @@ function getImpactePhases() {
     const data = getCachedSheetValues(sheet);
     if (data.length <= 1) return { status: 'error', message: 'Sense dades a fases_impacte' };
 
-    const headers = data[0];
-    const ordreIdx = headers.indexOf('Ordre');
-    const faseIdx = headers.indexOf('Fase');
+    const headers = data[0].map(normalizeHeader);
+    const ordreIdx = findHeaderIndex(headers, ['ordre']);
+    const faseIdx = findHeaderIndex(headers, ['fase']);
 
     if (faseIdx === -1) return { status: 'error', message: 'Falta la columna Fase a fases_impacte' };
 
@@ -290,6 +307,7 @@ function saveNaturaQuizResult(data) {
         ];
 
         sheet.appendRow(row);
+        clearSheetCache(sheet);
         return { status: 'success', message: 'Resposta guardada' };
     });
 }
@@ -627,10 +645,26 @@ function getRadioConfig() {
     };
 }
 
+function getDefaultRadioConnectionsQuestions() {
+    return [
+        { id: 1, image: 'xlr_connector.jpg', correct: 'XLR', alternatives: ['XLR', 'RCA', 'HDMI', 'USB Tipus C'] },
+        { id: 2, image: 'jack_63.jpg', correct: 'Jack 6.35 mm', alternatives: ['Jack 6.35 mm', 'Mini-jack 3.5 mm', 'RCA', 'USB Tipus B'] },
+        { id: 3, image: 'minijack.jpg', correct: 'Mini-jack 3.5 mm', alternatives: ['Mini-jack 3.5 mm', 'Jack 6.35 mm', 'HDMI', 'Mini-USB'] },
+        { id: 4, image: 'rca_connector.jpg', correct: 'RCA', alternatives: ['RCA', 'XLR', 'HDMI', 'USB Tipus A'] },
+        { id: 5, image: 'usb_a.jpg', correct: 'USB Tipus A', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Mini-USB'] },
+        { id: 6, image: 'usb_b.jpg', correct: 'USB Tipus B', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Mini-USB'] },
+        { id: 7, image: 'usb_c.jpg', correct: 'USB Tipus C', alternatives: ['USB Tipus A', 'USB Tipus B', 'USB Tipus C', 'Mini-USB'] },
+        { id: 8, image: 'mini_usb.jpg', correct: 'Mini-USB', alternatives: ['Mini-USB', 'USB Tipus C', 'Mini-jack 3.5 mm', 'HDMI'] },
+        { id: 9, image: 'trrs.jpg', correct: 'Mini-jack TRRS', alternatives: ['Mini-jack TRRS', 'Mini-jack 3.5 mm', 'Jack 6.35 mm', 'XLR'] },
+        { id: 10, image: 'hdmi.jpg', correct: 'HDMI', alternatives: ['HDMI', 'RCA', 'USB Tipus C', 'XLR'] }
+    ];
+}
+
 function getRadioConnectionsQuestionsLegacy() {
     const sheet = getSheet('preguntes_radio_conexions');
     if (!sheet) {
         // Preguntes de reserva perquè l'activitat no quedi buida si falta la pestanya.
+        return { status: 'success', questions: getDefaultRadioConnectionsQuestions() };
         const defaultQuestions = [
             { id: 1, image: 'xlr_male.png', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
             { id: 2, image: 'xlr_female.png', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estèreo'] },
@@ -680,14 +714,21 @@ function getRadioConnectionsQuestions() {
     const sheet = getFirstExistingSheet(['radio_connectors', 'preguntes_radio_conexions']);
 
     if (!sheet) {
+        const defaultQuestions = getDefaultRadioConnectionsQuestions().map(question => ({
+            id: question.id,
+            difficulty: '',
+            image: question.image,
+            topic: 'connectors',
+            type: 'text',
+            question: 'Quin connector es mostra?',
+            correct: question.correct,
+            alternatives: question.alternatives,
+            imageAlternatives: []
+        }));
+
         return {
             status: 'success',
-            questions: [
-                { id: 1, difficulty: '', image: 'xlr_male.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'XLR Mascle', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estereo'], imageAlternatives: [] },
-                { id: 2, difficulty: '', image: 'xlr_female.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'XLR Femella', alternatives: ['XLR Mascle', 'XLR Femella', 'Jack Mono', 'Jack Estereo'], imageAlternatives: [] },
-                { id: 3, difficulty: '', image: 'jack_mono.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'Jack 6.35mm Mono (TS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estereo (TRS)', 'Mini-Jack 3.5mm', 'RCA'], imageAlternatives: [] },
-                { id: 4, difficulty: '', image: 'jack_stereo.png', topic: 'connectors', type: 'text', question: 'Quin connector es mostra?', correct: 'Jack 6.35mm Estereo (TRS)', alternatives: ['Jack 6.35mm Mono (TS)', 'Jack 6.35mm Estereo (TRS)', 'Mini-Jack 3.5mm', 'RCA'], imageAlternatives: [] }
-            ]
+            questions: defaultQuestions
         };
     }
 
@@ -942,7 +983,11 @@ function isMediterraniBiodiversitatImageFile(value) {
 // --- UTILITATS ---
 
 function getSpreadsheet() {
-    return SpreadsheetApp.openById(SHEET_ID);
+    if (!spreadsheetInstance) {
+        spreadsheetInstance = SpreadsheetApp.openById(SHEET_ID);
+    }
+
+    return spreadsheetInstance;
 }
 
 function getSheet(sheetName) {
@@ -969,6 +1014,11 @@ function getCachedSheetValues(sheet) {
     return values;
 }
 
+function clearSheetCache(sheet) {
+    if (!sheet) return;
+    CacheService.getScriptCache().remove('sheet_values_' + sheet.getSheetId());
+}
+
 function getFirstExistingSheet(sheetNames) {
     const spreadsheet = getSpreadsheet();
 
@@ -977,7 +1027,7 @@ function getFirstExistingSheet(sheetNames) {
         if (sheet) return sheet;
     }
 
-    return null;
+    return findFlexibleSheet(sheetNames);
 }
 
 function normalizeHeader(value) {
@@ -1312,6 +1362,7 @@ function getDiagnosticQuestions() {
         if (!sheet) return { status: 'error', message: 'No s\'ha trobat la pestanya diagnostic_preguntes' };
 
         const data = getCachedSheetValues(sheet);
+        if (data.length <= 1) return { status: 'success', questions: [] };
         const headers = data[0];
         const questions = [];
 
@@ -1525,5 +1576,3 @@ function getOrenetesPreguntesOptionText(text, image) {
 function isOrenetesPreguntesImageFile(value) {
     return /\.(png|jpe?g|webp|gif|svg)$/i.test(cleanCell(value));
 }
-
-

@@ -30,13 +30,14 @@ const bioExcretorGame = {
         { key: 'act_excretor_q21', x: 0, y: 0, w: 100, h: 100 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioExcretorGame() {
     bioExcretorGame.currentStep = 0;
     bioExcretorGame.score = 100;
     bioExcretorGame.isFinished = false;
+    bioExcretorGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     // Filtrem per claus úniques perquè no surti la mateixa pregunta diverses vegades
     const shuffled = [...bioExcretorGame.allQuestions].sort(() => 0.5 - Math.random());
@@ -81,6 +82,7 @@ function updateBioExcretorUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioExcretorGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioExcretorGame.sessionQuestions[bioExcretorGame.currentStep];
 

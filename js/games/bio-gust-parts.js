@@ -14,13 +14,14 @@ const bioGustPartsGame = {
         { key: 'act_gust_zone_umami', x: 600, y: 600, w: 100, h: 100 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioGustPartsGame() {
     bioGustPartsGame.currentStep = 0;
     bioGustPartsGame.score = 100;
     bioGustPartsGame.isFinished = false;
+    bioGustPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-gust-parts-image');
     img.src = 'assets/images/llengua-gustos.png';
@@ -65,6 +66,7 @@ function updateBioGustPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioGustPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioGustPartsGame.sessionQuestions[bioGustPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;

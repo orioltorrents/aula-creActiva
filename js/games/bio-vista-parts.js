@@ -15,13 +15,14 @@ const bioVistaPartsGame = {
         { key: 'act_vista_part_nervi', x: 900, y: 500, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioVistaPartsGame() {
     bioVistaPartsGame.currentStep = 0;
     bioVistaPartsGame.score = 100;
     bioVistaPartsGame.isFinished = false;
+    bioVistaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-vista-parts-image');
     img.src = 'assets/images/activities/biologia/senses/sentit-vista.png'; 
@@ -66,6 +67,7 @@ function updateBioVistaPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioVistaPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioVistaPartsGame.sessionQuestions[bioVistaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;

@@ -53,6 +53,7 @@ function initBioHeartGame() {
     bioHeartGame.currentStep = 0;
     bioHeartGame.score = 100;
     bioHeartGame.isFinished = false;
+    bioHeartGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     // Barregem i seleccionem 25 preguntes
     bioHeartGame.sessionQuestions = [...bioHeartGame.allQuestions]
@@ -88,6 +89,7 @@ function updateBioHeartUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioHeartGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioHeartGame.sessionQuestions[bioHeartGame.currentStep];
     questionEl.innerText = `(${bioHeartGame.currentStep + 1}/25) ` + i18n.t(currentTarget.key);
