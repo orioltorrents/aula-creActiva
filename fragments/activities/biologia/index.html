@@ -101,6 +101,27 @@
                                 <div class="activity-card__description">Aparell reproductor masculí i femení</div>
                             </div>
                         </div>
+
+                        <!-- 10. Laboratori -->
+                        <div class="activity-card" onclick="openBioSystem('laboratori')">
+                            <div class="activity-card__media">
+                                <svg class="activity-card__image bio-lab-card-visual" viewBox="0 0 320 200" role="img" aria-label="Estris de laboratori">
+                                    <rect class="bio-lab-card-visual__wall" x="0" y="0" width="320" height="200"></rect>
+                                    <rect class="bio-lab-card-visual__bench" x="22" y="136" width="276" height="24" rx="6"></rect>
+                                    <path class="bio-lab-card-visual__glass" d="M48 52h46l-10 84H58z"></path>
+                                    <path class="bio-lab-card-visual__liquid" d="M55 102h32l-4 31H59z"></path>
+                                    <path class="bio-lab-card-visual__glass" d="M131 37h26v48l34 49H98l33-49z"></path>
+                                    <path class="bio-lab-card-visual__liquid" d="M116 111h57l12 18H104z"></path>
+                                    <rect class="bio-lab-card-visual__metal" x="222" y="55" width="14" height="80" rx="4"></rect>
+                                    <circle class="bio-lab-card-visual__accent" cx="229" cy="45" r="12"></circle>
+                                    <path class="bio-lab-card-visual__tool" d="M246 134h36l-11-54h-14z"></path>
+                                </svg>
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Laboratori</div>
+                                <div class="activity-card__description">Estris i material de laboratori</div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -266,6 +287,30 @@
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Repàs del Locomotor</div>
                                 <div class="activity-card__description">Posa a prova els teus coneixements sobre ossos i músculs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Laboratori -->
+                    <div id="bio-laboratori-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
+
+                        <div class="activity-card" onclick="openBioActivity('lab-tools')">
+                            <div class="activity-card__media">
+                                <svg class="activity-card__image bio-lab-card-visual" viewBox="0 0 320 200" role="img" aria-label="Joc d'estris de laboratori">
+                                    <rect class="bio-lab-card-visual__wall" x="0" y="0" width="320" height="200"></rect>
+                                    <rect class="bio-lab-card-visual__bench" x="22" y="136" width="276" height="24" rx="6"></rect>
+                                    <path class="bio-lab-card-visual__glass" d="M44 54h42l-9 78H53z"></path>
+                                    <path class="bio-lab-card-visual__liquid" d="M51 103h28l-3 27H54z"></path>
+                                    <path class="bio-lab-card-visual__glass" d="M127 38h26v46l33 48H96l32-48z"></path>
+                                    <path class="bio-lab-card-visual__liquid" d="M113 111h56l11 18h-78z"></path>
+                                    <rect class="bio-lab-card-visual__metal" x="216" y="56" width="12" height="76" rx="4"></rect>
+                                    <path class="bio-lab-card-visual__tool" d="M246 132h34l-10-52h-14z"></path>
+                                </svg>
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Estris de laboratori</div>
+                                <div class="activity-card__description">Identifica el material clicant sobre el dibuix</div>
                             </div>
                         </div>
                     </div>
@@ -1039,6 +1084,166 @@
                     <div id="bio-activity-tacte-parts" class="sub-activity hidden">
                         <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
                         <div id="tacte-parts-container"></div>
+                    </div>
+
+                    <!-- ACTIVITAT: Estris de laboratori -->
+                    <div id="bio-activity-lab-tools" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="resetBioLabToolsGame(); openBioSystem('laboratori')">← Tornar al menú</button>
+                        <div class="game-panel__header">
+                            <h3>Estris de laboratori</h3>
+                        </div>
+
+                        <div id="bio-lab-tools-start" class="bio-lab-tools__start result-screen p-6">
+                            <div class="bio-lab-tools__start-grid">
+                                <div>
+                                    <h4 class="bio-lab-tools__title">Joc d'identificació</h4>
+                                    <p class="bio-lab-tools__intro">Clica l'estri correcte abans que s'acabi el temps.</p>
+                                </div>
+                                <form id="bio-lab-tools-form" class="bio-lab-tools__form">
+                                    <label class="bio-lab-tools__field">
+                                        <span>Nom</span>
+                                        <input id="bio-lab-tools-name" class="bio-lab-tools__input" type="text" autocomplete="name">
+                                    </label>
+                                    <label class="bio-lab-tools__field">
+                                        <span>Email</span>
+                                        <input id="bio-lab-tools-email" class="bio-lab-tools__input" type="email" autocomplete="email">
+                                    </label>
+                                    <div id="bio-lab-tools-start-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
+                                    <button class="btn btn--primary" type="submit">Començar joc</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="bio-lab-tools-game" class="bio-lab-tools hidden">
+                            <div class="game-panel__stats bio-lab-tools__stats">
+                                <div>Jugador/a: <span id="bio-lab-tools-player">-</span></div>
+                                <div>Punts: <span id="bio-lab-tools-score">0</span></div>
+                                <div>Pregunta: <span id="bio-lab-tools-round">0</span> / <span id="bio-lab-tools-total">0</span></div>
+                                <div id="bio-lab-tools-timer" class="bio-lab-tools__timer">Temps: 60 s</div>
+                            </div>
+
+                            <div class="bio-lab-tools__prompt-row">
+                                <div id="bio-lab-tools-question" class="bio-lab-tools__question">Preparant pregunta...</div>
+                                <div id="bio-lab-tools-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
+                            </div>
+
+                            <div class="bio-lab-tools__scene-wrap">
+                                <svg id="bio-lab-tools-svg" class="bio-lab-tools__scene" viewBox="0 0 1000 560" role="img" aria-label="Taula amb estris de laboratori">
+                                    <defs>
+                                        <linearGradient id="bio-lab-glass" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0" stop-color="#ffffff" stop-opacity="0.92"></stop>
+                                            <stop offset="1" stop-color="#dbeafe" stop-opacity="0.56"></stop>
+                                        </linearGradient>
+                                        <linearGradient id="bio-lab-metal" x1="0" y1="0" x2="1" y2="0">
+                                            <stop offset="0" stop-color="#6b7280"></stop>
+                                            <stop offset="0.5" stop-color="#e5e7eb"></stop>
+                                            <stop offset="1" stop-color="#4b5563"></stop>
+                                        </linearGradient>
+                                    </defs>
+
+                                    <rect class="bio-lab-tools__wall" x="0" y="0" width="1000" height="560"></rect>
+                                    <rect class="bio-lab-tools__shelf" x="70" y="74" width="350" height="16" rx="8"></rect>
+                                    <rect class="bio-lab-tools__bench" x="46" y="424" width="908" height="42" rx="14"></rect>
+                                    <rect class="bio-lab-tools__bench-front" x="72" y="462" width="856" height="56" rx="10"></rect>
+
+                                    <g class="bio-lab-tools__item" data-tool="vas de precipitats" tabindex="0" role="button" aria-label="vas de precipitats">
+                                        <path class="bio-lab-tools__glass" d="M92 204h110l-18 174H111z"></path>
+                                        <path class="bio-lab-tools__liquid" d="M111 315h73l-7 54h-59z"></path>
+                                        <path class="bio-lab-tools__mark" d="M126 239h24M126 268h18M126 297h24"></path>
+                                        <text x="147" y="400" class="bio-lab-tools__label">vas</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="proveta" tabindex="0" role="button" aria-label="proveta">
+                                        <path class="bio-lab-tools__glass" d="M234 118h54v260h-54z"></path>
+                                        <rect class="bio-lab-tools__liquid" x="240" y="282" width="42" height="88"></rect>
+                                        <rect class="bio-lab-tools__base" x="214" y="380" width="94" height="20" rx="8"></rect>
+                                        <path class="bio-lab-tools__mark" d="M240 158h20M240 188h14M240 218h20M240 248h14M240 278h20M240 308h14"></path>
+                                        <text x="261" y="422" class="bio-lab-tools__label">proveta</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="matràs d'Erlenmeyer" tabindex="0" role="button" aria-label="matràs d'Erlenmeyer">
+                                        <path class="bio-lab-tools__glass" d="M362 118h56v128l80 134H282l80-134z"></path>
+                                        <path class="bio-lab-tools__liquid" d="M318 326h144l26 44H292z"></path>
+                                        <path class="bio-lab-tools__mark" d="M352 160h76"></path>
+                                        <text x="390" y="400" class="bio-lab-tools__label">matràs</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="gradeta" tabindex="0" role="button" aria-label="gradeta">
+                                        <rect class="bio-lab-tools__wood" x="518" y="310" width="160" height="74" rx="8"></rect>
+                                        <rect class="bio-lab-tools__wood-dark" x="530" y="328" width="136" height="12" rx="5"></rect>
+                                        <rect class="bio-lab-tools__wood-dark" x="530" y="360" width="136" height="12" rx="5"></rect>
+                                        <path class="bio-lab-tools__glass" d="M544 128h28v176c0 18-28 18-28 0z"></path>
+                                        <path class="bio-lab-tools__glass" d="M592 128h28v176c0 18-28 18-28 0z"></path>
+                                        <path class="bio-lab-tools__glass" d="M640 128h28v176c0 18-28 18-28 0z"></path>
+                                        <path class="bio-lab-tools__liquid" d="M548 258h20v44c0 12-20 12-20 0z"></path>
+                                        <path class="bio-lab-tools__liquid bio-lab-tools__liquid--blue" d="M596 236h20v66c0 12-20 12-20 0z"></path>
+                                        <path class="bio-lab-tools__liquid bio-lab-tools__liquid--pink" d="M644 274h20v28c0 12-20 12-20 0z"></path>
+                                        <text x="598" y="405" class="bio-lab-tools__label">gradeta</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="termòmetre" tabindex="0" role="button" aria-label="termòmetre">
+                                        <rect class="bio-lab-tools__glass" x="720" y="110" width="24" height="232" rx="12"></rect>
+                                        <circle class="bio-lab-tools__red" cx="732" cy="362" r="22"></circle>
+                                        <rect class="bio-lab-tools__red" x="727" y="170" width="10" height="185" rx="5"></rect>
+                                        <path class="bio-lab-tools__mark" d="M744 152h22M744 186h14M744 220h22M744 254h14M744 288h22"></path>
+                                        <text x="732" y="405" class="bio-lab-tools__label">termòmetre</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="embut" tabindex="0" role="button" aria-label="embut">
+                                        <path class="bio-lab-tools__glass" d="M806 132h132l-56 84v130h-22V216z"></path>
+                                        <text x="872" y="372" class="bio-lab-tools__label">embut</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="morter" tabindex="0" role="button" aria-label="morter">
+                                        <path class="bio-lab-tools__ceramic" d="M82 112h118c0 48-20 78-59 78s-59-30-59-78z"></path>
+                                        <ellipse class="bio-lab-tools__ceramic-top" cx="141" cy="112" rx="62" ry="18"></ellipse>
+                                        <rect class="bio-lab-tools__ceramic" x="132" y="188" width="20" height="26" rx="8"></rect>
+                                        <rect class="bio-lab-tools__pestle" x="170" y="70" width="18" height="90" rx="9" transform="rotate(42 179 115)"></rect>
+                                        <text x="141" y="228" class="bio-lab-tools__label">morter</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="pipeta" tabindex="0" role="button" aria-label="pipeta">
+                                        <rect class="bio-lab-tools__glass" x="338" y="58" width="18" height="244" rx="9" transform="rotate(65 347 180)"></rect>
+                                        <circle class="bio-lab-tools__orange" cx="240" cy="134" r="22"></circle>
+                                        <text x="332" y="100" class="bio-lab-tools__label">pipeta</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="pipeta Pasteur" tabindex="0" role="button" aria-label="pipeta Pasteur">
+                                        <path class="bio-lab-tools__glass" d="M481 82c0-22 54-22 54 0v64c0 14-10 22-19 26v166h-16V172c-10-4-19-12-19-26z"></path>
+                                        <ellipse class="bio-lab-tools__rubber" cx="508" cy="74" rx="32" ry="22"></ellipse>
+                                        <text x="508" y="356" class="bio-lab-tools__label">Pasteur</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="reixeta" tabindex="0" role="button" aria-label="reixeta">
+                                        <rect class="bio-lab-tools__mesh" x="696" y="424" width="146" height="42" rx="6"></rect>
+                                        <path class="bio-lab-tools__mesh-line" d="M710 430v30M728 430v30M746 430v30M764 430v30M782 430v30M800 430v30M818 430v30M836 430v30M704 438h132M704 452h132"></path>
+                                        <text x="769" y="488" class="bio-lab-tools__label">reixeta</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="pinces de fusta" tabindex="0" role="button" aria-label="pinces de fusta">
+                                        <path class="bio-lab-tools__wood" d="M110 456l152 24-4 22-153-25z"></path>
+                                        <path class="bio-lab-tools__wood" d="M118 514l150-30 4 22-149 30z"></path>
+                                        <circle class="bio-lab-tools__metal-dot" cx="195" cy="497" r="10"></circle>
+                                        <text x="200" y="546" class="bio-lab-tools__label">pinces</text>
+                                    </g>
+
+                                    <g class="bio-lab-tools__item" data-tool="bec Bunsen" tabindex="0" role="button" aria-label="bec Bunsen">
+                                        <rect class="bio-lab-tools__metal" x="430" y="414" width="36" height="92" rx="6"></rect>
+                                        <rect class="bio-lab-tools__metal" x="386" y="504" width="124" height="24" rx="10"></rect>
+                                        <path class="bio-lab-tools__hose" d="M386 518c-55 0-82 20-102 42"></path>
+                                        <path class="bio-lab-tools__flame" d="M448 398c-22-28 9-52 0-82 31 31 39 56 0 82z"></path>
+                                        <text x="448" y="548" class="bio-lab-tools__label">Bunsen</text>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="bio-lab-tools-results" class="result-screen hidden text-center p-8">
+                            <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
+                            <div id="bio-lab-tools-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0 / 0</div>
+                            <p id="bio-lab-tools-message" class="result-screen__message text-lg mb-8"></p>
+                            <button onclick="initBioLabToolsGame()" class="btn btn--primary">Tornar a jugar</button>
+                        </div>
                     </div>
 
                     <!-- JOCS DE QUIZ DELS SENTITS (AMB ESTIL ENDOCRÍ) -->

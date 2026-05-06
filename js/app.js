@@ -864,6 +864,10 @@ function openNaturaActivity(actId) {
 
 // --- BIOLOGIA NAVIGATION ---
 function showBioMenu() {
+    if (typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     const hub = document.getElementById('project-hub-biologia');
     if (hub) {
         document.getElementById('bio-systems-menu').classList.remove('hidden');
@@ -874,6 +878,10 @@ function showBioMenu() {
 }
 
 function openBioSystem(systemId) {
+    if (typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     // Amagar el menú principal de sistemes i totes les activitats individuals
     document.getElementById('bio-systems-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
@@ -888,6 +896,10 @@ function openBioSystem(systemId) {
 
 
 function openBioActivity(actId) {
+    if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     // Hide all activity menus
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     // Hide all individual activity containers
@@ -938,6 +950,11 @@ function openBioActivity(actId) {
         document.getElementById('bio-activity-locomotor-quiz').classList.remove('hidden');
         if (typeof initLocomotorQuiz === 'function') {
             initLocomotorQuiz();
+        }
+    } else if (actId === 'lab-tools') {
+        document.getElementById('bio-activity-lab-tools').classList.remove('hidden');
+        if (typeof initBioLabToolsGame === 'function') {
+            initBioLabToolsGame();
         }
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];

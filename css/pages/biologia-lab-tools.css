@@ -1,0 +1,277 @@
+/* ==========================================================================
+   Biologia: Estris de Laboratori
+   ========================================================================== */
+
+.bio-lab-card-visual {
+    width: 100%;
+    height: 100%;
+}
+
+.bio-lab-card-visual__wall {
+    fill: #eef6ff;
+}
+
+.bio-lab-card-visual__bench {
+    fill: #8b5e3c;
+}
+
+.bio-lab-card-visual__glass {
+    fill: rgba(255, 255, 255, 0.7);
+    stroke: #1f2937;
+    stroke-width: 4;
+}
+
+.bio-lab-card-visual__liquid {
+    fill: rgba(20, 184, 166, 0.55);
+}
+
+.bio-lab-card-visual__metal {
+    fill: #9ca3af;
+}
+
+.bio-lab-card-visual__accent {
+    fill: #ef4444;
+}
+
+.bio-lab-card-visual__tool {
+    fill: #f59e0b;
+    stroke: #1f2937;
+    stroke-width: 4;
+}
+
+.bio-lab-tools__start {
+    margin-bottom: 20px;
+}
+
+.bio-lab-tools__start-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+    gap: 24px;
+    align-items: start;
+}
+
+.bio-lab-tools__title {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+    color: var(--text-color);
+}
+
+.bio-lab-tools__intro {
+    color: var(--text-light);
+    margin: 0;
+}
+
+.bio-lab-tools__form {
+    display: grid;
+    gap: 14px;
+}
+
+.bio-lab-tools__field {
+    display: grid;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.bio-lab-tools__input {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font: inherit;
+}
+
+.bio-lab-tools__stats {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.bio-lab-tools__timer {
+    color: var(--info-text);
+}
+
+.bio-lab-tools__timer--low {
+    color: var(--danger);
+}
+
+.bio-lab-tools__prompt-row {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 16px;
+    border: 1px solid var(--border-info);
+    border-radius: var(--radius-lg);
+    background: var(--info-bg);
+}
+
+.bio-lab-tools__question {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.bio-lab-tools__feedback {
+    margin: 0;
+}
+
+.bio-lab-tools__scene-wrap {
+    overflow-x: auto;
+    padding: 12px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-lg);
+}
+
+.bio-lab-tools__scene {
+    display: block;
+    width: min(100%, 1120px);
+    min-width: 720px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.bio-lab-tools__wall {
+    fill: #edf7ff;
+}
+
+.bio-lab-tools__shelf,
+.bio-lab-tools__bench {
+    fill: #8b5e3c;
+}
+
+.bio-lab-tools__bench-front {
+    fill: #6f4a2f;
+}
+
+.bio-lab-tools__item {
+    cursor: pointer;
+    outline: none;
+}
+
+.bio-lab-tools__item > * {
+    transition: opacity 0.18s ease, stroke-width 0.18s ease, transform 0.18s ease;
+}
+
+.bio-lab-tools__item:hover > *,
+.bio-lab-tools__item:focus-visible > * {
+    opacity: 0.82;
+}
+
+.bio-lab-tools__item--correct > * {
+    stroke: var(--success);
+    stroke-width: 5;
+}
+
+.bio-lab-tools__item--wrong > * {
+    stroke: var(--danger);
+    stroke-width: 5;
+}
+
+.bio-lab-tools__glass {
+    fill: url(#bio-lab-glass);
+    stroke: #111827;
+    stroke-width: 3;
+    stroke-linejoin: round;
+}
+
+.bio-lab-tools__liquid {
+    fill: rgba(20, 184, 166, 0.52);
+}
+
+.bio-lab-tools__liquid--blue {
+    fill: rgba(59, 130, 246, 0.5);
+}
+
+.bio-lab-tools__liquid--pink {
+    fill: rgba(236, 72, 153, 0.46);
+}
+
+.bio-lab-tools__mark,
+.bio-lab-tools__mesh-line {
+    fill: none;
+    stroke: #374151;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.bio-lab-tools__base,
+.bio-lab-tools__metal,
+.bio-lab-tools__metal-dot {
+    fill: url(#bio-lab-metal);
+    stroke: #111827;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__wood,
+.bio-lab-tools__wood-dark {
+    fill: #b7793f;
+    stroke: #111827;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__wood-dark {
+    fill: #8b5e3c;
+}
+
+.bio-lab-tools__ceramic,
+.bio-lab-tools__ceramic-top,
+.bio-lab-tools__pestle {
+    fill: #f3f4f6;
+    stroke: #111827;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__pestle {
+    fill: #d1d5db;
+}
+
+.bio-lab-tools__red {
+    fill: #dc2626;
+    stroke: #111827;
+    stroke-width: 2;
+}
+
+.bio-lab-tools__orange,
+.bio-lab-tools__rubber {
+    fill: #f59e0b;
+    stroke: #111827;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__mesh {
+    fill: #d1d5db;
+    stroke: #111827;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__hose {
+    fill: none;
+    stroke: #991b1b;
+    stroke-width: 11;
+    stroke-linecap: round;
+}
+
+.bio-lab-tools__flame {
+    fill: #f97316;
+    stroke: #991b1b;
+    stroke-width: 3;
+}
+
+.bio-lab-tools__label {
+    font-size: 22px;
+    font-weight: 800;
+    text-anchor: middle;
+    fill: #1f2937;
+    pointer-events: none;
+}
+
+@media (max-width: 760px) {
+    .bio-lab-tools__start-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bio-lab-tools__question {
+        font-size: 1.05rem;
+    }
+}
