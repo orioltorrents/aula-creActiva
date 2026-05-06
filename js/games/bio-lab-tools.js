@@ -1,6 +1,23 @@
 const BIO_LAB_TOOLS_TIME_LIMIT = 60;
 const BIO_LAB_TOOLS_MAX_ROUNDS = 12;
 
+// Mapeig dels IDs del SVG extern als noms que usa el joc
+const BIO_LAB_TOOLS_SVG_ID_MAPPING = {
+    "encenedor de Bunsen": "bec Bunsen",
+    "matràs aforat": "matràs aforat",
+    "pipeta": "pipeta",
+    "morter": "morter",
+    "termòmetre": "termòmetre",
+    "matràs d'Erlenmeyer": "matràs d'Erlenmeyer",
+    "gradeta": "gradeta",
+    "proveta": "proveta",
+    "embut": "embut",
+    "pinces de metall": "pinces de fusta",
+    "pipeta Pasteur": "pipeta Pasteur",
+    "vas de precipitats": "vas de precipitats",
+    "reixeta": "reixeta"
+};
+
 const BIO_LAB_TOOLS_QUESTIONS = [
     { text: "Quin estri serveix per triturar substàncies?", tool: "morter" },
     { text: "On mesuraries amb precisió el volum d'un líquid?", tool: "proveta" },
@@ -25,15 +42,14 @@ const BIO_LAB_TOOLS_PROMPTS = [
 ];
 
 let bioLabToolsState = {
-    playerName: "",
-    playerEmail: "",
     score: 0,
     round: 0,
     timeLeft: BIO_LAB_TOOLS_TIME_LIMIT,
     targetTool: "",
     timerId: null,
     pendingNextId: null,
-    availableQuestions: []
+    availableQuestions: [],
+    svgReady: false
 };
 
 function initBioLabToolsGame() {
@@ -43,8 +59,6 @@ function initBioLabToolsGame() {
     const game = document.getElementById("bio-lab-tools-game");
     const results = document.getElementById("bio-lab-tools-results");
     const form = document.getElementById("bio-lab-tools-form");
-    const nameInput = document.getElementById("bio-lab-tools-name");
-    const emailInput = document.getElementById("bio-lab-tools-email");
     const startFeedback = document.getElementById("bio-lab-tools-start-feedback");
 
     if (!start || !game || !results || !form) return;
@@ -57,15 +71,13 @@ function initBioLabToolsGame() {
         setElementStateColor(startFeedback, "");
     }
 
-    if (typeof state !== "undefined" && state.user) {
-        nameInput.value = [state.user.nom, state.user.cognoms].filter(Boolean).join(" ").trim();
-        emailInput.value = state.user.email || "";
-    }
-
     form.removeEventListener("submit", handleBioLabToolsStart);
     form.addEventListener("submit", handleBioLabToolsStart);
 
     bindBioLabToolsItems();
+    
+    // Assegurem que l'SVG estigui preparat (esperar si és necessari)
+    ensureBioLabToolsSVGReady();
 }
 
 function resetBioLabToolsGame() {
@@ -77,8 +89,6 @@ function resetBioLabToolsGame() {
     }
 
     bioLabToolsState = {
-        playerName: "",
-        playerEmail: "",
         score: 0,
         round: 0,
         timeLeft: BIO_LAB_TOOLS_TIME_LIMIT,
@@ -94,21 +104,11 @@ function resetBioLabToolsGame() {
 function handleBioLabToolsStart(event) {
     event.preventDefault();
 
-    const nameInput = document.getElementById("bio-lab-tools-name");
-    const emailInput = document.getElementById("bio-lab-tools-email");
     const startFeedback = document.getElementById("bio-lab-tools-start-feedback");
     const feedback = document.getElementById("bio-lab-tools-feedback");
-
-    const playerName = nameInput.value.trim();
-    const playerEmail = emailInput.value.trim();
-
-    if (!playerName || !playerEmail) {
-        if (startFeedback) {
-            startFeedback.textContent = "Introdueix el nom i l'email abans de començar.";
-            setElementStateColor(startFeedback, "error");
-        }
-        return;
-    }
+    const playerName = (typeof state !== "undefined" && state.user)
+        ? [state.user.nom, state.user.cognoms].filter(Boolean).join(" ").trim() || "Jugador"
+        : "Jugador";
 
     if (startFeedback) {
         startFeedback.textContent = "";
@@ -120,7 +120,6 @@ function handleBioLabToolsStart(event) {
     }
 
     bioLabToolsState.playerName = playerName;
-    bioLabToolsState.playerEmail = playerEmail;
     bioLabToolsState.score = 0;
     bioLabToolsState.round = 0;
     bioLabToolsState.timeLeft = BIO_LAB_TOOLS_TIME_LIMIT;
@@ -138,13 +137,118 @@ function handleBioLabToolsStart(event) {
 }
 
 function bindBioLabToolsItems() {
-    document.querySelectorAll("#bio-lab-tools-svg .bio-lab-tools__item").forEach(item => {
+    const svgContainer = document.getElementById("bio-lab-tools-svg");
+    if (!svgContainer) {
+        console.warn("No SVG container found for bio-lab-tools");
+        return;
+    }
+
+    // Si és un <object>, carreguem el SVG extern
+    if (svgContainer.tagName === "OBJECT") {
+        loadBioLabToolsExternalSVG(svgContainer);
+    } else {
+        // SVG inline, vinculem els events normalment
+        document.querySelectorAll("#bio-lab-tools-svg .bio-lab-tools__item").forEach(item => {
+            item.removeEventListener("click", handleBioLabToolsChoice);
+            item.removeEventListener("keydown", handleBioLabToolsKeydown);
+            item.addEventListener("click", handleBioLabToolsChoice);
+            item.addEventListener("keydown", handleBioLabToolsKeydown);
+        });
+    }
+}
+
+function loadBioLabToolsExternalSVG(container) {
+    const svgPath = container.getAttribute("data");
+    
+    fetch(svgPath)
+        .then(response => response.text())
+        .then(svgText => {
+            // Parseamos el SVG
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+            const rootSVG = svgDoc.documentElement;
+
+            // Estableixem els atributs necessaris
+            rootSVG.setAttribute("id", "bio-lab-tools-svg");
+            rootSVG.setAttribute("class", "bio-lab-tools__scene");
+            rootSVG.setAttribute("role", "img");
+            rootSVG.setAttribute("aria-label", "Taula amb estris de laboratori");
+
+            // Afegim els atributs data-tool als elements del SVG
+            prepareBioLabToolsSVGElements(rootSVG);
+
+            // Reemplaçem el contenedor <object> pel SVG
+            container.parentNode.replaceChild(rootSVG, container);
+
+            // Marquem el SVG com a preparat
+            bioLabToolsState.svgReady = true;
+
+            // Vinculem els events als elements del SVG
+            attachBioLabToolsEventListeners();
+        })
+        .catch(error => {
+            console.error("Error loading bio-lab-tools SVG:", error);
+            bioLabToolsState.svgReady = false;
+        });
+}
+
+function prepareBioLabToolsSVGElements(svgDoc) {
+    // Iterem pels IDs del mapeig i afegim els atributs necessaris
+    Object.entries(BIO_LAB_TOOLS_SVG_ID_MAPPING).forEach(([svgId, toolName]) => {
+        const element = svgDoc.getElementById(svgId);
+        if (element) {
+            element.setAttribute("class", "bio-lab-tools__item");
+            element.setAttribute("data-tool", toolName);
+            element.setAttribute("tabindex", "0");
+            element.setAttribute("role", "button");
+            element.setAttribute("aria-label", toolName);
+        }
+    });
+}
+
+function attachBioLabToolsEventListeners() {
+    const svgElement = document.getElementById("bio-lab-tools-svg");
+    if (!svgElement) return;
+
+    svgElement.querySelectorAll(".bio-lab-tools__item").forEach(item => {
         item.removeEventListener("click", handleBioLabToolsChoice);
         item.removeEventListener("keydown", handleBioLabToolsKeydown);
         item.addEventListener("click", handleBioLabToolsChoice);
         item.addEventListener("keydown", handleBioLabToolsKeydown);
     });
 }
+
+function ensureBioLabToolsSVGReady() {
+    const svgContainer = document.getElementById("bio-lab-tools-svg");
+    
+    // Si ja és un SVG real (inline o carregat), marcar-lo com a preparat
+    if (svgContainer && (svgContainer.tagName === "svg" || bioLabToolsState.svgReady)) {
+        bioLabToolsState.svgReady = true;
+        return;
+    }
+    
+    // Si és un <object>, esperar a que es carregui
+    if (svgContainer && svgContainer.tagName === "OBJECT") {
+        // Ja s'està carregant a bindBioLabToolsItems(), esperar
+        const maxAttempts = 50; // 5 segons màxim
+        let attempts = 0;
+        
+        const checkSVGReady = () => {
+            if (bioLabToolsState.svgReady || document.getElementById("bio-lab-tools-svg")?.tagName === "svg") {
+                bioLabToolsState.svgReady = true;
+                return;
+            }
+            
+            attempts++;
+            if (attempts < maxAttempts) {
+                window.setTimeout(checkSVGReady, 100);
+            }
+        };
+        
+        checkSVGReady();
+    }
+}
+
 
 function handleBioLabToolsKeydown(event) {
     if (event.key !== "Enter" && event.key !== " ") return;
@@ -286,7 +390,7 @@ function saveBioLabToolsResult(percentage) {
     const timeUsed = BIO_LAB_TOOLS_TIME_LIMIT - Math.max(bioLabToolsState.timeLeft, 0);
 
     callApi("saveResult", {
-        email: bioLabToolsState.playerEmail || state.user.email,
+        email: state.user.email,
         curs: state.user.curs,
         projecte: state.currentProject ? state.currentProject.titol : "Biologia",
         app: "Estris de laboratori",
