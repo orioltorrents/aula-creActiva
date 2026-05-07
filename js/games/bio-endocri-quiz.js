@@ -76,16 +76,16 @@ function startEndocriQuizLevelSelector() {
     levelLabel.innerText = 'Per Nivell:';
     container.appendChild(levelLabel);
 
-    const levels = [...new Set(bioEndocriQuiz.allQuestions
+    const levels = sortQuizLevels([...new Set(bioEndocriQuiz.allQuestions
         .map(q => q.level)
         .filter(v => v && v.toString().trim() !== '')
-    )];
+    )]);
 
     levels.forEach(lvl => {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
         btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
-        btn.innerText = lvl;
+        btn.innerText = getQuizLevelLabel(lvl);
         btn.onclick = () => startEndocriQuiz(lvl, 'level');
         container.appendChild(btn);
     });

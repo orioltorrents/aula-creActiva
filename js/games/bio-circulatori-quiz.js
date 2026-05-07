@@ -61,28 +61,44 @@ function generateCircTopicButtons(questions) {
     container.innerHTML = '';
 
     // Obtenir tipus únics
-    const types = [...new Set(questions.map(q => q.type))].filter(t => t && t !== "");
+    const types = [...new Set(questions.map(q => q.type))]
+        .filter(t => t && t !== "" && normalizeQuizLevelName(t) !== 'tipus de pregunta');
 
     if (types.length === 0) return;
 
-    const label = document.createElement('p');
-    label.className = 'font-bold mb-3 text-center';
-    label.innerText = 'Tria un tema (nivell barrejat):';
-    container.appendChild(label);
+    const topicLabel = document.createElement('p');
+    topicLabel.className = 'font-bold mb-4 text-center';
+    topicLabel.innerText = 'O per temes:';
+    container.appendChild(topicLabel);
 
     const btnWrapper = document.createElement('div');
     btnWrapper.className = 'flex flex-wrap justify-center gap-4 mb-6';
 
     types.forEach(type => {
         const btn = document.createElement('button');
-        btn.className = 'btn btn--primary';
-        btn.style = "background-color: var(--primary-color); width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
+        btn.className = 'btn btn--primary quiz-filter-button quiz-filter-button--topic';
         btn.innerText = type;
         btn.onclick = () => startCircQuizWithFilter(type, 'mixed');
         btnWrapper.appendChild(btn);
     });
 
     container.appendChild(btnWrapper);
+
+    const mixedLabel = document.createElement('p');
+    mixedLabel.className = 'font-bold mb-3 text-center';
+    mixedLabel.innerText = 'O tot barrejat:';
+    container.appendChild(mixedLabel);
+
+    const mixedWrapper = document.createElement('div');
+    mixedWrapper.className = 'flex flex-wrap justify-center gap-4 mb-2';
+
+    const mixedButton = document.createElement('button');
+    mixedButton.className = 'btn btn--primary quiz-filter-button quiz-filter-button--mixed';
+    mixedButton.type = 'button';
+    mixedButton.innerText = 'Barrejat';
+    mixedButton.onclick = () => startCircQuizWithFilter('all', 'mixed');
+    mixedWrapper.appendChild(mixedButton);
+    container.appendChild(mixedWrapper);
 }
 
 function startCircQuizWithFilter(type = 'all', level = 'mixed') {

@@ -65,7 +65,7 @@ function startTacteQuizLevelSelector() {
         });
     }
 
-    const levels = [...new Set(bioTacteQuiz.allQuestions.map(q => q.level).filter(v => v && v.toString().trim() !== ''))];
+    const levels = sortQuizLevels([...new Set(bioTacteQuiz.allQuestions.map(q => q.level).filter(v => v && v.toString().trim() !== ''))]);
     if (levels.length > 0) {
         const levelLabel = document.createElement('p');
         levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
@@ -75,7 +75,7 @@ function startTacteQuizLevelSelector() {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
             btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
-            btn.innerText = lvl;
+            btn.innerText = getQuizLevelLabel(lvl);
             btn.onclick = () => startTacteQuiz(lvl, 'level');
             container.appendChild(btn);
         });

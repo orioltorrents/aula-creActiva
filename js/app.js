@@ -16,8 +16,19 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbwY3h5mvbmO64iWskhqoXb4
 // **********************************************************
 const state = {
     user: null,
-    currentProject: null
+    currentProject: null,
+    currentGameTitle: ''
 };
+
+function setGameTitle(title) {
+    const fallbackTitle = state.currentProject ? state.currentProject.titol : 'Activitat';
+    state.currentGameTitle = title || fallbackTitle;
+
+    const gameTitle = document.getElementById('game-title');
+    if (gameTitle) {
+        gameTitle.textContent = state.currentGameTitle;
+    }
+}
 
 async function loadFragment(containerSelector, fragmentPath) {
     const container = document.querySelector(containerSelector);
@@ -204,6 +215,71 @@ function getQuizFilterButtonModifier(fieldName, value) {
     return fieldName === 'difficulty'
         ? getQuizLevelButtonModifier(value)
         : 'quiz-filter-button--topic';
+}
+
+function normalizeQuizLevelName(levelName) {
+    return (levelName || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/[^a-zA-Z0-9\s]/g, '')
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .trim();
+}
+
+function getQuizLevelRank(levelName) {
+    const normalizedLevel = normalizeQuizLevelName(levelName);
+    const order = {
+        'molt facil': 0,
+        facil: 1,
+        easy: 1,
+        mitja: 2,
+        mitjana: 2,
+        medium: 2,
+        avancat: 3,
+        advanced: 3,
+        dificil: 4,
+        hard: 4,
+        'molt dificil': 5,
+        'very hard': 5,
+        pau: 6,
+        'pau dificil': 7,
+        'pau dificils': 7,
+        'pau hard': 7
+    };
+
+    return Object.prototype.hasOwnProperty.call(order, normalizedLevel) ? order[normalizedLevel] : 100;
+}
+
+function getQuizLevelLabel(levelName) {
+    const labels = {
+        'molt facil': 'Molt fàcil',
+        facil: 'Fàcil',
+        mitja: 'Mitjà',
+        mitjana: 'Mitjà',
+        avancat: 'Avançat',
+        dificil: 'Difícil',
+        'molt dificil': 'Molt difícil',
+        pau: 'PAU',
+        'pau dificil': 'PAU difícil'
+    };
+
+    return labels[normalizeQuizLevelName(levelName)] || levelName;
+}
+
+function sortQuizLevels(levels) {
+    return [...levels].sort((a, b) => {
+        const rankA = getQuizLevelRank(a);
+        const rankB = getQuizLevelRank(b);
+
+        if (rankA !== rankB) {
+            return rankA - rankB;
+        }
+
+        return String(a).localeCompare(String(b), 'ca', { sensitivity: 'base' });
+    });
 }
 
 
@@ -464,9 +540,10 @@ async function loadDashboard() {
 
 async function openProject(project) {
     state.currentProject = project;
+    state.currentGameTitle = project.titol;
     await showGameFragment();
     showScreen('game');
-    document.getElementById('game-title').textContent = project.titol;
+    setGameTitle(project.titol);
 
     // Reset UIs
     document.querySelectorAll('.game-module').forEach(el => el.classList.add('hidden'));
@@ -603,11 +680,25 @@ function translateUI() {
     }
 
     if (state.currentProject) {
-        if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
+        setGameTitle(state.currentGameTitle || state.currentProject.titol);
+
+        if (
+            state.currentProject.id === 'p1_mediterrani'
+            && document.getElementById('project-hub-mediterrani')
+            && typeof updateMediterraniLanguage === 'function'
+        ) {
             updateMediterraniLanguage();
-        } else if (state.currentProject.id === 'p2_paralimpics' && typeof updateParalimpicsLanguage === 'function') {
+        } else if (
+            state.currentProject.id === 'p2_paralimpics'
+            && document.getElementById('project-hub-paralimpics')
+            && typeof updateParalimpicsLanguage === 'function'
+        ) {
             updateParalimpicsLanguage();
-        } else if ((state.currentProject.id === 'p1_natura' || state.currentProject.id === 'p4_natura') && typeof updateNaturaLanguage === 'function') {
+        } else if (
+            (state.currentProject.id === 'p1_natura' || state.currentProject.id === 'p4_natura')
+            && document.getElementById('project-hub-natura')
+            && typeof updateNaturaLanguage === 'function'
+        ) {
             updateNaturaLanguage();
             if (typeof updateRolsLanguage === 'function') updateRolsLanguage();
         }
@@ -863,7 +954,54 @@ function openNaturaActivity(actId) {
 }
 
 // --- BIOLOGIA NAVIGATION ---
+const BIO_SYSTEM_TITLES = {
+    circulatori: 'Circulatori',
+    excretor: 'Excretor',
+    endocri: 'Endocrí',
+    locomotor: 'Locomotor',
+    immunitari: 'Immunitari',
+    reproductor: 'Reproductor',
+    laboratori: 'Laboratori',
+    conceptes: 'Conceptes de Biologia',
+    genetica: 'Genètica'
+};
+
+const BIO_ACTIVITY_TITLES = {
+    cor: 'Cor',
+    'circulatori-quiz': 'Repàs del Circulatori',
+    cells: 'Cèl·lules de la Sang',
+    'excretor-game': 'Excretor',
+    'endocri-quiz': 'Repàs de l\'Endocrí',
+    'endocri-glands': 'Glàndules endocrines',
+    'locomotor-quiz': 'Repàs del Locomotor',
+    'immunitari-quiz': 'Repàs de l\'Immunitari',
+    'reproductor-quiz': 'Repàs del Reproductor',
+    'lab-tools': 'Laboratori',
+    'concept-drag': 'Arrossega conceptes',
+    'genetica-sim': 'Genètica',
+    'vista-parts': 'Vista',
+    'vista-quiz': 'Repàs: Vista',
+    'oida-parts': 'Oïda',
+    'oida-quiz': 'Repàs: Oïda',
+    'olfacte-parts': 'Olfacte',
+    'olfacte-quiz': 'Repàs: Olfacte',
+    'gust-parts': 'Gust',
+    'gust-quiz': 'Repàs: Gust',
+    'tacte-parts': 'Tacte',
+    'tacte-quiz': 'Repàs: Tacte'
+};
+
+const BIO_SENSE_TITLES = {
+    vista: 'Vista',
+    oida: 'Oïda',
+    olfacte: 'Olfacte',
+    gust: 'Gust',
+    tacte: 'Tacte'
+};
+
 function showBioMenu() {
+    setGameTitle(state.currentProject ? state.currentProject.titol : 'Biologia');
+
     if (typeof resetBioLabToolsGame === 'function') {
         resetBioLabToolsGame();
     }
@@ -878,6 +1016,8 @@ function showBioMenu() {
 }
 
 function openBioSystem(systemId) {
+    setGameTitle(BIO_SYSTEM_TITLES[systemId] || 'Biologia');
+
     if (typeof resetBioLabToolsGame === 'function') {
         resetBioLabToolsGame();
     }
@@ -896,6 +1036,8 @@ function openBioSystem(systemId) {
 
 
 function openBioActivity(actId) {
+    setGameTitle(BIO_ACTIVITY_TITLES[actId] || 'Biologia');
+
     if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
         resetBioLabToolsGame();
     }
@@ -981,6 +1123,8 @@ function openBioActivity(actId) {
 }
 
 function openSenseMenu() {
+    setGameTitle('Sentits');
+
     document.getElementById('bio-systems-menu').classList.add('hidden');
     // Amagar totes les llistes d'activitats de sistemes
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
@@ -992,6 +1136,8 @@ function openSenseMenu() {
 }
 
 function openSenseSubActivity(senseId) {
+    setGameTitle(BIO_SENSE_TITLES[senseId] || 'Sentits');
+
     // Amagar el menú principal dels sentits i totes les llistes d'activitats
     document.getElementById('bio-senses-activities').classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));

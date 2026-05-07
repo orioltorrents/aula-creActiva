@@ -81,17 +81,12 @@ function startImmunitariQuizLevelSelector() {
     }
 
     // --- SECCIÓ PER NIVELL (level) ---
-    const levelOrder = ['Fàcil', 'Mitjà', 'Difícil'];
     const rawLevels = [...new Set(
         bioImmunitariQuiz.allQuestions
             .map(q => q.level || q.Nivell || '')
             .filter(v => v && v.toString().trim() !== '')
     )];
-    const levels = rawLevels.sort((a, b) => {
-        const ai = levelOrder.indexOf(a);
-        const bi = levelOrder.indexOf(b);
-        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-    });
+    const levels = sortQuizLevels(rawLevels);
 
     if (levels.length > 0) {
         const levelLabel = document.createElement('p');
@@ -102,7 +97,7 @@ function startImmunitariQuizLevelSelector() {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
             btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
-            btn.innerText = lvl;
+            btn.innerText = getQuizLevelLabel(lvl);
             btn.onclick = () => startImmunitariQuiz(lvl, 'level');
             container.appendChild(btn);
         });

@@ -9,12 +9,12 @@ const bioConceptDragState = {
 };
 
 const BIO_CONCEPT_DRAG_FALLBACK = [
-    { id: 'fallback_1', topic: 'Genetica molecular', subtopic: 'Acids nucleics', difficulty: 'Facil', concept: 'ADN', definition: 'Molecula que guarda la informacio genetica de la cel.lula.' },
-    { id: 'fallback_2', topic: 'Genetica molecular', subtopic: 'Acids nucleics', difficulty: 'Facil', concept: 'ARNm', definition: 'Copia temporal d un gen que porta la informacio fins als ribosomes.' },
-    { id: 'fallback_3', topic: 'Genetica molecular', subtopic: 'Acids nucleics', difficulty: 'Facil', concept: 'ARNr', definition: 'ARN que forma part dels ribosomes i ajuda a fabricar proteines.' },
-    { id: 'fallback_4', topic: 'Genetica molecular', subtopic: 'Estructura', difficulty: 'Mitja', concept: 'ADN', definition: 'Te doble cadena i bases nitrogenades A, T, C i G.' },
-    { id: 'fallback_5', topic: 'Genetica molecular', subtopic: 'Expressio genica', difficulty: 'Mitja', concept: 'ARNm', definition: 'Es produeix durant la transcripcio.' },
-    { id: 'fallback_6', topic: 'Genetica molecular', subtopic: 'Ribosomes', difficulty: 'Mitja', concept: 'ARNr', definition: 'S associa amb proteines per construir les subunitats ribosomiques.' }
+    { id: 'fallback_1', topic: 'Genètica molecular', subtopic: 'Àcids nucleics', difficulty: 'Fàcil', concept: 'ADN', definition: 'Molecula que guarda la informacio genetica de la cel.lula.' },
+    { id: 'fallback_2', topic: 'Genètica molecular', subtopic: 'Àcids nucleics', difficulty: 'Fàcil', concept: 'ARNm', definition: 'Copia temporal d un gen que porta la informacio fins als ribosomes.' },
+    { id: 'fallback_3', topic: 'Genètica molecular', subtopic: 'Àcids nucleics', difficulty: 'Fàcil', concept: 'ARNr', definition: 'ARN que forma part dels ribosomes i ajuda a fabricar proteines.' },
+    { id: 'fallback_4', topic: 'Genètica molecular', subtopic: 'Estructura', difficulty: 'Mitjà', concept: 'ADN', definition: 'Te doble cadena i bases nitrogenades A, T, C i G.' },
+    { id: 'fallback_5', topic: 'Genètica molecular', subtopic: 'Expressió gènica', difficulty: 'Mitjà', concept: 'ARNm', definition: 'Es produeix durant la transcripcio.' },
+    { id: 'fallback_6', topic: 'Genètica molecular', subtopic: 'Ribosomes', difficulty: 'Mitjà', concept: 'ARNr', definition: 'S associa amb proteines per construir les subunitats ribosomiques.' }
 ];
 
 async function initBioConceptDragGame() {
@@ -39,6 +39,9 @@ async function initBioConceptDragGame() {
     }
 
     renderBioConceptDragFilters();
+    if (normalizeBioConceptDragText(document.getElementById('bio-concept-drag-status')?.innerText) === 'carregant conceptes') {
+        setBioConceptDragStatus('Tria una dificultat, un tema o juga barrejat.', 'muted');
+    }
 }
 
 function resetBioConceptDragView() {
@@ -57,14 +60,39 @@ function resetBioConceptDragView() {
 function normalizeBioConceptDragItems(items) {
     return items
         .map((item, index) => ({
-            id: item.id || `concept_${index + 1}`,
-            topic: String(item.topic || item.tema || 'General').trim(),
-            subtopic: String(item.subtopic || item.subtema || item.subtemes || 'General').trim(),
-            difficulty: String(item.difficulty || item.nivell || 'General').trim(),
-            concept: String(item.concept || item.concepte || '').trim(),
-            definition: String(item.definition || item.definicio || '').trim()
+            id: getBioConceptDragValue(item, ['id']) || `concept_${index + 1}`,
+            topic: getBioConceptDragValue(item, ['topic', 'tema']) || 'General',
+            subtopic: getBioConceptDragValue(item, ['subtopic', 'subtema', 'subtemes']) || 'General',
+            difficulty: getBioConceptDragValue(item, [
+                'difficulty',
+                'dificultat',
+                'dificultats',
+                'nivell',
+                'nivell dificultat',
+                'nivell de dificultat',
+                'level'
+            ]) || '',
+            concept: getBioConceptDragValue(item, ['concept', 'concepte']) || '',
+            definition: getBioConceptDragValue(item, ['definition', 'definicio', 'definició']) || ''
         }))
         .filter(item => item.concept && item.definition);
+}
+
+function getBioConceptDragValue(item, keys) {
+    const normalizedEntries = Object.entries(item || {}).map(([key, value]) => [
+        normalizeBioConceptDragText(key),
+        value
+    ]);
+
+    for (const key of keys) {
+        const normalizedKey = normalizeBioConceptDragText(key);
+        const match = normalizedEntries.find(([itemKey]) => itemKey === normalizedKey);
+        if (match && String(match[1] || '').trim()) {
+            return String(match[1]).trim();
+        }
+    }
+
+    return '';
 }
 
 function renderBioConceptDragFilters() {
@@ -157,7 +185,7 @@ function renderBioConceptDragSubtopicFilters(topic) {
 }
 
 function addBioConceptDragFilterSection(container, labelText, field) {
-    const values = getBioConceptDragUniqueValues(field);
+    const values = getBioConceptDragUniqueValues(field).filter(value => normalizeBioConceptDragText(value) !== 'general');
     if (values.length === 0) return;
 
     const label = document.createElement('p');
@@ -170,7 +198,7 @@ function addBioConceptDragFilterSection(container, labelText, field) {
         button.className = 'btn btn--primary quiz-filter-button';
         button.classList.add(getQuizFilterButtonModifier(field, value));
         button.type = 'button';
-        button.innerText = value;
+        button.innerText = field === 'difficulty' ? getBioConceptDragDifficultyLabel(value) : value;
         button.addEventListener('click', () => startBioConceptDragRound([{ field, value }], value));
         container.appendChild(button);
     });
@@ -181,7 +209,61 @@ function getBioConceptDragUniqueValues(field, items = bioConceptDragState.allIte
         items
             .map(item => item[field])
             .filter(Boolean)
-    )].sort((a, b) => a.localeCompare(b));
+    )].sort((a, b) => compareBioConceptDragValues(field, a, b));
+}
+
+function compareBioConceptDragValues(field, a, b) {
+    if (field !== 'difficulty') {
+        return a.localeCompare(b, 'ca', { sensitivity: 'base' });
+    }
+
+    const rankA = getBioConceptDragDifficultyRank(a);
+    const rankB = getBioConceptDragDifficultyRank(b);
+
+    if (rankA !== rankB) {
+        return rankA - rankB;
+    }
+
+    return a.localeCompare(b, 'ca', { sensitivity: 'base' });
+}
+
+function getBioConceptDragDifficultyRank(value) {
+    const normalized = normalizeBioConceptDragText(value);
+    const order = {
+        'molt facil': 0,
+        facil: 1,
+        easy: 1,
+        mitja: 2,
+        mitjana: 2,
+        medium: 2,
+        avancat: 3,
+        advanced: 3,
+        dificil: 4,
+        hard: 4,
+        'molt dificil': 5,
+        'very hard': 5,
+        pau: 6,
+        'pau dificil': 7,
+        'pau dificils': 7,
+        'pau hard': 7
+    };
+
+    return Object.prototype.hasOwnProperty.call(order, normalized) ? order[normalized] : 100;
+}
+
+function getBioConceptDragDifficultyLabel(value) {
+    const labels = {
+        'molt facil': 'Molt fàcil',
+        facil: 'Fàcil',
+        mitja: 'Mitjà',
+        avancat: 'Avançat',
+        dificil: 'Difícil',
+        'molt dificil': 'Molt difícil',
+        pau: 'PAU',
+        'pau dificil': 'PAU difícil'
+    };
+
+    return labels[normalizeBioConceptDragText(value)] || value;
 }
 
 function getBioConceptDragItemsByFilters(filters = []) {
@@ -460,6 +542,9 @@ function normalizeBioConceptDragText(value) {
     return String(value || '')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/[^a-zA-Z0-9\s]/g, '')
+        .replace(/\s+/g, ' ')
         .toLowerCase()
         .trim();
 }

@@ -84,7 +84,7 @@ function generateLocomotorTopicButtons(questions) {
     }
 
     // --- SECCIÓ PER NIVELL (level) ---
-    const rawLevels = [...new Set(questions.map(q => q.level))].filter(l => l && l.toString().trim() !== "");
+    const rawLevels = sortQuizLevels([...new Set(questions.map(q => q.level))].filter(l => l && l.toString().trim() !== ""));
 
     if (rawLevels.length > 0) {
         const levelLabel = document.createElement('p');
@@ -99,7 +99,7 @@ function generateLocomotorTopicButtons(questions) {
             const btn = document.createElement('button');
             btn.className = 'btn btn--primary';
             btn.style = "background-color: #10b981; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
-            btn.innerText = lvl;
+            btn.innerText = getQuizLevelLabel(lvl);
             btn.onclick = () => startLocomotorQuizWithFilter('all', lvl);
             levelWrapper.appendChild(btn);
         });

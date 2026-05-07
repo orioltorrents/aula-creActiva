@@ -94,7 +94,7 @@ function addMediterraniBiodiversitatFilterSection(container, labelText, field) {
         const btn = document.createElement('button');
         btn.className = 'btn btn--primary';
         btn.classList.add('quiz-filter-button', getQuizFilterButtonModifier(field, value));
-        btn.innerText = value;
+        btn.innerText = field === 'difficulty' ? getQuizLevelLabel(value) : value;
         btn.onclick = () => startMediterraniBiodiversitatQuiz(value, field);
         container.appendChild(btn);
     });
@@ -105,7 +105,14 @@ function getMediterraniBiodiversitatUniqueValues(field) {
         mediterraniBiodiversitatQuiz.allQuestions
             .map(question => String(question[field] || '').trim())
             .filter(value => value !== '')
-    )].sort((a, b) => a.localeCompare(b));
+    )].sort((a, b) => {
+        if (field === 'difficulty') {
+            return getQuizLevelRank(a) - getQuizLevelRank(b)
+                || a.localeCompare(b, 'ca', { sensitivity: 'base' });
+        }
+
+        return a.localeCompare(b, 'ca', { sensitivity: 'base' });
+    });
 }
 
 function startMediterraniBiodiversitatQuiz(value = 'Barrejat', filterBy = null) {
