@@ -10,8 +10,15 @@
  * - doGet/doPost: punts d'entrada públics de l'API.
  * - handleRequest i ACTIONS: llegeixen l'action rebuda i la connecten amb la funció correcta.
  * - withWriteLock: bloqueig només per a accions que escriuen al Sheet.
+ * - CACHE_TTL_SECONDS i getCachedSheetValues: cache de 5 minuts per accelerar lectures de preguntes i configuracions.
  * - Funcions de negoci: login, projectes, preguntes, activitats i resultats.
  * - Utilitats: helpers per llegir pestanyes, normalitzar capçaleres, netejar cel·les i barrejar preguntes.
+ *
+ * Canvis recents comprovats:
+ * - Les lectures de preguntes/configuració fan servir CacheService per evitar rellegir el Sheet a cada petició.
+ * - El login i les accions que guarden resultats continuen anant directes al Sheet.
+ * - Prova real feta a Apps Script: getBiblioQuestions, getCirculatoriQuestions, getOrenetesData,
+ *   getOrenetesPreguntes i saveResult han respost correctament.
  *
  * Configuració i desplegament:
  * 1. Crea un Google Sheet i les pestanyes necessàries per a cada activitat.
