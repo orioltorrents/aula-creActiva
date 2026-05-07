@@ -41,7 +41,7 @@ async function initOrenetesGame() {
             setup.innerHTML = `
                 <div class="orenetes-empty">
                     <p>${message}</p>
-                    <button class="btn-secondary mt-4" onclick="showNaturaMenu()">Tornar al menu</button>
+                    <button class="btn btn--secondary mt-4" onclick="showNaturaMenu()">Tornar al menu</button>
                 </div>
             `;
             return;
@@ -120,16 +120,16 @@ function checkOrenetesAnswer() {
     document.getElementById('orenetes-score').textContent = `${orenetesState.score}%`;
     document.getElementById('orenetes-check-btn').disabled = true;
 
-    feedback.classList.remove('hidden', 'orenetes-feedback-good', 'orenetes-feedback-mid', 'orenetes-feedback-low');
+    feedback.classList.remove('hidden', 'feedback-panel--good', 'feedback-panel--mid', 'feedback-panel--low');
     if (itemPercentage === 100) {
         feedback.textContent = 'Fitxa perfecta: 100% d\'encerts en aquesta imatge.';
-        feedback.classList.add('orenetes-feedback-good');
+        feedback.classList.add('feedback-panel--good');
     } else if (itemPercentage >= 50) {
         feedback.textContent = `Has encertat ${correctFields} de 4 camps (${itemPercentage}%). Revisa la imatge amb calma.`;
-        feedback.classList.add('orenetes-feedback-mid');
+        feedback.classList.add('feedback-panel--mid');
     } else {
         feedback.textContent = `Has encertat ${correctFields} de 4 camps (${itemPercentage}%). Torna a observar formes, vores i restes.`;
-        feedback.classList.add('orenetes-feedback-low');
+        feedback.classList.add('feedback-panel--low');
     }
 
     const nextBtn = document.getElementById('orenetes-next-btn');

@@ -27,7 +27,7 @@ async function initLocomotorQuiz() {
 
     const feedback = document.getElementById('locomotor-quiz-feedback');
     feedback.innerText = i18n.t('loading') || 'Carregant dades...';
-    feedback.style.color = 'var(--text-main)';
+    setElementStateColor(feedback, 'muted');
     feedback.style.fontWeight = 'normal';
 
 
@@ -46,7 +46,7 @@ async function initLocomotorQuiz() {
         } else {
             const errorMsg = response && response.message ? response.message : 'Error al carregar dades.';
             feedback.innerText = `Error: ${errorMsg}. Revisa que la pestanya al Google Sheet es digui "aparell-locomotor" i contingui dades amb les capçaleres correctes (Pregunta, Correcta, etc).`;
-            feedback.style.color = 'var(--error)';
+            setElementStateColor(feedback, 'error');
             feedback.style.fontWeight = 'bold';
         }
 
@@ -74,7 +74,7 @@ function generateLocomotorTopicButtons(questions) {
 
         types.forEach(type => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style = "background-color: #3b82f6; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
             btn.innerText = type;
             btn.onclick = () => startLocomotorQuizWithFilter(type, 'mixed');
@@ -97,7 +97,7 @@ function generateLocomotorTopicButtons(questions) {
 
         rawLevels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
+            btn.className = 'btn btn--primary';
             btn.style = "background-color: #10b981; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
             btn.innerText = lvl;
             btn.onclick = () => startLocomotorQuizWithFilter('all', lvl);
@@ -116,7 +116,7 @@ function generateLocomotorTopicButtons(questions) {
     mixWrapper.className = 'flex flex-wrap justify-center gap-4';
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
+    mixBtn.className = 'btn btn--primary';
     mixBtn.style = "background-color: #7c3aed; width: auto; font-size: 0.95rem; padding: 10px 20px; min-width: 120px;";
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startLocomotorQuizWithFilter('all', 'mixed');
@@ -144,7 +144,7 @@ function startLocomotorQuizWithFilter(type = 'all', level = 'mixed') {
     if (pool.length === 0) {
         const feedback = document.getElementById('locomotor-quiz-feedback');
         feedback.innerText = `No s'han trobat preguntes per a aquesta combinació.`;
-        feedback.style.color = 'var(--error)';
+        setElementStateColor(feedback, 'error');
         return;
     }
 
@@ -198,7 +198,7 @@ function showLocomotorQuizQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = optText;
         btn.onclick = () => handleLocomotorQuizAnswer(idx);
         optsContainer.appendChild(btn);
@@ -225,10 +225,10 @@ function handleLocomotorQuizAnswer(selectedIndex) {
     if (isCorrect) {
         locomotorQuizState.score += 10;
         document.getElementById('locomotor-quiz-feedback').innerText = i18n.t('correct');
-        document.getElementById('locomotor-quiz-feedback').style.color = 'var(--success)';
+        setElementStateColor(document.getElementById('locomotor-quiz-feedback'), 'success');
     } else {
         document.getElementById('locomotor-quiz-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('locomotor-quiz-feedback').style.color = 'var(--error)';
+        setElementStateColor(document.getElementById('locomotor-quiz-feedback'), 'error');
     }
 
     setTimeout(() => {
@@ -279,3 +279,5 @@ async function finishLocomotorQuiz() {
         }).catch(err => console.error("Error guardant resultat", err));
     }
 }
+
+

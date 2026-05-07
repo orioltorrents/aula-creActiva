@@ -180,7 +180,7 @@ function initParalimpicsMicrobit(selectedLevel) {
 
     document.getElementById('paralimpics-quiz-container').classList.remove('hidden');
     document.getElementById('paralimpics-results').classList.add('hidden');
-    document.querySelector('#paralimpics-activity-microbit .game-controls').classList.add('hidden');
+    document.querySelector('#paralimpics-activity-microbit .game-panel__controls').classList.add('hidden');
 
     showParalimpicsQuestion();
 }
@@ -198,7 +198,7 @@ function showParalimpicsQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = optText;
         btn.onclick = () => handleParalimpicsAnswer(idx);
         optsContainer.appendChild(btn);
@@ -224,10 +224,10 @@ function handleParalimpicsAnswer(selectedIndex) {
     if (isCorrect) {
         paralimpicsState.score += 10;
         document.getElementById('paralimpics-feedback').innerText = i18n.t('correct');
-        document.getElementById('paralimpics-feedback').style.color = 'green';
+        setElementStateColor(document.getElementById('paralimpics-feedback'), 'success');
     } else {
         document.getElementById('paralimpics-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('paralimpics-feedback').style.color = 'red';
+        setElementStateColor(document.getElementById('paralimpics-feedback'), 'error');
     }
 
     setTimeout(() => {
@@ -290,3 +290,4 @@ function updateParalimpicsLanguage() {
         showParalimpicsQuestion();
     }
 }
+

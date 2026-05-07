@@ -72,8 +72,8 @@ function startImmunitariQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
-            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:140px;';
+            btn.className = 'btn btn--primary';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--topic');
             btn.innerText = cat;
             btn.onclick = () => startImmunitariQuiz(cat, 'type');
             container.appendChild(btn);
@@ -98,12 +98,10 @@ function startImmunitariQuizLevelSelector() {
         levelLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
         levelLabel.innerText = 'Per Nivell:';
         container.appendChild(levelLabel);
-        const levelColors = { 'Fàcil': '#22c55e', 'Mitjà': '#f59e0b', 'Difícil': '#ef4444' };
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
-            const color = levelColors[lvl] || '#6366f1';
-            btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+            btn.className = 'btn btn--primary';
+            btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
             btn.innerText = lvl;
             btn.onclick = () => startImmunitariQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -116,8 +114,8 @@ function startImmunitariQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.className = 'btn btn--primary';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tot)';
     mixBtn.onclick = () => startImmunitariQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -180,7 +178,7 @@ function renderImmunitariQuizQuestion() {
 
     questionData.a.forEach(ansText => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ansText;
         btn.dataset.correct = (ansText === questionData.correctText).toString();
         btn.onclick = () => handleImmunitariQuizAnswer(ansText === questionData.correctText, btn);
@@ -205,7 +203,7 @@ function handleImmunitariQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = '✅ Correcte!';
-        feedbackEl.style.color = 'var(--success)';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             bioImmunitariQuiz.currentStep++;
             if (bioImmunitariQuiz.currentStep >= bioImmunitariQuiz.sessionQuestions.length) {
@@ -216,7 +214,7 @@ function handleImmunitariQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = '❌ Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioImmunitariQuiz.score = Math.max(0, bioImmunitariQuiz.score - 10);
         document.getElementById('immun-quiz-score').innerText = `Punts: ${bioImmunitariQuiz.score}`;
         setTimeout(() => {
@@ -259,3 +257,5 @@ async function endImmunitariQuiz() {
         });
     }
 }
+
+

@@ -1,0 +1,83 @@
+/* ==========================================================================
+   SolidArt / Quiz Layout
+   ========================================================================== */
+#solidart-quadres-setup,
+#solidart-quadres2-setup {
+    max-width: 860px;
+    min-height: 46vh;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.solidart-difficulty-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem 1.25rem;
+    width: 100%;
+}
+
+#solidart-quadres-setup .btn--primary,
+#solidart-quadres2-setup .btn--primary {
+    width: min(160px, 100%);
+}
+
+.quiz-option {
+    cursor: pointer;
+    transition: var(--transition-fast);
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--white);
+    border: 2px solid #e5e7eb;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 80px;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    background-color: #f5f3ff;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1);
+    color: var(--primary-hover);
+}
+
+.quiz-option:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.quiz-option:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* Ensure 2x2 grid is forced */
+#solidart-quadres-options.grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+}
+
+@media (max-width: 640px) {
+    #solidart-quadres-options.grid {
+        gap: 1rem !important;
+    }
+
+    .quiz-option {
+        font-size: 1.1rem;
+        padding: 1rem 0.75rem;
+        min-height: 70px;
+    }
+}
+

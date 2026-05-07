@@ -5,7 +5,7 @@
 <div id="natura-activity-orenetes-preguntes" class="sub-activity hidden">
     <button class="btn-secondary btn-sm mb-2" onclick="showNaturaMenu()">← Tornar al menú</button>
 
-    <div class="game-header text-center">
+    <div class="game-panel__header text-center">
         <h3>
             <span data-i18n="natura_project_title">Entorns de Natura</span> —
             Preguntes del Projecte Orenetes
@@ -18,26 +18,28 @@
     </div>
 
     <div id="orenetes-questions-quiz-container" class="hidden">
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="orenetes-questions-progress">Pregunta 1/X</span>
             <span id="orenetes-questions-score">Punts: 0</span>
         </div>
-        <div class="question-container text-center">
+        <div class="game-panel__question text-center">
             <p id="orenetes-questions-meta" class="text-sm font-semibold text-gray-500 mb-2 hidden"></p>
             <img id="orenetes-questions-img" src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes"
                 style="max-height:260px;width:100%;object-fit:contain;border-radius:12px;margin-bottom:18px;">
             <h4 id="orenetes-questions-text" class="text-2xl font-semibold mb-6">Pregunta...</h4>
-            <div id="orenetes-questions-options" class="options-grid"></div>
+            <div id="orenetes-questions-options" class="game-panel__options"></div>
         </div>
-        <p id="orenetes-questions-feedback" class="feedback-msg text-center mt-4"></p>
+        <p id="orenetes-questions-feedback" class="game-panel__feedback text-center mt-4"></p>
     </div>
 
-    <div id="orenetes-questions-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="orenetes-questions-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
         <h3>Resultat final</h3>
-        <p id="orenetes-questions-final-score" class="text-4xl font-bold text-blue-600 mt-4">0%</p>
-        <p id="orenetes-questions-final-msg" class="text-lg mt-4 mb-8"></p>
+        <p id="orenetes-questions-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0%</p>
+        <p id="orenetes-questions-final-msg" class="result-screen__message text-lg mt-4 mb-8"></p>
         <button class="btn-primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
         <button class="btn-secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
         <button onclick="showNaturaMenu()" class="btn-secondary mt-4">Tornar al menú</button>
     </div>
 </div>
+
+

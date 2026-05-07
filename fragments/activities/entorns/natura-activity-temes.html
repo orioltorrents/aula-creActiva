@@ -15,7 +15,7 @@
     </button>
 
     <!-- Pantalla inicial -->
-    <div id="natura-temes-setup" class="game-header text-center">
+    <div id="natura-temes-setup" class="game-panel__header text-center">
         <h3>
             <span data-i18n="natura_project_title">Entorns de Natura</span> —
             <span data-i18n="act_tr_temes_title">Temes i Preguntes</span>
@@ -34,7 +34,7 @@
     <!-- Zona del quiz -->
     <div id="natura-temes-quiz-container" class="hidden">
         <!-- Barra de progrés i puntuació -->
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="natura-temes-progress">Tema 1 / X</span>
             <span id="natura-temes-score">Punts: 0</span>
         </div>
@@ -64,8 +64,8 @@
         </div>
 
         <!-- Feedback -->
-        <div id="natura-temes-feedback-area" class="hidden mt-6">
-            <div id="natura-temes-feedback-list" class="flex flex-col gap-3 mb-6"></div>
+        <div id="natura-temes-feedback-area" class="feedback-panel hidden mt-6">
+            <div id="natura-temes-feedback-list" class="feedback-panel__list flex flex-col gap-3 mb-6"></div>
 
             <button id="natura-temes-next-btn"
                 class="btn-primary w-full text-lg py-3"
@@ -76,22 +76,22 @@
     </div>
 
     <!-- Pantalla final de resultats -->
-    <div id="natura-temes-results" class="hidden text-center p-8 bg-white rounded shadow">
+    <div id="natura-temes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
         <h3 data-i18n="final_score">Resultat final</h3>
 
-        <p id="natura-temes-final-score" class="text-4xl font-bold text-blue-600 mt-4">
+        <p id="natura-temes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">
             0 / 15
         </p>
 
-        <p id="natura-temes-final-percentage"
-            class="text-2xl font-semibold mb-4 text-gray-700">
+        <p id="natura-temes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
             0%
         </p>
 
-        <p id="natura-temes-final-msg" class="text-lg mb-8"></p>
+        <p id="natura-temes-final-msg" class="result-screen__message text-lg mb-8"></p>
 
         <button onclick="showNaturaMenu()" class="btn-secondary">
             Tornar
         </button>
     </div>
 </div>
+

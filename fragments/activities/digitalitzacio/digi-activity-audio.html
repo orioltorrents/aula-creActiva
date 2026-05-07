@@ -1,0 +1,56 @@
+                    <!-- ACTIVITAT: Edició d'Àudio (Cakewalk Sonar) -->
+                    <div id="digi-activity-audio" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="showDigitalitzacioMenu()">← Tornar al
+                            menú</button>
+                        <div class="game-panel__header">
+                            <h3 data-i18n="act_audio_title">Edició d'àudio</h3>
+                        </div>
+                        <div class="sonar-activity-container">
+                            <div class="game-panel__stats flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+                                <div id="sonar-score-display" class="font-bold">Punts: 100</div>
+                                <div class="flex gap-2">
+                                    <button id="sonar-help-btn" class="btn btn--info btn--sm" onclick="showSonarHelp()"
+                                        data-i18n="btn_help">Ajuda (-10 punts)</button>
+                                    <button id="sonar-skip-btn" class="btn btn--secondary btn--sm" onclick="skipQuestion()"
+                                        data-i18n="btn_skip">Passar pregunta (-5
+                                        punts)</button>
+                                </div>
+                            </div>
+                            <div id="sonar-question" class="text-lg font-bold p-2 bg-blue-50 rounded">Clica...</div>
+                            <div class="image-interactive-wrapper interactive-image-wrapper mt-4">
+                                <img id="sonar-image" src="assets/images/activities/digitalitzacio/sonar/sonar_interface.png"
+                                    alt="Cakewalk Sonar Interface"
+                                    class="interactive-image">
+                            </div>
+                            <p id="sonar-feedback" class="game-panel__feedback mt-2"></p>
+
+                            <!-- CALIBRATION UI (USER DEBUG) -->
+                            <div id="sonar-calibration-ui" class="mt-4 p-3 bg-gray-800 text-white rounded hidden calibration-panel">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>?? Ajust de diana</span>
+                                    <button onclick="closeCalibration()" class="text-red-400">⛶</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 mb-2 text-center">
+                                    <div></div><button onclick="nudgeTarget('y', -1)"
+                                        class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <div></div>
+                                    <button onclick="nudgeTarget('x', -1)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeTarget('y', 1)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                    <button onclick="nudgeTarget('x', 1)" class="bg-gray-700 p-1 rounded">⛶</button>
+                                </div>
+                                <div class="flex gap-2 justify-center mb-2">
+                                    <button onclick="nudgeTarget('w', 1); nudgeTarget('h', 1)"
+                                        class="bg-gray-700 px-2 rounded">+</button>
+                                    <button onclick="nudgeTarget('w', -1); nudgeTarget('h', -1)"
+                                        class="bg-gray-700 px-2 rounded">-</button>
+                                    <span class="ml-2">Mida</span>
+                                </div>
+                                <div id="calibration-values" class="text-center text-xs opacity-75">x:0 y:0 w:0 h:0
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <button onclick="exportSonarConfig()" class="bg-blue-600 px-3 py-1 rounded text-white">Copiar codi</button>
+                                </div>
+                                <p class="mt-2 text-yellow-400 text-center italic">Està ben posat ara?</p>
+                            </div>
+                        </div>
+                    </div>

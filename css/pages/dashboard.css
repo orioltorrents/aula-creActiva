@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Dashboard
+   ========================================================================== */
+.top-bar {
+    background: var(--white);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.badge {
+    background: #e0e7ff;
+    color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.dashboard-content {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-banner {
+    margin-bottom: 30px;
+}
+
+.welcome-banner h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px 5px;
+}
+
+.projects-grid::-webkit-scrollbar {
+    height: 6px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.project-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+

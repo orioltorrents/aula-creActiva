@@ -103,7 +103,7 @@ function initMediterraniTest() {
 
     document.getElementById('test-container').classList.remove('hidden');
     document.getElementById('test-results').classList.add('hidden');
-    document.querySelector('#med-activity-test_mar .game-controls').classList.add('hidden'); // Amagar botó començar
+    document.querySelector('#med-activity-test_mar .game-panel__controls').classList.add('hidden'); // Amagar botó començar
 
     showTestQuestion();
 }
@@ -123,7 +123,7 @@ function showTestQuestion() {
 
     qData.a.forEach((optText, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2'; // w-full i text-left si tinguéssim tailwind, sino CSS normal a sota
+        btn.className = 'answer-option w-full text-left mb-2'; // w-full i text-left si tinguéssim tailwind, sino CSS normal a sota
         btn.innerText = optText;
         btn.onclick = () => handleTestAnswer(idx, btn);
         optsContainer.appendChild(btn);
@@ -153,10 +153,10 @@ function handleTestAnswer(selectedIndex, btnElement) {
     if (isCorrect) {
         medTestState.score++;
         document.getElementById('test-feedback').innerText = "Correcte!";
-        document.getElementById('test-feedback').style.color = 'green';
+        setElementStateColor(document.getElementById('test-feedback'), 'success');
     } else {
         document.getElementById('test-feedback').innerText = "Incorrecte.";
-        document.getElementById('test-feedback').style.color = 'red';
+        setElementStateColor(document.getElementById('test-feedback'), 'error');
     }
 
     // Mostrar botó següent
@@ -217,3 +217,4 @@ async function finishTest() {
         }
     }
 }
+

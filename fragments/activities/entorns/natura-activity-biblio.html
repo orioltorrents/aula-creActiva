@@ -14,7 +14,7 @@
     </button>
 
     <!-- Capçalera de l'activitat -->
-    <div class="game-header">
+    <div class="game-panel__header">
         <h3 data-i18n="act_biblio_title">Bibliografia i Cites</h3>
     </div>
 
@@ -26,7 +26,7 @@
     </div>
 
     <!-- Pantalla inicial de selecció -->
-    <div class="game-controls py-4" id="biblio-level-selection">
+    <div class="game-panel__controls py-4" id="biblio-level-selection">
         <!-- Selecció dinàmica per tema -->
         <div id="biblio-topic-selection" class="flex flex-col items-center"></div>
 
@@ -63,26 +63,27 @@
 
     <!-- Zona del quiz -->
     <div id="biblio-quiz-container" class="hidden">
-        <div class="stats-bar">
+        <div class="game-panel__stats">
             <span id="biblio-progress">Pregunta 1/8</span>
             <span id="biblio-score">Punts: 0</span>
         </div>
 
-        <div class="question-container">
+        <div class="game-panel__question">
             <h4 id="biblio-question-text">Pregunta...</h4>
             <div id="biblio-options" class="options-list"></div>
         </div>
 
-        <p id="biblio-feedback" class="feedback-msg"></p>
+        <p id="biblio-feedback" class="game-panel__feedback"></p>
     </div>
 
     <!-- Pantalla final de resultats -->
-    <div id="biblio-results" class="hidden text-center">
+    <div id="biblio-results" class="result-screen hidden text-center">
         <h3 data-i18n="final_score">Resultats</h3>
-        <p id="biblio-final-score" class="text-2xl font-bold">0 / 80</p>
+        <p id="biblio-final-score" class="result-screen__score text-2xl font-bold">0 / 80</p>
         <p id="biblio-message"></p>
         <button onclick="showNaturaMenuFromBiblio()" class="btn-secondary">
             Tornar
         </button>
     </div>
 </div>
+

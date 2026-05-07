@@ -58,8 +58,8 @@ function startVistaQuizLevelSelector() {
         container.appendChild(topicLabel);
         topics.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
-            btn.style.cssText = 'background-color:#3b82f6;width:auto;min-width:120px;';
+            btn.className = 'btn btn--primary';
+            btn.classList.add('quiz-filter-button', 'quiz-filter-button--topic');
             btn.innerText = cat;
             btn.onclick = () => startVistaQuiz(cat, 'type');
             container.appendChild(btn);
@@ -75,8 +75,8 @@ function startVistaQuizLevelSelector() {
         container.appendChild(levelLabel);
         levels.forEach(lvl => {
             const btn = document.createElement('button');
-            btn.className = 'btn-primary';
-            btn.style.cssText = 'background-color:#10b981;width:auto;min-width:120px;';
+            btn.className = 'btn btn--primary';
+            btn.classList.add('quiz-filter-button', getQuizLevelButtonModifier(lvl));
             btn.innerText = lvl;
             btn.onclick = () => startVistaQuiz(lvl, 'level');
             container.appendChild(btn);
@@ -89,8 +89,8 @@ function startVistaQuizLevelSelector() {
     mixLabel.innerText = 'O bé:';
     container.appendChild(mixLabel);
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:120px;';
+    mixBtn.className = 'btn btn--primary';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (Tots)';
     mixBtn.onclick = () => startVistaQuiz('Barrejat', null);
     container.appendChild(mixBtn);
@@ -125,10 +125,10 @@ function startVistaQuiz(value, filterBy) {
 
 function renderVistaQuizQuestion() {
     const questionData = bioVistaQuiz.sessionQuestions[bioVistaQuiz.currentStep];
-    
+
     document.getElementById('vista-quiz-progress').innerText = `Pregunta ${bioVistaQuiz.currentStep + 1} de ${bioVistaQuiz.sessionQuestions.length}`;
     document.getElementById('vista-quiz-score-display').innerText = `Punts: ${bioVistaQuiz.score}`;
-    
+
     document.getElementById('vista-quiz-text').innerText = questionData.q || questionData.Pregunta || '';
 
     const correctText = questionData.correct || questionData.Correcta;
@@ -144,7 +144,7 @@ function renderVistaQuizQuestion() {
 
     answers.forEach((ans) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-option w-full text-left mb-2';
+        btn.className = 'answer-option w-full text-left mb-2';
         btn.innerText = ans.text;
         btn.dataset.correct = ans.correct;
         btn.onclick = () => handleVistaQuizAnswer(ans.correct, btn);
@@ -172,8 +172,8 @@ function handleVistaQuizAnswer(isCorrect, btnElement) {
 
     if (isCorrect) {
         feedbackEl.innerText = 'Correcte!';
-        feedbackEl.style.color = 'var(--success)';
-        
+        setElementStateColor(feedbackEl, 'success');
+
         setTimeout(() => {
             bioVistaQuiz.currentStep++;
             if (bioVistaQuiz.currentStep >= bioVistaQuiz.sessionQuestions.length) {
@@ -184,10 +184,10 @@ function handleVistaQuizAnswer(isCorrect, btnElement) {
         }, 1500);
     } else {
         feedbackEl.innerText = 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'var(--error)';
+        setElementStateColor(feedbackEl, 'error');
         bioVistaQuiz.score = Math.max(0, bioVistaQuiz.score - 10);
         document.getElementById('vista-quiz-score-display').innerText = `Punts: ${bioVistaQuiz.score}`;
-        
+
         setTimeout(() => {
             feedbackEl.innerText = '';
             buttons.forEach(b => {
@@ -222,3 +222,5 @@ async function endVistaQuiz() {
         await callApi('saveResult', result);
     }
 }
+
+

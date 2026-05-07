@@ -74,8 +74,8 @@ function startOrenetesPreguntesSelector() {
     selector.classList.remove('hidden');
     buttonsContainer.innerHTML = '';
 
-    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty', '#10b981');
-    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per tema:', 'topic', '#3b82f6');
+    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty');
+    addOrenetesPreguntesFilterSection(buttonsContainer, 'Per tema:', 'topic');
 
     const mixLabel = document.createElement('p');
     mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
@@ -83,14 +83,14 @@ function startOrenetesPreguntesSelector() {
     buttonsContainer.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.className = 'btn btn--primary';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.textContent = 'Barrejat (totes)';
     mixBtn.onclick = () => startOrenetesPreguntesQuiz('Barrejat', null);
     buttonsContainer.appendChild(mixBtn);
 }
 
-function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
+function addOrenetesPreguntesFilterSection(container, labelText, field) {
     const values = getOrenetesPreguntesUniqueValues(field);
     if (values.length === 0) return;
 
@@ -101,8 +101,8 @@ function addOrenetesPreguntesFilterSection(container, labelText, field, color) {
 
     values.forEach(value => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
-        btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+        btn.className = 'btn btn--primary';
+        btn.classList.add('quiz-filter-button', getQuizFilterButtonModifier(field, value));
         btn.textContent = value;
         btn.onclick = () => startOrenetesPreguntesQuiz(value, field);
         container.appendChild(btn);
@@ -200,7 +200,7 @@ function renderOrenetesPreguntesQuestion() {
     [...question.options].sort(() => 0.5 - Math.random()).forEach(option => {
         const btn = document.createElement('button');
         const optionValue = option.value || option.text || option.image;
-        btn.className = isImageQuestion ? 'btn-option orenetes-questions-image-option' : 'btn-option';
+        btn.className = isImageQuestion ? 'answer-option orenetes-questions-image-option' : 'answer-option';
         btn.dataset.value = optionValue;
         btn.onclick = () => checkOrenetesPreguntesAnswer(optionValue, question.correct, btn);
 
@@ -233,7 +233,7 @@ function checkOrenetesPreguntesAnswer(selected, correct, btn) {
     if (orenetesPreguntesState.answered) return;
 
     const feedbackEl = document.getElementById('orenetes-questions-feedback');
-    const options = document.querySelectorAll('#orenetes-questions-options .btn-option');
+    const options = document.querySelectorAll('#orenetes-questions-options .answer-option');
     orenetesPreguntesState.answered = true;
 
     options.forEach(option => {
@@ -246,13 +246,13 @@ function checkOrenetesPreguntesAnswer(selected, correct, btn) {
         btn.classList.add('correct');
         if (feedbackEl) {
             feedbackEl.textContent = typeof i18n !== 'undefined' ? i18n.t('correct') : 'Correcte!';
-            feedbackEl.style.color = 'green';
+            setElementStateColor(feedbackEl, 'success');
         }
     } else {
         btn.classList.add('incorrect');
         if (feedbackEl) {
             feedbackEl.textContent = typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte';
-            feedbackEl.style.color = 'red';
+            setElementStateColor(feedbackEl, 'error');
         }
     }
 

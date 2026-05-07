@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Project Cards (BEM)
+   Bloc: `project-card`
+   Ús: targetes del dashboard principal.
+
+   Estructura esperada:
+   <div class="project-card">
+       <div class="project-card__media">
+           <img class="project-card__image">
+       </div>
+       <div class="project-card__content">
+           <div class="project-card__title"></div>
+           <div class="project-card__description"></div>
+       </div>
+   </div>
+
+   El dashboard principal fa servir un component diferent del de les activitats.
+   Per això aquest bloc es diu `project-card` i no reutilitza `activity-card`.
+   Això evita col·lisions visuals quan una targeta de projecte i una targeta
+   d'activitat necessiten mides o proporcions diferents.
+   ========================================================================== */
+
+.project-card__media {
+    /* Element BEM: zona visual superior de la targeta de projecte. */
+    height: 220px;
+    background-color: var(--surface-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 4rem;
+    color: var(--white);
+    background-size: cover;
+    background-position: center;
+    transition: all 0.3s;
+}
+
+.project-card__image {
+    /* Element BEM: imatge de portada que omple la zona media. */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-card__image,
+.project-card:hover .project-card__media {
+    /* Estat interactiu del bloc aplicat als seus elements interns. */
+    transform: scale(1.05);
+}
+
+
+.project-card__content {
+    /* Element BEM: contenidor textual de la targeta. */
+    padding: 20px;
+}
+
+.project-card__title {
+    /* Element BEM: títol principal de la targeta de projecte. */
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.project-card__description {
+    /* Element BEM: text secundari de la targeta de projecte. */
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+

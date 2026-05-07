@@ -1,76 +1,63 @@
-<!-- =========================================================
-     PROJECTE: TREBALL DE RECERCA
-     Aquest bloc només conté el menú principal del projecte.
-     Les activitats es defineixen per separat més avall.
-========================================================== -->
 <div id="project-hub-tr" class="game-module hidden">
-    <!-- Títol del projecte -->
     <h3 data-i18n="tr_project_title">Projecte Treball de Recerca</h3>
 
-    <!-- Menú d'activitats del projecte -->
     <div id="tr-activities-menu" class="activities-grid">
-        <!-- Activitat: Preguntes Investigables -->
         <div class="activity-card" onclick="openTrActivity('preguntes')">
-            <div class="act-icon">
+            <div class="activity-card__media">
                 <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png"
-                    alt="Preguntes Investigables" class="act-img">
+                    alt="Preguntes Investigables" class="activity-card__image">
             </div>
-            <div class="card-content">
-                <div class="card-title" data-i18n="act_tr_preguntes_title">
-                    Preguntes Investigables
-                </div>
-                <div class="card-desc" data-i18n="act_tr_preguntes_desc">
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">
                     Aprèn a diferenciar preguntes investigables de les que no ho són.
                 </div>
             </div>
         </div>
 
-        <!-- Activitat: Temes i preguntes -->
         <div class="activity-card" onclick="openTrActivity('temes')">
-            <div class="act-icon">
+            <div class="activity-card__media">
                 <img src="assets/images/activities/treball-recerca/cards/targeta-temes-preguntes.png"
-                    alt="Temes i preguntes" class="act-img">
+                    alt="Temes i preguntes" class="activity-card__image">
             </div>
-            <div class="card-content">
-                <div class="card-title" data-i18n="act_tr_temes_title">
-                    Temes i preguntes
-                </div>
-                <div class="card-desc" data-i18n="act_tr_temes_desc">
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_tr_temes_title">Temes i preguntes</div>
+                <div class="activity-card__description" data-i18n="act_tr_temes_desc">
                     Tria bones preguntes d'un tema de recerca.
                 </div>
             </div>
         </div>
 
-        <!-- Activitat: Diagnòstic de preguntes -->
         <div class="activity-card" onclick="openTrActivity('diagnostic')">
-            <div class="act-icon">
+            <div class="activity-card__media">
                 <img src="assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png"
-                    alt="Diagnòstic de preguntes"
-                    class="act-img"
-                    onerror="this.src='https://img.icons8.com/isometric/512/quiz.png'">
+                    alt="Diagnòstic de preguntes" class="activity-card__image"
+                    onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
             </div>
-            <div class="card-content">
-                <div class="card-title">Diagnòstic de preguntes</div>
-                <div class="card-desc">
+            <div class="activity-card__content">
+                <div class="activity-card__title">Diagnòstic de preguntes</div>
+                <div class="activity-card__description">
                     Aprèn a identificar què li falta a una pregunta per ser investigable.
                 </div>
             </div>
         </div>
 
-        <!-- Activitat: Bibliografia i cites -->
         <div class="activity-card" onclick="openTrActivity('biblio')">
-            <div class="act-icon">
+            <div class="activity-card__media">
                 <img src="assets/images/activities/treball-recerca/cards/targeta_biblio-APA.png"
-                    alt="Bibliografia i Cites" class="act-img">
+                    alt="Bibliografia i Cites" class="activity-card__image">
             </div>
-            <div class="card-content">
-                <div class="card-title" data-i18n="act_biblio_title">
-                    Bibliografia i Cites
-                </div>
-                <div class="card-desc" data-i18n="act_biblio_desc">
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_biblio_title">Bibliografia i Cites</div>
+                <div class="activity-card__description" data-i18n="act_biblio_desc">
                     Aprèn a citar correctament les teves fonts
                 </div>
             </div>
         </div>
     </div>
+
+    <div data-fragment="fragments/activities/treball-recerca/tr-activity-diagnostic.html"></div>
+    <div data-fragment="fragments/activities/treball-recerca/tr-activity-preguntes.html"></div>
+    <div data-fragment="fragments/activities/treball-recerca/tr-activity-temes.html"></div>
+    <div data-fragment="fragments/activities/treball-recerca/tr-activity-biblio.html"></div>
 </div>

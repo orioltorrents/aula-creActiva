@@ -1,0 +1,36 @@
+<div id="med-activity-biodiversitat" class="sub-activity hidden">
+    <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
+
+    <div class="game-panel__header">
+        <h3>Biodiversitat del Mediterrani</h3>
+    </div>
+
+    <div id="med-biodiv-selector"
+        class="hidden quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white text-center">
+        <p class="mb-4 text-center font-bold">Tria com vols practicar:</p>
+        <div id="med-biodiv-filter-buttons" class="flex flex-wrap gap-2 justify-center"></div>
+    </div>
+
+    <div id="med-biodiv-quiz-container" class="hidden">
+        <div class="game-panel__stats">
+            <span id="med-biodiv-progress">Pregunta 1/20</span>
+            <span id="med-biodiv-score">Punts: 0</span>
+        </div>
+        <div class="game-panel__question text-center">
+            <img id="med-biodiv-img" src="" alt="Imatge de biodiversitat mediterrània" class="media-contained-md">
+            <p id="med-biodiv-meta" class="text-muted hidden"></p>
+            <h4 id="med-biodiv-question-text">Carregant pregunta...</h4>
+            <div id="med-biodiv-options" class="game-panel__options"></div>
+        </div>
+        <p id="med-biodiv-feedback" class="game-panel__feedback"></p>
+    </div>
+
+    <div id="med-biodiv-results" class="result-screen hidden text-center p-8">
+        <h3 data-i18n="final_score">Resultats</h3>
+        <p id="med-biodiv-final-score" class="result-screen__score text-4xl font-bold">0%</p>
+        <p id="med-biodiv-final-msg" class="result-screen__message"></p>
+        <button class="btn btn--primary" onclick="initMediterraniBiodiversitatQuiz()">Tornar a jugar</button>
+        <button class="btn btn--secondary mt-4" onclick="startMediterraniBiodiversitatSelector()">Tornar a triar</button>
+        <button class="btn btn--secondary mt-4" onclick="showMediterraniMenu()">Tornar al menú</button>
+    </div>
+</div>

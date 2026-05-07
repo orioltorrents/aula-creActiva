@@ -26,7 +26,7 @@ async function loadNaturaTemesCategories() {
 
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-primary shadow-md px-6 py-4 text-xl font-bold rounded-lg';
+                btn.className = 'btn btn--primary shadow-md px-6 py-4 text-xl font-bold rounded-lg';
                 btn.style.backgroundColor = '#10b981'; // Green for Natura
                 btn.textContent = cat;
                 btn.onclick = () => initNaturaTemes(cat);

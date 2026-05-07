@@ -15,16 +15,17 @@ const bioTactePartsGame = {
         { key: 'act_tacte_part_nervi', x: 900, y: 500, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioTactePartsGame() {
     bioTactePartsGame.currentStep = 0;
     bioTactePartsGame.score = 100;
     bioTactePartsGame.isFinished = false;
+    bioTactePartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-tacte-parts-image');
-    img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-tacte.png';
 
     const shuffled = [...bioTactePartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -64,14 +65,15 @@ function updateBioTactePartsUI() {
         return;
     }
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
-    const isProfe = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('profe');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
+    const isProfe = typeof isTeacherUser === 'function' ? isTeacherUser() : false;
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) {
         if (isProfe || isAdmin) helpBtn.classList.remove('hidden');
         else helpBtn.classList.add('hidden');
     }
+    if (calibrationUI && !isAdmin) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioTactePartsGame.sessionQuestions[bioTactePartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -89,7 +91,7 @@ function showBioTactePartsHelp() {
     renderBioTactePartsHelpHint(target);
 
     const calibrationUI = document.getElementById('bio-tacte-parts-calibration-ui');
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
     if (calibrationUI && isAdmin) {
         calibrationUI.classList.remove('hidden');
         updateBioTactePartsCalibrationDisplay();
@@ -101,7 +103,7 @@ function renderBioTactePartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-tacte-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();
@@ -114,13 +116,7 @@ function renderBioTactePartsHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-tacte-parts-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-tacte-parts-help-hint target-hint';
         hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -129,7 +125,7 @@ function renderBioTactePartsHelpHint(target) {
         wrapper.appendChild(hint);
     });
 
-    const isAdmin = state && state.user && state.user.rol && state.user.rol.toLowerCase().includes('admin');
+    const isAdmin = typeof isAdminUser === 'function' ? isAdminUser() : false;
     if (!isAdmin) {
         setTimeout(() => {
             const currentHints = document.querySelectorAll('.bio-tacte-parts-help-hint');
@@ -226,14 +222,14 @@ function handleBioTactePartsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_tacte_parts_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             feedbackEl.innerText = '';
             nextBioTactePartsStep();
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_tacte_parts_feedback_incorrect') || 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioTactePartsGame.score = Math.max(0, bioTactePartsGame.score - 10);
         updateBioTactePartsUI();
     }

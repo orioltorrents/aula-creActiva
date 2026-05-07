@@ -15,16 +15,17 @@ const bioVistaPartsGame = {
         { key: 'act_vista_part_nervi', x: 900, y: 500, w: 50, h: 50 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioVistaPartsGame() {
     bioVistaPartsGame.currentStep = 0;
     bioVistaPartsGame.score = 100;
     bioVistaPartsGame.isFinished = false;
+    bioVistaPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-vista-parts-image');
-    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png'; 
+    img.src = 'assets/images/activities/biologia/senses/sentit-vista.png';
 
     const shuffled = [...bioVistaPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -66,6 +67,7 @@ function updateBioVistaPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioVistaPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioVistaPartsGame.sessionQuestions[bioVistaPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -94,7 +96,7 @@ function renderBioVistaPartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-vista-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();
@@ -107,13 +109,7 @@ function renderBioVistaPartsHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-vista-parts-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-vista-parts-help-hint target-hint';
         hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -218,14 +214,14 @@ function handleBioVistaPartsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_vista_parts_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             feedbackEl.innerText = '';
             nextBioVistaPartsStep();
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_vista_parts_feedback_incorrect') || 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioVistaPartsGame.score = Math.max(0, bioVistaPartsGame.score - 10);
         updateBioVistaPartsUI();
     }

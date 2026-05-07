@@ -62,8 +62,8 @@ function startConnectionsSelector() {
     selector.classList.remove('hidden');
     buttonsContainer.innerHTML = '';
 
-    addConnectionsFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty', '#10b981');
-    addConnectionsFilterSection(buttonsContainer, 'Per tema:', 'topic', '#3b82f6');
+    addConnectionsFilterSection(buttonsContainer, 'Per dificultat:', 'difficulty');
+    addConnectionsFilterSection(buttonsContainer, 'Per tema:', 'topic');
 
     const mixLabel = document.createElement('p');
     mixLabel.className = 'w-full text-center font-bold mb-2 mt-4 text-gray-600';
@@ -71,14 +71,14 @@ function startConnectionsSelector() {
     buttonsContainer.appendChild(mixLabel);
 
     const mixBtn = document.createElement('button');
-    mixBtn.className = 'btn-primary';
-    mixBtn.style.cssText = 'background-color:#7c3aed;width:auto;min-width:140px;';
+    mixBtn.className = 'btn btn--primary';
+    mixBtn.classList.add('quiz-filter-button', 'quiz-filter-button--wide', 'quiz-filter-button--mixed');
     mixBtn.innerText = 'Barrejat (totes)';
     mixBtn.onclick = () => startConnectionsQuiz('Barrejat', null);
     buttonsContainer.appendChild(mixBtn);
 }
 
-function addConnectionsFilterSection(container, labelText, field, color) {
+function addConnectionsFilterSection(container, labelText, field) {
     const values = getConnectionsUniqueValues(field);
     if (values.length === 0) return;
 
@@ -89,8 +89,8 @@ function addConnectionsFilterSection(container, labelText, field, color) {
 
     values.forEach(value => {
         const btn = document.createElement('button');
-        btn.className = 'btn-primary';
-        btn.style.cssText = `background-color:${color};width:auto;min-width:120px;`;
+        btn.className = 'btn btn--primary';
+        btn.classList.add('quiz-filter-button', getQuizFilterButtonModifier(field, value));
         btn.innerText = value;
         btn.onclick = () => startConnectionsQuiz(value, field);
         container.appendChild(btn);
@@ -179,7 +179,7 @@ function renderConnectionQuestion() {
 
     shuffledOptions.forEach(option => {
         const btn = document.createElement('button');
-        btn.className = isImageQuestion ? 'btn-option radio-connection-image-option' : 'btn-option';
+        btn.className = isImageQuestion ? 'answer-option radio-connection-image-option' : 'answer-option';
         btn.dataset.value = option.value || option.text;
         btn.onclick = () => checkConnectionAnswer(option.value || option.text, question.correct, btn);
 
@@ -210,7 +210,7 @@ function checkConnectionAnswer(selected, correct, btn) {
     if (connectionsQuiz.isFinished) return;
 
     const feedbackEl = document.getElementById('connection-feedback');
-    const options = document.querySelectorAll('#connection-options .btn-option');
+    const options = document.querySelectorAll('#connection-options .answer-option');
 
     options.forEach(option => {
         option.disabled = true;
@@ -221,13 +221,13 @@ function checkConnectionAnswer(selected, correct, btn) {
         btn.classList.add('correct');
         if (feedbackEl) {
             feedbackEl.innerText = typeof i18n !== 'undefined' ? i18n.t('correct') : 'Correcte!';
-            feedbackEl.style.color = 'green';
+            setElementStateColor(feedbackEl, 'success');
         }
     } else {
         btn.classList.add('incorrect');
         if (feedbackEl) {
             feedbackEl.innerText = `${typeof i18n !== 'undefined' ? i18n.t('incorrect') : 'Incorrecte'} (${correct})`;
-            feedbackEl.style.color = 'red';
+            setElementStateColor(feedbackEl, 'error');
         }
 
         options.forEach(option => {

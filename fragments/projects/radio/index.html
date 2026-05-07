@@ -1,0 +1,35 @@
+<div id="project-hub-radio" class="game-module hidden">
+    <h3 data-i18n="radio_project_title">Ràdio</h3>
+    <p data-i18n="radio_project_desc">Comunicació, locució i edició radiofònica.</p>
+
+    <div id="radio-activities-menu" class="activities-grid mt-4">
+        <div class="activity-card" onclick="openRadioActivity('taula')">
+            <div class="activity-card__media">
+                <img src="assets/images/activities/radio/taula/targeta-taula-so.png" alt="La Taula de So"
+                    class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_radio_title">La Taula de So</div>
+                <div class="activity-card__description" data-i18n="act_radio_desc">
+                    Identifica els controls de la taula
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-card" onclick="openRadioActivity('conexions')">
+            <div class="activity-card__media">
+                <img src="assets/images/activities/radio/connectors/targeta-connectors.png"
+                    alt="Connexions d'àudio" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title" data-i18n="act_connections_title">Connexions d'Àudio</div>
+                <div class="activity-card__description" data-i18n="act_connections_desc">
+                    Identifica els diferents tipus de connectors i cables
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-fragment="fragments/activities/radio/radio-activity-taula.html"></div>
+    <div data-fragment="fragments/activities/radio/radio-activity-conexions.html"></div>
+</div>

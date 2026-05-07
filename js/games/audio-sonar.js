@@ -28,6 +28,7 @@ function initSonarGame() {
     sonarGame.currentStep = 0;
     sonarGame.score = 100;
     sonarGame.isFinished = false;
+    sonarGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
     updateSonarUI();
 
     const img = document.getElementById('sonar-image');
@@ -57,6 +58,7 @@ function updateSonarUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !sonarGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = sonarGame.targets[sonarGame.currentStep];
     questionEl.innerText = i18n.t(currentTarget.key);
@@ -92,7 +94,7 @@ function renderHelpHint(target) {
     const wrapper = img.parentElement;
 
     const hint = document.createElement('div');
-    hint.className = 'sonar-help-hint';
+    hint.className = 'sonar-help-hint target-hint';
 
     const rect = img.getBoundingClientRect();
     const logicalWidth = 1000;
@@ -141,6 +143,21 @@ function closeCalibration() {
     if (hint) hint.remove();
 }
 
+function exportSonarConfig() {
+    const code = JSON.stringify(sonarGame.targets, null, 4);
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert("Codi copiat al portapapers! Enganxa'l a sonarGame.targets");
+    } catch (err) {
+        prompt("Copia aquest codi i enganxa'l a audio-sonar.js:", code);
+    }
+    document.body.removeChild(textArea);
+}
+
 function skipQuestion() {
     if (sonarGame.isFinished) return;
     sonarGame.score = Math.max(0, sonarGame.score - 5);
@@ -187,7 +204,7 @@ function handleSonarClick(event) {
         clickY >= target.y && clickY <= target.y + target.h) {
 
         feedbackEl.innerText = i18n.t('act_audio_feedback_correct');
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
 
         setTimeout(() => {
             feedbackEl.innerText = '';
@@ -195,7 +212,7 @@ function handleSonarClick(event) {
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_audio_feedback_incorrect');
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         sonarGame.score = Math.max(0, sonarGame.score - 1);
         updateSonarUI();
     }

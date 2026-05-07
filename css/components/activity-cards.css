@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Activity Cards (BEM)
+   Bloc: `activity-card`
+   Ús: targetes dels menús interns d'activitats.
+
+   Cada targeta d'activitat es compon de:
+   - `activity-card__media`: zona superior d'icona o imatge
+   - `activity-card__image`: imatge de portada
+   - `activity-card__content`: bloc de text
+   - `activity-card__title`: títol de l'activitat
+   - `activity-card__description`: text descriptiu
+   - `activity-card--disabled`: estat desactivat
+
+   Diferència amb `project-card`: `activity-card` és més compacta i pensada
+   per aparèixer dins d'un projecte o submenú. No barrejar els elements dels
+   dos blocs; per exemple, evitar `project-card__image` dins `activity-card`.
+   ========================================================================== */
+
+.activity-card__content {
+    /* Element BEM: contenidor textual de la targeta d'activitat. */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.activity-card__title {
+    /* Element BEM: títol curt de l'activitat. */
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.activity-card__description {
+    /* Element BEM: explicació breu de què farà l'activitat. */
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.activity-card:hover {
+    /* Estat interactiu del bloc base. */
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.activity-card--disabled {
+    /* Modificador BEM: activitat visible però no clicable o encara no disponible. */
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.activity-card--disabled:hover {
+    /* El modificador desactivat anul·la el moviment del hover normal. */
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-color: var(--border-muted);
+}
+
+.badge-soon {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 5px;
+    border: 1px solid #d1d5db;
+}
+
+.activity-card__media {
+    /* Element BEM: zona visual superior, més baixa que la de `project-card`. */
+    height: 140px;
+    background-color: var(--surface-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.activity-card__image {
+    /* Element BEM: imatge de portada de la targeta d'activitat. */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.activity-card:hover .activity-card__image {
+    /* Hover intern: només escala la imatge, no el contingut textual. */
+    transform: scale(1.05);
+}
+
+.btn--sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+

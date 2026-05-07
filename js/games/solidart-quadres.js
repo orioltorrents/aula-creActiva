@@ -46,7 +46,7 @@ async function initSolidartQuadres(dificultat) {
         } else {
             const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
             quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
-                                 <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
+                                 <button class="btn btn--secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {
         console.error("Error initSolidartQuadres:", e);
@@ -58,20 +58,20 @@ function renderSolidartQuadre() {
     const quizDiv = document.getElementById('solidart-quadres-quiz-container');
     // Restaurar estructura original si s'havia sobreescrit pel loader
     quizDiv.innerHTML = `
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="solidart-quadres-progress"></span>
             <span id="solidart-quadres-score-display"></span>
         </div>
-        <div class="question-container text-center">
-            <div id="solidart-quadres-image-container" class="mb-4 mx-auto" style="width: 100%; max-width: 600px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9fafb; border-radius: 8px;">
-                <img id="solidart-quadres-img" src="" alt="Obra d'art" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
+        <div class="game-panel__question text-center">
+            <div id="solidart-quadres-image-container" class="mb-4 mx-auto image-frame">
+                <img id="solidart-quadres-img" src="" alt="Obra d'art" class="image-frame__image">
             </div>
             <h4 id="solidart-quadres-text" class="text-xl font-semibold mb-6"></h4>
             <div id="solidart-quadres-options" class="grid grid-cols-2 gap-4"></div>
         </div>
-        <div id="solidart-quadres-feedback-area" class="hidden text-center mt-4 p-4 rounded bg-gray-50 border">
-            <p id="solidart-quadres-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <button id="solidart-quadres-next-btn" class="btn-primary hidden" onclick="nextSolidartQuadre()">Següent</button>
+        <div id="solidart-quadres-feedback-area" class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+            <p id="solidart-quadres-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <button id="solidart-quadres-next-btn" class="btn btn--primary hidden" onclick="nextSolidartQuadre()">Següent</button>
         </div>
     `;
 
@@ -95,7 +95,7 @@ function renderSolidartQuadre() {
 
     q.opcions.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-option-btn';
+        btn.className = 'quiz-option';
         btn.textContent = opt;
         btn.onclick = () => checkSolidartQuadre(opt);
         optionsDiv.appendChild(btn);
@@ -240,3 +240,6 @@ async function finishSolidartQuadres() {
         console.error("Error saving SolidArt results:", e);
     }
 }
+
+
+

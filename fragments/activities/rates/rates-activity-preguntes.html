@@ -1,0 +1,49 @@
+<div id="rates-activity-preguntes" class="sub-activity hidden">
+    <div id="rates-preguntes-setup-wrapper" class="flex flex-col items-center mt-12 mb-16">
+        <button class="btn btn--secondary btn--sm mb-8" onclick="showRatesMenu()">← Tornar al menú</button>
+
+        <div id="rates-preguntes-setup"
+            class="container-white p-10 rounded-xl shadow-lg border w-full max-w-5xl text-center">
+            <h3 class="text-3xl font-bold mb-8 text-pink-600 flex items-center justify-center gap-3">
+                <i class="fas fa-question-circle"></i>
+                <span data-i18n="p1_rates_title">Rates a la carrera</span> — <span
+                    data-i18n="act_tr_preguntes_title">Preguntes investigables</span>
+            </h3>
+            <p class="mb-10 text-xl text-gray-600">Escull una categoria per començar a practicar.</p>
+            <div id="rates-preguntes-categories-container"></div>
+        </div>
+    </div>
+
+    <div id="rates-preguntes-quiz-container" class="hidden">
+        <div class="game-panel__stats flex justify-between">
+            <span id="rates-preguntes-progress">Pregunta 1 / 15</span>
+        </div>
+        <div class="game-panel__question mt-6 mb-6 p-6 bg-white rounded shadow-sm text-center">
+            <h4 id="rates-preguntes-text" class="text-2xl font-semibold mb-8">Pregunta...</h4>
+
+            <div class="flex justify-center gap-4 flex-wrap">
+                <button id="btn-rates-investigable" class="btn btn--primary btn--success"
+                    onclick="checkRatesPreguntaRespuesta('Investigable')">Investigable</button>
+                <button id="btn-rates-no-investigable" class="btn btn--primary btn--danger"
+                    onclick="checkRatesPreguntaRespuesta('No investigable')">No investigable</button>
+            </div>
+        </div>
+        <div id="rates-preguntes-feedback-area"
+            class="feedback-panel hidden text-center mt-4 p-4 rounded bg-gray-50 border">
+            <p id="rates-preguntes-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <p id="rates-preguntes-feedback-desc" class="feedback-panel__body mb-4"></p>
+            <button id="rates-preguntes-next-btn" class="btn btn--primary" onclick="nextRatesPregunta()">Següent
+                pregunta</button>
+        </div>
+    </div>
+
+    <div id="rates-preguntes-results" class="result-screen hidden text-center p-8 bg-white rounded shadow">
+        <h3 data-i18n="final_score">Resultat final</h3>
+        <p id="rates-preguntes-final-score" class="result-screen__score text-4xl font-bold text-blue-600 mt-4">0 / 15
+        </p>
+        <p id="rates-preguntes-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-4 text-gray-700">
+            0%</p>
+        <p id="rates-preguntes-final-msg" class="result-screen__message text-lg mb-8"></p>
+        <button onclick="showRatesMenu()" class="btn btn--secondary">Tornar al menú</button>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+
 /**
  * CLIENT-SIDE LOGIC
  * Connecta amb Google Apps Script API
@@ -18,78 +19,235 @@ const state = {
     currentProject: null
 };
 
-// **********************************************************
-// ELEMENTS DEL DOM
-// **********************************************************
-const screens = {
-    login: document.getElementById('login-screen'),
-    dashboard: document.getElementById('dashboard-screen'),
-    game: document.getElementById('game-screen')
-};
+async function loadFragment(containerSelector, fragmentPath) {
+    const container = document.querySelector(containerSelector);
 
-const forms = {
-    login: document.getElementById('login-form')
-};
+    if (!container) {
+        throw new Error(`No existeix el contenidor: ${containerSelector}`);
+    }
+
+    const response = await fetch(fragmentPath, {
+        cache: "no-cache"
+    });
+
+    if (!response.ok) {
+        throw new Error(`No s'ha pogut carregar el fragment: ${fragmentPath}`);
+    }
+
+    container.innerHTML = await response.text();
+
+    return container;
+}
+
+async function loadFragmentInto(container, fragmentPath) {
+    if (!container) {
+        throw new Error(`No existeix el contenidor per al fragment: ${fragmentPath}`);
+    }
+
+    const response = await fetch(fragmentPath, {
+        cache: "no-cache"
+    });
+
+    if (!response.ok) {
+        throw new Error(`No s'ha pogut carregar el fragment: ${fragmentPath}`);
+    }
+
+    container.innerHTML = await response.text();
+
+    return container;
+}
+
+async function loadNestedFragments(root = document) {
+    const placeholders = [...root.querySelectorAll('[data-fragment]')];
+
+    await Promise.all(placeholders.map(async placeholder => {
+        const fragmentPath = placeholder.dataset.fragment;
+        await loadFragmentInto(placeholder, fragmentPath);
+        const fragmentRoot = placeholder.firstElementChild || placeholder;
+        await loadNestedFragments(fragmentRoot);
+    }));
+}
+
+async function ensureProjectFragment(projectId, fragmentPath) {
+    const existingProject = document.getElementById(projectId);
+    if (existingProject) return existingProject;
+
+    const activityArea = document.getElementById('activity-area');
+    if (!activityArea) {
+        throw new Error('No existeix el contenidor #activity-area');
+    }
+
+    const placeholder = document.createElement('div');
+    activityArea.appendChild(placeholder);
+
+    await loadFragmentInto(placeholder, fragmentPath);
+    await loadNestedFragments(placeholder);
+
+    if (typeof translateUI === 'function') {
+        translateUI();
+    }
+
+    return document.getElementById(projectId);
+}
+
+async function showDashboardFragment() {
+    await loadFragment("#app", "fragments/screens/dashboard.html");
+
+    const logoutBtn = document.getElementById("logout-btn");
+    const languageSelector = document.getElementById("language-selector");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
+    }
+
+    if (languageSelector) {
+        languageSelector.addEventListener("change", (event) => {
+            const lang = event.target.value;
+
+            if (typeof i18n !== "undefined") {
+                i18n.setLanguage(lang);
+                translateUI();
+            }
+        });
+    }
+}
+
+async function showGameFragment() {
+    await loadFragment("#app", "fragments/screens/game-screen.html");
+    await loadNestedFragments(document.getElementById("game-screen"));
+
+    const backDashboardBtn = document.getElementById("back-dashboard-btn");
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
+
+    if (backDashboardBtn) {
+        backDashboardBtn.addEventListener("click", () => {
+            loadDashboard().catch(error => {
+                console.error("Error carregant dashboard:", error);
+            });
+        });
+    }
+
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", toggleFullscreen);
+    }
+
+    if (typeof translateUI === "function") {
+        translateUI();
+    }
+}
+
+function getCurrentUserRole() {
+    if (typeof state === 'undefined' || !state.user) return '';
+    return String(state.user.rol || '').trim().toLowerCase();
+}
+
+function hasUserRole(roleFragment) {
+    const normalizedRole = String(roleFragment || '').trim().toLowerCase();
+    if (!normalizedRole) return false;
+    return getCurrentUserRole().includes(normalizedRole);
+}
+
+function isAdminUser() {
+    return hasUserRole('admin');
+}
+
+function isTeacherUser() {
+    return hasUserRole('profe') || hasUserRole('prof');
+}
+
+function canUseTeacherTools() {
+    return isAdminUser() || isTeacherUser();
+}
+
+function setElementStateColor(element, stateName) {
+    if (!element) return;
+    element.classList.remove(
+        'state-success',
+        'state-error',
+        'state-warning',
+        'state-muted',
+        'quiz-feedback--success',
+        'quiz-feedback--error',
+        'quiz-feedback--warning',
+        'quiz-feedback--muted'
+    );
+
+    if (stateName) {
+        element.classList.add(`state-${stateName}`);
+        element.classList.add(`quiz-feedback--${stateName}`);
+    }
+}
+
+function getQuizLevelButtonModifier(levelName) {
+    const normalizedLevel = (levelName || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    if (normalizedLevel.includes('facil') || normalizedLevel.includes('easy')) {
+        return 'quiz-filter-button--easy';
+    }
+
+    if (normalizedLevel.includes('mitj') || normalizedLevel.includes('medium')) {
+        return 'quiz-filter-button--medium';
+    }
+
+    if (normalizedLevel.includes('dificil') || normalizedLevel.includes('hard')) {
+        return 'quiz-filter-button--hard';
+    }
+
+    return 'quiz-filter-button--topic';
+}
+
+function getQuizFilterButtonModifier(fieldName, value) {
+    return fieldName === 'difficulty'
+        ? getQuizLevelButtonModifier(value)
+        : 'quiz-filter-button--topic';
+}
+
 
 // **********************************************************
 // INICIALITZACIÓ
 // **********************************************************
 document.addEventListener('DOMContentLoaded', () => {
-    // Comprovar si hi ha sessió guardada (localStorage)
     const savedUser = localStorage.getItem('user');
-
-    // Inicialitzar traduccions
-    translateUI();
 
     if (savedUser) {
         state.user = JSON.parse(savedUser);
-        loadDashboard();
+
+        loadDashboard().catch(error => {
+            console.error("Error carregant dashboard:", error);
+        });
     } else {
-        showScreen('login');
+        showLoginFragment().catch(error => {
+            console.error("Error carregant login:", error);
+        });
     }
-
-    // Login Listener
-    forms.login.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        await handleLogin(email, password);
-    });
-
-    // Logout
-    document.getElementById('logout-btn').addEventListener('click', logout);
-
-    // Back from Game
-    document.getElementById('back-dashboard-btn').addEventListener('click', () => {
-        showScreen('dashboard');
-    });
-
-    // Simulate Game Save
-    document.getElementById('simulate-score-btn').addEventListener('click', simulateGameSave);
-
-    // Fullscreen Toggle
-    document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
 });
 
 // **********************************************************
 // FUNCIONS DE NAVEGACIÓ
 // **********************************************************
+
+
 function showScreen(screenName) {
-    // Amagar totes
-    Object.values(screens).forEach(screen => {
+    const currentScreens = {
+        login: document.getElementById('login-screen'),
+        dashboard: document.getElementById('dashboard-screen'),
+        game: document.getElementById('game-screen')
+    };
+
+    Object.values(currentScreens).forEach(screen => {
+        if (!screen) return;
+
         screen.classList.remove('active');
-        screen.classList.add('hidden'); // Ensure hidden class is applied
-        // Wait, logic here: .active is display block, .hidden is display none.
-        // My CSS has .screen { display: none } by default. .active { display: block }.
-        // So removing active should be enough, but adding hidden is safe explicitly if needed.
-        // Actually CSS: .screen { display: none } .screen.active { display: block }
-        // So just removing .active is sufficient.
+        screen.classList.add('hidden');
     });
 
-    // Mostrar la desitjada
-    if (screens[screenName]) {
-        screens[screenName].classList.add('active');
-        screens[screenName].classList.remove('hidden');
+    if (currentScreens[screenName]) {
+        currentScreens[screenName].classList.add('active');
+        currentScreens[screenName].classList.remove('hidden');
     }
 }
 
@@ -161,7 +319,6 @@ async function handleLogin(email, password) {
     const loader = document.getElementById('login-loader');
     const errorMsg = document.getElementById('login-error');
 
-    // UI Loading
     btn.disabled = true;
     loader.classList.remove('hidden');
     errorMsg.textContent = '';
@@ -172,11 +329,15 @@ async function handleLogin(email, password) {
         if (response && response.status === 'success') {
             state.user = response.user;
             localStorage.setItem('user', JSON.stringify(state.user));
-            loadDashboard();
+
+            await loadDashboard().catch(error => {
+                console.error("Error carregant dashboard:", error);
+            });
         } else {
             errorMsg.textContent = response ? response.message : 'Error desconegut';
         }
     } catch (e) {
+        console.error("Error dins handleLogin:", e);
         errorMsg.textContent = 'Error de xarxa. Comprova la URL.';
     } finally {
         btn.disabled = false;
@@ -188,11 +349,39 @@ function logout() {
     state.user = null;
     state.currentProject = null;
     localStorage.removeItem('user');
-    showScreen('login');
+
+    showLoginFragment().catch(error => {
+        console.error("Error carregant login:", error);
+    });
+}
+
+async function showLoginFragment() {
+    await loadFragment("#app", "fragments/screens/login.html");
+
+    const loginForm = document.getElementById("login-form");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            await handleLogin(email, password);
+        });
+    }
+
+    if (typeof translateUI === "function") {
+        translateUI();
+    }
 }
 
 async function loadDashboard() {
+    await showDashboardFragment();
+
     showScreen('dashboard');
+
+    
 
     // Update User Info
     document.getElementById('user-name').textContent = `${state.user.nom} ${state.user.cognoms}`;
@@ -232,16 +421,16 @@ async function loadDashboard() {
 
     // Configuració visual dels projectes
     const projectVisuals = {
-        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
-        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
-        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
-        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
-        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
-        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-img-thumb">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-card__image">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-card__image">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
 
     if (allProjects.length > 0) {
@@ -251,17 +440,21 @@ async function loadDashboard() {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="card-image" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+                <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
                     ${proj.imatge
-                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-img-thumb">`
+                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image">`
                     : visual.icon}
                 </div>
-                <div class="card-content">
-                    <div class="card-title">${proj.titol}</div>
-                    <div class="card-desc">${proj.descripcio}</div>
+                <div class="project-card__content">
+                    <div class="project-card__title">${proj.titol}</div>
+                    <div class="project-card__description">${proj.descripcio}</div>
                 </div>
             `;
-            card.addEventListener('click', () => openProject(proj));
+            card.addEventListener('click', () => {
+                openProject(proj).catch(error => {
+                    console.error('Error obrint projecte:', error);
+                });
+            });
             grid.appendChild(card);
         });
     } else {
@@ -269,32 +462,46 @@ async function loadDashboard() {
     }
 }
 
-function openProject(project) {
+async function openProject(project) {
     state.currentProject = project;
+    await showGameFragment();
     showScreen('game');
     document.getElementById('game-title').textContent = project.titol;
 
     // Reset UIs
     document.querySelectorAll('.game-module').forEach(el => el.classList.add('hidden'));
-    document.getElementById('simulation-result').textContent = '';
+    const simulationResult = document.getElementById('simulation-result');
+    if (simulationResult) simulationResult.textContent = '';
 
     // Carregar joc específic segons ID del projecte
     if (project.id === 'p1_rates') {
-        const gameDiv = document.getElementById('game-container-p1_rates');
+        const gameDiv = await ensureProjectFragment(
+            'game-container-p1_rates',
+            'fragments/projects/rates/projecte-rates.html'
+        );
         if (gameDiv) {
             gameDiv.classList.remove('hidden');
             showRatesMenu();
         }
     } else if (project.id === 'p1_mediterrani') {
-        const hubDiv = document.getElementById('project-hub-mediterrani');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-mediterrani',
+            'fragments/projects/mediterrani/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderMediterraniActivities === 'function') {
+                renderMediterraniActivities();
+            }
             if (typeof showMediterraniMenu === 'function') {
                 showMediterraniMenu();
             }
         }
     } else if (project.id === 'p2_paralimpics') {
-        const hubDiv = document.getElementById('project-hub-paralimpics');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-paralimpics',
+            'fragments/projects/paralimpics/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showParalimpicsMenu === 'function') {
@@ -302,29 +509,47 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p3_solidart') {
-        const hubDiv = document.getElementById('project-hub-solidart');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-solidart',
+            'fragments/projects/solidart/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             showSolidartMenu();
         }
     } else if (project.id === 'batx1_tr') {
-        const hubDiv = document.getElementById('project-hub-tr');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-tr',
+            'fragments/projects/treball-recerca/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderTrActivities === 'function') {
+                renderTrActivities();
+            }
             if (typeof showTrMenu === 'function') {
                 showTrMenu();
             }
         }
     } else if (project.id === 'p1_natura' || project.id === 'p4_natura') {
-        const hubDiv = document.getElementById('project-hub-natura');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-natura',
+            'fragments/projects/entorns/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
+            if (typeof renderEntornsActivities === 'function') {
+                renderEntornsActivities();
+            }
             if (typeof showNaturaMenu === 'function') {
                 showNaturaMenu();
             }
         }
     } else if (project.id === 'p4_digitalitzacio') {
-        const hubDiv = document.getElementById('project-hub-digitalitzacio');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-digitalitzacio',
+            'fragments/projects/digitalitzacio/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showDigitalitzacioMenu === 'function') {
@@ -332,7 +557,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p2_biologia') {
-        const hubDiv = document.getElementById('project-hub-biologia');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-biologia',
+            'fragments/projects/biologia/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showBioMenu === 'function') {
@@ -340,7 +568,10 @@ function openProject(project) {
             }
         }
     } else if (project.id === 'p2_radio') {
-        const hubDiv = document.getElementById('project-hub-radio');
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-radio',
+            'fragments/projects/radio/index.html'
+        );
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             if (typeof showRadioMenu === 'function') {
@@ -353,30 +584,24 @@ function openProject(project) {
     }
 }
 
-// Listener pel canvi d'idioma
-document.getElementById('language-selector').addEventListener('change', (e) => {
-    const lang = e.target.value;
-    if (typeof i18n !== 'undefined') {
-        i18n.setLanguage(lang);
-        translateUI();
-    }
-});
+;
 
 function translateUI() {
     if (typeof i18n === 'undefined') return;
 
-    // Actualitzar textos UI comuns que tinguin l'atribut data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         el.innerText = i18n.t(key);
     });
 
-    // Actualitzar textos dinàmics si cal
     if (state.user) {
-        document.getElementById('welcome-msg').textContent = `${i18n.t('hi')}, ${state.user.nom}!`;
+        const welcomeMsg = document.getElementById('welcome-msg');
+
+        if (welcomeMsg) {
+            welcomeMsg.textContent = `${i18n.t('hi')}, ${state.user.nom}!`;
+        }
     }
 
-    // Si estem dins d'un joc, potser cal refrescar-lo
     if (state.currentProject) {
         if (state.currentProject.id === 'p1_mediterrani' && typeof updateMediterraniLanguage === 'function') {
             updateMediterraniLanguage();
@@ -411,10 +636,10 @@ async function simulateGameSave() {
 
     if (response && response.status === 'success') {
         statusP.textContent = 'Resultat guardat correctament!';
-        statusP.style.color = 'green';
+        setElementStateColor(statusP, 'success');
     } else {
         statusP.textContent = 'Error al guardar.';
-        statusP.style.color = 'red';
+        setElementStateColor(statusP, 'error');
     }
 }
 
@@ -639,6 +864,10 @@ function openNaturaActivity(actId) {
 
 // --- BIOLOGIA NAVIGATION ---
 function showBioMenu() {
+    if (typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     const hub = document.getElementById('project-hub-biologia');
     if (hub) {
         document.getElementById('bio-systems-menu').classList.remove('hidden');
@@ -649,6 +878,10 @@ function showBioMenu() {
 }
 
 function openBioSystem(systemId) {
+    if (typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     // Amagar el menú principal de sistemes i totes les activitats individuals
     document.getElementById('bio-systems-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
@@ -663,6 +896,10 @@ function openBioSystem(systemId) {
 
 
 function openBioActivity(actId) {
+    if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
+        resetBioLabToolsGame();
+    }
+
     // Hide all activity menus
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     // Hide all individual activity containers
@@ -714,6 +951,11 @@ function openBioActivity(actId) {
         if (typeof initLocomotorQuiz === 'function') {
             initLocomotorQuiz();
         }
+    } else if (actId === 'lab-tools') {
+        document.getElementById('bio-activity-lab-tools').classList.remove('hidden');
+        if (typeof initBioLabToolsGame === 'function') {
+            initBioLabToolsGame();
+        }
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];
         document.getElementById('bio-activity-' + actId).classList.remove('hidden');
@@ -737,7 +979,7 @@ function openSenseMenu() {
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     // Amagar totes les sub-activitats (jocs)
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
-    
+
     // Mostrar el menú principal dels sentits
     document.getElementById('bio-senses-activities').classList.remove('hidden');
 }
@@ -747,7 +989,7 @@ function openSenseSubActivity(senseId) {
     document.getElementById('bio-senses-activities').classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
-    
+
     // Mostrar el sub-menú del sentit seleccionat (ex: sense-vista-menu)
     const menuId = 'sense-' + senseId + '-menu';
     const menu = document.getElementById(menuId);

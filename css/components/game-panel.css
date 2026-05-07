@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Shared Game UI
+   Bloc conceptual: `game-panel`
+   Ús: estructura compartida per pantalles de joc i activitats.
+
+   Elements BEM principals:
+   - `game-panel__header`: capçalera superior del mòdul
+   - `game-panel__controls`: accions i selectors del joc
+   - `game-panel__stats`: barra d'estat amb progrés, punts o temps
+   - `game-panel__question`: contenidor visual de la pregunta o prova
+   - `game-panel__options`: graella o fila d'opcions
+   - `game-panel__feedback`: missatge curt de retorn
+   - `game-panel__progress*`: variants per a barres de progrés
+   - `game-panel__card`: targeta/panell específic dins d'un joc
+
+   Nota: ara mateix no sempre existeix un contenidor `.game-panel` al HTML.
+   Tot i així, els elements mantenen el prefix per indicar que pertanyen al
+   mateix patró visual compartit.
+   ========================================================================== */
+.game-panel__options {
+    /* Element BEM: llista flexible d'opcions de resposta. */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#med-biodiv-filter-buttons,
+#orenetes-questions-filter-buttons,
+#connections-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
+#med-biodiv-filter-buttons p,
+#orenetes-questions-filter-buttons p,
+#connections-filter-buttons p {
+    flex-basis: 100%;
+    margin: 18px 0 6px;
+}
+
+#med-biodiv-options {
+    gap: 18px;
+    margin-top: 24px;
+}
+
+#orenetes-questions-options {
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.med-biodiv-image-option,
+.orenetes-questions-image-option,
+.radio-connection-image-option {
+    width: min(240px, 100%);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.med-biodiv-image-option img,
+.orenetes-questions-image-option img,
+.radio-connection-image-option img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.med-biodiv-image-option span,
+.orenetes-questions-image-option span,
+.radio-connection-image-option span {
+    font-size: 0.95rem;
+    line-height: 1.25;
+}
+
+#med-biodiv-results button,
+#orenetes-questions-results button,
+#connections-results button {
+    margin: 8px;
+}
+
+.answer-option {
+    cursor: pointer;
+    transition: var(--transition-fast);
+    padding: 20px;
+    font-size: 1.1rem;
+    background-color: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+}
+
+.answer-option:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.answer-option.correct,
+.answer-option--correct {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    border-color: #4CAF50 !important;
+}
+
+.answer-option.incorrect,
+.answer-option--incorrect {
+    background-color: #f44336 !important;
+    color: white !important;
+    border-color: #f44336 !important;
+}
+
+.game-panel__header {
+    /* Element BEM: capçalera interna d'un joc o subactivitat. */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.game-panel__controls {
+    /* Element BEM: grup d'accions, botons o selectors del joc. */
+    display: flex;
+    gap: 10px;
+}
+
+.game-panel__stats {
+    /* Element BEM: barra d'estat amb progrés, puntuació o temps. */
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--panel-info-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-info);
+}
+
+.game-panel__question {
+    /* Element BEM: àrea principal on es mostra l'enunciat o la prova. */
+    margin-bottom: 20px;
+}
+
+.game-panel__question h4 {
+    /* Selector descendent puntual: estil del títol dins l'element question. */
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.game-panel__feedback {
+    /* Element BEM: feedback breu després d'una resposta o acció. */
+    font-weight: bold;
+    min-height: 24px;
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+.game-panel__progress {
+    font-weight: bold;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.game-panel__progress-track {
+    flex-grow: 1;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.game-panel__progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.game-panel__card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+}
+

@@ -53,14 +53,14 @@ function renderMediterraniActivities() {
   // Generem les targetes a partir de la configuració
   container.innerHTML = activities.map(activity => `
     <div class="activity-card" onclick="openMediterraniActivity('${activity.action}')">
-      <div class="act-icon">
-        <img src="${activity.image}" alt="${activity.fallbackTitle}" class="act-img">
+      <div class="activity-card__media">
+        <img src="${activity.image}" alt="${activity.fallbackTitle}" class="activity-card__image">
       </div>
-      <div class="card-content">
-        <div class="card-title" data-i18n="${activity.titleKey}">
+      <div class="activity-card__content">
+        <div class="activity-card__title" data-i18n="${activity.titleKey}">
           ${activity.fallbackTitle}
         </div>
-        <div class="card-desc" data-i18n="${activity.descKey}">
+        <div class="activity-card__description" data-i18n="${activity.descKey}">
           ${activity.fallbackDesc}
         </div>
       </div>
@@ -136,3 +136,4 @@ function openMediterraniActivity(activityName) {
     initMediterraniBiodiversitatQuiz();
   }
 }
+

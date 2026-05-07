@@ -281,7 +281,7 @@ function showNextMapQuestion() {
   `;
 
     document.getElementById('med-map-feedback').innerText = i18n.t('select_answer');
-    document.getElementById('med-map-feedback').style.color = '';
+    setElementStateColor(document.getElementById('med-map-feedback'), null);
 }
 
 function handleMapClick(countryId) {
@@ -306,7 +306,7 @@ function handleMapClick(countryId) {
 
         pathEl.classList.add('correct');
         document.getElementById('med-map-feedback').innerText = i18n.t('correct');
-        document.getElementById('med-map-feedback').style.color = 'green';
+        setElementStateColor(document.getElementById('med-map-feedback'), 'success');
 
         setTimeout(() => {
             pathEl.classList.remove('correct');
@@ -317,7 +317,7 @@ function handleMapClick(countryId) {
     } else {
         pathEl.classList.add('incorrect');
         document.getElementById('med-map-feedback').innerText = i18n.t('incorrect');
-        document.getElementById('med-map-feedback').style.color = 'red';
+        setElementStateColor(document.getElementById('med-map-feedback'), 'error');
 
         if (medMapState.mode !== 'exam') {
             const correctEl = getElementByCountryId(correctQ.id);
@@ -343,7 +343,7 @@ async function finishMapGame() {
 
     document.getElementById('med-map-question').innerText = i18n.t('final_score');
     document.getElementById('med-map-feedback').innerText = `${medMapState.score} / 200`;
-    document.getElementById('med-map-feedback').style.color = 'black';
+    setElementStateColor(document.getElementById('med-map-feedback'), 'muted');
 
     if (medMapState.mode === 'exam') {
         document.getElementById('med-map-feedback').innerText += ` - ${i18n.t('loading')}`;

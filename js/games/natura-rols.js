@@ -74,19 +74,19 @@ function renderQuestion() {
     }
 
     // Clear buttons
-    document.querySelectorAll('#rols-regime-options .btn-outline').forEach(b => b.classList.remove('selected'));
-    document.querySelectorAll('#rols-level-options .btn-outline').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('#rols-regime-options .btn btn--outline').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('#rols-level-options .btn btn--outline').forEach(b => b.classList.remove('selected'));
 }
 
 function selectRegime(regime, btn) {
     naturaRolsState.selections.regime = regime;
-    document.querySelectorAll('#rols-regime-options .btn-outline').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('#rols-regime-options .btn btn--outline').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
 }
 
 function selectLevel(level, btn) {
     naturaRolsState.selections.level = level;
-    document.querySelectorAll('#rols-level-options .btn-outline').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('#rols-level-options .btn btn--outline').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
 }
 

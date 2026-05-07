@@ -42,37 +42,37 @@ Exemples de funcions que NO hi haurien d'anar:
 function renderTrActivities() {
     // Contenidor on es pinten les targetes del menú
     const container = document.getElementById("tr-activities-menu");
-  
+
     // Activitats configurades per al projecte Treball de Recerca.
     // Si no n'hi ha cap definida, fem servir un array buit.
     const activities = PROJECT_ACTIVITIES?.treballRecerca || [];
-  
+
     // Si no existeix el contenidor o no hi ha activitats definides, sortim
     if (!container || activities.length === 0) return;
-  
+
     // Generem les targetes a partir de la configuració
     container.innerHTML = activities.map(activity => `
       <div class="activity-card" onclick="openTrActivity('${activity.action}')">
-        <div class="act-icon">
-          <img src="${activity.image}" alt="${activity.fallbackTitle}" class="act-img">
+        <div class="activity-card__media">
+          <img src="${activity.image}" alt="${activity.fallbackTitle}" class="activity-card__image">
         </div>
-        <div class="card-content">
-          <div class="card-title" data-i18n="${activity.titleKey}">
+        <div class="activity-card__content">
+          <div class="activity-card__title" data-i18n="${activity.titleKey}">
             ${activity.fallbackTitle}
           </div>
-          <div class="card-desc" data-i18n="${activity.descKey}">
+          <div class="activity-card__description" data-i18n="${activity.descKey}">
             ${activity.fallbackDesc}
           </div>
         </div>
       </div>
     `).join("");
-  
+
     // Reapliquem les traduccions si la funció existeix
     if (typeof applyTranslations === "function") {
       applyTranslations();
     }
   }
-  
+
   // Amaga totes les subactivitats del projecte Treball de Recerca
   function hideTrActivities() {
     // Llista d'identificadors de les subactivitats del projecte.
@@ -83,50 +83,50 @@ function renderTrActivities() {
       "tr-activity-diagnostic",
       "tr-activity-biblio"
     ];
-  
+
     // Recorrem cada id i amaguem el bloc si existeix
     activityIds.forEach(id => {
       const element = document.getElementById(id);
-  
+
       if (element) {
         element.classList.add("hidden");
       }
     });
   }
-  
+
   // Mostra el menú principal del projecte Treball de Recerca
   function showTrMenu() {
     // Recuperem el menú d'activitats
     const menu = document.getElementById("tr-activities-menu");
-  
+
     // Abans de mostrar el menú, amaguem totes les subactivitats
     hideTrActivities();
-  
+
     // Mostrem el menú si existeix
     if (menu) {
       menu.classList.remove("hidden");
     }
   }
-  
+
   // Obre una activitat concreta del projecte Treball de Recerca
   function openTrActivity(activityName) {
     // Recuperem el menú principal del projecte
     const menu = document.getElementById("tr-activities-menu");
-  
+
     // Amaguem el menú si existeix
     if (menu) {
       menu.classList.add("hidden");
     }
-  
+
     // Amaguem totes les subactivitats abans d'obrir-ne una
     hideTrActivities();
-  
+
     // Construïm l'id HTML de la subactivitat a partir del nom rebut
     const activityId = `tr-activity-${activityName}`;
-  
+
     // Recuperem el bloc de la subactivitat corresponent
     const activityElement = document.getElementById(activityId);
-  
+
     // Mostrem la subactivitat si existeix
     if (activityElement) {
       activityElement.classList.remove("hidden");

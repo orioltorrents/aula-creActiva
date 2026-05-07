@@ -205,8 +205,8 @@ function showDiagnosticFeedback(correct, q) {
     const text = document.getElementById('tr-diagnostic-feedback-text');
     const suggestionText = document.getElementById('tr-diagnostic-suggestion-text');
 
-    feedbackDiv.classList.remove('hidden', 'feedback-correct', 'feedback-incorrect');
-    feedbackDiv.classList.add(correct ? 'feedback-correct' : 'feedback-incorrect');
+    feedbackDiv.classList.remove('hidden', 'feedback-panel--correct', 'feedback-panel--incorrect');
+    feedbackDiv.classList.add(correct ? 'feedback-panel--correct' : 'feedback-panel--incorrect');
 
     header.innerHTML = correct ? '✔ Resposta correcta' : '❌ Resposta incorrecta';
     text.textContent = q.explicacio;

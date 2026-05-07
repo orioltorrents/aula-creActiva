@@ -118,16 +118,16 @@ function verifyImpacteOrder() {
     const feedback = document.getElementById('impacte-feedback');
     if (percentage === 100) {
         feedback.textContent = i18n.t('correct') + ` (Nota final: ${finalScore}%)`;
-        feedback.style.color = 'var(--success)';
+        setElementStateColor(feedback, 'success');
 
         if (state.user && state.currentProject && typeof saveNaturaResult === 'function') {
             saveNaturaResult(finalScore, i18n.t('act_impacte_title'));
         }
     } else if (percentage >= 50) {
         feedback.textContent = 'Molt bé! Gairebé ho tens. Recorda que cada error resta punts.';
-        feedback.style.color = 'orange';
+        setElementStateColor(feedback, 'warning');
     } else {
         feedback.textContent = 'Segueix intentant-ho. Revisa l\'ordre lògic. Recorda que cada error resta punts.';
-        feedback.style.color = 'var(--error)';
+        setElementStateColor(feedback, 'error');
     }
 }

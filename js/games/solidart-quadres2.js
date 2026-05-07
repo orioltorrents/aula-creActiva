@@ -45,7 +45,7 @@ async function initSolidartQuadres2(dificultat) {
         } else {
             const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
             quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
-                                 <button class="btn-secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
+                                 <button class="btn btn--secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
         }
     } catch (e) {
         console.error("Error initSolidartQuadres2:", e);
@@ -56,17 +56,17 @@ async function initSolidartQuadres2(dificultat) {
 function renderSolidartQuadres2() {
     const quizDiv = document.getElementById('solidart-quadres2-quiz-container');
     quizDiv.innerHTML = `
-        <div class="stats-bar flex justify-between mb-4">
+        <div class="game-panel__stats flex justify-between mb-4">
             <span id="solidart-quadres2-progress"></span>
             <span id="solidart-quadres2-score-display"></span>
         </div>
-        <div class="question-container text-center">
+        <div class="game-panel__question text-center">
             <h4 id="solidart-quadres2-text" class="text-2xl font-bold mb-8 p-6 bg-white rounded-xl shadow-sm border"></h4>
             <div id="solidart-quadres2-options" class="grid grid-cols-2 gap-4"></div>
         </div>
-        <div id="solidart-quadres2-feedback-area" class="hidden text-center mt-6 p-4 rounded bg-gray-50 border">
-            <p id="solidart-quadres2-feedback-msg" class="text-xl font-bold mb-2"></p>
-            <button class="btn-primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
+        <div id="solidart-quadres2-feedback-area" class="feedback-panel hidden text-center mt-6 p-4 rounded bg-gray-50 border">
+            <p id="solidart-quadres2-feedback-msg" class="feedback-panel__title text-xl font-bold mb-2"></p>
+            <button class="btn btn--primary hidden" onclick="nextSolidartQuadres2()">Següent</button>
         </div>
     `;
 
@@ -219,3 +219,6 @@ async function finishSolidartQuadres2() {
         console.error("Error saving SolidArt 2 results:", e);
     }
 }
+
+
+

@@ -14,16 +14,17 @@ const bioGustPartsGame = {
         { key: 'act_gust_zone_umami', x: 600, y: 600, w: 100, h: 100 }
     ],
     isFinished: false,
-    debugMode: true
+    debugMode: false
 };
 
 function initBioGustPartsGame() {
     bioGustPartsGame.currentStep = 0;
     bioGustPartsGame.score = 100;
     bioGustPartsGame.isFinished = false;
+    bioGustPartsGame.debugMode = typeof isAdminUser === 'function' ? isAdminUser() : false;
 
     const img = document.getElementById('bio-gust-parts-image');
-    img.src = 'assets/images/llengua-gustos.png';
+    img.src = 'assets/images/biologia/sentit-gust.png';
 
     const shuffled = [...bioGustPartsGame.allQuestions].sort(() => 0.5 - Math.random());
     const uniqueKeys = new Set();
@@ -65,6 +66,7 @@ function updateBioGustPartsUI() {
 
     if (skipBtn) skipBtn.classList.remove('hidden');
     if (helpBtn) helpBtn.classList.remove('hidden');
+    if (calibrationUI && !bioGustPartsGame.debugMode) calibrationUI.classList.add('hidden');
 
     const currentTarget = bioGustPartsGame.sessionQuestions[bioGustPartsGame.currentStep];
     const translatedTarget = i18n.t(currentTarget.key) !== currentTarget.key ? i18n.t(currentTarget.key) : currentTarget.key;
@@ -93,7 +95,7 @@ function renderBioGustPartsHelpHint(target) {
     existings.forEach(el => el.remove());
 
     const img = document.getElementById('bio-gust-parts-image');
-    if (!img) return; 
+    if (!img) return;
 
     const wrapper = img.parentElement;
     const rect = img.getBoundingClientRect();
@@ -106,13 +108,7 @@ function renderBioGustPartsHelpHint(target) {
 
     matchingTargets.forEach(t => {
         const hint = document.createElement('div');
-        hint.className = 'bio-gust-parts-help-hint';
-        hint.style.position = 'absolute';
-        hint.style.border = '2px solid red';
-        hint.style.backgroundColor = 'rgba(255,0,0,0.3)';
-        hint.style.pointerEvents = 'none';
-        hint.style.zIndex = '10';
-
+        hint.className = 'bio-gust-parts-help-hint target-hint';
         hint.style.left = (img.offsetLeft + t.x * scaleX) + 'px';
         hint.style.top = (img.offsetTop + t.y * scaleY) + 'px';
         hint.style.width = (t.w * scaleX) + 'px';
@@ -217,14 +213,14 @@ function handleBioGustPartsClick(event) {
 
     if (hit) {
         feedbackEl.innerText = i18n.t('act_gust_parts_feedback_correct') || 'Correcte!';
-        feedbackEl.style.color = 'green';
+        setElementStateColor(feedbackEl, 'success');
         setTimeout(() => {
             feedbackEl.innerText = '';
             nextBioGustPartsStep();
         }, 1000);
     } else {
         feedbackEl.innerText = i18n.t('act_gust_parts_feedback_incorrect') || 'Incorrecte. Torna-ho a provar.';
-        feedbackEl.style.color = 'red';
+        setElementStateColor(feedbackEl, 'error');
         bioGustPartsGame.score = Math.max(0, bioGustPartsGame.score - 10);
         updateBioGustPartsUI();
     }
