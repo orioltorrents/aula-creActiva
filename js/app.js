@@ -956,6 +956,13 @@ function openBioActivity(actId) {
         if (typeof initBioLabToolsGame === 'function') {
             initBioLabToolsGame();
         }
+    } else if (actId === 'concept-drag') {
+        document.getElementById('bio-activity-concept-drag').classList.remove('hidden');
+        if (typeof initBioConceptDragGame === 'function') {
+            initBioConceptDragGame();
+        }
+    } else if (actId === 'genetica-sim') {
+        document.getElementById('bio-activity-genetica-sim').classList.remove('hidden');
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];
         document.getElementById('bio-activity-' + actId).classList.remove('hidden');

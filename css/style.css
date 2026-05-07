@@ -55,6 +55,7 @@
 @import url("./pages/mediterrani-map.css");
 @import url("./pages/natura-sortable.css");
 @import url("./pages/biologia-lab-tools.css");
+@import url("./pages/biologia-concept-drag.css");
 
 /* 6. Legacy i layout final */
 @import url("./legacy/activity-menu-overrides.css");

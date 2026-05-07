@@ -112,6 +112,28 @@
                                 <div class="activity-card__description">Estris i material de laboratori</div>
                             </div>
                         </div>
+
+                        <!-- 11. Conceptes -->
+                        <div class="activity-card" onclick="openBioSystem('conceptes')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Conceptes de Biologia" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Conceptes de Biologia</div>
+                                <div class="activity-card__description">Relaciona conceptes i definicions</div>
+                            </div>
+                        </div>
+
+                        <!-- 12. Genetica -->
+                        <div class="activity-card" onclick="openBioSystem('genetica')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Genetica" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Genetica</div>
+                                <div class="activity-card__description">Practica herencia i quadres de Punnett</div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -292,6 +314,36 @@
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Estris de laboratori</div>
                                 <div class="activity-card__description">Identifica el material clicant sobre el dibuix</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Conceptes de Biologia -->
+                    <div id="bio-conceptes-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">Tornar als Sistemes</button>
+
+                        <div class="activity-card" onclick="openBioActivity('concept-drag')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Conceptes i definicions" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Arrossega conceptes</div>
+                                <div class="activity-card__description">Classifica definicions sota ADN, ARNm, ARNr o altres conceptes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Genetica -->
+                    <div id="bio-genetica-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">Tornar als Sistemes</button>
+
+                        <div class="activity-card" onclick="openBioActivity('genetica-sim')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="MendelSim" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">MendelSim</div>
+                                <div class="activity-card__description">Simulador interactiu de genetica mendeliana</div>
                             </div>
                         </div>
                     </div>
@@ -1065,6 +1117,72 @@
                     <div id="bio-activity-tacte-parts" class="sub-activity hidden">
                         <button class="btn btn--secondary btn--sm mb-2" onclick="openSenseSubActivity('tacte')">← Tornar</button>
                         <div id="tacte-parts-container"></div>
+                    </div>
+
+                    <!-- ACTIVITAT: Arrossega conceptes -->
+                    <div id="bio-activity-concept-drag" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('conceptes')">Tornar al menu</button>
+                        <div class="game-panel__header">
+                            <h3>Conceptes i definicions</h3>
+                        </div>
+
+                        <div class="bio-concept-drag">
+                            <div id="bio-concept-drag-setup" class="bio-concept-drag__setup result-screen p-6">
+                                <h4 class="text-xl font-bold text-center">Tria com vols jugar</h4>
+                                <div id="bio-concept-drag-filter-buttons" class="bio-concept-drag__filters"></div>
+                                <div id="bio-concept-drag-status" class="bio-concept-drag__status" aria-live="polite"></div>
+                            </div>
+
+                            <div id="bio-concept-drag-game" class="bio-concept-drag hidden">
+                                <div class="bio-concept-drag__stats">
+                                    <span id="bio-concept-drag-progress">Definicions: 0 / 0</span>
+                                    <span id="bio-concept-drag-score">Encerts: 0</span>
+                                </div>
+                                <div class="bio-concept-drag__board">
+                                    <section class="bio-concept-drag__column" aria-label="Conceptes">
+                                        <h4 class="bio-concept-drag__column-title">Conceptes</h4>
+                                        <div id="bio-concept-drag-targets" class="bio-concept-drag__column"></div>
+                                    </section>
+                                    <section class="bio-concept-drag__column" aria-label="Definicions">
+                                        <h4 class="bio-concept-drag__column-title">Definicions</h4>
+                                        <div id="bio-concept-drag-cards" class="bio-concept-drag__column"></div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div id="bio-concept-drag-results" class="result-screen hidden text-center p-8">
+                                <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
+                                <div id="bio-concept-drag-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
+                                <p id="bio-concept-drag-message" class="result-screen__message text-lg mb-8"></p>
+                                <div class="bio-concept-drag__actions">
+                                    <button onclick="restartBioConceptDragGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
+                                    <button onclick="openBioSystem('conceptes')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Simulador de genetica -->
+                    <div id="bio-activity-genetica-sim" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('genetica')">Tornar al menu</button>
+                        <div class="game-panel__header">
+                            <h3>MendelSim</h3>
+                        </div>
+
+                        <div class="embedded-app">
+                            <div class="embedded-app__toolbar">
+                                <p class="embedded-app__description">Simulador de genetica amb quadres de Punnett, herencia lligada al sexe i pedigrees interactius.</p>
+                                <a class="btn btn--secondary btn--auto-width" href="https://mendelsim.github.io/" target="_blank" rel="noopener noreferrer">Obrir en pestanya nova</a>
+                            </div>
+                            <iframe
+                                class="embedded-app__frame"
+                                src="https://mendelsim.github.io/"
+                                title="MendelSim, simulador de genetica"
+                                loading="lazy"
+                                referrerpolicy="no-referrer"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
 
                     <!-- ACTIVITAT: Estris de laboratori -->

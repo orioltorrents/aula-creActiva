@@ -1,0 +1,159 @@
+.bio-concept-drag {
+    display: grid;
+    gap: 1rem;
+}
+
+.bio-concept-drag__setup {
+    display: grid;
+    gap: 1rem;
+}
+
+.bio-concept-drag__filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.bio-concept-drag__status {
+    min-height: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.bio-concept-drag__stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-weight: 700;
+}
+
+.bio-concept-drag__board {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.bio-concept-drag__column {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.bio-concept-drag__board > .bio-concept-drag__column:last-child {
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    padding-right: 0.25rem;
+}
+
+.bio-concept-drag__column-title {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.bio-concept-drag__target {
+    display: grid;
+    gap: 0.6rem;
+    min-height: 118px;
+    padding: 1rem;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    background: #f8fafc;
+    color: var(--text-color);
+    text-align: left;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.bio-concept-drag__target.is-over {
+    border-color: var(--primary-color);
+    background: #eef2ff;
+}
+
+.bio-concept-drag__target.is-complete {
+    border-style: solid;
+    border-color: var(--success);
+    background: #f0fdf4;
+}
+
+.bio-concept-drag__concept {
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.bio-concept-drag__hint {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.bio-concept-drag__placed {
+    display: grid;
+    gap: 0.5rem;
+    max-height: 9.5rem;
+    overflow: auto;
+    padding-right: 0.2rem;
+}
+
+.bio-concept-drag__card {
+    padding: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    cursor: grab;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.bio-concept-drag__card:active {
+    cursor: grabbing;
+}
+
+.bio-concept-drag__card.is-selected {
+    outline: 3px solid rgba(59, 130, 246, 0.35);
+    border-color: var(--primary-color);
+}
+
+.bio-concept-drag__card.is-placed {
+    cursor: default;
+    box-shadow: none;
+    padding: 0.6rem 0.7rem;
+    font-size: 0.92rem;
+}
+
+.bio-concept-drag__card.is-correct {
+    border-color: var(--success);
+    background: #f0fdf4;
+}
+
+.bio-concept-drag__card.is-wrong {
+    border-color: var(--error);
+    background: #fef2f2;
+}
+
+.bio-concept-drag__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+@media (max-width: 760px) {
+    .bio-concept-drag__board {
+        grid-template-columns: 1fr;
+    }
+
+    .bio-concept-drag__board > .bio-concept-drag__column:last-child {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+    }
+}
