@@ -5,15 +5,58 @@
  */
 
 // **********************************************************
-// CONFIGURACIÓ
+// CONFIGURACI
 // **********************************************************
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
 const API_URL = 'https://script.google.com/macros/s/AKfycbwY3h5mvbmO64iWskhqoXb4xKbyMs-W5SwWLabV50QbmEINsjFMYvMcsSPIaqFM9bmu9w/exec';
 const DATA_SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 
+const LOCAL_PROJECT_CATALOG = {
+    '1r ESO': [
+        { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
+        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' }
+    ],
+    '2n ESO': [
+        { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+        { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+        { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+    ],
+    '3r ESO': [
+        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+    ],
+    '4t ESO': [
+        { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
+        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' }
+    ],
+    '1r Batxillerat': [
+        { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
+    ],
+    '2n Batxillerat': [],
+    '1ESO': [
+        { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
+        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' }
+    ],
+    '2ESO': [
+        { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+        { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+        { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+    ],
+    '3ESO': [
+        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+    ],
+    '4ESO': [
+        { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
+        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' }
+    ],
+    '1Batx': [
+        { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
+    ],
+    '2Batx': []
+};
+
 // **********************************************************
-// ESTAT DE L'APLICACIÓ
+// ESTAT DE L'APLICACI
 // **********************************************************
 const state = {
     user: null,
@@ -62,6 +105,15 @@ function setGameTitle(title) {
     }
 }
 
+function prepareFragmentImages(container) {
+    if (!container) return;
+
+    container.querySelectorAll('img').forEach(img => {
+        if (!img.hasAttribute('loading')) img.loading = 'lazy';
+        if (!img.hasAttribute('decoding')) img.decoding = 'async';
+    });
+}
+
 async function loadFragment(containerSelector, fragmentPath) {
     const container = document.querySelector(containerSelector);
 
@@ -78,6 +130,7 @@ async function loadFragment(containerSelector, fragmentPath) {
     }
 
     container.innerHTML = await response.text();
+    prepareFragmentImages(container);
 
     return container;
 }
@@ -96,6 +149,7 @@ async function loadFragmentInto(container, fragmentPath) {
     }
 
     container.innerHTML = await response.text();
+    prepareFragmentImages(container);
 
     return container;
 }
@@ -287,15 +341,15 @@ function getQuizLevelRank(levelName) {
 
 function getQuizLevelLabel(levelName) {
     const labels = {
-        'molt facil': 'Molt fàcil',
-        facil: 'Fàcil',
-        mitja: 'Mitjà',
-        mitjana: 'Mitjà',
-        avancat: 'Avançat',
-        dificil: 'Difícil',
-        'molt dificil': 'Molt difícil',
+        'molt facil': 'Molt fcil',
+        facil: 'Fcil',
+        mitja: 'Mitj',
+        mitjana: 'Mitj',
+        avancat: 'Avanat',
+        dificil: 'Difcil',
+        'molt dificil': 'Molt difcil',
         pau: 'PAU',
-        'pau dificil': 'PAU difícil'
+        'pau dificil': 'PAU difcil'
     };
 
     return labels[normalizeQuizLevelName(levelName)] || levelName;
@@ -316,7 +370,7 @@ function sortQuizLevels(levels) {
 
 
 // **********************************************************
-// INICIALITZACIÓ
+// INICIALITZACI
 // **********************************************************
 document.addEventListener('DOMContentLoaded', () => {
     const savedUser = localStorage.getItem('user');
@@ -335,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // **********************************************************
-// FUNCIONS DE NAVEGACIÓ
+// FUNCIONS DE NAVEGACI
 // **********************************************************
 
 
@@ -384,19 +438,19 @@ async function callApi(action, params = {}) {
     url.searchParams.append('action', action);
 
     // Convertim params a query string per al GET (Simple CORS fix: use GET for everything if possible or POST text/plain)
-    // Per simplicitat, farem servir GET per defecte o POST amb no-cors si calia, però el redirect de GAS via GET sol anar bé.
-    // Tanmateix, per enviar dades (POST) a vegades és millor user `navigator.sendBeacon` o `fetch` amb `no-cors` (però no reps resposta).
-    // Anem a intentar GET per tot ja que JSONP està deprecated i CORS és complex a GAS.
-    // L'estratègia: enviar tot per query params si és curt, o POST text/plain (que no dispara preflight).
+    // Per simplicitat, farem servir GET per defecte o POST amb no-cors si calia, per el redirect de GAS via GET sol anar b.
+    // Tanmateix, per enviar dades (POST) a vegades s millor user `navigator.sendBeacon` o `fetch` amb `no-cors` (per no reps resposta).
+    // Anem a intentar GET per tot ja que JSONP est deprecated i CORS s complex a GAS.
+    // L'estratgia: enviar tot per query params si s curt, o POST text/plain (que no dispara preflight).
 
-    // Mètode: Utilitzarem 'no-cors' per enviar dades sense esperar resposta JSON precisa si falla CORS,
-    // o bé, assumim que el redireccionament funciona (normalment sí).
+    // Mtode: Utilitzarem 'no-cors' per enviar dades sense esperar resposta JSON precisa si falla CORS,
+    // o b, assumim que el redireccionament funciona (normalment s).
 
-    // Solució Robusta: Enviar com POST text/plain. Google Apps Script ho llegeix a e.postData.contents.
-    // Això evita el Preflight OPTIONS.
+    // Soluci Robusta: Enviar com POST text/plain. Google Apps Script ho llegeix a e.postData.contents.
+    // Aix evita el Preflight OPTIONS.
 
-    // Modifiquem la URL existent (declarada a la línia 98) per afegir l'acció
-    // Això assegura que el backend rebi e.parameter.action fins i tot en POST
+    // Modifiquem la URL existent (declarada a la lnia 98) per afegir l'acci
+    // Aix assegura que el backend rebi e.parameter.action fins i tot en POST
     url.searchParams.set('action', action);
 
     // Opcions per a POST (per defecte)
@@ -420,12 +474,12 @@ async function callApi(action, params = {}) {
         return data;
     } catch (error) {
         console.error('API Error:', error);
-        return { status: 'error', message: 'Error de connexió' };
+        return { status: 'error', message: 'Error de connexi' };
     }
 }
 
 // **********************************************************
-// LÒGICA DE NEGOCI
+// LGICA DE NEGOCI
 // **********************************************************
 
 async function callApiGet(action, params = {}) {
@@ -761,6 +815,91 @@ function setupTeacherTools(projects, groups) {
     }
 }
 
+function getDashboardCourses() {
+    return String(state.user?.curs || '')
+        .split(',')
+        .map(course => course.trim())
+        .filter(course => course !== '');
+}
+
+function dedupeProjects(projects) {
+    const seenIds = new Set();
+
+    return projects.filter(project => {
+        if (!project || !project.id || seenIds.has(project.id)) return false;
+        seenIds.add(project.id);
+        return true;
+    });
+}
+
+function getLocalProjectsForCourses(courses) {
+    return dedupeProjects(courses.flatMap(course => LOCAL_PROJECT_CATALOG[course] || []));
+}
+
+function getProjectVisuals() {
+    return {
+        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns-card.jpg" alt="Entorns de Natura" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralimpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalitzacio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Radio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
+    };
+}
+
+function renderProjectCards(grid, projects) {
+    if (!grid) return;
+
+    const projectVisuals = getProjectVisuals();
+    grid.innerHTML = '';
+
+    if (projects.length === 0) {
+        grid.innerHTML = `<p>${i18n.t('no_projects') || 'No tens projectes assignats o no s\'han pogut carregar.'}</p>`;
+        return;
+    }
+
+    projects.forEach(proj => {
+        const visual = projectVisuals[proj.id] || { icon: 'P', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
+
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+                ${proj.imatge
+                ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image" decoding="async">`
+                : visual.icon}
+            </div>
+            <div class="project-card__content">
+                <div class="project-card__title">${proj.titol}</div>
+                <div class="project-card__description">${proj.descripcio}</div>
+            </div>
+        `;
+        card.addEventListener('click', () => {
+            openProject(proj).catch(error => {
+                console.error('Error obrint projecte:', error);
+            });
+        });
+        grid.appendChild(card);
+    });
+}
+
+async function getApiProjectsForCourses(courses) {
+    const responses = await Promise.all(courses.map(curs => callApiGet('getProjects', { curs })));
+    const projects = [];
+
+    responses.forEach(response => {
+        if (response && response.status === 'success' && response.projectes) {
+            projects.push(...response.projectes);
+        }
+    });
+
+    return dedupeProjects(projects);
+}
+
 async function loadDashboard() {
     await showDashboardFragment();
 
@@ -777,77 +916,36 @@ async function loadDashboard() {
     const grid = document.getElementById('projects-grid');
     grid.innerHTML = '<div class="loader">Carregant projectes...</div>';
 
-    // Suport per a múltiples cursos (ex: "1ESO, 2ESO")
-    const courses = state.user.curs.split(',').map(c => c.trim()).filter(c => c !== "");
+    const dashboardCourses = getDashboardCourses();
+    let dashboardProjects = getLocalProjectsForCourses(dashboardCourses);
 
-    let allProjects = [];
-    let seenIds = new Set();
+    renderProjectCards(grid, dashboardProjects);
 
-    try {
-        // Fem les crides en paral·lel per a tots els cursos
-        const fetchPromises = courses.map(curs => callApi('getProjects', { curs }));
-        const responses = await Promise.all(fetchPromises);
-
-        responses.forEach(response => {
-            if (response && response.status === 'success' && response.projectes) {
-                response.projectes.forEach(proj => {
-                    if (!seenIds.has(proj.id)) {
-                        seenIds.add(proj.id);
-                        allProjects.push(proj);
-                    }
-                });
-            }
-        });
-    } catch (e) {
-        console.error("Error carregant projectes:", e);
-    }
-
-    const resultGroups = await loadTeacherResultGroups();
-    setupTeacherTools(allProjects, resultGroups);
-
-    grid.innerHTML = ''; // Netejar
-
-    // Configuració visual dels projectes
-    const projectVisuals = {
-        'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
-        'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-card__image">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
-        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
-        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
-        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-card__image">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
-        'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
-    };
-
-    if (allProjects.length > 0) {
-        allProjects.forEach(proj => {
-            const visual = projectVisuals[proj.id] || { icon: '📁', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
-
-            const card = document.createElement('div');
-            card.className = 'project-card';
-            card.innerHTML = `
-                <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
-                    ${proj.imatge
-                    ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image">`
-                    : visual.icon}
-                </div>
-                <div class="project-card__content">
-                    <div class="project-card__title">${proj.titol}</div>
-                    <div class="project-card__description">${proj.descripcio}</div>
-                </div>
-            `;
-            card.addEventListener('click', () => {
-                openProject(proj).catch(error => {
-                    console.error('Error obrint projecte:', error);
-                });
-            });
-            grid.appendChild(card);
-        });
+    if (dashboardProjects.length === 0) {
+        try {
+            dashboardProjects = await getApiProjectsForCourses(dashboardCourses);
+            renderProjectCards(grid, dashboardProjects);
+        } catch (e) {
+            console.error("Error carregant projectes:", e);
+        }
     } else {
-        grid.innerHTML = `<p>${i18n.t('no_projects') || 'No tens projectes assignats o no s\'han pogut carregar.'}</p>`;
+        getApiProjectsForCourses(dashboardCourses)
+            .then(apiProjects => {
+                if (apiProjects.length > 0 && JSON.stringify(apiProjects) !== JSON.stringify(dashboardProjects)) {
+                    dashboardProjects = apiProjects;
+                    renderProjectCards(grid, dashboardProjects);
+                }
+            })
+            .catch(e => console.warn("No s han pogut refrescar els projectes:", e));
     }
+
+    loadTeacherResultGroups()
+        .then(resultGroups => setupTeacherTools(dashboardProjects, resultGroups))
+        .catch(error => {
+            console.warn("No s han pogut preparar les eines de professorat:", error);
+            setupTeacherTools(dashboardProjects, getCurrentUserGroups());
+        });
+
 }
 
 async function openProject(project) {
@@ -862,7 +960,7 @@ async function openProject(project) {
     const simulationResult = document.getElementById('simulation-result');
     if (simulationResult) simulationResult.textContent = '';
 
-    // Carregar joc específic segons ID del projecte
+    // Carregar joc especfic segons ID del projecte
     if (project.id === 'p1_rates') {
         const gameDiv = await ensureProjectFragment(
             'game-container-p1_rates',
@@ -968,7 +1066,7 @@ async function openProject(project) {
             }
         }
     } else {
-        // Fallback genèric
+        // Fallback genric
         document.getElementById('game-container-generic').classList.remove('hidden');
     }
 }
@@ -1025,11 +1123,11 @@ async function simulateGameSave() {
         curs: state.user.curs,
         projecte: state.currentProject.titol,
         app: 'Simulador',
-        nivell: 'Fàcil',
+        nivell: 'Fcil',
         puntuacio: Math.floor(Math.random() * 101),
         temps_segons: 120,
-        feedback_pos: 'Has estat ràpid',
-        feedback_neg: 'Cal millorar la precisió'
+        feedback_pos: 'Has estat rpid',
+        feedback_neg: 'Cal millorar la precisi'
     };
 
     const statusP = document.getElementById('simulation-result');
@@ -1107,7 +1205,7 @@ function openParalimpicsActivity(actId) {
     document.getElementById(`paralimpics-activity-${actId}`).classList.remove('hidden');
 }
 
-// --- DIGITALITZACIÓ NAVIGATION ---
+// --- DIGITALITZACI NAVIGATION ---
 function showDigitalitzacioMenu() {
     const hub = document.getElementById('project-hub-digitalitzacio');
     if (hub) {
@@ -1208,7 +1306,7 @@ function showRatesMenu() {
 }
 
 function openRatesActivity(activityId) {
-    // Amagar menú
+    // Amagar men
     document.getElementById('rates-activities-menu').classList.add('hidden');
 
     // Amagar totes les sub-activitats
@@ -1269,43 +1367,43 @@ function openNaturaActivity(actId) {
 const BIO_SYSTEM_TITLES = {
     circulatori: 'Circulatori',
     excretor: 'Excretor',
-    endocri: 'Endocrí',
+    endocri: 'Endocr',
     locomotor: 'Locomotor',
     immunitari: 'Immunitari',
     reproductor: 'Reproductor',
     laboratori: 'Laboratori',
     conceptes: 'Conceptes de Biologia',
-    genetica: 'Genètica'
+    genetica: 'Gentica'
 };
 
 const BIO_ACTIVITY_TITLES = {
     cor: 'Cor',
-    'circulatori-quiz': 'Repàs del Circulatori',
-    cells: 'Cèl·lules de la Sang',
+    'circulatori-quiz': 'Reps del Circulatori',
+    cells: 'Cllules de la Sang',
     'excretor-game': 'Excretor',
-    'endocri-quiz': 'Repàs de l\'Endocrí',
-    'endocri-glands': 'Glàndules endocrines',
-    'locomotor-quiz': 'Repàs del Locomotor',
-    'immunitari-quiz': 'Repàs de l\'Immunitari',
-    'reproductor-quiz': 'Repàs del Reproductor',
+    'endocri-quiz': 'Reps de l\'Endocr',
+    'endocri-glands': 'Glndules endocrines',
+    'locomotor-quiz': 'Reps del Locomotor',
+    'immunitari-quiz': 'Reps de l\'Immunitari',
+    'reproductor-quiz': 'Reps del Reproductor',
     'lab-tools': 'Laboratori',
     'concept-drag': 'Arrossega conceptes',
-    'genetica-sim': 'Genètica',
+    'genetica-sim': 'Gentica',
     'vista-parts': 'Vista',
-    'vista-quiz': 'Repàs: Vista',
-    'oida-parts': 'Oïda',
-    'oida-quiz': 'Repàs: Oïda',
+    'vista-quiz': 'Reps: Vista',
+    'oida-parts': 'Oda',
+    'oida-quiz': 'Reps: Oda',
     'olfacte-parts': 'Olfacte',
-    'olfacte-quiz': 'Repàs: Olfacte',
+    'olfacte-quiz': 'Reps: Olfacte',
     'gust-parts': 'Gust',
-    'gust-quiz': 'Repàs: Gust',
+    'gust-quiz': 'Reps: Gust',
     'tacte-parts': 'Tacte',
-    'tacte-quiz': 'Repàs: Tacte'
+    'tacte-quiz': 'Reps: Tacte'
 };
 
 const BIO_SENSE_TITLES = {
     vista: 'Vista',
-    oida: 'Oïda',
+    oida: 'Oda',
     olfacte: 'Olfacte',
     gust: 'Gust',
     tacte: 'Tacte'
@@ -1334,11 +1432,11 @@ function openBioSystem(systemId) {
         resetBioLabToolsGame();
     }
 
-    // Amagar el menú principal de sistemes i totes les activitats individuals
+    // Amagar el men principal de sistemes i totes les activitats individuals
     document.getElementById('bio-systems-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
 
-    // Mostrar el menú d'activitats del sistema seleccionat
+    // Mostrar el men d'activitats del sistema seleccionat
     const systemDiv = document.getElementById(`bio-${systemId}-activities`);
     if (systemDiv) {
         systemDiv.classList.remove('hidden');
@@ -1446,19 +1544,19 @@ function openSenseMenu() {
     // Amagar totes les sub-activitats (jocs)
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
 
-    // Mostrar el menú principal dels sentits
+    // Mostrar el men principal dels sentits
     document.getElementById('bio-senses-activities').classList.remove('hidden');
 }
 
 function openSenseSubActivity(senseId) {
     setGameTitle(BIO_SENSE_TITLES[senseId] || 'Sentits');
 
-    // Amagar el menú principal dels sentits i totes les llistes d'activitats
+    // Amagar el men principal dels sentits i totes les llistes d'activitats
     document.getElementById('bio-senses-activities').classList.add('hidden');
     document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
 
-    // Mostrar el sub-menú del sentit seleccionat (ex: sense-vista-menu)
+    // Mostrar el sub-men del sentit seleccionat (ex: sense-vista-menu)
     const menuId = 'sense-' + senseId + '-menu';
     const menu = document.getElementById(menuId);
     if (menu) menu.classList.remove('hidden');
@@ -1491,3 +1589,4 @@ function openRadioActivity(actId) {
         }
     }
 }
+
