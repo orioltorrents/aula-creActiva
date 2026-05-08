@@ -24,6 +24,7 @@ const ACTIONS = {
     getEndocriQuestions: () => getEndocriQuestions(),
     getLocomotorQuestions: () => getLocomotorQuestions(),
     getBioConceptDragData: data => getBioConceptDragData(data.sheetName),
+    getBioPedigreeData: data => getBioPedigreeData(data.sheetName, data.refresh),
     getVistaQuestions: () => getVistaQuestions(),
     getOidaQuestions: () => getOidaQuestions(),
     getOlfacteQuestions: () => getOlfacteQuestions(),

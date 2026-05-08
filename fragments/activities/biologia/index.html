@@ -358,6 +358,15 @@
                                 <div class="activity-card__description">Practica encreuaments i quadres de Punnett</div>
                             </div>
                         </div>
+                        <div class="activity-card" onclick="openBioActivity('genetica-pedigrees')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Pedigrees genetica" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Pedigrees i genotips</div>
+                                <div class="activity-card__description">Completa genotips a partir d'arbres genealogics</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- ACTIVITAT: Quiz Aparell Reproductor -->
@@ -1225,6 +1234,75 @@
                                 <p id="bio-genetics-message" class="result-screen__message text-lg mb-8"></p>
                                 <div class="bio-genetics__actions">
                                     <button onclick="initBioGeneticsSimGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
+                                    <button onclick="openBioSystem('genetica')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Pedigrees i genotips -->
+                    <div id="bio-activity-genetica-pedigrees" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('genetica')">Tornar al menu</button>
+                        <div class="game-panel__header">
+                            <h3>Pedigrees i genotips</h3>
+                        </div>
+
+                        <div class="bio-pedigree">
+                            <section id="bio-pedigree-loader" class="text-center p-8">
+                                <div class="loader"></div>
+                                <p>Carregant pedigrees...</p>
+                            </section>
+
+                            <section id="bio-pedigree-selector" class="result-screen p-6 hidden">
+                                <h4 class="bio-genetics__title">Tria el nivell</h4>
+                                <p class="bio-genetics__intro">Llegeix el pedigree, fixa't si el patro es AD o AR, i omple els genotips que corresponen a cada individu.</p>
+                                <div id="bio-pedigree-level-buttons" class="bio-genetics__actions mt-4"></div>
+                            </section>
+
+                            <section id="bio-pedigree-game" class="hidden">
+                                <div class="game-panel__stats bio-genetics__stats">
+                                    <div id="bio-pedigree-progress">Pedigree 1 / 1</div>
+                                    <div id="bio-pedigree-score">Encerts: 0</div>
+                                    <div id="bio-pedigree-level">General</div>
+                                </div>
+
+                                <div class="bio-pedigree__layout">
+                                    <article class="bio-pedigree__image-card">
+                                        <h4 id="bio-pedigree-title">Pedigree</h4>
+                                        <p id="bio-pedigree-inheritance" class="bio-pedigree__hint"></p>
+                                        <img id="bio-pedigree-image" src="" alt="Pedigree genetic" class="bio-pedigree__image">
+                                    </article>
+
+                                    <article class="bio-pedigree__answer-card">
+                                        <h4>Genotips</h4>
+                                        <p class="bio-pedigree__hint">Omple nomes les caselles que apareixen a la taula.</p>
+                                        <fieldset id="bio-pedigree-pattern-check" class="bio-pedigree__pattern-check hidden">
+                                            <legend>El patro proposat pot explicar aquest pedigree?</legend>
+                                            <label>
+                                                <input type="radio" name="bio-pedigree-pattern-possible" value="yes">
+                                                <span>Si</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="bio-pedigree-pattern-possible" value="no">
+                                                <span>No</span>
+                                            </label>
+                                        </fieldset>
+                                        <div id="bio-pedigree-table" class="bio-pedigree__table"></div>
+                                        <div id="bio-pedigree-feedback" class="game-panel__feedback bio-genetics__feedback" aria-live="polite"></div>
+                                        <div class="bio-genetics__actions">
+                                            <button id="bio-pedigree-check-btn" class="btn btn--primary btn--auto-width" type="button">Comprovar</button>
+                                            <button id="bio-pedigree-next-btn" class="btn btn--secondary btn--auto-width hidden" type="button">Seguent pedigree</button>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
+
+                            <section id="bio-pedigree-results" class="result-screen hidden text-center p-8">
+                                <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
+                                <div id="bio-pedigree-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
+                                <p id="bio-pedigree-message" class="result-screen__message text-lg mb-8"></p>
+                                <div class="bio-genetics__actions">
+                                    <button onclick="restartBioPedigreeGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
                                     <button onclick="openBioSystem('genetica')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
                                 </div>
                             </section>

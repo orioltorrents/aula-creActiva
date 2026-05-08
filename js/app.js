@@ -1393,6 +1393,7 @@ const BIO_ACTIVITY_TITLES = {
     'lab-tools': 'Laboratori',
     'concept-drag': 'Arrossega conceptes',
     'genetica-sim': 'Gentica',
+    'genetica-pedigrees': 'Pedigrees i genotips',
     'vista-parts': 'Vista',
     'vista-quiz': 'Reps: Vista',
     'oida-parts': 'Oda',
@@ -1521,6 +1522,11 @@ function openBioActivity(actId) {
         document.getElementById('bio-activity-genetica-sim').classList.remove('hidden');
         if (typeof initBioGeneticsSimGame === 'function') {
             initBioGeneticsSimGame();
+        }
+    } else if (actId === 'genetica-pedigrees') {
+        document.getElementById('bio-activity-genetica-pedigrees').classList.remove('hidden');
+        if (typeof initBioPedigreeGame === 'function') {
+            initBioPedigreeGame();
         }
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];
