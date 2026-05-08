@@ -908,7 +908,11 @@ async function loadDashboard() {
     
 
     // Update User Info
-    document.getElementById('user-name').textContent = `${state.user.nom} ${state.user.cognoms}`;
+    const userName = document.getElementById('user-name');
+    if (userName) {
+        userName.removeAttribute('data-i18n');
+        userName.textContent = `${state.user.nom} ${state.user.cognoms}`;
+    }
     document.getElementById('user-course').textContent = state.user.curs;
     document.getElementById('welcome-msg').textContent = `Hola, ${state.user.nom}!`;
 
