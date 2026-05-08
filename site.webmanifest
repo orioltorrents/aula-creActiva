@@ -1,0 +1,16 @@
+{
+  "name": "Aula CreActiva",
+  "short_name": "CreActiva",
+  "description": "Web educativa amb activitats interactives",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a202c",
+  "theme_color": "#1a202c",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
