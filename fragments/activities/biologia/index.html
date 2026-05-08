@@ -2,7 +2,7 @@
 
                     <div id="bio-systems-menu" class="activities-grid mt-4">
                         <!-- 1. Digestiu -->
-                        <div class="activity-card activity-card--disabled">
+                        <div class="activity-card activity-card--disabled" data-bio-system="digestiu">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-digestiu.png" alt="Aparell Digestiu" class="activity-card__image">
                             </div>
@@ -14,7 +14,7 @@
                         </div>
 
                         <!-- 2. Circulatori -->
-                        <div class="activity-card" onclick="openBioSystem('circulatori')">
+                        <div class="activity-card" data-bio-system="circulatori" onclick="openBioSystem('circulatori')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-ciculatori.png" alt="Aparell Circulatori" class="activity-card__image">
                             </div>
@@ -25,7 +25,7 @@
                         </div>
 
                         <!-- 3. Respiratori -->
-                        <div class="activity-card activity-card--disabled">
+                        <div class="activity-card activity-card--disabled" data-bio-system="respiratori">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-respiratori.png" alt="Aparell Respiratori" class="activity-card__image">
                             </div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <!-- 4. Excretor -->
-                        <div class="activity-card" onclick="openBioSystem('excretor')">
+                        <div class="activity-card" data-bio-system="excretor" onclick="openBioSystem('excretor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="activity-card__image">
                             </div>
@@ -48,7 +48,7 @@
                         </div>
 
                         <!-- 5. Òrgans dels Sentits -->
-                        <div class="activity-card" onclick="openSenseMenu()">
+                        <div class="activity-card" data-bio-system="sentits" onclick="openSenseMenu()">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Òrgans dels Sentits" class="activity-card__image">
                             </div>
@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- 6. Sistema Endocrí -->
-                        <div class="activity-card" onclick="openBioSystem('endocri')">
+                        <div class="activity-card" data-bio-system="endocri" onclick="openBioSystem('endocri')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema Endocrí" class="activity-card__image">
                             </div>
@@ -70,7 +70,7 @@
                         </div>
 
                         <!-- 7. Aparell Locomotor -->
-                        <div class="activity-card" onclick="openBioSystem('locomotor')">
+                        <div class="activity-card" data-bio-system="locomotor" onclick="openBioSystem('locomotor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-locomotor.png" alt="Aparell Locomotor" class="activity-card__image">
                             </div>
@@ -81,7 +81,7 @@
                         </div>
 
                         <!-- 8. Sistema Immunitari -->
-                        <div class="activity-card" onclick="openBioSystem('immunitari')">
+                        <div class="activity-card" data-bio-system="immunitari" onclick="openBioSystem('immunitari')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <!-- 9. Aparell Reproductor -->
-                        <div class="activity-card" onclick="openBioSystem('reproductor')">
+                        <div class="activity-card" data-bio-system="reproductor" onclick="openBioSystem('reproductor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
@@ -103,7 +103,7 @@
                         </div>
 
                         <!-- 10. Laboratori -->
-                        <div class="activity-card" onclick="openBioSystem('laboratori')">
+                        <div class="activity-card" data-bio-system="laboratori" onclick="openBioSystem('laboratori')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/Lab/Labtools.png" alt="Laboratori de Biologia" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/laboratory.png';">
                             </div>
@@ -114,7 +114,7 @@
                         </div>
 
                         <!-- 11. Conceptes -->
-                        <div class="activity-card" onclick="openBioSystem('conceptes')">
+                        <div class="activity-card" data-bio-system="conceptes" onclick="openBioSystem('conceptes')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Conceptes de Biologia" class="activity-card__image">
                             </div>
@@ -125,7 +125,7 @@
                         </div>
 
                         <!-- 12. Genètica -->
-                        <div class="activity-card" onclick="openBioSystem('genetica')">
+                        <div class="activity-card" data-bio-system="genetica" onclick="openBioSystem('genetica')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Genètica" class="activity-card__image">
                             </div>
@@ -360,7 +360,7 @@
                         </div>
                         <div class="activity-card" onclick="openBioActivity('genetica-pedigrees')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Pedigrees genetica" class="activity-card__image">
+                                <img src="assets/images/activities/biologia/cards/targeta-pedigrees.png" alt="Pedigrees genetica" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Pedigrees i genotips</div>

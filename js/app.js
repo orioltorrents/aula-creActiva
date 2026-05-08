@@ -15,7 +15,8 @@ const DATA_SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 const LOCAL_PROJECT_CATALOG = {
     '1r ESO': [
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' }
+        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
+        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
     ],
     '2n ESO': [
         { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
@@ -23,11 +24,13 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
     ],
     '3r ESO': [
-        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
+        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
     ],
     '4t ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' }
+        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
     ],
     '1r Batxillerat': [
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
@@ -35,7 +38,8 @@ const LOCAL_PROJECT_CATALOG = {
     '2n Batxillerat': [],
     '1ESO': [
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' }
+        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
+        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
     ],
     '2ESO': [
         { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
@@ -43,11 +47,13 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
     ],
     '3ESO': [
-        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' }
+        { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
+        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
     ],
     '4ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' }
+        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
     ],
     '1Batx': [
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
@@ -845,7 +851,10 @@ function getProjectVisuals() {
         'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns-card.jpg" alt="Entorns de Natura" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
         'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralimpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalitzacio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p1_biologia': { icon: '<img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Biologia 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #14b8a6, #0f766e)' },
         'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p3_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_biologia': { icon: '<img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Biologia 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)' },
         'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Radio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
@@ -885,6 +894,10 @@ function renderProjectCards(grid, projects) {
         });
         grid.appendChild(card);
     });
+}
+
+function isBiologiaProject(projectId) {
+    return ['p1_biologia', 'p2_biologia', 'p3_biologia', 'p4_biologia'].includes(projectId);
 }
 
 async function getApiProjectsForCourses(courses) {
@@ -1047,7 +1060,7 @@ async function openProject(project) {
                 showDigitalitzacioMenu();
             }
         }
-    } else if (project.id === 'p2_biologia') {
+    } else if (isBiologiaProject(project.id)) {
         const hubDiv = await ensureProjectFragment(
             'project-hub-biologia',
             'fragments/projects/biologia/index.html'
@@ -1414,6 +1427,31 @@ const BIO_SENSE_TITLES = {
     tacte: 'Tacte'
 };
 
+const BIO_PROJECT_SCOPES = {
+    p1_biologia: ['conceptes', 'laboratori'],
+    p4_biologia: ['genetica']
+};
+
+function getCurrentBioProjectScope() {
+    const projectId = state.currentProject ? state.currentProject.id : '';
+    return BIO_PROJECT_SCOPES[projectId] || null;
+}
+
+function isBioSystemAllowed(systemId) {
+    const scope = getCurrentBioProjectScope();
+    return !scope || scope.includes(systemId);
+}
+
+function applyBioProjectScope() {
+    const scope = getCurrentBioProjectScope();
+
+    document.querySelectorAll('#bio-systems-menu [data-bio-system]').forEach(card => {
+        const systemId = card.getAttribute('data-bio-system');
+        const isVisible = !scope || scope.includes(systemId);
+        card.classList.toggle('hidden', !isVisible);
+    });
+}
+
 function showBioMenu() {
     setGameTitle(state.currentProject ? state.currentProject.titol : 'Biologia');
 
@@ -1424,6 +1462,7 @@ function showBioMenu() {
     const hub = document.getElementById('project-hub-biologia');
     if (hub) {
         document.getElementById('bio-systems-menu').classList.remove('hidden');
+        applyBioProjectScope();
         // Hide all sub-activity lists and individual activities
         document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
@@ -1431,6 +1470,11 @@ function showBioMenu() {
 }
 
 function openBioSystem(systemId) {
+    if (!isBioSystemAllowed(systemId)) {
+        showBioMenu();
+        return;
+    }
+
     setGameTitle(BIO_SYSTEM_TITLES[systemId] || 'Biologia');
 
     if (typeof resetBioLabToolsGame === 'function') {
