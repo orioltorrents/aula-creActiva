@@ -87,12 +87,29 @@
     background-position: center;
 }
 
+.activity-card__media--projecte-rius {
+    background-color: #45637b;
+}
+
+.activity-card__media--no-mat {
+    background-color: #f5f7f2;
+}
+
+.activity-card__media--agroparc {
+    background-color: #eef6dc;
+}
+
 .activity-card__image {
     /* Element BEM: imatge de portada de la targeta d'activitat. */
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+}
+
+.activity-card__image--contain {
+    object-fit: contain;
+    padding: 16px;
 }
 
 .activity-card:hover .activity-card__image {

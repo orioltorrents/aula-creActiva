@@ -47,6 +47,15 @@ function renderEntornsActivities() {
     // Si no n'hi ha cap definida, fem servir un array buit.
     const activities = PROJECT_ACTIVITIES?.entorns || [];
 
+    // El fragment d'Entorns ja defineix el menú de projectes i subprojectes.
+    // Si té contingut, el respectem per no substituir-lo per targetes d'activitat.
+    if (container && container.children.length > 0) {
+      if (typeof translateUI === "function") {
+        translateUI();
+      }
+      return;
+    }
+
     // Si no existeix el contenidor o no hi ha activitats definides, sortim
     if (!container || activities.length === 0) return;
 
@@ -87,7 +96,8 @@ function renderEntornsActivities() {
       "natura-activity-orenetes",
       "natura-activity-orenetes-preguntes",
       "natura-project-rius",
-      "natura-project-impacte",
+      "natura-project-mat",
+      "natura-project-agroparc",
       "natura-project-orenetes",
       "natura-project-vespa",
       "natura-project-liquencity"

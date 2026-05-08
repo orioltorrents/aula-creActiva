@@ -4,28 +4,38 @@
                         <!-- MENÚ D'ACTIVITATS -->
                         <div id="natura-activities-menu" class="activities-grid">
                             <div class="activity-card" onclick="openNaturaProject('rius')">
-                                <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques"
-                                        class="activity-card__image">
+                                <div class="activity-card__media activity-card__media--projecte-rius">
+                                    <img src="assets/images/activities/entorns/cards/projecte-rius-logo.png" alt="Projecte Rius"
+                                        class="activity-card__image activity-card__image--contain">
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title">Projecte Rius</div>
                                     <div class="activity-card__description">Activitats sobre ecosistemes fluvials</div>
                                 </div>
                             </div>
-                            <div class="activity-card" onclick="openNaturaProject('impacte')">
-                                <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Estudi d'impacte ambiental"
+                            <div class="activity-card" onclick="openNaturaProject('mat')">
+                                <div class="activity-card__media activity-card__media--no-mat">
+                                    <img src="assets/images/activities/entorns/cards/no-a-la-mat-Catalunya.png" alt="No a la MAT Catalunya"
                                         class="activity-card__image">
                                 </div>
                                 <div class="activity-card__content">
-                                    <div class="activity-card__title">Estudi d'impacte ambiental</div>
-                                    <div class="activity-card__description">Fases i preguntes del projecte</div>
+                                    <div class="activity-card__title">MAT Penedès</div>
+                                    <div class="activity-card__description">Impacte ambiental, xarxes i preguntes</div>
+                                </div>
+                            </div>
+                            <div class="activity-card" onclick="openNaturaProject('agroparc')">
+                                <div class="activity-card__media activity-card__media--agroparc">
+                                    <img src="assets/images/activities/entorns/cards/agroparc-ametller-logo.svg" alt="AgroParc Atmetller" class="activity-card__image activity-card__image--contain">
+                                </div>
+                                <div class="activity-card__content">
+                                    <div class="activity-card__title">AgroParc Atmetller</div>
+                                    <div class="activity-card__description">Impacte, biodiversitat i preguntes</div>
                                 </div>
                             </div>
                             <div class="activity-card" onclick="openNaturaProject('orenetes')">
                                 <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes"
+                                    <img src="assets/images/activities/entorns/cards/targeta-projecte-orenetes.jpg"
+                                    g" alt="Projecte Orenetes"
                                         class="activity-card__image">
                                 </div>
                                 <div class="activity-card__content">
@@ -35,7 +45,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaProject('vespa')">
                                 <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Vespa velutina" class="activity-card__image">
+                                    <img src="assets/images/activities/entorns/cards/vespa-velutina-logo.png" alt="Vespa velutina" class="activity-card__image">
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title">Vespa velutina</div>
@@ -44,7 +54,7 @@
                             </div>
                             <div class="activity-card" onclick="openNaturaProject('liquencity')">
                                 <div class="activity-card__media">
-                                    <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Liquencity" class="activity-card__image">
+                                    <img src="assets/images/activities/entorns/cards/liquencity-logo.png" alt="Liquencity" class="activity-card__image">
                                 </div>
                                 <div class="activity-card__content">
                                     <div class="activity-card__title">Liquencity</div>
@@ -71,10 +81,55 @@
                             </div>
                         </div>
 
-                        <div id="natura-project-impacte" class="sub-activity hidden">
+                        <div id="natura-project-mat" class="sub-activity hidden">
                             <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
                             <div class="game-panel__header text-center">
-                                <h3>Estudi d'impacte ambiental</h3>
+                                <h3>MAT Penedès</h3>
+                            </div>
+                            <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('impacte')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_fases-eia.png" alt="Impacte Ambiental" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_impacte_title">Estudi d'impacte ambiental</div>
+                                        <div class="activity-card__description" data-i18n="act_impacte_desc">Ordena les fases de creació de l'estudi</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('xarxes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png" alt="Xarxes Tròfiques" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_xarxes_title">Xarxes Tròfiques</div>
+                                        <div class="activity-card__description" data-i18n="act_xarxes_desc">Ordena els passos per crear una xarxa tròfica</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('rols')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/entorns/cards/targeta_rols-trofics.png" alt="Rols Tròfics" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_rols_title">Rols Tròfics</div>
+                                        <div class="activity-card__description" data-i18n="act_rols_desc">Classifica espècies segons la seva dieta</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card" onclick="openNaturaActivity('preguntes')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
+                                        <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="natura-project-agroparc" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar als projectes</button>
+                            <div class="game-panel__header text-center">
+                                <h3>AgroParc Atmetller</h3>
                             </div>
                             <div class="activities-grid">
                                 <div class="activity-card" onclick="openNaturaActivity('impacte')">
@@ -124,7 +179,7 @@
                             <div class="activities-grid">
                                 <div class="activity-card" onclick="openNaturaActivity('orenetes')">
                                     <div class="activity-card__media">
-                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Projecte Orenetes" class="activity-card__image">
+                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orenetes2.png" alt="Projecte Orenetes" class="activity-card__image">
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_orenetes_title">Projecte Orenetes</div>
@@ -133,7 +188,7 @@
                                 </div>
                                 <div class="activity-card" onclick="openNaturaActivity('orenetes-preguntes')">
                                     <div class="activity-card__media">
-                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orentes.png" alt="Preguntes del Projecte Orenetes" class="activity-card__image">
+                                        <img src="assets/images/activities/entorns/cards/targeta-projecte-orenetes.jpg" alt="Preguntes del Projecte Orenetes" class="activity-card__image">
                                     </div>
                                     <div class="activity-card__content">
                                         <div class="activity-card__title">Preguntes del Projecte Orenetes</div>
