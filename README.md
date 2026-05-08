@@ -24,6 +24,24 @@ No és només un repositori de continguts, sinó una eina per:
 
 ---
 
+## Tipus d'activitats
+
+La web combina diferents formats d'activitat perquè l'alumnat pugui practicar sabers i competències de maneres diverses:
+
+- **Preguntes tipus quiz**: activitats de resposta única o opcions múltiples, amb feedback i puntuació.
+- **Preguntes amb imatge**: identificació d'elements visuals com connectors, parts del cos, espècies, quadres o mapes.
+- **Classificació de preguntes**: decidir si una pregunta és investigable o no, detectar problemes i millorar-ne el plantejament.
+- **Selecció de preguntes bones**: triar, dins d'un tema, quines preguntes són adequades per investigar.
+- **Ordenació de conceptes o fases**: posar en ordre processos, accions, idees o seqüències d'una activitat.
+- **Arrossegar i relacionar**: vincular conceptes amb definicions, parts amb noms o elements amb la seva categoria.
+- **Activitats de mapes i localització**: treballar capitals, geografia, espais i relacions territorials.
+- **Reconeixement i anàlisi**: observar imatges, interpretar dades, identificar rols ecològics o resoldre reptes contextualitzats.
+- **Activitats de bibliografia i recerca**: practicar citacions, fonts, temes de recerca i formulació de bones preguntes.
+- **Simulacions i reptes guiats**: activitats com la genètica mendeliana, amb encreuaments, quadres de Punnett, autocorrecció i resultats guardats.
+- **Reptes digitals i tecnològics**: activitats vinculades a àudio, ràdio, micro:bit i eines digitals.
+
+---
+
 ## Projectes principals de la web app
 
 La web inclou activitats relacionades amb diversos projectes educatius de l’ESO, entre els quals destaquen:
@@ -91,3 +109,33 @@ La web app s’emmarca dins la voluntat d’Aula CreActiva de promoure:
 3. Dins de cada projecte, hi ha activitats creades per treballar diferents aspectes.
 4. Les activitats serveixen per consolidar les aprenentatges i es poden fer diverses vegades.
 5. Totes les puntuacions de les activitats es poden recuperar per utilitzar-les per la qualificació.
+
+---
+
+## Espai de professorat
+
+Els usuaris amb rol de professorat o administració veuen un espai propi al dashboard amb eines de suport a l'aula i a l'avaluació.
+
+La web també incorpora un recull d'eines per al professorat: orientacions per fer les programacions, recursos de metodologies actives, una pissarra digital i QPlay, una eina tipus Kahoot per crear dinàmiques de preguntes a l'aula.
+
+- **Eines de professorat**: accés ràpid a Programacions, Metodologies actives, Pissarra digital i QPlay.
+- **Full de resultats**: permet seleccionar matèria i grup, copiar la fórmula de consulta i crear un Google Sheet nou amb els resultats filtrats.
+- **Google Sheet**: enllaç directe al full de dades principal de l'app.
+- **Llista d'alumnes**: des del panell de resultats es pot crear un full nou amb nom, cognoms, email i grup dels alumnes del grup seleccionat.
+
+Els grups disponibles es llegeixen de la pestanya `resultats`, prioritzant la columna `grup` i fent servir `curs` com a alternativa si cal.
+
+---
+
+## Backend i dades
+
+La web és estàtica, però les dades viuen en un Google Sheet i es consulten a través d'un backend fet amb Google Apps Script.
+
+Les preguntes, respostes i moltes dades de les activitats estan organitzades en pestanyes del Google Sheet. Això fa que els materials siguin fàcilment millorables: es poden corregir preguntes, afegir-ne de noves, ajustar respostes o ampliar activitats des del full de càlcul, sense haver de modificar directament el codi de la web.
+
+- `api/Code.js`: API principal. Gestiona login, projectes, preguntes, resultats i eines de professorat.
+- `api/appsscript.json`: manifest de permisos del projecte Apps Script.
+- Pestanyes principals del Sheet: `usuaris`, `resultats` i les pestanyes de preguntes de cada activitat.
+- Accions rellevants per al professorat: `getResultGroups`, `createResultsSheet` i `createGroupStudentsSheet`.
+
+Quan es modifiqui `api/Code.js` o el manifest, cal tornar a desplegar l'Apps Script com a Web App perquè els canvis arribin a la web publicada.

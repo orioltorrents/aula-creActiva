@@ -20,6 +20,88 @@
             <p data-i18n="active_projects">Aquests són els teus projectes actius.</p>
         </div>
 
+        <section id="teacher-tools-section" class="teacher-tools hidden" aria-labelledby="teacher-tools-title">
+            <div class="teacher-tools__header">
+                <div>
+                    <p class="teacher-tools__eyebrow">Espai de professorat</p>
+                    <h3 id="teacher-tools-title" class="teacher-tools__title">Eines exclusives pel professorat</h3>
+                </div>
+                <span class="teacher-tools__badge">Nom&eacute;s profe</span>
+            </div>
+
+            <div class="teacher-tools__grid">
+                <button id="teacher-tools-card" class="teacher-tool-card" type="button">
+                    <span class="teacher-tool-card__icon" aria-hidden="true">E</span>
+                    <span class="teacher-tool-card__content">
+                        <span class="teacher-tool-card__title">Eines de professorat</span>
+                        <span class="teacher-tool-card__description">Acc&eacute;s a programacions, metodologies actives i eines digitals d'aula.</span>
+                    </span>
+                </button>
+
+                <button id="teacher-results-card" class="teacher-tool-card" type="button">
+                    <span class="teacher-tool-card__icon" aria-hidden="true">F</span>
+                    <span class="teacher-tool-card__content">
+                        <span class="teacher-tool-card__title">Full de resultats</span>
+                        <span class="teacher-tool-card__description">Genera una f&oacute;rmula per filtrar resultats per mat&egrave;ria i grup.</span>
+                    </span>
+                </button>
+
+                <a class="teacher-tool-card" href="https://docs.google.com/spreadsheets/d/1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8/edit" target="_blank" rel="noopener noreferrer">
+                    <span class="teacher-tool-card__icon" aria-hidden="true">S</span>
+                    <span class="teacher-tool-card__content">
+                        <span class="teacher-tool-card__title">Google Sheet</span>
+                        <span class="teacher-tool-card__description">Obre el full de dades amb usuaris, projectes, preguntes i resultats.</span>
+                    </span>
+                </a>
+            </div>
+
+            <div id="teacher-tools-panel" class="teacher-links-panel hidden">
+                <button id="teacher-programming-card" class="teacher-link-action" type="button">
+                    <span class="teacher-link-action__title">Programacions</span>
+                    <span class="teacher-link-action__description">Prepara i organitza programacions did&agrave;ctiques.</span>
+                </button>
+                <a class="teacher-link-action" href="https://metact.github.io/" target="_blank" rel="noopener noreferrer">
+                    <span class="teacher-link-action__title">Metodologies actives</span>
+                    <span class="teacher-link-action__description">Obre el banc de recursos de metodologies actives.</span>
+                </a>
+                <a class="teacher-link-action" href="https://escritorio-digital.github.io/" target="_blank" rel="noopener noreferrer">
+                    <span class="teacher-link-action__title">Pissarra digital</span>
+                    <span class="teacher-link-action__description">Escriptori digital per projectar i treballar a l'aula.</span>
+                </a>
+                <a class="teacher-link-action" href="https://jjdeharo.github.io/qplay/" target="_blank" rel="noopener noreferrer">
+                    <span class="teacher-link-action__title">QPlay</span>
+                    <span class="teacher-link-action__description">Crea i juga q&uuml;estionaris interactius amb el grup.</span>
+                </a>
+            </div>
+
+            <div id="teacher-results-panel" class="teacher-results-panel hidden">
+                <div class="teacher-results-panel__fields">
+                    <label class="teacher-results-panel__field">
+                        <span>Mat&egrave;ria</span>
+                        <select id="teacher-results-project" class="teacher-results-panel__select"></select>
+                    </label>
+                    <label class="teacher-results-panel__field">
+                        <span>Grup</span>
+                        <select id="teacher-results-course" class="teacher-results-panel__select"></select>
+                    </label>
+                </div>
+                <div class="teacher-results-panel__actions">
+                    <button id="teacher-copy-formula-btn" class="btn btn--secondary btn--auto-width" type="button">Copiar f&oacute;rmula</button>
+                    <button id="teacher-create-sheet-btn" class="btn btn--primary btn--auto-width" type="button">Crear full amb resultats</button>
+                    <button id="teacher-create-students-sheet-btn" class="btn btn--info btn--auto-width" type="button">Crear llista alumnes</button>
+                </div>
+                <div class="teacher-results-panel__output">
+                    <span>T&iacute;tol del full</span>
+                    <code id="teacher-results-title" class="teacher-results-panel__formula"></code>
+                </div>
+                <div class="teacher-results-panel__output">
+                    <span>F&oacute;rmula</span>
+                    <code id="teacher-results-formula" class="teacher-results-panel__formula"></code>
+                </div>
+                <p id="teacher-results-feedback" class="teacher-results-panel__feedback" aria-live="polite"></p>
+            </div>
+        </section>
+
         <div id="projects-grid" class="projects-grid">
             <div class="loader" data-i18n="loading_projects">Carregant projectes...</div>
         </div>
