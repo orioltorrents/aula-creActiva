@@ -1,0 +1,177 @@
+.bio-genetics {
+    display: grid;
+    gap: 1rem;
+}
+
+.bio-genetics__start {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+.bio-genetics__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.35rem;
+}
+
+.bio-genetics__intro,
+.bio-genetics__credit {
+    margin: 0;
+}
+
+.bio-genetics__credit {
+    margin-top: 0.65rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.bio-genetics__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.bio-genetics__stats {
+    gap: 0.75rem;
+}
+
+.bio-genetics__layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 0.85fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.bio-genetics__question-card,
+.bio-genetics__punnett-card {
+    display: grid;
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.bio-genetics__context {
+    margin: 0;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.bio-genetics__question {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.bio-genetics__cross {
+    justify-self: start;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--secondary-bg);
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.bio-genetics__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+    gap: 0.75rem;
+}
+
+.bio-genetics__option {
+    min-height: 58px;
+    font-weight: 800;
+}
+
+.bio-genetics__option:disabled {
+    cursor: default;
+}
+
+.bio-genetics__feedback {
+    min-height: 1.5rem;
+}
+
+.bio-genetics__punnett-card h4 {
+    margin: 0;
+}
+
+.bio-genetics__punnett {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(56px, 1fr));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.bio-genetics__punnett-cell {
+    display: grid;
+    place-items: center;
+    min-height: 58px;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    background: #f8fafc;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-weight: 800;
+}
+
+.bio-genetics__punnett-cell:nth-child(3n) {
+    border-right: 0;
+}
+
+.bio-genetics__punnett-cell:nth-last-child(-n + 3) {
+    border-bottom: 0;
+}
+
+.bio-genetics__punnett-cell--header {
+    background: var(--secondary-bg);
+    color: var(--primary-color);
+}
+
+.bio-genetics__punnett-cell--dominant {
+    background: #dcfce7;
+}
+
+.bio-genetics__punnett-cell--recessive {
+    background: #fee2e2;
+}
+
+.bio-genetics__punnett-cell--intermediate {
+    background: #fef3c7;
+}
+
+.bio-genetics__ratios {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.bio-genetics__ratio-block {
+    padding: 0.85rem;
+    border-radius: var(--radius-md);
+    background: #f8fafc;
+}
+
+.bio-genetics__ratio-block h5 {
+    margin: 0 0 0.5rem;
+    color: var(--text-light);
+}
+
+.bio-genetics__ratio-block p {
+    margin: 0.25rem 0;
+    font-weight: 700;
+}
+
+@media (max-width: 820px) {
+    .bio-genetics__start,
+    .bio-genetics__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .bio-genetics__actions {
+        justify-content: flex-start;
+    }
+}

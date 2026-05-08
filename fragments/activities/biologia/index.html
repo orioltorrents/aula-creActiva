@@ -354,8 +354,8 @@
                                 <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="MendelSim" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">MendelSim</div>
-                                <div class="activity-card__description">Simulador interactiu de genetica mendeliana</div>
+                                <div class="activity-card__title">Genetica mendeliana</div>
+                                <div class="activity-card__description">Practica encreuaments i quadres de Punnett</div>
                             </div>
                         </div>
                     </div>
@@ -1174,26 +1174,60 @@
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Simulador de genetica -->
+                    <!-- ACTIVITAT: Genetica mendeliana -->
                     <div id="bio-activity-genetica-sim" class="sub-activity hidden">
                         <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('genetica')">Tornar al menu</button>
                         <div class="game-panel__header">
-                            <h3>MendelSim</h3>
+                            <h3>Genetica mendeliana</h3>
                         </div>
 
-                        <div class="embedded-app">
-                            <div class="embedded-app__toolbar">
-                                <p class="embedded-app__description">Simulador de genetica amb quadres de Punnett, herencia lligada al sexe i pedigrees interactius.</p>
-                                <a class="btn btn--secondary btn--auto-width" href="https://mendelsim.github.io/" target="_blank" rel="noopener noreferrer">Obrir en pestanya nova</a>
-                            </div>
-                            <iframe
-                                class="embedded-app__frame"
-                                src="https://mendelsim.github.io/"
-                                title="MendelSim, simulador de genetica"
-                                loading="lazy"
-                                referrerpolicy="no-referrer"
-                                allowfullscreen>
-                            </iframe>
+                        <div class="bio-genetics">
+                            <section id="bio-genetics-start" class="bio-genetics__start result-screen p-6">
+                                <div>
+                                    <h4 class="bio-genetics__title">Reptes amb quadres de Punnett</h4>
+                                    <p class="bio-genetics__intro">Resol encreuaments monohibrids, interpreta genotips i fenotips, i comprova els resultats amb el quadre de Punnett.</p>
+                                    <p class="bio-genetics__credit">Activitat propia inspirada en el plantejament didactic de MendelSim.</p>
+                                </div>
+                                <div class="bio-genetics__actions">
+                                    <button id="bio-genetics-start-btn" class="btn btn--primary btn--auto-width" type="button">Comencar reptes</button>
+                                    <a class="btn btn--secondary btn--auto-width" href="https://mendelsim.github.io/" target="_blank" rel="noopener noreferrer">Veure MendelSim original</a>
+                                </div>
+                            </section>
+
+                            <section id="bio-genetics-game" class="bio-genetics__game hidden">
+                                <div class="game-panel__stats bio-genetics__stats">
+                                    <div id="bio-genetics-progress">Repte 1 / 6</div>
+                                    <div id="bio-genetics-score">Encerts: 0</div>
+                                    <div id="bio-genetics-level">Monohibridisme</div>
+                                </div>
+
+                                <div class="bio-genetics__layout">
+                                    <article class="bio-genetics__question-card">
+                                        <p id="bio-genetics-context" class="bio-genetics__context"></p>
+                                        <h4 id="bio-genetics-question" class="bio-genetics__question">Pregunta...</h4>
+                                        <div id="bio-genetics-cross" class="bio-genetics__cross"></div>
+                                        <div id="bio-genetics-options" class="bio-genetics__options"></div>
+                                        <div id="bio-genetics-feedback" class="game-panel__feedback bio-genetics__feedback" aria-live="polite"></div>
+                                        <button id="bio-genetics-next-btn" class="btn btn--primary btn--auto-width hidden" type="button">Seguent repte</button>
+                                    </article>
+
+                                    <aside class="bio-genetics__punnett-card">
+                                        <h4>Quadre de Punnett</h4>
+                                        <div id="bio-genetics-punnett" class="bio-genetics__punnett" aria-live="polite"></div>
+                                        <div id="bio-genetics-ratios" class="bio-genetics__ratios"></div>
+                                    </aside>
+                                </div>
+                            </section>
+
+                            <section id="bio-genetics-results" class="result-screen hidden text-center p-8">
+                                <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
+                                <div id="bio-genetics-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
+                                <p id="bio-genetics-message" class="result-screen__message text-lg mb-8"></p>
+                                <div class="bio-genetics__actions">
+                                    <button onclick="initBioGeneticsSimGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
+                                    <button onclick="openBioSystem('genetica')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
+                                </div>
+                            </section>
                         </div>
                     </div>
 

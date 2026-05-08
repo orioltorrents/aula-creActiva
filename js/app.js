@@ -10,6 +10,7 @@
 // Substitueix aquesta URL per la que t'ha donat el Google Apps Script al fer "Deploy"
 // Exemple: 'https://script.google.com/macros/s/AKfycbx.../exec'
 const API_URL = 'https://script.google.com/macros/s/AKfycbwY3h5mvbmO64iWskhqoXb4xKbyMs-W5SwWLabV50QbmEINsjFMYvMcsSPIaqFM9bmu9w/exec';
+const DATA_SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 
 // **********************************************************
 // ESTAT DE L'APLICACIÓ
@@ -19,6 +20,37 @@ const state = {
     currentProject: null,
     currentGameTitle: ''
 };
+
+function getCurrentUserGroups() {
+    if (!state.user) return [];
+
+    const rawGroups = String(state.user.grup || state.user.curs || '');
+
+    return rawGroups
+        .split(',')
+        .map(group => group.trim())
+        .filter(group => group !== '');
+}
+
+async function loadTeacherResultGroups() {
+    const fallbackGroups = getCurrentUserGroups();
+
+    if (!canUseTeacherTools()) {
+        return fallbackGroups;
+    }
+
+    const response = await callApiGet('getResultGroups');
+
+    if (response && response.status === 'success' && Array.isArray(response.groups) && response.groups.length > 0) {
+        return response.groups;
+    }
+
+    if (response && response.status === 'error') {
+        console.warn('No s han pogut carregar els grups de resultats:', response.message);
+    }
+
+    return fallbackGroups;
+}
 
 function setGameTitle(title) {
     const fallbackTitle = state.currentProject ? state.currentProject.titol : 'Activitat';
@@ -368,16 +400,22 @@ async function callApi(action, params = {}) {
     url.searchParams.set('action', action);
 
     // Opcions per a POST (per defecte)
+    const requestParams = { ...params, action: action };
+
+    if (action === 'saveResult' && state.user && state.user.grup && !requestParams.grup) {
+        requestParams.grup = state.user.grup;
+    }
+
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: JSON.stringify({ ...params, action: action })
+        body: JSON.stringify(requestParams)
     };
 
     try {
-        const response = await fetch(API_URL, options);
+        const response = await fetch(url.toString(), options);
         const data = await response.json();
         return data;
     } catch (error) {
@@ -389,6 +427,64 @@ async function callApi(action, params = {}) {
 // **********************************************************
 // LÒGICA DE NEGOCI
 // **********************************************************
+
+async function callApiGet(action, params = {}) {
+    if (API_URL.includes('POSA_AQUI')) {
+        alert("ERROR: Has de configurar l'API_URL al fitxer js/app.js!");
+        return null;
+    }
+
+    const url = new URL(API_URL);
+    url.searchParams.set('action', action);
+
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.set(key, value == null ? '' : String(value));
+    });
+
+    try {
+        const response = await fetch(url.toString(), {
+            method: 'GET',
+            cache: 'no-cache'
+        });
+        const responseText = await response.text();
+
+        try {
+            return JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('API GET non-JSON response:', responseText);
+            return {
+                status: 'error',
+                message: responseText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240) || 'Resposta no JSON de l API'
+            };
+        }
+    } catch (error) {
+        console.error('API GET Error:', error);
+        return { status: 'error', message: `Error de connexio: ${error.message}` };
+    }
+}
+
+function getApiErrorMessage(response, fallbackMessage) {
+    if (!response) return fallbackMessage;
+    if (response.message) return response.message;
+    if (response.error) return response.error;
+    return fallbackMessage;
+}
+
+function showCreatedSheetWindowStatus(targetWindow, title, message) {
+    if (!targetWindow || targetWindow.closed || !targetWindow.document) return;
+
+    targetWindow.document.title = title;
+    targetWindow.document.body.textContent = '';
+
+    const heading = targetWindow.document.createElement('h1');
+    heading.textContent = title;
+
+    const paragraph = targetWindow.document.createElement('p');
+    paragraph.textContent = message;
+
+    targetWindow.document.body.appendChild(heading);
+    targetWindow.document.body.appendChild(paragraph);
+}
 
 async function handleLogin(email, password) {
     const btn = document.getElementById('login-btn');
@@ -452,6 +548,219 @@ async function showLoginFragment() {
     }
 }
 
+function escapeSheetsQueryValue(value) {
+    return String(value || '')
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '""');
+}
+
+function buildTeacherResultsFormula(projectTitle, groupName) {
+    const safeProject = escapeSheetsQueryValue(projectTitle);
+    const safeGroup = escapeSheetsQueryValue(groupName);
+
+    return `=QUERY(IMPORTRANGE("${DATA_SHEET_ID}"; "resultats!A:K"); "select Col1,Col2,Col4,Col5,Col7,Col8,Col9,Col10,Col11 where Col4 = '${safeGroup}' and Col5 = '${safeProject}' order by Col1 desc"; 1)`;
+}
+
+function buildTeacherResultsTitle(projectTitle, groupName) {
+    return `Resultats - ${projectTitle || 'Materia'} - ${groupName || 'Grup'}`;
+}
+
+function buildTeacherResultsTabName(projectTitle, groupName) {
+    return `${groupName || 'Grup'} - ${projectTitle || 'Materia'}`
+        .replace(/[\\/?*[\]:]/g, '-')
+        .slice(0, 90);
+}
+
+function updateTeacherResultsFormula() {
+    const projectSelect = document.getElementById('teacher-results-project');
+    const groupSelect = document.getElementById('teacher-results-course');
+    const titleOutput = document.getElementById('teacher-results-title');
+    const formulaOutput = document.getElementById('teacher-results-formula');
+
+    if (!projectSelect || !groupSelect || !formulaOutput || !titleOutput) return;
+
+    titleOutput.textContent = buildTeacherResultsTitle(projectSelect.value, groupSelect.value);
+    formulaOutput.textContent = buildTeacherResultsFormula(projectSelect.value, groupSelect.value);
+}
+
+function populateTeacherSelect(select, items, getValue, getLabel) {
+    if (!select) return;
+
+    select.innerHTML = '';
+    items.forEach(item => {
+        const option = document.createElement('option');
+        option.value = getValue(item);
+        option.textContent = getLabel(item);
+        select.appendChild(option);
+    });
+}
+
+function setupTeacherTools(projects, groups) {
+    const section = document.getElementById('teacher-tools-section');
+    if (!section) return;
+
+    if (!canUseTeacherTools()) {
+        section.classList.add('hidden');
+        return;
+    }
+
+    section.classList.remove('hidden');
+
+    const projectSelect = document.getElementById('teacher-results-project');
+    const groupSelect = document.getElementById('teacher-results-course');
+    const toolsCard = document.getElementById('teacher-tools-card');
+    const toolsPanel = document.getElementById('teacher-tools-panel');
+    const resultsCard = document.getElementById('teacher-results-card');
+    const resultsPanel = document.getElementById('teacher-results-panel');
+    const copyFormulaBtn = document.getElementById('teacher-copy-formula-btn');
+    const createSheetBtn = document.getElementById('teacher-create-sheet-btn');
+    const createStudentsSheetBtn = document.getElementById('teacher-create-students-sheet-btn');
+    const programmingCard = document.getElementById('teacher-programming-card');
+    const feedback = document.getElementById('teacher-results-feedback');
+
+    populateTeacherSelect(
+        projectSelect,
+        projects,
+        project => project.titol,
+        project => project.titol
+    );
+    populateTeacherSelect(groupSelect, groups, group => group, group => group);
+    updateTeacherResultsFormula();
+
+    [projectSelect, groupSelect].forEach(select => {
+        if (!select) return;
+        select.addEventListener('change', () => {
+            updateTeacherResultsFormula();
+            if (feedback) feedback.textContent = '';
+        });
+    });
+
+    if (toolsCard && toolsPanel) {
+        toolsCard.addEventListener('click', () => {
+            toolsPanel.classList.toggle('hidden');
+            if (resultsPanel) resultsPanel.classList.add('hidden');
+        });
+    }
+
+    if (resultsCard && resultsPanel) {
+        resultsCard.addEventListener('click', () => {
+            resultsPanel.classList.toggle('hidden');
+            if (toolsPanel) toolsPanel.classList.add('hidden');
+            updateTeacherResultsFormula();
+        });
+    }
+
+    if (copyFormulaBtn) {
+        copyFormulaBtn.addEventListener('click', async () => {
+            const formula = document.getElementById('teacher-results-formula')?.textContent || '';
+            if (!formula) return;
+
+            try {
+                await navigator.clipboard.writeText(formula);
+                if (feedback) feedback.textContent = 'Formula copiada.';
+            } catch (error) {
+                if (feedback) feedback.textContent = 'No s\'ha pogut copiar automaticament. Selecciona la formula manualment.';
+            }
+        });
+    }
+
+    if (createSheetBtn) {
+        createSheetBtn.addEventListener('click', async () => {
+            const projectTitle = projectSelect?.value || '';
+            const groupName = groupSelect?.value || '';
+            const title = buildTeacherResultsTitle(projectTitle, groupName);
+            const tabName = buildTeacherResultsTabName(projectTitle, groupName);
+            const createdSheetWindow = window.open('about:blank', '_blank');
+
+            createSheetBtn.disabled = true;
+            if (feedback) feedback.textContent = 'Creant el full...';
+            showCreatedSheetWindowStatus(
+                createdSheetWindow,
+                'Creant el full',
+                'Estem preparant el Google Sheet. Aquesta pestanya s obrira automaticament quan estigui a punt.'
+            );
+
+            try {
+                const response = await callApiGet('createResultsSheet', {
+                    projecte: projectTitle,
+                    grup: groupName,
+                    title,
+                    tabName
+                });
+
+                if (response && response.status === 'success' && response.url) {
+                    if (feedback) feedback.textContent = 'Full creat. Obrint...';
+                    if (createdSheetWindow) {
+                        createdSheetWindow.location.href = response.url;
+                    } else {
+                        window.open(response.url, '_blank', 'noopener,noreferrer');
+                    }
+                } else {
+                    const message = getApiErrorMessage(response, 'No s\'ha pogut crear el full.');
+                    if (feedback) feedback.textContent = message;
+                    showCreatedSheetWindowStatus(createdSheetWindow, 'No s ha pogut crear el full', message);
+                    console.error('Error createResultsSheet:', response);
+                }
+            } catch (error) {
+                const message = `Error creant el full: ${error.message}`;
+                if (feedback) feedback.textContent = message;
+                showCreatedSheetWindowStatus(createdSheetWindow, 'No s ha pogut crear el full', message);
+            } finally {
+                createSheetBtn.disabled = false;
+            }
+        });
+    }
+
+    if (createStudentsSheetBtn) {
+        createStudentsSheetBtn.addEventListener('click', async () => {
+            const groupName = groupSelect?.value || '';
+            const createdSheetWindow = window.open('about:blank', '_blank');
+
+            createStudentsSheetBtn.disabled = true;
+            if (feedback) feedback.textContent = 'Creant la llista alumnes...';
+            showCreatedSheetWindowStatus(
+                createdSheetWindow,
+                'Creant la llista alumnes',
+                'Estem preparant el Google Sheet. Aquesta pestanya s obrira automaticament quan estigui a punt.'
+            );
+
+            try {
+                const response = await callApiGet('createGroupStudentsSheet', {
+                    grup: groupName
+                });
+
+                if (response && response.status === 'success' && response.url) {
+                    if (feedback) feedback.textContent = `Llista creada amb ${response.count || 0} alumnes. Obrint...`;
+                    if (createdSheetWindow) {
+                        createdSheetWindow.location.href = response.url;
+                    } else {
+                        window.open(response.url, '_blank', 'noopener,noreferrer');
+                    }
+                } else {
+                    const message = getApiErrorMessage(response, 'No s\'ha pogut crear la llista alumnes.');
+                    if (feedback) feedback.textContent = message;
+                    showCreatedSheetWindowStatus(createdSheetWindow, 'No s ha pogut crear la llista', message);
+                    console.error('Error createGroupStudentsSheet:', response);
+                }
+            } catch (error) {
+                const message = `Error creant la llista: ${error.message}`;
+                if (feedback) feedback.textContent = message;
+                showCreatedSheetWindowStatus(createdSheetWindow, 'No s ha pogut crear la llista', message);
+            } finally {
+                createStudentsSheetBtn.disabled = false;
+            }
+        });
+    }
+
+    if (programmingCard) {
+        programmingCard.addEventListener('click', () => {
+            if (resultsPanel) resultsPanel.classList.add('hidden');
+            alert('Targeta preparada per connectar-hi les programacions didactiques.');
+        });
+    }
+}
+
 async function loadDashboard() {
     await showDashboardFragment();
 
@@ -492,6 +801,9 @@ async function loadDashboard() {
     } catch (e) {
         console.error("Error carregant projectes:", e);
     }
+
+    const resultGroups = await loadTeacherResultGroups();
+    setupTeacherTools(allProjects, resultGroups);
 
     grid.innerHTML = ''; // Netejar
 
@@ -1105,6 +1417,9 @@ function openBioActivity(actId) {
         }
     } else if (actId === 'genetica-sim') {
         document.getElementById('bio-activity-genetica-sim').classList.remove('hidden');
+        if (typeof initBioGeneticsSimGame === 'function') {
+            initBioGeneticsSimGame();
+        }
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];
         document.getElementById('bio-activity-' + actId).classList.remove('hidden');
