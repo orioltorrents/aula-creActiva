@@ -506,6 +506,7 @@
     }
 
     window.initMacroKeyActivity = initMacroKeyActivity;
+    window.selectMacroKey = selectMacroKey;
     window.startMacroKeySpecimen = startMacroKeySpecimen;
     window.answerMacroKey = answerMacroKey;
     window.nextMacroKeyStep = nextMacroKeyStep;
