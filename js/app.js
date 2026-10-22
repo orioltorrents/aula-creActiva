@@ -1551,6 +1551,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'clau-macroinvertebrats') {
         document.getElementById('natura-activity-clau-macroinvertebrats').classList.remove('hidden');
         if (typeof initMacroKeyActivity === 'function') initMacroKeyActivity();
+    } else if (actId === 'bioindicadors') {
+        document.getElementById('natura-activity-bioindicadors').classList.remove('hidden');
+        if (typeof initRiverBioActivity === 'function') initRiverBioActivity();
     }
 }
 

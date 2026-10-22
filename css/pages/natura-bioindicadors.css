@@ -1,0 +1,177 @@
+/* Estils per a l'activitat de bioindicadors del riu */
+
+.river-bioactivity {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.river-bioactivity__header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.river-bioactivity__progress {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: var(--text-light, #6b7280);
+    margin-bottom: 1rem;
+}
+
+.river-bioactivity__current {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.25rem;
+    border: 2px solid var(--border-color, #d1d5db);
+    border-radius: var(--radius-lg, 12px);
+    background: var(--surface-bg, #ffffff);
+    margin-bottom: 1.5rem;
+}
+
+.river-bio-specimen__image {
+    width: 160px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.river-bio-specimen__content h4 {
+    margin: 0.25rem 0;
+    font-size: 1.25rem;
+}
+
+.river-bio-specimen__eyebrow {
+    font-size: 0.85rem;
+    color: var(--text-light, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.river-bioactivity__color-actions {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.river-bio-color-button {
+    padding: 0.85rem;
+    border: none;
+    border-radius: var(--radius-md, 8px);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast, all 0.2s);
+}
+
+.river-bio-color-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.river-bio-color-button--blue { background-color: #2563eb; }
+.river-bio-color-button--green { background-color: #10b981; }
+.river-bio-color-button--yellow { background-color: #eab308; color: #1f2937; }
+.river-bio-color-button--orange { background-color: #f97316; }
+.river-bio-color-button--red { background-color: #ef4444; }
+
+.river-bioactivity__drawers {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.river-bio-drawer {
+    padding: 0.75rem;
+    border-radius: var(--radius-md, 8px);
+    background: var(--secondary-bg, #f3f4f6);
+    min-height: 220px;
+}
+
+.river-bio-drawer h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.river-bio-drawer--blue { border-top: 4px solid #2563eb; }
+.river-bio-drawer--green { border-top: 4px solid #10b981; }
+.river-bio-drawer--yellow { border-top: 4px solid #eab308; }
+.river-bio-drawer--orange { border-top: 4px solid #f97316; }
+.river-bio-drawer--red { border-top: 4px solid #ef4444; }
+
+.river-bio-drawer__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.river-bio-specimen-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    background: #ffffff;
+    border: 1px solid var(--border-color, #d1d5db);
+    border-radius: var(--radius-sm, 4px);
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.river-bio-specimen-card img {
+    width: 60px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.river-bio-specimen-card.is-correct {
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.river-bio-specimen-card.is-incorrect {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.river-bioactivity__state-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.river-bio-state-button {
+    padding: 0.75rem 1.25rem;
+    border: 2px solid var(--border-color, #d1d5db);
+    border-radius: var(--radius-md, 8px);
+    background: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.river-bio-state-button:hover {
+    border-color: var(--primary-color, #000000);
+}
+
+.river-bioactivity__result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: var(--radius-md, 8px);
+    background: var(--surface-bg, #ffffff);
+    border: 1px solid var(--border-color, #d1d5db);
+}
+
+.river-bio-result__feedback.is-success {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.river-bio-result__feedback.is-error {
+    color: #ef4444;
+    font-weight: 700;
+}

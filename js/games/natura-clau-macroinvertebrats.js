@@ -268,6 +268,102 @@
             image: 'assets/images/natura/clau-macroinvertebrats/Wormaldia.PNG',
             result: 'Insectes',
             path: ['yes', 'six']
+        },
+        {
+            id: 'dryops-algiricus',
+            name: 'Dryops algiricus',
+            scientificName: 'Dryops algiricus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Dryops algiricus.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'dryops-larva',
+            name: 'Larva de Dryops',
+            scientificName: 'Dryops',
+            image: 'assets/images/natura/clau-macroinvertebrats/Dryops-larvae.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'elmis',
+            name: 'Elmis',
+            scientificName: 'Elmis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Elmis.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'elmis-larva',
+            name: 'Larva d’Elmis',
+            scientificName: 'Elmis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Elmis-larvae.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'gyrinus-urinator',
+            name: 'Gyrinus urinator',
+            scientificName: 'Gyrinus urinator',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus urinator.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'gyrinus-larva',
+            name: 'Larva de Gyrinus',
+            scientificName: 'Gyrinus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus-larva.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'halesus',
+            name: 'Halesus',
+            scientificName: 'Halesus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Halesus.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'haliplus-larva',
+            name: 'Larva de Haliplus',
+            scientificName: 'Haliplus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Haliplus-larvae.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'haliplus',
+            name: 'Haliplus',
+            scientificName: 'Haliplus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Haliplus.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'hydrophilus-pistaceus-larva',
+            name: 'Larva de Hydrophilus pistaceus',
+            scientificName: 'Hydrophilus pistaceus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus-larva.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'hydrophilus-pistaceus',
+            name: 'Hydrophilus pistaceus',
+            scientificName: 'Hydrophilus pistaceus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'mystacides-azurea',
+            name: 'Mystacides azurea',
+            scientificName: 'Mystacides azurea',
+            image: 'assets/images/natura/clau-macroinvertebrats/Mystacides azurea.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
         }
     ];
 
@@ -405,6 +501,66 @@
             result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
         },
         {
+            id: 'dryops-algiricus-insectes', name: 'Dryops algiricus', scientificName: 'Dryops algiricus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Dryops algiricus.PNG',
+            result: 'Coleòpters', family: 'Dryopidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'dryops-larva-insectes', name: 'Larva de Dryops', scientificName: 'Dryops',
+            image: 'assets/images/natura/clau-macroinvertebrats/Dryops-larvae.PNG',
+            result: 'Coleòpters', family: 'Dryopidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'elmis-insectes', name: 'Elmis', scientificName: 'Elmis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Elmis.PNG',
+            result: 'Coleòpters', family: 'Elmidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'elmis-larva-insectes', name: 'Larva d’Elmis', scientificName: 'Elmis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Elmis-larvae.PNG',
+            result: 'Coleòpters', family: 'Elmidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'gyrinus-urinator-insectes', name: 'Gyrinus urinator', scientificName: 'Gyrinus urinator',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus urinator.PNG',
+            result: 'Coleòpters', family: 'Gyrinidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'gyrinus-larva-insectes', name: 'Larva de Gyrinus', scientificName: 'Gyrinus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus-larva.PNG',
+            result: 'Coleòpters', family: 'Gyrinidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'halesus-insectes', name: 'Halesus', scientificName: 'Halesus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Halesus.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'haliplus-larva-insectes', name: 'Larva de Haliplus', scientificName: 'Haliplus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Haliplus-larvae.PNG',
+            result: 'Coleòpters', family: 'Haliplidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'haliplus-insectes', name: 'Haliplus', scientificName: 'Haliplus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Haliplus.PNG',
+            result: 'Coleòpters', family: 'Haliplidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'hydrophilus-pistaceus-larva-insectes', name: 'Larva de Hydrophilus pistaceus', scientificName: 'Hydrophilus pistaceus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus-larva.PNG',
+            result: 'Coleòpters', family: 'Hydrophilidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'hydrophilus-pistaceus-insectes', name: 'Hydrophilus pistaceus', scientificName: 'Hydrophilus pistaceus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus.PNG',
+            result: 'Coleòpters', family: 'Hydrophilidae', path: ['yes', 'yes']
+        },
+        {
+            id: 'mystacides-azurea-insectes', name: 'Mystacides azurea', scientificName: 'Mystacides azurea',
+            image: 'assets/images/natura/clau-macroinvertebrats/Mystacides azurea.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
             id: 'odonata', name: 'Libèl·lula', scientificName: 'Odonata',
             image: 'assets/images/natura/Odonata.png',
             result: 'Odonats', family: '', path: ['yes', 'no', 'yes', 'lamina']
@@ -489,7 +645,7 @@
         },
         insects: {
             start: 'Les larves d’insecte tenen tres parells de potes articulades al tòrax.',
-            elytra: 'Els èlitres són unes cobertes dures, semblants a una closca, que protegeixen les ales dels escarabats.',
+            elytra: 'Els èlitres són unes cobertes dures que protegeixen les ales de l’escarabat adult. Les larves encara no tenen els èlitres desenvolupats i poden tenir una forma molt diferent de l’adult.',
             eyes: 'Els ulls compostos tenen moltes petites facetes. Els estoigs alars són cobertes que protegeixen les ales.',
             caudal: 'Mira les estructures de l’extrem posterior: poden ser làmines, una cúpula, un sifó o cercs.',
             'gill-cerci': 'Els cercs són apèndixs de l’extrem de l’abdomen. Les brànquies abdominals ajuden a respirar sota l’aigua.',

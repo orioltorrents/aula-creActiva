@@ -12,14 +12,12 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Catàleg ampliat de la clau d'insectes
-- Afegits 12 exemplars nous a la clau específica d'ordres d'insectes, fins a 17 exemplars disponibles.
-- Corregit el recorregut de la libèl·lula perquè arribi a l'opció de làmines o cúpula anal.
+### 2026-10-22 - Nova activitat Bioindicadors del riu
+- Creada l'activitat `bioindicadors` amb classificació per calaixos de colors (blau, verd, groc, carbassa, vermell).
+- L'estat ecològic s'interpreta en funció del recompte de famílies úniques (mínim 2 famílies diferents per validar un color) i es desa el resultat.
 
-### 2026-10-22 - Nous tricòpters a la clau de macroinvertebrats
-- Afegits Hydropsyche, Polycentropus, Potamophylax, Rhyacophila, Sericostoma personatum i Wormaldia.
-- Corregides les referències d'imatge de Chironomus i dels noms de fitxer que tenien punts duplicats.
+### 2026-10-22 - Pistes i imatges a la clau de macroinvertebrats
+- Afegit el botó de pista a les dues claus i imatges il·lustratives a les targetes del selector inicial.
 
-### 2026-10-22 - Nous organismes a la clau de macroinvertebrats
-- Afegits deu organismes nous al selector de la clau principal, amb recorreguts, grups finals i imatges corresponents.
-- Els nous registres es corregeixen, puntuen i desen amb el mateix flux que els organismes existents.
+### 2026-10-22 - Més coleòpters i tricòpters a la clau
+- Afegits 12 exemplars nous a la clau general i a la clau específica d'ordres d'insectes.

@@ -87,6 +87,15 @@
                                         <div class="activity-card__description">Determina el grup dels principals macroinvertebrats aquàtics.</div>
                                     </div>
                                 </div>
+                                <div class="activity-card" onclick="openNaturaActivity('bioindicadors')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG" alt="Fitxa de camp de macroinvertebrats" class="activity-card__image activity-card__image--contain">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Bioindicadors del riu</div>
+                                        <div class="activity-card__description">Classifica les famílies i interpreta l’estat ecològic del riu.</div>
+                                    </div>
+                                </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
                                     <div class="activity-card__media">
                                         <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
@@ -758,7 +767,7 @@
                         </div>
 
                         <!-- ACTIVITAT: Clau dicotòmica dels macroinvertebrats -->
-                        <div id="natura-activity-clau-macroinvertebrats" class="sub-activity hidden">
+                         <div id="natura-activity-clau-macroinvertebrats" class="sub-activity hidden">
                             <button class="btn btn--secondary btn--sm mb-2" onclick="openNaturaProject('rius')">← Tornar al menú del Projecte Rius</button>
 
                             <div class="dichotomous-key-container">
@@ -770,16 +779,82 @@
                                 <div id="macro-key-key-selector" class="macro-key-key-selector">
                                     <h4>Tria una clau</h4>
                                     <div class="macro-key-key-options">
-                                        <button type="button" class="macro-key-key-card" onclick="selectMacroKey('groups')">
-                                            <strong>Grans grups d’invertebrats aquàtics</strong>
-                                            <span>Identifica el grup principal de l’organisme.</span>
-                                        </button>
-                                        <button type="button" class="macro-key-key-card" onclick="selectMacroKey('insects')">
-                                            <strong>Ordres d’insectes en fase aquàtica</strong>
-                                            <span>Determina l’ordre de la larva o nimfa.</span>
-                                        </button>
-                                    </div>
-                                </div>
+                                         <button type="button" class="macro-key-key-card" onclick="selectMacroKey('groups')">
+                                             <img class="macro-key-key-card__image" src="assets/images/natura/clau-macroinvertebrats/Ancylus.PNG" alt="Macroinvertebrat aquàtic amb closca">
+                                             <strong>Grans grups d’invertebrats aquàtics</strong>
+                                             <span>Identifica el grup principal de l’organisme.</span>
+                                         </button>
+                                         <button type="button" class="macro-key-key-card" onclick="selectMacroKey('insects')">
+                                             <img class="macro-key-key-card__image" src="assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG" alt="Larva de tricòpter aquàtic">
+                                             <strong>Ordres d’insectes en fase aquàtica</strong>
+                                             <span>Determina l’ordre de la larva o nimfa.</span>
+                                         </button>
+                         </div>
+
+                         <div id="natura-activity-bioindicadors" class="sub-activity hidden">
+                             <button class="btn btn--secondary btn--sm mb-2" onclick="openNaturaProject('rius')">← Tornar al menú del Projecte Rius</button>
+
+                             <div class="river-bioactivity">
+                                 <div class="river-bioactivity__header">
+                                     <h3>Bioindicadors del riu</h3>
+                                     <p>Classifica deu macroinvertebrats segons el color de la seva família i interpreta el conjunt de dades.</p>
+                                 </div>
+
+                                 <div id="river-bio-round" class="river-bioactivity__round">
+                                     <div class="river-bioactivity__progress">
+                                         <span id="river-bio-progress">Espècie 1 de 10</span>
+                                         <span id="river-bio-classified">Classificades: 0</span>
+                                     </div>
+                                     <div id="river-bio-current" class="river-bioactivity__current"></div>
+                                     <div id="river-bio-color-actions" class="river-bioactivity__color-actions" aria-label="Tria el color de la família">
+                                         <button type="button" class="river-bio-color-button river-bio-color-button--blue" onclick="classifyRiverBioSpecimen('blue')">Blau</button>
+                                         <button type="button" class="river-bio-color-button river-bio-color-button--green" onclick="classifyRiverBioSpecimen('green')">Verd</button>
+                                         <button type="button" class="river-bio-color-button river-bio-color-button--yellow" onclick="classifyRiverBioSpecimen('yellow')">Groc</button>
+                                         <button type="button" class="river-bio-color-button river-bio-color-button--orange" onclick="classifyRiverBioSpecimen('orange')">Carbassa</button>
+                                         <button type="button" class="river-bio-color-button river-bio-color-button--red" onclick="classifyRiverBioSpecimen('red')">Vermell</button>
+                                     </div>
+                                 </div>
+
+                                 <div class="river-bioactivity__drawers" aria-label="Calaixos de classificació">
+                                     <section class="river-bio-drawer river-bio-drawer--blue">
+                                         <h4>Blau <span id="river-bio-count-blue">0</span></h4>
+                                         <div id="river-bio-drawer-blue" class="river-bio-drawer__items"></div>
+                                     </section>
+                                     <section class="river-bio-drawer river-bio-drawer--green">
+                                         <h4>Verd <span id="river-bio-count-green">0</span></h4>
+                                         <div id="river-bio-drawer-green" class="river-bio-drawer__items"></div>
+                                     </section>
+                                     <section class="river-bio-drawer river-bio-drawer--yellow">
+                                         <h4>Groc <span id="river-bio-count-yellow">0</span></h4>
+                                         <div id="river-bio-drawer-yellow" class="river-bio-drawer__items"></div>
+                                     </section>
+                                     <section class="river-bio-drawer river-bio-drawer--orange">
+                                         <h4>Carbassa <span id="river-bio-count-orange">0</span></h4>
+                                         <div id="river-bio-drawer-orange" class="river-bio-drawer__items"></div>
+                                     </section>
+                                     <section class="river-bio-drawer river-bio-drawer--red">
+                                         <h4>Vermell <span id="river-bio-count-red">0</span></h4>
+                                         <div id="river-bio-drawer-red" class="river-bio-drawer__items"></div>
+                                     </section>
+                                 </div>
+
+                                 <div id="river-bio-decision" class="river-bioactivity__decision hidden">
+                                     <h3>Quin és l’estat ecològic del riu?</h3>
+                                     <p>No et fixis en una sola espècie: compta les famílies diferents de cada color.</p>
+                                     <div class="river-bioactivity__state-actions">
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('blue')">Molt bo</button>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('green')">Bo</button>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('yellow')">Moderat</button>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('orange')">Dolent</button>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('red')">Molt dolent</button>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('insufficient')">Dades insuficients</button>
+                                     </div>
+                                     <div id="river-bio-result" class="river-bioactivity__result" aria-live="polite"></div>
+                                     <button type="button" class="btn btn--primary" onclick="initRiverBioActivity()">Tornar a començar</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
 
                                 <div id="macro-key-specimen-selector" class="macro-key-specimen-grid"></div>
 
