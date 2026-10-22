@@ -71,7 +71,7 @@
     };
 
     const FALLBACK_CULEX_DATA = {
-        "title": "Larva de Culex",
+        "title": "Culex",
         "questions": [
             { "id": "q_cap", "prompt": "Assenyala: Càpsula cefàlica", "target_anatomy_id": "cap" },
             { "id": "q_ulls", "prompt": "Assenyala: Taques oculars", "target_anatomy_id": "ulls" },
@@ -96,7 +96,7 @@
     };
 
     const FALLBACK_HYDROPSYCHE_DATA = {
-        "title": "Larva d'Hydropsyche",
+        "title": "Hydropsyche",
         "questions": [
             { "id": "q_cap", "prompt": "Assenyala: Càpsula cefàlica", "target_anatomy_id": "cap" },
             { "id": "q_ulls", "prompt": "Assenyala: Taques oculars", "target_anatomy_id": "ulls" },
@@ -142,33 +142,33 @@
 
     const MODEL_CONFIGS = {
         betid: {
-            title: 'Larva de Baetis',
+            title: 'Baetis',
             modelUrl: 'assets/models/Betis/Betid_web.glb',
             jsonUrl: 'assets/models/Betis/Anatomia_betid.json',
             fallback: FALLBACK_GAME_DATA
         },
         simulium: {
-            title: 'Larva de Simulium',
+            title: 'Simulium',
             modelUrl: 'assets/models/Simulium/Simulium_web.glb',
             jsonUrl: 'assets/models/Simulium/Anatomia_Simulium.json',
             fallback: FALLBACK_SIMULIUM_DATA
         },
         culex: {
-            title: 'Larva de Culex',
+            title: 'Culex',
             modelUrl: 'assets/models/Culex/Culex_web.glb',
             jsonUrl: 'assets/models/Culex/Anatomia_Culex.json',
             fallback: FALLBACK_CULEX_DATA
         },
         hydropsyche: {
-            title: "Larva d'Hydropsyche",
-            modelUrl: 'assets/models/Hydropsyche/Hydropsyche_web.glb',
-            jsonUrl: 'assets/models/Hydropsyche/Anatomia_Hydropsyche.json',
+            title: 'Hydropsyche',
+            modelUrl: 'assets/models/Hydropsyche_animat/Hydropsyche_animat.glb',
+            jsonUrl: 'assets/models/Hydropsyche_animat/Anatomia_Hydropsyche.json',
             fallback: FALLBACK_HYDROPSYCHE_DATA
         },
         echinogammarus: {
             title: 'Echinogammarus',
-            modelUrl: 'assets/models/Echinogammarus/Echinogammarus_web.glb',
-            jsonUrl: 'assets/models/Echinogammarus/Anatomia_Echinogammarus.json',
+            modelUrl: 'assets/models/Echinogammarus_animat/Echinogammarus_animat.glb',
+            jsonUrl: 'assets/models/Echinogammarus_animat/Anatomia_Echinogammarus.json',
             fallback: FALLBACK_ECHINOGAMMARUS_DATA
         }
     };

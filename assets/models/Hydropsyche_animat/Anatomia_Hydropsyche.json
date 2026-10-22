@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "title": "Larva d'Hydropsyche",
+  "model": "Hydropsyche_animat.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "id": "cap",
+      "label_ca": "Càpsula cefàlica",
+      "elements": [
+        "cap"
+      ]
+    },
+    {
+      "id": "ulls",
+      "label_ca": "Taques oculars",
+      "elements": [
+        "ull_E",
+        "ull_D"
+      ]
+    },
+    {
+      "id": "antenes",
+      "label_ca": "Antenes curtes",
+      "elements": [
+        "antena_E",
+        "antena_D"
+      ]
+    },
+    {
+      "id": "mandibules",
+      "label_ca": "Mandíbules",
+      "elements": [
+        "mandibula_E",
+        "mandibula_D"
+      ]
+    },
+    {
+      "id": "palps",
+      "label_ca": "Palps bucals",
+      "elements": [
+        "palp_E",
+        "palp_D"
+      ]
+    },
+    {
+      "id": "labre",
+      "label_ca": "Labre",
+      "elements": [
+        "labre"
+      ]
+    },
+    {
+      "id": "torax",
+      "label_ca": "Tòrax",
+      "elements": [
+        "torax_1",
+        "torax_2",
+        "torax_3"
+      ]
+    },
+    {
+      "id": "pronot",
+      "label_ca": "Pronot (placa del protòrax)",
+      "elements": [
+        "pronot"
+      ]
+    },
+    {
+      "id": "mesonot",
+      "label_ca": "Mesonot (placa del mesotòrax)",
+      "elements": [
+        "mesonot"
+      ]
+    },
+    {
+      "id": "metanot",
+      "label_ca": "Metanot (placa del metatòrax)",
+      "elements": [
+        "metanot"
+      ]
+    },
+    {
+      "id": "potes",
+      "label_ca": "Potes toràciques",
+      "elements": [
+        "pota_1_E",
+        "pota_1_D",
+        "pota_2_E",
+        "pota_2_D",
+        "pota_3_E",
+        "pota_3_D"
+      ]
+    },
+    {
+      "id": "ungles_potes",
+      "label_ca": "Ungles de les potes",
+      "elements": [
+        "ungla_pota_1_E",
+        "ungla_pota_1_D",
+        "ungla_pota_2_E",
+        "ungla_pota_2_D",
+        "ungla_pota_3_E",
+        "ungla_pota_3_D"
+      ]
+    },
+    {
+      "id": "setes",
+      "label_ca": "Setes del cos i les potes",
+      "elements": [
+        "setes_pota_1_E",
+        "setes_pota_1_D",
+        "setes_pota_2_E",
+        "setes_pota_2_D",
+        "setes_pota_3_E",
+        "setes_pota_3_D",
+        "setes_abdomen_01",
+        "setes_abdomen_02",
+        "setes_abdomen_03",
+        "setes_abdomen_04",
+        "setes_abdomen_05",
+        "setes_abdomen_06",
+        "setes_abdomen_07",
+        "setes_abdomen_08",
+        "setes_abdomen_09",
+        "setes_cap"
+      ]
+    },
+    {
+      "id": "abdomen",
+      "label_ca": "Abdomen (segments I–IX)",
+      "elements": [
+        "abdomen_01",
+        "abdomen_02",
+        "abdomen_03",
+        "abdomen_04",
+        "abdomen_05",
+        "abdomen_06",
+        "abdomen_07",
+        "abdomen_08",
+        "abdomen_09"
+      ]
+    },
+    {
+      "id": "branquies",
+      "label_ca": "Brànquies abdominals ramificades",
+      "elements": [
+        "branquies_1_E",
+        "branquies_1_D",
+        "branquies_2_E",
+        "branquies_2_D",
+        "branquies_3_E",
+        "branquies_3_D",
+        "branquies_4_E",
+        "branquies_4_D",
+        "branquies_5_E",
+        "branquies_5_D",
+        "branquies_6_E",
+        "branquies_6_D",
+        "branquies_7_E",
+        "branquies_7_D"
+      ]
+    },
+    {
+      "id": "segment_anal",
+      "label_ca": "Segment anal",
+      "elements": [
+        "segment_anal"
+      ]
+    },
+    {
+      "id": "pseudopodis_anals",
+      "label_ca": "Pseudopodis anals",
+      "elements": [
+        "pseudopodi_anal_E",
+        "pseudopodi_anal_D"
+      ]
+    },
+    {
+      "id": "ganxos_anals",
+      "label_ca": "Ganxos anals",
+      "elements": [
+        "ganxo_anal_E",
+        "ganxo_anal_D"
+      ]
+    },
+    {
+      "id": "plomalls_anals",
+      "label_ca": "Plomalls de setes anals",
+      "elements": [
+        "plomall_anal_E",
+        "plomall_anal_D"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_cap",
+      "prompt": "Assenyala: Càpsula cefàlica",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "q_ulls",
+      "prompt": "Assenyala: Taques oculars",
+      "target_anatomy_id": "ulls"
+    },
+    {
+      "id": "q_antenes",
+      "prompt": "Assenyala: Antenes curtes",
+      "target_anatomy_id": "antenes"
+    },
+    {
+      "id": "q_mandibules",
+      "prompt": "Assenyala: Mandíbules",
+      "target_anatomy_id": "mandibules"
+    },
+    {
+      "id": "q_palps",
+      "prompt": "Assenyala: Palps bucals",
+      "target_anatomy_id": "palps"
+    },
+    {
+      "id": "q_labre",
+      "prompt": "Assenyala: Labre",
+      "target_anatomy_id": "labre"
+    },
+    {
+      "id": "q_torax",
+      "prompt": "Assenyala: Tòrax",
+      "target_anatomy_id": "torax"
+    },
+    {
+      "id": "q_pronot",
+      "prompt": "Assenyala: Pronot (placa del protòrax)",
+      "target_anatomy_id": "pronot"
+    },
+    {
+      "id": "q_mesonot",
+      "prompt": "Assenyala: Mesonot (placa del mesotòrax)",
+      "target_anatomy_id": "mesonot"
+    },
+    {
+      "id": "q_metanot",
+      "prompt": "Assenyala: Metanot (placa del metatòrax)",
+      "target_anatomy_id": "metanot"
+    },
+    {
+      "id": "q_potes",
+      "prompt": "Assenyala: Potes toràciques",
+      "target_anatomy_id": "potes"
+    },
+    {
+      "id": "q_ungles_potes",
+      "prompt": "Assenyala: Ungles de les potes",
+      "target_anatomy_id": "ungles_potes"
+    },
+    {
+      "id": "q_setes",
+      "prompt": "Assenyala: Setes del cos i les potes",
+      "target_anatomy_id": "setes"
+    },
+    {
+      "id": "q_abdomen",
+      "prompt": "Assenyala: Abdomen (segments I–IX)",
+      "target_anatomy_id": "abdomen"
+    },
+    {
+      "id": "q_branquies",
+      "prompt": "Assenyala: Brànquies abdominals ramificades",
+      "target_anatomy_id": "branquies"
+    },
+    {
+      "id": "q_segment_anal",
+      "prompt": "Assenyala: Segment anal",
+      "target_anatomy_id": "segment_anal"
+    },
+    {
+      "id": "q_pseudopodis_anals",
+      "prompt": "Assenyala: Pseudopodis anals",
+      "target_anatomy_id": "pseudopodis_anals"
+    },
+    {
+      "id": "q_ganxos_anals",
+      "prompt": "Assenyala: Ganxos anals",
+      "target_anatomy_id": "ganxos_anals"
+    },
+    {
+      "id": "q_plomalls_anals",
+      "prompt": "Assenyala: Plomalls de setes anals",
+      "target_anatomy_id": "plomalls_anals"
+    }
+  ],
+  "notes": [
+    "Model didàctic d'Hydropsyche sp.; no determina l'espècie, tot i que una referència s'anomena H. pellucidula.",
+    "Brànquies ventrals ramificades; distribució i nombre de filaments simplificats.",
+    "Tres plaques toràciques, sis potes i dos pseudopodis anals amb ganxos.",
+    "Metadades anatomy_id, element_id i label_ca als nodes; consultar els ancestres si el visor subdivideix els materials.",
+    "Model estàtic. L'activitat web s'ha de programar a part."
+  ],
+  "animation": {
+    "clip": "Moviment_suau",
+    "duration_seconds": 6,
+    "loop": true,
+    "pause_during_questions": true,
+    "note_ca": "Moviment discret i didàctic dels apèndixs; no és una simulació biomecànica."
+  }
+}
