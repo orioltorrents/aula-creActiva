@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "title": "Larva de Culex",
+  "model": "Culex_web.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "id": "cap",
+      "label_ca": "Càpsula cefàlica",
+      "elements": [
+        "cap"
+      ]
+    },
+    {
+      "id": "ulls",
+      "label_ca": "Taques oculars",
+      "elements": [
+        "ull_E",
+        "ull_D"
+      ]
+    },
+    {
+      "id": "antenes",
+      "label_ca": "Antenes",
+      "elements": [
+        "antena_E",
+        "antena_D"
+      ]
+    },
+    {
+      "id": "setes_antenals",
+      "label_ca": "Plomalls de les antenes",
+      "elements": [
+        "plomall_antena_E",
+        "plomall_antena_D"
+      ]
+    },
+    {
+      "id": "raspalls_bucals",
+      "label_ca": "Raspalls bucals filtradors",
+      "elements": [
+        "raspall_bucal_E",
+        "raspall_bucal_D"
+      ]
+    },
+    {
+      "id": "peces_bucals",
+      "label_ca": "Peces bucals",
+      "elements": [
+        "peces_bucals"
+      ]
+    },
+    {
+      "id": "torax",
+      "label_ca": "Tòrax",
+      "elements": [
+        "torax"
+      ]
+    },
+    {
+      "id": "abdomen",
+      "label_ca": "Abdomen (segments I-VIII)",
+      "elements": [
+        "abdomen_01",
+        "abdomen_02",
+        "abdomen_03",
+        "abdomen_04",
+        "abdomen_05",
+        "abdomen_06",
+        "abdomen_07",
+        "abdomen_08"
+      ]
+    },
+    {
+      "id": "setes_cos",
+      "label_ca": "Setes del cos",
+      "elements": [
+        "setes_abdomen_01",
+        "setes_abdomen_02",
+        "setes_abdomen_03",
+        "setes_abdomen_04",
+        "setes_abdomen_05",
+        "setes_abdomen_06",
+        "setes_abdomen_07",
+        "setes_abdomen_08",
+        "setes_torax",
+        "setes_cap"
+      ]
+    },
+    {
+      "id": "sifo",
+      "label_ca": "Sifó respiratori",
+      "elements": [
+        "sifo_respiratori"
+      ]
+    },
+    {
+      "id": "espiracles",
+      "label_ca": "Obertura respiratòria",
+      "elements": [
+        "aparell_espiracular"
+      ]
+    },
+    {
+      "id": "setes_sifo",
+      "label_ca": "Plomalls del sifó",
+      "elements": [
+        "setes_sifo"
+      ]
+    },
+    {
+      "id": "pecten",
+      "label_ca": "Pecten del sifó",
+      "elements": [
+        "pecten_sifo"
+      ]
+    },
+    {
+      "id": "pinta",
+      "label_ca": "Pinta del segment VIII",
+      "elements": [
+        "pinta_abdominal"
+      ]
+    },
+    {
+      "id": "segment_anal",
+      "label_ca": "Segment anal (X)",
+      "elements": [
+        "segment_anal"
+      ]
+    },
+    {
+      "id": "sella",
+      "label_ca": "Sella del segment anal",
+      "elements": [
+        "sella_anal"
+      ]
+    },
+    {
+      "id": "papilles_anals",
+      "label_ca": "Papilles anals",
+      "elements": [
+        "papilla_anal_1",
+        "papilla_anal_2",
+        "papilla_anal_3",
+        "papilla_anal_4"
+      ]
+    },
+    {
+      "id": "raspall_ventral",
+      "label_ca": "Raspall ventral del segment anal",
+      "elements": [
+        "raspall_ventral"
+      ]
+    },
+    {
+      "id": "setes_anals",
+      "label_ca": "Setes anals dorsals",
+      "elements": [
+        "setes_anals_dorsals"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_cap",
+      "prompt": "Assenyala: Càpsula cefàlica",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "q_ulls",
+      "prompt": "Assenyala: Taques oculars",
+      "target_anatomy_id": "ulls"
+    },
+    {
+      "id": "q_antenes",
+      "prompt": "Assenyala: Antenes",
+      "target_anatomy_id": "antenes"
+    },
+    {
+      "id": "q_setes_antenals",
+      "prompt": "Assenyala: Plomalls de les antenes",
+      "target_anatomy_id": "setes_antenals"
+    },
+    {
+      "id": "q_raspalls_bucals",
+      "prompt": "Assenyala: Raspalls bucals filtradors",
+      "target_anatomy_id": "raspalls_bucals"
+    },
+    {
+      "id": "q_peces_bucals",
+      "prompt": "Assenyala: Peces bucals",
+      "target_anatomy_id": "peces_bucals"
+    },
+    {
+      "id": "q_torax",
+      "prompt": "Assenyala: Tòrax",
+      "target_anatomy_id": "torax"
+    },
+    {
+      "id": "q_abdomen",
+      "prompt": "Assenyala: Abdomen (segments I-VIII)",
+      "target_anatomy_id": "abdomen"
+    },
+    {
+      "id": "q_setes_cos",
+      "prompt": "Assenyala: Setes del cos",
+      "target_anatomy_id": "setes_cos"
+    },
+    {
+      "id": "q_sifo",
+      "prompt": "Assenyala: Sifó respiratori",
+      "target_anatomy_id": "sifo"
+    },
+    {
+      "id": "q_espiracles",
+      "prompt": "Assenyala: Obertura respiratòria",
+      "target_anatomy_id": "espiracles"
+    },
+    {
+      "id": "q_setes_sifo",
+      "prompt": "Assenyala: Plomalls del sifó",
+      "target_anatomy_id": "setes_sifo"
+    },
+    {
+      "id": "q_pecten",
+      "prompt": "Assenyala: Pecten del sifó",
+      "target_anatomy_id": "pecten"
+    },
+    {
+      "id": "q_pinta",
+      "prompt": "Assenyala: Pinta del segment VIII",
+      "target_anatomy_id": "pinta"
+    },
+    {
+      "id": "q_segment_anal",
+      "prompt": "Assenyala: Segment anal (X)",
+      "target_anatomy_id": "segment_anal"
+    },
+    {
+      "id": "q_sella",
+      "prompt": "Assenyala: Sella del segment anal",
+      "target_anatomy_id": "sella"
+    },
+    {
+      "id": "q_papilles_anals",
+      "prompt": "Assenyala: Papilles anals",
+      "target_anatomy_id": "papilles_anals"
+    },
+    {
+      "id": "q_raspall_ventral",
+      "prompt": "Assenyala: Raspall ventral del segment anal",
+      "target_anatomy_id": "raspall_ventral"
+    },
+    {
+      "id": "q_setes_anals",
+      "prompt": "Assenyala: Setes anals dorsals",
+      "target_anatomy_id": "setes_anals"
+    }
+  ],
+  "notes": [
+    "Model didactic de Culex sp., sense determinar especie.",
+    "Setes, dents i proporcions simplificades; no utilitzar-ne els recomptes en claus taxonomiques.",
+    "Metadades anatomy_id, element_id i label_ca als objectes GLB; cercar tambe als ancestres del mesh seleccionat.",
+    "Papilles anals: quatre. Sifo respiratori separat del segment anal.",
+    "No inclou programacio de l'activitat web."
+  ]
+}

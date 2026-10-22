@@ -16,10 +16,10 @@
 - Afegit un selector entre la clau de grans grups i la clau dels ordres d'insectes en fase aquàtica.
 - La segona clau inclou resultats en català per Dípters, Odonats, Efemeròpters, Tricòpters i la resta d'ordres del document, amb famílies quan estan disponibles.
 
+### 2026-10-22 - Model 3D de la larva de Culex
+- Afegit Culex al selector de l'activitat 3D amb `Culex_web.glb` i `Anatomia_Culex.json`.
+- Les preguntes anatòmiques es carreguen des del JSON i tenen dades de reserva integrades.
+
 ### 2026-10-22 - Primera clau dicotòmica de macroinvertebrats
 - Integrada l'activitat `clau-macroinvertebrats` amb set espècies, decisions guiades, feedback i puntuació.
 - Les imatges provenen de `assets/images/natura/clau-macroinvertebrats/` i els resultats es desen amb `saveResult`.
-
-### 2026-10-22 - Ampliació de la clau dicotòmica
-- Ampliada la clau a 17 organismes, incloent bivalves, crustacis, gasteròpodes, hirudinis i turbelaris nous.
-- Afegits noms científics en cursiva a la selecció, la identificació i els resultats.

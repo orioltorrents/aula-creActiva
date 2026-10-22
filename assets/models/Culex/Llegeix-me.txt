@@ -1,0 +1,47 @@
+LARVA DE CULEX — MODEL DIDÀCTIC 3D
+
+Fitxers:
+- Culex.blend: model editable, amb 42 objectes anatòmics en una col·lecció pròpia.
+- Culex_web.glb: model per a un visor web, amb les parts i els colors.
+- Anatomia_Culex.json: 19 categories, elements associats i preguntes d'identificació.
+- Culex.png i Culex_lateral.png: dues vistes de referència.
+
+Anatomia:
+Cap, taques oculars, antenes, plomalls antenals, raspalls bucals, peces bucals,
+tòrax, vuit segments abdominals principals (I–VIII), setes del cos, sifó,
+obertura respiratòria, plomalls del sifó, pecten, pinta del segment VIII,
+segment anal (X), sella, quatre papil·les anals, raspall ventral i setes anals dorsals.
+Les parts agrupades, com les setes, tenen una sola categoria però poden contenir diversos objectes.
+
+Ús a Blender:
+Obre l'escena «Culex - larva aquatica». La col·lecció «CULEX | Parts identificables»
+conté les peces, sota l'objecte arrel CULEX. Selecciona-les a l'Outliner per
+editar-les o amagar-les. Les propietats personalitzades inclouen anatomy_id,
+element_id i label_ca. Les càmeres i els llums estan fora de la col·lecció anatòmica.
+Les altres escenes prèvies no s'han eliminat.
+
+Ús a la web:
+Carrega Culex_web.glb amb GLTFLoader (Three.js). Les propietats de cada node
+arriben a object.userData. En clicar amb Raycaster, consulta anatomy_id a
+l'objecte intersectat i, si cal, als seus pares. Compara aquest identificador
+amb target_anatomy_id de la pregunta. element_id identifica una peça concreta;
+anatomy_id identifica la categoria, per exemple abdomen o papilles_anals.
+No facis dependre la correcció de l'ordre dels meshes ni del color.
+El GLB incorpora geometria, materials i colors de vèrtex. No necessita textures externes.
+No inclou l'aplicació web, la puntuació ni l'emmagatzematge de resultats.
+
+Abast:
+Representació educativa de Culex sp., basada en les tres imatges facilitades.
+No s'ha determinat l'espècie. Proporcions, setes, dents i aparell espiracular
+estan simplificats o accentuats per facilitar la visualització. Els recomptes
+de setes i dents no serveixen per a una clau taxonòmica. Les papil·les anals
+es diferencien del sifó respiratori. Model estàtic, sense esquelet d'animació.
+
+Referències anatòmiques complementàries:
+Mosquito Taxonomic Inventory, gènere Culex:
+https://mosquito-taxonomic-inventory.myspecies.info/genus-emculexem-linnaeus-1758
+CDC, vista i plomalls del sifó d'una larva de Culex:
+https://wwwn.cdc.gov/phil/Details.aspx?pid=22866
+CDC, larves amb sifó a la superfície:
+https://wwwn.cdc.gov/phil/Details.aspx?pid=4047
+

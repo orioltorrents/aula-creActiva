@@ -67,6 +67,31 @@
         ]
     };
 
+    const FALLBACK_CULEX_DATA = {
+        "title": "Larva de Culex",
+        "questions": [
+            { "id": "q_cap", "prompt": "Assenyala: Càpsula cefàlica", "target_anatomy_id": "cap" },
+            { "id": "q_ulls", "prompt": "Assenyala: Taques oculars", "target_anatomy_id": "ulls" },
+            { "id": "q_antenes", "prompt": "Assenyala: Antenes", "target_anatomy_id": "antenes" },
+            { "id": "q_setes_antenals", "prompt": "Assenyala: Plomalls de les antenes", "target_anatomy_id": "setes_antenals" },
+            { "id": "q_raspalls_bucals", "prompt": "Assenyala: Raspalls bucals filtradors", "target_anatomy_id": "raspalls_bucals" },
+            { "id": "q_peces_bucals", "prompt": "Assenyala: Peces bucals", "target_anatomy_id": "peces_bucals" },
+            { "id": "q_torax", "prompt": "Assenyala: Tòrax", "target_anatomy_id": "torax" },
+            { "id": "q_abdomen", "prompt": "Assenyala: Abdomen (segments I-VIII)", "target_anatomy_id": "abdomen" },
+            { "id": "q_setes_cos", "prompt": "Assenyala: Setes del cos", "target_anatomy_id": "setes_cos" },
+            { "id": "q_sifo", "prompt": "Assenyala: Sifó respiratori", "target_anatomy_id": "sifo" },
+            { "id": "q_espiracles", "prompt": "Assenyala: Obertura respiratòria", "target_anatomy_id": "espiracles" },
+            { "id": "q_setes_sifo", "prompt": "Assenyala: Plomalls del sifó", "target_anatomy_id": "setes_sifo" },
+            { "id": "q_pecten", "prompt": "Assenyala: Pecten del sifó", "target_anatomy_id": "pecten" },
+            { "id": "q_pinta", "prompt": "Assenyala: Pinta del segment VIII", "target_anatomy_id": "pinta" },
+            { "id": "q_segment_anal", "prompt": "Assenyala: Segment anal (X)", "target_anatomy_id": "segment_anal" },
+            { "id": "q_sella", "prompt": "Assenyala: Sella del segment anal", "target_anatomy_id": "sella" },
+            { "id": "q_papilles_anals", "prompt": "Assenyala: Papil·les anals", "target_anatomy_id": "papilles_anals" },
+            { "id": "q_raspall_ventral", "prompt": "Assenyala: Raspall ventral del segment anal", "target_anatomy_id": "raspall_ventral" },
+            { "id": "q_setes_anals", "prompt": "Assenyala: Setes anals dorsals", "target_anatomy_id": "setes_anals" }
+        ]
+    };
+
     const MODEL_CONFIGS = {
         betid: {
             title: 'Larva de bètid',
@@ -79,6 +104,12 @@
             modelUrl: 'assets/models/Simulium/Simulium_web.glb',
             jsonUrl: 'assets/models/Simulium/Anatomia_Simulium.json',
             fallback: FALLBACK_SIMULIUM_DATA
+        },
+        culex: {
+            title: 'Larva de Culex',
+            modelUrl: 'assets/models/Culex/Culex_web.glb',
+            jsonUrl: 'assets/models/Culex/Anatomia_Culex.json',
+            fallback: FALLBACK_CULEX_DATA
         }
     };
 
