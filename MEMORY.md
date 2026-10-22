@@ -12,6 +12,10 @@
 
 ## Tres últims passos
 
+### 2026-10-22 - Catàleg ampliat de la clau d'insectes
+- Afegits 12 exemplars nous a la clau específica d'ordres d'insectes, fins a 17 exemplars disponibles.
+- Corregit el recorregut de la libèl·lula perquè arribi a l'opció de làmines o cúpula anal.
+
 ### 2026-10-22 - Nous tricòpters a la clau de macroinvertebrats
 - Afegits Hydropsyche, Polycentropus, Potamophylax, Rhyacophila, Sericostoma personatum i Wormaldia.
 - Corregides les referències d'imatge de Chironomus i dels noms de fitxer que tenien punts duplicats.
@@ -19,7 +23,3 @@
 ### 2026-10-22 - Nous organismes a la clau de macroinvertebrats
 - Afegits deu organismes nous al selector de la clau principal, amb recorreguts, grups finals i imatges corresponents.
 - Els nous registres es corregeixen, puntuen i desen amb el mateix flux que els organismes existents.
-
-### 2026-10-22 - Model 3D de la larva de Culex
-- Afegit Culex al selector de l'activitat 3D amb `Culex_web.glb` i `Anatomia_Culex.json`.
-- Les preguntes anatòmiques es carreguen des del JSON i tenen dades de reserva integrades.

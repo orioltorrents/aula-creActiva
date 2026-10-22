@@ -345,9 +345,69 @@
             result: 'Dípters', family: 'Simúlids', path: ['no']
         },
         {
+            id: 'betis-insectes', name: 'Bètid', scientificName: 'Baetis rhodani',
+            image: 'assets/images/natura/clau-macroinvertebrats/Betis.PNG',
+            result: 'Efemeròpters', family: '', path: ['yes', 'no', 'yes', 'cerci', 'gills']
+        },
+        {
+            id: 'calopterigid-insectes', name: 'Calopterígids', scientificName: 'Calopterygidae',
+            image: 'assets/images/natura/clau-macroinvertebrats/Calopterigid.PNG',
+            result: 'Odonats', family: 'Calopterígids', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'tipula-insectes', name: 'Tipula', scientificName: 'Tipula',
+            image: 'assets/images/natura/clau-macroinvertebrats/Tipula.PNG',
+            result: 'Dípters', family: '', path: ['no']
+        },
+        {
+            id: 'rheocricotopus-insectes', name: 'Rheocricotopus', scientificName: 'Rheocricotopus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Rheocricotopus.PNG',
+            result: 'Dípters', family: 'Quironòmids', path: ['no']
+        },
+        {
+            id: 'eristalis-insectes', name: 'Eristalis', scientificName: 'Eristalis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Eristalis.PNG',
+            result: 'Dípters', family: 'Sírfids', path: ['no']
+        },
+        {
+            id: 'chironomus-insectes', name: 'Chironomus', scientificName: 'Chironomus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Chironomus.PNG',
+            result: 'Dípters', family: 'Quironòmids', path: ['no']
+        },
+        {
+            id: 'hydropsyche-insectes', name: 'Hydropsyche', scientificName: 'Hydropsyche',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'polycentropus-insectes', name: 'Polycentropus', scientificName: 'Polycentropus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Polycentropus.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'potamophylax-insectes', name: 'Potamophylax', scientificName: 'Potamophylax',
+            image: 'assets/images/natura/clau-macroinvertebrats/Potamophylax.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'rhyacophila-insectes', name: 'Rhyacophila', scientificName: 'Rhyacophila',
+            image: 'assets/images/natura/clau-macroinvertebrats/Rhyacophila.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'sericostoma-personatum-insectes', name: 'Sericostoma personatum', scientificName: 'Sericostoma personatum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Sericostoma personatum.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'wormaldia-insectes', name: 'Wormaldia', scientificName: 'Wormaldia',
+            image: 'assets/images/natura/clau-macroinvertebrats/Wormaldia.PNG',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
             id: 'odonata', name: 'Libèl·lula', scientificName: 'Odonata',
             image: 'assets/images/natura/Odonata.png',
-            result: 'Odonats', family: '', path: ['yes', 'no', 'yes']
+            result: 'Odonats', family: '', path: ['yes', 'no', 'yes', 'lamina']
         },
         {
             id: 'ephemeroptera', name: 'Efemeròpter', scientificName: 'Ephemeroptera',
@@ -416,6 +476,28 @@
         }
     };
 
+    const keyHints = {
+        groups: {
+            start: 'Les potes articulades es mouen per segments i tenen articulacions visibles.',
+            'leg-count': 'Compta les potes articulades que observes, no les prolongacions o brànquies.',
+            shell: 'La closca és una coberta dura que protegeix el cos de l’organisme.',
+            valves: 'Les valves són les dues peces que formen la closca d’un bivalve.',
+            segmented: 'Un cos segmentat està dividit en anells o parts repetides.',
+            appendages: 'Busca una càpsula cefàlica, pseudòpodes, brànquies o altres estructures que sobresurtin del cos.',
+            sucker: 'Una ventosa és una estructura circular que permet fixar-se a una superfície.',
+            unsegmented: 'Observa la forma general del cos: pot ser pla, cilíndric, semblant a una hidra o colonial.'
+        },
+        insects: {
+            start: 'Les larves d’insecte tenen tres parells de potes articulades al tòrax.',
+            elytra: 'Els èlitres són unes cobertes dures, semblants a una closca, que protegeixen les ales dels escarabats.',
+            eyes: 'Els ulls compostos tenen moltes petites facetes. Els estoigs alars són cobertes que protegeixen les ales.',
+            caudal: 'Mira les estructures de l’extrem posterior: poden ser làmines, una cúpula, un sifó o cercs.',
+            'gill-cerci': 'Els cercs són apèndixs de l’extrem de l’abdomen. Les brànquies abdominals ajuden a respirar sota l’aigua.',
+            mandibles: 'Les mandíbules són les peces dures de la boca. Compara la seva llargada amb la del cap.',
+            'caudal-larva': 'Observa l’extrem posterior de la larva: busca una prolongació, pigòpodes amb ungles o pseudòpodes.'
+        }
+    };
+
     const keyCatalog = {
         groups: { specimens: mainSpecimens, nodes, title: 'Grans grups d’invertebrats aquàtics' },
         insects: { specimens: insectSpecimens, nodes: insectNodes, title: 'Ordres d’insectes en fase aquàtica' }
@@ -432,6 +514,15 @@
 
     function getActiveKey() {
         return keyCatalog[activeKeyId];
+    }
+
+    function showMacroKeyHint() {
+        const hint = document.getElementById('macro-key-hint');
+        const text = keyHints[activeKeyId]?.[currentNodeId];
+        if (!hint || !text) return;
+
+        hint.textContent = text;
+        hint.classList.remove('hidden');
     }
 
     function formatSpecimenName(specimen) {
@@ -513,6 +604,7 @@
         const options = document.getElementById('macro-key-options');
         const feedback = document.getElementById('macro-key-feedback');
         const next = document.getElementById('macro-key-next');
+        const hint = document.getElementById('macro-key-hint');
 
         if (image) {
             image.src = selectedSpecimen.image;
@@ -523,6 +615,10 @@
         if (question) question.textContent = node.question;
         if (feedback) feedback.className = 'game-panel__feedback hidden';
         if (next) next.classList.add('hidden');
+        if (hint) {
+            hint.textContent = '';
+            hint.classList.add('hidden');
+        }
 
         if (options) {
             options.innerHTML = node.options.map(option => `
@@ -636,6 +732,7 @@
     window.initMacroKeyActivity = initMacroKeyActivity;
     window.selectMacroKey = selectMacroKey;
     window.startMacroKeySpecimen = startMacroKeySpecimen;
+    window.showMacroKeyHint = showMacroKeyHint;
     window.answerMacroKey = answerMacroKey;
     window.nextMacroKeyStep = nextMacroKeyStep;
     window.restartMacroKeyActivity = initMacroKeyActivity;

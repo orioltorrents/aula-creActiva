@@ -793,9 +793,11 @@
                                     <div class="macro-key-observation-panel">
                                         <img id="macro-key-specimen-image" class="macro-key-specimen-image" src="" alt="">
                                         <div>
-                                            <p class="macro-key-label">Observa l’organisme i tria l’opció que correspon:</p>
-                                            <h4 id="macro-key-question" class="macro-key-question"></h4>
-                                            <div id="macro-key-options" class="macro-key-options"></div>
+                                             <p class="macro-key-label">Observa l’organisme i tria l’opció que correspon:</p>
+                                             <h4 id="macro-key-question" class="macro-key-question"></h4>
+                                             <button type="button" id="macro-key-help" class="btn btn--outline macro-key-help" onclick="showMacroKeyHint()">Necessito una pista</button>
+                                             <p id="macro-key-hint" class="macro-key-hint hidden" aria-live="polite"></p>
+                                             <div id="macro-key-options" class="macro-key-options"></div>
                                             <p id="macro-key-feedback" class="game-panel__feedback hidden" aria-live="polite"></p>
                                             <button id="macro-key-next" class="btn btn--primary hidden" onclick="nextMacroKeyStep()">Següent</button>
                                         </div>

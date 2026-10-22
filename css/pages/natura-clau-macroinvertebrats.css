@@ -124,6 +124,19 @@
     margin-bottom: 1rem;
 }
 
+.macro-key-help {
+    margin-bottom: 1rem;
+}
+
+.macro-key-hint {
+    margin: 0 0 1rem;
+    padding: 0.75rem 1rem;
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--radius-sm);
+    background: var(--secondary-bg);
+    color: var(--text-color);
+}
+
 .macro-key-options {
     display: grid;
     gap: 0.75rem;
