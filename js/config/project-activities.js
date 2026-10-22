@@ -196,7 +196,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_orenetes_desc",
       fallbackTitle: "Projecte Orenetes",
       fallbackDesc: "Estudi i seguiment de les orenetes",
-      image: "assets/images/activities/entorns/cards/targeta-projecte-orentes.png",
+      image: "assets/images/activities/entorns/cards/targeta-projecte-orenetes.jpg",
       action: "orenetes"
     },
     {
@@ -205,8 +205,17 @@ const PROJECT_ACTIVITIES = {
       descKey: "",
       fallbackTitle: "Preguntes del Projecte Orenetes",
       fallbackDesc: "Tria la foto correcta entre quatre opcions",
-      image: "assets/images/activities/entorns/cards/targeta-projecte-orentes.png",
+      image: "assets/images/activities/entorns/cards/targeta-projecte-orenetes.jpg",
       action: "orenetes-preguntes"
+    },
+    {
+      id: "betid-3d",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Anatomia del Bètid (3D)",
+      fallbackDesc: "Explora el model 3D del bètid i identifica les seves parts anatòmiques.",
+      image: "assets/models/Betis/Betid.png",
+      action: "betid-3d"
     }
   ]
 };

@@ -39,6 +39,25 @@ let isPointerDown = false;
 const MODEL_URL = 'assets/models/Betis/Betid_web.glb';
 const JSON_URL = 'assets/models/Betis/Anatomia_betid.json';
 
+const FALLBACK_GAME_DATA = {
+    "title": "Identifica les parts del bètid",
+    "model": "Betid_web.glb",
+    "language": "ca",
+    "questions": [
+        { "id": "cap", "prompt": "Clica: Cap", "target_anatomy_id": "cap" },
+        { "id": "ulls", "prompt": "Clica: Ulls compostos", "target_anatomy_id": "ulls" },
+        { "id": "peces_bucals", "prompt": "Clica: Peces bucals", "target_anatomy_id": "peces_bucals" },
+        { "id": "antenes", "prompt": "Clica: Antenes", "target_anatomy_id": "antenes" },
+        { "id": "torax", "prompt": "Clica: Tòrax", "target_anatomy_id": "torax" },
+        { "id": "esbossos_alars", "prompt": "Clica: Esbossos alars", "target_anatomy_id": "esbossos_alars" },
+        { "id": "potes", "prompt": "Clica: Potes", "target_anatomy_id": "potes" },
+        { "id": "abdomen", "prompt": "Clica: Abdomen", "target_anatomy_id": "abdomen" },
+        { "id": "branquies", "prompt": "Clica: Brànquies", "target_anatomy_id": "branquies" },
+        { "id": "cercs", "prompt": "Clica: Cercs laterals", "target_anatomy_id": "cercs" },
+        { "id": "filament_central", "prompt": "Clica: Filament caudal central", "target_anatomy_id": "filament_central" }
+    ]
+};
+
 /**
  * Inicialitza l'entorn 3D i carrega les dades si és la primera vegada
  */
@@ -53,9 +72,9 @@ async function initBetid3DGame() {
         setupThreeScene(canvas, container);
         setupEventListeners(canvas);
         isInitialized = true;
-    } else {
-        onWindowResize();
     }
+
+    setTimeout(onWindowResize, 100);
 
     if (!isModelLoaded) {
         if (loaderEl) loaderEl.classList.remove('hidden');
@@ -156,9 +175,14 @@ function setupEventListeners(canvas) {
  * Carrega el fitxer JSON amb les preguntes i les categories
  */
 async function loadJSONData() {
-    const res = await fetch(JSON_URL);
-    if (!res.ok) throw new Error('No s\'ha trobat Anatomia_betid.json');
-    gameData = await res.json();
+    try {
+        const res = await fetch(JSON_URL);
+        if (!res.ok) throw new Error('No s\'ha trobat Anatomia_betid.json');
+        gameData = await res.json();
+    } catch (err) {
+        console.warn('Fent servir dades anatòmiques de reserva (fallback):', err);
+        gameData = FALLBACK_GAME_DATA;
+    }
 }
 
 /**
