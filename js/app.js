@@ -868,7 +868,17 @@ function getAvailabilityRows(projectId, type, activityId = '') {
         if (projectCourse && normalizeAvailabilityCourse(row.curs) !== projectCourse) return false;
         if (normalizeAvailabilityValue(row.tipus || 'projecte') !== normalizeAvailabilityValue(type)) return false;
         if (type === 'projecte') return true;
-        return normalizeAvailabilityValue(row.activitat_id) === normalizedActivity;
+
+        const rowAct = normalizeAvailabilityValue(row.activitat_id);
+        if (rowAct === normalizedActivity) return true;
+
+        if (rowAct.includes('/') || String(row.activitat_id || '').includes('/')) {
+            const rowBase = normalizeAvailabilityValue(String(row.activitat_id || '').split('/').pop());
+            const targetBase = normalizeAvailabilityValue(String(activityId || '').split('/').pop());
+            if (rowBase && rowBase === targetBase) return true;
+        }
+
+        return false;
     });
 }
 
