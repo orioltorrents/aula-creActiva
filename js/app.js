@@ -1420,6 +1420,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'betid-3d') {
         document.getElementById('natura-activity-betid-3d').classList.remove('hidden');
         if (typeof initBetid3DGame === 'function') initBetid3DGame();
+    } else if (actId === 'clau-macroinvertebrats') {
+        document.getElementById('natura-activity-clau-macroinvertebrats').classList.remove('hidden');
+        if (typeof initMacroKeyActivity === 'function') initMacroKeyActivity();
     }
 }
 

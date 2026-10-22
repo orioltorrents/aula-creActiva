@@ -78,6 +78,15 @@
                                         <div class="activity-card__description">Escull una larva i identifica les seves parts anatòmiques en 3D.</div>
                                     </div>
                                 </div>
+                                <div class="activity-card" onclick="openNaturaActivity('clau-macroinvertebrats')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/natura/clau-macroinvertebrats/Simulium.PNG" alt="Clau dicotòmica dels macroinvertebrats" class="activity-card__image activity-card__image--contain">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Clau dicotòmica</div>
+                                        <div class="activity-card__description">Determina el grup dels principals macroinvertebrats aquàtics.</div>
+                                    </div>
+                                </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
                                     <div class="activity-card__media">
                                         <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
@@ -740,6 +749,50 @@
                                         <button class="btn btn--secondary" onclick="setBetid3DMode('explore')">Mode Explorar</button>
                                         <button class="btn btn--outline" onclick="showNaturaMenu()">Tornar al menú</button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Clau dicotòmica dels macroinvertebrats -->
+                        <div id="natura-activity-clau-macroinvertebrats" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al menú</button>
+
+                            <div class="dichotomous-key-container">
+                                <div class="dichotomous-key-header">
+                                    <h3>Clau dicotòmica</h3>
+                                    <p>Identifica el grup a què pertany cada macroinvertebrat aquàtic.</p>
+                                </div>
+
+                                <div id="macro-key-specimen-selector" class="macro-key-specimen-grid"></div>
+
+                                <div id="macro-key-game" class="hidden">
+                                    <div class="macro-key-progress">
+                                        <span id="macro-key-specimen-name"></span>
+                                        <span id="macro-key-step"></span>
+                                        <span id="macro-key-score">Punts: 0</span>
+                                    </div>
+
+                                    <div class="macro-key-observation-panel">
+                                        <img id="macro-key-specimen-image" class="macro-key-specimen-image" src="" alt="">
+                                        <div>
+                                            <p class="macro-key-label">Observa l’organisme i tria l’opció que correspon:</p>
+                                            <h4 id="macro-key-question" class="macro-key-question"></h4>
+                                            <div id="macro-key-options" class="macro-key-options"></div>
+                                            <p id="macro-key-feedback" class="game-panel__feedback hidden" aria-live="polite"></p>
+                                            <button id="macro-key-next" class="btn btn--primary hidden" onclick="nextMacroKeyStep()">Següent</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="macro-key-path" class="macro-key-path" aria-live="polite"></div>
+                                </div>
+
+                                <div id="macro-key-result" class="result-screen hidden text-center">
+                                    <h3>Identificació final</h3>
+                                    <p id="macro-key-result-message"></p>
+                                    <p id="macro-key-result-score" class="result-screen__score"></p>
+                                    <div class="macro-key-path-result" id="macro-key-result-path"></div>
+                                    <button class="btn btn--primary" onclick="restartMacroKeyActivity()">Tria un altre organisme</button>
+                                    <button class="btn btn--secondary" onclick="showNaturaMenu()">Tornar al menú</button>
                                 </div>
                             </div>
                         </div>

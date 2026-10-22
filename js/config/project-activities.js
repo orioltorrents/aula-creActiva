@@ -216,6 +216,15 @@ const PROJECT_ACTIVITIES = {
       fallbackDesc: "Escull una larva i identifica les seves parts anatòmiques en 3D.",
       image: "assets/models/Betis/Betid.png",
       action: "betid-3d"
+    },
+    {
+      id: "clau-macroinvertebrats",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Clau dicotòmica",
+      fallbackDesc: "Determina el grup dels principals macroinvertebrats aquàtics.",
+      image: "assets/images/natura/clau-macroinvertebrats/Simulium.PNG",
+      action: "clau-macroinvertebrats"
     }
   ]
 };

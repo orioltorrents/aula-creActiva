@@ -96,6 +96,7 @@ function renderEntornsActivities() {
       "natura-activity-orenetes",
       "natura-activity-orenetes-preguntes",
       "natura-activity-betid-3d",
+      "natura-activity-clau-macroinvertebrats",
       "natura-project-rius",
       "natura-project-mat",
       "natura-project-agroparc",
@@ -171,7 +172,8 @@ function renderEntornsActivities() {
         initOrenetesPreguntesQuiz();
       } else if (activityName === "betid-3d" && typeof initBetid3DGame === "function") {
         initBetid3DGame();
+      } else if (activityName === "clau-macroinvertebrats" && typeof initMacroKeyActivity === "function") {
+        initMacroKeyActivity();
       }
     }
   }
-
