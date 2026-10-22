@@ -142,7 +142,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_xarxes_desc",
       fallbackTitle: "Xarxes Tròfiques",
       fallbackDesc: "Ordena els passos per crear una xarxa tròfica",
-      image: "assets/images/activities/entorns/cards/targeta_xarxes-trofiques.png",
+      image: "assets/images/activities/entorns/cards/targeta_xarxes-trofiques-card.jpg",
       action: "xarxes"
     },
     {
@@ -151,7 +151,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_rols_desc",
       fallbackTitle: "Rols Tròfics",
       fallbackDesc: "Classifica espècies segons la seva dieta",
-      image: "assets/images/activities/entorns/cards/targeta_rols-trofics.png",
+      image: "assets/images/activities/entorns/cards/targeta_rols-trofics-card.jpg",
       action: "rols"
     },
     {
@@ -160,7 +160,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_impacte_desc",
       fallbackTitle: "Estudi d'impacte ambiental",
       fallbackDesc: "Ordena les fases de creació de l'estudi",
-      image: "assets/images/activities/entorns/cards/targeta_fases-eia.png",
+      image: "assets/images/activities/entorns/cards/targeta_fases-eia-card.jpg",
       action: "impacte"
     },
     {
