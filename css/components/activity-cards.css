@@ -99,6 +99,11 @@
     background-color: #eef6dc;
 }
 
+.activity-card__media--betid {
+    height: 190px;
+    background-color: #050505;
+}
+
 .activity-card__image {
     /* Element BEM: imatge de portada de la targeta d'activitat. */
     width: 100%;
@@ -112,6 +117,10 @@
     padding: 16px;
 }
 
+.activity-card__media--betid .activity-card__image--contain {
+    padding: 4px;
+}
+
 .activity-card:hover .activity-card__image {
     /* Hover intern: només escala la imatge, no el contingut textual. */
     transform: scale(1.05);
@@ -121,4 +130,3 @@
     padding: 6px 12px;
     font-size: 0.85rem;
 }
-

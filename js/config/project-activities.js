@@ -103,7 +103,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "act_tr_preguntes_desc",
       fallbackTitle: "Preguntes Investigables",
       fallbackDesc: "Aprèn a diferenciar preguntes investigables de les que no ho són.",
-      image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
+      image: "assets/images/activities/treball-recerca/cards/targeta_diagnostic-preguntes.png",
       action: "preguntes"
     },
     {
@@ -214,7 +214,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "",
       fallbackTitle: "Anatomia de les larves de macroinvertebrats",
       fallbackDesc: "Escull una larva i identifica les seves parts anatòmiques en 3D.",
-      image: "assets/models/Betis/Betid.png",
+      image: "assets/models/Baetis/Betid.png",
       action: "betid-3d"
     },
     {

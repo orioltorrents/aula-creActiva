@@ -12,9 +12,9 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Suport per a animacions 3D i Echinogammarus_animat
-- Activat el reproductor d'animacions de Three.js (AnimationMixer i Clock) per executar animacions en carregar models GLB.
-- Vinculat el model d'Echinogammarus a la versió animada `Echinogammarus_animat.glb` amb la seva miniatura corresponent.
+### 2026-10-23 - Afegit l'Avaluador d'hipòtesis al Projecte Rius
+- Creat un joc amb cinc hipòtesis aleatòries, checklist de cinc criteris i feedback explicatiu per criteri.
+- Integrat al menú de Projecte Rius amb puntuació final i reinici de ronda.
 
 ### 2026-10-22 - Ajustos a bioindicadors, qüestionari 3D i model de Baetis
 - Configurada mostra aleatòria d'entre 6 i 10 espècies per ronda a l'activitat de bioindicadors.
