@@ -97,6 +97,8 @@ function renderEntornsActivities() {
       "natura-activity-orenetes-preguntes",
       "natura-activity-betid-3d",
       "natura-activity-clau-macroinvertebrats",
+      "natura-activity-bioindicadors",
+      "natura-activity-hipotesis",
       "natura-project-rius",
       "natura-project-mat",
       "natura-project-agroparc",

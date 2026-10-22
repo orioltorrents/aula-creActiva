@@ -9,10 +9,11 @@
                                         class="activity-card__image activity-card__image--contain">
                                 </div>
                                 <div class="activity-card__content">
-                                    <div class="activity-card__title" data-i18n="entorns_rius_title">Projecte Rius</div>
-                                    <div class="activity-card__description" data-i18n="entorns_rius_desc">Activitats sobre ecosistemes fluvials</div>
-                                </div>
-                            </div>
+                                     <div class="activity-card__title" data-i18n="entorns_rius_title">Projecte Rius</div>
+                                     <div class="activity-card__description" data-i18n="entorns_rius_desc">Activitats sobre ecosistemes fluvials</div>
+                                 </div>
+                             </div>
+
                             <div class="activity-card" onclick="openNaturaProject('mat')">
                                 <div class="activity-card__media activity-card__media--no-mat">
                                     <img src="assets/images/activities/entorns/cards/no-a-la-mat-Catalunya-card.jpg" alt="No a la MAT Catalunya"
@@ -100,6 +101,15 @@
                                         <div class="activity-card__description">Classifica les famílies i interpreta l’estat ecològic del riu.</div>
                                     </div>
                                 </div>
+                                <div class="activity-card" onclick="openNaturaActivity('hipotesis')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Avaluador d'hipòtesis" class="activity-card__image">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Avaluador d'hipòtesis</div>
+                                        <div class="activity-card__description">Comprova si una hipòtesi conté tot el necessari per investigar-la.</div>
+                                    </div>
+                                </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
                                     <div class="activity-card__media">
                                         <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
@@ -107,10 +117,10 @@
                                     <div class="activity-card__content">
                                         <div class="activity-card__title" data-i18n="act_tr_preguntes_title">Preguntes Investigables</div>
                                         <div class="activity-card__description" data-i18n="act_tr_preguntes_desc">Aprèn a diferenciar preguntes investigables de les que no ho són.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                 </div>
+                             </div>
+                         </div>
+                         </div>
 
                         <div id="natura-project-mat" class="sub-activity hidden">
                             <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()" data-i18n="back_to_projects">← Tornar als projectes</button>
@@ -902,8 +912,38 @@
                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('insufficient')">Dades insuficients</button>
                                     </div>
                                     <div id="river-bio-result" class="river-bioactivity__result" aria-live="polite"></div>
-                                    <button type="button" class="btn btn--primary" onclick="initRiverBioActivity()">Tornar a començar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <button type="button" class="btn btn--primary" onclick="initRiverBioActivity()">Tornar a començar</button>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <!-- ACTIVITAT: Avaluador d'hipòtesis -->
+                         <div id="natura-activity-hipotesis" class="sub-activity hidden">
+                             <button class="btn btn--secondary btn--sm mb-2" onclick="openNaturaProject('rius')">← Tornar al menú del Projecte Rius</button>
+                             <div class="river-hypothesis">
+                                 <div class="river-hypothesis__header">
+                                     <h3>Avaluador d'hipòtesis</h3>
+                                     <p>Llegeix la hipòtesi i marca què hi trobes. No busquis si és certa: comprova si està prou ben formulada per poder investigar-la.</p>
+                                 </div>
+                                 <div id="river-hypothesis-game" class="river-hypothesis__round">
+                                     <div class="river-hypothesis__progress">
+                                         <span id="river-hypothesis-progress">Hipòtesi 1 de 5</span>
+                                         <span>5 criteris per hipòtesi</span>
+                                     </div>
+                                     <blockquote id="river-hypothesis-text" class="river-hypothesis__quote"></blockquote>
+                                     <div id="river-hypothesis-checklist" class="river-hypothesis-checklist" aria-label="Llista de verificació de la hipòtesi"></div>
+                                     <div class="river-hypothesis__controls">
+                                         <button type="button" id="river-hypothesis-check" class="btn btn--primary" onclick="checkRiverHypothesis()">Comprovar hipòtesi</button>
+                                         <button type="button" id="river-hypothesis-next" class="btn btn--secondary hidden" onclick="nextRiverHypothesis()">Següent hipòtesi</button>
+                                     </div>
+                                     <div id="river-hypothesis-feedback" class="river-hypothesis-feedback hidden" aria-live="polite"></div>
+                                 </div>
+                                 <div id="river-hypothesis-results" class="river-hypothesis-results hidden">
+                                     <h3>Resultat de la ronda</h3>
+                                     <p id="river-hypothesis-score" class="river-hypothesis-results__score"></p>
+                                     <p id="river-hypothesis-results-feedback" aria-live="polite"></p>
+                                     <button type="button" class="btn btn--primary" onclick="initRiverHypothesisGame()">Tornar a començar</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>

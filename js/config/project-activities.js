@@ -225,6 +225,15 @@ const PROJECT_ACTIVITIES = {
       fallbackDesc: "Determina el grup dels principals macroinvertebrats aquàtics.",
       image: "assets/images/natura/clau-macroinvertebrats/Simulium.PNG",
       action: "clau-macroinvertebrats"
+    },
+    {
+      id: "hipotesis",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Avaluador d'hipòtesis",
+      fallbackDesc: "Comprova si una hipòtesi conté tot el necessari per investigar-la.",
+      image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
+      action: "hipotesis"
     }
   ]
 };

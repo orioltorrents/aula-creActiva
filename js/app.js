@@ -1577,6 +1577,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'bioindicadors') {
         document.getElementById('natura-activity-bioindicadors').classList.remove('hidden');
         if (typeof initRiverBioActivity === 'function') initRiverBioActivity();
+    } else if (actId === 'hipotesis') {
+        document.getElementById('natura-activity-hipotesis').classList.remove('hidden');
+        if (typeof initRiverHypothesisGame === 'function') initRiverHypothesisGame();
     }
 }
 
