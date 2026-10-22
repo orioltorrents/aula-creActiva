@@ -213,6 +213,14 @@
     let firstAttempt = true;
     let pathLabels = [];
 
+    function formatSpecimenName(specimen) {
+        if (specimen.name === specimen.scientificName) {
+            return `<em>${specimen.scientificName}</em>`;
+        }
+
+        return `${specimen.name}<br><em>${specimen.scientificName}</em>`;
+    }
+
     function initMacroKeyActivity() {
         selectedSpecimen = null;
         currentNodeId = 'start';
@@ -233,7 +241,7 @@
         selector.innerHTML = specimens.map(specimen => `
             <button type="button" class="macro-key-specimen-card" onclick="startMacroKeySpecimen('${specimen.id}')">
                 <img src="${specimen.image}" alt="${specimen.name}">
-                <span>${specimen.name}<br><em>${specimen.scientificName}</em></span>
+                <span>${formatSpecimenName(specimen)}</span>
             </button>
         `).join('');
     }
@@ -271,7 +279,7 @@
             image.src = selectedSpecimen.image;
             image.alt = selectedSpecimen.name;
         }
-        if (name) name.innerHTML = `${selectedSpecimen.name} <em>${selectedSpecimen.scientificName}</em>`;
+        if (name) name.innerHTML = formatSpecimenName(selectedSpecimen);
         if (step) step.textContent = `Decisió ${currentStep + 1}`;
         if (question) question.textContent = node.question;
         if (feedback) feedback.className = 'game-panel__feedback hidden';
