@@ -7,6 +7,10 @@
     display: none !important;
 }
 
+.availability-hidden {
+    display: none !important;
+}
+
 .screen {
     display: none;
     height: 100%;
@@ -188,4 +192,3 @@
     pointer-events: none;
     z-index: 10;
 }
-

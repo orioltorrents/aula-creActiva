@@ -20,6 +20,6 @@
 - Afegit Culex al selector de l'activitat 3D amb `Culex_web.glb` i `Anatomia_Culex.json`.
 - Les preguntes anatòmiques es carreguen des del JSON i tenen dades de reserva integrades.
 
-### 2026-10-22 - Primera clau dicotòmica de macroinvertebrats
-- Integrada l'activitat `clau-macroinvertebrats` amb set espècies, decisions guiades, feedback i puntuació.
-- Les imatges provenen de `assets/images/natura/clau-macroinvertebrats/` i els resultats es desen amb `saveResult`.
+### 2026-10-22 - Disponibilitat de projectes i activitats
+- Afegit l'endpoint `getAvailability` i el filtratge opcional per la pestanya `disponibilitat` del Sheet.
+- Les files `FALSE` amaguen projectes o activitats per curs i també bloquegen l'accés directe; sense fila, l'element continua visible.

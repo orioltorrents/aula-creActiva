@@ -67,7 +67,8 @@ const LOCAL_PROJECT_CATALOG = {
 const state = {
     user: null,
     currentProject: null,
-    currentGameTitle: ''
+    currentGameTitle: '',
+    availabilityRows: []
 };
 
 function getCurrentUserGroups() {
@@ -828,6 +829,114 @@ function getDashboardCourses() {
         .filter(course => course !== '');
 }
 
+function normalizeAvailabilityValue(value) {
+    return String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\s_-]+/g, '');
+}
+
+function normalizeAvailabilityCourse(value) {
+    const normalized = normalizeAvailabilityValue(value);
+    const aliases = {
+        '1reso': '1eso',
+        '2neso': '2eso',
+        '3reso': '3eso',
+        '4teso': '4eso',
+        '1rbatxillerat': '1batx',
+        '1batxillerat': '1batx',
+        '2nbatxillerat': '2batx',
+        '2batxillerat': '2batx'
+    };
+    return aliases[normalized] || normalized;
+}
+
+function getProjectCourse(projectId) {
+    const match = String(projectId || '').match(/^p([1-4])_/);
+    if (match) return `${match[1]}ESO`;
+    if (projectId === 'batx1_tr') return '1Batx';
+    return '';
+}
+
+function getAvailabilityRows(projectId, type, activityId = '') {
+    const projectCourse = normalizeAvailabilityCourse(getProjectCourse(projectId));
+    const normalizedActivity = normalizeAvailabilityValue(activityId);
+
+    return state.availabilityRows.filter(row => {
+        if (normalizeAvailabilityValue(row.projecte_id) !== normalizeAvailabilityValue(projectId)) return false;
+        if (projectCourse && normalizeAvailabilityCourse(row.curs) !== projectCourse) return false;
+        if (normalizeAvailabilityValue(row.tipus || 'projecte') !== normalizeAvailabilityValue(type)) return false;
+        if (type === 'projecte') return true;
+        return normalizeAvailabilityValue(row.activitat_id) === normalizedActivity;
+    });
+}
+
+function isProjectAvailable(projectId) {
+    if (canUseTeacherTools()) return true;
+    const rules = getAvailabilityRows(projectId, 'projecte');
+    return rules.length === 0 || rules.some(rule => rule.visible !== false);
+}
+
+function isActivityAvailable(projectId, activityIds) {
+    if (canUseTeacherTools()) return true;
+    const candidates = Array.isArray(activityIds) ? activityIds : [activityIds];
+    const rules = candidates.flatMap(activityId => getAvailabilityRows(projectId, 'activitat', activityId));
+    return rules.length === 0 || rules.some(rule => rule.visible !== false);
+}
+
+function blockUnavailableActivity(activityIds) {
+    return !state.currentProject || isActivityAvailable(state.currentProject.id, activityIds);
+}
+
+async function loadAvailability(courses) {
+    state.availabilityRows = [];
+
+    const responses = await Promise.all(courses.map(course => callApiGet('getAvailability', { curs: course })));
+    responses.forEach(response => {
+        if (response && response.status === 'success' && Array.isArray(response.disponibilitat)) {
+            state.availabilityRows.push(...response.disponibilitat);
+        }
+    });
+}
+
+function getCardAvailabilityIds(card, projectId) {
+    const onclick = card.getAttribute('onclick') || '';
+    const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
+    const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
+    const systemId = card.getAttribute('data-bio-system');
+
+    if (systemId) return [systemId, `biologia/${systemId}`];
+    if (senseMatch) return [senseMatch[1], `biologia/${senseMatch[1]}`];
+
+    const projectMatch = onclick.match(/openNaturaProject\(['"]([^'"]+)/i);
+    if (projectMatch) return [projectMatch[1]];
+
+    const naturaMatch = onclick.match(/openNaturaActivity\(['"]([^'"]+)/i);
+    if (naturaMatch) {
+        const parent = card.closest('[id^="natura-project-"]');
+        const projectName = parent ? parent.id.replace('natura-project-', '') : '';
+        return projectName
+            ? [`${projectName}/${naturaMatch[1]}`, naturaMatch[1]]
+            : [naturaMatch[1]];
+    }
+
+    if (activityMatch) return [activityMatch[1], `biologia/${activityMatch[1]}`];
+    return [];
+}
+
+function applyAvailabilityToCurrentProject() {
+    const projectId = state.currentProject?.id;
+    const hub = document.querySelector('.game-module:not(.hidden)');
+    if (!projectId || !hub) return;
+
+    hub.querySelectorAll('.activity-card').forEach(card => {
+        const ids = getCardAvailabilityIds(card, projectId);
+        if (ids.length === 0) return;
+        card.classList.toggle('availability-hidden', !isActivityAvailable(projectId, ids));
+    });
+}
+
 function dedupeProjects(projects) {
     const seenIds = new Set();
 
@@ -842,7 +951,7 @@ function getLocalProjectsForCourses(courses) {
     const projects = courses.flatMap(course =>
         (LOCAL_PROJECT_CATALOG[course] || []).map(project => normalizeDashboardProject(project, course))
     );
-    return dedupeProjects(projects.filter(Boolean));
+    return dedupeProjects(projects.filter(Boolean)).filter(project => isProjectAvailable(project.id));
 }
 
 function getProjectVisuals() {
@@ -868,6 +977,7 @@ function renderProjectCards(grid, projects) {
 
     const projectVisuals = getProjectVisuals();
     grid.innerHTML = '';
+    projects = projects.filter(project => isProjectAvailable(project.id));
 
     if (projects.length === 0) {
         grid.innerHTML = `<p>${i18n.t('no_projects') || 'No tens projectes assignats o no s\'han pogut carregar.'}</p>`;
@@ -916,7 +1026,7 @@ async function getApiProjectsForCourses(courses) {
         }
     });
 
-    return dedupeProjects(projects);
+    return dedupeProjects(projects).filter(project => isProjectAvailable(project.id));
 }
 
 function normalizeDashboardProject(project, courseName = '') {
@@ -974,6 +1084,10 @@ async function loadDashboard() {
     grid.innerHTML = '<div class="loader">Carregant projectes...</div>';
 
     const dashboardCourses = getDashboardCourses();
+    await loadAvailability(dashboardCourses).catch(error => {
+        console.warn('No s ha pogut carregar la disponibilitat:', error);
+        state.availabilityRows = [];
+    });
     let dashboardProjects = getLocalProjectsForCourses(dashboardCourses);
 
     renderProjectCards(grid, dashboardProjects);
@@ -1006,6 +1120,7 @@ async function loadDashboard() {
 }
 
 async function openProject(project) {
+    if (!isProjectAvailable(project?.id)) return;
     state.currentProject = project;
     state.currentGameTitle = project.titol;
     await showGameFragment();
@@ -1126,6 +1241,8 @@ async function openProject(project) {
         // Fallback genric
         document.getElementById('game-container-generic').classList.remove('hidden');
     }
+
+    applyAvailabilityToCurrentProject();
 }
 
 ;
@@ -1211,6 +1328,7 @@ function showMediterraniMenu() {
 }
 
 function openMediterraniActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     const hub = document.getElementById('project-hub-mediterrani');
     const menu = document.getElementById('med-activities-menu');
     const activity = document.getElementById(`med-activity-${actId}`);
@@ -1234,6 +1352,7 @@ function showTrMenu() {
 }
 
 function openTrActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     document.getElementById('tr-activities-menu').classList.add('hidden');
     document.getElementById(`tr-activity-${actId}`).classList.remove('hidden');
 
@@ -1258,6 +1377,7 @@ function showParalimpicsMenu() {
 }
 
 function openParalimpicsActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     document.getElementById('par-activities-menu').classList.add('hidden');
     document.getElementById(`paralimpics-activity-${actId}`).classList.remove('hidden');
 }
@@ -1272,6 +1392,7 @@ function showDigitalitzacioMenu() {
 }
 
 function openDigitalitzacioActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     document.getElementById('digi-activities-menu').classList.add('hidden');
     document.getElementById(`digi-activity-${actId}`).classList.remove('hidden');
 
@@ -1293,6 +1414,7 @@ function showSolidartMenu() {
 }
 
 function openSolidartActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     if (typeof clearSolidartQuadresAutoAdvance === 'function') clearSolidartQuadresAutoAdvance();
     if (typeof clearSolidartQuadres2AutoAdvance === 'function') clearSolidartQuadres2AutoAdvance();
 
@@ -1345,6 +1467,7 @@ function showNaturaMenu() {
 }
 
 function openNaturaProject(projectId) {
+    if (!blockUnavailableActivity(projectId)) return;
     const hub = document.getElementById('project-hub-natura');
     const menu = document.getElementById('natura-activities-menu');
     const projectMenu = document.getElementById(`natura-project-${projectId}`);
@@ -1363,6 +1486,7 @@ function showRatesMenu() {
 }
 
 function openRatesActivity(activityId) {
+    if (!blockUnavailableActivity(activityId)) return;
     // Amagar men
     document.getElementById('rates-activities-menu').classList.add('hidden');
 
@@ -1380,6 +1504,10 @@ function openRatesActivity(activityId) {
 }
 
 function openNaturaActivity(actId) {
+    const parent = document.querySelector('.sub-activity:not(.hidden)[id^="natura-project-"]');
+    const projectName = parent ? parent.id.replace('natura-project-', '') : '';
+    const availabilityIds = projectName ? [`${projectName}/${actId}`, actId] : [actId];
+    if (!blockUnavailableActivity(availabilityIds)) return;
     document.getElementById('natura-activities-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
 
@@ -1533,6 +1661,10 @@ function getCurrentBioCourseNumber() {
 }
 
 function openBioSystem(systemId) {
+    if (!blockUnavailableActivity([systemId, `biologia/${systemId}`])) {
+        showBioMenu();
+        return;
+    }
     if (!isBioSystemAllowed(systemId)) {
         showBioMenu();
         return;
@@ -1569,6 +1701,7 @@ function updateBioActivityCourseVisibility(container) {
 
 
 function openBioActivity(actId, options = {}) {
+    if (!blockUnavailableActivity([actId, `biologia/${actId}`])) return;
     setGameTitle(BIO_ACTIVITY_TITLES[actId] || 'Biologia');
 
     if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
@@ -1677,6 +1810,7 @@ function openSenseMenu() {
 }
 
 function openSenseSubActivity(senseId) {
+    if (!blockUnavailableActivity([senseId, `biologia/${senseId}`])) return;
     setGameTitle(BIO_SENSE_TITLES[senseId] || 'Sentits');
 
     // Amagar el men principal dels sentits i totes les llistes d'activitats
@@ -1702,6 +1836,7 @@ function showRadioMenu() {
 }
 
 function openRadioActivity(actId) {
+    if (!blockUnavailableActivity(actId)) return;
     document.getElementById('radio-activities-menu').classList.add('hidden');
     document.querySelectorAll('#project-hub-radio .sub-activity').forEach(el => el.classList.add('hidden'));
 
