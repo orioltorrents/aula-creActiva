@@ -17,6 +17,7 @@
     let animationFrameId = null;
 
     let gameData = null;
+    let activeModelKey = 'betid';
     let currentMode = 'explore'; // 'explore' o 'practice'
     let currentQuestionIndex = 0;
     let score = 0;
@@ -29,9 +30,6 @@
     let pointerDownY = 0;
     let maxDisplacement = 0;
     let isPointerDown = false;
-
-    const MODEL_URL = 'assets/models/Betis/Betid_web.glb';
-    const JSON_URL = 'assets/models/Betis/Anatomia_betid.json';
 
     const FALLBACK_GAME_DATA = {
         "title": "Identifica les parts del bètid",
@@ -50,6 +48,38 @@
             { "id": "cercs", "prompt": "Clica: Cercs laterals", "target_anatomy_id": "cercs" },
             { "id": "filament_central", "prompt": "Clica: Filament caudal central", "target_anatomy_id": "filament_central" }
         ]
+    };
+
+    const FALLBACK_SIMULIUM_DATA = {
+        "title": "Identifica les parts de la larva de Simulium",
+        "questions": [
+            { "id": "torax", "prompt": "Clica: Tòrax", "target_anatomy_id": "torax" },
+            { "id": "abdomen", "prompt": "Clica: Abdomen", "target_anatomy_id": "abdomen" },
+            { "id": "cap", "prompt": "Clica: Càpsula cefàlica", "target_anatomy_id": "cap" },
+            { "id": "taques_oculars", "prompt": "Clica: Taques oculars", "target_anatomy_id": "taques_oculars" },
+            { "id": "antenes", "prompt": "Clica: Antenes", "target_anatomy_id": "antenes" },
+            { "id": "peces_bucals", "prompt": "Clica: Peces bucals", "target_anatomy_id": "peces_bucals" },
+            { "id": "ventalls_filtradors", "prompt": "Clica: Ventalls cefàlics filtradors", "target_anatomy_id": "ventalls_filtradors" },
+            { "id": "pseudopodi_toracic", "prompt": "Clica: Pseudopodi toràcic", "target_anatomy_id": "pseudopodi_toracic" },
+            { "id": "corona_ganxos", "prompt": "Clica: Corona posterior de ganxos", "target_anatomy_id": "corona_ganxos" },
+            { "id": "esclerit_anal", "prompt": "Clica: Esclerit anal", "target_anatomy_id": "esclerit_anal" },
+            { "id": "papilles_rectals", "prompt": "Clica: Papil·les rectals", "target_anatomy_id": "papilles_rectals" }
+        ]
+    };
+
+    const MODEL_CONFIGS = {
+        betid: {
+            title: 'Larva de bètid',
+            modelUrl: 'assets/models/Betis/Betid_web.glb',
+            jsonUrl: 'assets/models/Betis/Anatomia_betid.json',
+            fallback: FALLBACK_GAME_DATA
+        },
+        simulium: {
+            title: 'Larva de Simulium',
+            modelUrl: 'assets/models/Simulium/Simulium_web.glb',
+            jsonUrl: 'assets/models/Simulium/Anatomia_Simulium.json',
+            fallback: FALLBACK_SIMULIUM_DATA
+        }
     };
 
     async function initBetid3DGame() {
@@ -73,26 +103,79 @@
             isInitialized = true;
         }
 
+        updateModelTitle();
         setTimeout(onWindowResize, 100);
         setTimeout(onWindowResize, 300);
 
         if (!isModelLoaded) {
-            if (loaderEl) loaderEl.classList.remove('hidden');
-            try {
-                await Promise.all([loadJSONData(), loadGLTFModel()]);
-                isModelLoaded = true;
-                if (loaderEl) loaderEl.classList.add('hidden');
-            } catch (err) {
-                console.error('Error carregant l\'activitat 3D del bètid:', err);
-                if (loaderEl) {
-                    loaderEl.innerHTML = '<p class="p-4 text-red-400">Error carregant el model 3D.<br>Verifica la connexió o el navegador.</p>';
-                }
-                return;
-            }
+            await loadActiveModel(loaderEl);
         }
 
         setBetid3DMode(currentMode);
         animate();
+    }
+
+    async function selectMacroModel(modelKey) {
+        if (!MODEL_CONFIGS[modelKey] || modelKey === activeModelKey && isModelLoaded) return;
+
+        activeModelKey = modelKey;
+        currentQuestionIndex = 0;
+        score = 0;
+        hasAttemptedCurrentQuestion = false;
+        isModelLoaded = false;
+        disposeCurrentModel();
+
+        const loaderEl = document.getElementById('betid-3d-loader');
+        if (loaderEl) {
+            loaderEl.innerHTML = '<div class="betid-3d-spinner"></div><span>Carregant el model 3D...</span>';
+            loaderEl.classList.remove('hidden');
+        }
+
+        updateModelTitle();
+        updateModelSelector();
+        await loadActiveModel(loaderEl);
+        setBetid3DMode(currentMode);
+        onWindowResize();
+    }
+
+    async function loadActiveModel(loaderEl) {
+        try {
+            await Promise.all([loadJSONData(), loadGLTFModel()]);
+            isModelLoaded = true;
+            if (loaderEl) loaderEl.classList.add('hidden');
+        } catch (err) {
+            console.error('Error carregant el model 3D:', err);
+            if (loaderEl) {
+                loaderEl.innerHTML = '<p class="p-4 text-red-400">Error carregant el model 3D.<br>Verifica la connexió o el navegador.</p>';
+            }
+        }
+    }
+
+    function updateModelTitle() {
+        const config = MODEL_CONFIGS[activeModelKey];
+        const titleEl = document.getElementById('betid-3d-model-title');
+        if (titleEl && config) titleEl.textContent = config.title;
+    }
+
+    function updateModelSelector() {
+        document.querySelectorAll('[data-macro-model]').forEach((button) => {
+            button.classList.toggle('is-active', button.dataset.macroModel === activeModelKey);
+        });
+    }
+
+    function disposeCurrentModel() {
+        restaurarMaterials();
+        if (!modelRoot) return;
+
+        modelRoot.traverse((child) => {
+            if (!child.isMesh) return;
+            child.geometry?.dispose();
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((material) => material?.dispose());
+        });
+        scene.remove(modelRoot);
+        modelRoot = null;
+        originalMaterialsMap.clear();
     }
 
     function setupThreeScene(canvas, container) {
@@ -166,18 +249,20 @@
     }
 
     async function loadJSONData() {
+        const config = MODEL_CONFIGS[activeModelKey];
         try {
-            const res = await fetch(JSON_URL);
-            if (!res.ok) throw new Error('No s\'ha trobat Anatomia_betid.json');
+            const res = await fetch(config.jsonUrl);
+            if (!res.ok) throw new Error(`No s'ha trobat ${config.jsonUrl}`);
             gameData = await res.json();
         } catch (err) {
             console.warn('Fent servir dades anatòmiques de reserva (fallback):', err);
-            gameData = FALLBACK_GAME_DATA;
+            gameData = config.fallback;
         }
     }
 
     function loadGLTFModel() {
         return new Promise((resolve, reject) => {
+            const config = MODEL_CONFIGS[activeModelKey];
             const LoaderClass = THREE.GLTFLoader || (window.THREE && window.THREE.GLTFLoader);
             if (!LoaderClass) {
                 reject(new Error('GLTFLoader no està disponible.'));
@@ -186,7 +271,7 @@
 
             const loader = new LoaderClass();
             loader.load(
-                MODEL_URL,
+                config.modelUrl,
                 (gltf) => {
                     modelRoot = gltf.scene;
 
@@ -440,9 +525,10 @@
         if (finalScoreEl) finalScoreEl.textContent = `${score} / ${totalQuestions}`;
         if (finalPercentageEl) finalPercentageEl.textContent = `${percentage}%`;
 
-        let msg = 'Molt bé! Has identificat les parts anatòmiques del bètid.';
+        const modelTitle = MODEL_CONFIGS[activeModelKey].title;
+        let msg = `Molt bé! Has identificat les parts anatòmiques de la ${modelTitle.toLowerCase()}.`;
         if (percentage === 100) {
-            msg = 'Excel·lent! Coneixes l\'anatomia del bètid a la perfecció!';
+            msg = `Excel·lent! Coneixes l'anatomia de la ${modelTitle.toLowerCase()} a la perfecció!`;
         } else if (percentage < 50) {
             msg = 'Pots millorar! Utilitza el mode explorar per repassar les parts.';
         }
@@ -456,7 +542,7 @@
                 curs: currentUser.curs || '4t ESO',
                 grup: currentUser.grup || currentUser.curs || '4t ESO',
                 projecte: 'Entorns de Natura',
-                app: 'betid-3d',
+                app: `macroinvertebrat-3d-${activeModelKey}`,
                 nivell: 'estàndard',
                 puntuacio: percentage,
                 temps_segons: 0,
@@ -491,6 +577,7 @@
     }
 
     window.initBetid3DGame = initBetid3DGame;
+    window.selectMacroModel = selectMacroModel;
     window.setBetid3DMode = setBetid3DMode;
     window.resetBetid3DCamera = resetBetid3DCamera;
     window.setBetid3DCameraView = setBetid3DCameraView;

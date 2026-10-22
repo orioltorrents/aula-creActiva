@@ -17,6 +17,54 @@
     margin-bottom: var(--space-2, 0.5rem);
 }
 
+.betid-3d-model-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4, 1rem);
+    max-width: 620px;
+    margin: 0 auto var(--space-4, 1rem);
+}
+
+.betid-3d-model-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 0.75rem);
+    padding: var(--space-3, 0.75rem);
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: var(--radius-md, 8px);
+    background: var(--card-bg, #ffffff);
+    color: var(--text-color, #1e293b);
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--transition-fast, 0.2s), box-shadow var(--transition-fast, 0.2s);
+}
+
+.betid-3d-model-option img {
+    width: 72px;
+    height: 56px;
+    object-fit: contain;
+    flex: 0 0 auto;
+}
+
+.betid-3d-model-option:hover,
+.betid-3d-model-option.is-active {
+    border-color: var(--primary-color, #3b82f6);
+    box-shadow: var(--shadow-sm);
+}
+
+.betid-3d-selected-model-title {
+    text-align: center;
+    margin: 0 0 var(--space-3, 0.75rem);
+    color: var(--text-color, #1e293b);
+}
+
+@media (max-width: 600px) {
+    .betid-3d-model-selector {
+        grid-template-columns: 1fr;
+    }
+}
+
 .betid-3d-mode-selector {
     display: flex;
     justify-content: center;

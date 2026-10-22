@@ -212,8 +212,8 @@ const PROJECT_ACTIVITIES = {
       id: "betid-3d",
       titleKey: "",
       descKey: "",
-      fallbackTitle: "Anatomia del Bètid (3D)",
-      fallbackDesc: "Explora el model 3D del bètid i identifica les seves parts anatòmiques.",
+      fallbackTitle: "Anatomia de les larves de macroinvertebrats",
+      fallbackDesc: "Escull una larva i identifica les seves parts anatòmiques en 3D.",
       image: "assets/models/Betis/Betid.png",
       action: "betid-3d"
     }

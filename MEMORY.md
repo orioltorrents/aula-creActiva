@@ -20,6 +20,6 @@
 - Afegit el cas `betid-3d` a la funció activa `openNaturaActivity()` de `js/app.js`.
 - La targeta ara mostra `natura-activity-betid-3d` i inicialitza el visor amb `initBetid3DGame()`.
 
-### 2026-10-22 - Taxonomia d'activitats i skills per mecànica
-- S'han afegit skills a `.agents/skills/` per quizzes, cartografia, classificació, xarxes, mitjans, recerca guiada, simulacions i micro:bit.
-- Els skills previs d'identificació visual, seqüenciació i integració continuen a `.agents/skills/`.
+### 2026-10-22 - Selector de larves de macroinvertebrats
+- L'activitat 3D ara permet escollir entre el Bètid i Simulium, carregant els seus GLB i JSON corresponents.
+- Afegit selector visual, canvi de model, dades de reserva i identificació de l'activitat per model als resultats.
