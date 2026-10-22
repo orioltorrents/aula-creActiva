@@ -4,7 +4,7 @@
  */
 
 (function () {
-    const specimens = [
+    const mainSpecimens = [
         {
             id: 'ancylus',
             name: 'Ancylus',
@@ -205,6 +205,94 @@
         }
     };
 
+    const insectSpecimens = [
+        {
+            id: 'culex-insectes', name: 'Culex', scientificName: 'Culex',
+            image: 'assets/images/natura/clau-macroinvertebrats/Culex.PNG',
+            result: 'Dípters', family: 'Culícids', path: ['no']
+        },
+        {
+            id: 'simulium-insectes', name: 'Simulium', scientificName: 'Simulium',
+            image: 'assets/images/natura/clau-macroinvertebrats/Simulium.PNG',
+            result: 'Dípters', family: 'Simúlids', path: ['no']
+        },
+        {
+            id: 'odonata', name: 'Libèl·lula', scientificName: 'Odonata',
+            image: 'assets/images/natura/Odonata.png',
+            result: 'Odonats', family: '', path: ['yes', 'no', 'yes']
+        },
+        {
+            id: 'ephemeroptera', name: 'Efemeròpter', scientificName: 'Ephemeroptera',
+            image: 'assets/images/natura/Efemeroptera.png',
+            result: 'Efemeròpters', family: '', path: ['yes', 'no', 'yes', 'cerci', 'gills']
+        },
+        {
+            id: 'trichoptera', name: 'Tricòpter', scientificName: 'Trichoptera',
+            image: 'assets/images/natura/Tricoptera.png',
+            result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        }
+    ];
+
+    const insectNodes = {
+        start: {
+            question: 'Té potes articulades?',
+            options: [
+                { id: 'no', label: 'No té potes articulades', result: 'Dípters' },
+                { id: 'yes', label: 'Sí, té potes articulades', next: 'elytra' }
+            ]
+        },
+        elytra: {
+            question: 'Té aspecte d’escarabat amb èlitres coriacis?',
+            options: [
+                { id: 'yes', label: 'Sí, té èlitres', result: 'Coleòpters' },
+                { id: 'no', label: 'No té èlitres', next: 'eyes' }
+            ]
+        },
+        eyes: {
+            question: 'Té ulls compostos i estoigs alars?',
+            options: [
+                { id: 'yes', label: 'Sí', next: 'caudal' },
+                { id: 'no', label: 'No, té ulls simples i no té estoigs alars', next: 'mandibles' }
+            ]
+        },
+        caudal: {
+            question: 'Quins apèndixs caudals observes?',
+            options: [
+                { id: 'lamina', label: 'Làmines o cúpula anal', result: 'Odonats' },
+                { id: 'siphon', label: 'Sifó respiratori o sense apèndixs', result: 'Heteròpters' },
+                { id: 'cerci', label: 'Cercs pluriarticulats', next: 'gill-cerci' }
+            ]
+        },
+        'gill-cerci': {
+            question: 'Té brànquies abdominals?',
+            options: [
+                { id: 'gills', label: 'Sí, té brànquies abdominals', result: 'Efemeròpters' },
+                { id: 'no-gills', label: 'No té brànquies abdominals', result: 'Plecòpters' }
+            ]
+        },
+        mandibles: {
+            question: 'Les mandíbules són més llargues que el cap?',
+            options: [
+                { id: 'long', label: 'Sí, són més llargues que el cap', result: 'Planipennis' },
+                { id: 'short', label: 'No, són més curtes que el cap', next: 'caudal-larva' }
+            ]
+        },
+        'caudal-larva': {
+            question: 'Quina característica observes a l’extrem caudal?',
+            options: [
+                { id: 'long-projection', label: 'Una prolongació molt llarga', result: 'Megalòpters' },
+                { id: 'yes', label: 'Dos pigòpodes amb ungles', result: 'Tricòpters' },
+                { id: 'pseudopods', label: 'Pseudòpodes abdominals', result: 'Lepidòpters' },
+                { id: 'other', label: 'Una altra forma', result: 'Coleòpters' }
+            ]
+        }
+    };
+
+    const keyCatalog = {
+        groups: { specimens: mainSpecimens, nodes, title: 'Grans grups d’invertebrats aquàtics' },
+        insects: { specimens: insectSpecimens, nodes: insectNodes, title: 'Ordres d’insectes en fase aquàtica' }
+    };
+
     let selectedSpecimen = null;
     let currentNodeId = 'start';
     let currentStep = 0;
@@ -212,6 +300,11 @@
     let errors = 0;
     let firstAttempt = true;
     let pathLabels = [];
+    let activeKeyId = 'groups';
+
+    function getActiveKey() {
+        return keyCatalog[activeKeyId];
+    }
 
     function formatSpecimenName(specimen) {
         if (specimen.name === specimen.scientificName) {
@@ -230,15 +323,33 @@
         firstAttempt = true;
         pathLabels = [];
 
+        activeKeyId = 'groups';
+        const keySelector = document.getElementById('macro-key-key-selector');
         const selector = document.getElementById('macro-key-specimen-selector');
         const game = document.getElementById('macro-key-game');
         const result = document.getElementById('macro-key-result');
 
-        if (!selector || !game || !result) return;
-        selector.classList.remove('hidden');
+        if (!keySelector || !selector || !game || !result) return;
+        keySelector.classList.remove('hidden');
+        selector.classList.add('hidden');
         game.classList.add('hidden');
         result.classList.add('hidden');
-        selector.innerHTML = specimens.map(specimen => `
+        renderSpecimenSelector();
+    }
+
+    function selectMacroKey(keyId) {
+        if (!keyCatalog[keyId]) return;
+        activeKeyId = keyId;
+        document.getElementById('macro-key-key-selector')?.classList.add('hidden');
+        document.getElementById('macro-key-specimen-selector')?.classList.remove('hidden');
+        renderSpecimenSelector();
+    }
+
+    function renderSpecimenSelector() {
+        const selector = document.getElementById('macro-key-specimen-selector');
+        if (!selector) return;
+
+        selector.innerHTML = getActiveKey().specimens.map(specimen => `
             <button type="button" class="macro-key-specimen-card" onclick="startMacroKeySpecimen('${specimen.id}')">
                 <img src="${specimen.image}" alt="${specimen.name}">
                 <span>${formatSpecimenName(specimen)}</span>
@@ -247,7 +358,7 @@
     }
 
     function startMacroKeySpecimen(specimenId) {
-        selectedSpecimen = specimens.find(specimen => specimen.id === specimenId);
+        selectedSpecimen = getActiveKey().specimens.find(specimen => specimen.id === specimenId);
         if (!selectedSpecimen) return;
 
         currentNodeId = 'start';
@@ -264,7 +375,7 @@
     }
 
     function renderMacroKeyNode() {
-        const node = nodes[currentNodeId];
+        const node = getActiveKey().nodes[currentNodeId];
         if (!node || !selectedSpecimen) return;
 
         const image = document.getElementById('macro-key-specimen-image');
@@ -298,7 +409,7 @@
     }
 
     function answerMacroKey(optionId) {
-        const node = nodes[currentNodeId];
+        const node = getActiveKey().nodes[currentNodeId];
         const option = node?.options.find(item => item.id === optionId);
         if (!option || !selectedSpecimen) return;
 
@@ -337,7 +448,7 @@
     }
 
     function nextMacroKeyStep() {
-        const node = nodes[currentNodeId];
+        const node = getActiveKey().nodes[currentNodeId];
         const lastOption = node.options.find(option => option.id === selectedSpecimen.path[currentStep - 1]);
 
         if (lastOption?.result) {
@@ -354,12 +465,13 @@
         const totalPoints = totalSteps + 1;
         const finalScore = score + (result === selectedSpecimen.result ? 1 : 0);
         const percentage = Math.round((finalScore / totalPoints) * 100);
+        const familyText = selectedSpecimen.family ? ` Família: ${selectedSpecimen.family}.` : '';
 
         document.getElementById('macro-key-game')?.classList.add('hidden');
         document.getElementById('macro-key-result')?.classList.remove('hidden');
         document.getElementById('macro-key-result-message').innerHTML = result === selectedSpecimen.result
-            ? `Has identificat l’organisme com a <strong>${result}</strong>.`
-            : `La clau t’ha portat a <strong>${result}</strong>, però el resultat esperat era <strong>${selectedSpecimen.result}</strong>.`;
+            ? `Has identificat l’organisme com a <strong>${result}</strong>.${familyText}`
+            : `La clau t’ha portat a <strong>${result}</strong>, però el resultat esperat era <strong>${selectedSpecimen.result}</strong>.${familyText}`;
         document.getElementById('macro-key-result-score').textContent = `Puntuació: ${finalScore} / ${totalPoints} (${percentage}%) · Errors: ${errors}`;
         document.getElementById('macro-key-result-path').textContent = `Camí seguit: ${pathLabels.join(' → ')} → ${result}`;
 
@@ -374,8 +486,8 @@
             curs: state.user.curs,
             grup: state.user.grup,
             projecte: 'Entorns de Natura',
-            app: 'clau-macroinvertebrats',
-            nivell: selectedSpecimen.name,
+            app: `clau-macroinvertebrats-${activeKeyId}`,
+            nivell: `${selectedSpecimen.name} · ${selectedSpecimen.result}${selectedSpecimen.family ? ` · ${selectedSpecimen.family}` : ''}`,
             puntuacio: percentage,
             temps_segons: 0,
             feedback_pos: `${result} · ${finalScore}/${totalPoints}`,

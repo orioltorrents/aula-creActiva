@@ -11,6 +11,48 @@
     margin-bottom: 1.5rem;
 }
 
+.macro-key-key-selector {
+    max-width: 850px;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+}
+
+.macro-key-key-selector h4 {
+    margin-bottom: 1rem;
+}
+
+.macro-key-key-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.macro-key-key-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: var(--radius-md, 8px);
+    background: var(--card-bg, #ffffff);
+    color: var(--text-color, #1e293b);
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--transition-fast, 0.2s), transform var(--transition-fast, 0.2s);
+}
+
+.macro-key-key-card:hover,
+.macro-key-key-card:focus-visible {
+    border-color: var(--primary-color, #3b82f6);
+    transform: translateY(-2px);
+}
+
+.macro-key-key-card span {
+    color: var(--text-muted, #64748b);
+    font-size: 0.95rem;
+}
+
 .macro-key-specimen-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -109,6 +151,10 @@
 }
 
 @media (max-width: 700px) {
+    .macro-key-key-options {
+        grid-template-columns: 1fr;
+    }
+
     .macro-key-observation-panel {
         grid-template-columns: 1fr;
     }

@@ -12,9 +12,9 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Selector de larves de macroinvertebrats
-- L'activitat 3D ara permet escollir entre el Bètid i Simulium, carregant els seus GLB i JSON corresponents.
-- Afegit selector visual, canvi de model, dades de reserva i identificació de l'activitat per model als resultats.
+### 2026-10-22 - Segona clau dicotòmica d'insectes aquàtics
+- Afegit un selector entre la clau de grans grups i la clau dels ordres d'insectes en fase aquàtica.
+- La segona clau inclou resultats en català per Dípters, Odonats, Efemeròpters, Tricòpters i la resta d'ordres del document, amb famílies quan estan disponibles.
 
 ### 2026-10-22 - Primera clau dicotòmica de macroinvertebrats
 - Integrada l'activitat `clau-macroinvertebrats` amb set espècies, decisions guiades, feedback i puntuació.
