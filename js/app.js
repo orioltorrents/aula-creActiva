@@ -1417,6 +1417,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'orenetes-preguntes') {
         document.getElementById('natura-activity-orenetes-preguntes').classList.remove('hidden');
         if (typeof initOrenetesPreguntesQuiz === 'function') initOrenetesPreguntesQuiz();
+    } else if (actId === 'betid-3d') {
+        document.getElementById('natura-activity-betid-3d').classList.remove('hidden');
+        if (typeof initBetid3DGame === 'function') initBetid3DGame();
     }
 }
 
