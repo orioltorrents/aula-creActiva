@@ -1,0 +1,46 @@
+ECHINOGAMMARUS LONGISETOSUS — COLORS NATURALS I ANIMACIÓ
+
+Echinogammarus_animat.blend: model editable, 124 peces i 19 categories.
+Echinogammarus_animat.glb: model i animació incorporats per a la web.
+Anatomia_Echinogammarus.json: parts, identificadors i preguntes.
+Echinogammarus_animat.png: vista del model amb els colors actualitzats.
+
+A BLENDER
+Obre el fitxer .blend. A la vista 3D, prem la barra espaiadora per reproduir
+o pausar l'animació. La línia de temps té els fotogrames 1–121, a 30 fps.
+El cicle dura 4 segons. Les pistes NLA es diuen Natacio_suau.
+Els objectes Moviment_ són pivots; les peces anatòmiques continuen separades.
+La col·lecció ECHINOGAMMARUS | Parts identificables conté el model.
+
+A LA WEB
+El GLB inclou un únic clip, Natacio_suau, amb 31 canals de moviment.
+Cal que el visor reprodueixi el clip i l'activi en bucle; carregar el fitxer
+no implica que qualsevol visor reprodueixi automàticament l'animació.
+En Three.js, GLTFLoader retorna animations; AnimationMixer reprodueix el clip.
+Actualitza el mixer a cada fotograma amb el temps transcorregut en segons.
+Per a l'activitat d'identificació, pausa l'animació mentre l'alumne respon.
+Els meshes conserven anatomy_id, element_id i label_ca a userData.
+Compara anatomy_id amb target_anatomy_id del JSON. No utilitzis els colors
+ni l'ordre dels objectes per corregir les respostes.
+El GLB no inclou la lògica de preguntes, puntuació ni registre d'alumnes.
+
+COLORS I MOVIMENT
+Color verdós clar amb variació fina, taques taronges al pleon, antenes
+ataronjades, potes pàl·lides i ulls foscos. És una de les coloracions
+descrites per a l'espècie; el color dels exemplars vius és variable.
+Els colors de superfície viatgen al GLB com a materials i colors de vèrtex.
+El resultat visual pot variar segons la llum i el visor.
+Antennes amb oscil·lació lenta, potes amb moviment suau, pleòpodes amb
+batuda desfasada i uropodes amb petits moviments. Les setes segueixen
+l'apèndix corresponent. Flotació vertical discreta de tot el cos.
+L'animació és una interpretació didàctica estilitzada, no una reconstrucció
+de moviment observat ni una simulació biomecànica validada.
+
+ABAST
+És un crustaci amfípode, no una larva d'insecte. Model educatiu d'un adult
+de tipus masculí; peces bucals, setes i articles simplificats.
+La versió anterior sense animació es conserva separadament.
+
+REFERÈNCIA DE COLORACIÓ
+Pinkster, S. (1973), The Echinogammarus berilloni-group, pàgina 19.
+https://repository.naturalis.nl/pub/504082/BD1973043001001.pdf

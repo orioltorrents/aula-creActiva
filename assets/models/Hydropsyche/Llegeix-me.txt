@@ -1,0 +1,47 @@
+HYDROPSYCHE — LARVA EN MITJA LLUNA VERTICAL, MODEL DIDÀCTIC 3D
+
+Contingut
+Hydropsyche.blend: model editable, obert a l'escena «Hydropsyche - larva aquatica».
+Hydropsyche_web.glb: model per a visors web, amb geometria, materials i colors incorporats.
+Anatomia_Hydropsyche.json: 19 categories, 74 peces i preguntes d'identificació en català.
+Hydropsyche.png: vista lateral obliqua de la corba vertical.
+Hydropsyche_ventral.png: vista inferior, amb les brànquies visibles.
+
+Parts
+Càpsula cefàlica, taques oculars, antenes curtes, mandíbules, palps, labre,
+tòrax, pronot, mesonot, metanot, sis potes amb les ungles separades,
+abdomen, brànquies ramificades, segment anal, dos pseudopodis anals,
+dos ganxos, plomalls anals i setes del cos i les potes.
+Les peces d'una mateixa categoria es poden identificar conjuntament:
+per exemple, tots els segments pertanyen a «abdomen».
+
+Edició a Blender
+La col·lecció «HYDROPSYCHE | Parts identificables» conté les peces sota l'arrel
+HYDROPSYCHE. Cada peça es pot seleccionar, amagar o editar individualment.
+La curvatura vertical, amb cap i extrem posterior cap avall, està aplicada a la geometria; no hi ha esquelet d'animació.
+S'ha conservat l'escena prèvia de Blender. Les càmeres i els llums queden fora
+de la col·lecció anatòmica i no s'inclouen al GLB.
+
+Integració web
+Carrega el GLB amb GLTFLoader de Three.js. Les propietats personalitzades
+s'importen a userData:
+- anatomy_id: categoria per corregir la resposta.
+- element_id: identificador únic de la peça.
+- label_ca: nom en català.
+En seleccionar amb Raycaster, consulta les propietats de l'objecte i, si cal,
+dels seus pares: les plaques amb dos materials poden generar diversos meshes.
+Compara anatomy_id amb target_anatomy_id de la pregunta del JSON.
+El GLB no conté la lògica de l'activitat, la puntuació ni el registre de resultats.
+
+Abast anatòmic
+Model educatiu d'Hydropsyche sp. basat en les tres imatges facilitades.
+Una fotografia està identificada com H. pellucidula, però aquest model no
+reprodueix els caràcters microscòpics necessaris per diagnosticar l'espècie.
+Brànquies, setes, proporcions i detalls bucals estan simplificats. La distribució
+de brànquies representada no és una regla universal per a totes les espècies.
+Els nombres de filaments i setes no s'han d'utilitzar com a criteris taxonòmics.
+
+Referències anatòmiques complementàries
+https://www.macroinvertebrates.org/taxa-info/trichoptera-larva/hydropsychidae/hydropsyche/lateral
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11933909/
+

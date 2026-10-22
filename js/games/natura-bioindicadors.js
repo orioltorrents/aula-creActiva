@@ -22,26 +22,49 @@
     };
 
     const specimens = [
-        { id: 'ancylus', name: 'Ancylus', family: 'Ancylidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Ancylus.PNG' },
-        { id: 'dugesia', name: 'Dugesia', family: 'Dugesiidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Dugesia.PNG' },
-        { id: 'eiseniella', name: 'Eiseniella tetraedra', family: 'Lumbricidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Eiseniella tetraedra.PNG' },
-        { id: 'helobdella', name: 'Helobdella stagnalis', family: 'Erpobdellidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Helobdella stagnalis.PNG' },
-        { id: 'hidraca', name: 'Hidracar', family: 'Hydracarina', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Hidracar.PNG' },
-        { id: 'proasellus', name: 'Proasellus coxalis', family: 'Asellidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Proasellus coxalis.PNG' },
-        { id: 'eucypris', name: 'Eucypris', family: 'Ostracoda', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Eucypris.PNG' },
-        { id: 'cyclopidae', name: 'Cyclopidae', family: 'Copepoda', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Cyclopidae.PNG' },
-        { id: 'chydoridae', name: 'Chydoridae', family: 'Cladocera', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Chydoridae.PNG' },
-        { id: 'betis', name: 'Bètid', family: 'Baetidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Betis.PNG' },
+        // BLAU (Aigües molt bones)
+        { id: 'sericostoma', name: 'Sericostoma personatum', family: 'Sericostomatidae', color: 'blue', image: 'assets/images/natura/clau-macroinvertebrats/Sericostoma personatum.PNG' },
+
+        // VERD (Aigües bones)
+        { id: 'dugesia', name: 'Dugesia', family: 'Dugesiidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Dugesia.PNG' },
         { id: 'calopterigid', name: 'Calopterígids', family: 'Calopterygidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Calopterigid.PNG' },
-        { id: 'elmis', name: 'Elmis', family: 'Elmidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Elmis.PNG' },
-        { id: 'dryops', name: 'Dryops algiricus', family: 'Dryopidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Dryops algiricus.PNG' },
-        { id: 'haliplus', name: 'Haliplus', family: 'Haliplidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Haliplus.PNG' },
-        { id: 'gyrinus', name: 'Gyrinus urinator', family: 'Gyrinidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus urinator.PNG' },
-        { id: 'hydrophilus', name: 'Hydrophilus pistaceus', family: 'Hydrophilidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus.PNG' },
-        { id: 'hydropsyche', name: 'Hydropsyche', family: 'Hydropsychidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG' },
         { id: 'rhyacophila', name: 'Rhyacophila', family: 'Rhyacophilidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Rhyacophila.PNG' },
         { id: 'polycentropus', name: 'Polycentropus', family: 'Polycentropodidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Polycentropus.PNG' },
-        { id: 'halesus', name: 'Halesus', family: 'Limnephilidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Halesus.PNG' }
+        { id: 'halesus', name: 'Halesus', family: 'Limnephilidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Halesus.PNG' },
+        { id: 'wormaldia', name: 'Wormaldia', family: 'Philopotamidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Wormaldia.PNG' },
+        { id: 'potamophylax', name: 'Potamophylax', family: 'Limnephilidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Potamophylax.PNG' },
+        { id: 'austrapotamobius', name: 'Austrapotamobius pallipes', family: 'Astacidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Austrapotamobius pallipes.PNG' },
+
+        // GROC (Aigües moderades)
+        { id: 'ancylus', name: 'Ancylus', family: 'Ancylidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Ancylus.PNG' },
+        { id: 'elmis', name: 'Elmis', family: 'Elmidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Elmis.PNG' },
+        { id: 'dryops', name: 'Dryops algiricus', family: 'Dryopidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Dryops algiricus.PNG' },
+        { id: 'hydropsyche', name: 'Hydropsyche', family: 'Hydropsychidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG' },
+        { id: 'tipula', name: 'Tipula', family: 'Tipulidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Tipula.PNG' },
+        { id: 'eristalis', name: 'Eristalis', family: 'Syrphidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Eristalis.PNG' },
+        { id: 'echinogammarus', name: 'Echinogammarus longisetosus', family: 'Gammaridae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Echinogammarus longisetosus.PNG' },
+
+        // VERMELL (Aigües molt dolentes)
+        { id: 'eiseniella', name: 'Eiseniella tetraedra', family: 'Lumbricidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Eiseniella tetraedra.PNG' },
+        { id: 'helobdella', name: 'Helobdella stagnalis', family: 'Erpobdellidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Helobdella stagnalis.PNG' },
+        { id: 'hidraca', name: 'Hidracar', family: 'Hydracarina', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Hidracar.PNG' },
+        { id: 'proasellus', name: 'Proasellus coxalis', family: 'Asellidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Proasellus coxalis.PNG' },
+        { id: 'eucypris', name: 'Eucypris', family: 'Ostracoda', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Eucypris.PNG' },
+        { id: 'cyclopidae', name: 'Cyclopidae', family: 'Copepoda', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Cyclopidae.PNG' },
+        { id: 'chydoridae', name: 'Chydoridae', family: 'Cladocera', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Chydoridae.PNG' },
+        { id: 'betis', name: 'Bètid', family: 'Baetidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Betis.PNG' },
+        { id: 'haliplus', name: 'Haliplus', family: 'Haliplidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Haliplus.PNG' },
+        { id: 'gyrinus', name: 'Gyrinus urinator', family: 'Gyrinidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Gyrinus urinator.PNG' },
+        { id: 'hydrophilus', name: 'Hydrophilus pistaceus', family: 'Hydrophilidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Hydrophilus pistaceus.PNG' },
+        { id: 'culex', name: 'Culex', family: 'Culicidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Culex.PNG' },
+        { id: 'simulium', name: 'Simulium', family: 'Simuliidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Simulium.PNG' },
+        { id: 'chironomus', name: 'Chironomus', family: 'Chironomidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Chironomus.PNG' },
+        { id: 'lymnaea', name: 'Lymnaea', family: 'Lymnaeidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Lymnaea.PNG' },
+        { id: 'physella', name: 'Physella acuta', family: 'Physidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Physella acuta.PNG' },
+        { id: 'gyraulus', name: 'Gyraulus', family: 'Planorbidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Gyraulus.PNG' },
+        { id: 'pisidium', name: 'Pisidium casertanum', family: 'Sphaeriidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Pisidium casertanum.PNG' },
+        { id: 'potamopyrgus', name: 'Potamopyrgus antipodarum', family: 'Hydrobiidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Potamopyrgus antipodarum.PNG' },
+        { id: 'procambarus', name: 'Procambarus clarkii', family: 'Cambaridae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Procambarus clarkii.PNG' }
     ];
 
     let round = [];
@@ -73,7 +96,8 @@
     }
 
     function initRiverBioActivity() {
-        round = shuffle(specimens).slice(0, 10);
+        const sampleSize = Math.floor(Math.random() * 5) + 6;
+        round = shuffle(specimens).slice(0, sampleSize);
         currentIndex = 0;
         assignments = [];
 
@@ -141,14 +165,10 @@
         const expectedState = calculateEcologicalState(round, 'color');
         const chosenState = calculateEcologicalState(assignments, 'selectedColor');
         const classificationCorrect = assignments.filter(item => item.selectedColor === item.specimen.color).length;
+        const classificationErrors = round.length - classificationCorrect;
         const stateCorrect = selectedState === expectedState;
         const percentage = Math.round(((classificationCorrect + (stateCorrect ? 1 : 0)) / (round.length + 1)) * 100);
         const result = getElement('river-bio-result');
-
-        assignments.forEach(item => {
-            item.card.classList.toggle('is-correct', item.selectedColor === item.specimen.color);
-            item.card.classList.toggle('is-incorrect', item.selectedColor !== item.specimen.color);
-        });
 
         const chosenCounts = getUniqueFamilyCounts(assignments, 'selectedColor');
         const actualCounts = getUniqueFamilyCounts(round, 'color');
@@ -156,11 +176,18 @@
             .map(color => `${colorLabels[color]}: ${chosenCounts[color]} famílies`)
             .join(' · ');
 
+        const errorText = classificationErrors === 0
+            ? 'Has classificat totes les espècies al color correcte!'
+            : classificationErrors === 1
+                ? 'Has comès 1 error de classificació d’espècie.'
+                : `Has comès ${classificationErrors} errors de classificació d’espècies.`;
+
         result.innerHTML = `
             <p class="river-bio-result__feedback ${stateCorrect ? 'is-success' : 'is-error'}">
                 ${stateCorrect ? 'Interpretació correcta.' : 'La interpretació necessita revisió.'}
             </p>
-            <p>Has classificat correctament ${classificationCorrect} de ${round.length} espècies i has obtingut un ${percentage}%.</p>
+            <p>${errorText}</p>
+            <p>Puntuació global: <strong>${percentage}%</strong></p>
             <p><strong>Amb les teves classificacions:</strong> ${countText}.</p>
             <p><strong>Estat correcte:</strong> ${stateLabels[expectedState]}.</p>
             <p>${expectedState === 'insufficient'

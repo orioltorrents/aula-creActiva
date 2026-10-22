@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "title": "Echinogammarus longisetosus",
+  "model": "Echinogammarus_web.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "id": "cap",
+      "label_ca": "Cap",
+      "elements": [
+        "cap"
+      ]
+    },
+    {
+      "id": "ulls",
+      "label_ca": "Ulls compostos",
+      "elements": [
+        "ull_E",
+        "ull_D"
+      ]
+    },
+    {
+      "id": "antenes_1",
+      "label_ca": "Antènules (primer parell)",
+      "elements": [
+        "antena_1_E",
+        "antena_1_D"
+      ]
+    },
+    {
+      "id": "setes",
+      "label_ca": "Setes",
+      "elements": [
+        "setes_antena_1_E",
+        "setes_antena_2_E",
+        "setes_antena_1_D",
+        "setes_antena_2_D",
+        "setes_pleon_01",
+        "setes_pleon_02",
+        "setes_pleon_03",
+        "setes_urosoma_01",
+        "setes_urosoma_02",
+        "setes_urosoma_03",
+        "setes_gnatopode_1_E",
+        "setes_gnatopode_1_D",
+        "setes_gnatopode_2_E",
+        "setes_gnatopode_2_D",
+        "setes_pereiopode_3_E",
+        "setes_pereiopode_3_D",
+        "setes_pereiopode_4_E",
+        "setes_pereiopode_4_D",
+        "setes_pereiopode_5_E",
+        "setes_pereiopode_5_D",
+        "setes_pereiopode_6_E",
+        "setes_pereiopode_6_D",
+        "setes_pereiopode_7_E",
+        "setes_pereiopode_7_D",
+        "setes_pleopode_1_E",
+        "setes_pleopode_1_D",
+        "setes_pleopode_2_E",
+        "setes_pleopode_2_D",
+        "setes_pleopode_3_E",
+        "setes_pleopode_3_D",
+        "setes_uropode_1_E",
+        "setes_uropode_1_D",
+        "setes_uropode_2_E",
+        "setes_uropode_2_D",
+        "setes_uropode_3_E",
+        "setes_uropode_3_D",
+        "setes_telson_E",
+        "setes_telson_D"
+      ]
+    },
+    {
+      "id": "flagels_accessoris",
+      "label_ca": "Flagels accessoris",
+      "elements": [
+        "flagel_accessori_E",
+        "flagel_accessori_D"
+      ]
+    },
+    {
+      "id": "antenes_2",
+      "label_ca": "Antenes (segon parell)",
+      "elements": [
+        "antena_2_E",
+        "antena_2_D"
+      ]
+    },
+    {
+      "id": "peces_bucals",
+      "label_ca": "Peces bucals",
+      "elements": [
+        "mandibula_E",
+        "mandibula_D"
+      ]
+    },
+    {
+      "id": "maxillipedes",
+      "label_ca": "Maxil·lípedes",
+      "elements": [
+        "maxillipede_E",
+        "maxillipede_D"
+      ]
+    },
+    {
+      "id": "pereon",
+      "label_ca": "Perèon",
+      "elements": [
+        "pereon_01",
+        "pereon_02",
+        "pereon_03",
+        "pereon_04",
+        "pereon_05",
+        "pereon_06",
+        "pereon_07"
+      ]
+    },
+    {
+      "id": "pleon",
+      "label_ca": "Pleon",
+      "elements": [
+        "pleon_01",
+        "pleon_02",
+        "pleon_03"
+      ]
+    },
+    {
+      "id": "urosoma",
+      "label_ca": "Urosoma",
+      "elements": [
+        "urosoma_01",
+        "urosoma_02",
+        "urosoma_03"
+      ]
+    },
+    {
+      "id": "plaques_coxals",
+      "label_ca": "Plaques coxals",
+      "elements": [
+        "coxa_1_E",
+        "coxa_1_D",
+        "coxa_2_E",
+        "coxa_2_D",
+        "coxa_3_E",
+        "coxa_3_D",
+        "coxa_4_E",
+        "coxa_4_D",
+        "coxa_5_E",
+        "coxa_5_D",
+        "coxa_6_E",
+        "coxa_6_D",
+        "coxa_7_E",
+        "coxa_7_D"
+      ]
+    },
+    {
+      "id": "gnatopodes",
+      "label_ca": "Gnatòpodes",
+      "elements": [
+        "gnatopode_1_E",
+        "gnatopode_1_D",
+        "gnatopode_2_E",
+        "gnatopode_2_D"
+      ]
+    },
+    {
+      "id": "pereiopodes",
+      "label_ca": "Pereiòpodes caminadors (P3–P7)",
+      "elements": [
+        "pereiopode_3_E",
+        "pereiopode_3_D",
+        "pereiopode_4_E",
+        "pereiopode_4_D",
+        "pereiopode_5_E",
+        "pereiopode_5_D",
+        "pereiopode_6_E",
+        "pereiopode_6_D",
+        "pereiopode_7_E",
+        "pereiopode_7_D"
+      ]
+    },
+    {
+      "id": "branquies",
+      "label_ca": "Brànquies coxals",
+      "elements": [
+        "branquia_2_E",
+        "branquia_2_D",
+        "branquia_3_E",
+        "branquia_3_D",
+        "branquia_4_E",
+        "branquia_4_D",
+        "branquia_5_E",
+        "branquia_5_D",
+        "branquia_6_E",
+        "branquia_6_D",
+        "branquia_7_E",
+        "branquia_7_D"
+      ]
+    },
+    {
+      "id": "plaques_epimerals",
+      "label_ca": "Plaques epimerals",
+      "elements": [
+        "epimer_1_E",
+        "epimer_1_D",
+        "epimer_2_E",
+        "epimer_2_D",
+        "epimer_3_E",
+        "epimer_3_D"
+      ]
+    },
+    {
+      "id": "pleopodes",
+      "label_ca": "Pleòpodes nedadors",
+      "elements": [
+        "pleopode_1_E",
+        "pleopode_1_D",
+        "pleopode_2_E",
+        "pleopode_2_D",
+        "pleopode_3_E",
+        "pleopode_3_D"
+      ]
+    },
+    {
+      "id": "uropodes",
+      "label_ca": "Uropodes",
+      "elements": [
+        "uropode_1_E",
+        "uropode_1_D",
+        "uropode_2_E",
+        "uropode_2_D",
+        "uropode_3_E",
+        "uropode_3_D"
+      ]
+    },
+    {
+      "id": "telson",
+      "label_ca": "Tèlson bilobulat",
+      "elements": [
+        "telson_E",
+        "telson_D"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_cap",
+      "prompt": "Assenyala: Cap",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "q_ulls",
+      "prompt": "Assenyala: Ulls compostos",
+      "target_anatomy_id": "ulls"
+    },
+    {
+      "id": "q_antenes_1",
+      "prompt": "Assenyala: Antènules (primer parell)",
+      "target_anatomy_id": "antenes_1"
+    },
+    {
+      "id": "q_setes",
+      "prompt": "Assenyala: Setes",
+      "target_anatomy_id": "setes"
+    },
+    {
+      "id": "q_flagels_accessoris",
+      "prompt": "Assenyala: Flagels accessoris",
+      "target_anatomy_id": "flagels_accessoris"
+    },
+    {
+      "id": "q_antenes_2",
+      "prompt": "Assenyala: Antenes (segon parell)",
+      "target_anatomy_id": "antenes_2"
+    },
+    {
+      "id": "q_peces_bucals",
+      "prompt": "Assenyala: Peces bucals",
+      "target_anatomy_id": "peces_bucals"
+    },
+    {
+      "id": "q_maxillipedes",
+      "prompt": "Assenyala: Maxil·lípedes",
+      "target_anatomy_id": "maxillipedes"
+    },
+    {
+      "id": "q_pereon",
+      "prompt": "Assenyala: Perèon",
+      "target_anatomy_id": "pereon"
+    },
+    {
+      "id": "q_pleon",
+      "prompt": "Assenyala: Pleon",
+      "target_anatomy_id": "pleon"
+    },
+    {
+      "id": "q_urosoma",
+      "prompt": "Assenyala: Urosoma",
+      "target_anatomy_id": "urosoma"
+    },
+    {
+      "id": "q_plaques_coxals",
+      "prompt": "Assenyala: Plaques coxals",
+      "target_anatomy_id": "plaques_coxals"
+    },
+    {
+      "id": "q_gnatopodes",
+      "prompt": "Assenyala: Gnatòpodes",
+      "target_anatomy_id": "gnatopodes"
+    },
+    {
+      "id": "q_pereiopodes",
+      "prompt": "Assenyala: Pereiòpodes caminadors (P3–P7)",
+      "target_anatomy_id": "pereiopodes"
+    },
+    {
+      "id": "q_branquies",
+      "prompt": "Assenyala: Brànquies coxals",
+      "target_anatomy_id": "branquies"
+    },
+    {
+      "id": "q_plaques_epimerals",
+      "prompt": "Assenyala: Plaques epimerals",
+      "target_anatomy_id": "plaques_epimerals"
+    },
+    {
+      "id": "q_pleopodes",
+      "prompt": "Assenyala: Pleòpodes nedadors",
+      "target_anatomy_id": "pleopodes"
+    },
+    {
+      "id": "q_uropodes",
+      "prompt": "Assenyala: Uropodes",
+      "target_anatomy_id": "uropodes"
+    },
+    {
+      "id": "q_telson",
+      "prompt": "Assenyala: Tèlson bilobulat",
+      "target_anatomy_id": "telson"
+    }
+  ],
+  "notes": [
+    "Representació didàctica basada en les imatges i en la descripció de Pinkster (1973).",
+    "Adult de tipus masculí: gnatòpode II més gran i setes llargues; no és una reconstrucció taxonòmica exacta.",
+    "Setes, articles antenals i peces bucals simplificats; recomptes microscòpics no diagnòstics.",
+    "Perèon amb 7 parells d'apèndixs: 2 gnatòpodes i 5 parells caminadors. Pleòpodes i uropodes: 3 parells de cada.",
+    "Propietats anatomy_id, element_id i label_ca. La lògica del qüestionari no és dins del GLB."
+  ]
+}

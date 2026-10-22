@@ -1,0 +1,51 @@
+ECHINOGAMMARUS LONGISETOSUS — MODEL DIDÀCTIC 3D
+
+Fitxers
+Echinogammarus.blend: model editable amb 124 peces en una col·lecció pròpia.
+Echinogammarus_web.glb: model per a la web, amb materials i colors incorporats.
+Anatomia_Echinogammarus.json: 19 categories i preguntes d'identificació.
+Echinogammarus.png i Echinogammarus_ventral.png: vistes lateral obliqua i ventral.
+
+Parts diferenciades
+Cap, ulls compostos, antènules, antenes, flagels accessoris, peces bucals,
+maxil·lípedes, perèon, pleon, urosoma, plaques coxals, plaques epimerals,
+gnatòpodes, pereiòpodes caminadors, brànquies coxals, pleòpodes, uropodes,
+tèlson bilobulat i setes.
+S'han representat 7 parells d'apèndixs del perèon: 2 parells de gnatòpodes
+i 5 parells caminadors. Hi ha 3 parells de pleòpodes i 3 d'uropodes.
+Les setes són objectes agrupats, no un objecte individual per cada pèl.
+
+Blender
+Obre l'escena «Echinogammarus longisetosus - Anatomia».
+Selecciona les peces a la col·lecció «ECHINOGAMMARUS | Parts identificables».
+Les peces mantenen els identificadors anatomy_id, element_id i label_ca.
+La curvatura és al pla vertical del cos. Model estàtic, sense rig.
+Per veure les brànquies internes a les plaques coxals, pots amagar aquestes plaques.
+Les altres escenes prèvies no s'han eliminat.
+
+Integració web
+Carrega Echinogammarus_web.glb amb GLTFLoader de Three.js.
+En clicar amb Raycaster, busca anatomy_id a userData de l'objecte seleccionat
+o dels seus pares. Compara'l amb target_anatomy_id al JSON.
+element_id correspon a una peça concreta; anatomy_id agrupa peces de la mateixa
+categoria. label_ca és el nom en català.
+No facis servir l'ordre dels meshes ni el color per corregir la resposta.
+El GLB incorpora la geometria i els colors; no necessita textures externes.
+La lògica de preguntes, puntuació i registre de resultats es programa a la web.
+
+Abast
+Representació educativa d'Echinogammarus longisetosus basada en les imatges
+facilitades i la descripció de Pinkster (1973). S'ha adoptat un adult de tipus
+masculí, amb el segon gnatòpode més gran i setes llargues als apèndixs.
+La làmina amb diversos animals s'ha utilitzat com a referència de l'anatomia
+general dels amfípodes, no com a prova d'identitat de tots els exemplars.
+La forma de les plaques, els articles antenals, la setació i les peces bucals
+estan simplificats. El model no substitueix una clau taxonòmica ni permet
+identificar l'espècie a partir de recomptes microscòpics.
+No s'hi representa una larva d'insecte: és un crustaci amfípode.
+
+Referència anatòmica principal
+Pinkster, S. (1973). The Echinogammarus berilloni-group, a number of predominantly
+Iberian amphipod species (Crustacea). Bijdragen tot de Dierkunde 43(1).
+https://inpn.mnhn.fr/docs-web/docs/download/114821
+

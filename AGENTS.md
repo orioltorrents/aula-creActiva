@@ -150,6 +150,8 @@ Reutilitza aquestes classes abans de crear-ne de noves:
 - Per botons, combina la classe base `btn` amb modificadors BEM o classes específiques.
 - Si mous una activitat, comprova el menú, la targeta, el contenidor i les funcions JS corresponents.
 - Els fragments poden contenir placeholders `data-fragment`; `loadNestedFragments` els processa automàticament.
+- **Estructura i aïllament de contenidors**: Cada activitat o sub-mòdul ha de ser un bloc independent (germà) dins del seu contenidor pare. Mai insereixis el codi d'una subactivitat dins del cos d'una altra activitat per evitar tancar contenidors pare abans d'hora.
+- **Balanç d'etiquetes HTML**: En editar fragments HTML, verifica sempre que no quedin etiquetes `<div` sense tancar o `</div>` duplicades que trobin la jerarquia DOM.
 
 ### Noms i IDs convencionals
 
@@ -220,3 +222,11 @@ Revisa els fitxers canviats. Assegura't que només has modificat els fitxers nec
 ### Check 5: Sintaxi JavaScript (opcional, si hi ha Node)
 
 Si tens Node disponible, valida la sintaxi bàsica dels fitxers JS modificats amb un linter o parser.
+
+### Check 6: Balanç d'etiquetes HTML (divs)
+
+Si s'han modificat fragments HTML, verifica que el nombre de divs oberts i tancats coincideixi:
+
+```powershell
+node -e "const fs=require('fs'); ['fragments/projects/entorns/index.html','index.html'].forEach(f=>{ if(!fs.existsSync(f)) return; const h=fs.readFileSync(f,'utf8'); const o=(h.match(/<div/g)||[]).length; const c=(h.match(/<\/div>/g)||[]).length; console.log(f, 'divs oberts:', o, 'divs tancats:', c); if(o!==c) process.exit(1); });"
+```

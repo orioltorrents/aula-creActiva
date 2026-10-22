@@ -12,12 +12,15 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Nova activitat Bioindicadors del riu
-- Creada l'activitat `bioindicadors` amb classificació per calaixos de colors (blau, verd, groc, carbassa, vermell).
-- L'estat ecològic s'interpreta en funció del recompte de famílies úniques (mínim 2 famílies diferents per validar un color) i es desa el resultat.
+### 2026-10-22 - Suport per a animacions 3D i Echinogammarus_animat
+- Activat el reproductor d'animacions de Three.js (AnimationMixer i Clock) per executar animacions en carregar models GLB.
+- Vinculat el model d'Echinogammarus a la versió animada `Echinogammarus_animat.glb` amb la seva miniatura corresponent.
 
-### 2026-10-22 - Pistes i imatges a la clau de macroinvertebrats
-- Afegit el botó de pista a les dues claus i imatges il·lustratives a les targetes del selector inicial.
+### 2026-10-22 - Ajustos a bioindicadors, qüestionari 3D i model de Baetis
+- Configurada mostra aleatòria d'entre 6 i 10 espècies per ronda a l'activitat de bioindicadors.
+- Limitat el mode practicar dels models 3D a una selecció aleatòria de 10 preguntes per sessió.
+- Canviat el nom del model de bètid a "Larva de Baetis" en la interfície i configuracions.
 
-### 2026-10-22 - Més coleòpters i tricòpters a la clau
-- Afegits 12 exemplars nous a la clau general i a la clau específica d'ordres d'insectes.
+### 2026-10-22 - Integrat el model 3D d'Echinogammarus
+- Afegit Echinogammarus al selector del visor 3D d'anatomia de macroinvertebrats amb model GLB, JSON anatòmic complet i fallback de preguntes.
+- Adaptat el selector de models 3D amb graella fluida i responsive per a 5 models.

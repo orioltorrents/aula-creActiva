@@ -22,6 +22,9 @@
     let currentQuestionIndex = 0;
     let score = 0;
     let hasAttemptedCurrentQuestion = false;
+    let activePracticeQuestions = [];
+    let mixer = null;
+    const clock = new THREE.Clock();
 
     const originalMaterialsMap = new Map();
     let highlightedNode = null;
@@ -32,7 +35,7 @@
     let isPointerDown = false;
 
     const FALLBACK_GAME_DATA = {
-        "title": "Identifica les parts del bètid",
+        "title": "Identifica les parts de la larva de Baetis",
         "model": "Betid_web.glb",
         "language": "ca",
         "questions": [
@@ -92,9 +95,54 @@
         ]
     };
 
+    const FALLBACK_HYDROPSYCHE_DATA = {
+        "title": "Larva d'Hydropsyche",
+        "questions": [
+            { "id": "q_cap", "prompt": "Assenyala: Càpsula cefàlica", "target_anatomy_id": "cap" },
+            { "id": "q_ulls", "prompt": "Assenyala: Taques oculars", "target_anatomy_id": "ulls" },
+            { "id": "q_antenes", "prompt": "Assenyala: Antenes curtes", "target_anatomy_id": "antenes" },
+            { "id": "q_mandibules", "prompt": "Assenyala: Mandíbules", "target_anatomy_id": "mandibules" },
+            { "id": "q_palps", "prompt": "Assenyala: Palps bucals", "target_anatomy_id": "palps" },
+            { "id": "q_labre", "prompt": "Assenyala: Labre", "target_anatomy_id": "labre" },
+            { "id": "q_torax", "prompt": "Assenyala: Tòrax", "target_anatomy_id": "torax" },
+            { "id": "q_pronot", "prompt": "Assenyala: Pronot (placa del protòrax)", "target_anatomy_id": "pronot" },
+            { "id": "q_mesonot", "prompt": "Assenyala: Mesonot (placa del mesotòrax)", "target_anatomy_id": "mesonot" },
+            { "id": "q_metanot", "prompt": "Assenyala: Metanot (placa del metatòrax)", "target_anatomy_id": "metanot" },
+            { "id": "q_potes", "prompt": "Assenyala: Potes toràciques", "target_anatomy_id": "potes" },
+            { "id": "q_ungles_potes", "prompt": "Assenyala: Ungles de les potes", "target_anatomy_id": "ungles_potes" },
+            { "id": "q_setes", "prompt": "Assenyala: Setes del cos i les potes", "target_anatomy_id": "setes" },
+            { "id": "q_abdomen", "prompt": "Assenyala: Abdomen (segments I–IX)", "target_anatomy_id": "abdomen" },
+            { "id": "q_branquies", "prompt": "Assenyala: Brànquies abdominals ramificades", "target_anatomy_id": "branquies" },
+            { "id": "q_segment_anal", "prompt": "Assenyala: Segment anal", "target_anatomy_id": "segment_anal" },
+            { "id": "q_pseudopodis_anals", "prompt": "Assenyala: Pseudopodis anals", "target_anatomy_id": "pseudopodis_anals" },
+            { "id": "q_ganxos_anals", "prompt": "Assenyala: Ganxos anals", "target_anatomy_id": "ganxos_anals" },
+            { "id": "q_plomalls_anals", "prompt": "Assenyala: Plomalls de setes anals", "target_anatomy_id": "plomalls_anals" }
+        ]
+    };
+
+    const FALLBACK_ECHINOGAMMARUS_DATA = {
+        "title": "Echinogammarus longisetosus",
+        "questions": [
+            { "id": "q_cap", "prompt": "Assenyala: Cap", "target_anatomy_id": "cap" },
+            { "id": "q_ulls", "prompt": "Assenyala: Ulls compostos", "target_anatomy_id": "ulls" },
+            { "id": "q_antenes_1", "prompt": "Assenyala: Antènules (primer parell)", "target_anatomy_id": "antenes_1" },
+            { "id": "q_antenes_2", "prompt": "Assenyala: Antenes (segon parell)", "target_anatomy_id": "antenes_2" },
+            { "id": "q_peces_bucals", "prompt": "Assenyala: Peces bucals", "target_anatomy_id": "peces_bucals" },
+            { "id": "q_pereon", "prompt": "Assenyala: Perèon", "target_anatomy_id": "pereon" },
+            { "id": "q_pleon", "prompt": "Assenyala: Pleon", "target_anatomy_id": "pleon" },
+            { "id": "q_urosoma", "prompt": "Assenyala: Urosoma", "target_anatomy_id": "urosoma" },
+            { "id": "q_gnatopodes", "prompt": "Assenyala: Gnatòpodes", "target_anatomy_id": "gnatopodes" },
+            { "id": "q_pereiopodes", "prompt": "Assenyala: Pereiòpodes caminadors (P3–P7)", "target_anatomy_id": "pereiopodes" },
+            { "id": "q_branquies", "prompt": "Assenyala: Brànquies coxals", "target_anatomy_id": "branquies" },
+            { "id": "q_pleopodes", "prompt": "Assenyala: Pleòpodes nedadors", "target_anatomy_id": "pleopodes" },
+            { "id": "q_uropodes", "prompt": "Assenyala: Uropodes", "target_anatomy_id": "uropodes" },
+            { "id": "q_telson", "prompt": "Assenyala: Tèlson bilobulat", "target_anatomy_id": "telson" }
+        ]
+    };
+
     const MODEL_CONFIGS = {
         betid: {
-            title: 'Larva de bètid',
+            title: 'Larva de Baetis',
             modelUrl: 'assets/models/Betis/Betid_web.glb',
             jsonUrl: 'assets/models/Betis/Anatomia_betid.json',
             fallback: FALLBACK_GAME_DATA
@@ -110,6 +158,18 @@
             modelUrl: 'assets/models/Culex/Culex_web.glb',
             jsonUrl: 'assets/models/Culex/Anatomia_Culex.json',
             fallback: FALLBACK_CULEX_DATA
+        },
+        hydropsyche: {
+            title: "Larva d'Hydropsyche",
+            modelUrl: 'assets/models/Hydropsyche/Hydropsyche_web.glb',
+            jsonUrl: 'assets/models/Hydropsyche/Anatomia_Hydropsyche.json',
+            fallback: FALLBACK_HYDROPSYCHE_DATA
+        },
+        echinogammarus: {
+            title: 'Echinogammarus',
+            modelUrl: 'assets/models/Echinogammarus/Echinogammarus_web.glb',
+            jsonUrl: 'assets/models/Echinogammarus/Anatomia_Echinogammarus.json',
+            fallback: FALLBACK_ECHINOGAMMARUS_DATA
         }
     };
 
@@ -196,6 +256,10 @@
 
     function disposeCurrentModel() {
         restaurarMaterials();
+        if (mixer) {
+            mixer.stopAllAction();
+            mixer = null;
+        }
         if (!modelRoot) return;
 
         modelRoot.traverse((child) => {
@@ -313,6 +377,12 @@
                     });
 
                     scene.add(modelRoot);
+                    if (gltf.animations && gltf.animations.length > 0) {
+                        mixer = new THREE.AnimationMixer(modelRoot);
+                        gltf.animations.forEach((clip) => {
+                            mixer.clipAction(clip).play();
+                        });
+                    }
                     frameModel();
                     resolve();
                 },
@@ -354,6 +424,8 @@
 
     function animate() {
         animationFrameId = requestAnimationFrame(animate);
+        const delta = clock.getDelta();
+        if (mixer) mixer.update(delta);
         if (controls) controls.update();
         if (renderer && scene && camera) {
             renderer.render(scene, camera);
@@ -399,7 +471,7 @@
                 labelEl.textContent = `Part seleccionada: ${userData.label_ca || 'Part anatòmica'}`;
             }
         } else if (currentMode === 'practice') {
-            const currentQuestion = gameData?.questions?.[currentQuestionIndex];
+            const currentQuestion = activePracticeQuestions[currentQuestionIndex];
             if (!currentQuestion) return;
 
             const isCorrect = userData.anatomy_id === currentQuestion.target_anatomy_id;
@@ -491,10 +563,17 @@
         }
     }
 
+    function shuffleArray(arr) {
+        return arr.slice().sort(() => Math.random() - 0.5);
+    }
+
     function startBetid3DPracticeQuiz() {
         currentQuestionIndex = 0;
         score = 0;
         hasAttemptedCurrentQuestion = false;
+
+        const allQuestions = gameData?.questions || [];
+        activePracticeQuestions = shuffleArray(allQuestions).slice(0, 10);
 
         const quizPanel = document.getElementById('betid-3d-quiz-panel');
         if (quizPanel) quizPanel.classList.remove('hidden');
@@ -506,15 +585,14 @@
         restaurarMaterials();
         hasAttemptedCurrentQuestion = false;
 
-        const questions = gameData?.questions || [];
-        const totalQuestions = questions.length;
+        const totalQuestions = activePracticeQuestions.length;
 
         if (currentQuestionIndex >= totalQuestions) {
             finishBetid3DQuiz();
             return;
         }
 
-        const currentQ = questions[currentQuestionIndex];
+        const currentQ = activePracticeQuestions[currentQuestionIndex];
 
         const progressEl = document.getElementById('betid-3d-progress');
         const promptEl = document.getElementById('betid-3d-prompt');
@@ -546,7 +624,7 @@
         if (quizPanel) quizPanel.classList.add('hidden');
         if (resultsPanel) resultsPanel.classList.remove('hidden');
 
-        const totalQuestions = gameData?.questions?.length || 11;
+        const totalQuestions = activePracticeQuestions.length || 10;
         const percentage = Math.round((score / totalQuestions) * 100);
 
         const finalScoreEl = document.getElementById('betid-3d-final-score');

@@ -127,10 +127,16 @@ function renderEntornsActivities() {
     if (menu) {
       menu.classList.remove("hidden");
     }
+
+    if (typeof applyAvailabilityToCurrentProject === "function") {
+      applyAvailabilityToCurrentProject();
+    }
   }
 
   // Obre un submenú de projecte dins d'Entorns de Natura
   function openNaturaProject(projectName) {
+    if (typeof blockUnavailableActivity === "function" && !blockUnavailableActivity(projectName)) return;
+
     const menu = document.getElementById("natura-activities-menu");
     if (menu) {
       menu.classList.add("hidden");
@@ -141,6 +147,10 @@ function renderEntornsActivities() {
     const projectElement = document.getElementById(`natura-project-${projectName}`);
     if (projectElement) {
       projectElement.classList.remove("hidden");
+    }
+
+    if (typeof applyAvailabilityToCurrentProject === "function") {
+      applyAvailabilityToCurrentProject();
     }
   }
 

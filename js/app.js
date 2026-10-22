@@ -863,21 +863,32 @@ function getAvailabilityRows(projectId, type, activityId = '') {
     const projectCourse = normalizeAvailabilityCourse(getProjectCourse(projectId));
     const normalizedActivity = normalizeAvailabilityValue(activityId);
 
-    return state.availabilityRows.filter(row => {
+    const projectRows = state.availabilityRows.filter(row => {
         if (normalizeAvailabilityValue(row.projecte_id) !== normalizeAvailabilityValue(projectId)) return false;
         if (projectCourse && normalizeAvailabilityCourse(row.curs) !== projectCourse) return false;
         if (normalizeAvailabilityValue(row.tipus || 'projecte') !== normalizeAvailabilityValue(type)) return false;
-        if (type === 'projecte') return true;
+        return true;
+    });
 
+    if (type === 'projecte') return projectRows;
+
+    // 1. Coincidència exacta
+    const exactMatches = projectRows.filter(row => {
+        return normalizeAvailabilityValue(row.activitat_id) === normalizedActivity;
+    });
+
+    if (exactMatches.length > 0) {
+        return exactMatches;
+    }
+
+    // 2. Si no hi ha coincidència exacta, provar comparació de la base del nom (ex: bioindicadors <-> rius/bioindicadors)
+    return projectRows.filter(row => {
         const rowAct = normalizeAvailabilityValue(row.activitat_id);
-        if (rowAct === normalizedActivity) return true;
-
         if (rowAct.includes('/') || String(row.activitat_id || '').includes('/')) {
             const rowBase = normalizeAvailabilityValue(String(row.activitat_id || '').split('/').pop());
             const targetBase = normalizeAvailabilityValue(String(activityId || '').split('/').pop());
-            if (rowBase && rowBase === targetBase) return true;
+            return Boolean(rowBase && rowBase === targetBase);
         }
-
         return false;
     });
 }
@@ -1078,7 +1089,7 @@ async function loadDashboard() {
 
     showScreen('dashboard');
 
-    
+
 
     // Update User Info
     const userName = document.getElementById('user-name');
@@ -1473,6 +1484,7 @@ function showNaturaMenu() {
     if (hub) {
         document.getElementById('natura-activities-menu').classList.remove('hidden');
         hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+        applyAvailabilityToCurrentProject();
     }
 }
 
@@ -1485,6 +1497,7 @@ function openNaturaProject(projectId) {
     if (menu) menu.classList.add('hidden');
     if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
     if (projectMenu) projectMenu.classList.remove('hidden');
+    applyAvailabilityToCurrentProject();
 }
 
 // **********************************************************
