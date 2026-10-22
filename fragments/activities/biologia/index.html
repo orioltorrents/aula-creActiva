@@ -2,7 +2,7 @@
 
                     <div id="bio-systems-menu" class="activities-grid mt-4">
                         <!-- 1. Digestiu -->
-                        <div class="activity-card activity-card--disabled">
+                        <div class="activity-card activity-card--disabled" data-bio-courses="2">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-digestiu.png" alt="Aparell Digestiu" class="activity-card__image">
                             </div>
@@ -14,7 +14,7 @@
                         </div>
 
                         <!-- 2. Circulatori -->
-                        <div class="activity-card" onclick="openBioSystem('circulatori')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('circulatori')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-ciculatori.png" alt="Aparell Circulatori" class="activity-card__image">
                             </div>
@@ -25,7 +25,7 @@
                         </div>
 
                         <!-- 3. Respiratori -->
-                        <div class="activity-card activity-card--disabled">
+                        <div class="activity-card activity-card--disabled" data-bio-courses="2">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-respiratori.png" alt="Aparell Respiratori" class="activity-card__image">
                             </div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <!-- 4. Excretor -->
-                        <div class="activity-card" onclick="openBioSystem('excretor')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('excretor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-excretor.png" alt="Aparell Excretor" class="activity-card__image">
                             </div>
@@ -48,7 +48,7 @@
                         </div>
 
                         <!-- 5. Òrgans dels Sentits -->
-                        <div class="activity-card" onclick="openSenseMenu()">
+                        <div class="activity-card" data-bio-courses="2" onclick="openSenseMenu()">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="Òrgans dels Sentits" class="activity-card__image">
                             </div>
@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- 6. Sistema Endocrí -->
-                        <div class="activity-card" onclick="openBioSystem('endocri')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('endocri')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/sistema-endocri.png" alt="Sistema Endocrí" class="activity-card__image">
                             </div>
@@ -70,7 +70,7 @@
                         </div>
 
                         <!-- 7. Aparell Locomotor -->
-                        <div class="activity-card" onclick="openBioSystem('locomotor')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('locomotor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-locomotor.png" alt="Aparell Locomotor" class="activity-card__image">
                             </div>
@@ -81,7 +81,7 @@
                         </div>
 
                         <!-- 8. Sistema Immunitari -->
-                        <div class="activity-card" onclick="openBioSystem('immunitari')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('immunitari')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <!-- 9. Aparell Reproductor -->
-                        <div class="activity-card" onclick="openBioSystem('reproductor')">
+                        <div class="activity-card" data-bio-courses="2" onclick="openBioSystem('reproductor')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/aparell-reproductor.png" alt="Aparell Reproductor" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/quiz.png';">
                             </div>
@@ -103,9 +103,9 @@
                         </div>
 
                         <!-- 10. Laboratori -->
-                        <div class="activity-card" onclick="openBioSystem('laboratori')">
+                        <div class="activity-card" data-bio-courses="1 2" onclick="openBioSystem('laboratori')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/Lab/Labtools.png" alt="Laboratori de Biologia" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/laboratory.png';">
+                                <img src="assets/images/activities/biologia/lab/labtools.png" alt="Laboratori de Biologia" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/laboratory.png';">
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Laboratori</div>
@@ -114,7 +114,7 @@
                         </div>
 
                         <!-- 11. Conceptes -->
-                        <div class="activity-card" onclick="openBioSystem('conceptes')">
+                        <div class="activity-card" data-bio-courses="1 2" onclick="openBioSystem('conceptes')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Conceptes de Biologia" class="activity-card__image">
                             </div>
@@ -123,9 +123,73 @@
                                 <div class="activity-card__description">Relaciona conceptes i definicions</div>
                             </div>
                         </div>
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/targeta-cellula-animal.png" alt="Cel·lula eucariota animal" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Formats per cel·lules</div>
+                                <div class="activity-card__description">La cel·lula animal i l'organitzacio dels essers vius</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
 
-                        <!-- 12. Genètica -->
-                        <div class="activity-card" onclick="openBioSystem('genetica')">
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/senses/organs-sentits.png" alt="La relacio" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">La relacio</div>
+                                <div class="activity-card__description">Com els essers vius capten estimuls i responen</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/systems/aparell-digestiu.png" alt="La nutricio" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">La nutricio</div>
+                                <div class="activity-card__description">Materia, energia i funcio de nutricio</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Diversitat de la vida" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Diversitat de la vida</div>
+                                <div class="activity-card__description">Classificacio i grans grups d'essers vius</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Roques i minerals" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Roques i minerals</div>
+                                <div class="activity-card__description">Materials de la geosfera i propietats</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Temps i atmosfera" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Temps i atmosfera</div>
+                                <div class="activity-card__description">Meteorologia, clima i capes de l'atmosfera</div>
+                                <span class="badge-soon">Aviat</span>
+                            </div>
+                        </div>
+                        <!-- 12. Genetica -->
+                        <div class="activity-card bio-course-card bio-course-card--4eso" data-bio-courses="4" onclick="openBioSystem('genetica')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Genètica" class="activity-card__image">
                             </div>
@@ -140,7 +204,7 @@
                     <!-- ACTIVITATS: Sistema Immunitari -->
                     <div id="bio-immunitari-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
-                        
+
                         <div class="activity-card" onclick="openBioActivity('immunitari-quiz')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/systems/sistema-immunitari.png" alt="Sistema Immunitari" class="activity-card__image">
@@ -199,7 +263,7 @@
                     <!-- ACTIVITATS: Aparell Reproductor -->
                     <div id="bio-reproductor-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
-                        
+
                         <!-- Quiz de l'Aparell Reproductor -->
                         <div class="activity-card" onclick="openBioActivity('reproductor-quiz')">
                             <div class="activity-card__media">
@@ -319,13 +383,23 @@
                     <div id="bio-laboratori-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">← Tornar als Sistemes</button>
 
-                        <div class="activity-card" onclick="openBioActivity('lab-tools')">
+                        <div class="activity-card" data-bio-courses="1 2" onclick="openBioActivity('lab-tools')">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/Lab/Labtools.png" alt="Laboratori de Biologia" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/laboratory.png';">
+                                <img src="assets/images/activities/biologia/lab/labtools.png" alt="Laboratori de Biologia" class="activity-card__image" onerror="this.onerror=null; this.src='https://img.icons8.com/isometric/512/laboratory.png';">
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Estris de laboratori</div>
                                 <div class="activity-card__description">Identifica el material clicant sobre el dibuix</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card" data-bio-courses="1" onclick="openBioActivity('microscopi-parts')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Microscopi" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts del microscopi</div>
+                                <div class="activity-card__description">Posa nom a les parts amb tres nivells</div>
                             </div>
                         </div>
                     </div>
@@ -349,13 +423,33 @@
                     <div id="bio-genetica-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">Tornar als Sistemes</button>
 
-                        <div class="activity-card" onclick="openBioActivity('genetica-sim')">
+                        <div class="activity-card" onclick="openBioActivity('genetica-sim', { geneticsLevel: 'Monohibridisme' })">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="MendelSim" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Genetica mendeliana</div>
+                                <div class="activity-card__title">Monohibridisme</div>
                                 <div class="activity-card__description">Practica encreuaments i quadres de Punnett</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card" onclick="openBioActivity('genetica-sim', { geneticsLevel: 'Encreuament de prova' })">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Encreuament de prova" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Encreuament de prova</div>
+                                <div class="activity-card__description">Dedueix genotips a partir de la descendencia</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card" onclick="openBioActivity('genetica-pedigrees')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/pedigrees/pedigree-01.webp" alt="Pedigree genetic" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Pedigrees i genotips</div>
+                                <div class="activity-card__description">Completa genotips a partir d'arbres genealogics</div>
                             </div>
                         </div>
                     </div>
@@ -1184,8 +1278,8 @@
                         <div class="bio-genetics">
                             <section id="bio-genetics-start" class="bio-genetics__start result-screen p-6">
                                 <div>
-                                    <h4 class="bio-genetics__title">Reptes amb quadres de Punnett</h4>
-                                    <p class="bio-genetics__intro">Resol encreuaments monohibrids, interpreta genotips i fenotips, i comprova els resultats amb el quadre de Punnett.</p>
+                                    <h4 id="bio-genetics-start-title" class="bio-genetics__title">Reptes amb quadres de Punnett</h4>
+                                    <p id="bio-genetics-start-intro" class="bio-genetics__intro">Resol encreuaments monohibrids, interpreta genotips i fenotips, i comprova els resultats amb el quadre de Punnett.</p>
                                     <p class="bio-genetics__credit">Activitat propia inspirada en el plantejament didactic de MendelSim.</p>
                                 </div>
                                 <div class="bio-genetics__actions">
@@ -1227,6 +1321,142 @@
                                     <button onclick="initBioGeneticsSimGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
                                     <button onclick="openBioSystem('genetica')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
                                 </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Pedigrees i genotips -->
+                    <div id="bio-activity-genetica-pedigrees" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('genetica')">Tornar al menu</button>
+                        <div class="game-panel__header">
+                            <h3>Pedigrees i genotips</h3>
+                        </div>
+
+                        <div class="bio-pedigree">
+                            <section id="bio-pedigree-loader" class="text-center p-8">
+                                <div class="loader"></div>
+                                <p>Carregant pedigrees...</p>
+                            </section>
+
+                            <section id="bio-pedigree-selector" class="result-screen p-6 hidden">
+                                <h4 class="bio-genetics__title">Tria el nivell</h4>
+                                <p class="bio-genetics__intro">Llegeix el pedigree, fixa't si el patro es AD o AR, i omple els genotips que corresponen a cada individu.</p>
+                                <div id="bio-pedigree-level-buttons" class="bio-genetics__actions mt-4"></div>
+                            </section>
+
+                            <section id="bio-pedigree-game" class="hidden">
+                                <div class="game-panel__stats bio-genetics__stats">
+                                    <div id="bio-pedigree-progress">Pedigree 1 / 1</div>
+                                    <div id="bio-pedigree-score">Encerts: 0</div>
+                                    <div id="bio-pedigree-level">General</div>
+                                </div>
+
+                                <div class="bio-pedigree__layout">
+                                    <article class="bio-pedigree__image-card">
+                                        <h4 id="bio-pedigree-title">Pedigree</h4>
+                                        <p id="bio-pedigree-inheritance" class="bio-pedigree__hint"></p>
+                                        <img id="bio-pedigree-image" src="" alt="Pedigree genetic" class="bio-pedigree__image">
+                                    </article>
+
+                                    <article class="bio-pedigree__answer-card">
+                                        <h4>Genotips</h4>
+                                        <p class="bio-pedigree__hint">Omple nomes les caselles que apareixen a la taula.</p>
+                                        <fieldset id="bio-pedigree-pattern-check" class="bio-pedigree__pattern-check hidden">
+                                            <legend>El patro proposat pot explicar aquest pedigree?</legend>
+                                            <label>
+                                                <input type="radio" name="bio-pedigree-pattern-possible" value="yes">
+                                                <span>Si</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="bio-pedigree-pattern-possible" value="no">
+                                                <span>No</span>
+                                            </label>
+                                        </fieldset>
+                                        <div id="bio-pedigree-table" class="bio-pedigree__table"></div>
+                                        <div id="bio-pedigree-feedback" class="game-panel__feedback bio-genetics__feedback" aria-live="polite"></div>
+                                        <div class="bio-genetics__actions">
+                                            <button id="bio-pedigree-check-btn" class="btn btn--primary btn--auto-width" type="button">Comprovar</button>
+                                            <button id="bio-pedigree-next-btn" class="btn btn--secondary btn--auto-width hidden" type="button">Seguent pedigree</button>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
+
+                            <section id="bio-pedigree-results" class="result-screen hidden text-center p-8">
+                                <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
+                                <div id="bio-pedigree-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
+                                <p id="bio-pedigree-message" class="result-screen__message text-lg mb-8"></p>
+                                <div class="bio-genetics__actions">
+                                    <button onclick="restartBioPedigreeGame()" class="btn btn--primary btn--auto-width">Tornar a jugar</button>
+                                    <button onclick="openBioSystem('genetica')" class="btn btn--secondary btn--auto-width">Tornar al menu</button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Parts del microscopi -->
+                    <div id="bio-activity-microscopi-parts" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('laboratori')">Tornar al menu</button>
+                        <div class="game-panel__header">
+                            <h3>Parts del microscopi</h3>
+                        </div>
+
+                        <div class="bio-microscope">
+                            <section id="bio-microscope-start" class="result-screen p-6">
+                                <h4 class="bio-lab-tools__title">Com es diu cada part?</h4>
+                                <p class="bio-lab-tools__intro">Observa el microscopi i completa les etiquetes. Pots triar el nivell de dificultat.</p>
+                                <form id="bio-microscope-form" class="bio-lab-tools__form mt-4">
+                                    <div class="bio-microscope__level-grid">
+                                        <label class="bio-microscope__level-card">
+                                            <input type="radio" name="bio-microscope-level" value="easy" checked>
+                                            <strong>Facil</strong>
+                                            <span>Llista desplegable a cada fletxa.</span>
+                                        </label>
+                                        <label class="bio-microscope__level-card">
+                                            <input type="radio" name="bio-microscope-level" value="medium">
+                                            <strong>Mitja</strong>
+                                            <span>Banc de noms per assignar.</span>
+                                        </label>
+                                        <label class="bio-microscope__level-card">
+                                            <input type="radio" name="bio-microscope-level" value="hard">
+                                            <strong>Dificil</strong>
+                                            <span>Escriu cada nom a la casella.</span>
+                                        </label>
+                                    </div>
+                                    <div id="bio-microscope-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
+                                    <button class="btn btn--primary btn--auto-width" type="submit">Comencar</button>
+                                </form>
+                            </section>
+
+                            <section id="bio-microscope-game" class="hidden">
+                                <div class="game-panel__stats bio-lab-tools__stats">
+                                    <div>Nivell: <span id="bio-microscope-level-label">Facil</span></div>
+                                    <div id="bio-microscope-instructions">Tria el nom correcte a cada desplegable.</div>
+                                </div>
+
+                                <div class="bio-microscope__layout">
+                                    <div class="bio-microscope__stage">
+                                        <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Microscopi optic" class="bio-microscope__image">
+                                        <div id="bio-microscope-labels" class="bio-microscope__labels"></div>
+                                    </div>
+
+                                    <aside class="bio-microscope__side-panel">
+                                        <h4>Respostes</h4>
+                                        <p id="bio-microscope-side-help">Completa totes les parts i comprova.</p>
+                                        <div id="bio-microscope-bank" class="bio-microscope__bank hidden"></div>
+                                        <div class="bio-microscope__actions">
+                                            <button id="bio-microscope-check-btn" class="btn btn--primary btn--auto-width" type="button">Comprovar</button>
+                                            <button id="bio-microscope-retry-btn" class="btn btn--secondary btn--auto-width hidden" type="button">Tornar-ho a provar</button>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </section>
+
+                            <section id="bio-microscope-results" class="result-screen hidden text-center p-8">
+                                <h4 class="text-2xl font-bold mb-4">Resultat</h4>
+                                <div id="bio-microscope-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
+                                <p id="bio-microscope-message" class="result-screen__message text-lg mb-8"></p>
+                                <button onclick="initBioMicroscopiPartsGame()" class="btn btn--primary btn--auto-width">Canviar nivell</button>
                             </section>
                         </div>
                     </div>

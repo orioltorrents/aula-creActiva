@@ -98,10 +98,11 @@ let bioGeneticsState = {
     current: null,
     currentResult: null,
     answered: false,
-    startedAt: null
+    startedAt: null,
+    levelFilter: null
 };
 
-function initBioGeneticsSimGame() {
+function initBioGeneticsSimGame(options = {}) {
     bioGeneticsState = {
         roundIndex: 0,
         score: 0,
@@ -109,12 +110,14 @@ function initBioGeneticsSimGame() {
         current: null,
         currentResult: null,
         answered: false,
-        startedAt: null
+        startedAt: null,
+        levelFilter: options.geneticsLevel || null
     };
 
     document.getElementById('bio-genetics-start')?.classList.remove('hidden');
     document.getElementById('bio-genetics-game')?.classList.add('hidden');
     document.getElementById('bio-genetics-results')?.classList.add('hidden');
+    setBioGeneticsStartCopy(bioGeneticsState.levelFilter);
 
     const startButton = document.getElementById('bio-genetics-start-btn');
     const nextButton = document.getElementById('bio-genetics-next-btn');
@@ -130,8 +133,34 @@ function initBioGeneticsSimGame() {
     }
 }
 
+function setBioGeneticsStartCopy(levelFilter) {
+    const title = document.getElementById('bio-genetics-start-title');
+    const intro = document.getElementById('bio-genetics-start-intro');
+
+    if (!title || !intro) return;
+
+    if (levelFilter === 'Encreuament de prova') {
+        title.textContent = 'Encreuament de prova';
+        intro.textContent = 'Resol un encreuament amb un homozigot recessiu i interpreta la descendencia.';
+        return;
+    }
+
+    if (levelFilter === 'Monohibridisme') {
+        title.textContent = 'Monohibridisme';
+        intro.textContent = 'Resol encreuaments monohibrids i comprova els resultats amb el quadre de Punnett.';
+        return;
+    }
+
+    title.textContent = 'Reptes amb quadres de Punnett';
+    intro.textContent = 'Resol encreuaments monohibrids, interpreta genotips i fenotips, i comprova els resultats amb el quadre de Punnett.';
+}
+
 function startBioGeneticsRounds() {
-    bioGeneticsState.rounds = shuffleBioGeneticsItems(BIO_GENETICS_EXERCISES).slice(0, BIO_GENETICS_TOTAL_ROUNDS);
+    const exercisePool = bioGeneticsState.levelFilter
+        ? BIO_GENETICS_EXERCISES.filter(exercise => exercise.level === bioGeneticsState.levelFilter)
+        : BIO_GENETICS_EXERCISES;
+
+    bioGeneticsState.rounds = shuffleBioGeneticsItems(exercisePool).slice(0, BIO_GENETICS_TOTAL_ROUNDS);
     bioGeneticsState.roundIndex = 0;
     bioGeneticsState.score = 0;
     bioGeneticsState.startedAt = Date.now();

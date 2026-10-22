@@ -165,13 +165,174 @@
     font-weight: 700;
 }
 
+.bio-pedigree {
+    display: grid;
+    gap: 1rem;
+}
+
+.bio-pedigree__layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 1.15fr) minmax(300px, 0.85fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.bio-pedigree__image-card,
+.bio-pedigree__answer-card {
+    display: grid;
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.bio-pedigree__image-card h4,
+.bio-pedigree__answer-card h4 {
+    margin: 0;
+}
+
+.bio-pedigree__hint {
+    margin: 0;
+    color: var(--text-light);
+}
+
+.bio-pedigree__image {
+    width: 100%;
+    max-height: 560px;
+    object-fit: contain;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--secondary-bg);
+}
+
+.bio-pedigree__table {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.bio-pedigree__pattern-check {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--secondary-bg);
+}
+
+.bio-pedigree__pattern-check.hidden {
+    display: none;
+}
+
+.bio-pedigree__pattern-check legend {
+    width: 100%;
+    margin-bottom: 0.35rem;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.bio-pedigree__pattern-check label {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-weight: 800;
+}
+
+.bio-pedigree__pattern-check--correct {
+    border-color: var(--success);
+    background: #dcfce7;
+}
+
+.bio-pedigree__pattern-check--incorrect {
+    border-color: var(--warning);
+    background: #fef3c7;
+}
+
+.bio-pedigree__pattern-check--incorrect::after {
+    content: "Resposta: " attr(data-correct-label);
+    color: var(--text-light);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.bio-pedigree__generation-row {
+    display: grid;
+    grid-template-columns: 56px repeat(auto-fit, minmax(86px, 1fr));
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.bio-pedigree__generation-label,
+.bio-pedigree__field {
+    min-height: 68px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.bio-pedigree__generation-label {
+    display: grid;
+    place-items: center;
+    background: var(--secondary-bg);
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.bio-pedigree__field {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: var(--secondary-bg);
+}
+
+.bio-pedigree__field span {
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.bio-pedigree__field input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.bio-pedigree__field--correct {
+    border-color: var(--success);
+    background: #dcfce7;
+}
+
+.bio-pedigree__field--incorrect {
+    border-color: var(--warning);
+    background: #fef3c7;
+}
+
+.bio-pedigree__field--incorrect::after {
+    content: "Resposta: " attr(data-correct-label);
+    color: var(--text-light);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
 @media (max-width: 820px) {
     .bio-genetics__start,
-    .bio-genetics__layout {
+    .bio-genetics__layout,
+    .bio-pedigree__layout {
         grid-template-columns: 1fr;
     }
 
     .bio-genetics__actions {
         justify-content: flex-start;
+    }
+
+    .bio-pedigree__generation-row {
+        grid-template-columns: 48px repeat(auto-fit, minmax(74px, 1fr));
     }
 }

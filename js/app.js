@@ -788,12 +788,16 @@ async function loadDashboard() {
         const fetchPromises = courses.map(curs => callApi('getProjects', { curs }));
         const responses = await Promise.all(fetchPromises);
 
-        responses.forEach(response => {
+        responses.forEach((response, index) => {
             if (response && response.status === 'success' && response.projectes) {
                 response.projectes.forEach(proj => {
-                    if (!seenIds.has(proj.id)) {
-                        seenIds.add(proj.id);
-                        allProjects.push(proj);
+                    const normalizedProject = normalizeDashboardProject(proj, courses[index]);
+                    if (!normalizedProject) return;
+
+                    const projectKey = getDashboardProjectKey(normalizedProject);
+                    if (!seenIds.has(projectKey)) {
+                        seenIds.add(projectKey);
+                        allProjects.push(normalizedProject);
                     }
                 });
             }
@@ -812,11 +816,13 @@ async function loadDashboard() {
         'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
         'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'p1_biologia': { icon: '<img src="assets/images/activities/biologia/cards/targeta-cellula-animal.png" alt="Biologia 1ESO - cèl·lula animal" class="project-card__image">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
         'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" class="project-card__image">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
         'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
-        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia 2ESO" class="project-card__image">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p4_biologia': { icon: '<img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Biologia 4ESO - pèsols" class="project-card__image">', gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)' },
         'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" class="project-card__image">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
@@ -848,6 +854,55 @@ async function loadDashboard() {
     } else {
         grid.innerHTML = `<p>${i18n.t('no_projects') || 'No tens projectes assignats o no s\'han pogut carregar.'}</p>`;
     }
+}
+
+function normalizeDashboardProject(project, courseName = '') {
+    if (!project) return project;
+
+    const title = String(project.titol || '').toLowerCase();
+    const id = String(project.id || '').toLowerCase();
+    const isBiologia = id.includes('biologia') || title.includes('biologia');
+
+    if (!isBiologia) return project;
+
+    const courseKey = getCourseProjectKey(courseName || project.curs || project.course || project.titol);
+    if (courseKey === '3ESO') return null;
+
+    const bioCourse = courseKey === '1ESO' || courseKey === '4ESO' ? courseKey : '2ESO';
+
+    return {
+        ...project,
+        id: `p${bioCourse.charAt(0)}_biologia`,
+        titol: `Biologia ${bioCourse}`,
+        descripcio: 'Estudi dels éssers vius i el seu entorn.'
+    };
+}
+
+function getDashboardProjectKey(project) {
+    if (!project) return '';
+
+    const title = String(project.titol || '').toLowerCase();
+    const id = String(project.id || '').toLowerCase();
+    if (id.includes('biologia') || title.includes('biologia')) {
+        return project.id || project.titol;
+    }
+
+    return project.id || project.titol || '';
+}
+
+function getCourseProjectKey(value) {
+    const normalized = String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '');
+
+    if (normalized.includes('1eso') || normalized.includes('1reso') || normalized.includes('1r')) return '1ESO';
+    if (normalized.includes('2eso') || normalized.includes('2neso') || normalized.includes('2n')) return '2ESO';
+    if (normalized.includes('3eso') || normalized.includes('3reso') || normalized.includes('3r')) return '3ESO';
+    if (normalized.includes('4eso') || normalized.includes('4teso') || normalized.includes('4t')) return '4ESO';
+
+    return '2ESO';
 }
 
 async function openProject(project) {
@@ -945,7 +1000,7 @@ async function openProject(project) {
                 showDigitalitzacioMenu();
             }
         }
-    } else if (project.id === 'p2_biologia') {
+    } else if (project.id === 'p1_biologia' || project.id === 'p2_biologia' || project.id === 'p4_biologia') {
         const hubDiv = await ensureProjectFragment(
             'project-hub-biologia',
             'fragments/projects/biologia/index.html'
@@ -1289,8 +1344,10 @@ const BIO_ACTIVITY_TITLES = {
     'immunitari-quiz': 'Repàs de l\'Immunitari',
     'reproductor-quiz': 'Repàs del Reproductor',
     'lab-tools': 'Laboratori',
+    'microscopi-parts': 'Parts del microscopi',
     'concept-drag': 'Arrossega conceptes',
     'genetica-sim': 'Genètica',
+    'genetica-pedigrees': 'Pedigrees i genotips',
     'vista-parts': 'Vista',
     'vista-quiz': 'Repàs: Vista',
     'oida-parts': 'Oïda',
@@ -1321,10 +1378,26 @@ function showBioMenu() {
     const hub = document.getElementById('project-hub-biologia');
     if (hub) {
         document.getElementById('bio-systems-menu').classList.remove('hidden');
+        updateBioCourseVisibility();
         // Hide all sub-activity lists and individual activities
         document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
     }
+}
+
+function updateBioCourseVisibility() {
+    const currentCourse = getCurrentBioCourseNumber();
+    document.querySelectorAll('#bio-systems-menu [data-bio-courses]').forEach(card => {
+        const allowedCourses = String(card.dataset.bioCourses || '').split(/\s+/);
+        card.classList.toggle('hidden', !allowedCourses.includes(currentCourse));
+    });
+}
+
+function getCurrentBioCourseNumber() {
+    const id = state.currentProject ? String(state.currentProject.id || '') : '';
+    if (id === 'p1_biologia') return '1';
+    if (id === 'p4_biologia') return '4';
+    return '2';
 }
 
 function openBioSystem(systemId) {
@@ -1342,12 +1415,23 @@ function openBioSystem(systemId) {
     const systemDiv = document.getElementById(`bio-${systemId}-activities`);
     if (systemDiv) {
         systemDiv.classList.remove('hidden');
+        updateBioActivityCourseVisibility(systemDiv);
     }
+}
+
+function updateBioActivityCourseVisibility(container) {
+    if (!container) return;
+
+    const currentCourse = getCurrentBioCourseNumber();
+    container.querySelectorAll('[data-bio-courses]').forEach(card => {
+        const allowedCourses = String(card.dataset.bioCourses || '').split(/\s+/);
+        card.classList.toggle('hidden', !allowedCourses.includes(currentCourse));
+    });
 }
 
 
 
-function openBioActivity(actId) {
+function openBioActivity(actId, options = {}) {
     setGameTitle(BIO_ACTIVITY_TITLES[actId] || 'Biologia');
 
     if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
@@ -1418,7 +1502,12 @@ function openBioActivity(actId) {
     } else if (actId === 'genetica-sim') {
         document.getElementById('bio-activity-genetica-sim').classList.remove('hidden');
         if (typeof initBioGeneticsSimGame === 'function') {
-            initBioGeneticsSimGame();
+            initBioGeneticsSimGame(options);
+        }
+    } else if (actId === 'genetica-pedigrees') {
+        document.getElementById('bio-activity-genetica-pedigrees').classList.remove('hidden');
+        if (typeof initBioPedigreeGame === 'function') {
+            initBioPedigreeGame();
         }
     } else if (actId.endsWith('-quiz')) {
         const sense = actId.split('-')[0];
