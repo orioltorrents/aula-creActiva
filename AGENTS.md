@@ -163,6 +163,9 @@ Segueix aquests patrons per mantenir la coherència:
 
 ## Treball com a agent
 
+- Les regles permanents del projecte viuen en aquest fitxer; consulta [MEMORY.md](./MEMORY.md) a l'inici de la feina per recuperar-ne el context temporal.
+- Després d'una feina significativa, actualitza `MEMORY.md` només amb l'estat actual, els riscos oberts i els tres últims passos significatius. Mantén com a màxim tres passos i elimina el més antic quan n'afegeixis un de nou.
+- No dupliquis a `MEMORY.md` les regles permanents, ni hi mantinguis un roadmap o una llista de propers passos.
 - Fes canvis petits i proves freqüents.
 - Documenta qualsevol refactorització de l’estructura abans de començar.
 - Si fas una migració, comprova que l’antiga i la nova versió funcionin amb el mateix HTML.
