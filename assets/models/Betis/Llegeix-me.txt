@@ -1,0 +1,24 @@
+BÈTID — MODEL DIDÀCTIC
+
+Betid.blend: model editable, obert a l'escena «Betid - Anatomia».
+Betid_web.glb: model per a un visor web, amb 42 elements i 11 categories.
+Anatomia_betid.json: noms en català, correspondències i 11 preguntes.
+Betid.png: vista del model.
+
+El model interpreta les tres referències aportades. És una simplificació didàctica: gruix de filaments augmentat i colors plans. No està preparat per imprimir en 3D ni inclou animació.
+
+ACTIVITAT WEB
+L'activitat encara no està implementada ni publicada. El GLB conté els camps anatomy_id, label_ca i element_id com a extras de cada node. No s'han de fusionar totes les parts en una sola malla.
+
+En carregar-lo, alguns visors representen els materials d'un element com a submalles. Des del resultat del raycast, puja pels pares fins a trobar anatomy_id. Compara'l amb target_anatomy_id de la pregunta. Per exemple, qualsevol de les 14 brànquies és una resposta correcta a «Clica: Brànquies».
+
+Exemple de resolució de l'objecte seleccionat:
+function anatomicalPart(object) {
+  while (object && !object.userData?.anatomy_id) object = object.parent;
+  return object?.userData ?? null;
+}
+
+Per al cap o el tòrax, es pot demanar una zona visible de la cutícula; ulls, antenes i esbossos alars tenen identificadors propis. Les peces bucals es veuen millor girant el model. E/D indica costat del model, no necessàriament costat de pantalla.
+
+VALIDACIÓ
+42 nodes anatòmics en el GLB; 11 categories; 6 potes, 14 brànquies, 10 segments abdominals, 2 cercs i 1 filament central. Identificadors comprovats després d'exportar.

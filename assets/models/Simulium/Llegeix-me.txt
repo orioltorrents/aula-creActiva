@@ -1,0 +1,19 @@
+SIMULIUM — LARVA AQUÀTICA
+Model didàctic inspirat en Simulium.PNG, Simuliuem01.jpg i Simuliuem02.jpg aportats per l'usuari.
+
+Simulium.blend: projecte editable, amb 25 elements anatòmics.
+Simulium_web.glb: exportació per a web amb 11 categories i identificadors.
+Anatomia_Simulium.json: correspondències i preguntes en català.
+Simulium.png: vista dorsal obliqua.
+Simulium_ventral.png: vista per observar el pseudopodi i les peces bucals.
+
+Parts: càpsula cefàlica, taques oculars, antenes, ventalls cefàlics filtradors, peces bucals, tòrax, pseudopodi toràcic, abdomen, corona posterior de ganxos, esclerit anal i papil·les rectals.
+
+Cada peça té anatomy_id, element_id i label_ca. Per a una pregunta sobre una categoria, qualsevol peça de la categoria és vàlida. Buscar les propietats també als pares de les submalles generades pel visor.
+La geometria inclou vuit divisions abdominals didàctiques; evitar preguntes de comptatge taxonòmic. Filaments i ganxos engruixits; quantitats esquemàtiques. Papil·les rectals simplificades en posició evaginada. No s'atribueix el model a una espècie concreta.
+La corona posterior representa un sistema de fixació amb ganxos, no una ventosa per succió.
+Model estàtic, sense rig. L'activitat web i la correcció s'han de programar al visor.
+Validació: 25 nodes amb malla, 11 categories, 2 ventalls, 1 pseudopodi toràcic i 1 corona posterior. Metadades i colors de vèrtexs presents al GLB.
+
+Referència anatòmica complementària: WHO, Entomological manual for onchocerciasis elimination programmes (2023).
+https://espen.afro.who.int/sites/default/files/content/document/Entomological_Onchocerciasis_Manual_ENG.pdf

@@ -1,0 +1,530 @@
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ==========================================================================
+   ACTIVITAT 3D: ANATOMIA DEL BÈTID
+   Visor i quiz d'identificació anatòmica del bètid (Projecte Rius)
+   ========================================================================== */
+
+let scene = null;
+let camera = null;
+let renderer = null;
+let controls = null;
+let modelRoot = null;
+let raycaster = null;
+let mouse = null;
+
+let isInitialized = false;
+let isModelLoaded = false;
+let animationFrameId = null;
+
+let gameData = null; // Dades de Anatomia_betid.json
+let currentMode = 'explore'; // 'explore' o 'practice'
+let currentQuestionIndex = 0;
+let score = 0;
+let hasAttemptedCurrentQuestion = false;
+
+// Emmagatzema els materials originals de cada mesh per restaurar el color
+const originalMaterialsMap = new Map();
+// Node actualment ressaltat
+let highlightedNode = null;
+
+// Gestió de gestos per separar gir/zoom de clic
+let pointerDownX = 0;
+let pointerDownY = 0;
+let maxDisplacement = 0;
+let isPointerDown = false;
+
+const MODEL_URL = 'assets/models/Betis/Betid_web.glb';
+const JSON_URL = 'assets/models/Betis/Anatomia_betid.json';
+
+/**
+ * Inicialitza l'entorn 3D i carrega les dades si és la primera vegada
+ */
+async function initBetid3DGame() {
+    const canvas = document.getElementById('betid-3d-canvas');
+    const container = document.getElementById('betid-3d-viewport');
+    const loaderEl = document.getElementById('betid-3d-loader');
+
+    if (!canvas || !container) return;
+
+    if (!isInitialized) {
+        setupThreeScene(canvas, container);
+        setupEventListeners(canvas);
+        isInitialized = true;
+    } else {
+        onWindowResize();
+    }
+
+    if (!isModelLoaded) {
+        if (loaderEl) loaderEl.classList.remove('hidden');
+        try {
+            await Promise.all([loadJSONData(), loadGLTFModel()]);
+            isModelLoaded = true;
+            if (loaderEl) loaderEl.classList.add('hidden');
+        } catch (err) {
+            console.error('Error carregant l\'activitat 3D del bètid:', err);
+            if (loaderEl) {
+                loaderEl.innerHTML = '<p class="p-4 text-red-400">No s\'ha pogut carregar el model 3D.<br>Comprova que WebGL estigui activat al navegador.</p>';
+            }
+            return;
+        }
+    }
+
+    setBetid3DMode(currentMode);
+    animate();
+}
+
+/**
+ * Configura l'escena, càmera, llums i renderer de Three.js
+ */
+function setupThreeScene(canvas, container) {
+    scene = new THREE.Scene();
+
+    const aspect = container.clientWidth / container.clientHeight;
+    camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
+    camera.position.set(0, 1.5, 3);
+
+    renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    // Il·luminació
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+    dirLight1.position.set(5, 10, 7);
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0x90b0ff, 0.8);
+    dirLight2.position.set(-5, -5, -5);
+    scene.add(dirLight2);
+
+    // Controls orbitals
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 0.5;
+    controls.maxDistance = 10;
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+
+    window.addEventListener('resize', onWindowResize);
+}
+
+/**
+ * Registra els esdeveniments de punter per detectar clics precisos
+ */
+function setupEventListeners(canvas) {
+    canvas.addEventListener('pointerdown', (e) => {
+        isPointerDown = true;
+        pointerDownX = e.clientX;
+        pointerDownY = e.clientY;
+        maxDisplacement = 0;
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+        if (isPointerDown) {
+            const disp = Math.hypot(e.clientX - pointerDownX, e.clientY - pointerDownY);
+            if (disp > maxDisplacement) {
+                maxDisplacement = disp;
+            }
+        }
+    });
+
+    canvas.addEventListener('pointerup', (e) => {
+        if (isPointerDown && maxDisplacement < 6) {
+            handleCanvasClick(e, canvas);
+        }
+        isPointerDown = false;
+    });
+
+    canvas.addEventListener('pointercancel', () => {
+        isPointerDown = false;
+    });
+}
+
+/**
+ * Carrega el fitxer JSON amb les preguntes i les categories
+ */
+async function loadJSONData() {
+    const res = await fetch(JSON_URL);
+    if (!res.ok) throw new Error('No s\'ha trobat Anatomia_betid.json');
+    gameData = await res.json();
+}
+
+/**
+ * Carrega el model GLB del bètid
+ */
+function loadGLTFModel() {
+    return new Promise((resolve, reject) => {
+        const loader = new GLTFLoader();
+        loader.load(
+            MODEL_URL,
+            (gltf) => {
+                modelRoot = gltf.scene;
+
+                // Guardar els materials originals de cada mesh
+                modelRoot.traverse((child) => {
+                    if (child.isMesh) {
+                        originalMaterialsMap.set(child.uuid, child.material);
+                    }
+                });
+
+                scene.add(modelRoot);
+                frameModel();
+                resolve();
+            },
+            undefined,
+            (err) => reject(err)
+        );
+    });
+}
+
+/**
+ * Enquadra automàticament el model al centre de la càmera
+ */
+function frameModel() {
+    if (!modelRoot) return;
+
+    const box = new THREE.Box3().setFromObject(modelRoot);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+
+    const maxDim = Math.max(size.x, size.y, size.z);
+    controls.target.copy(center);
+
+    const fov = camera.fov * (Math.PI / 180);
+    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8;
+
+    camera.position.set(center.x, center.y + maxDim * 0.6, center.z + cameraZ);
+    camera.lookAt(center);
+    controls.update();
+}
+
+/**
+ * Redimensiona el canvas quan la finestra canvia de mida
+ */
+function onWindowResize() {
+    const container = document.getElementById('betid-3d-viewport');
+    if (!container || !renderer || !camera) return;
+
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+}
+
+/**
+ * Bucle d'animació
+ */
+function animate() {
+    animationFrameId = requestAnimationFrame(animate);
+    if (controls) controls.update();
+    if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+    }
+}
+
+/**
+ * Troba el node que conté la propietat userData.anatomy_id
+ */
+function trobarPartAnatomica(object) {
+    let curr = object;
+    while (curr && curr !== scene) {
+        if (curr.userData && typeof curr.userData.anatomy_id === 'string') {
+            return curr;
+        }
+        curr = curr.parent;
+    }
+    return null;
+}
+
+/**
+ * Processa el clic sobre el canvas
+ */
+function handleCanvasClick(event, canvas) {
+    if (!modelRoot || !camera) return;
+
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(modelRoot.children, true);
+
+    if (intersects.length > 0) {
+        const hitObject = intersects[0].object;
+        const nodeAnatomic = trobarPartAnatomica(hitObject);
+
+        if (nodeAnatomic) {
+            onPartSelected(nodeAnatomic.userData, nodeAnatomic);
+        }
+    }
+}
+
+/**
+ * Reacció segons el mode actual quan es selecciona una part
+ */
+function onPartSelected(userData, nodeAnatomic) {
+    if (currentMode === 'explore') {
+        ressaltarNode(nodeAnatomic, 0x8b5cf6); // Color lila
+        const labelEl = document.getElementById('betid-3d-label');
+        if (labelEl) {
+            labelEl.textContent = `Part seleccionada: ${userData.label_ca || 'Part anatòmica'}`;
+        }
+    } else if (currentMode === 'practice') {
+        const currentQuestion = gameData?.questions?.[currentQuestionIndex];
+        if (!currentQuestion) return;
+
+        const isCorrect = userData.anatomy_id === currentQuestion.target_anatomy_id;
+        const feedbackEl = document.getElementById('betid-3d-feedback');
+        const nextBtn = document.getElementById('betid-3d-next-btn');
+
+        if (isCorrect) {
+            ressaltarNode(nodeAnatomic, 0x10b981); // Color verd
+            if (!hasAttemptedCurrentQuestion) {
+                score++;
+                updateScoreUI();
+            }
+
+            if (feedbackEl) {
+                feedbackEl.className = 'game-panel__feedback text-center mt-2 p-2 rounded feedback-panel--success';
+                feedbackEl.textContent = 'Correcte!';
+                feedbackEl.classList.remove('hidden');
+            }
+
+            if (nextBtn) nextBtn.classList.remove('hidden');
+        } else {
+            ressaltarNode(nodeAnatomic, 0xef4444); // Color vermell
+            hasAttemptedCurrentQuestion = true;
+
+            if (feedbackEl) {
+                feedbackEl.className = 'game-panel__feedback text-center mt-2 p-2 rounded feedback-panel--error';
+                feedbackEl.textContent = `Això són ${userData.label_ca || 'una altra part'}. Torna-ho a provar!`;
+                feedbackEl.classList.remove('hidden');
+            }
+        }
+    }
+}
+
+/**
+ * Aplica un ressaltat de color al node indicat
+ */
+function ressaltarNode(node, colorHex) {
+    restaurarMaterials();
+
+    highlightedNode = node;
+    node.traverse((child) => {
+        if (child.isMesh && child.material) {
+            const clonedMat = child.material.clone();
+            if (clonedMat.emissive) {
+                clonedMat.emissive.setHex(colorHex);
+                clonedMat.emissiveIntensity = 0.6;
+            } else {
+                clonedMat.color.setHex(colorHex);
+            }
+            child.material = clonedMat;
+        }
+    });
+}
+
+/**
+ * Restaura els materials originals de les malles
+ */
+function restaurarMaterials() {
+    if (highlightedNode) {
+        highlightedNode.traverse((child) => {
+            if (child.isMesh && originalMaterialsMap.has(child.uuid)) {
+                child.material = originalMaterialsMap.get(child.uuid);
+            }
+        });
+        highlightedNode = null;
+    }
+}
+
+/**
+ * Canvia entre mode Explorar i Practicar
+ */
+function setBetid3DMode(mode) {
+    currentMode = mode;
+    restaurarMaterials();
+
+    const exploreBtn = document.getElementById('betid-mode-explore-btn');
+    const practiceBtn = document.getElementById('betid-mode-practice-btn');
+    const labelBadge = document.getElementById('betid-3d-label');
+    const quizPanel = document.getElementById('betid-3d-quiz-panel');
+    const resultsPanel = document.getElementById('betid-3d-results');
+
+    if (mode === 'explore') {
+        if (exploreBtn) { exploreBtn.className = 'btn btn--primary'; }
+        if (practiceBtn) { practiceBtn.className = 'btn btn--outline'; }
+        if (labelBadge) {
+            labelBadge.classList.remove('hidden');
+            labelBadge.textContent = 'Clica una part per identificar-la';
+        }
+        if (quizPanel) quizPanel.classList.add('hidden');
+        if (resultsPanel) resultsPanel.classList.add('hidden');
+    } else {
+        if (exploreBtn) { exploreBtn.className = 'btn btn--outline'; }
+        if (practiceBtn) { practiceBtn.className = 'btn btn--primary'; }
+        if (labelBadge) labelBadge.classList.add('hidden');
+        if (resultsPanel) resultsPanel.classList.add('hidden');
+
+        startBetid3DPracticeQuiz();
+    }
+}
+
+/**
+ * Inicia el qüestionari de pràctica
+ */
+function startBetid3DPracticeQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    hasAttemptedCurrentQuestion = false;
+
+    const quizPanel = document.getElementById('betid-3d-quiz-panel');
+    if (quizPanel) quizPanel.classList.remove('hidden');
+
+    showCurrentQuestion();
+}
+
+/**
+ * Mostra la pregunta actual
+ */
+function showCurrentQuestion() {
+    restaurarMaterials();
+    hasAttemptedCurrentQuestion = false;
+
+    const questions = gameData?.questions || [];
+    const totalQuestions = questions.length;
+
+    if (currentQuestionIndex >= totalQuestions) {
+        finishBetid3DQuiz();
+        return;
+    }
+
+    const currentQ = questions[currentQuestionIndex];
+
+    const progressEl = document.getElementById('betid-3d-progress');
+    const promptEl = document.getElementById('betid-3d-prompt');
+    const feedbackEl = document.getElementById('betid-3d-feedback');
+    const nextBtn = document.getElementById('betid-3d-next-btn');
+
+    if (progressEl) progressEl.textContent = `Pregunta ${currentQuestionIndex + 1} / ${totalQuestions}`;
+    if (promptEl) promptEl.textContent = currentQ.prompt || 'Clica la part corresponent';
+    if (feedbackEl) feedbackEl.classList.add('hidden');
+    if (nextBtn) nextBtn.classList.add('hidden');
+
+    updateScoreUI();
+}
+
+/**
+ * Avança a la següent pregunta
+ */
+function nextBetid3DQuestion() {
+    currentQuestionIndex++;
+    showCurrentQuestion();
+}
+
+/**
+ * Actualitza la puntuació a la interfície
+ */
+function updateScoreUI() {
+    const scoreEl = document.getElementById('betid-3d-score');
+    if (scoreEl) scoreEl.textContent = `Punts: ${score}`;
+}
+
+/**
+ * Finalitza el qüestionari i desa els resultats
+ */
+function finishBetid3DQuiz() {
+    const quizPanel = document.getElementById('betid-3d-quiz-panel');
+    const resultsPanel = document.getElementById('betid-3d-results');
+
+    if (quizPanel) quizPanel.classList.add('hidden');
+    if (resultsPanel) resultsPanel.classList.remove('hidden');
+
+    const totalQuestions = gameData?.questions?.length || 11;
+    const percentage = Math.round((score / totalQuestions) * 100);
+
+    const finalScoreEl = document.getElementById('betid-3d-final-score');
+    const finalPercentageEl = document.getElementById('betid-3d-final-percentage');
+    const finalMsgEl = document.getElementById('betid-3d-final-msg');
+
+    if (finalScoreEl) finalScoreEl.textContent = `${score} / ${totalQuestions}`;
+    if (finalPercentageEl) finalPercentageEl.textContent = `${percentage}%`;
+
+    let msg = 'Molt bé! Has identificat les parts anatòmiques del bètid.';
+    if (percentage === 100) {
+        msg = 'Excel·lent! Coneixes l\'anatomia del bètid a la perfecció!';
+    } else if (percentage < 50) {
+        msg = 'Pots millorar! Utilitza el mode explorar per repassar les parts.';
+    }
+
+    if (finalMsgEl) finalMsgEl.textContent = msg;
+
+    // Desament de resultats a la base de dades
+    if (typeof saveResult === 'function') {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        saveResult({
+            email: currentUser.email || 'anonim@escola.cat',
+            curs: currentUser.curs || '4t ESO',
+            grup: currentUser.grup || currentUser.curs || '4t ESO',
+            projecte: 'Entorns de Natura',
+            app: 'betid-3d',
+            nivell: 'estàndard',
+            puntuacio: percentage,
+            temps_segons: 0,
+            feedback_pos: `Punts: ${score}/${totalQuestions}`,
+            feedback_neg: ''
+        });
+    }
+}
+
+/**
+ * Restableix la càmera a la vista inicial
+ */
+function resetBetid3DCamera() {
+    frameModel();
+}
+
+/**
+ * Canvia l'angle de la càmera (Dorsal / Ventral)
+ */
+function setBetid3DCameraView(viewType) {
+    if (!modelRoot || !controls) return;
+
+    const box = new THREE.Box3().setFromObject(modelRoot);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+
+    controls.target.copy(center);
+
+    if (viewType === 'dorsal') {
+        camera.position.set(center.x, center.y + maxDim * 2.2, center.z + 0.01);
+    } else if (viewType === 'ventral') {
+        camera.position.set(center.x, center.y - maxDim * 2.2, center.z + 0.01);
+    }
+
+    camera.lookAt(center);
+    controls.update();
+}
+
+// Exposar les funcions globals necessàries per a l'HTML
+window.initBetid3DGame = initBetid3DGame;
+window.setBetid3DMode = setBetid3DMode;
+window.resetBetid3DCamera = resetBetid3DCamera;
+window.setBetid3DCameraView = setBetid3DCameraView;
+window.nextBetid3DQuestion = nextBetid3DQuestion;

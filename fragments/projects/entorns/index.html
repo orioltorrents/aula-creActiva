@@ -69,6 +69,15 @@
                                 <h3>Projecte Rius</h3>
                             </div>
                             <div class="activities-grid">
+                                <div class="activity-card" onclick="openNaturaActivity('betid-3d')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/models/Betis/Betid.png" alt="Anatomia del Bètid (3D)" class="activity-card__image activity-card__image--contain">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Anatomia del Bètid (3D)</div>
+                                        <div class="activity-card__description">Explora el model 3D del bètid i identifica les seves parts anatòmiques.</div>
+                                    </div>
+                                </div>
                                 <div class="activity-card" onclick="openNaturaActivity('preguntes')">
                                     <div class="activity-card__media">
                                         <img src="assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png" alt="Preguntes Investigables" class="activity-card__image">
@@ -654,6 +663,71 @@
                                 <button class="btn btn--primary" onclick="initOrenetesPreguntesQuiz()">Tornar a jugar</button>
                                 <button class="btn btn--secondary mt-4" onclick="startOrenetesPreguntesSelector()">Tornar a triar</button>
                                 <button onclick="showNaturaMenu()" class="btn btn--secondary mt-4">Tornar al menú</button>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVITAT: Anatomia del Bètid (3D) -->
+                        <div id="natura-activity-betid-3d" class="sub-activity hidden">
+                            <button class="btn btn--secondary btn--sm mb-2" onclick="showNaturaMenu()">← Tornar al menú</button>
+
+                            <div class="betid-3d-container">
+                                <div class="betid-3d-header">
+                                    <h3>Anatomia del Bètid (3D)</h3>
+                                    <p class="text-muted">Macroinvertebrat d'aigua dolça — Projecte Rius</p>
+                                </div>
+
+                                <div class="betid-3d-mode-selector">
+                                    <button id="betid-mode-explore-btn" class="btn btn--primary" onclick="setBetid3DMode('explore')">Mode Explorar</button>
+                                    <button id="betid-mode-practice-btn" class="btn btn--outline" onclick="setBetid3DMode('practice')">Mode Practicar</button>
+                                </div>
+
+                                <div id="betid-3d-viewport" class="betid-3d-viewport-wrapper">
+                                    <div id="betid-3d-loader" class="betid-3d-loader">
+                                        <div class="betid-3d-spinner"></div>
+                                        <span>Carregant el model 3D...</span>
+                                    </div>
+
+                                    <canvas id="betid-3d-canvas" class="betid-3d-canvas"></canvas>
+
+                                    <div class="betid-3d-controls-overlay">
+                                        <button class="betid-3d-control-btn" onclick="resetBetid3DCamera()" title="Vista inicial">?? Reset</button>
+                                        <button class="betid-3d-control-btn" onclick="setBetid3DCameraView('dorsal')" title="Vista dorsal">?? Dorsal</button>
+                                        <button class="betid-3d-control-btn" onclick="setBetid3DCameraView('ventral')" title="Vista ventral">?? Ventral</button>
+                                    </div>
+
+                                    <div id="betid-3d-label" class="betid-3d-label-badge">Clica una part per identificar-la</div>
+                                </div>
+
+                                <!-- Panell del Quiz (Mode Practicar) -->
+                                <div id="betid-3d-quiz-panel" class="betid-3d-quiz-panel hidden">
+                                    <div class="betid-3d-quiz-stats">
+                                        <span id="betid-3d-progress">Pregunta 1 / 11</span>
+                                        <span id="betid-3d-score">Punts: 0</span>
+                                    </div>
+
+                                    <div class="betid-3d-prompt-box">
+                                        <p id="betid-3d-prompt" class="betid-3d-prompt-text">Clica: Cap</p>
+                                    </div>
+
+                                    <div id="betid-3d-feedback" class="game-panel__feedback text-center mt-2 p-2 rounded hidden"></div>
+
+                                    <div class="flex justify-center gap-3 mt-4">
+                                        <button id="betid-3d-next-btn" class="btn btn--primary hidden" onclick="nextBetid3DQuestion()">Següent pregunta</button>
+                                    </div>
+                                </div>
+
+                                <!-- Pantalla de resultats -->
+                                <div id="betid-3d-results" class="result-screen hidden text-center p-6 bg-white rounded shadow">
+                                    <h3>Resultat Final</h3>
+                                    <p id="betid-3d-final-score" class="result-screen__score text-4xl font-bold text-emerald-600 mt-2">0 / 11</p>
+                                    <p id="betid-3d-final-percentage" class="result-screen__percentage text-2xl font-semibold mb-2">0%</p>
+                                    <p id="betid-3d-final-msg" class="result-screen__message mb-6"></p>
+                                    <div class="flex justify-center gap-3">
+                                        <button class="btn btn--primary" onclick="setBetid3DMode('practice')">Tornar a jugar</button>
+                                        <button class="btn btn--secondary" onclick="setBetid3DMode('explore')">Mode Explorar</button>
+                                        <button class="btn btn--outline" onclick="showNaturaMenu()">Tornar al menú</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

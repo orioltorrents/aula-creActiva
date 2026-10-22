@@ -1,0 +1,322 @@
+{
+  "title": "Identifica les parts del bètid",
+  "model": "Betid_web.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "mesh": "cap",
+      "anatomy_id": "cap",
+      "label_ca": "Cap",
+      "element_id": "cap"
+    },
+    {
+      "mesh": "ull_E",
+      "anatomy_id": "ulls",
+      "label_ca": "Ulls compostos",
+      "element_id": "ull_E"
+    },
+    {
+      "mesh": "peces_bucals",
+      "anatomy_id": "peces_bucals",
+      "label_ca": "Peces bucals",
+      "element_id": "peces_bucals"
+    },
+    {
+      "mesh": "antena_E",
+      "anatomy_id": "antenes",
+      "label_ca": "Antenes",
+      "element_id": "antena_E"
+    },
+    {
+      "mesh": "ull_D",
+      "anatomy_id": "ulls",
+      "label_ca": "Ulls compostos",
+      "element_id": "ull_D"
+    },
+    {
+      "mesh": "antena_D",
+      "anatomy_id": "antenes",
+      "label_ca": "Antenes",
+      "element_id": "antena_D"
+    },
+    {
+      "mesh": "torax",
+      "anatomy_id": "torax",
+      "label_ca": "Tòrax",
+      "element_id": "torax"
+    },
+    {
+      "mesh": "esbos_E",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars",
+      "element_id": "esbos_E"
+    },
+    {
+      "mesh": "esbos_D",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars",
+      "element_id": "esbos_D"
+    },
+    {
+      "mesh": "pota_1_E",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_1_E"
+    },
+    {
+      "mesh": "pota_1_D",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_1_D"
+    },
+    {
+      "mesh": "pota_2_E",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_2_E"
+    },
+    {
+      "mesh": "pota_2_D",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_2_D"
+    },
+    {
+      "mesh": "pota_3_E",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_3_E"
+    },
+    {
+      "mesh": "pota_3_D",
+      "anatomy_id": "potes",
+      "label_ca": "Potes",
+      "element_id": "pota_3_D"
+    },
+    {
+      "mesh": "abdomen_01",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_01"
+    },
+    {
+      "mesh": "branquia_1_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_1_E"
+    },
+    {
+      "mesh": "branquia_1_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_1_D"
+    },
+    {
+      "mesh": "abdomen_02",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_02"
+    },
+    {
+      "mesh": "branquia_2_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_2_E"
+    },
+    {
+      "mesh": "branquia_2_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_2_D"
+    },
+    {
+      "mesh": "abdomen_03",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_03"
+    },
+    {
+      "mesh": "branquia_3_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_3_E"
+    },
+    {
+      "mesh": "branquia_3_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_3_D"
+    },
+    {
+      "mesh": "abdomen_04",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_04"
+    },
+    {
+      "mesh": "branquia_4_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_4_E"
+    },
+    {
+      "mesh": "branquia_4_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_4_D"
+    },
+    {
+      "mesh": "abdomen_05",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_05"
+    },
+    {
+      "mesh": "branquia_5_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_5_E"
+    },
+    {
+      "mesh": "branquia_5_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_5_D"
+    },
+    {
+      "mesh": "abdomen_06",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_06"
+    },
+    {
+      "mesh": "branquia_6_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_6_E"
+    },
+    {
+      "mesh": "branquia_6_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_6_D"
+    },
+    {
+      "mesh": "abdomen_07",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_07"
+    },
+    {
+      "mesh": "branquia_7_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_7_E"
+    },
+    {
+      "mesh": "branquia_7_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies",
+      "element_id": "branquia_7_D"
+    },
+    {
+      "mesh": "abdomen_08",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_08"
+    },
+    {
+      "mesh": "abdomen_09",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_09"
+    },
+    {
+      "mesh": "abdomen_10",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen",
+      "element_id": "abdomen_10"
+    },
+    {
+      "mesh": "cerc_E",
+      "anatomy_id": "cercs",
+      "label_ca": "Cercs laterals",
+      "element_id": "cerc_E"
+    },
+    {
+      "mesh": "filament_central",
+      "anatomy_id": "filament_central",
+      "label_ca": "Filament caudal central",
+      "element_id": "filament_central"
+    },
+    {
+      "mesh": "cerc_D",
+      "anatomy_id": "cercs",
+      "label_ca": "Cercs laterals",
+      "element_id": "cerc_D"
+    }
+  ],
+  "questions": [
+    {
+      "id": "cap",
+      "prompt": "Clica: Cap",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "ulls",
+      "prompt": "Clica: Ulls compostos",
+      "target_anatomy_id": "ulls"
+    },
+    {
+      "id": "peces_bucals",
+      "prompt": "Clica: Peces bucals",
+      "target_anatomy_id": "peces_bucals"
+    },
+    {
+      "id": "antenes",
+      "prompt": "Clica: Antenes",
+      "target_anatomy_id": "antenes"
+    },
+    {
+      "id": "torax",
+      "prompt": "Clica: Tòrax",
+      "target_anatomy_id": "torax"
+    },
+    {
+      "id": "esbossos_alars",
+      "prompt": "Clica: Esbossos alars",
+      "target_anatomy_id": "esbossos_alars"
+    },
+    {
+      "id": "potes",
+      "prompt": "Clica: Potes",
+      "target_anatomy_id": "potes"
+    },
+    {
+      "id": "abdomen",
+      "prompt": "Clica: Abdomen",
+      "target_anatomy_id": "abdomen"
+    },
+    {
+      "id": "branquies",
+      "prompt": "Clica: Brànquies",
+      "target_anatomy_id": "branquies"
+    },
+    {
+      "id": "cercs",
+      "prompt": "Clica: Cercs laterals",
+      "target_anatomy_id": "cercs"
+    },
+    {
+      "id": "filament_central",
+      "prompt": "Clica: Filament caudal central",
+      "target_anatomy_id": "filament_central"
+    }
+  ],
+  "interaction": {
+    "correct": "Correcte!",
+    "incorrect": "Torna-ho a provar.",
+    "matching": "Compara anatomy_id de la malla clicada amb target_anatomy_id. Qualsevol malla de la mateixa categoria és vàlida."
+  },
+  "note": "Model didàctic simplificat. Els filaments tenen un gruix augmentat per facilitar-ne la visualització."
+}

@@ -95,6 +95,7 @@ function renderEntornsActivities() {
       "natura-activity-temes",
       "natura-activity-orenetes",
       "natura-activity-orenetes-preguntes",
+      "natura-activity-betid-3d",
       "natura-project-rius",
       "natura-project-mat",
       "natura-project-agroparc",
@@ -168,6 +169,8 @@ function renderEntornsActivities() {
         initOrenetesGame();
       } else if (activityName === "orenetes-preguntes" && typeof initOrenetesPreguntesQuiz === "function") {
         initOrenetesPreguntesQuiz();
+      } else if (activityName === "betid-3d" && typeof initBetid3DGame === "function") {
+        initBetid3DGame();
       }
     }
   }
