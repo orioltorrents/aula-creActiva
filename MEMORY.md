@@ -12,10 +12,6 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Connexió de la navegació de l'activitat 3D
-- Afegit el cas `betid-3d` a la funció activa `openNaturaActivity()` de `js/app.js`.
-- La targeta ara mostra `natura-activity-betid-3d` i inicialitza el visor amb `initBetid3DGame()`.
-
 ### 2026-10-22 - Selector de larves de macroinvertebrats
 - L'activitat 3D ara permet escollir entre el Bètid i Simulium, carregant els seus GLB i JSON corresponents.
 - Afegit selector visual, canvi de model, dades de reserva i identificació de l'activitat per model als resultats.
@@ -23,3 +19,7 @@
 ### 2026-10-22 - Primera clau dicotòmica de macroinvertebrats
 - Integrada l'activitat `clau-macroinvertebrats` amb set espècies, decisions guiades, feedback i puntuació.
 - Les imatges provenen de `assets/images/natura/clau-macroinvertebrats/` i els resultats es desen amb `saveResult`.
+
+### 2026-10-22 - Ampliació de la clau dicotòmica
+- Ampliada la clau a 17 organismes, incloent bivalves, crustacis, gasteròpodes, hirudinis i turbelaris nous.
+- Afegits noms científics en cursiva a la selecció, la identificació i els resultats.

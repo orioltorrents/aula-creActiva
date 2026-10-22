@@ -8,6 +8,7 @@
         {
             id: 'ancylus',
             name: 'Ancylus',
+            scientificName: 'Ancylus',
             image: 'assets/images/natura/clau-macroinvertebrats/Ancylus.PNG',
             result: 'Gasteròpodes',
             path: ['no', 'yes', 'no']
@@ -15,6 +16,7 @@
         {
             id: 'betis',
             name: 'Bètid',
+            scientificName: 'Baetis rhodani',
             image: 'assets/images/natura/clau-macroinvertebrats/Betis.PNG',
             result: 'Insectes',
             path: ['yes', 'six']
@@ -22,6 +24,7 @@
         {
             id: 'culex',
             name: 'Culex',
+            scientificName: 'Culex',
             image: 'assets/images/natura/clau-macroinvertebrats/Culex.PNG',
             result: 'Dípters',
             path: ['no', 'no', 'yes', 'yes']
@@ -29,6 +32,7 @@
         {
             id: 'simulium',
             name: 'Simulium',
+            scientificName: 'Simulium',
             image: 'assets/images/natura/clau-macroinvertebrats/Simulium.PNG',
             result: 'Dípters',
             path: ['no', 'no', 'yes', 'yes']
@@ -36,6 +40,7 @@
         {
             id: 'dina-lineata',
             name: 'Dina lineata',
+            scientificName: 'Dina lineata',
             image: 'assets/images/natura/clau-macroinvertebrats/Dina lineata.PNG',
             result: 'Hirudinis',
             path: ['no', 'no', 'yes', 'no', 'yes']
@@ -43,6 +48,7 @@
         {
             id: 'hidracar',
             name: 'Hidracar',
+            scientificName: 'Hydrachnidia',
             image: 'assets/images/natura/clau-macroinvertebrats/Hidracar.PNG',
             result: 'Aràcnids',
             path: ['yes', 'eight']
@@ -50,9 +56,90 @@
         {
             id: 'eiseniella-tetraedra',
             name: 'Eiseniella tetraedra',
+            scientificName: 'Eiseniella tetraedra',
             image: 'assets/images/natura/clau-macroinvertebrats/Eiseniella tetraedra.PNG',
             result: 'Oligoquets',
             path: ['no', 'no', 'yes', 'no', 'no']
+        },
+        {
+            id: 'unio-mancus',
+            name: 'Unio mancus',
+            scientificName: 'Unio mancus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Unio mancus.PNG',
+            result: 'Bivalves',
+            path: ['no', 'yes', 'yes']
+        },
+        {
+            id: 'proasellus-coxalis',
+            name: 'Proasellus coxalis',
+            scientificName: 'Proasellus coxalis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Proasellus coxalis.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'potamopyrgus-antipodarum',
+            name: 'Potamopyrgus antipodarum',
+            scientificName: 'Potamopyrgus antipodarum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Potamopyrgus antipodarum.PNG',
+            result: 'Gasteròpodes',
+            path: ['no', 'yes', 'no']
+        },
+        {
+            id: 'pisidium-casertanum',
+            name: 'Pisidium casertanum',
+            scientificName: 'Pisidium casertanum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Pisidium casertanum.PNG',
+            result: 'Bivalves',
+            path: ['no', 'yes', 'yes']
+        },
+        {
+            id: 'physella-acuta',
+            name: 'Physella acuta',
+            scientificName: 'Physella acuta',
+            image: 'assets/images/natura/clau-macroinvertebrats/Physella acuta.PNG',
+            result: 'Gasteròpodes',
+            path: ['no', 'yes', 'no']
+        },
+        {
+            id: 'lymnaea',
+            name: 'Lymnaea',
+            scientificName: 'Lymnaea',
+            image: 'assets/images/natura/clau-macroinvertebrats/Lymnaea.PNG',
+            result: 'Gasteròpodes',
+            path: ['no', 'yes', 'no']
+        },
+        {
+            id: 'helobdella-stagnalis',
+            name: 'Helobdella stagnalis',
+            scientificName: 'Helobdella stagnalis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Helobdella stagnalis.PNG',
+            result: 'Hirudinis',
+            path: ['no', 'no', 'yes', 'no', 'yes']
+        },
+        {
+            id: 'gyraulus',
+            name: 'Gyraulus',
+            scientificName: 'Gyraulus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gyraulus.PNG',
+            result: 'Gasteròpodes',
+            path: ['no', 'yes', 'no']
+        },
+        {
+            id: 'echinogammarus-longisetosus',
+            name: 'Echinogammarus longisetosus',
+            scientificName: 'Echinogammarus longisetosus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Echinogammarus longisetosus.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'dugesia',
+            name: 'Dugesia',
+            scientificName: 'Dugesia',
+            image: 'assets/images/natura/clau-macroinvertebrats/Dugesia.PNG',
+            result: 'Turbelaris',
+            path: ['no', 'no', 'no', 'flat']
         }
     ];
 
@@ -146,7 +233,7 @@
         selector.innerHTML = specimens.map(specimen => `
             <button type="button" class="macro-key-specimen-card" onclick="startMacroKeySpecimen('${specimen.id}')">
                 <img src="${specimen.image}" alt="${specimen.name}">
-                <span>${specimen.name}</span>
+                <span>${specimen.name}<br><em>${specimen.scientificName}</em></span>
             </button>
         `).join('');
     }
@@ -184,7 +271,7 @@
             image.src = selectedSpecimen.image;
             image.alt = selectedSpecimen.name;
         }
-        if (name) name.textContent = selectedSpecimen.name;
+        if (name) name.innerHTML = `${selectedSpecimen.name} <em>${selectedSpecimen.scientificName}</em>`;
         if (step) step.textContent = `Decisió ${currentStep + 1}`;
         if (question) question.textContent = node.question;
         if (feedback) feedback.className = 'game-panel__feedback hidden';
@@ -262,9 +349,9 @@
 
         document.getElementById('macro-key-game')?.classList.add('hidden');
         document.getElementById('macro-key-result')?.classList.remove('hidden');
-        document.getElementById('macro-key-result-message').textContent = result === selectedSpecimen.result
-            ? `Has identificat l’organisme com a ${result}.`
-            : `La clau t’ha portat a ${result}, però el resultat esperat era ${selectedSpecimen.result}.`;
+        document.getElementById('macro-key-result-message').innerHTML = result === selectedSpecimen.result
+            ? `Has identificat l’organisme com a <strong>${result}</strong>.`
+            : `La clau t’ha portat a <strong>${result}</strong>, però el resultat esperat era <strong>${selectedSpecimen.result}</strong>.`;
         document.getElementById('macro-key-result-score').textContent = `Puntuació: ${finalScore} / ${totalPoints} (${percentage}%) · Errors: ${errors}`;
         document.getElementById('macro-key-result-path').textContent = `Camí seguit: ${pathLabels.join(' → ')} → ${result}`;
 
