@@ -12,14 +12,14 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Segona clau dicotòmica d'insectes aquàtics
-- Afegit un selector entre la clau de grans grups i la clau dels ordres d'insectes en fase aquàtica.
-- La segona clau inclou resultats en català per Dípters, Odonats, Efemeròpters, Tricòpters i la resta d'ordres del document, amb famílies quan estan disponibles.
+### 2026-10-22 - Nous tricòpters a la clau de macroinvertebrats
+- Afegits Hydropsyche, Polycentropus, Potamophylax, Rhyacophila, Sericostoma personatum i Wormaldia.
+- Corregides les referències d'imatge de Chironomus i dels noms de fitxer que tenien punts duplicats.
+
+### 2026-10-22 - Nous organismes a la clau de macroinvertebrats
+- Afegits deu organismes nous al selector de la clau principal, amb recorreguts, grups finals i imatges corresponents.
+- Els nous registres es corregeixen, puntuen i desen amb el mateix flux que els organismes existents.
 
 ### 2026-10-22 - Model 3D de la larva de Culex
 - Afegit Culex al selector de l'activitat 3D amb `Culex_web.glb` i `Anatomia_Culex.json`.
 - Les preguntes anatòmiques es carreguen des del JSON i tenen dades de reserva integrades.
-
-### 2026-10-22 - Disponibilitat de projectes i activitats
-- Afegit l'endpoint `getAvailability` i el filtratge opcional per la pestanya `disponibilitat` del Sheet.
-- Les files `FALSE` amaguen projectes o activitats per curs i també bloquegen l'accés directe; sense fila, l'element continua visible.

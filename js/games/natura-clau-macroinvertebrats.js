@@ -140,6 +140,134 @@
             image: 'assets/images/natura/clau-macroinvertebrats/Dugesia.PNG',
             result: 'Turbelaris',
             path: ['no', 'no', 'no', 'flat']
+        },
+        {
+            id: 'austrapotamobius-pallipes',
+            name: 'Austrapotamobius pallipes',
+            scientificName: 'Austrapotamobius pallipes',
+            image: 'assets/images/natura/clau-macroinvertebrats/Austrapotamobius pallipes.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'procambarus-clarkii',
+            name: 'Procambarus clarkii',
+            scientificName: 'Procambarus clarkii',
+            image: 'assets/images/natura/clau-macroinvertebrats/Procambarus clarkii.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'eucypris',
+            name: 'Eucypris',
+            scientificName: 'Eucypris',
+            image: 'assets/images/natura/clau-macroinvertebrats/Eucypris.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'chydoridae',
+            name: 'Quidorids',
+            scientificName: 'Chydoridae',
+            image: 'assets/images/natura/clau-macroinvertebrats/Chydoridae.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'cyclopidae',
+            name: 'Ciclòpids',
+            scientificName: 'Cyclopidae',
+            image: 'assets/images/natura/clau-macroinvertebrats/Cyclopidae.PNG',
+            result: 'Crustacis',
+            path: ['yes', 'more']
+        },
+        {
+            id: 'calopterigid',
+            name: 'Calopterígids',
+            scientificName: 'Calopterygidae',
+            image: 'assets/images/natura/clau-macroinvertebrats/Calopterigid.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'tipula',
+            name: 'Tipula',
+            scientificName: 'Tipula',
+            image: 'assets/images/natura/clau-macroinvertebrats/Tipula.PNG',
+            result: 'Dípters',
+            path: ['no', 'no', 'yes', 'yes']
+        },
+        {
+            id: 'rheocricotopus',
+            name: 'Rheocricotopus',
+            scientificName: 'Rheocricotopus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Rheocricotopus.PNG',
+            result: 'Dípters',
+            path: ['no', 'no', 'yes', 'yes']
+        },
+        {
+            id: 'eristalis',
+            name: 'Eristalis',
+            scientificName: 'Eristalis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Eristalis.PNG',
+            result: 'Dípters',
+            path: ['no', 'no', 'yes', 'yes']
+        },
+        {
+            id: 'chironomus',
+            name: 'Chironomus',
+            scientificName: 'Chironomus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Chironomus.PNG',
+            result: 'Dípters',
+            path: ['no', 'no', 'yes', 'yes']
+        },
+        {
+            id: 'hydropsyche',
+            name: 'Hydropsyche',
+            scientificName: 'Hydropsyche',
+            image: 'assets/images/natura/clau-macroinvertebrats/Hydropsyche.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'polycentropus',
+            name: 'Polycentropus',
+            scientificName: 'Polycentropus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Polycentropus.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'potamophylax',
+            name: 'Potamophylax',
+            scientificName: 'Potamophylax',
+            image: 'assets/images/natura/clau-macroinvertebrats/Potamophylax.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'rhyacophila',
+            name: 'Rhyacophila',
+            scientificName: 'Rhyacophila',
+            image: 'assets/images/natura/clau-macroinvertebrats/Rhyacophila.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'sericostoma-personatum',
+            name: 'Sericostoma personatum',
+            scientificName: 'Sericostoma personatum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Sericostoma personatum.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
+        },
+        {
+            id: 'wormaldia',
+            name: 'Wormaldia',
+            scientificName: 'Wormaldia',
+            image: 'assets/images/natura/clau-macroinvertebrats/Wormaldia.PNG',
+            result: 'Insectes',
+            path: ['yes', 'six']
         }
     ];
 
