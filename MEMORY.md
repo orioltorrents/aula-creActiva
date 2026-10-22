@@ -12,9 +12,9 @@
 
 ## Tres últims passos
 
-### 2026-10-22 - Activitat 3D de l'anatomia del Bètid i correcció d'assets
+### 2026-10-22 - Activitat 3D de l'anatomia del Bètid i ubicació a Projecte Rius
 - Creat el visor i qüestionari 3D del Bètid a `js/games/natura-betid-3d.js` amb fallback de JSON intern.
-- Afegida la targeta al menú principal d'Entorns i a Projecte Rius (`fragments/projects/entorns/index.html`) i corregit l'error 404 a la imatge d'Orenetes.
+- Integrada la targeta exclusivament dins del subprojecte **Projecte Rius** (`fragments/projects/entorns/index.html`) i corregit l'error 404 a la imatge d'Orenetes.
 
 ### 2026-10-22 - Taxonomia d'activitats i skills per mecànica
 - S'han afegit skills a `.agents/skills/` per quizzes, cartografia, classificació, xarxes, mitjans, recerca guiada, simulacions i micro:bit.
