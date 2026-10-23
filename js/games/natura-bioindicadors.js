@@ -247,4 +247,5 @@
     window.classifyRiverBioSpecimen = classifyRiverBioSpecimen;
     window.chooseRiverBioState = chooseRiverBioState;
     window.revealRiverBioHint = revealRiverBioHint;
+    window.riverBioSpecimens = specimens;
 })();

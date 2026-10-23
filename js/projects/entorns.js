@@ -98,6 +98,7 @@ function renderEntornsActivities() {
       "natura-activity-betid-3d",
       "natura-activity-clau-macroinvertebrats",
       "natura-activity-bioindicadors",
+      "natura-activity-familia-color",
       "natura-activity-hipotesis",
       "natura-project-rius",
       "natura-project-mat",

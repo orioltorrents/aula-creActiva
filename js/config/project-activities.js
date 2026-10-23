@@ -234,6 +234,15 @@ const PROJECT_ACTIVITIES = {
       fallbackDesc: "Comprova si una hipòtesi conté tot el necessari per investigar-la.",
       image: "assets/images/activities/treball-recerca/cards/targeta-preguntes-investigables.png",
       action: "hipotesis"
+    },
+    {
+      id: "familia-color",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Família i color dels bioindicadors",
+      fallbackDesc: "Practica la família i el color de cada macroinvertebrat.",
+      image: "assets/images/natura/targeta-familia-color.svg",
+      action: "familia-color"
     }
   ]
 };

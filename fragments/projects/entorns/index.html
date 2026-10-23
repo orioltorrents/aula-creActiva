@@ -93,6 +93,15 @@
                                         <div class="activity-card__description">Determina el grup dels principals macroinvertebrats aquàtics.</div>
                                     </div>
                                 </div>
+                                <div class="activity-card" onclick="openNaturaActivity('familia-color')">
+                                    <div class="activity-card__media">
+                                        <img src="assets/images/natura/targeta-familia-color.svg" alt="Larva de macroinvertebrat, família Perlidae, Perlids i color blau" class="activity-card__image activity-card__image--contain">
+                                    </div>
+                                    <div class="activity-card__content">
+                                        <div class="activity-card__title">Família i color dels bioindicadors</div>
+                                        <div class="activity-card__description">Practica la família i el color de cada macroinvertebrat.</div>
+                                    </div>
+                                </div>
                                 <div class="activity-card" onclick="openNaturaActivity('bioindicadors')">
                                     <div class="activity-card__media">
                                         <img src="assets/images/natura/bioindicadors-riu.svg" alt="Bioindicadors del riu: macroinvertebrats i colors de qualitat" class="activity-card__image activity-card__image--contain">
@@ -922,6 +931,47 @@
                                      </div>
                                      <div id="river-bio-result" class="river-bioactivity__result" aria-live="polite"></div>
                                      <button type="button" class="btn btn--primary" onclick="initRiverBioActivity()">Tornar a començar</button>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <!-- ACTIVITAT: Família i color dels bioindicadors -->
+                         <div id="natura-activity-familia-color" class="sub-activity hidden">
+                             <button class="btn btn--secondary btn--sm mb-2" onclick="openNaturaProject('rius')">← Tornar al menú del Projecte Rius</button>
+                             <div class="river-family-color">
+                                 <div class="river-family-color__header">
+                                     <h3>Família i color dels bioindicadors</h3>
+                                     <p>Observa cada macroinvertebrat i relaciona’l amb la seva família i el color de sensibilitat de la fitxa de camp.</p>
+                                     <a href="assets/documents/Fitxes de camp - Macroinvertebrats.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm mt-2">📄 Obrir les fitxes de camp</a>
+                                 </div>
+                                 <div id="river-family-color-game" class="river-family-color__game">
+                                     <div class="river-family-color__progress">
+                                         <span id="river-family-color-progress">Organisme 1 de 10</span>
+                                         <span id="river-family-color-score">Punts: 0</span>
+                                     </div>
+                                     <div class="river-family-color__specimen">
+                                         <img id="river-family-color-image" src="" alt="" class="river-family-color__image">
+                                         <h4 id="river-family-color-name"></h4>
+                                     </div>
+                                     <section class="river-family-color__question">
+                                         <h4>A quina família pertany?</h4>
+                                         <div id="river-family-color-families" class="river-family-color__family-options"></div>
+                                         <p id="river-family-color-family-result" class="river-family-color__answer" aria-live="polite"></p>
+                                     </section>
+                                     <section class="river-family-color__question">
+                                         <h4>Quin color té a la fitxa de camp?</h4>
+                                         <div id="river-family-color-colors" class="river-family-color__color-options"></div>
+                                     </section>
+                                     <div id="river-family-color-feedback" class="river-family-color__feedback hidden" aria-live="polite"></div>
+                                     <div class="river-family-color__controls">
+                                         <button type="button" id="river-family-color-next" class="btn btn--primary hidden" onclick="nextFamiliaColorQuestion()">Següent organisme</button>
+                                     </div>
+                                 </div>
+                                 <div id="river-family-color-results" class="river-family-color__results hidden">
+                                     <h3>Resultat de la ronda</h3>
+                                     <p id="river-family-color-final-score" class="river-family-color__final-score"></p>
+                                     <p id="river-family-color-final-feedback" aria-live="polite"></p>
+                                     <button type="button" class="btn btn--primary" onclick="initFamiliaColorGame()">Tornar a començar</button>
                                  </div>
                              </div>
                          </div>

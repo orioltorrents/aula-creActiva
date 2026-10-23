@@ -21,6 +21,6 @@
 - Limitat el mode practicar dels models 3D a una selecció aleatòria de 10 preguntes per sessió.
 - Canviat el nom del model de bètid a "Larva de Baetis" en la interfície i configuracions.
 
-### 2026-10-22 - Integrat el model 3D d'Echinogammarus
-- Afegit Echinogammarus al selector del visor 3D d'anatomia de macroinvertebrats amb model GLB, JSON anatòmic complet i fallback de preguntes.
-- Adaptat el selector de models 3D amb graella fluida i responsive per a 5 models.
+### 2026-10-23 - Afegida l'activitat Família i color dels bioindicadors
+- Creat un entrenament de 10 organismes aleatoris amb una pregunta de família i una de color per organisme.
+- Reutilitzat el catàleg compartit de Bioindicadors i integrat la nova activitat al menú del Projecte Rius.

@@ -1580,6 +1580,9 @@ function openNaturaActivity(actId) {
     } else if (actId === 'hipotesis') {
         document.getElementById('natura-activity-hipotesis').classList.remove('hidden');
         if (typeof initRiverHypothesisGame === 'function') initRiverHypothesisGame();
+    } else if (actId === 'familia-color') {
+        document.getElementById('natura-activity-familia-color').classList.remove('hidden');
+        if (typeof initFamiliaColorGame === 'function') initFamiliaColorGame();
     }
 }
 
