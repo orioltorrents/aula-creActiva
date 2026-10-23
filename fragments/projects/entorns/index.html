@@ -71,6 +71,7 @@
                                 <div class="flex justify-center gap-2 mt-2 flex-wrap">
                                     <a href="assets/documents/Fitxes de camp - Macroinvertebrats.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">📄 Fitxes de camp (PDF)</a>
                                     <a href="assets/documents/Clau d'identificació dels macroinvertebrats de riu.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">📄 Clau d'identificació (PDF)</a>
+                                    <a href="assets/documents/Guia de recompte i colors del Projecte Rius.html" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">📘 Guia de colors i recompte</a>
                                 </div>
                             </div>
                             <div class="activities-grid">
@@ -729,6 +730,10 @@
                                         <img src="assets/models/Echinogammarus_animat/Echinogammarus_animat.png" alt="Echinogammarus">
                                         <span>Echinogammarus</span>
                                     </button>
+                                    <button type="button" class="betid-3d-model-option" data-macro-model="perlaMarginata" onclick="selectMacroModel('perlaMarginata')">
+                                        <img src="assets/models/Perla_marginata_animat/Perla_marginata.png" alt="Perla marginata">
+                                        <span>Perla marginata</span>
+                                    </button>
                                 </div>
 
                                 <h4 id="betid-3d-model-title" class="betid-3d-selected-model-title">Baetis</h4>
@@ -903,15 +908,19 @@
                                 <div id="river-bio-decision" class="river-bioactivity__decision hidden">
                                     <h3>Quin és l’estat ecològic del riu?</h3>
                                     <p>No et fixis en una sola espècie: compta les famílies diferents de cada color.</p>
-                                    <div class="river-bioactivity__state-actions">
-                                        <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('blue')">Molt bo</button>
+                                     <div class="river-bioactivity__state-actions">
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('blue')">Molt bo</button>
                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('green')">Bo</button>
                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('yellow')">Moderat</button>
                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('orange')">Dolent</button>
                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('red')">Molt dolent</button>
-                                        <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('insufficient')">Dades insuficients</button>
-                                    </div>
-                                    <div id="river-bio-result" class="river-bioactivity__result" aria-live="polite"></div>
+                                         <button type="button" class="river-bio-state-button" onclick="chooseRiverBioState('insufficient')">Dades insuficients</button>
+                                     </div>
+                                     <div class="river-bioactivity__hint">
+                                         <button type="button" id="river-bio-hint-button" class="btn btn--outline btn--sm" onclick="revealRiverBioHint()">Necessito una pista (-10 punts)</button>
+                                         <p id="river-bio-hint" class="river-bioactivity__hint-text hidden">Compta les famílies diferents de cada color. L’estat és el color de millor qualitat que arriba a dues famílies; si cap color hi arriba, les dades són insuficients.</p>
+                                     </div>
+                                     <div id="river-bio-result" class="river-bioactivity__result" aria-live="polite"></div>
                                      <button type="button" class="btn btn--primary" onclick="initRiverBioActivity()">Tornar a començar</button>
                                  </div>
                              </div>

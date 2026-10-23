@@ -1,0 +1,62 @@
+PERLA MARGINATA — NIMFA AMB PARTS DIFERENCIADES I ANIMACIÓ
+
+FITXERS
+Perla_marginata_animada.blend: model editable en Blender.
+Perla_marginata_animada.glb: geometria, colors i animació per a la web.
+Anatomia_Perla_marginata.json: 91 peces, 24 categories i preguntes.
+Perla_marginata.png: vista dorsal obliqua amb superfície de suport.
+Perla_marginata_ventral.png: vista ventral sense superfície de suport.
+
+ANATOMIA
+Cap, ulls compostos, tres ocels, antenes, labre, llavi, mandíbules,
+palps maxil·lars i labials, tòrax, pronot, mesonot, metanot, quatre
+esbossos alars, abdomen, coxes, trocànters, fèmurs, tíbies, tarsos,
+ungles, brànquies toràciques, dos cercs i setes.
+Sis potes, cada una amb tars de tres articles i dues ungles.
+Els dos cercs incorporen setes basals a la zona dorsolateral interna.
+No hi ha filament caudal central ni brànquies anals.
+Els sis grups de brànquies són representacions esquemàtiques dels
+feixos pleurals toràcics; el nombre de filaments no és diagnòstic.
+
+ANIMACIÓ
+Clip únic Caminar_suau, 8 segons, fotogrames 1–241 a 30 fps.
+0–6 s: avança una mica, amb sis potes coordinades i inici/final graduals.
+6–8 s: les potes i el cos s'aturen; les antenes i els cercs segueixen
+flexionant-se lleument.
+Les setes dels cercs acompanyen la flexió corresponent.
+És una interpretació didàctica, no una simulació biomecànica validada.
+El model avança en l'espai; reprodueix el clip una vegada i conserva
+la posició final. Repetir-lo directament provocaria un salt a l'inici.
+
+BLENDER
+Obre Perla_marginata_animada.blend.
+Escena: Perla marginata - anatomia i moviment.
+Prem Espai sobre la vista 3D per reproduir o pausar.
+La col·lecció PERLA MARGINATA | Parts identificables conté el model.
+Les peces són objectes independents amb materials i colors incorporats.
+Per veure les brànquies des de sota, amaga Perla_superficie_suport
+i utilitza la càmera Perla_Camera_ventral.
+L'animació utilitza claus de forma i pistes NLA Caminar_suau.
+
+WEB EDUCATIVA
+El GLB porta un únic clip Caminar_suau.
+El visor ha d'admetre morph targets i translació animada.
+Configura reproducció única i conservació de la posició final.
+Cada mesh conserva element_id, anatomy_id i label_ca.
+Compara anatomy_id de la peça clicada amb target_anatomy_id del JSON.
+Les peces d'una mateixa categoria es poden ressaltar conjuntament.
+La superfície de suport té environment=true i pickable=false:
+la web ha d'excloure-la explícitament de les preguntes d'anatomia.
+El GLB no inclou puntuació, registre d'alumnes ni motor de qüestionaris.
+Es recomana pausar el clip durant les preguntes.
+
+REFERÈNCIES I ABAST
+Model construït a partir de les tres imatges aportades i contrastat
+amb la fitxa de Perla marginata d'IBERFAUNA (MNCN-CSIC):
+https://iberfauna.mncn.csic.es/showficha.aspx?idtax=26042&rank=T
+Membiela (1990), Las larvas del género Perla en la Península Ibérica:
+https://museucienciesjournals.cat/es/other/mz/mz-volum-14-1990/las-larvas-del-genero-perla-plecoptera-perlidae-en-la-peninsula-iberica.pdf
+La pigmentació, les peces bucals, la setació i els articles dels
+apèndixs són aproximacions educatives. No és una clau taxonòmica
+ni una reconstrucció diagnòstica d'un exemplar concret.
+Les proporcions no representen una escala real en metres.

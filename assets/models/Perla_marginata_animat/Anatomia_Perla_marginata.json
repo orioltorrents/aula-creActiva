@@ -1,0 +1,696 @@
+{
+  "schema_version": 1,
+  "title": "Nimfa de Perla marginata",
+  "model": "Perla_marginata_animada.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "mesh": "Perla_cap",
+      "element_id": "cap",
+      "anatomy_id": "cap",
+      "label_ca": "Càpsula cefàlica"
+    },
+    {
+      "mesh": "Perla_labre",
+      "element_id": "labre",
+      "anatomy_id": "labre",
+      "label_ca": "Labre"
+    },
+    {
+      "mesh": "Perla_llavi",
+      "element_id": "llavi",
+      "anatomy_id": "llavi",
+      "label_ca": "Llavi"
+    },
+    {
+      "mesh": "Perla_ull_E",
+      "element_id": "ull_E",
+      "anatomy_id": "ulls",
+      "label_ca": "Ulls compostos"
+    },
+    {
+      "mesh": "Perla_palp_maxillar_E",
+      "element_id": "palp_maxillar_E",
+      "anatomy_id": "palps_maxillars",
+      "label_ca": "Palps maxil·lars"
+    },
+    {
+      "mesh": "Perla_palp_labial_E",
+      "element_id": "palp_labial_E",
+      "anatomy_id": "palps_labials",
+      "label_ca": "Palps labials"
+    },
+    {
+      "mesh": "Perla_mandibula_E",
+      "element_id": "mandibula_E",
+      "anatomy_id": "mandibules",
+      "label_ca": "Mandíbules"
+    },
+    {
+      "mesh": "Perla_ull_D",
+      "element_id": "ull_D",
+      "anatomy_id": "ulls",
+      "label_ca": "Ulls compostos"
+    },
+    {
+      "mesh": "Perla_palp_maxillar_D",
+      "element_id": "palp_maxillar_D",
+      "anatomy_id": "palps_maxillars",
+      "label_ca": "Palps maxil·lars"
+    },
+    {
+      "mesh": "Perla_palp_labial_D",
+      "element_id": "palp_labial_D",
+      "anatomy_id": "palps_labials",
+      "label_ca": "Palps labials"
+    },
+    {
+      "mesh": "Perla_mandibula_D",
+      "element_id": "mandibula_D",
+      "anatomy_id": "mandibules",
+      "label_ca": "Mandíbules"
+    },
+    {
+      "mesh": "Perla_ocel_central",
+      "element_id": "ocel_central",
+      "anatomy_id": "ocels",
+      "label_ca": "Ocels"
+    },
+    {
+      "mesh": "Perla_ocel_E",
+      "element_id": "ocel_E",
+      "anatomy_id": "ocels",
+      "label_ca": "Ocels"
+    },
+    {
+      "mesh": "Perla_ocel_D",
+      "element_id": "ocel_D",
+      "anatomy_id": "ocels",
+      "label_ca": "Ocels"
+    },
+    {
+      "mesh": "Perla_antena_E",
+      "element_id": "antena_E",
+      "anatomy_id": "antenes",
+      "label_ca": "Antenes"
+    },
+    {
+      "mesh": "Perla_antena_D",
+      "element_id": "antena_D",
+      "anatomy_id": "antenes",
+      "label_ca": "Antenes"
+    },
+    {
+      "mesh": "Perla_torax_1",
+      "element_id": "torax_1",
+      "anatomy_id": "torax",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "Perla_pronot",
+      "element_id": "pronot",
+      "anatomy_id": "pronot",
+      "label_ca": "Pronot"
+    },
+    {
+      "mesh": "Perla_torax_2",
+      "element_id": "torax_2",
+      "anatomy_id": "torax",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "Perla_mesonot",
+      "element_id": "mesonot",
+      "anatomy_id": "mesonot",
+      "label_ca": "Mesonot"
+    },
+    {
+      "mesh": "Perla_torax_3",
+      "element_id": "torax_3",
+      "anatomy_id": "torax",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "Perla_metanot",
+      "element_id": "metanot",
+      "anatomy_id": "metanot",
+      "label_ca": "Metanot"
+    },
+    {
+      "mesh": "Perla_esbos_alar_1_E",
+      "element_id": "esbos_alar_1_E",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars"
+    },
+    {
+      "mesh": "Perla_esbos_alar_1_D",
+      "element_id": "esbos_alar_1_D",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars"
+    },
+    {
+      "mesh": "Perla_esbos_alar_2_E",
+      "element_id": "esbos_alar_2_E",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars"
+    },
+    {
+      "mesh": "Perla_esbos_alar_2_D",
+      "element_id": "esbos_alar_2_D",
+      "anatomy_id": "esbossos_alars",
+      "label_ca": "Esbossos alars"
+    },
+    {
+      "mesh": "Perla_abdomen_01",
+      "element_id": "abdomen_01",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_02",
+      "element_id": "abdomen_02",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_03",
+      "element_id": "abdomen_03",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_04",
+      "element_id": "abdomen_04",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_05",
+      "element_id": "abdomen_05",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_06",
+      "element_id": "abdomen_06",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_07",
+      "element_id": "abdomen_07",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_08",
+      "element_id": "abdomen_08",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_09",
+      "element_id": "abdomen_09",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_abdomen_10",
+      "element_id": "abdomen_10",
+      "anatomy_id": "abdomen",
+      "label_ca": "Abdomen (segments I-X)"
+    },
+    {
+      "mesh": "Perla_coxa_1_E",
+      "element_id": "coxa_1_E",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_1_E",
+      "element_id": "trocanter_1_E",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_1_E",
+      "element_id": "femur_1_E",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_1_E",
+      "element_id": "tibia_1_E",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_1_E",
+      "element_id": "tars_1_E",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_1_E",
+      "element_id": "ungles_1_E",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_1_E",
+      "element_id": "setes_pota_1_E",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_coxa_1_D",
+      "element_id": "coxa_1_D",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_1_D",
+      "element_id": "trocanter_1_D",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_1_D",
+      "element_id": "femur_1_D",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_1_D",
+      "element_id": "tibia_1_D",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_1_D",
+      "element_id": "tars_1_D",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_1_D",
+      "element_id": "ungles_1_D",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_1_D",
+      "element_id": "setes_pota_1_D",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_coxa_2_E",
+      "element_id": "coxa_2_E",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_2_E",
+      "element_id": "trocanter_2_E",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_2_E",
+      "element_id": "femur_2_E",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_2_E",
+      "element_id": "tibia_2_E",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_2_E",
+      "element_id": "tars_2_E",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_2_E",
+      "element_id": "ungles_2_E",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_2_E",
+      "element_id": "setes_pota_2_E",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_coxa_2_D",
+      "element_id": "coxa_2_D",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_2_D",
+      "element_id": "trocanter_2_D",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_2_D",
+      "element_id": "femur_2_D",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_2_D",
+      "element_id": "tibia_2_D",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_2_D",
+      "element_id": "tars_2_D",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_2_D",
+      "element_id": "ungles_2_D",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_2_D",
+      "element_id": "setes_pota_2_D",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_coxa_3_E",
+      "element_id": "coxa_3_E",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_3_E",
+      "element_id": "trocanter_3_E",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_3_E",
+      "element_id": "femur_3_E",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_3_E",
+      "element_id": "tibia_3_E",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_3_E",
+      "element_id": "tars_3_E",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_3_E",
+      "element_id": "ungles_3_E",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_3_E",
+      "element_id": "setes_pota_3_E",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_coxa_3_D",
+      "element_id": "coxa_3_D",
+      "anatomy_id": "coxes",
+      "label_ca": "Coxes"
+    },
+    {
+      "mesh": "Perla_trocanter_3_D",
+      "element_id": "trocanter_3_D",
+      "anatomy_id": "trocanters",
+      "label_ca": "Trocànters"
+    },
+    {
+      "mesh": "Perla_femur_3_D",
+      "element_id": "femur_3_D",
+      "anatomy_id": "femurs",
+      "label_ca": "Fèmurs"
+    },
+    {
+      "mesh": "Perla_tibia_3_D",
+      "element_id": "tibia_3_D",
+      "anatomy_id": "tibies",
+      "label_ca": "Tíbies"
+    },
+    {
+      "mesh": "Perla_tars_3_D",
+      "element_id": "tars_3_D",
+      "anatomy_id": "tarsos",
+      "label_ca": "Tarsos (tres articles)"
+    },
+    {
+      "mesh": "Perla_ungles_3_D",
+      "element_id": "ungles_3_D",
+      "anatomy_id": "ungles",
+      "label_ca": "Dues ungles per pota"
+    },
+    {
+      "mesh": "Perla_setes_pota_3_D",
+      "element_id": "setes_pota_3_D",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_branquies_1_E",
+      "element_id": "branquies_1_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_branquies_1_D",
+      "element_id": "branquies_1_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_branquies_2_E",
+      "element_id": "branquies_2_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_branquies_2_D",
+      "element_id": "branquies_2_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_branquies_3_E",
+      "element_id": "branquies_3_E",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_branquies_3_D",
+      "element_id": "branquies_3_D",
+      "anatomy_id": "branquies",
+      "label_ca": "Brànquies toràciques"
+    },
+    {
+      "mesh": "Perla_cerc_E",
+      "element_id": "cerc_E",
+      "anatomy_id": "cercs",
+      "label_ca": "Cercs caudals"
+    },
+    {
+      "mesh": "Perla_setes_cerc_E",
+      "element_id": "setes_cerc_E",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_cerc_D",
+      "element_id": "cerc_D",
+      "anatomy_id": "cercs",
+      "label_ca": "Cercs caudals"
+    },
+    {
+      "mesh": "Perla_setes_cerc_D",
+      "element_id": "setes_cerc_D",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_setes_torax_1",
+      "element_id": "setes_torax_1",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_setes_torax_2",
+      "element_id": "setes_torax_2",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    },
+    {
+      "mesh": "Perla_setes_torax_3",
+      "element_id": "setes_torax_3",
+      "anatomy_id": "setes",
+      "label_ca": "Setes"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_cap",
+      "prompt": "Assenyala: Càpsula cefàlica",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "q_labre",
+      "prompt": "Assenyala: Labre",
+      "target_anatomy_id": "labre"
+    },
+    {
+      "id": "q_llavi",
+      "prompt": "Assenyala: Llavi",
+      "target_anatomy_id": "llavi"
+    },
+    {
+      "id": "q_ulls",
+      "prompt": "Assenyala: Ulls compostos",
+      "target_anatomy_id": "ulls"
+    },
+    {
+      "id": "q_palps_maxillars",
+      "prompt": "Assenyala: Palps maxil·lars",
+      "target_anatomy_id": "palps_maxillars"
+    },
+    {
+      "id": "q_palps_labials",
+      "prompt": "Assenyala: Palps labials",
+      "target_anatomy_id": "palps_labials"
+    },
+    {
+      "id": "q_mandibules",
+      "prompt": "Assenyala: Mandíbules",
+      "target_anatomy_id": "mandibules"
+    },
+    {
+      "id": "q_ocels",
+      "prompt": "Assenyala: Ocels",
+      "target_anatomy_id": "ocels"
+    },
+    {
+      "id": "q_antenes",
+      "prompt": "Assenyala: Antenes",
+      "target_anatomy_id": "antenes"
+    },
+    {
+      "id": "q_torax",
+      "prompt": "Assenyala: Tòrax",
+      "target_anatomy_id": "torax"
+    },
+    {
+      "id": "q_pronot",
+      "prompt": "Assenyala: Pronot",
+      "target_anatomy_id": "pronot"
+    },
+    {
+      "id": "q_mesonot",
+      "prompt": "Assenyala: Mesonot",
+      "target_anatomy_id": "mesonot"
+    },
+    {
+      "id": "q_metanot",
+      "prompt": "Assenyala: Metanot",
+      "target_anatomy_id": "metanot"
+    },
+    {
+      "id": "q_esbossos_alars",
+      "prompt": "Assenyala: Esbossos alars",
+      "target_anatomy_id": "esbossos_alars"
+    },
+    {
+      "id": "q_abdomen",
+      "prompt": "Assenyala: Abdomen (segments I-X)",
+      "target_anatomy_id": "abdomen"
+    },
+    {
+      "id": "q_coxes",
+      "prompt": "Assenyala: Coxes",
+      "target_anatomy_id": "coxes"
+    },
+    {
+      "id": "q_trocanters",
+      "prompt": "Assenyala: Trocànters",
+      "target_anatomy_id": "trocanters"
+    },
+    {
+      "id": "q_femurs",
+      "prompt": "Assenyala: Fèmurs",
+      "target_anatomy_id": "femurs"
+    },
+    {
+      "id": "q_tibies",
+      "prompt": "Assenyala: Tíbies",
+      "target_anatomy_id": "tibies"
+    },
+    {
+      "id": "q_tarsos",
+      "prompt": "Assenyala: Tarsos (tres articles)",
+      "target_anatomy_id": "tarsos"
+    },
+    {
+      "id": "q_ungles",
+      "prompt": "Assenyala: Dues ungles per pota",
+      "target_anatomy_id": "ungles"
+    },
+    {
+      "id": "q_setes",
+      "prompt": "Assenyala: Setes",
+      "target_anatomy_id": "setes"
+    },
+    {
+      "id": "q_branquies",
+      "prompt": "Assenyala: Brànquies toràciques",
+      "target_anatomy_id": "branquies"
+    },
+    {
+      "id": "q_cercs",
+      "prompt": "Assenyala: Cercs caudals",
+      "target_anatomy_id": "cercs"
+    }
+  ],
+  "notes": [
+    "Model educatiu basat en les tres referències aportades.",
+    "Dos cercs caudals; sis potes amb dues ungles cadascuna; brànquies toràciques.",
+    "Patró de pigmentació aproximat; articles, setes i peces bucals simplificats. No substitueix una clau taxonòmica."
+  ],
+  "animation": {
+    "clip": "Caminar_suau",
+    "duration_seconds": 8,
+    "loop": false,
+    "clamp_when_finished": true,
+    "walk_seconds": [
+      0,
+      6
+    ],
+    "appendages_active_during_rest": true
+  },
+  "environment": {
+    "mesh": "Perla_superficie_suport",
+    "pickable": false
+  }
+}

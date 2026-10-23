@@ -140,6 +140,23 @@
         ]
     };
 
+    const FALLBACK_PERLA_MARGINATA_DATA = {
+        "title": "Nimfa de Perla marginata",
+        "questions": [
+            { "id": "q_cap", "prompt": "Assenyala: Càpsula cefàlica", "target_anatomy_id": "cap" },
+            { "id": "q_ulls", "prompt": "Assenyala: Ulls compostos", "target_anatomy_id": "ulls" },
+            { "id": "q_antenes", "prompt": "Assenyala: Antenes", "target_anatomy_id": "antenes" },
+            { "id": "q_torax", "prompt": "Assenyala: Tòrax", "target_anatomy_id": "torax" },
+            { "id": "q_pronot", "prompt": "Assenyala: Pronot", "target_anatomy_id": "pronot" },
+            { "id": "q_esbossos_alars", "prompt": "Assenyala: Esbossos alars", "target_anatomy_id": "esbossos_alars" },
+            { "id": "q_abdomen", "prompt": "Assenyala: Abdomen (segments I-X)", "target_anatomy_id": "abdomen" },
+            { "id": "q_cers", "prompt": "Assenyala: Cercs caudals", "target_anatomy_id": "cers" },
+            { "id": "q_branquies", "prompt": "Assenyala: Brànquies toràciques", "target_anatomy_id": "branquies" },
+            { "id": "q_cercs", "prompt": "Assenyala: Cercs caudals", "target_anatomy_id": "cercs" },
+            { "id": "q_setes", "prompt": "Assenyala: Setes", "target_anatomy_id": "setes" }
+        ]
+    };
+
     const MODEL_CONFIGS = {
         betid: {
             title: 'Baetis',
@@ -170,6 +187,12 @@
             modelUrl: 'assets/models/Echinogammarus_animat/Echinogammarus_animat.glb',
             jsonUrl: 'assets/models/Echinogammarus_animat/Anatomia_Echinogammarus.json',
             fallback: FALLBACK_ECHINOGAMMARUS_DATA
+        },
+        perlaMarginata: {
+            title: 'Perla marginata',
+            modelUrl: 'assets/models/Perla_marginata_animat/Perla_marginata_animada.glb',
+            jsonUrl: 'assets/models/Perla_marginata_animat/Anatomia_Perla_marginata.json',
+            fallback: FALLBACK_PERLA_MARGINATA_DATA
         }
     };
 

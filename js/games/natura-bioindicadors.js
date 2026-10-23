@@ -80,6 +80,7 @@
     let round = [];
     let currentIndex = 0;
     let assignments = [];
+    let hintUsed = false;
 
     function shuffle(items) {
         return items.slice().sort(() => Math.random() - 0.5);
@@ -110,10 +111,13 @@
         round = shuffle(specimens).slice(0, sampleSize);
         currentIndex = 0;
         assignments = [];
+        hintUsed = false;
 
         getElement('river-bio-round')?.classList.remove('hidden');
         getElement('river-bio-decision')?.classList.add('hidden');
         getElement('river-bio-result').textContent = '';
+        getElement('river-bio-hint-button')?.classList.remove('hidden');
+        getElement('river-bio-hint')?.classList.add('hidden');
 
         colorOrder.forEach(color => {
             const drawer = getElement(`river-bio-drawer-${color}`);
@@ -158,8 +162,10 @@
 
         if (currentIndex >= round.length) {
             getElement('river-bio-round')?.classList.add('hidden');
-            getElement('river-bio-decision')?.classList.remove('hidden');
+            const decision = getElement('river-bio-decision');
+            decision?.classList.remove('hidden');
             getElement('river-bio-classified').textContent = `Classificades: ${assignments.length}`;
+            decision?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             return;
         }
 
@@ -171,13 +177,21 @@
         if (element) element.textContent = count;
     }
 
+    function revealRiverBioHint() {
+        if (hintUsed) return;
+        hintUsed = true;
+        getElement('river-bio-hint-button')?.classList.add('hidden');
+        getElement('river-bio-hint')?.classList.remove('hidden');
+    }
+
     function chooseRiverBioState(selectedState) {
         const expectedState = calculateEcologicalState(round, 'color');
         const chosenState = calculateEcologicalState(assignments, 'selectedColor');
         const classificationCorrect = assignments.filter(item => item.selectedColor === item.specimen.color).length;
         const classificationErrors = round.length - classificationCorrect;
         const stateCorrect = selectedState === expectedState;
-        const percentage = Math.round(((classificationCorrect + (stateCorrect ? 1 : 0)) / (round.length + 1)) * 100);
+        const rawPercentage = Math.round(((classificationCorrect + (stateCorrect ? 1 : 0)) / (round.length + 1)) * 100);
+        const percentage = Math.max(0, rawPercentage - (hintUsed ? 10 : 0));
         const result = getElement('river-bio-result');
 
         const chosenCounts = getUniqueFamilyCounts(assignments, 'selectedColor');
@@ -197,7 +211,7 @@
                 ${stateCorrect ? 'Interpretació correcta.' : 'La interpretació necessita revisió.'}
             </p>
             <p>${errorText}</p>
-            <p>Puntuació global: <strong>${percentage}%</strong></p>
+            <p>Puntuació global: <strong>${percentage}%</strong>${hintUsed ? ' (pista: -10 punts)' : ''}</p>
             <p><strong>Amb les teves classificacions:</strong> ${countText}.</p>
             <p><strong>Estat correcte:</strong> ${stateLabels[expectedState]}.</p>
             <p>${expectedState === 'insufficient'
@@ -232,4 +246,5 @@
     window.initRiverBioActivity = initRiverBioActivity;
     window.classifyRiverBioSpecimen = classifyRiverBioSpecimen;
     window.chooseRiverBioState = chooseRiverBioState;
+    window.revealRiverBioHint = revealRiverBioHint;
 })();

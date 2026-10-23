@@ -158,6 +158,23 @@
     border-color: var(--primary-color, #000000);
 }
 
+.river-bioactivity__hint {
+    margin: 0 auto 1rem;
+    text-align: center;
+}
+
+.river-bioactivity__hint-text {
+    max-width: 720px;
+    margin: 0.75rem auto 0;
+    padding: 0.85rem 1rem;
+    border-left: 4px solid var(--warning, #eab308);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--secondary-bg, #f3f4f6);
+    color: var(--text-color, #1f2937);
+    line-height: 1.45;
+    text-align: left;
+}
+
 .river-bioactivity__result {
     margin-top: 1.5rem;
     padding: 1rem;
@@ -174,4 +191,9 @@
 .river-bio-result__feedback.is-error {
     color: #ef4444;
     font-weight: 700;
+}
+
+.project-rius-guide {
+    max-width: 900px;
+    margin: 2rem auto;
 }
