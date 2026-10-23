@@ -24,6 +24,7 @@
     const specimens = [
         // BLAU (Aigües molt bones)
         { id: 'sericostoma', name: 'Sericostoma personatum', family: 'Sericostomatidae', color: 'blue', image: 'assets/images/natura/clau-macroinvertebrats/Sericostoma personatum.PNG' },
+        { id: 'perla-marginata', name: 'Perla marginata', family: 'Perlidae', color: 'blue', image: 'assets/images/natura/clau-macroinvertebrats/Perla marginata.PNG' },
 
         // VERD (Aigües bones)
         { id: 'dugesia', name: 'Dugesia', family: 'Dugesiidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Dugesia.PNG' },
@@ -34,6 +35,11 @@
         { id: 'wormaldia', name: 'Wormaldia', family: 'Philopotamidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Wormaldia.PNG' },
         { id: 'potamophylax', name: 'Potamophylax', family: 'Limnephilidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Potamophylax.PNG' },
         { id: 'austrapotamobius', name: 'Austrapotamobius pallipes', family: 'Astacidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Austrapotamobius pallipes.PNG' },
+        { id: 'anax-imperator', name: 'Anax imperator', family: 'Aeshnidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Anax imperator.PNG' },
+        { id: 'onychogomphus-uncatus', name: 'Onychogomphus uncatus', family: 'Gomphidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Onychogomphus uncatus.PNG' },
+        { id: 'orthetrum-brunneum', name: 'Orthetrum brunneum', family: 'Libellulidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Orthetrum brunneum..PNG' },
+        { id: 'coenagrion-puella', name: 'Coenagrion puella', family: 'Coenagrionidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Coenagrion puella.PNG' },
+        { id: 'lestes-viridis', name: 'Lestes viridis', family: 'Lestidae', color: 'green', image: 'assets/images/natura/clau-macroinvertebrats/Lestes viridis.PNG' },
 
         // GROC (Aigües moderades)
         { id: 'ancylus', name: 'Ancylus', family: 'Ancylidae', color: 'yellow', image: 'assets/images/natura/clau-macroinvertebrats/Ancylus.PNG' },
@@ -64,7 +70,11 @@
         { id: 'gyraulus', name: 'Gyraulus', family: 'Planorbidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Gyraulus.PNG' },
         { id: 'pisidium', name: 'Pisidium casertanum', family: 'Sphaeriidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Pisidium casertanum.PNG' },
         { id: 'potamopyrgus', name: 'Potamopyrgus antipodarum', family: 'Hydrobiidae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Potamopyrgus antipodarum.PNG' },
-        { id: 'procambarus', name: 'Procambarus clarkii', family: 'Cambaridae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Procambarus clarkii.PNG' }
+        { id: 'procambarus', name: 'Procambarus clarkii', family: 'Cambaridae', color: 'red', image: 'assets/images/natura/clau-macroinvertebrats/Procambarus clarkii.PNG' },
+        { id: 'gerris', name: 'Gerris', family: 'Gerridae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Gerris.PNG' },
+        { id: 'notonecta', name: 'Notonecta', family: 'Notonectidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Notonecta.PNG' },
+        { id: 'nepa-cinerea', name: 'Nepa cinerea', family: 'Nepidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Nepa cinerea.PNG' },
+        { id: 'parasigara', name: 'Parasigara', family: 'Corixidae', color: 'orange', image: 'assets/images/natura/clau-macroinvertebrats/Parasigara.PNG' }
     ];
 
     let round = [];

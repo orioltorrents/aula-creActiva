@@ -364,6 +364,46 @@
             image: 'assets/images/natura/clau-macroinvertebrats/Mystacides azurea.PNG',
             result: 'Insectes',
             path: ['yes', 'six']
+        },
+        {
+            id: 'perla-marginata', name: 'Perla marginata', scientificName: 'Perla marginata',
+            image: 'assets/images/natura/clau-macroinvertebrats/Perla marginata.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'anax-imperator', name: 'Anax imperator', scientificName: 'Anax imperator',
+            image: 'assets/images/natura/clau-macroinvertebrats/Anax imperator.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'onychogomphus-uncatus', name: 'Onychogomphus uncatus', scientificName: 'Onychogomphus uncatus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Onychogomphus uncatus.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'orthetrum-brunneum', name: 'Orthetrum brunneum', scientificName: 'Orthetrum brunneum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Orthetrum brunneum..PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'coenagrion-puella', name: 'Coenagrion puella', scientificName: 'Coenagrion puella',
+            image: 'assets/images/natura/clau-macroinvertebrats/Coenagrion puella.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'lestes-viridis', name: 'Lestes viridis', scientificName: 'Lestes viridis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Lestes viridis.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'gerris', name: 'Gerris', scientificName: 'Gerris',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gerris.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'notonecta', name: 'Notonecta', scientificName: 'Notonecta',
+            image: 'assets/images/natura/clau-macroinvertebrats/Notonecta.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'nepa-cinerea', name: 'Nepa cinerea', scientificName: 'Nepa cinerea',
+            image: 'assets/images/natura/clau-macroinvertebrats/Nepa cinerea.PNG', result: 'Insectes', path: ['yes', 'six']
+        },
+        {
+            id: 'parasigara', name: 'Parasigara', scientificName: 'Parasigara',
+            image: 'assets/images/natura/clau-macroinvertebrats/Parasigara.PNG', result: 'Insectes', path: ['yes', 'six']
         }
     ];
 
@@ -574,6 +614,56 @@
             id: 'trichoptera', name: 'Tricòpter', scientificName: 'Trichoptera',
             image: 'assets/images/natura/Tricoptera.png',
             result: 'Tricòpters', family: '', path: ['yes', 'no', 'no', 'short', 'yes']
+        },
+        {
+            id: 'perla-marginata-insectes', name: 'Perla marginata', scientificName: 'Perla marginata',
+            image: 'assets/images/natura/clau-macroinvertebrats/Perla marginata.PNG',
+            result: 'Plecòpters', family: 'Perlidae', path: ['yes', 'no', 'no', 'short', 'no-gills']
+        },
+        {
+            id: 'anax-imperator-insectes', name: 'Anax imperator', scientificName: 'Anax imperator',
+            image: 'assets/images/natura/clau-macroinvertebrats/Anax imperator.PNG',
+            result: 'Odonats', family: 'Aeshnidae', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'onychogomphus-uncatus-insectes', name: 'Onychogomphus uncatus', scientificName: 'Onychogomphus uncatus',
+            image: 'assets/images/natura/clau-macroinvertebrats/Onychogomphus uncatus.PNG',
+            result: 'Odonats', family: 'Gomphidae', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'orthetrum-brunneum-insectes', name: 'Orthetrum brunneum', scientificName: 'Orthetrum brunneum',
+            image: 'assets/images/natura/clau-macroinvertebrats/Orthetrum brunneum..PNG',
+            result: 'Odonats', family: 'Libellulidae', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'coenagrion-puella-insectes', name: 'Coenagrion puella', scientificName: 'Coenagrion puella',
+            image: 'assets/images/natura/clau-macroinvertebrats/Coenagrion puella.PNG',
+            result: 'Odonats', family: 'Coenagrionidae', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'lestes-viridis-insectes', name: 'Lestes viridis', scientificName: 'Lestes viridis',
+            image: 'assets/images/natura/clau-macroinvertebrats/Lestes viridis.PNG',
+            result: 'Odonats', family: 'Lestidae', path: ['yes', 'no', 'yes', 'lamina']
+        },
+        {
+            id: 'gerris-insectes', name: 'Gerris', scientificName: 'Gerris',
+            image: 'assets/images/natura/clau-macroinvertebrats/Gerris.PNG',
+            result: 'Heteròpters', family: 'Gerridae', path: ['yes', 'no', 'yes', 'siphon']
+        },
+        {
+            id: 'notonecta-insectes', name: 'Notonecta', scientificName: 'Notonecta',
+            image: 'assets/images/natura/clau-macroinvertebrats/Notonecta.PNG',
+            result: 'Heteròpters', family: 'Notonectidae', path: ['yes', 'no', 'yes', 'siphon']
+        },
+        {
+            id: 'nepa-cinerea-insectes', name: 'Nepa cinerea', scientificName: 'Nepa cinerea',
+            image: 'assets/images/natura/clau-macroinvertebrats/Nepa cinerea.PNG',
+            result: 'Heteròpters', family: 'Nepidae', path: ['yes', 'no', 'yes', 'siphon']
+        },
+        {
+            id: 'parasigara-insectes', name: 'Parasigara', scientificName: 'Parasigara',
+            image: 'assets/images/natura/clau-macroinvertebrats/Parasigara.PNG',
+            result: 'Heteròpters', family: 'Corixidae', path: ['yes', 'no', 'yes', 'siphon']
         }
     ];
 
