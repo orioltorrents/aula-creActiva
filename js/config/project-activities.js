@@ -214,7 +214,7 @@ const PROJECT_ACTIVITIES = {
       descKey: "",
       fallbackTitle: "Anatomia de les larves de macroinvertebrats",
       fallbackDesc: "Escull una larva i identifica les seves parts anatòmiques en 3D.",
-      image: "assets/models/Baetis/Betid.png",
+      image: "assets/models/Baetis_animat/Baetis_animat.png",
       action: "betid-3d"
     },
     {

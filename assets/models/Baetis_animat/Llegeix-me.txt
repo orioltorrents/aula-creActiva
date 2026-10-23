@@ -1,0 +1,45 @@
+BAETIS — CAMINAR, ATURAR-SE I TORNAR A ARRENCAR
+
+Baetis_animat.blend: model editable amb 42 peces anatòmiques.
+Baetis_animat.glb: model animat per a la web.
+Anatomia_Baetis.json: 11 categories anatòmiques i preguntes.
+Baetis_animat.png: vista del model.
+
+SEQÜÈNCIA (9 SEGONS)
+0–3 s: camina i avança.
+3–5 s: aturada completa de les potes i del cos.
+5–8 s: torna a caminar.
+8–9 s: cos i potes queden quiets al final del recorregut.
+Les sis potes alternen en dos grups. Les puntes s'aixequen durant la
+recuperació i es desplacen enrere respecte del cos durant el suport.
+L'arrencada i la frenada són graduals.
+Moviment didàctic simplificat, no reconstrucció biomecànica validada.
+El model original és una nimfa de bètid; no és una diagnosi d'espècie.
+
+BLENDER
+Obre Baetis_animat.blend, escena Baetis - caminar i aturar-se.
+Amb el cursor sobre la vista 3D, prem Espai per reproduir o pausar.
+Fotogrames 1–271 a 30 fps. Les marques de la línia de temps indiquen
+l'aturada (91), la represa (151) i el final de la marxa (241).
+La versió estàtica original es conserva separadament.
+
+WEB
+Clip: Caminar_parar_arrencar. Durada: 9 segons.
+Reprodueix-lo UNA VEGADA i conserva l'última posició en acabar.
+No és un bucle continu: l'animal acaba més endavant i repetir-lo
+directament faria un salt de tornada a la posició inicial.
+Un botó Reinicia pot tornar al començament quan l'usuari ho decideixi.
+El visor ha d'admetre animació de morph targets i translació del node arrel.
+En Three.js, configura l'acció amb LoopOnce i clampWhenFinished=true.
+Les propietats anatomy_id, element_id i label_ca es conserven.
+La superfície té environment=true i pickable=false; la web ha
+d'excloure-la explícitament de les preguntes d'anatomia.
+Pausa el clip durant les preguntes si cal facilitar la selecció.
+El GLB no inclou la lògica de puntuació ni el registre d'alumnes.
+
+MOVIMENT DELS APÈNDIXS
+Les 14 brànquies oscil·len lleument. Les dues antenes i els tres filaments
+caudals es flexionen suaument, amb la base fixada al cos.
+Aquests moviments continuen durant l’aturada de les potes (3–5 s).
+Es conserven la trajectòria, les passes i la pausa de la versió anterior.
+L’animació completa continua en un sol clip Caminar_parar_arrencar.

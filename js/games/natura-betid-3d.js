@@ -143,14 +143,14 @@
     const MODEL_CONFIGS = {
         betid: {
             title: 'Baetis',
-            modelUrl: 'assets/models/Baetis/Betid_web.glb',
-            jsonUrl: 'assets/models/Baetis/Anatomia_betid.json',
+            modelUrl: 'assets/models/Baetis_animat/Baetis_animat.glb',
+            jsonUrl: 'assets/models/Baetis_animat/Anatomia_Baetis.json',
             fallback: FALLBACK_GAME_DATA
         },
         simulium: {
             title: 'Simulium',
-            modelUrl: 'assets/models/Simulium/Simulium_web.glb',
-            jsonUrl: 'assets/models/Simulium/Anatomia_Simulium.json',
+            modelUrl: 'assets/models/Simulium_animat/Simulium_animat.glb',
+            jsonUrl: 'assets/models/Simulium_animat/Anatomia_Simulium.json',
             fallback: FALLBACK_SIMULIUM_DATA
         },
         culex: {

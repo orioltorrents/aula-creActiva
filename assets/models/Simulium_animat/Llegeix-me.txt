@@ -1,0 +1,36 @@
+SIMULIUM — BALANCEIG FIXAT A UNA ROCA
+
+Simulium_animat.blend: model editable, 25 peces anatòmiques i una roca.
+Simulium_animat.glb: model amb l'animació incorporada.
+Anatomia_Simulium.json: peces, 11 categories i preguntes d'identificació.
+Simulium_animat.png: vista del model.
+
+MOVIMENT
+Bucle de 6 segons (fotogrames 1–181, 30 fps).
+La corona posterior de ganxos es manté immòbil sobre la roca.
+El balanceig augmenta progressivament cap a la part superior de la larva.
+El cap i els ventalls acompanyen el moviment del cos.
+És una representació didàctica del balanceig, no una simulació hidrodinàmica.
+La forma es deforma amb claus de forma (shape keys), conservant les peces
+separades, els colors i els identificadors anatòmics.
+
+BLENDER
+Obre Simulium_animat.blend i l'escena Simulium - balanceig sobre roca.
+Amb el cursor sobre la vista 3D, prem Espai per reproduir o pausar.
+Les pistes NLA es diuen Balanceig_fixat_roca.
+La versió estàtica original es conserva separadament.
+
+WEB
+El GLB inclou un únic clip: Balanceig_fixat_roca, de 6 segons.
+El visor ha de reproduir el clip en bucle i admetre animació de morph targets.
+Pausa l'animació durant les preguntes per facilitar la selecció.
+Cada peça conserva anatomy_id, element_id i label_ca.
+Compara anatomy_id amb target_anatomy_id del JSON.
+La roca té environment=true i pickable=false; exclou-la de les respostes.
+Aquests atributs són metadades: la web ha de respectar-los explícitament.
+Utilitza els identificadors per reconèixer les peces, no l'ordre ni el color.
+El GLB no incorpora la lògica del qüestionari ni el registre de resultats.
+
+ABAST
+Model educatiu de larva de Simulium sp.; no identifica una espècie concreta.
+Els ventalls, ganxos i papil·les estan simplificats.

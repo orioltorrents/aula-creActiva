@@ -1,0 +1,234 @@
+{
+  "title": "Identifica les parts de la larva de Simulium",
+  "model": "Simulium_animat.glb",
+  "language": "ca",
+  "parts": [
+    {
+      "mesh": "torax_1.001",
+      "anatomy_id": "torax",
+      "element_id": "torax_1",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "torax_2.001",
+      "anatomy_id": "torax",
+      "element_id": "torax_2",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "torax_3.001",
+      "anatomy_id": "torax",
+      "element_id": "torax_3",
+      "label_ca": "Tòrax"
+    },
+    {
+      "mesh": "abdomen_01.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_01",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_02.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_02",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_03.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_03",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_04.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_04",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_05.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_05",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_06.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_06",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_07.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_07",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "abdomen_08.001",
+      "anatomy_id": "abdomen",
+      "element_id": "abdomen_08",
+      "label_ca": "Abdomen"
+    },
+    {
+      "mesh": "cap.002",
+      "anatomy_id": "cap",
+      "element_id": "cap",
+      "label_ca": "Càpsula cefàlica"
+    },
+    {
+      "mesh": "taques_oculars_E",
+      "anatomy_id": "taques_oculars",
+      "element_id": "taques_oculars_E",
+      "label_ca": "Taques oculars"
+    },
+    {
+      "mesh": "antena_E.001",
+      "anatomy_id": "antenes",
+      "element_id": "antena_E",
+      "label_ca": "Antenes"
+    },
+    {
+      "mesh": "peces_bucals",
+      "anatomy_id": "peces_bucals",
+      "element_id": "peces_bucals",
+      "label_ca": "Peces bucals"
+    },
+    {
+      "mesh": "taques_oculars_D",
+      "anatomy_id": "taques_oculars",
+      "element_id": "taques_oculars_D",
+      "label_ca": "Taques oculars"
+    },
+    {
+      "mesh": "antena_D.001",
+      "anatomy_id": "antenes",
+      "element_id": "antena_D",
+      "label_ca": "Antenes"
+    },
+    {
+      "mesh": "ventall_E",
+      "anatomy_id": "ventalls_filtradors",
+      "element_id": "ventall_E",
+      "label_ca": "Ventalls cefàlics filtradors"
+    },
+    {
+      "mesh": "ventall_D",
+      "anatomy_id": "ventalls_filtradors",
+      "element_id": "ventall_D",
+      "label_ca": "Ventalls cefàlics filtradors"
+    },
+    {
+      "mesh": "pseudopodi_toracic",
+      "anatomy_id": "pseudopodi_toracic",
+      "element_id": "pseudopodi_toracic",
+      "label_ca": "Pseudopodi toràcic"
+    },
+    {
+      "mesh": "corona_posterior",
+      "anatomy_id": "corona_ganxos",
+      "element_id": "corona_posterior",
+      "label_ca": "Corona posterior de ganxos"
+    },
+    {
+      "mesh": "esclerit_anal",
+      "anatomy_id": "esclerit_anal",
+      "element_id": "esclerit_anal",
+      "label_ca": "Esclerit anal"
+    },
+    {
+      "mesh": "papilla_rectal_1",
+      "anatomy_id": "papilles_rectals",
+      "element_id": "papilla_rectal_1",
+      "label_ca": "Papil·les rectals"
+    },
+    {
+      "mesh": "papilla_rectal_2",
+      "anatomy_id": "papilles_rectals",
+      "element_id": "papilla_rectal_2",
+      "label_ca": "Papil·les rectals"
+    },
+    {
+      "mesh": "papilla_rectal_3",
+      "anatomy_id": "papilles_rectals",
+      "element_id": "papilla_rectal_3",
+      "label_ca": "Papil·les rectals"
+    }
+  ],
+  "questions": [
+    {
+      "id": "torax",
+      "prompt": "Clica: Tòrax",
+      "target_anatomy_id": "torax"
+    },
+    {
+      "id": "abdomen",
+      "prompt": "Clica: Abdomen",
+      "target_anatomy_id": "abdomen"
+    },
+    {
+      "id": "cap",
+      "prompt": "Clica: Càpsula cefàlica",
+      "target_anatomy_id": "cap"
+    },
+    {
+      "id": "taques_oculars",
+      "prompt": "Clica: Taques oculars",
+      "target_anatomy_id": "taques_oculars"
+    },
+    {
+      "id": "antenes",
+      "prompt": "Clica: Antenes",
+      "target_anatomy_id": "antenes"
+    },
+    {
+      "id": "peces_bucals",
+      "prompt": "Clica: Peces bucals",
+      "target_anatomy_id": "peces_bucals"
+    },
+    {
+      "id": "ventalls_filtradors",
+      "prompt": "Clica: Ventalls cefàlics filtradors",
+      "target_anatomy_id": "ventalls_filtradors"
+    },
+    {
+      "id": "pseudopodi_toracic",
+      "prompt": "Clica: Pseudopodi toràcic",
+      "target_anatomy_id": "pseudopodi_toracic"
+    },
+    {
+      "id": "corona_ganxos",
+      "prompt": "Clica: Corona posterior de ganxos",
+      "target_anatomy_id": "corona_ganxos"
+    },
+    {
+      "id": "esclerit_anal",
+      "prompt": "Clica: Esclerit anal",
+      "target_anatomy_id": "esclerit_anal"
+    },
+    {
+      "id": "papilles_rectals",
+      "prompt": "Clica: Papil·les rectals",
+      "target_anatomy_id": "papilles_rectals"
+    }
+  ],
+  "notes": [
+    "Model didàctic de Simulium sp., sense atribució a una espècie concreta.",
+    "Papil·les rectals representades evaginades i simplificades.",
+    "Els radis dels ventalls i els ganxos són esquemàtics; no serveixen per comptatge taxonòmic.",
+    "Pseudopodi i peces bucals: girar el model a vista ventral.",
+    "anatomy_id és la categoria; element_id és la peça. Buscar els extras també als pares de les submalles.",
+    "No inclou activitat web ni sistema de correcció executable."
+  ],
+  "animation": {
+    "clip": "Balanceig_fixat_roca",
+    "duration_seconds": 6,
+    "loop": true,
+    "fixed_element_id": "corona_posterior",
+    "pause_during_questions": true
+  },
+  "environment": {
+    "mesh": "Roca_de_fixacio",
+    "pickable": false,
+    "note_ca": "Roca de suport, fora de les parts anatòmiques."
+  }
+}

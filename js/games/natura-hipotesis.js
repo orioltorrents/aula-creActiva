@@ -18,6 +18,128 @@ const RIVER_HYPOTHESIS_CRITERIA = [
     { id: 'investigable', label: 'Podem imaginar com investigar-la?', hint: 'Llegint-la podem imaginar una observació, una comparació o un mostratge.' }
 ];
 
+RIVER_HYPOTHESES.push(
+    {
+        text: 'Si estudiem 20 minuts abans d’un examen, traurem millor nota.',
+        checks: { conditional: true, independent: true, dependent: true, precision: false, investigable: true },
+        explanations: {
+            conditional: 'El «si» introdueix una predicció.', independent: 'El temps d’estudi és el factor que comparem.', dependent: 'La nota és la resposta que observem.', precision: '«Millor nota» necessita una comparació més concreta.', investigable: 'Podem comparar notes després de diferents temps d’estudi.'
+        }
+    },
+    {
+        text: 'A mesura que augmenta el temps d’ús del mòbil abans d’anar a dormir, disminueix la durada del son.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: '«A mesura que» formula una predicció.', independent: 'El temps d’ús del mòbil és el factor observat.', dependent: 'La durada del son és la dada que mesurem.', precision: 'Concreta el moment d’ús i la durada del son.', investigable: 'Podem registrar l’ús del mòbil i les hores dormides.'
+        }
+    },
+    {
+        text: 'Si una planta rep llum durant 8 hores al dia, creixerà més que una planta que en rep 4.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'El «si» introdueix la predicció.', independent: 'Les hores de llum són el factor que manipulem.', dependent: 'El creixement és la resposta que mesurarem.', precision: 'Indica les hores de llum i permet mesurar l’alçada.', investigable: 'Podem mantenir dues plantes en condicions iguals.'
+        }
+    },
+    {
+        text: 'Les plantes amb més sol estan més contentes i creixen molt.',
+        checks: { conditional: false, independent: false, dependent: false, precision: false, investigable: false },
+        explanations: {
+            conditional: 'No presenta una predicció condicional clara.', independent: '«Més sol» no especifica quantes hores.', dependent: '«Més contentes» i «creixen molt» no són dades.', precision: 'Utilitza expressions vagues o antropomòrfiques.', investigable: 'Caldria concretar hores de llum i una mesura de creixement.'
+        }
+    },
+    {
+        text: 'Pot ser que escoltar música instrumental a 60 decibels ajudi a recordar més paraules d’una llista de 20.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: '«Pot ser que» expressa una predicció.', independent: 'La música i el volum són la condició comparada.', dependent: 'El nombre de paraules recordades és la resposta.', precision: 'Concreta el volum i la mida de la llista.', investigable: 'Podem comparar el record amb música i en silenci.'
+        }
+    },
+    {
+        text: 'Si bevem aigua, estarem més sans.',
+        checks: { conditional: true, independent: true, dependent: true, precision: false, investigable: false },
+        explanations: {
+            conditional: 'El «si» introdueix una predicció.', independent: 'Beure aigua és el factor observat.', dependent: 'La salut és l’efecte que es vol estudiar.', precision: 'No indica quantitats ni mesures concretes.', investigable: 'Cal definir un període i un indicador de salut.'
+        }
+    },
+    {
+        text: 'Si augmenta la temperatura d’una massa de gel, disminuirà el temps que triga a fondre’s.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'La frase utilitza «si» i «disminuirà».', independent: 'La temperatura és el factor comparat.', dependent: 'El temps de fusió és la resposta.', precision: 'Defineix un canvi i una dada temporal.', investigable: 'Podem posar masses iguals de gel a temperatures diferents.'
+        }
+    },
+    {
+        text: 'Els videojocs són dolents perquè fan perdre el temps.',
+        checks: { conditional: false, independent: false, dependent: false, precision: false, investigable: false },
+        explanations: {
+            conditional: 'No formula una predicció condicional.', independent: 'No concreta quin aspecte dels videojocs comparem.', dependent: '«Són dolents» no és una resposta mesurable.', precision: '«Perdre el temps» és una expressió imprecisa.', investigable: 'Caldria definir temps de joc i un efecte observable.'
+        }
+    },
+    {
+        text: 'Si un text té títols i subtítols, el temps necessari per trobar una dada concreta serà menor.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'El «si» presenta la predicció.', independent: 'La presència de títols és el factor comparat.', dependent: 'El temps de cerca és la resposta mesurada.', precision: 'Defineix una tasca i un temps mesurable.', investigable: 'Podem comparar textos amb i sense títols.'
+        }
+    },
+    {
+        text: 'A les aules amb les finestres obertes, l’aire és millor i els alumnes estan més atents.',
+        checks: { conditional: false, independent: true, dependent: false, precision: false, investigable: false },
+        explanations: {
+            conditional: 'No hi ha una predicció condicional clara.', independent: 'Les finestres obertes són el factor comparat.', dependent: '«Aire millor» i «més atents» no defineixen dades.', precision: 'Cal mesurar la qualitat de l’aire i l’atenció.', investigable: 'La idea necessita variables i mesures operatives.'
+        }
+    },
+    {
+        text: 'Si reduïm els residus d’un esmorzar de 200 g a 100 g, disminueix el pes de la brossa setmanal de la classe.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'La frase usa «si» per formular la predicció.', independent: 'La quantitat de residus és el factor que reduïm.', dependent: 'El pes setmanal de la brossa és la dada.', precision: 'Inclou quantitats i un període de mesura.', investigable: 'Podem pesar els residus abans i després.'
+        }
+    },
+    {
+        text: 'Pot ser que caminar 30 minuts després de dinar redueixi la sensació de son a la tarda.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: '«Pot ser que» introdueix una predicció.', independent: 'Caminar 30 minuts és la condició comparada.', dependent: 'La sensació de son és la resposta.', precision: 'Concreta la durada i el moment de l’activitat.', investigable: 'Podem comparar una escala de son amb i sense passejada.'
+        }
+    },
+    {
+        text: 'Si utilitzem aigua amb sal, el paper trigarà més a assecar-se.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'El «si» introdueix la predicció.', independent: 'La sal de l’aigua és el factor comparat.', dependent: 'El temps d’assecat és la resposta.', precision: 'Es pot concretar la concentració de sal.', investigable: 'Podem comparar papers iguals amb aigua dolça i salada.'
+        }
+    },
+    {
+        text: 'Quan hi ha més trànsit, hi ha més contaminació i la gent respira pitjor.',
+        checks: { conditional: true, independent: true, dependent: false, precision: false, investigable: false },
+        explanations: {
+            conditional: '«Quan» relaciona una condició amb una predicció.', independent: 'La quantitat de trànsit és el factor observat.', dependent: '«Respira pitjor» no concreta la resposta.', precision: '«Més contaminació» necessita un contaminant i una unitat.', investigable: 'Cal definir contaminants i indicadors de salut.'
+        }
+    },
+    {
+        text: 'Si comparem dues marques de paper amb la mateixa quantitat d’aigua, la més gruixuda n’absorbirà més abans de trencar-se.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'El «si» introdueix la predicció.', independent: 'El gruix o la marca és el factor comparat.', dependent: 'L’aigua absorbida és la resposta.', precision: 'Indica una comparació i una condició controlada.', investigable: 'Podem fer proves repetides amb mostres iguals.'
+        }
+    },
+    {
+        text: 'La tecnologia ajuda molt a aprendre i fa que les classes siguin millors.',
+        checks: { conditional: false, independent: false, dependent: false, precision: false, investigable: false },
+        explanations: {
+            conditional: 'No hi ha una predicció condicional.', independent: '«La tecnologia» és massa general.', dependent: '«Aprendre més» i «classes millors» no són dades.', precision: 'La frase conté diversos termes vagues.', investigable: 'Cal concretar una eina, una tasca i una mesura.'
+        }
+    },
+    {
+        text: 'Si una llavor germina en foscor durant 7 dies, la tija serà més llarga que la d’una llavor germinada amb llum.',
+        checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
+        explanations: {
+            conditional: 'La frase usa «si» per presentar la predicció.', independent: 'La llum és el factor comparat.', dependent: 'La longitud de la tija és la dada.', precision: 'Concreta la durada i la mesura.', investigable: 'Podem germinar llavors iguals en dues condicions.'
+        }
+    }
+);
+
 const RIVER_HYPOTHESES = [
     {
         text: 'Si augmenta la concentració de nitrats a l’aigua, disminuirà el nombre de famílies de macroinvertebrats sensibles.',
