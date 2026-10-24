@@ -160,38 +160,38 @@
     const MODEL_CONFIGS = {
         betid: {
             title: 'Baetis',
-            modelUrl: 'assets/models/Baetis_animat/Baetis_animat.glb',
-            jsonUrl: 'assets/models/Baetis_animat/Anatomia_Baetis.json',
+            modelUrl: 'assets/models/macroinvertebrats/Baetis_animat/Baetis_animat.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Baetis_animat/Anatomia_Baetis.json',
             fallback: FALLBACK_GAME_DATA
         },
         simulium: {
             title: 'Simulium',
-            modelUrl: 'assets/models/Simulium_animat/Simulium_animat.glb',
-            jsonUrl: 'assets/models/Simulium_animat/Anatomia_Simulium.json',
+            modelUrl: 'assets/models/macroinvertebrats/Simulium_animat/Simulium_animat.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Simulium_animat/Anatomia_Simulium.json',
             fallback: FALLBACK_SIMULIUM_DATA
         },
         culex: {
             title: 'Culex',
-            modelUrl: 'assets/models/Culex/Culex_web.glb',
-            jsonUrl: 'assets/models/Culex/Anatomia_Culex.json',
+            modelUrl: 'assets/models/macroinvertebrats/Culex/Culex_web.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Culex/Anatomia_Culex.json',
             fallback: FALLBACK_CULEX_DATA
         },
         hydropsyche: {
             title: 'Hydropsyche',
-            modelUrl: 'assets/models/Hydropsyche_animat/Hydropsyche_animat.glb',
-            jsonUrl: 'assets/models/Hydropsyche_animat/Anatomia_Hydropsyche.json',
+            modelUrl: 'assets/models/macroinvertebrats/Hydropsyche_animat/Hydropsyche_animat.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Hydropsyche_animat/Anatomia_Hydropsyche.json',
             fallback: FALLBACK_HYDROPSYCHE_DATA
         },
         echinogammarus: {
             title: 'Echinogammarus',
-            modelUrl: 'assets/models/Echinogammarus_animat/Echinogammarus_animat.glb',
-            jsonUrl: 'assets/models/Echinogammarus_animat/Anatomia_Echinogammarus.json',
+            modelUrl: 'assets/models/macroinvertebrats/Echinogammarus_animat/Echinogammarus_animat.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Echinogammarus_animat/Anatomia_Echinogammarus.json',
             fallback: FALLBACK_ECHINOGAMMARUS_DATA
         },
         perlaMarginata: {
             title: 'Perla marginata',
-            modelUrl: 'assets/models/Perla_marginata_animat/Perla_marginata_animada.glb',
-            jsonUrl: 'assets/models/Perla_marginata_animat/Anatomia_Perla_marginata.json',
+            modelUrl: 'assets/models/macroinvertebrats/Perla_marginata_animat/Perla_marginata_animada.glb',
+            jsonUrl: 'assets/models/macroinvertebrats/Perla_marginata_animat/Anatomia_Perla_marginata.json',
             fallback: FALLBACK_PERLA_MARGINATA_DATA
         }
     };
