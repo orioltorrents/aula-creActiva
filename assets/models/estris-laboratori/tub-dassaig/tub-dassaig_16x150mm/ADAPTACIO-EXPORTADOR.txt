@@ -1,0 +1,62 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutja aquesta variant:
+
+  - TOOL_TYPES no té la clau "tub-dassaig" -> "Unknown tool category folder".
+  - El nom de variant ha de complir r"_(\d+)ml$"; "tub-dassaig_16x150mm"
+    no hi encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  - L'etiqueta es construeix com "<nom> de <N> mL", que per a un tub donaria
+    "Tub d'assaig de 16 mL" en lloc de "de 16 x 150 mm".
+  - graduation_type és binari (proveta -> graduated, resta -> approximate);
+    un tub sense graduacions ha de ser "none".
+  - La nota de precisió també és binària; cal una nota pròpia.
+
+Canvis necessaris a exporta-estri-web.py
+----------------------------------------
+1) TOOL_TYPES:
+     "tub-dassaig": ("tub d'assaig", "Tub d'assaig"),
+
+2) TOOL_USES:
+     "tub-dassaig": ["contain-liquid", "mix", "heat"],
+
+3) Taules per categoria en lloc dels if/else actuals:
+     TOOL_GRADUATION = {"vas-de-precipitats": "approximate",
+                        "proveta": "graduated",
+                        "matras-erlenmeyer": "approximate",
+                        "tub-dassaig": "none"}
+     TOOL_NOTES = {"tub-dassaig": "Tub sense graduacions: no serveix per "
+                   "mesurar volums. Els 20 mL són capacitat nominal "
+                   "(fins a la vora), no un volum calibrat.", ...}
+
+4) Etiqueta i variant per categoria:
+     if tool_id == "tub-dassaig":
+         m = re.fullmatch(r"tub-dassaig_(\d+)x(\d+)mm", variant_id)
+         if not m: raise RuntimeError(...)
+         label = f"Tub d'assaig de {m.group(1)} × {m.group(2)} mm"
+         capacity_ml = None   # es pren de root["capacitat_ml"] (20)
+     else:
+         (lògica actual)
+
+5) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" i llegir la capacitat de l'arrel.
+
+6) Validació addicional: si graduation_type == "none" i root té
+   "divisio_ml", avisar (un tub sense escala no ha de publicar interval).
+
+Entrada de catàleg equivalent (per quan s'adapti l'exportador)
+--------------------------------------------------------------
+  {
+    "tool_id": "tub-dassaig",
+    "variant_id": "tub-dassaig_16x150mm",
+    "label_ca": "Tub d'assaig de 16 × 150 mm",
+    "capacity_ml": 20,
+    "graduation_type": "none",
+    "usage_tags": ["contain-liquid", "mix", "heat"],
+    "measurement_note_ca": "Tub sense graduacions: no serveix per mesurar volums. Els 20 mL són capacitat nominal (fins a la vora), no un volum calibrat.",
+    "model": "tub-dassaig/tub-dassaig_16x150mm/tub-dassaig_16x150mm.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-tub-dassaig_16x150mm.py
+genera el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

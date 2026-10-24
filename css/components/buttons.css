@@ -177,7 +177,24 @@
    La base controla mida; els modificadors indiquen rol visual o dificultat. */
 .quiz-filter-button {
     width: auto;
-    min-width: 120px;
+    min-width: 130px;
+    color: #ffffff;
+    opacity: 0.6;
+    border: 2px solid transparent;
+    transition: all var(--transition-fast, 0.2s);
+}
+
+.quiz-filter-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.quiz-filter-button.is-active {
+    opacity: 1;
+    border-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5), var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+    transform: scale(1.05);
+    font-weight: 700;
 }
 
 .quiz-filter-button--wide {

@@ -389,7 +389,7 @@
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Estris de laboratori</div>
-                                <div class="activity-card__description">Identifica el material clicant sobre el dibuix</div>
+                                <div class="activity-card__description">Explora els estris de laboratori i respon les preguntes d'identificació i ús</div>
                             </div>
                         </div>
 
@@ -1462,48 +1462,80 @@
                     </div>
 
                     <!-- ACTIVITAT: Estris de laboratori -->
-                    <div id="bio-activity-lab-tools" class="sub-activity hidden">
-                        <button class="btn btn--secondary btn--sm mb-2" onclick="resetBioLabToolsGame(); openBioSystem('laboratori')">← Tornar al menú</button>
+                    <div id="bio-activity-lab-tools-3d" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="resetBioLabTools3DGame(); openBioSystem('laboratori')">← Tornar al menú</button>
                         <div class="game-panel__header">
                             <h3>Estris de laboratori</h3>
                         </div>
 
-                        <div id="bio-lab-tools-start" class="bio-lab-tools__start result-screen p-6">
-                            <div class="bio-lab-tools__start-grid">
-                                <div>
-                                    <h4 class="bio-lab-tools__title">Joc d'identificació</h4>
-                                    <p class="bio-lab-tools__intro">Clica l'estri correcte abans que s'acabi el temps.</p>
+                        <!-- Pantalla d'inici amb selectors de tema i nivell -->
+                        <div id="bio-lab-tools-3d-start" class="result-screen p-6">
+                            <div class="max-w-2xl mx-auto text-center">
+                                <h4 class="text-2xl font-bold mb-2">Estris de laboratori</h4>
+                                <p class="text-slate-600 mb-6">Tria un tema de pràctica i el nivell de dificultat per començar:</p>
+
+                                 <!-- Filtre de Tema -->
+                                <div class="mb-6">
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Tema de pràctica:</label>
+                                    <div id="bio-lab-3d-topic-filters" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--topic is-active" data-topic="all">🔀 Tots els temes</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--topic" data-topic="noms">🏷️ Noms dels estris</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--topic" data-topic="funcions">⚙️ Funcions i usos</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--topic" data-topic="capacitat">🧪 Capacitats i volum</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--topic" data-topic="seleccio3d">🎯 Clic 3D en taula</button>
+                                    </div>
                                 </div>
-                                <form id="bio-lab-tools-form" class="bio-lab-tools__form">
-                                    <div id="bio-lab-tools-start-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
-                                    <button class="btn btn--primary" type="submit">Començar joc</button>
-                                </form>
+
+                                <!-- Filtre de Dificultat -->
+                                <div class="mb-8">
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Nivell de dificultat:</label>
+                                    <div id="bio-lab-3d-level-filters" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--mixed is-active" data-level="all">🔀 Tots els nivells</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--easy" data-level="easy">🟢 Fàcil</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--medium" data-level="medium">🟡 Mitjà</button>
+                                        <button class="btn btn--auto-width quiz-filter-button quiz-filter-button--hard" data-level="hard">🔴 Difícil</button>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn--primary text-lg px-8 py-3" onclick="startBioLabTools3DGame()">Començar Pràctica</button>
                             </div>
                         </div>
 
-                        <div id="bio-lab-tools-game" class="bio-lab-tools hidden">
-                            <div class="game-panel__stats bio-lab-tools__stats">
-                                <div>Jugador/a: <span id="bio-lab-tools-player">-</span></div>
-                                <div>Punts: <span id="bio-lab-tools-score">0</span></div>
-                                <div>Pregunta: <span id="bio-lab-tools-round">0</span> / <span id="bio-lab-tools-total">0</span></div>
-                                <div id="bio-lab-tools-timer" class="bio-lab-tools__timer">Temps: 60 s</div>
+                        <!-- Pantalla de joc -->
+                        <div id="bio-lab-tools-3d-game" class="bio-lab-3d hidden">
+                            <!-- Marcador / Estadístiques -->
+                            <div class="game-panel__stats flex justify-between items-center bg-slate-800 text-white p-3 rounded-lg text-sm font-semibold">
+                                <div>Punts: <span id="bio-lab-tools-3d-score" class="text-green-400 font-bold">0</span></div>
+                                <div>Pregunta: <span id="bio-lab-tools-3d-round" class="text-blue-300 font-bold">1 / 4</span></div>
                             </div>
 
-                            <div class="bio-lab-tools__prompt-row">
-                                <div id="bio-lab-tools-question" class="bio-lab-tools__question">Preparant pregunta...</div>
-                                <div id="bio-lab-tools-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
+                            <!-- Viewport 3D -->
+                            <div id="bio-lab-tools-3d-viewport" class="bio-lab-3d__viewport-container">
+                                <canvas id="bio-lab-tools-3d-canvas" class="bio-lab-3d__canvas"></canvas>
+                                <div id="bio-lab-tools-3d-loader" class="bio-lab-3d__loader">
+                                    <div class="loader"></div>
+                                    <span>Carregant model 3D...</span>
+                                </div>
+                                <div id="bio-lab-tools-3d-hint" class="bio-lab-3d__controls-hint">Pots girar i fer zoom al model 3D</div>
                             </div>
 
-                            <div class="bio-lab-tools__scene-wrap">
-                                <object id="bio-lab-tools-svg" data="assets/images/activities/biologia/lab/lab-tools2-reparat.svg" type="image/svg+xml" class="bio-lab-tools__scene" role="img" aria-label="Taula amb estris de laboratori"></object>
+                            <!-- Panell de Pregunta i Respostes -->
+                            <div class="bio-lab-3d__quiz-panel">
+                                <div id="bio-lab-tools-3d-prompt" class="bio-lab-3d__prompt">Carregant pregunta...</div>
+                                <div id="bio-lab-tools-3d-options" class="bio-lab-3d__options"></div>
+                                <div id="bio-lab-tools-3d-feedback" class="game-panel__feedback text-center mt-2 p-2 rounded hidden" aria-live="polite"></div>
+                                <div class="text-center mt-4">
+                                    <button id="bio-lab-tools-3d-next-btn" class="btn btn--primary hidden" onclick="nextBioLabTools3DQuestion()">Següent pregunta →</button>
+                                </div>
                             </div>
                         </div>
 
-                        <div id="bio-lab-tools-results" class="result-screen hidden text-center p-8">
-                            <h4 class="text-2xl font-bold mb-4">Resultat final</h4>
-                            <div id="bio-lab-tools-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0 / 0</div>
-                            <p id="bio-lab-tools-message" class="result-screen__message text-lg mb-8"></p>
-                            <button onclick="initBioLabToolsGame()" class="btn btn--primary">Tornar a jugar</button>
+                        <!-- Pantalla de resultats -->
+                        <div id="bio-lab-tools-3d-results" class="result-screen hidden text-center p-8 bg-white rounded-lg border shadow-sm">
+                            <h4 class="text-2xl font-bold mb-2">Resultat final</h4>
+                            <div id="bio-lab-tools-3d-final-score" class="result-screen__score text-5xl font-extrabold text-blue-600 mb-4">0 / 0</div>
+                            <p id="bio-lab-tools-3d-message" class="result-screen__message text-lg mb-6 text-slate-700"></p>
+                            <button onclick="startBioLabTools3DGame()" class="btn btn--primary">Tornar a jugar</button>
                         </div>
                     </div>
 

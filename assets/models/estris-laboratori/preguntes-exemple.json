@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "questions": [
+    {
+      "id": "mesurar-75-ml",
+      "prompt": "Quin estri és més adequat per mesurar 75 mL d'aigua?",
+      "scene_variant_ids": [
+        "proveta_100ml",
+        "vas-de-precipitats_100ml",
+        "matras-erlenmeyer_100ml"
+      ],
+      "correct_variant_ids": [
+        "proveta_100ml"
+      ]
+    },
+    {
+      "id": "capacitat-500-ml",
+      "prompt": "Quins d'aquests estris tenen una capacitat nominal de 500 mL?",
+      "scene_variant_ids": [
+        "proveta_500ml",
+        "vas-de-precipitats_500ml",
+        "matras-erlenmeyer_500ml"
+      ],
+      "correct_variant_ids": [
+        "proveta_500ml",
+        "vas-de-precipitats_500ml",
+        "matras-erlenmeyer_500ml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+MATRÀS D'ERLENMEYER · 500 mL
+
+Model independent basat en la fotografia aportada.
+Vidre transparent amb alpha BLEND 0.065, igual que els vasos anteriors.
+Cos buit amb gruix, coll obert i vora arrodonida.
+Escala aproximada de 200 a 500 ml, amb subdivisions de 50 ml.
+Inclou Blender editable, GLB, script i imatge.
+Model buit, preparat per afegir un objecte de líquid independent.
+Les graduacions es calculen a partir del perfil interior; ús visual i didàctic, no calibració de laboratori.
+A Blender utilitza Materials o Renderitzat per veure la transparència.

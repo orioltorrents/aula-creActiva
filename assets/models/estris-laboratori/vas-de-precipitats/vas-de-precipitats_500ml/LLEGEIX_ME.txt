@@ -1,0 +1,31 @@
+VAS DE PRECIPITATS · TRANSPARENT I AMB NIVELL VARIABLE
+
+FITXERS
+vas-de-precipitats_500ml.blend: model editable, líquid blau visible a 300 ml.
+vas-de-precipitats_500ml.glb: vas buit amb transparència explícita.
+vas-de-precipitats_500ml-amb-liquid-blau.glb: vas i líquid independent, inicialment a 300 ml.
+vas-de-precipitats_500ml.png: vista del vas buit.
+vas-de-precipitats_500ml-amb-liquid-blau-300-ml.png: prova de transparència amb líquid.
+lectura-menisc-300-ml.png: vista frontal ortogràfica per llegir el nivell.
+crear-vas-de-precipitats_500ml.py: generació del model; adapta la carpeta 'out' al teu ordinador.
+
+BLENDER
+Selecciona Vas_precipitats_500ml i, a Propietats de l'objecte > Propietats personalitzades, canvia nivell_ml entre 100 i 500.
+Amaga Liquid_blau_nivell_variable per veure el vas buit.
+El líquid té un menisc còncau. El valor nivell_ml correspon al seu punt més baix.
+Per veure la transparència, utilitza la previsualització de materials o la vista renderitzada. El mode Sòlid no representa el material transparent.
+
+WEB
+El vidre utilitza alphaMode BLEND i una opacitat de 0.065; no necessita refracció per deixar veure el líquid.
+El model amb líquid inclou un morph target. En Three.js, sobre la malla Liquid_blau_nivell_variable:
+liquid.morphTargetInfluences[0] = (ml - 100) / 400;
+liquid.visible = true; // false per amagar-lo
+Els valors vàlids de ml són de 100 a 500.
+Canviar la propietat extras nivell_ml del GLB no activa els drivers de Blender: cal actualitzar el morph target al visor.
+Per canviar el color: liquid.material.color.set('#2277dd');
+
+ÚS DIDÀCTIC
+Situa la càmera a l'altura del nivell que es vol llegir per evitar paral·laxi.
+Llegeix la part inferior del menisc còncau.
+L'escala del vas és aproximada. Per practicar l'enrasament de precisió, utilitza un model de material volumètric adequat.
+Les dimensions i el menisc són una representació didàctica, no una calibració de laboratori.

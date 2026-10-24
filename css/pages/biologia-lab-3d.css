@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Estris de Laboratori 3D (Prova Pilot)
+   Estils per al viewport de Three.js i el panell de preguntes
+   ========================================================================== */
+
+.bio-lab-3d {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1rem);
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.bio-lab-3d__viewport-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    background: radial-gradient(circle at center, #f8fafc 0%, #cbd5e1 100%);
+    border-radius: var(--radius-lg, 0.75rem);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    border: 1px solid var(--border-color, #cbd5e1);
+}
+
+.bio-lab-3d__canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    cursor: grab;
+}
+
+.bio-lab-3d__canvas:active {
+    cursor: grabbing;
+}
+
+.bio-lab-3d__loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.85);
+    color: #f8fafc;
+    z-index: 10;
+    gap: 0.75rem;
+}
+
+.bio-lab-3d__controls-hint {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: #cbd5e1;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm, 0.375rem);
+    font-size: 0.8rem;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+}
+
+.bio-lab-3d__quiz-panel {
+    background: var(--card-bg, #ffffff);
+    border-radius: var(--radius-lg, 0.75rem);
+    padding: var(--space-6, 1.5rem);
+    box-shadow: var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+    border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.bio-lab-3d__prompt {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-color, #1e293b);
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.bio-lab-3d__options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4, 1rem);
+    margin-bottom: var(--space-5, 1.25rem);
+}
+
+.bio-lab-3d__option-btn {
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.bio-lab-3d__option-btn--correct {
+    border-color: var(--success, #10b981) !important;
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #065f46 !important;
+    font-weight: 700;
+}
+
+.bio-lab-3d__option-btn--incorrect {
+    border-color: var(--error, #ef4444) !important;
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #991b1b !important;
+}
+
+@media (max-width: 640px) {
+    .bio-lab-3d__viewport-container {
+        height: 300px;
+    }
+    .bio-lab-3d__options {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,49 @@
+GRADETA DE PLÀSTIC BLAVA PER A 32 TUBS
+
+FITXERS
+gradeta_plastic_blava_32.blend: model editable (model i estudi en col·leccions separades).
+gradeta_plastic_blava_32.glb: només la gradeta, amb metadades a l'arrel i a la malla.
+gradeta_plastic_blava_32.png: vista prèvia.
+metadades.json: identificadors, mides, estructura i fonts.
+crear-gradeta_plastic_blava_32.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Gradeta de tres pisos per a 32 tubs d'assaig: 200 × 90 × 90 mm, barres de
+3 mm i pisos de 4 mm. Cel·les de 24,6 × 21,75 mm, o sigui que admet tubs de
+fins a 18 mm de diàmetre: els de 16 × 150 mm hi passen i es recolzen a la
+graella inferior (sobresurten 60 mm per dalt).
+Els marcs dels dos extrems són oberts i els pisos hi van encaixats.
+Origen a la base (z = 0), eix vertical, escales aplicades.
+Malla estanca: 512 vèrtexs, 384 cares, no_manifold = 0, 97,8 cm³ de plàstic.
+
+CONSTRUCCIÓ
+Cada barra és un prisma tancat i les peces no comparteixen cares:
+  - les barres transversals van 0,2 mm més baixes que les longitudinals;
+  - les barres s'allenuguen fins dins dels marcs, no fins a la seva cara;
+  - els travessers dels marcs són 0,2 mm més estrets que els muntants.
+Sense aquests escalonaments, Cycles hi fa shadow acne (taques negres) i
+l'exportació queda amb arestes compartides per quatre cares.
+
+BLENDER
+Obre el .blend i edita TOOL_gradeta_plastic_blava. Els elements de
+presentació són a "ESTUDI · camera i llums" i no s'exporten.
+
+WEB
+Material: Principled BSDF, blau (0,02 / 0,10 / 0,62), roughness 0,35,
+metallic 0, specular 0,5. No és transparent.
+Extras/userData a l'arrel i a la malla: tool_id («gradeta»), variant_id
+(«gradeta_plastic_blava_32»), label_ca, display_name, category («suport»),
+capacity_ml (0), material_type («plastic»), graduation_type («none»),
+usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Col·locar i organitzar tubs d'assaig; treballar l'ordre de series i la
+manipulació del material de vidre.
+
+LIMITACIONS
+No té cap funció de mesura: capacity_ml és 0 a propòsit.
+La gradeta és una aproximació didàctica del model de les fotos: no té les
+nerviacions ni els reforços de les cantonades del motlle real.
+No s'hi ha modelat cap tub: els tubs són actius a part.

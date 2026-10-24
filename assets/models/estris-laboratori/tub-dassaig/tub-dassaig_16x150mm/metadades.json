@@ -1,0 +1,65 @@
+{
+  "tool_id": "tub-dassaig",
+  "variant_id": "tub-dassaig_16x150mm",
+  "label_ca": "Tub d'assaig de 16 × 150 mm",
+  "capacity_ml": 20,
+  "graduation_type": "none",
+  "usage_tags": [
+    "contain-liquid",
+    "mix",
+    "heat"
+  ],
+  "measurement_note_ca": "Tub sense graduacions: no serveix per mesurar volums. Els 20 mL són capacitat nominal (fins a la vora), no un volum calibrat.",
+  "material": "borosilicat 3.3",
+  "dimensions": {
+    "outer_diameter_mm": 16.0,
+    "inner_diameter_mm": 13.6,
+    "wall_thickness_mm": 1.2,
+    "length_mm": 150.0,
+    "rim_outer_diameter_mm": 17.6,
+    "bottom": "arrodonit (semisfera de radi 8 mm)",
+    "rim": "llavi arrodonit (bead circular de radi 1,4 mm)"
+  },
+  "capacity_note_ca": "Els 20 mL són la capacitat nominal de la fitxa del fabricant. El volum geomètric fins a la vora del model és de 20,996 mL; no és capaç de mesurar-ne cap fracció.",
+  "rack_fit": {
+    "body_outer_diameter_mm": 16.0,
+    "hole_min_mm": 16.4,
+    "hole_max_for_hanging_on_rim_mm": 17.4,
+    "hole_passes_through_mm": 17.7,
+    "note": "Amb forats de 16,4 a 17,4 mm el tub passa i penja del llavi; a partir de 17,7 mm travessa i es recolza a la graella inferior."
+  },
+  "sources": [
+    {
+      "tipus": "fitxa de producte",
+      "dada": "16 × 150 mm, 20 mL, paret 1,2 mm, boro 3.3, amb llavi",
+      "url": "https://www.eiscolabs.com/collections/lab-supplies/products/ch0718epk48"
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "llavi 17,6 mm, volum de vidre 8,384 cm³, no_manifold 0",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "tub-dassaig_16x150mm.blend",
+    "glb": "tub-dassaig_16x150mm.glb",
+    "png": "tub-dassaig_16x150mm.png",
+    "script_creacio": "crear-tub-dassaig_16x150mm.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "tub-dassaig_16x150mm",
+      "Vidre_tub_dassaig_16x150mm"
+    ],
+    "collections": [
+      "TUB-DASSAIG_16x150mm · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "base del tub, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

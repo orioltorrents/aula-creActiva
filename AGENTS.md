@@ -93,6 +93,11 @@ Reutilitza **sempre** aquests tokens en lloc de definir colors o valors nous inl
 
 ## Bones pràctiques CSS
 
+- **Mandat estricte de BEM i components reutilitzables:**
+  - Queda **prohibit** crear noves classes o estils ad-hoc per a botons d'opció o filtres de quiz si ja existeixen components globals BEM.
+  - Tots els botons d'opció de preguntes han de combinar **sempre** la classe base `.btn` amb `.quiz-option-button` (o `.quiz-option-button--compact` en espais reduïts).
+  - Tots els botons de selecció de tema/nivell han de combinar la classe base `.btn` amb `.quiz-filter-button` i el seu modificador de color corresponent (`.quiz-filter-button--easy`, `--medium`, `--hard`, `--topic`, `--mixed`).
+  - Mai es declararan amplades, paddings o fonts ad-hoc en fitxers CSS de pàgina si ja estan coberts pel component BEM global a `css/components/buttons.css`.
 - Usa BEM per als components: `bloc`, `bloc__element`, `bloc--modificador`.
 - Evita selectors massa específics; opta per classes reutilitzables.
 - Evita estils inline a l’HTML i al JS.

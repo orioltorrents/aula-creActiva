@@ -1,0 +1,66 @@
+{
+  "tool_id": "gradeta",
+  "variant_id": "gradeta_plastic_blava_32",
+  "label_ca": "Gradeta de plàstic blava per a 32 tubs",
+  "display_name": "Gradeta de plàstic blava per a tubs d'assaig",
+  "category": "suport",
+  "capacity_ml": 0,
+  "material_type": "plastic",
+  "graduation_type": "none",
+  "usage_tags": [
+    "hold-tubes",
+    "organize-samples",
+    "support"
+  ],
+  "measurement_note_ca": "No mesura res: és un suport. Admet 32 tubs de fins a 18 mm de diàmetre exterior; els tubs reposen sobre la graella inferior.",
+  "material": "polipropilè",
+  "dimensions": {
+    "width_mm": 200.0,
+    "depth_mm": 90.0,
+    "height_mm": 90.0,
+    "bars_mm": 3.0,
+    "plate_thickness_mm": 4.0,
+    "cells": [8, 4],
+    "cell_size_mm": [24.6, 21.75]
+  },
+  "structure": {
+    "tiers": 3,
+    "base": "gelosia fina de 16 × 8 cel·les",
+    "ends": "marc rectangular obert",
+    "note": "Els tubs de 16 × 150 mm es recolzen a la base i sobresurten 60 mm per dalt."
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "gradeta de tres pisos, plàstic blau, base perforada i marcs als extrems",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "512 vèrtexs, 384 cares, no_manifold 0, 97,8 cm³ de material",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "gradeta_plastic_blava_32.blend",
+    "glb": "gradeta_plastic_blava_32.glb",
+    "png": "gradeta_plastic_blava_32.png",
+    "script_creacio": "crear-gradeta_plastic_blava_32.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "gradeta_plastic_blava_32",
+      "TOOL_gradeta_plastic_blava"
+    ],
+    "collections": [
+      "GRADETA_plastic_blava_32 · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "base de la gradeta, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

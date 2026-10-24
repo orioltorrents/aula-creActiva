@@ -1791,10 +1791,10 @@ function openBioActivity(actId, options = {}) {
         if (typeof initLocomotorQuiz === 'function') {
             initLocomotorQuiz();
         }
-    } else if (actId === 'lab-tools') {
-        document.getElementById('bio-activity-lab-tools').classList.remove('hidden');
-        if (typeof initBioLabToolsGame === 'function') {
-            initBioLabToolsGame();
+    } else if (actId === 'lab-tools' || actId === 'lab-tools-3d') {
+        document.getElementById('bio-activity-lab-tools-3d').classList.remove('hidden');
+        if (typeof initBioLabTools3DGame === 'function') {
+            initBioLabTools3DGame();
         }
     } else if (actId === 'concept-drag') {
         document.getElementById('bio-activity-concept-drag').classList.remove('hidden');

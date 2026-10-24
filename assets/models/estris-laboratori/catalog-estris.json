@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "tool_id": "matras-erlenmeyer",
+      "variant_id": "matras-erlenmeyer_100ml",
+      "label_ca": "Matràs d'Erlenmeyer de 100 mL",
+      "capacity_ml": 100,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb"
+    },
+    {
+      "tool_id": "matras-erlenmeyer",
+      "variant_id": "matras-erlenmeyer_500ml",
+      "label_ca": "Matràs d'Erlenmeyer de 500 mL",
+      "capacity_ml": 500,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_1000ml",
+      "label_ca": "Proveta de 1000 mL",
+      "capacity_ml": 1000,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "model": "proveta/proveta_1000ml/proveta_1000ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_100ml",
+      "label_ca": "Proveta de 100 mL",
+      "capacity_ml": 100,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "model": "proveta/proveta_100ml/proveta_100ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_10ml",
+      "label_ca": "Proveta de 10 mL",
+      "capacity_ml": 10,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "model": "proveta/proveta_10ml/proveta_10ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_250ml",
+      "label_ca": "Proveta de 250 mL",
+      "capacity_ml": 250,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "graduation_interval_ml": 2.0,
+      "model": "proveta/proveta_250ml/proveta_250ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_500ml",
+      "label_ca": "Proveta de 500 mL",
+      "capacity_ml": 500,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "model": "proveta/proveta_500ml/proveta_500ml.glb"
+    },
+    {
+      "tool_id": "proveta",
+      "variant_id": "proveta_5ml",
+      "label_ca": "Proveta de 5 mL",
+      "capacity_ml": 5,
+      "graduation_type": "graduated",
+      "usage_tags": [
+        "measure-volume"
+      ],
+      "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
+      "model": "proveta/proveta_5ml/proveta_5ml.glb"
+    },
+    {
+      "tool_id": "vas-de-precipitats",
+      "variant_id": "vas-de-precipitats_1000ml",
+      "label_ca": "Vas de precipitats de 1000 mL",
+      "capacity_ml": 1000,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "vas-de-precipitats/vas-de-precipitats_1000ml/vas-de-precipitats_1000ml.glb"
+    },
+    {
+      "tool_id": "vas-de-precipitats",
+      "variant_id": "vas-de-precipitats_100ml",
+      "label_ca": "Vas de precipitats de 100 mL",
+      "capacity_ml": 100,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+      "model_with_liquid": "vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml-amb-liquid.glb"
+    },
+    {
+      "tool_id": "vas-de-precipitats",
+      "variant_id": "vas-de-precipitats_250ml",
+      "label_ca": "Vas de precipitats de 250 mL",
+      "capacity_ml": 250,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb"
+    },
+    {
+      "tool_id": "vas-de-precipitats",
+      "variant_id": "vas-de-precipitats_500ml",
+      "label_ca": "Vas de precipitats de 500 mL",
+      "capacity_ml": 500,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "model_with_liquid": "vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml-amb-liquid.glb"
+    },
+    {
+      "tool_id": "vas-de-precipitats",
+      "variant_id": "vas-de-precipitats_50ml",
+      "label_ca": "Vas de precipitats de 50 mL",
+      "capacity_ml": 50,
+      "graduation_type": "approximate",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "approximate-volume"
+      ],
+      "measurement_note_ca": "Graduacions aproximades; no és material volumètric de precisió.",
+      "model": "vas-de-precipitats/vas-de-precipitats_50ml/vas-de-precipitats_50ml.glb"
+    },
+    {
+      "tool_id": "matras-aforat",
+      "variant_id": "matras-aforat_100mL",
+      "label_ca": "Matràs aforat de 100 mL",
+      "capacity_ml": 100,
+      "graduation_type": "single-mark",
+      "usage_tags": [
+        "prepare-solution",
+        "accurate-volume",
+        "contain-liquid"
+      ],
+      "measurement_note_ca": "Té una sola marca d'aforament a 100 mL, no una escala: serveix per preparar un volum exacte.",
+      "model": "matras-aforat/matras-aforat_100mL/matras-aforat_100mL.glb",
+      "model_with_liquid": "matras-aforat/matras-aforat_100mL/matras-aforat_100mL-amb-liquid.glb"
+    },
+    {
+      "tool_id": "gradeta",
+      "variant_id": "gradeta_plastic_blava_32",
+      "label_ca": "Gradeta de plàstic blava per a 32 tubs",
+      "capacity_ml": 0,
+      "graduation_type": "none",
+      "usage_tags": [
+        "hold-tubes",
+        "organize-samples",
+        "support"
+      ],
+      "measurement_note_ca": "No mesura res: és un suport per aguantar tubs d'assaig de forma estable.",
+      "model": "gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb"
+    },
+    {
+      "tool_id": "tub-dassaig",
+      "variant_id": "tub-dassaig_16x150mm",
+      "label_ca": "Tub d'assaig de 16 × 150 mm (20 mL)",
+      "capacity_ml": 20,
+      "graduation_type": "none",
+      "usage_tags": [
+        "contain-liquid",
+        "mix",
+        "heat"
+      ],
+      "measurement_note_ca": "Tub sense graduacions per fer petites reaccions de prova.",
+      "model": "tub-dassaig/tub-dassaig_16x150mm/tub-dassaig_16x150mm.glb"
+    }
+  ]
+}

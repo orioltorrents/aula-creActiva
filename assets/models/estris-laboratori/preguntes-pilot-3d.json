@@ -1,0 +1,934 @@
+{
+  "schema_version": 1,
+  "title": "Estris de Laboratori 3D - Banc de Preguntes",
+  "questions": [
+    {
+      "id": "q01_nom_vas_500",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Com es diu aquest estri de vidre cilíndric amb un bec a la part superior?",
+      "options": ["Matràs d'Erlenmeyer", "Vas de precipitats", "Proveta graduada", "Pipeta Pasteur"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! És un vas de precipitats.",
+      "feedback_incorrect": "Incorrecte. La forma cilíndrica i el bec per abocar són característics del vas de precipitats."
+    },
+    {
+      "id": "q02_nom_erlenmeyer_100",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+      "prompt": "Quin és el nom d'aquest estri de forma troncocònica i coll estrets?",
+      "options": ["Matràs d'Erlenmeyer", "Vas de precipitats", "Matràs aforat", "Proveta graduada"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! És un matràs d'Erlenmeyer.",
+      "feedback_incorrect": "Incorrecte. La base ampla i el coll estret identifiquen el matràs d'Erlenmeyer."
+    },
+    {
+      "id": "q03_nom_proveta_100",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+      "prompt": "Com s'anomena aquest instrument alt i estrets amb una base hexagonal o circular?",
+      "options": ["Pipeta", "Proveta graduada", "Bureta", "Tub d'assaig"],
+      "correct_index": 1,
+      "feedback_correct": "Excel·lent! És una proveta graduada.",
+      "feedback_incorrect": "Incorrecte. És una proveta graduada utilitzada per mesurar volums de líquid."
+    },
+    {
+      "id": "q04_nom_proveta_10",
+      "topic": "noms",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_10ml/proveta_10ml.glb",
+      "prompt": "Aquest model mostra una proveta graduada petita. Quina diferència té respecte a un tub d'assaig?",
+      "options": ["Té una base de suport i escala de graduació", "És de plàstic flexible", "No pot contenir líquids", "Només serveix per escalfar directament"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! La proveta té base per mantenir-se dreta i línies de mesura graduades.",
+      "feedback_incorrect": "Incorrecte. La proveta té base de suport i escala gravada."
+    },
+    {
+      "id": "q05_nom_vas_100",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+      "prompt": "Com s'anomena en anglès o en àmbit científic aquest estri ('beaker')?",
+      "options": ["Flask", "Vas de precipitats", "Test tube", "Graduated cylinder"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! En català s'anomena vas de precipitats.",
+      "feedback_incorrect": "Incorrecte. 'Beaker' correspon a vas de precipitats."
+    },
+    {
+      "id": "q06_nom_erlenmeyer_500",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+      "prompt": "A quin químic alemany deu el seu nom aquest matràs troncocònic?",
+      "options": ["Robert Bunsen", "Richard Erlenmeyer", "Emil Fischer", "Justus von Liebig"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! Deu el nom al químic Richard Erlenmeyer.",
+      "feedback_incorrect": "Incorrecte. Va ser creat pel químic Richard Erlenmeyer el 1860."
+    },
+    {
+      "id": "q07_nom_proveta_1000",
+      "topic": "noms",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_1000ml/proveta_1000ml.glb",
+      "prompt": "Quin nom rep la protuberància del voral superior que permet abocar sense gotejar?",
+      "options": ["Bec o llavi d'abocament", "Aforament", "Plaquet", "Aixeta"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! El bec o llavi facilita abocar el líquid de forma dirigida.",
+      "feedback_incorrect": "Incorrecte. S'anomena bec o llavi d'abocament."
+    },
+    {
+      "id": "q08_nom_vas_1000",
+      "topic": "noms",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_1000ml/vas-de-precipitats_1000ml.glb",
+      "prompt": "Com es classifica aquest recipient segons la seva forma?",
+      "options": ["Recipient cilíndric de fons pla", "Recipient esfèric de fons rodó", "Cilindre graduat amb fons cònic", "Tub d'assaig amb suport"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! El vas de precipitats és un recipient cilíndric de fons pla.",
+      "feedback_incorrect": "Incorrecte. És un recipient cilíndric de fons pla."
+    },
+    {
+      "id": "q09_nom_proveta_5",
+      "topic": "noms",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_5ml/proveta_5ml.glb",
+      "prompt": "Quin d'aquests instruments és de la mateixa família volumètrica que la proveta?",
+      "options": ["Bureta", "Morter", "Vidre de rellotge", "Embut Buchner"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! La bureta i la proveta són instruments per mesurar volums de líquids.",
+      "feedback_incorrect": "Incorrecte. La bureta és un altre instrument volumètric graduat."
+    },
+    {
+      "id": "q10_nom_vas_50",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_50ml/vas-de-precipitats_50ml.glb",
+      "prompt": "A quin tipus de material de laboratori pertany principalment el vas de precipitats?",
+      "options": ["Material de vidre (o plàstic) de contenció", "Material de porcellana", "Material de fusta", "Material d'òptica"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Pertany al material de vidre o plàstic de contenció i preparació.",
+      "feedback_incorrect": "Incorrecte. És material de vidre/plàstic de laboratori."
+    },
+    {
+      "id": "q11_funcio_vas_500",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Quina és la funció principal d'un vas de precipitats?",
+      "options": ["Mesurar volums exactes d'alta precisió", "Barrejar, escalfar o contenir dissolucions aproximades", "Filtrar a buit", "Esterilitzar instrumental d'acer"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! S'utilitza per barrejar, escalfar i contenir líquids aproximats.",
+      "feedback_incorrect": "Incorrecte. Les graduacions del vas de precipitats són només orientatives."
+    },
+    {
+      "id": "q12_funcio_erlenmeyer_100",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+      "prompt": "Per quina raó pràctica és molt utilitzat el matràs d'Erlenmeyer en les valoracions químiques?",
+      "options": ["Permet agitar el líquid manualment sense risc d'esquitxar", "Mesura el volum amb un error de 0.01 mL", "Té les parets d'acer inoxidable", "És impermeable a la llum ultraviolada"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! El coll estret impedeix que el líquid salti en agitar.",
+      "feedback_incorrect": "Incorrecte. La forma cònica amb coll estret evita esquitxades durant l'agitació."
+    },
+    {
+      "id": "q13_funcio_proveta_250",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_250ml/proveta_250ml.glb",
+      "prompt": "Quan és adequat utilitzar una proveta en comptes d'un vas de precipitats?",
+      "options": ["Quan necessitem mesurar un volum de líquid amb millor precisió", "Quan volem escalfar directament a la flama d'un bec Bunsen", "Quan volem picar un sòlid dur", "Quan volem fer una centrifugació a alta velocitat"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! La proveta és un instrument especialitzat en la mesura de volums.",
+      "feedback_incorrect": "Incorrecte. La proveta té millor precisió de mesura volumètrica que el vas."
+    },
+    {
+      "id": "q14_funcio_escalfar_vas",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+      "prompt": "Com s'ha de col·locar el vas de precipitats per escalfar un líquid sobre un bec Bunsen?",
+      "options": ["Directament sobre la flama sense cap suport", "A sobre d'una reixeta amb fusta o metall i un trípode", "Agafat amb la mà directament", "Dins d'una prova d'aigua freda"],
+      "correct_index": 1,
+      "feedback_correct": "Exacte! S'utilitza un trípode i reixeta per distribuir el calor de forma uniforme.",
+      "feedback_incorrect": "Incorrecte. Cal utilitzar un trípode amb reixeta per repartir la calor i evitar trencades."
+    },
+    {
+      "id": "q15_funcio_erlenmeyer_tap",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+      "prompt": "A diferència del vas de precipitats, el coll estret del matràs d'Erlenmeyer permet facilment:",
+      "options": ["Tancar-lo amb un tap de goma o cotó cotonat", "Abocar sòlids grans sense tallar", "Netejar-lo amb un raspall d'obra", "Llegir el volum per pesat hidrostàtic"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! El coll cilíndric estret permet tapar-lo fàcilment per emmagatzemar o fermentar.",
+      "feedback_incorrect": "Incorrecte. Permet utilitzar taps estàndard de goma, suro o cotó."
+    },
+    {
+      "id": "q16_funcio_proveta_escalfar",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+      "prompt": "Es pot escalfar directament a la flama una proveta graduada?",
+      "options": ["No, perquè la dilatació tèrmica altera el calibratge del volum i pot trencar la base", "Sí, sempre que sigui de vidre pyrex", "Sí, si s'omple fins a dalt de tot", "Només si es posa al congelador abans"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! Les provetes no s'han d'escalfar directament perquè perden la precisió del calibratge.",
+      "feedback_incorrect": "Incorrecte. Escalfar una proveta en pot deformar l'escala i alterar la mesura."
+    },
+    {
+      "id": "q17_funcio_precisio_relativa",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Quin error d'estimació sol tenir la graduació d'un vas de precipitats convencional?",
+      "options": ["Entorn d'un ±5% a ±10%", "Un error de ±0.001%", "Sense cap error (100% precís)", "Només serveix per a sòlids tous"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Té un error aproximat de ±5% a ±10%, per aixó és d'ús aproximat.",
+      "feedback_incorrect": "Incorrecte. Els vasos de precipitats tenen un marge d'error aproximat de ±5-10%."
+    },
+    {
+      "id": "q18_funcio_dissoldre_solids",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+      "prompt": "Quin estri utilitzaries per dissoldre un sal sòlid en aigua ajudant-te d'un varilla de vidre?",
+      "options": ["Vas de precipitats", "Proveta graduada de 5 mL", "Tub de goma flexat", "Matràs aforat estret"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! La boca ampla del vas de precipitats permet remenar fàcilment amb la varilla.",
+      "feedback_incorrect": "Incorrecte. La boca ampla del vas de precipitats facilita remenar amb la varilla."
+    },
+    {
+      "id": "q19_funcio_proveta_mesurar",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml.glb",
+      "prompt": "Quina precaució cal tenir quan es llegeix el volum d'un líquid en una proveta?",
+      "options": ["Col·locar els ulls a l'alçada de la base del menisc del líquid", "Mirar des de dalt en angle de 45 graus", "Inclinar la proveta cap a un costat", "Mesurar abans d'afegir el líquid"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! Cal mirar horitzontalment a l'alçada del menisc per evitar l'error de paral·laxi.",
+      "feedback_incorrect": "Incorrecte. L'ull ha d'estar a l'alçada del menisc per evitar paral·laxi."
+    },
+    {
+      "id": "q20_funcio_erlenmeyer_cultiu",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+      "prompt": "En microbiologia, el matràs d'Erlenmeyer s'utilitza sovint en un agitador orbital per:",
+      "options": ["Cultivar microbis o llevantadures en medi líquid aerabat", "Separar pigments per cromatografia de gasos", "Centrifugar cèl·lules a gran velocitat", "Esterilitzar aigua sense calor"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! La forma i agitació afavoreixen l'oxigenació dels cultius microbians.",
+      "feedback_incorrect": "Incorrecte. S'utilitza per a cultius de microorganismes en agitació."
+    },
+    {
+      "id": "q21_capacitat_vas_100",
+      "topic": "capacitat",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+      "prompt": "Quina capacitat màxima de volum indica aquest vas de precipitats?",
+      "options": ["100 mL", "250 mL", "500 mL", "1000 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! Aquest model té una capacitat nominal de 100 mL.",
+      "feedback_incorrect": "Incorrecte. Observa la graduació superior del model 3D: marca 100 mL."
+    },
+    {
+      "id": "q22_capacitat_vas_500",
+      "topic": "capacitat",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Quin volum d'aigua pots posar com a màxim en aquest vas de precipitats de 500 mL?",
+      "options": ["Fins a 500 mL marcats a la seva escala", "Fins a 5 litres", "Només 10 mL", "Fins a omplir 2000 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! La seva capacitat nominal és de 500 mL.",
+      "feedback_incorrect": "Incorrecte. La capacitat marcada és de 500 mL."
+    },
+    {
+      "id": "q23_capacitat_proveta_10",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_10ml/proveta_10ml.glb",
+      "prompt": "Aquesta proveta té una capacitat de 10 mL. Per a quin d'aquests volums seria MÉS adequada?",
+      "options": ["Mesurar 7.5 mL de reactiu", "Mesurar 450 mL d'aigua de riu", "Mesurar 2 litres de dissolució", "Mesurar 0.001 microlitres"],
+      "correct_index": 0,
+      "feedback_correct": "Excel·lent! 7.5 mL és un volum adequat per a una proveta de 10 mL.",
+      "feedback_incorrect": "Incorrecte. 7.5 mL queda dins de l'escala de 0 a 10 mL de la proveta."
+    },
+    {
+      "id": "q24_capacitat_proveta_1000",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_1000ml/proveta_1000ml.glb",
+      "prompt": "Quants litres equivalen a la capacitat màxima d'aquesta proveta de 1000 mL?",
+      "options": ["1 Litre", "10 Litres", "0.1 Litres", "100 Litres"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! 1000 mL equivalen exactament a 1 Litre (1 L).",
+      "feedback_incorrect": "Incorrecte. 1000 mL = 1 Litre."
+    },
+    {
+      "id": "q25_capacitat_liquid_60",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml-amb-liquid.glb",
+      "prompt": "Mira el líquid blau dins d'aquest vas de precipitats de 100 mL. A quina marca d'escala arriba el nivell?",
+      "options": ["20 mL", "40 mL", "60 mL", "100 mL"],
+      "correct_index": 2,
+      "feedback_correct": "Molt bé! El nivell del líquid es troba aproximadament a la línia de 60 mL.",
+      "feedback_incorrect": "Incorrecte. Apropa't en 3D i comprova que marca 60 mL."
+    },
+    {
+      "id": "q26_capacitat_liquid_300",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml-amb-liquid-blau.glb",
+      "liquid_ml": 300,
+      "prompt": "En aquest vas de precipitats de 500 mL amb líquid blau, quin volum aproximat s'ha abocat?",
+      "options": ["100 mL", "300 mL", "500 mL", "450 mL"],
+      "correct_index": 1,
+      "feedback_correct": "Fantàstic! El nivell del menisc se situa a la marca dels 300 mL.",
+      "feedback_incorrect": "Incorrecte. Gira el vas i observa que la superfície arriba a 300 mL."
+    },
+    {
+      "id": "q26b_capacitat_liquid_200",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml-amb-liquid-blau.glb",
+      "liquid_ml": 200,
+      "prompt": "Observa el nivell d'aquest vas de 500 mL. Quin volum de dissolució conté actualment?",
+      "options": ["100 mL", "200 mL", "350 mL", "500 mL"],
+      "correct_index": 1,
+      "feedback_correct": "Molt bé! El líquid s'ha ajustat exactament a la marca dels 200 mL.",
+      "feedback_incorrect": "Incorrecte. Apropa el zoom en 3D i comprova que marca 200 mL."
+    },
+    {
+      "id": "q26c_capacitat_liquid_400",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml-amb-liquid-blau.glb",
+      "liquid_ml": 400,
+      "prompt": "El vas s'ha omplert més. Quin volum indica la superfície del líquid?",
+      "options": ["200 mL", "300 mL", "400 mL", "500 mL"],
+      "correct_index": 2,
+      "feedback_correct": "Excel·lent! Està omplert fins a la marca de 400 mL.",
+      "feedback_incorrect": "Incorrecte. Observa que està a la linia superior dels 400 mL."
+    },
+    {
+      "id": "q27_capacitat_proveta_5",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_5ml/proveta_5ml.glb",
+      "prompt": "En aquesta proveta de 5 mL, cada divisió petita de l'escala acostuma a marcar:",
+      "options": ["0.1 mL", "10 mL", "1 Litre", "50 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! En provetes petites de 5 mL la resolució sol ser de 0.1 mL.",
+      "feedback_incorrect": "Incorrecte. En una proveta de 5 mL la subdivisions solen ser de 0.1 mL."
+    },
+    {
+      "id": "q28_capacitat_erlenmeyer_500",
+      "topic": "capacitat",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+      "prompt": "Quin d'aquests valors és la capacitat d'aquest matràs d'Erlenmeyer?",
+      "options": ["50 mL", "500 mL", "5000 mL", "5 mL"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! Té una capacitat nominal de 500 mL.",
+      "feedback_incorrect": "Incorrecte. La marca d'escala superior indica 500 mL."
+    },
+    {
+      "id": "q29_capacitat_comparativa_proveta",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_250ml/proveta_250ml.glb",
+      "prompt": "Si necessites mesurar exactament 180 mL d'alcohol, quina proveta és la més adient?",
+      "options": ["Proveta de 10 mL", "Proveta de 100 mL", "Proveta de 250 mL", "Proveta de 5 mL"],
+      "correct_index": 2,
+      "feedback_correct": "Exacte! 180 mL cap perfectament en una proveta de 250 mL.",
+      "feedback_incorrect": "Incorrecte. La de 250 mL és la mida més propera superior a 180 mL."
+    },
+    {
+      "id": "q30_capacitat_vas_250",
+      "topic": "capacitat",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+      "prompt": "A quants centímetres cúbics (cm³ o cc) equivalen els 250 mL d'aquest vas?",
+      "options": ["250 cm³", "2.5 cm³", "25000 cm³", "0.25 cm³"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! 1 mL és exactament equivalent a 1 cm³ (250 mL = 250 cm³).",
+      "feedback_incorrect": "Incorrecte. Recorda que 1 mL = 1 cm³."
+    },
+    {
+      "id": "q31_seleccio_proveta_100",
+      "topic": "seleccio3d",
+      "level": "easy",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre la PROVETA GRADUADA per mesurar un volum de líquid.",
+      "models": [
+        {
+          "variant_id": "vas-de-precipitats_100ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_100ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "proveta_100ml",
+      "feedback_correct": "Molt bé! La proveta (al centre) és l'estri cilíndric graduat.",
+      "feedback_incorrect": "Incorrecte. La proveta és l'estri alt del centre."
+    },
+    {
+      "id": "q32_seleccio_erlenmeyer_500",
+      "topic": "seleccio3d",
+      "level": "easy",
+      "type": "multi_model_click",
+      "prompt": "Clica damunt del MATRÀS D'ERLENMEYER sobre la taula.",
+      "models": [
+        {
+          "variant_id": "matras-erlenmeyer_500ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_500ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "proveta_500ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "matras-erlenmeyer_500ml",
+      "feedback_correct": "Excel·lent! El matràs d'Erlenmeyer és l'estri de la meitat esquerra.",
+      "feedback_incorrect": "Incorrecte. Clica el matràs cònic de l'esquerra."
+    },
+    {
+      "id": "q33_seleccio_vas_250",
+      "topic": "seleccio3d",
+      "level": "easy",
+      "type": "multi_model_click",
+      "prompt": "Selecciona el VAS DE PRECIPITATS entre els tres estris.",
+      "models": [
+        {
+          "variant_id": "proveta_250ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_250ml/proveta_250ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_100ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_250ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vas-de-precipitats_250ml",
+      "feedback_correct": "Correcte! El vas de precipitats està situat a la dreta.",
+      "feedback_incorrect": "Incorrecte. El vas de precipitats és l'estri cilíndric de la dreta."
+    },
+    {
+      "id": "q34_seleccio_mida_petita",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre la proveta de MENOR capacitat de les tres (10 mL).",
+      "models": [
+        {
+          "variant_id": "proveta_1000ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_1000ml/proveta_1000ml.glb",
+          "position": [-0.16, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "proveta_10ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_10ml/proveta_10ml.glb",
+          "position": [0.16, 0, 0]
+        }
+      ],
+      "correct_variant_id": "proveta_10ml",
+      "feedback_correct": "Molt bé! La proveta més petita de la dreta té 10 mL de capacitat.",
+      "feedback_incorrect": "Incorrecte. Compara les mides dels tres models: la de 10 mL és la de la dreta."
+    },
+    {
+      "id": "q35_seleccio_mida_gran",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre el vas de precipitats de MAJOR capacitat (1000 mL).",
+      "models": [
+        {
+          "variant_id": "vas-de-precipitats_50ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_50ml/vas-de-precipitats_50ml.glb",
+          "position": [-0.16, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_250ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_1000ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_1000ml/vas-de-precipitats_1000ml.glb",
+          "position": [0.16, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vas-de-precipitats_1000ml",
+      "feedback_correct": "Exacte! El vas de 1000 mL és el més gran de la dreta.",
+      "feedback_incorrect": "Incorrecte. El vas de 1000 mL és el de major volum (a la dreta)."
+    },
+    {
+      "id": "q36_seleccio_liquid",
+      "topic": "seleccio3d",
+      "level": "hard",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre el vas que JA conté una dissolució de líquid blau abocada.",
+      "models": [
+        {
+          "variant_id": "vas-de-precipitats_500ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_500ml-amb-liquid-blau",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml-amb-liquid-blau.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_500ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vas-de-precipitats_500ml-amb-liquid-blau",
+      "feedback_correct": "Molt bé! El vas del centre té el líquid blau en el seu interior.",
+      "feedback_incorrect": "Incorrecte. Clica l'estri del centre que té el líquid blau."
+    },
+    {
+      "id": "q37_seleccio_erlenmeyer_100",
+      "topic": "seleccio3d",
+      "level": "easy",
+      "type": "multi_model_click",
+      "prompt": "Clica damunt de l'Erlenmeyer de 100 mL.",
+      "models": [
+        {
+          "variant_id": "matras-erlenmeyer_100ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_500ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_500ml/matras-erlenmeyer_500ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "matras-erlenmeyer_100ml",
+      "feedback_correct": "Correcte! És el matràs d'Erlenmeyer més petit situat a la meitat esquerra.",
+      "feedback_incorrect": "Incorrecte. L'Erlenmeyer de 100 mL és el de l'esquerra."
+    },
+    {
+      "id": "q38_seleccio_proveta_5",
+      "topic": "seleccio3d",
+      "level": "hard",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre la proveta de MÀXIMA PRECISIÓ per mesurar volums molt petits (5 mL).",
+      "models": [
+        {
+          "variant_id": "proveta_5ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_5ml/proveta_5ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "proveta_1000ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_1000ml/proveta_1000ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "proveta_5ml",
+      "feedback_correct": "Molt bé! La proveta prima de 5 mL permet mesurar volums petits amb gran precisió.",
+      "feedback_incorrect": "Incorrecte. La proveta de 5 mL és la més prima i petita (a l'esquerra)."
+    },
+    {
+      "id": "q39_seleccio_vas_50",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre el vas de precipitats més petit de la taula (50 mL).",
+      "models": [
+        {
+          "variant_id": "vas-de-precipitats_50ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_50ml/vas-de-precipitats_50ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_250ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_500ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vas-de-precipitats_50ml",
+      "feedback_correct": "Molt bé! El vas de 50 mL és el de l'esquerra.",
+      "feedback_incorrect": "Incorrecte. Compara les mides: el de 50 mL és el primer de l'esquerra."
+    },
+    {
+      "id": "q40_seleccio_proveta_500",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica damunt de la proveta de 500 mL.",
+      "models": [
+        {
+          "variant_id": "proveta_10ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_10ml/proveta_10ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "proveta_500ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_500ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "proveta_500ml",
+      "feedback_correct": "Correcte! La proveta de 500 mL està situada al centre.",
+      "feedback_incorrect": "Incorrecte. La proveta de 500 mL és la de la meitat."
+    },
+    {
+      "id": "q41_nom_proveta_250",
+      "topic": "noms",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_250ml/proveta_250ml.glb",
+      "prompt": "Quin nom rep la base inferior de plàstic o vidre d'aquesta proveta?",
+      "options": ["Peu o base d'aguant", "Aforament", "Plaquet de succió", "Bec d'enràs"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! S'anomena peu o base d'aguant i evita que la proveta caigui.",
+      "feedback_incorrect": "Incorrecte. S'anomena peu o base de suport."
+    },
+    {
+      "id": "q42_nom_vas_amb_liquid",
+      "topic": "noms",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml-amb-liquid.glb",
+      "prompt": "Com s'anomena la corba que forma la superfície d'un líquid en contacte amb el vidre d'aquest vas?",
+      "options": ["Menisc", "Paral·laxi", "Aforament", "Gradient"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! S'anomena menisc (en l'aigua és còncau).",
+      "feedback_incorrect": "Incorrecte. La curvatura del líquid s'anomena menisc."
+    },
+    {
+      "id": "q43_funcio_proveta_base",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+      "prompt": "Per a què serveix la base hexagonal amplia d'aquesta proveta?",
+      "options": ["Per donar-li estabilitat i evitar que tombi a la taula", "Per poder-la agafar amb el puny tancat", "Per refredar el líquid més ràpidament", "Només té un motiu d'estètica"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Garanteix que la proveta no caigui fàcilment al reposar sobre la taula.",
+      "feedback_incorrect": "Incorrecte. La base aporta estabilitat vertical a la proveta."
+    },
+    {
+      "id": "q44_funcio_pyrex",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Quin tipus de vidre especial es fa servir en vasos i erlenmeyers per resistir canvis de temperatura?",
+      "options": ["Vidre borosilicatat (tipus Pyrex)", "Vidre pla de finestra", "Vidre de plom de cristalleria", "Plàstic acrílic simple"],
+      "correct_index": 0,
+      "feedback_correct": "Excel·lent! El vidre borosilicatat resisteix xocs tèrmics sense trencar-se.",
+      "feedback_incorrect": "Incorrecte. S'utilitza vidre borosilicatat pel seu baix coeficient de dilatació tèrmica."
+    },
+    {
+      "id": "q45_capacitat_proveta_250_marca",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_250ml/proveta_250ml.glb",
+      "prompt": "En aquesta proveta de 250 mL, quina quantitat de líquid queda quan el menisc està a la meitat exacta de l'escala?",
+      "options": ["125 mL", "250 mL", "50 mL", "200 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! La meitat de 250 mL són 125 mL.",
+      "feedback_incorrect": "Incorrecte. 250 mL dividit entre 2 = 125 mL."
+    },
+    {
+      "id": "q46_funcio_triar_estri",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+      "prompt": "Vols fer una reacció on es desprèn gas i vols recollir el gas amb un tub connectat a un tap. Quin estri triaràs?",
+      "options": ["Matràs d'Erlenmeyer amb tap monoperforat", "Vas de precipitats obert", "Morter de porcellana", "Vidre de rellotge"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! El matràs d'Erlenmeyer permet ajustar taps amb tubs de desprendiment.",
+      "feedback_incorrect": "Incorrecte. El matràs d'Erlenmeyer es pot tapar per canalitzar gasos."
+    },
+    {
+      "id": "q47_capacitat_minim_proveta",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_1000ml/proveta_1000ml.glb",
+      "prompt": "Si has de mesurar 2 mL de reactiu, és recomanable utilitzar aquesta proveta gran de 1000 mL?",
+      "options": ["No, perquè l'error relatiu serà molt alt en una proveta tan gran", "Sí, és la millor opció", "És indiferent la mida de la proveta", "Només si es barreja amb oli"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! Per a 2 mL cal utilitzar una proveta petita (de 5 mL o 10 mL) per reduir l'error.",
+      "feedback_incorrect": "Incorrecte. Per a 2 mL cal una proveta petita (5-10 mL) per no cometre un gran error."
+    },
+    {
+      "id": "q48_seleccio_precisio_vs_vas",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre l'estri MÉS ADEQUAT per mesurar exactament 85 mL d'aigua destil·lada.",
+      "models": [
+        {
+          "variant_id": "vas-de-precipitats_100ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_100ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "proveta_100ml",
+      "feedback_correct": "Excel·lent! La proveta de 100 mL és el material de mesura volumètrica més precís dels tres.",
+      "feedback_incorrect": "Incorrecte. La proveta de 100 mL té millor precisió que els vasos o matrassos."
+    },
+    {
+      "id": "q49_funcio_abocar_bec",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_500ml/vas-de-precipitats_500ml.glb",
+      "prompt": "Quina ajuda ofereix el bec superior del vas de precipitats en abocar un líquid?",
+      "options": ["Canalitza el flux de líquid evitant que ressegui la paret exterior", "Fa de filtre de gèrmens", "Mesura la temperatura del líquid", "Permet tancar el vas hermèticament"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! El bec canalitza el raig de líquid de forma collimada.",
+      "feedback_incorrect": "Incorrecte. El bec canalitza el flux del líquid evitant gotejos per la paret."
+    },
+    {
+      "id": "q50_nom_proveta_500_resum",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml.glb",
+      "prompt": "Finalment, identifica aquest darrer instrument de laboratori:",
+      "options": ["Proveta graduada de 500 mL", "Vas de precipitats de 500 mL", "Matràs d'Erlenmeyer de 500 mL", "Pipeta aforada"],
+      "correct_index": 0,
+      "feedback_correct": "Excel·lent! És la proveta graduada de 500 mL.",
+      "feedback_incorrect": "Incorrecte. És la proveta graduada de 500 mL."
+    },
+    {
+      "id": "q51_nom_matras_aforat",
+      "topic": "noms",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-aforat/matras-aforat_100mL/matras-aforat_100mL.glb",
+      "prompt": "Com s'anomena aquest matràs especial de coll estret amb un tap i una única línia d'aforament gravada?",
+      "options": ["Matràs aforat", "Matràs d'Erlenmeyer", "Vas de precipitats", "Proveta graduada"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! És un matràs aforat de 100 mL (Classe A).",
+      "feedback_incorrect": "Incorrecte. La linia d'aforament única al coll identifica el matràs aforat."
+    },
+    {
+      "id": "q52_funcio_matras_aforat",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/matras-aforat/matras-aforat_100mL/matras-aforat_100mL.glb",
+      "prompt": "Per a quina tasca d'alta precisió s'utilitza el matràs aforat?",
+      "options": ["Per preparar dissolucions d'un volum exacte conegut (ex: 100.0 mL)", "Per mesurar volums d'aigua de 10 mL en 10 mL", "Per escalfar dissolucions directament a la flama", "Per triturar sòlids d'alta duresa"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! El matràs aforat s'utilitza per preparar dissolucions d'alta precisió volumètrica.",
+      "feedback_incorrect": "Incorrecte. Serveix per preparar dissolucions exactes al volum d'enràs."
+    },
+    {
+      "id": "q53_nom_gradeta",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb",
+      "prompt": "Com es diu aquest suport de plàstic blau utilitzat per aguantar tubs d'assaig?",
+      "options": ["Gradeta", "Pinça de fusta", "Suport universal", "Trípode"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! És una gradeta de plàstic per a tubs d'assaig.",
+      "feedback_incorrect": "Incorrecte. L'estructura amb forats per aguantar tubs s'anomena gradeta."
+    },
+    {
+      "id": "q54_funcio_gradeta",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb",
+      "prompt": "Aquesta gradeta permet mesurar el volum d'un líquid directament?",
+      "options": ["No, és un suport d'organització i no conté escala de volum", "Sí, té una escala de mesura de 100 mL", "Sí, si s'omple d'aigua per sobre", "Només si es posa al congelador"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! La gradeta és material de suport i no mesura volums.",
+      "feedback_incorrect": "Incorrecte. La gradeta és un suport i no mesura volums."
+    },
+    {
+      "id": "q55_nom_tub_dassaig",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/tub-dassaig/tub-dassaig_16x150mm/tub-dassaig_16x150mm.glb",
+      "prompt": "Quin nom rep aquest tub de vidre cilíndric amb fons semisfèric?",
+      "options": ["Tub d'assaig", "Proveta", "Pipeta aforada", "Bureta"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! És un tub d'assaig de 16x150 mm.",
+      "feedback_incorrect": "Incorrecte. El tub de vidre amb fons fets semisfera és un tub d'assaig."
+    },
+    {
+      "id": "q56_seleccio_matras_aforat",
+      "topic": "seleccio3d",
+      "level": "hard",
+      "type": "multi_model_click",
+      "prompt": "Clica damunt del MATRÀS AFORAT de 100 mL (l'estri de màxima precisió per preparar dissolucions).",
+      "models": [
+        {
+          "variant_id": "matras-aforat_100mL",
+          "glb": "assets/models/estris-laboratori/matras-aforat/matras-aforat_100mL/matras-aforat_100mL.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_100ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "matras-erlenmeyer_100ml",
+          "glb": "assets/models/estris-laboratori/matras-erlenmeyer/matras-erlenmeyer_100ml/matras-erlenmeyer_100ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "matras-aforat_100mL",
+      "feedback_correct": "Excel·lent! El matràs aforat (esquerra) té el coll prim amb la línia única d'enràs.",
+      "feedback_incorrect": "Incorrecte. El matràs aforat és el de la meitat esquerra."
+    },
+    {
+      "id": "q57_seleccio_gradeta",
+      "topic": "seleccio3d",
+      "level": "easy",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre la GRADETA DE PLÀSTIC BLAU.",
+      "models": [
+        {
+          "variant_id": "gradeta_plastic_blava_32",
+          "glb": "assets/models/estris-laboratori/gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb",
+          "position": [-0.15, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_250ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_250ml/vas-de-precipitats_250ml.glb",
+          "position": [0.12, 0, 0]
+        }
+      ],
+      "correct_variant_id": "gradeta_plastic_blava_32",
+      "feedback_correct": "Correcte! La gradeta és el suport de plàstic blau de l'esquerra.",
+      "feedback_incorrect": "Incorrecte. Clica l'estri de plàstic blau a l'esquerra."
+    },
+    {
+      "id": "q58_seleccio_tub_dassaig",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica damunt del TUB D'ASSAIG entre els tres estris.",
+      "models": [
+        {
+          "variant_id": "tub-dassaig_16x150mm",
+          "glb": "assets/models/estris-laboratori/tub-dassaig/tub-dassaig_16x150mm/tub-dassaig_16x150mm.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "proveta_100ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_100ml/proveta_100ml.glb",
+          "position": [0, 0, 0]
+        },
+        {
+          "variant_id": "vas-de-precipitats_100ml",
+          "glb": "assets/models/estris-laboratori/vas-de-precipitats/vas-de-precipitats_100ml/vas-de-precipitats_100ml.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "tub-dassaig_16x150mm",
+      "feedback_correct": "Molt bé! El tub d'assaig és el tub prima sense base a la meitat esquerra.",
+      "feedback_incorrect": "Incorrecte. El tub d'assaig és el primer de l'esquerra."
+    }
+  ]
+}

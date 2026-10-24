@@ -1,0 +1,60 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "matras-aforat" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$" (ml en minúscules).
+     "matras-aforat_100mL" no hi encaixa: peta amb
+     "Variant folder must end with _<capacity>ml".
+     La convenció del projecte demana mL amb L majúscula, o sigui que la
+     regex ha de ser r"_(\d+)(?:mL|ml)$" i normalitzar la unitat.
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí donaria
+     "Matràs aforat de 100 mL" (correcte), però el text s'hauria de poder
+     sobreescriure per categoria.
+  4. graduation_type és binari (proveta -> graduated, resta -> approximate).
+     Un matràs aforat amb una sola marca ha de ser "none".
+  5. La nota de precisió és binària; cal una nota pròpia.
+  6. L'exportador només preveu un GLB (+ "-amb-liquid" si troba un objecte
+     amb "liquid" al nom). Aquí funciona igual: el líquid es diu
+     "Liquid_100mL" i la variant amb líquid és "-amb-liquid".
+     Però els shape keys (morph targets) no es documenten enlloc: caldria
+     afegir al catàleg la informació del rang de nivell.
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "matras-aforat": ("matràs aforat", "Matràs aforat"),
+2) TOOL_USES:
+     "matras-aforat": ["prepare-solution", "dilute", "accurate-volume",
+                       "contain-liquid"],
+3) TOOL_GRADUATION:
+     "matras-aforat": "none",
+4) TOOL_NOTES:
+     "matras-aforat": "Té una sola marca d'aforament a 100 mL, no una
+     escala: serveix per preparar un volum exacte, no per mesurar volums
+     qualssevol. Model didàctic, sense certificat de calibratge."
+5) Regex de variant:
+     m = re.search(r"_(\d+)(mL|ml)$", variant_id)
+     capacity_ml = int(m.group(1))
+6) find_model_root: el "tipus" de l'arrel és "matràs aforat" (amb accent),
+   i la comparació actual fa servir lower() sobre el text: funciona.
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "matras-aforat",
+    "variant_id": "matras-aforat_100mL",
+    "label_ca": "Matràs aforat de 100 mL",
+    "capacity_ml": 100,
+    "graduation_type": "none",
+    "usage_tags": ["prepare-solution", "dilute", "accurate-volume", "contain-liquid"],
+    "measurement_note_ca": "Té una sola marca d'aforament a 100 mL, no una escala: serveix per preparar un volum exacte, no per mesurar volums qualssevol. Model didàctic, sense certificat de calibratge.",
+    "model": "matras-aforat/matras-aforat_100mL/matras-aforat_100mL.glb",
+    "model_with_liquid": "matras-aforat/matras-aforat_100mL/matras-aforat_100mL-amb-liquid.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-matras-aforat_100mL.py
+genera el .blend, els dos .glb i el .png, i verifica-paquet.py comprova el
+resultat en tres passades (glb, glb-liquid, blend).

@@ -1,0 +1,49 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "gradeta" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "gradeta_plastic_blava_32"
+     no hi encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí no té sentit:
+     una gradeta no té capacitat en mL.
+  4. capacity_ml s'obté del nom de la carpeta; aquí ha de ser 0 i venir de
+     l'arrel (root["capacitat_ml"]).
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "gradeta": ("gradeta", "Gradeta"),
+2) TOOL_USES:
+     "gradeta": ["hold-tubes", "organize-samples", "support"],
+3) Etiqueta i capacity per categoria:
+     if tool_id == "gradeta":
+         m = re.fullmatch(r"gradeta_(.+)", variant_id)
+         if not m: raise RuntimeError(...)
+         label = "Gradeta de plàstic blava per a 32 tubs"
+         capacity_ml = 0
+     else:
+         (lògica actual)
+4) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" (l'arrel té tipus "gradeta").
+5) graduation_type: per a "gradeta" ha de ser "none" (ara el codi fa
+   "graduated" només per a proveta i "approximate" per a la resta).
+6) La nota de precisió ha de ser pròpia ("no mesura res: és un suport").
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "gradeta",
+    "variant_id": "gradeta_plastic_blava_32",
+    "label_ca": "Gradeta de plàstic blava per a 32 tubs",
+    "capacity_ml": 0,
+    "graduation_type": "none",
+    "usage_tags": ["hold-tubes", "organize-samples", "support"],
+    "measurement_note_ca": "No mesura res: és un suport. Admet 32 tubs de fins a 18 mm de diàmetre exterior; els tubs reposen sobre la graella inferior.",
+    "model": "gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-gradeta_plastic_blava_32.py
+genera el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

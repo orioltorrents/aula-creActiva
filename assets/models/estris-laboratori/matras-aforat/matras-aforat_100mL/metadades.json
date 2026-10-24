@@ -1,0 +1,105 @@
+{
+  "tool_id": "matras-aforat",
+  "variant_id": "matras-aforat_100mL",
+  "label_ca": "Matràs aforat de 100 mL",
+  "capacity_ml": 100,
+  "graduation_type": "none",
+  "usage_tags": [
+    "prepare-solution",
+    "dilute",
+    "accurate-volume",
+    "contain-liquid"
+  ],
+  "measurement_note_ca": "Té una sola marca d'aforament a 100 mL, no una escala: serveix per preparar un volum exacte, no per mesurar volums qualssevol. Model didàctic, sense certificat de calibratge.",
+  "material": "borosilicat 3.3",
+  "dimensions": {
+    "height_mm": 175.0,
+    "height_with_stopper_mm": 180.0,
+    "bulb_diameter_mm": 59.4,
+    "bulb_diameter_nominal_mm": 60.0,
+    "base_diameter_mm": 40.0,
+    "neck_inner_diameter_mm": 12.0,
+    "neck_outer_diameter_mm": 14.4,
+    "wall_thickness_mm": 1.2,
+    "mark_height_mm": 81.38
+  },
+  "calibration": {
+    "mode": "in",
+    "temperature_c": 20,
+    "tolerance_ml": 0.1,
+    "class_shown": "A",
+    "note": "Les inscripcions del model («A», «±0,1 ml», «20 °C») reprodueixen les del producte de referència: matràs aforat de 100 mL classe A, ISO 1042, ±0,10 mL a 20 °C. El model no acredita cap certificat de calibratge."
+  },
+  "inscriptions": {
+    "format": "impressió blava sobre el bulb i marca vermella al coll",
+    "texts": ["100 ml", "A", "±0,1 ml", "20 °C", "BORO 3.3"],
+    "source": "llegides de la fotografia de referència i contrastades amb la fitxa del producte",
+    "note": "El text va corbat sobre la superfície del bulb (el radi es recalcula a cada z), no és un pla enganxat."
+  },
+  "mark": {
+    "capacity_at_mark_ml": 100.0,
+    "how_verified": "integral numèrica del perfil interior fins a z = 84,11 mm; la marca s'hi col·loca on el volum és 100,000 mL"
+  },
+  "liquid": {
+    "file": "matras-aforat_100mL-amb-liquid.glb",
+    "level_ml": 100,
+    "valid_range_ml": [98, 102],
+    "morph_targets": ["nivell_alt", "nivell_baix"],
+    "morph_note": "El target nivell_alt correspon a +2 mL i nivell_baix a -2 mL respecte de l'enrasament. El menisc és còncau: la lectura es fa al punt més baix, que és el centre."
+  },
+  "stopper": {
+    "object": "Tap_matras_aforat_100mL",
+    "material": "PE translúcid",
+    "head_diameter_mm": 17.2,
+    "cone_mm": "23 de llarg, 11,0 a 12,3 de diàmetre",
+    "removable": true,
+    "origin": "boca del coll (z = 169,5 mm); el node conserva aquesta translació",
+    "how_to_remove": "amagar l'objecte (visible = false) o traslladar-lo +60 mm en vertical (Blender +Z, glTF +Y). El node ja porta la translació de la boca, així que no cal tocar la malla.",
+    "note": "El joint 14/23 de la fitxa s'ha adaptat al coll del model: el con encaixa amb el forat de 12 mm."
+  },
+  "sources": [
+    {
+      "tipus": "fitxa de producte",
+      "dada": "100 mL, bulb Ø60 mm, base Ø40 mm, alçada 180 mm amb tap, coll 14/23",
+      "url": "https://www.dwk.com/volumetric-flask-class-a-pmp-100ml-fdf124a"
+    },
+    {
+      "tipus": "fitxa de producte",
+      "dada": "matràs aforat 100 mL classe A, vora bisellada, una sola graduació blanca, boro 3.3",
+      "url": "https://www.eiscolabs.com/collections/all/products/ch0449e"
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "marca a 81,38 mm, volum de vidre 15,788 cm³, totes les malles manifold",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "matras-aforat_100mL.blend",
+    "glb": "matras-aforat_100mL.glb",
+    "glb_amb_liquid": "matras-aforat_100mL-amb-liquid.glb",
+    "png": "matras-aforat_100mL.png",
+    "png_amb_tap_tret": "matras-aforat_100mL-amb-tap-tret.png",
+    "script_creacio": "crear-matras-aforat_100mL.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "matras-aforat_100mL",
+      "Vidre_matras_aforat_100mL",
+      "Marca_aforament_100mL",
+      "Etiqueta_100mL",
+      "Liquid_100mL",
+      "Tap_matras_aforat_100mL"
+    ],
+    "collections": [
+      "MATRAS-AFORAT_100mL · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "base del matràs, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

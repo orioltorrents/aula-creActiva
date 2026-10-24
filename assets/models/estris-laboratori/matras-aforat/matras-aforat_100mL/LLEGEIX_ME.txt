@@ -1,0 +1,79 @@
+MATRÀS AFORAT 100 mL
+
+FITXERS
+matras-aforat_100mL.blend: model editable (model i estudi en col·leccions separades).
+matras-aforat_100mL.glb: el matràs buit, amb metadades a l'arrel i a les malles.
+matras-aforat_100mL-amb-liquid.glb: el mateix amb líquid enrasat a 100 mL.
+matras-aforat_100mL.png: vista prèvia amb líquid i tap.
+matras-aforat_100mL-amb-tap-tret.png: el mateix amb el tap aixecat (mostra que és una peça a part).
+metadades.json: identificadors, mesures, marca, líquid, tap, inscripcions i fonts.
+crear-matras-aforat_100mL.py: genera el .blend, els dos .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Bulb de 59,4 mm (60 nominal), base de 40 mm, alçada 175 mm (180 amb tap),
+coll de 12 mm interior i 14,4 exterior, paret d'1,2 mm.
+Vidre de borosilicat 3.3.
+Una sola marca d'aforament a 81,38 mm d'alçada, que és on el volum interior
+calculat val exactament 100,000 mL. No hi ha escala graduada.
+Malles estanques: vidre, marca, etiqueta, líquid i tap, totes amb no_manifold = 0.
+
+INSCRIPCIONS (com a la foto de referència)
+Impressió blava sobre el bulb, corbada sobre la superfície (el radi es
+recalcula a cada z, no és un pla enganxat):
+  - «100 ml» gran, amb «ml» més petit al costat
+  - «A» (classe) a la dreta
+  - «BORO 3.3» a l'esquerra
+  - «±0,1 ml» i «20 °C» a sota
+Marca d'aforament: línia vermella al coll, a z = 81,38 mm.
+Les dades «A», «±0,1 ml» i «20 °C» són les del producte de referència
+(matràs de 100 mL classe A, ISO 1042, ±0,10 mL a 20 °C). El model les
+reprodueix com a inscripcions, però NO acredita cap certificat de calibratge.
+
+LÍQUID I ENRASAMENT
+El líquid és un objecte independent amb menisc còncau. La lectura es fa al
+punt més baix del menisc, que és el centre.
+Dos morph targets:
+  - nivell_alt  = +2 mL (102 mL)
+  - nivell_baix = −2 mL (98 mL)
+A Three.js: liquid.morphTargetInfluences[0] per a nivell_alt i [1] per a
+nivell_baix. El valor 0 de tots dos és l'enrasament exacte.
+Fora del rang 98–102 mL el menisc sortiria del coll i el morf no és vàlid.
+
+TAP
+És l'objecte Tap_matras_aforat_100mL, independent de la resta.
+Con de 23 mm (11,0 a 12,3 mm de diàmetre) que encaixa al coll, i cap de
+17,2 mm de diàmetre. Material: PE translúcid.
+L'origen de l'objecte és a la boca del coll (z = 169,5 mm), i el node del GLB
+conserva aquesta translació: per treure'l n'hi ha prou de fer
+  tap.visible = false
+o bé traslladar-lo 60 mm cap amunt (Blender +Z, glTF +Y). No cal tocar la malla.
+El node porta extra "element": "tap" i "removable": true per identificar-lo.
+
+BLENDER
+Obre el .blend i edita Vidre_matras_aforat_100mL, Marca_aforament_100mL,
+Etiqueta_100mL, Liquid_100mL i Tap_matras_aforat_100mL.
+Els elements de presentació són a "ESTUDI · camera i llums" i no s'exporten.
+La imatge s'ha renderitzat amb un vidre clar de previsualització; el material
+desat és el de la web (alpha 0,065).
+
+WEB
+Vidre amb alphaMode BLEND i opacitat 0,065, com la resta de la biblioteca.
+Líquid amb alphaMode BLEND i opacitat 0,75. Tap amb alphaMode BLEND i 0,85.
+La impressió i la marca són opaques (no duen alpha).
+Metadades a extras/userData: tool_id, variant_id, label_ca, capacity_ml,
+graduation_type («none»), usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Preparar un volum exacte (dissolucions, dilucions) i treballar la lectura del
+menisc i l'enrasament. No serveix per mesurar volums qualssevol: per això hi
+ha la proveta.
+
+LIMITACIONS
+La marca és correcta respecte del model (100,000 mL calculats), però el model
+no té certificat de calibratge: les inscripcions «A», «±0,1 ml» i «20 °C»
+descriuen el producte de referència, no una acreditació d'aquest fitxer.
+El con del tap s'ha adaptat al coll del model (12 mm): no és un 14/23 exacte.
+La forma del bulb és una aproximació didàctica: no reprodueix el perfil exacte
+de cap fabricant concret.

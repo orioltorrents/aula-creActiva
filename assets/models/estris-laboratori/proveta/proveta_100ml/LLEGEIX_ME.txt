@@ -1,0 +1,9 @@
+PROVETA GRADUADA 100 mL
+
+Vidre transparent, cos buit, bec i base hexagonal.
+Divisions calculades i xifres per a 100 ml.
+Inclou .blend editable, GLB, script i imatge.
+Model buit per afegir-hi líquid com a objecte independent.
+Alçada aproximada proporcional. Diàmetre interior: 25 mm.
+Model didàctic, sense certificació de calibratge.
+A la web, el material utilitza alphaMode BLEND amb opacitat 0.065.

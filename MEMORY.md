@@ -3,24 +3,21 @@
 ## Estat actual
 - Les skills del projecte es mantenen a `.agents/skills/`; `.opencode/` es reserva per a dependències i configuració local d'OpenCode.
 - `AGENTS.md` conté les regles permanents; aquest fitxer només conserva l'estat actual, els riscos oberts i els tres últims passos significatius.
+- Unificada l'activitat "Estris de laboratori" com a principal a Biologia, amb opcions de resposta en matriu de 2x2, eliminant la versió 2D antiga.
 
 ## Riscos oberts
 - Cap risc obert registrat.
 
-## Roadmap vigent
-- Cap 
-
 ## Tres últims passos
 
-### 2026-10-23 - Afegit l'Avaluador d'hipòtesis al Projecte Rius
-- Creat un joc amb cinc hipòtesis aleatòries, checklist de cinc criteris i feedback explicatiu per criteri.
-- Integrat al menú de Projecte Rius amb puntuació final i reinici de ronda.
+### 2026-10-24 - Filtres per Tema, Dificultat i refactorització BEM
+- Afegits selectors BEM per Tema (Noms, Funcions, Capacitats, Clic 3D) i Dificultat (Fàcil, Mitjà, Difícil).
+- Refactoritzat l'estil dels botons d'opció i filtre segons el mandat BEM oficial a `AGENTS.md` i `css/components/buttons.css`.
 
-### 2026-10-22 - Ajustos a bioindicadors, qüestionari 3D i model de Baetis
-- Configurada mostra aleatòria d'entre 6 i 10 espècies per ronda a l'activitat de bioindicadors.
-- Limitat el mode practicar dels models 3D a una selecció aleatòria de 10 preguntes per sessió.
-- Canviat el nom del model de bètid a "Larva de Baetis" en la interfície i configuracions.
+### 2026-10-24 - Banc de 60 preguntes 3D, nivell de líquid dinàmic i rondes de 10 preguntes
+- Ampliat el banc a 60 preguntes a `preguntes-pilot-3d.json` integrant el matràs aforat, la gradeta de plàstic i el tub d'assaig.
+- Afegit el control dinàmic d'alçada de líquid (`morphTargetInfluences`) i configurat el selector atzarós Fisher-Yates per a 10 preguntes per sessió.
 
-### 2026-10-23 - Afegida l'activitat Família i color dels bioindicadors
-- Creat un entrenament de 10 organismes aleatoris amb una pregunta de família i una de color per organisme.
-- Reutilitzat el catàleg compartit de Bioindicadors i integrat la nova activitat al menú del Projecte Rius.
+### 2026-10-24 - Unificació de l'activitat d'Estris de Laboratori i matriu 2x2
+- Eliminat el mòdul 2D antic i establerta l'activitat unificada oficial com a "Estris de laboratori".
+- Configurada la disposició de les opcions de resposta en una matriu de 2x2 (`grid-template-columns: repeat(2, 1fr)`).

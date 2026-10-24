@@ -1,0 +1,32 @@
+{
+  "_nota": "Proposta de preguntes per a aquest paquet. NO s'ha tocat preguntes-exemple.json de la biblioteca de producció. Els identificadors són els del catàleg proposat a ADAPTACIO-EXPORTADOR.txt.",
+  "schema_version": 1,
+  "questions": [
+    {
+      "id": "preparar-100-ml-exactes",
+      "prompt": "Has de preparar exactament 100 mL d'una dissolució. Quin estri utilitzaries?",
+      "scene_variant_ids": [
+        "proveta_100ml",
+        "matras-aforat_100mL"
+      ],
+      "correct_variant_ids": [
+        "matras-aforat_100mL"
+      ]
+    },
+    {
+      "id": "mesurar-75-ml-amb-precision",
+      "prompt": "Quin d'aquests dos estris et permetrà mesurar 75 mL amb més precisió?",
+      "scene_variant_ids": [
+        "proveta_100ml",
+        "matras-aforat_100mL"
+      ],
+      "correct_variant_ids": [
+        "proveta_100ml"
+      ]
+    }
+  ],
+  "_enrasament": {
+    "nota": "Una pregunta del tipus «està ben enrasat?» no encaixa al schema actual (scene_variant_ids + correct_variant_ids): depèn de l'estat del model, no de quina variant hi ha a l'escena.",
+    "com_es_podria_fer": "Amb la variant -amb-liquid i els morph targets: enrasat = morphTargetInfluences[0] == 0 && [1] == 0 (100 mL). Si un dels dos és > 0, el nivell no és a la marca. Caldrà ampliar el schema de preguntes amb un camp de tipus, per exemple 'check': 'liquid_level', i el valor esperat."
+  }
+}

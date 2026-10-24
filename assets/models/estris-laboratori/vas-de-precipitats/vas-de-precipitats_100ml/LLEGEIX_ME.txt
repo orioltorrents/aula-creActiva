@@ -1,0 +1,30 @@
+VAS DE PRECIPITATS · 100 mL
+
+Creat a partir del mateix script del vas de 500 ml, en una escena i fitxers independents.
+Vidre transparent, bec d'abocament integrat, escala cada 10 ml, xifres cada 20 ml i marca de 100 ml.
+Dimensions aproximades: 68,1 mm d'alçada i 50,3 mm de diàmetre del cos.
+Escala orientativa per a ús didàctic; no és material volumètric de precisió.
+
+FITXERS
+vas-de-precipitats_100ml.blend: model editable amb líquid blau visible a 60 ml.
+vas-de-precipitats_100ml.glb: vas buit per a la web.
+vas-de-precipitats_100ml-amb-liquid.glb: vas amb líquid independent i nivell regulable.
+vas-de-precipitats_100ml.png: vista del vas buit.
+vas-de-precipitats_100ml-amb-liquid.png: prova amb líquid blau.
+lectura-menisc-60-ml.png: vista frontal sense perspectiva.
+crear-vas-de-precipitats_100ml.py: script de generació; adapta la carpeta 'out' abans d'executar-lo en un altre ordinador. Executa'l en un fitxer nou.
+
+BLENDER
+Selecciona vas-de-precipitats_100ml > Propietats de l'objecte > Propietats personalitzades > nivell_ml.
+Admet valors de 20 a 100 ml. El punt més baix del menisc còncau determina el nivell.
+Amaga Liquid_blau_100mL_nivell_variable per mostrar el vas buit.
+Utilitza Previsualització de materials o Renderitzat per veure la transparència.
+
+WEB (THREE.JS)
+Sobre la malla Liquid_blau_100mL_nivell_variable:
+liquid.morphTargetInfluences[0] = (ml - 20) / 80;
+liquid.visible = true; // false per amagar-lo
+liquid.material.color.set('#2277dd');
+Limita ml a l'interval 20–100. Els drivers de Blender no s'executen a la web: cal canviar el morph target.
+El vidre utilitza alphaMode BLEND, opacitat 0.065. El líquid té opacitat 0.5.
+Per als exercicis, situa la càmera a l'altura del nivell i llegeix la part inferior del menisc.

@@ -1,0 +1,51 @@
+TUB D'ASSAIG 16 × 150 mm
+
+FITXERS
+tub-dassaig_16x150mm.blend: model editable (model + estudi en col·leccions separades).
+tub-dassaig_16x150mm.glb: només el tub, amb metadades a l'arrel i a la malla.
+tub-dassaig_16x150mm.png: vista prèvia.
+metadades.json: identificadors, mesures, encaix a la gradeta i fonts.
+crear-tub-dassaig_16x150mm.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet (GLB, .blend i metadades).
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Tub obert de 16 mm de diàmetre exterior i 150 mm de llargada, paret d'1,2 mm,
+fons arrodonit (semisfera de radi 8 mm) i llavi arrodonit de 17,6 mm.
+Borosilicat 3.3. Sense cap inscripció ni graduació.
+Origen a la base (z = 0), eix vertical, escales aplicades, malla estanca
+(no_manifold = 0, 3.458 vèrtexs, 8,384 cm³ de vidre ≈ 18,7 g).
+
+DADES
+Diàmetre exterior: 16,0 mm · interior: 13,6 mm · paret: 1,2 mm.
+Llargada: 150,0 mm · llavi: 17,6 mm.
+Capacitat nominal: 20 mL (fitxa del fabricant).
+Volum geomètric fins a la vora: 20,996 mL.
+
+GRADETA
+Amb forats de 16,4 a 17,4 mm el tub hi passa i penja del llavi.
+Amb forats de 17,7 mm o més, travessa i es recolza a la graella inferior.
+Forats més petits de 16,4 mm no l'admeten.
+
+BLENDER
+Obre el .blend i edita Vidre_tub_dassaig_16x150mm.
+Els objectes de presentació són a "ESTUDI · camera i llums" i no s'exporten.
+La imatge s'ha renderitzat amb un vidre de transmissió només per a la foto;
+el material desat és el de la web.
+
+WEB
+El vidre utilitza alphaMode BLEND amb opacitat 0,065 i IOR 1,46, com la resta
+de la biblioteca; no necessita refracció per veure-hi a través.
+Metadades a extras/userData: tool_id, variant_id, label_ca, capacity_ml,
+graduation_type, usage_tags i measurement_note_ca. No hi ha
+graduation_interval_ml perquè el tub no té graduacions.
+
+ÚS DIDÀCTIC
+Contenir, barrejar i escalfar líquids. Si l'activitat demana mesurar un volum,
+aquest tub no és la resposta correcta: no té escala ni calibratge.
+
+LIMITACIONS
+Les 20 mL són una capacitat nominal de catàleg, no un volum calibrat.
+El model no representa el gruix de vidre variable real de la vora del llavi.
+Les toleràncies de fabricació del vidre no s'han modelat.
+No hi ha certificat de calibratge ni classe de precisió.

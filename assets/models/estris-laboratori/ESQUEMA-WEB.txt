@@ -1,0 +1,49 @@
+ESTRUCTURA DE MODELS I PREGUNTES PER A LA WEB
+
+Cada GLB inclou metadades a userData del node arrel i de les seves
+peces seleccionables:
+
+- tool_id: tipus d'estri compartit per les variants.
+- variant_id: identificador únic, per exemple proveta_100ml.
+- label_ca: nom visible per a l'alumnat.
+- capacity_ml: capacitat nominal en mL.
+- graduation_type: graduated o approximate.
+- usage_tags: usos didàctics orientatius.
+- measurement_note_ca: advertiment sobre la precisió del model.
+- graduation_interval_ml: només quan aquesta dada és coneguda.
+
+La web ha de pujar pels pares de la malla clicada fins a trobar
+userData.variant_id o userData.tool_id. Per distingir estris de la
+mateixa categoria, ha d'utilitzar variant_id.
+
+El catàleg catalog-estris.json enumera els models i les rutes relatives
+dels GLB. El fitxer preguntes-exemple.json mostra com definir una escena
+amb diverses variants i una o més respostes acceptades. Les preguntes
+són dades independents: es poden editar sense tornar a exportar models.
+
+Per exportar un model, obre el seu .blend i executa aquest script des de
+Blender > Scripting. El script actualitza el GLB de la mateixa carpeta i
+el catàleg. Si el model té líquid independent, també exporta una variant
+amb "-amb-liquid" al nom.
+
+L'exportador admet categories noves sense afegir-les a una llista fixa, si
+l'arrel del model té les propietats personalitzades tool_id, variant_id,
+label_ca, graduation_type i usage_tags. La carpeta de categoria ha de
+coincidir amb tool_id i la carpeta de variant amb variant_id.
+La capacitat és opcional: s'obté de capacity_ml/capacitat_ml o d'un sufix
+com "_250mL" o "_250ml". Variants sense capacitat, com
+"vareta-de-vidre_200mm", poden exportar-se amb les metadades a l'arrel.
+Les categories històriques poden continuar emprant els valors per defecte
+de l'exportador si encara no tenen les propietats web a l'arrel.
+
+IMPORTANT
+
+- Les provetes tenen graduacions, però aquests models són didàctics i no
+  tenen certificat de calibratge.
+- Els vasos de precipitats i els matrassos d'Erlenmeyer tenen graduacions
+  aproximades; no s'han de presentar com a instruments de precisió.
+- La capacitat nominal no garanteix que un estri sigui una resposta
+  adequada per a qualsevol volum. Les respostes acceptades s'han de
+  definir explícitament a cada pregunta.
+- La proveta de 250 mL tenia objectes aliens al seu GLB. Torna-la a
+  exportar des del seu fitxer .blend amb l'script per corregir-ho.
