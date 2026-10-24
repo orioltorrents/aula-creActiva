@@ -50,8 +50,8 @@ La web inclou activitats relacionades amb diversos projectes educatius de l’ES
 <img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates a la carrera" width="400">
 Projecte amb activitats i recursos específics per treballar continguts i dinàmiques pròpies d’aquest entorn de treball.
 
-### 1ESO - Projecte "Mediterrani"
-<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" width="400">
+### 1ESO - Projecte "Mediterràniament"
+<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterràniament" width="400">
 Projecte amb activitats vinculades a continguts geogràfics, culturals i d’anàlisi del món mediterrani.
 
 ### 2ESO - Projecte "Paralímpics"
@@ -66,15 +66,34 @@ Projecte orientat a activitats creatives, artístiques i de sensibilització, am
 <img src="assets/images/activities/entorns/cards/targeta_entorns.png" alt="Entorns de Natura" width="400">
 Projecte amb activitats relacionades amb el medi natural, la investigació, els rols de treball i l’anàlisi d’entorns.
 
+### Física i Química 2n, 3r i 4t ESO
+
+La web incorpora un projecte de Física i Química per a cadascun d'aquests cursos:
+
+- `p2_fisica_quimica`: Física i Química 2n ESO
+- `p3_fisica_quimica`: Física i Química 3r ESO
+- `p4_fisica_quimica`: Física i Química 4t ESO
+
+Els tres projectes reutilitzen el mateix hub i la mateixa activitat de laboratori. No hi ha tres còpies del joc: la targeta Laboratori de `fragments/projects/fisica-quimica/index.html` obre l'activitat compartida `bio-activity-lab-tools-3d`.
+
+L'activitat permet explorar estris de laboratori en 3D i respondre preguntes sobre noms, funcions, capacitats, materials, compatibilitat amb àcids i comparació de volums. Les dades principals són:
+
+- `js/games/bio-lab-tools-3d.js`: visor, preguntes, filtres, puntuació i navegació de la pràctica.
+- `assets/models/estris-laboratori/catalog-estris.json`: catàleg de models i metadades.
+- `assets/models/estris-laboratori/preguntes-pilot-3d.json`: banc de preguntes.
+- `assets/models/estris-laboratori/`: models GLB, fitxers Blender, scripts i metadades.
+
+També hi ha dues variants de la proveta de 500 mL amb líquid a 300 mL i 200 mL per treballar la resta de volums i calcular els 100 mL abocats.
+
 ---
 
 ## Altres àmbits i seccions de la web
 
 A més dels projectes principals, la web app també incorpora activitats i recursos per a altres àrees i matèries, com ara:
 
-### 2ESO - Optativa "Ràdio"
+### 1ESO i 2ESO - Projecte "Ràdio"
 <img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio" width="400">
-Activitats relacionades amb llenguatge radiofònic, connectors, àudio i producció de continguts.
+El projecte de 1r ESO només ofereix l'activitat **Connexions d'àudio**. El projecte de 2n ESO manté **Connexions d'àudio** i **La Taula de So**. Tots dos cursos reutilitzen el mateix hub i les mateixes activitats, sense duplicar-ne el codi.
 
 ### 2ESO - "Biologia"
 <img src="assets/images/activities/biologia/cards/targeta-biologia-humana.png" alt="Biologia" width="400">

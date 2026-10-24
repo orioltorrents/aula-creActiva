@@ -1,0 +1,37 @@
+REIXETA DE LABORATORI — 125 × 125 mm, centre ceràmic de 65 mm
+
+FITXERS
+reixeta_125mm.blend: model editable (model i estudi en col·leccions separades).
+reixeta_125mm.glb: només la reixeta, amb metadades a l'arrel i a la malla.
+reixeta_125mm.png: vista prèvia.
+metadades.json: identificadors, mides i fonts.
+crear-reixeta_125mm.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Xapa quadrada de 125 mm amb trama d'acer de 63 × 63 fils (Ø 0,5 mm cada
+2 mm) i disc ceràmic de 65 mm al centre, de 1,3 mm de gruix.
+Els fils dels dos sentits van a altures diferents (0–0,5 i 0,5–1,0 mm):
+teixeixen de veritat i no comparteixen cap cara coplanar.
+Origen al pla de la trama, a z = 0. Escales aplicades.
+Malla estanca (no_manifold = 0): 126 prismes de fil + disc.
+
+WEB
+Dos materials: acer galvanitzat (metallic 0,9, roughness 0,35) i ceràmica
+blanca (roughness 0,75). Tots dos opacs.
+Extras/userData a l'arrel i a la malla: tool_id («reixeta»), variant_id
+(«reixeta_125mm»), label_ca, display_name, category («escalfament»),
+capacity_ml (0), material_type («metall»), graduation_type («none»),
+usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Posar-la sobre el trípode per repartir la flama i protegir el fons del
+recipient quan s'escalfa.
+
+LIMITACIONS
+No mesura res.
+La trama és regular i rígida: la real és teixida, amb els fils ondulats i
+les vores tallades a les cantonades.
+El disc ceràmic és un cilindre pla; el real té la cara superior lleugerament
+còncava i els cantons arrodonits.

@@ -72,6 +72,23 @@ Donar orientacions per treballar amb coherència en l’estructura actual del pr
 - La genètica mendeliana desa resultats amb `saveResult` com la resta d'activitats avaluables.
 - Si es reaprofiten idees d'eines externes com MendelSim, evita copiar-ne grans blocs de codi sense revisar la llicència. Per ara l'activitat és una implementació pròpia inspirada en el seu enfocament didàctic i manté un enllaç a l'original.
 
+## Física i Química i laboratori 3D
+
+- Els projectes `p2_fisica_quimica`, `p3_fisica_quimica` i `p4_fisica_quimica` comparteixen `fragments/projects/fisica-quimica/index.html`.
+- La targeta Laboratori d'aquest hub ha d'obrir la mateixa activitat `bio-activity-lab-tools-3d`; no es poden duplicar el fragment ni la lògica del joc per curs.
+- La navegació compartida es gestiona amb `openFisicaQuimicaLaboratori()` i `returnFromBioLabTools()` dins `js/app.js`.
+- La implementació del laboratori és a `js/games/bio-lab-tools-3d.js` i les dades són a `assets/models/estris-laboratori/catalog-estris.json` i `preguntes-pilot-3d.json`.
+- Els models 3D nous han de tenir el GLB, les metadades i, quan pertoqui, el script de creació i verificació dins la seva carpeta d'estri.
+- Les preguntes de posició o ordre han de ser neutres perquè el banc es barreja aleatòriament. Evita fórmules com "Finalment" o "aquest darrer instrument".
+- Amb materials transparents, aplica els canvis visuals només al model destinat. No detectis tots els materials de vidre com si fossin la vareta: els vasos i les provetes també són de vidre.
+
+## Activitats de Ràdio
+
+- `p1_radio` i `p2_radio` comparteixen `fragments/projects/radio/index.html` i les activitats de `fragments/activities/radio/`.
+- El projecte de 1r ESO només ha de mostrar Connexions d'àudio; La Taula de So continua disponible per a 2n ESO.
+- No dupliquis les activitats de Connexions ni de La Taula de So per curs. La visibilitat de la targeta de La Taula de So es controla a `showRadioMenu()` segons `state.currentProject.id`.
+- Si es modifica `api/Projects.gs`, cal desplegar una nova versió de la Web App d'Apps Script.
+
 ## Tokens CSS i disseny
 
 Els tokens globals es defineixen a `css/base/tokens.css` i són accessibles com a variables CSS a tot el projecte:
@@ -142,7 +159,7 @@ Reutilitza aquestes classes abans de crear-ne de noves:
 - **`getQuizFilterButtonModifier(fieldName, value)`**: Retorna el modificador BEM per a botó de filtre (adaptat al camp).
 - **`loadFragment(path)`**: Carrega un fragment HTML dinàmicament a `#app`.
 - **`loadNestedFragments(container)`**: Processa placeholders `data-fragment` dins un contenidor.
-- **`ensureProjectFragment(projectName)`**: Carrega el fragment del projecte si no és present.
+- **`ensureProjectFragment(projectId, fragmentPath)`**: Carrega el fragment del projecte si no és present.
 - **`navigateTo(screen, options)`**: Navega entre pantalles (login, dashboard, game, etc.).
 - **`callApiGet(action, params)`**: Crida accions del backend Apps Script amb GET i paràmetres serialitzats.
 
@@ -162,7 +179,7 @@ Reutilitza aquestes classes abans de crear-ne de noves:
 
 Segueix aquests patrons per mantenir la coherència:
 
-- **Fragmentos de projectes**: `fragments/projects/{projectName}/{projectName}.html`
+- **Fragments de projectes**: `fragments/projects/{projectName}/index.html` (o el nom existent del fragment si el projecte és anterior a aquesta convenció)
 - **Activitats**: `fragments/activities/{projectName}/{activityName}.html`
 - **IDs de jocs**: `data-game-id="{activityName}"` (coincideix amb fitxer `js/games/{activityName}.js`)
 - **Contenidors de pantalles**: `id="app-screen"` com a arrel, amb classes `game-screen`, `dashboard-screen`, etc.
@@ -233,5 +250,11 @@ Si tens Node disponible, valida la sintaxi bàsica dels fitxers JS modificats am
 Si s'han modificat fragments HTML, verifica que el nombre de divs oberts i tancats coincideixi:
 
 ```powershell
-node -e "const fs=require('fs'); ['fragments/projects/entorns/index.html','index.html'].forEach(f=>{ if(!fs.existsSync(f)) return; const h=fs.readFileSync(f,'utf8'); const o=(h.match(/<div/g)||[]).length; const c=(h.match(/<\/div>/g)||[]).length; console.log(f, 'divs oberts:', o, 'divs tancats:', c); if(o!==c) process.exit(1); });"
+node -e "const fs=require('fs'); const files=['index.html','fragments/projects/fisica-quimica/index.html','fragments/activities/biologia/index.html']; for(const f of files){ if(!fs.existsSync(f)) continue; const h=fs.readFileSync(f,'utf8'); const o=(h.match(/<div\b/g)||[]).length; const c=(h.match(/<\/div>/g)||[]).length; console.log(f, 'divs oberts:', o, 'divs tancats:', c); if(o!==c) process.exit(1); }"
+```
+
+### Check 7: Referències als models 3D
+
+```powershell
+node -e "const fs=require('fs'), path=require('path'); const root='assets/models/estris-laboratori'; const q=JSON.parse(fs.readFileSync(path.join(root,'preguntes-pilot-3d.json'),'utf8')); const models=[]; for(const item of q.questions){ if(item.model) models.push(item.model); for(const model of item.models||[]) models.push(model.glb); } const missing=[...new Set(models)].filter(file=>!fs.existsSync(file)); if(missing.length){ console.error('Models absents:', missing); process.exit(1); } console.log('Referències 3D correctes:', models.length);"
 ```

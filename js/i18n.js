@@ -35,7 +35,7 @@ const i18n = {
             'act_map_title': 'Mapa del Mediterrani',
             'act_map_desc': 'Identifica els països al mapa',
             'no_projects': 'No tens projectes assignats o no s\'han pogut carregar.',
-            'med_project_title': 'Projecte Mediterrani',
+            'med_project_title': 'Projecte Mediterràniament',
             'act_capitals_title': 'Capitals',
             'act_capitals_desc': 'Aprèn les capitals del Mediterrani',
             'act_sea_title': 'El Mar del Mig',

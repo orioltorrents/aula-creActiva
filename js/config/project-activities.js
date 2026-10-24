@@ -46,7 +46,7 @@ S'elimina més endavant:
 ========================================================== -->
 <div id="project-hub-mediterrani" class="game-module hidden">
     <!-- Títol del projecte -->
-    <h3 data-i18n="med_project_title">Projecte Mediterrani</h3>
+    <h3 data-i18n="med_project_title">Projecte Mediterràniament</h3>
 
     <!-- Contenidor on el JS dibuixarà les targetes -->
     <div id="med-activities-menu" class="activities-grid"></div>

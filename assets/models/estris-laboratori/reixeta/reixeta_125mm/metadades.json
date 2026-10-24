@@ -1,0 +1,58 @@
+{
+  "tool_id": "reixeta",
+  "variant_id": "reixeta_125mm",
+  "label_ca": "Reixeta de laboratori amb centre ceràmic (125 mm)",
+  "display_name": "Reixeta de laboratori",
+  "category": "escalfament",
+  "capacity_ml": 0,
+  "material_type": "metall",
+  "graduation_type": "none",
+  "usage_tags": [
+    "heat",
+    "support-vessel",
+    "protect-flame"
+  ],
+  "measurement_note_ca": "No mesura res. Reparteix la flama i protegeix el recipient de vidre quan s'escalfa sobre un trípode.",
+  "material": "acer galvanitzat + ceràmica",
+  "dimensions": {
+    "side_mm": 125.0,
+    "ceramic_disc_mm": 65.0,
+    "wire_mm": 0.5,
+    "mesh_pitch_mm": 2.0,
+    "thickness_mm": 2.35
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "xapa metàl·lica quadrada amb disc ceràmic blanc al centre",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "125 × 125 mm, trama de 63 × 63 fils, no_manifold 0",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "reixeta_125mm.blend",
+    "glb": "reixeta_125mm.glb",
+    "png": "reixeta_125mm.png",
+    "script_creacio": "crear-reixeta_125mm.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "reixeta_125mm",
+      "TOOL_reixeta"
+    ],
+    "collections": [
+      "REIXETA_125mm · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "pla de la trama, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

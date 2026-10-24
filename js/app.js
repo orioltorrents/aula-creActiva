@@ -15,22 +15,26 @@ const DATA_SHEET_ID = '1xFjjrZhBXZWlMkgARjrhQnZraRWS2uNUZfaNqvzQjV8';
 const LOCAL_PROJECT_CATALOG = {
     '1r ESO': [
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
-        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
+        { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
+        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
+        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
     ],
     '2n ESO': [
-        { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+        { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
         { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
-        { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+        { id: 'p2_fisica_quimica', titol: 'Física i Química 2n ESO', descripcio: 'Pràctiques i estris de laboratori.' },
+        { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
     ],
     '3r ESO': [
         { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
+        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+        { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '4t ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
         { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
-        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
+        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
+        { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1r Batxillerat': [
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
@@ -38,22 +42,26 @@ const LOCAL_PROJECT_CATALOG = {
     '2n Batxillerat': [],
     '1ESO': [
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-        { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
-        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
+        { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
+        { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
+        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
     ],
     '2ESO': [
-        { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+        { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
         { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
-        { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+        { id: 'p2_fisica_quimica', titol: 'Física i Química 2n ESO', descripcio: 'Pràctiques i estris de laboratori.' },
+        { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
     ],
     '3ESO': [
         { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
+        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+        { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '4ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
         { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
-        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
+        { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
+        { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1Batx': [
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
@@ -978,17 +986,21 @@ function getLocalProjectsForCourses(courses) {
 function getProjectVisuals() {
     return {
         'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterrani" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterràniament" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
         'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns-card.jpg" alt="Entorns de Natura" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
-        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralimpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalitzacio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
         'p1_biologia': { icon: '<img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Biologia 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #14b8a6, #0f766e)' },
         'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p3_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_biologia': { icon: '<img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Biologia 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)' },
-        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Radio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'p2_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 2n ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #0369a1)' },
+        'p3_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0284c7, #075985)' },
+        'p4_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0369a1, #164e63)' },
+        'p1_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 2n ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
 }
@@ -1032,6 +1044,35 @@ function renderProjectCards(grid, projects) {
 
 function isBiologiaProject(projectId) {
     return ['p1_biologia', 'p2_biologia', 'p3_biologia', 'p4_biologia'].includes(projectId);
+}
+
+function isFisicaQuimicaProject(projectId) {
+    return ['p2_fisica_quimica', 'p3_fisica_quimica', 'p4_fisica_quimica'].includes(projectId);
+}
+
+async function openFisicaQuimicaLaboratori() {
+    const bioHub = await ensureProjectFragment(
+        'project-hub-biologia',
+        'fragments/projects/biologia/index.html'
+    );
+    if (!bioHub) return;
+
+    document.querySelectorAll('.game-module').forEach(module => module.classList.add('hidden'));
+    bioHub.classList.remove('hidden');
+    document.getElementById('bio-systems-menu')?.classList.add('hidden');
+    openBioActivity('lab-tools');
+    setGameTitle(state.currentProject?.titol || 'Física i Química');
+}
+
+function returnFromBioLabTools() {
+    resetBioLabTools3DGame();
+    if (isFisicaQuimicaProject(state.currentProject?.id)) {
+        document.getElementById('bio-activity-lab-tools-3d')?.classList.add('hidden');
+        document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+        setGameTitle(state.currentProject.titol);
+        return;
+    }
+    openBioSystem('laboratori');
 }
 
 async function getApiProjectsForCourses(courses) {
@@ -1124,7 +1165,7 @@ async function loadDashboard() {
         getApiProjectsForCourses(dashboardCourses)
             .then(apiProjects => {
                 if (apiProjects.length > 0 && JSON.stringify(apiProjects) !== JSON.stringify(dashboardProjects)) {
-                    dashboardProjects = apiProjects;
+                    dashboardProjects = dedupeProjects([...dashboardProjects, ...apiProjects]);
                     renderProjectCards(grid, dashboardProjects);
                 }
             })
@@ -1236,6 +1277,12 @@ async function openProject(project) {
                 showDigitalitzacioMenu();
             }
         }
+    } else if (isFisicaQuimicaProject(project.id)) {
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-fisica-quimica',
+            'fragments/projects/fisica-quimica/index.html'
+        );
+        if (hubDiv) hubDiv.classList.remove('hidden');
     } else if (isBiologiaProject(project.id)) {
         const hubDiv = await ensureProjectFragment(
             'project-hub-biologia',
@@ -1247,7 +1294,7 @@ async function openProject(project) {
                 showBioMenu();
             }
         }
-    } else if (project.id === 'p2_radio') {
+    } else if (project.id === 'p1_radio' || project.id === 'p2_radio') {
         const hubDiv = await ensureProjectFragment(
             'project-hub-radio',
             'fragments/projects/radio/index.html'
@@ -1863,12 +1910,20 @@ function showRadioMenu() {
     const hub = document.getElementById('project-hub-radio');
     if (hub) {
         document.getElementById('radio-activities-menu').classList.remove('hidden');
+        const taulaCard = document.getElementById('radio-activity-taula-card');
+        if (taulaCard) {
+            taulaCard.classList.toggle('hidden', state.currentProject?.id === 'p1_radio');
+        }
         hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
     }
 }
 
 function openRadioActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    if (actId === 'taula' && state.currentProject?.id === 'p1_radio') {
+        showRadioMenu();
+        return;
+    }
     document.getElementById('radio-activities-menu').classList.add('hidden');
     document.querySelectorAll('#project-hub-radio .sub-activity').forEach(el => el.classList.add('hidden'));
 

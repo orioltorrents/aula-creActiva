@@ -1,0 +1,52 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "reixeta" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "reixeta_125mm" no hi
+     encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí no té sentit.
+  4. capacity_ml s'obté del nom; aquí ha de ser 0.
+  5. graduation_type és binari; una reixeta ha de ser "none".
+  6. El model té DOS materials (acer i ceràmica); l'exportador no ho limita,
+     però cal tenir-ho present si algun visor assumeix un sol material.
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "reixeta": ("reixeta", "Reixeta"),
+2) TOOL_USES:
+     "reixeta": ["heat", "support-vessel", "protect-flame"],
+3) Etiqueta i capacity per categoria:
+     if tool_id == "reixeta":
+         m = re.fullmatch(r"reixeta_(\d+)mm", variant_id)
+         if not m: raise RuntimeError(...)
+         label = f"Reixeta de laboratori amb centre ceràmic ({m.group(1)} mm)"
+         capacity_ml = 0
+     else:
+         (lògica actual)
+4) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" (l'arrel té tipus "reixeta").
+5) TOOL_GRADUATION: "reixeta": "none",
+6) Nota pròpia: "No mesura res. Reparteix la flama i protegeix el recipient
+   de vidre quan s'escalfa sobre un trípode."
+7) L'apartat `usage_tags` de la categoria ha de ser "escalfament", no
+   "manipulacio".
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "reixeta",
+    "variant_id": "reixeta_125mm",
+    "label_ca": "Reixeta de laboratori amb centre ceràmic (125 mm)",
+    "capacity_ml": 0,
+    "graduation_type": "none",
+    "usage_tags": ["heat", "support-vessel", "protect-flame"],
+    "measurement_note_ca": "No mesura res. Reparteix la flama i protegeix el recipient de vidre quan s'escalfa sobre un trípode.",
+    "model": "reixeta/reixeta_125mm/reixeta_125mm.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-reixeta_125mm.py genera
+el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

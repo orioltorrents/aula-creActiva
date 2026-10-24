@@ -10,13 +10,14 @@ function getProjects(curs) {
         // Noms de curs habituals.
         '1r ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
-            { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
+            { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
+            { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
+            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
         ],
         '2n ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
             { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
-            { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+            { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
@@ -35,13 +36,14 @@ function getProjects(curs) {
         // Aliases: acceptem tambe versions curtes que poden apareixer al Sheet.
         '1ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
-            { id: 'p1_mediterrani', titol: 'Mediterrani', descripcio: 'Historia i geografia del mar Mediterrani.' },
-            { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' }
+            { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
+            { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
+            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
         ],
         '2ESO': [
-            { id: 'p2_paralimpics', titol: 'Paralimpics', descripcio: 'Educacio fisica i valors.' },
+            { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
             { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
-            { id: 'p2_radio', titol: 'Radio', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
+            { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
         ],
         '3ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
