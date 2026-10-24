@@ -1,0 +1,61 @@
+{
+  "tool_id": "vareta-de-vidre",
+  "variant_id": "vareta-de-vidre_6x200mm",
+  "label_ca": "Vareta de vidre per remenar (6 × 200 mm)",
+  "display_name": "Vareta de vidre per remenar",
+  "category": "manipulacio",
+  "capacity_ml": 0,
+  "material_type": "vidre",
+  "graduation_type": "none",
+  "usage_tags": [
+    "stir",
+    "mix",
+    "guide-liquid"
+  ],
+  "measurement_note_ca": "No mesura res: no té cap graduació. Serveix per remenar i per fer córrer un líquid per la paret del got.",
+  "material": "borosilicat 3.3",
+  "dimensions": {
+    "diameter_mm": 6.0,
+    "length_mm": 200.0,
+    "ends": "semisfèrics (vores flamejades)"
+  },
+  "physical": {
+    "volume_cm3": 5.561,
+    "density_g_cm3": 2.23,
+    "mass_g": 12.4
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "vareta cilíndrica de vidre amb els extrems arrodonits",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "6 × 200 mm, 544 cares, no_manifold 0, 5,56 cm³",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "vareta-de-vidre_6x200mm.blend",
+    "glb": "vareta-de-vidre_6x200mm.glb",
+    "png": "vareta-de-vidre_6x200mm.png",
+    "script_creacio": "crear-vareta-de-vidre_6x200mm.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "vareta-de-vidre_6x200mm",
+      "TOOL_vareta_vidre"
+    ],
+    "collections": [
+      "VARETA-DE-VIDRE_6x200mm · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "punta inferior, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

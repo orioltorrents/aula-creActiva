@@ -280,6 +280,10 @@
                 if (optionsEl) {
                     optionsEl.innerHTML = `<div class="col-span-full text-center text-slate-500 font-semibold italic p-2 bg-slate-100 rounded">Fes clic sobre l'estri 3D de l'escena</div>`;
                 }
+            } else if (question.type === 'multi_model_quiz') {
+                if (hintEl) hintEl.textContent = 'Observa els dos models 3D i tria la resposta correcta.';
+                await loadMultiGLBModels(question.models);
+                renderMultipleChoiceOptions(question);
             }
         } catch (err) {
             console.error("Error carregant models GLB per a la pregunta:", err);
@@ -432,6 +436,23 @@
         }
     }
 
+    function formatGlassRodMaterial(child) {
+        if (!child.isMesh || !child.material) return;
+        const meshName = (child.name || '').toLowerCase();
+        const matName = (child.material.name || '').toLowerCase();
+
+        // Només s'aplica a la vareta; altres recipients també són de vidre.
+        if (!meshName.includes('vareta') && !matName.includes('vareta')) return;
+
+        child.material = child.material.clone();
+        if (child.material.color) child.material.color.setHex(0xb9e6ff);
+        child.material.transparent = true;
+        child.material.opacity = 0.78;
+        child.material.depthWrite = false;
+        if ('transmission' in child.material) child.material.transmission = 0.35;
+        if ('roughness' in child.material) child.material.roughness = 0.12;
+    }
+
     function loadSingleGLBModel(url) {
         return new Promise((resolve, reject) => {
             const LoaderClass = THREE.GLTFLoader || (window.THREE && window.THREE.GLTFLoader);
@@ -448,6 +469,7 @@
                         if (child.isMesh && child.material) {
                             child.material.side = THREE.DoubleSide;
                             formatLiquidMaterial(child);
+                            formatGlassRodMaterial(child);
                             originalMaterialsMap.set(child.uuid, child.material);
                         }
                     });
@@ -482,6 +504,7 @@
                             if (child.isMesh && child.material) {
                                 child.material.side = THREE.DoubleSide;
                                 formatLiquidMaterial(child);
+                                formatGlassRodMaterial(child);
                                 originalMaterialsMap.set(child.uuid, child.material);
                             }
                         });

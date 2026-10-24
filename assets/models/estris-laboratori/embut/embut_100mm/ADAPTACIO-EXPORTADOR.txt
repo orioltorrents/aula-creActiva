@@ -1,0 +1,48 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "embut" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "embut_100mm" no hi
+     encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí no té sentit.
+  4. capacity_ml s'obté del nom; aquí ha de ser 0.
+  5. graduation_type és binari; un embut sense graduació ha de ser "none".
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "embut": ("embut", "Embut"),
+2) TOOL_USES:
+     "embut": ["filter", "transfer-liquid", "fill-container"],
+3) Etiqueta i capacity per categoria:
+     if tool_id == "embut":
+         m = re.fullmatch(r"embut_(\d+)mm", variant_id)
+         if not m: raise RuntimeError(...)
+         label = f"Embut de vidre de {m.group(1)} mm"
+         capacity_ml = 0
+     else:
+         (lògica actual)
+4) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" (l'arrel té tipus "embut").
+5) TOOL_GRADUATION: "embut": "none",
+6) Nota pròpia: "No mesura res: no té graduació. Serveix per filtrar i per
+   traspassar líquids a un recipient de coll estret."
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "embut",
+    "variant_id": "embut_100mm",
+    "label_ca": "Embut de vidre de 100 mm",
+    "capacity_ml": 0,
+    "graduation_type": "none",
+    "usage_tags": ["filter", "transfer-liquid", "fill-container"],
+    "measurement_note_ca": "No mesura res: no té graduació. Serveix per filtrar i per traspassar líquids a un recipient de coll estret.",
+    "model": "embut/embut_100mm/embut_100mm.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-embut_100mm.py genera
+el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

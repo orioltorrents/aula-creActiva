@@ -1,0 +1,49 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "vareta-de-vidre" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "vareta-de-vidre_6x200mm"
+     no hi encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí no té sentit.
+  4. capacity_ml s'obté del nom; aquí ha de ser 0.
+  5. graduation_type és binari (proveta -> graduated, resta -> approximate);
+     una vareta sense graduació ha de ser "none".
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "vareta-de-vidre": ("vareta", "Vareta de vidre"),
+2) TOOL_USES:
+     "vareta-de-vidre": ["stir", "mix", "guide-liquid"],
+3) Etiqueta i capacity per categoria:
+     if tool_id == "vareta-de-vidre":
+         m = re.fullmatch(r"vareta-de-vidre_(\d+)x(\d+)mm", variant_id)
+         if not m: raise RuntimeError(...)
+         label = f"Vareta de vidre de {m.group(1)} × {m.group(2)} mm"
+         capacity_ml = 0
+     else:
+         (lògica actual)
+4) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" (l'arrel té tipus "vareta de vidre").
+5) TOOL_GRADUATION: "vareta-de-vidre": "none",
+6) Nota pròpia: "No mesura res: no té cap graduació. Serveix per remenar i
+   per fer córrer un líquid per la paret del got."
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "vareta-de-vidre",
+    "variant_id": "vareta-de-vidre_6x200mm",
+    "label_ca": "Vareta de vidre per remenar (6 × 200 mm)",
+    "capacity_ml": 0,
+    "graduation_type": "none",
+    "usage_tags": ["stir", "mix", "guide-liquid"],
+    "measurement_note_ca": "No mesura res: no té cap graduació. Serveix per remenar i per fer córrer un líquid per la paret del got.",
+    "model": "vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-vareta-de-vidre_6x200mm.py
+genera el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

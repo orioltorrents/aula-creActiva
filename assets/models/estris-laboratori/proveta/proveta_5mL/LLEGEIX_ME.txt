@@ -1,0 +1,9 @@
+PROVETA GRADUADA 5 mL
+
+Vidre transparent, cos buit, bec i base hexagonal.
+Divisions calculades i xifres per a 5 ml.
+Inclou .blend editable, GLB, script i imatge.
+Model buit per afegir-hi líquid com a objecte independent.
+Dimensions proporcionals adaptades a 5 mL.
+Model didàctic, sense certificació de calibratge.
+A la web, el material utilitza alphaMode BLEND amb opacitat 0.065.

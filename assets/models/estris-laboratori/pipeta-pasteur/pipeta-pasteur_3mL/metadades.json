@@ -1,0 +1,60 @@
+{
+  "tool_id": "pipeta-pasteur",
+  "variant_id": "pipeta-pasteur_3mL",
+  "label_ca": "Pipeta Pasteur de plàstic de 3 mL",
+  "display_name": "Pipeta Pasteur de plàstic",
+  "category": "manipulacio",
+  "capacity_ml": 3,
+  "material_type": "plastic",
+  "graduation_type": "none",
+  "usage_tags": [
+    "transfer-small-volumes",
+    "drop-liquid",
+    "sample"
+  ],
+  "measurement_note_ca": "No té escala: els 3 mL són la capacitat nominal del bulb, no un volum que es pugui mesurar. Per mesurar, cal una pipeta graduada.",
+  "material": "LDPE",
+  "dimensions": {
+    "length_mm": 155.0,
+    "bulb_diameter_mm": 16.0,
+    "bulb_length_mm": 40.0,
+    "tube_outer_mm": 7.2,
+    "tube_inner_mm": 6.0,
+    "tip_outer_mm": 1.4,
+    "wall_mm": 0.6
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "pipeta de transferència amb bulb de succió, tub capil·lar i punta cònica",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "155 mm, bulb Ø 16, tub Ø 7,2, punta Ø 1,4, no_manifold 0",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "pipeta-pasteur_3mL.blend",
+    "glb": "pipeta-pasteur_3mL.glb",
+    "png": "pipeta-pasteur_3mL.png",
+    "script_creacio": "crear-pipeta-pasteur_3mL.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "pipeta-pasteur_3mL",
+      "TOOL_pipeta_pasteur"
+    ],
+    "collections": [
+      "PIPETA-PASTEUR_3mL · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "punta, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

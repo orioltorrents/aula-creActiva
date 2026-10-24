@@ -1,0 +1,45 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "pipeta-pasteur" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "pipeta-pasteur_3mL" no
+     hi encaixa perquè la L és majúscula i no acaba en "ml":
+     "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí funciona per
+     casualitat ("... de 3 mL"), però caldria poder-la sobreescriure.
+  4. graduation_type és binari; una pipeta Pasteur sense escala ha de ser
+     "none".
+  5. El material plàstic de l'exportador assumeix blau opac; aquesta pipeta
+     és LDPE translúcid amb alpha 0,55.
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "pipeta-pasteur": ("pipeta pasteur", "Pipeta Pasteur"),
+2) TOOL_USES:
+     "pipeta-pasteur": ["transfer-small-volumes", "drop-liquid", "sample"],
+3) Regex de variant:
+     m = re.search(r"_(\d+)(?:mL|ml)$", variant_id)
+     capacity_ml = int(m.group(1))
+4) TOOL_GRADUATION: "pipeta-pasteur": "none",
+5) Nota pròpia: "No té escala: els 3 mL són la capacitat nominal del bulb,
+   no un volum que es pugui mesurar. Per mesurar, cal una pipeta graduada."
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "pipeta-pasteur",
+    "variant_id": "pipeta-pasteur_3mL",
+    "label_ca": "Pipeta Pasteur de plàstic de 3 mL",
+    "capacity_ml": 3,
+    "graduation_type": "none",
+    "usage_tags": ["transfer-small-volumes", "drop-liquid", "sample"],
+    "measurement_note_ca": "No té escala: els 3 mL són la capacitat nominal del bulb, no un volum que es pugui mesurar. Per mesurar, cal una pipeta graduada.",
+    "model": "pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-pipeta-pasteur_3mL.py
+genera el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

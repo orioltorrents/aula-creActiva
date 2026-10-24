@@ -1,0 +1,58 @@
+{
+  "tool_id": "espatula",
+  "variant_id": "espatula_200mm",
+  "label_ca": "Espàtula de laboratori amb cullereta (200 mm)",
+  "display_name": "Espàtula amb cullereta",
+  "category": "manipulacio",
+  "capacity_ml": 0,
+  "material_type": "metall",
+  "graduation_type": "none",
+  "usage_tags": [
+    "take-solid",
+    "scrape",
+    "weigh-solid"
+  ],
+  "measurement_note_ca": "No mesura res: no té graduació. Serveix per agafar sòlids, raspar el fons dels recipients i carregar la balança.",
+  "material": "acer inoxidable AISI 304",
+  "dimensions": {
+    "length_mm": 200.0,
+    "blade_width_mm": 25.6,
+    "spoon_mm": [32.0, 24.4, 7.5],
+    "thickness_mm": 1.2,
+    "spoon_wall_mm": 0.7
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "cullereta ovalada en un extrem, mànec pla i pala plana a l'altre, acer polit",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "200 × 25,6 mm, no_manifold 0, xapa d'1,2 mm",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "espatula_200mm.blend",
+    "glb": "espatula_200mm.glb",
+    "png": "espatula_200mm.png",
+    "script_creacio": "crear-espatula_200mm.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "espatula_200mm",
+      "TOOL_espatula"
+    ],
+    "collections": [
+      "ESPATULA_200mm · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "punt més baix (fons de la cullereta), a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}

@@ -788,7 +788,7 @@
       "level": "easy",
       "type": "single_model_quiz",
       "model": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml.glb",
-      "prompt": "Finalment, identifica aquest darrer instrument de laboratori:",
+      "prompt": "Observa aquest model en 3D i identifica quin instrument de laboratori és:",
       "options": ["Proveta graduada de 500 mL", "Vas de precipitats de 500 mL", "Matràs d'Erlenmeyer de 500 mL", "Pipeta aforada"],
       "correct_index": 0,
       "feedback_correct": "Excel·lent! És la proveta graduada de 500 mL.",
@@ -929,6 +929,217 @@
       "correct_variant_id": "tub-dassaig_16x150mm",
       "feedback_correct": "Molt bé! El tub d'assaig és el tub prima sense base a la meitat esquerra.",
       "feedback_incorrect": "Incorrecte. El tub d'assaig és el primer de l'esquerra."
+    },
+    {
+      "id": "q59_nom_espatula",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/espatula/espatula_200mm/espatula_200mm.glb",
+      "prompt": "Com s'anomena aquest estri metàl·lic amb una pala plana i una cullereta?",
+      "options": ["Espàtula de laboratori", "Vareta de vidre", "Pinça de metall", "Agitador magnètic"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! És una espàtula de laboratori amb cullereta.",
+      "feedback_incorrect": "Incorrecte. La pala i la cullereta metàl·liques corresponen a una espàtula de laboratori."
+    },
+    {
+      "id": "q60_funcio_espatula",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/espatula/espatula_200mm/espatula_200mm.glb",
+      "prompt": "Per a què serveix principalment aquesta espàtula?",
+      "options": ["Agafar i traspassar petites quantitats de sòlids", "Mesurar exactament 20 mL de líquid", "Escalfar una dissolució directament", "Mesurar la temperatura d'una mostra"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! Serveix per manipular sòlids i carregar-los a la balança.",
+      "feedback_incorrect": "Incorrecte. L'espàtula és un estri de manipulació de sòlids, no de mesura de líquids."
+    },
+    {
+      "id": "q61_espatula_no_mesura",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/espatula/espatula_200mm/espatula_200mm.glb",
+      "prompt": "Quina capacitat o volum mesura l'espàtula de laboratori?",
+      "options": ["Cap: no té graduació i no és un instrument volumètric", "Exactament 5 mL", "Exactament 20 mL", "Exactament 100 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! L'espàtula no mesura volums; serveix per manipular sòlids.",
+      "feedback_incorrect": "Incorrecte. No té graduació ni una capacitat volumètrica definida."
+    },
+    {
+      "id": "q62_nom_vareta_vidre",
+      "topic": "noms",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+      "prompt": "Com s'anomena aquesta peça cilíndrica de vidre amb els extrems arrodonits?",
+      "options": ["Vareta de vidre", "Tub d'assaig", "Proveta", "Pipeta Pasteur"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! És una vareta de vidre per remenar.",
+      "feedback_incorrect": "Incorrecte. La peça llarga i massissa amb extrems arrodonits és una vareta de vidre."
+    },
+    {
+      "id": "q63_funcio_vareta",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+      "prompt": "Quina és una funció habitual de la vareta de vidre?",
+      "options": ["Remenar dissolucions i guiar un líquid per la paret del recipient", "Mesurar el pH amb una escala", "Aguantar tubs d'assaig", "Triturar substàncies sòlides"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Permet remenar i fer que el líquid llisqui suaument per la paret del vas.",
+      "feedback_incorrect": "Incorrecte. La vareta serveix per remenar o guiar líquids, no per mesurar-los."
+    },
+    {
+      "id": "q64_material_vareta_acids",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+      "prompt": "Per què una vareta de vidre de borosilicat pot ser adequada per remenar moltes dissolucions àcides?",
+      "options": ["Perquè el vidre és relativament inert davant de molts àcids i no hi reacciona fàcilment", "Perquè neutralitza tots els àcids", "Perquè converteix l'àcid en aigua", "Perquè mesura automàticament la concentració"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! El borosilicat resisteix molts reactius, però no tots.",
+      "feedback_incorrect": "Incorrecte. El vidre és inert davant de molts àcids, però no els neutralitza ni és universalment resistent."
+    },
+    {
+      "id": "q65_excepcio_acid_vareta",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+      "prompt": "Quina precaució cal recordar sobre l'ús del vidre amb àcids?",
+      "options": ["L'àcid fluorhídric (HF) ataca el vidre i no s'hi ha de manipular com si fos inert", "El vidre neutralitza l'àcid sulfúric", "Tots els àcids dissolen el vidre immediatament", "El vidre només reacciona amb aigua destil·lada"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! L'HF és una excepció important perquè ataca el diòxid de silici del vidre.",
+      "feedback_incorrect": "Incorrecte. L'àcid fluorhídric és una excepció: ataca químicament el vidre."
+    },
+    {
+      "id": "q66_vareta_vs_espatula",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre l'estri que faries servir per remenar una dissolució àcida sense introduir-hi un metall.",
+      "models": [
+        {
+          "variant_id": "vareta-de-vidre_6x200mm",
+          "glb": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "espatula_200mm",
+          "glb": "assets/models/estris-laboratori/espatula/espatula_200mm/espatula_200mm.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vareta-de-vidre_6x200mm",
+      "feedback_correct": "Correcte! La vareta de vidre és l'estri de l'esquerra per remenar.",
+      "feedback_incorrect": "Incorrecte. Per remenar la dissolució has de triar la vareta de vidre."
+    },
+    {
+      "id": "q67_gradeta_tubs_vareta",
+      "topic": "seleccio3d",
+      "level": "medium",
+      "type": "multi_model_click",
+      "prompt": "Clica sobre l'estri que serveix per remenar, no per sostenir tubs d'assaig.",
+      "models": [
+        {
+          "variant_id": "vareta-de-vidre_6x200mm",
+          "glb": "assets/models/estris-laboratori/vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb",
+          "position": [-0.14, 0, 0]
+        },
+        {
+          "variant_id": "gradeta_plastic_blava_32",
+          "glb": "assets/models/estris-laboratori/gradeta/gradeta_plastic_blava_32/gradeta_plastic_blava_32.glb",
+          "position": [0.14, 0, 0]
+        }
+      ],
+      "correct_variant_id": "vareta-de-vidre_6x200mm",
+      "feedback_correct": "Molt bé! La vareta de vidre és l'estri allargat de l'esquerra.",
+      "feedback_incorrect": "Incorrecte. La gradeta sosté tubs; la vareta allargada serveix per remenar."
+    },
+    {
+      "id": "q68_capacitat_pipeta_pasteur",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb",
+      "prompt": "Quina és la capacitat nominal màxima d'aquesta pipeta Pasteur?",
+      "options": ["Aproximadament 3 mL", "Exactament 0,3 mL", "Exactament 30 mL", "100 mL"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Aquesta pipeta Pasteur té una capacitat nominal d'uns 3 mL.",
+      "feedback_incorrect": "Incorrecte. El model correspon a una pipeta Pasteur de 3 mL."
+    },
+    {
+      "id": "q69_pipeta_pasteur_no_mesura",
+      "topic": "capacitat",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb",
+      "prompt": "Es poden mesurar amb precisió 2 mL amb aquesta pipeta Pasteur?",
+      "options": ["No: no té graduació; els 3 mL indiquen la capacitat nominal", "Sí: la punta sempre mesura 2 mL", "Sí: el bulb té una escala amagada", "No: només pot contenir sòlids"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! Serveix per transferir o deixar caure líquids, però no és material volumètric de precisió.",
+      "feedback_incorrect": "Incorrecte. Com que no té escala, no permet mesurar 2 mL amb precisió."
+    },
+    {
+      "id": "q70_material_pipeta_pasteur",
+      "topic": "funcions",
+      "level": "medium",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb",
+      "prompt": "De quin material és aquesta pipeta Pasteur?",
+      "options": ["Polietilè de baixa densitat (LDPE)", "Vidre de borosilicat", "Acer inoxidable", "Ceràmica porosa"],
+      "correct_index": 0,
+      "feedback_correct": "Correcte! Aquesta pipeta Pasteur és de plàstic LDPE.",
+      "feedback_incorrect": "Incorrecte. El model està fet de polietilè de baixa densitat, o LDPE."
+    },
+    {
+      "id": "q71_acids_pipeta_pasteur",
+      "topic": "funcions",
+      "level": "hard",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb",
+      "prompt": "Quina afirmació és més adequada si volem agafar una dissolució àcida amb aquesta pipeta Pasteur?",
+      "options": ["El LDPE pot ser compatible amb molts àcids diluïts, però cal comprovar la compatibilitat i la concentració", "El plàstic és resistent a qualsevol àcid en qualsevol concentració", "La pipeta neutralitza l'àcid abans de transferir-lo", "Els àcids només es poden agafar amb una pipeta de vidre"],
+      "correct_index": 0,
+      "feedback_correct": "Exacte! La compatibilitat depèn de l'àcid, la concentració, la temperatura i el temps de contacte.",
+      "feedback_incorrect": "Incorrecte. El LDPE pot resistir molts àcids, però no es pot afirmar que sigui compatible amb tots."
+    },
+    {
+      "id": "q72_funcio_pipeta_pasteur",
+      "topic": "funcions",
+      "level": "easy",
+      "type": "single_model_quiz",
+      "model": "assets/models/estris-laboratori/pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb",
+      "prompt": "Quina és la funció principal d'una pipeta Pasteur?",
+      "options": ["Transferir petites quantitats de líquid o afegir-lo gota a gota", "Preparar exactament 100 mL de dissolució", "Mesurar la massa d'un sòlid", "Escalfar una mostra a la flama"],
+      "correct_index": 0,
+      "feedback_correct": "Molt bé! La pipeta Pasteur serveix per transferir petites quantitats i afegir líquids gota a gota.",
+      "feedback_incorrect": "Incorrecte. És un estri de transferència de líquids, no de mesura exacta ni d'escalfament."
+    },
+    {
+      "id": "q73_volum_abocat_provetes",
+      "topic": "capacitat",
+      "level": "medium",
+      "type": "multi_model_quiz",
+      "models": [
+        {
+          "variant_id": "proveta_300ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml-amb-liquid-300ml.glb",
+          "position": [-0.12, 0, 0]
+        },
+        {
+          "variant_id": "proveta_200ml",
+          "glb": "assets/models/estris-laboratori/proveta/proveta_500ml/proveta_500ml-amb-liquid-200ml.glb",
+          "position": [0.12, 0, 0]
+        }
+      ],
+      "prompt": "La primera proveta conté 300 mL i la segona 200 mL. Quants mil·lilitres s'han abocat per passar del primer volum al segon?",
+      "options": ["50 mL", "100 mL", "150 mL", "500 mL"],
+      "correct_index": 1,
+      "feedback_correct": "Correcte! S'han abocat 100 mL: 300 mL - 200 mL = 100 mL.",
+      "feedback_incorrect": "Incorrecte. Cal restar el volum final al volum inicial: 300 mL - 200 mL = 100 mL."
     }
   ]
 }

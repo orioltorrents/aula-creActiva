@@ -1,0 +1,38 @@
+VARETA DE VIDRE PER REMENAR — 6 × 200 mm
+
+FITXERS
+vareta-de-vidre_6x200mm.blend: model editable (model i estudi en col·leccions separades).
+vareta-de-vidre_6x200mm.glb: només la vareta, amb metadades a l'arrel i a la malla.
+vareta-de-vidre_6x200mm.png: vista prèvia.
+metadades.json: identificadors, mides, massa i fonts.
+crear-vareta-de-vidre_6x200mm.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Càpsula de vidre: cilindre de 6 mm de diàmetre i 200 mm de llargada amb els
+dos caps semisfèrics (vores flamejades). Borosilicat 3.3.
+Origen a la punta inferior (z = 0), eix vertical, escales aplicades.
+Malla estanca: 514 vèrtexs, 544 cares, no_manifold = 0, 5,56 cm³ (≈ 12,4 g).
+La imatge prèvia es fa amb la vareta tombada; el model desat està dret.
+
+WEB
+Material: Principled BSDF amb Transmission 1,0, Roughness 0,05, IOR 1,45 i
+color blanc. Al GLB surt com a KHR_materials_transmission (no alpha).
+Això vol dir que a Three.js cal un scene.environment (HDRI o RoomEnvironment)
+perquè es vegi com a vidre; sense entorn, una peça tan fina surt grisa.
+És diferent de la proveta i el matràs, que fan servir alphaMode BLEND 0,065:
+amb una vareta de 6 mm, l'alpha la faria pràcticament invisible.
+Extras/userData a l'arrel i a la malla: tool_id («vareta-de-vidre»),
+variant_id («vareta-de-vidre_6x200mm»), label_ca, display_name,
+category («manipulacio»), capacity_ml (0), material_type («vidre»),
+graduation_type («none»), usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Remenar dissolucions, fer córrer líquid per la paret del got quan s'aboca
+i ajudar a barrejar sense esquitxar.
+
+LIMITACIONS
+No té graduació ni cap funció de mesura: capacity_ml és 0 a propòsit.
+No s'ha modelat cap irregularitat de fabricació (les varetes reals no són
+perfectament rectes ni tenen el diàmetre constant al llarg de tota la peça).

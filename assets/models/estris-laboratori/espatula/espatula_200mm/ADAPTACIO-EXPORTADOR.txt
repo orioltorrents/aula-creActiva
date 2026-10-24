@@ -1,0 +1,48 @@
+ADAPTACIÓ NECESSÀRIA A L'EXPORTADOR DE LA BIBLIOTECA
+======================================================
+
+Aquest paquet NO s'ha aplicat a la biblioteca de producció. L'exportador
+actual (estris-laboratori/exporta-estri-web.py) rebutjaria aquesta variant:
+
+  1. TOOL_TYPES no té "espatula" -> "Unknown tool category folder".
+  2. El nom de variant ha de complir r"_(\d+)ml$"; "espatula_200mm" no hi
+     encaixa i peta amb "Variant folder must end with _<capacity>ml".
+  3. L'etiqueta es construeix com "<nom> de <N> mL", que aquí no té sentit.
+  4. capacity_ml s'obté del nom; aquí ha de ser 0.
+  5. graduation_type és binari; una espàtula sense graduació ha de ser "none".
+
+Canvis concrets a exporta-estri-web.py
+--------------------------------------
+1) TOOL_TYPES:
+     "espatula": ("espatula", "Espàtula"),
+2) TOOL_USES:
+     "espatula": ["take-solid", "scrape", "weigh-solid"],
+3) Etiqueta i capacity per categoria:
+     if tool_id == "espatula":
+         m = re.fullmatch(r"espatula_(\d+)mm", variant_id)
+         if not m: raise RuntimeError(...)
+         label = f"Espàtula de laboratori amb cullereta ({m.group(1)} mm)"
+         capacity_ml = 0
+     else:
+         (lògica actual)
+4) find_model_root(tool_id, capacity_ml=None): si capacity_ml és None,
+   filtrar només per "tipus" (l'arrel té tipus "espatula").
+5) TOOL_GRADUATION: "espatula": "none",
+6) Nota pròpia: "No mesura res: no té graduació. Serveix per agafar sòlids,
+   raspar el fons dels recipients i carregar la balança."
+
+Entrada de catàleg equivalent (per quan s'adapti)
+-------------------------------------------------
+  {
+    "tool_id": "espatula",
+    "variant_id": "espatula_200mm",
+    "label_ca": "Espàtula de laboratori amb cullereta (200 mm)",
+    "capacity_ml": 0,
+    "graduation_type": "none",
+    "usage_tags": ["take-solid", "scrape", "weigh-solid"],
+    "measurement_note_ca": "No mesura res: no té graduació. Serveix per agafar sòlids, raspar el fons dels recipients i carregar la balança.",
+    "model": "espatula/espatula_200mm/espatula_200mm.glb"
+  }
+
+Mentre no s'adapti, aquest paquet és autònom: crear-espatula_200mm.py genera
+el .blend, el .glb i el .png, i verifica-paquet.py comprova el resultat.

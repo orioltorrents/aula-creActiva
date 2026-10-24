@@ -1,0 +1,39 @@
+EMBUT DE VIDRE — Ø 100 mm, 150 mm d'alçada
+
+FITXERS
+embut_100mm.blend: model editable (model i estudi en col·leccions separades).
+embut_100mm.glb: només l'embut, amb metadades a l'arrel i a la malla.
+embut_100mm.png: vista prèvia.
+metadades.json: identificadors, mides i fonts.
+crear-embut_100mm.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Embut cònic de vidre: boca de 100 mm, alçada total 150 mm, con de 60°,
+coll de 10 mm exterior i 7,2 interior, punta bisellada, paret d'1,2 mm.
+És un tub obert pels dos caps: el perfil de revolució és un contorn tancat
+que no toca mai l'eix, i per això la malla té un forat passant (no_manifold 0).
+Origen a la punta del coll, a z = 0. Escales aplicades.
+La imatge prèvia es fa amb l'embut tombat, recolzat sobre la boca i la punta;
+el model desat està dret.
+
+WEB
+Material: Principled BSDF amb Transmission 1,0, Roughness 0,05, IOR 1,45 i
+color blanc. Al GLB surt com a KHR_materials_transmission (no alpha).
+Cal un `scene.environment` al visor perquè el vidre es vegi; sense entorn
+sortirà gris i apagat.
+Extras/userData a l'arrel i a la malla: tool_id («embut»), variant_id
+(«embut_100mm»), label_ca, display_name, category («manipulacio»),
+capacity_ml (0), material_type («vidre»), graduation_type («none»),
+usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Filtrar (amb paper de filtre) i traspassar líquids a recipients de coll
+estret, com matrassos aforats o provetes.
+
+LIMITACIONS
+No té graduació ni cap funció de mesura: capacity_ml és 0 a propòsit.
+No s'ha modelat el paper de filtre ni la vora rectificada de la boca.
+El gruix de paret és constant a tot el model; a la punta real el vidre
+s'aprima i sovint s'esmola.

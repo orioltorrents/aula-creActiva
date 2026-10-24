@@ -88,7 +88,11 @@
         "measure-volume"
       ],
       "measurement_note_ca": "Model didàctic; no certificat de calibratge.",
-      "model": "proveta/proveta_500ml/proveta_500ml.glb"
+      "model": "proveta/proveta_500ml/proveta_500ml.glb",
+      "models_with_liquid": {
+        "200ml": "proveta/proveta_500ml/proveta_500ml-amb-liquid-200ml.glb",
+        "300ml": "proveta/proveta_500ml/proveta_500ml-amb-liquid-300ml.glb"
+      }
     },
     {
       "tool_id": "proveta",
@@ -216,6 +220,48 @@
       ],
       "measurement_note_ca": "Tub sense graduacions per fer petites reaccions de prova.",
       "model": "tub-dassaig/tub-dassaig_16x150mm/tub-dassaig_16x150mm.glb"
+    },
+    {
+      "tool_id": "espatula",
+      "variant_id": "espatula_200mm",
+      "label_ca": "Espàtula de laboratori amb cullereta (200 mm)",
+      "capacity_ml": 0,
+      "graduation_type": "none",
+      "usage_tags": [
+        "take-solid",
+        "scrape",
+        "weigh-solid"
+      ],
+      "measurement_note_ca": "No mesura res: serveix per agafar sòlids, raspar recipients i carregar la balança.",
+      "model": "espatula/espatula_200mm/espatula_200mm.glb"
+    },
+    {
+      "tool_id": "vareta-de-vidre",
+      "variant_id": "vareta-de-vidre_6x200mm",
+      "label_ca": "Vareta de vidre per remenar (6 × 200 mm)",
+      "capacity_ml": 0,
+      "graduation_type": "none",
+      "usage_tags": [
+        "stir",
+        "mix",
+        "guide-liquid"
+      ],
+      "measurement_note_ca": "No mesura res: serveix per remenar i guiar líquids per la paret del recipient.",
+      "model": "vareta-de-vidre/vareta-de-vidre_6x200mm/vareta-de-vidre_6x200mm.glb"
+    },
+    {
+      "tool_id": "pipeta-pasteur",
+      "variant_id": "pipeta-pasteur_3mL",
+      "label_ca": "Pipeta Pasteur de plàstic de 3 mL",
+      "capacity_ml": 3,
+      "graduation_type": "none",
+      "usage_tags": [
+        "transfer-small-volumes",
+        "drop-liquid",
+        "sample"
+      ],
+      "measurement_note_ca": "No té escala: els 3 mL són la capacitat nominal, no un volum que es pugui mesurar amb precisió.",
+      "model": "pipeta-pasteur/pipeta-pasteur_3mL/pipeta-pasteur_3mL.glb"
     }
   ]
 }

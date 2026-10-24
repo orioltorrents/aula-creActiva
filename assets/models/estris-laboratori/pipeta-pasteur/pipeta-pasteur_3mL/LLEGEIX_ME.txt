@@ -1,0 +1,37 @@
+PIPETA PASTEUR DE PLÀSTIC — 3 mL, 155 mm
+
+FITXERS
+pipeta-pasteur_3mL.blend: model editable (model i estudi en col·leccions separades).
+pipeta-pasteur_3mL.glb: només la pipeta, amb metadades a l'arrel i a la malla.
+pipeta-pasteur_3mL.png: vista prèvia.
+metadades.json: identificadors, mides i fonts.
+crear-pipeta-pasteur_3mL.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Pipeta de transferència de LDPE: bulb de succió de 16 mm de diàmetre i uns
+40 mm de llarg, tub de 7,2 mm exterior (6,0 interior) i punta cònica fins a
+1,4 mm. Llargada total 155 mm, paret de 0,6 mm.
+Origen a la punta, a z = 0. Escales aplicades.
+Malla estanca (no_manifold = 0): el perfil tanca amb dos pols al bulb i un
+anell a la punta, que és el forat de pas.
+
+WEB
+Material: Principled BSDF amb Alpha 0,55, Roughness 0,25 i color blanc
+blavós; al GLB surt com alphaMode BLEND. És LDPE translúcid, no plàstic
+blau: el blau de laboratori s'ha reservat per a suports com la gradeta.
+Extras/userData a l'arrel i a la malla: tool_id («pipeta-pasteur»),
+variant_id («pipeta-pasteur_3mL»), label_ca, display_name,
+category («manipulacio»), capacity_ml (3), material_type («plastic»),
+graduation_type («none»), usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Traspassar volums petits, comptar gotes i agafar mostres. És l'estri que
+s'usa quan no cal precisió; per mesurar, proveta o pipeta graduada.
+
+LIMITACIONS
+No té escala: els 3 mL són la capacitat nominal del bulb, no un volum
+mesurable. El model no porta cap marca impresa.
+No s'ha modelat la deformació del bulb en prémer-lo ni el gruix variable
+de la punta.

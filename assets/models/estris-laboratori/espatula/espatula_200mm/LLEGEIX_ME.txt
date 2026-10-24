@@ -1,0 +1,46 @@
+ESPÀTULA DE LABORATORI AMB CULLERETA — 200 mm
+
+FITXERS
+espatula_200mm.blend: model editable (model i estudi en col·leccions separades).
+espatula_200mm.glb: només l'espàtula, amb metadades a l'arrel i a la malla.
+espatula_200mm.png: vista prèvia.
+metadades.json: identificadors, mides i fonts.
+crear-espatula_200mm.py: genera el .blend, el .glb i el .png.
+verifica-paquet.py: comprova el paquet.
+ADAPTACIO-EXPORTADOR.txt: què cal canviar a l'exportador de la biblioteca.
+
+MODEL
+Espàtula d'acer inoxidable de 200 mm: cullereta ovalada de 32 × 24,4 mm i
+7,5 mm de fondària en un extrem, mànec pla d'1,2 mm de gruix i pala plana de
+25,6 mm d'amplada a l'altre.
+Origen al punt més baix (fons de la cullereta), a z = 0; la resta de la peça
+queda per sobre. Escales aplicades.
+Malla estanca: no_manifold = 0. Dues closques (cullereta amb gruix i xapa
+extruïda) unides en un sol objecte.
+
+CONSTRUCCIÓ
+- Cullereta: paraboloide el·líptic amb Solidify de 0,7 mm cap amunt, perquè
+  el fons quedi a z = 0 i la peça tingui gruix real.
+- Mànec i pala: un contorn 2D extruït 1,2 mm. Les cantonades de la pala són
+  arrodonides al contorn, no amb bisell.
+- Les dues closques se superposen al coll: no comparteixen cap cara, i per
+  tant no hi ha z-fighting.
+
+WEB
+Material: Principled BSDF amb Metallic 1,0, Roughness 0,22 i color
+(0,72 / 0,74 / 0,77). És acer polit: necessita un entorn al visor per tenir
+reflexos; sense `scene.environment` es veurà gris mat.
+Extras/userData a l'arrel i a la malla: tool_id («espatula»), variant_id
+(«espatula_200mm»), label_ca, display_name, category («manipulacio»),
+capacity_ml (0), material_type («metall»), graduation_type («none»),
+usage_tags i measurement_note_ca.
+
+ÚS DIDÀCTIC
+Agafar sòlids (reactius en pols, cristalls), raspar les parets i el fons
+d'un recipient, i carregar la balança sense fer servir paper.
+
+LIMITACIONS
+No té graduació ni cap funció de mesura.
+El model no reprodueix el polit ni les marques de conformitat de l'acer.
+La cullereta és un paraboloide: la forma real és més aviat un bol amb la vora
+aixecada, i no s'ha modelat aquesta vora.

@@ -1,0 +1,59 @@
+{
+  "tool_id": "embut",
+  "variant_id": "embut_100mm",
+  "label_ca": "Embut de vidre de 100 mm",
+  "display_name": "Embut de vidre",
+  "category": "manipulacio",
+  "capacity_ml": 0,
+  "material_type": "vidre",
+  "graduation_type": "none",
+  "usage_tags": [
+    "filter",
+    "transfer-liquid",
+    "fill-container"
+  ],
+  "measurement_note_ca": "No mesura res: no té graduació. Serveix per filtrar i per traspassar líquids a un recipient de coll estret.",
+  "material": "borosilicat 3.3",
+  "dimensions": {
+    "rim_diameter_mm": 100.0,
+    "height_mm": 150.0,
+    "stem_outer_mm": 10.0,
+    "stem_inner_mm": 7.2,
+    "cone_angle_deg": 60.0,
+    "wall_mm": 1.2
+  },
+  "sources": [
+    {
+      "tipus": "referència visual",
+      "dada": "embut cònic de vidre amb coll recte i punta bisellada, con de 60°",
+      "url": null
+    },
+    {
+      "tipus": "geometria del model",
+      "dada": "Ø 100 mm, 150 mm d'alçada, no_manifold 0, paret 1,2 mm",
+      "url": null
+    }
+  ],
+  "files": {
+    "blend": "embut_100mm.blend",
+    "glb": "embut_100mm.glb",
+    "png": "embut_100mm.png",
+    "script_creacio": "crear-embut_100mm.py",
+    "script_verificacio": "verifica-paquet.py",
+    "llegeix_me": "LLEGEIX_ME.txt"
+  },
+  "model": {
+    "objects": [
+      "embut_100mm",
+      "TOOL_embut"
+    ],
+    "collections": [
+      "EMBUT_100mm · model",
+      "ESTUDI · camera i llums"
+    ],
+    "units": "metres",
+    "scale_length": 1.0,
+    "origin": "punta del coll, a z = 0"
+  },
+  "verified_with": "Blender 5.2.3 LTS"
+}
