@@ -1,3 +1,25 @@
+
+.bio-cellula-eucariota__option {
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--card-bg);
+}
+
+.bio-cellula-eucariota__option:hover {
+    border-color: var(--primary-color);
+}
+
+.bio-cellula-eucariota__help {
+    width: min(100%, 42rem);
+    margin: 0 auto 1rem;
+    padding: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-bg);
+    color: var(--text-color);
+    text-align: left;
+}
+
 .bio-cellula-eucariota__explanation {
     margin-top: 1rem;
     padding: 1rem;
@@ -27,4 +49,19 @@
     0% { transform: scale(1); }
     45% { transform: scale(1.02); }
     100% { transform: scale(1); }
+}
+
+.bio-cellula-eucariota__help-title {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.bio-cellula-eucariota__help-list {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+}
+
+.bio-cellula-eucariota__help-term {
+    font-weight: 700;
 }

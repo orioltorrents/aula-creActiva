@@ -33,7 +33,7 @@
 
 ### 2026-10-26 - La cèl·lula eucariota
 - Afegit el qüestionari de 1r ESO amb 20 preguntes, filtres per tema i dificultat, i quatre opcions per pregunta.
-- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats` i mostra explicacions amb pas manual entre preguntes.
+- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats`, mostra explicacions amb pas manual entre preguntes, admet variants de dificultat, té un glossari d’ajuda contextual i conserva el nom de l’alumne a la capçalera de les activitats.
 
 ### 2026-10-24 - Correccions de noms visibles
 - Actualitzat “Radio” a “Ràdio 2n ESO”.

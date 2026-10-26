@@ -124,6 +124,25 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
         q: 'Un arbre pot mantenir el tronc dret sense tenir ossos perquè...',
         correct: 'Les parets cel·lulars de moltes cèl·lules vegetals aporten estructura i rigidesa',
         explanation: 'La paret de moltes cèl·lules juntes funciona com una xarxa de suport i contribueix a la fermesa dels teixits.',
+        variants: {
+            easy: {
+                q: 'Quina estructura ajuda una planta a mantenir-se dreta?',
+                correct: 'La paret cel·lular',
+                explanation: 'La paret cel·lular és rígida i ajuda a donar suport a les cèl·lules vegetals.',
+                alternatives: ['La paret cel·lular', 'El nucli', 'Els cloroplasts', 'La membrana cel·lular']
+            },
+            hard: {
+                q: 'Quina explicació relaciona millor la paret cel·lular amb la fermesa d’un arbre?',
+                correct: 'Les parets resistents de moltes cèl·lules s’organitzen en teixits que suporten el tronc',
+                explanation: 'La rigidesa no depèn d’una sola cèl·lula, sinó de l’organització de moltes cèl·lules i les seves parets en teixits.',
+                alternatives: [
+                    'Les parets resistents de moltes cèl·lules s’organitzen en teixits que suporten el tronc',
+                    'Els cloroplasts fabriquen una estructura semblant als ossos',
+                    'El nucli acumula minerals que endureixen el tronc',
+                    'La membrana cel·lular converteix l’aigua en teixit ossi'
+                ]
+            }
+        },
         alternatives: [
             'Les parets cel·lulars de moltes cèl·lules vegetals aporten estructura i rigidesa',
             'Les cèl·lules vegetals estan plenes d’un gas que les fa pujar',
@@ -136,6 +155,25 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
         q: 'Per què una planta es pot pansir quan passa uns dies sense aigua?',
         correct: 'Els vacúols perden aigua, la cèl·lula perd pressió i la planta queda menys rígida',
         explanation: 'L’aigua manté una pressió interna contra la paret. Quan disminueix, els teixits perden part de la seva fermesa.',
+        variants: {
+            easy: {
+                q: 'Què passa amb una planta quan els seus vacúols perden molta aigua?',
+                correct: 'Les cèl·lules perden pressió i la planta es panseix',
+                explanation: 'Quan els vacúols perden aigua, les cèl·lules estan menys turgents i la planta queda menys ferma.',
+                alternatives: ['Les cèl·lules perden pressió i la planta es panseix', 'Els cloroplasts desapareixen', 'El nucli surt de la cèl·lula', 'La paret cel·lular es converteix en membrana']
+            },
+            hard: {
+                q: 'Quina cadena causa-efecte explica millor el pansiment d’una planta?',
+                correct: 'Pèrdua d’aigua del vacúol, disminució de la turgència i menor suport dels teixits',
+                explanation: 'El canvi visible de la planta es pot explicar relacionant l’aigua del vacúol amb la pressió contra la paret cel·lular.',
+                alternatives: [
+                    'Pèrdua d’aigua del vacúol, disminució de la turgència i menor suport dels teixits',
+                    'Pèrdua del nucli, desaparició del material genètic i aturada de la fotosíntesi',
+                    'Augment dels cloroplasts, absorció de llum i contracció de la paret',
+                    'Trencament de la membrana, entrada d’aire i buidatge del citoplasma'
+                ]
+            }
+        },
         alternatives: [
             'Els vacúols perden aigua, la cèl·lula perd pressió i la planta queda menys rígida',
             'El nucli s’evapora i la cèl·lula deixa de tenir material genètic',
@@ -160,6 +198,25 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
         q: 'Un llimac de mar verd pot viure mesos amb poca alimentació perquè conserva cloroplasts d’algues dins les seves cèl·lules. Què li permeten fer?',
         correct: 'Fer fotosíntesi i obtenir matèria orgànica utilitzant la llum',
         explanation: 'Aquest llimac conserva cloroplasts d’algues, que poden continuar captant llum i fent fotosíntesi dins les seves cèl·lules.',
+        variants: {
+            easy: {
+                q: 'Quina funció dels cloroplasts ajuda el llimac de mar?',
+                correct: 'Fer fotosíntesi utilitzant la llum',
+                explanation: 'Els cloroplasts poden utilitzar la llum per fabricar matèria orgànica mitjançant la fotosíntesi.',
+                alternatives: ['Fer fotosíntesi utilitzant la llum', 'Guardar els ossos de l’animal', 'Fer circular la sang', 'Controlar els moviments del llimac']
+            },
+            hard: {
+                q: 'Com pot un animal obtenir matèria orgànica a partir de la llum en aquest cas excepcional?',
+                correct: 'Conservant cloroplasts funcionals d’algues dins les seves cèl·lules',
+                explanation: 'L’animal no es converteix en una planta: conserva cloroplasts que mantenen la capacitat fotosintètica.',
+                alternatives: [
+                    'Conservant cloroplasts funcionals d’algues dins les seves cèl·lules',
+                    'Transformant els mitocondris animals en cloroplasts',
+                    'Absorbint aliments directament a través de la pell gràcies al color verd',
+                    'Convertint el nucli en una estructura capaç de captar llum'
+                ]
+            }
+        },
         alternatives: [
             'Fer fotosíntesi i obtenir matèria orgànica utilitzant la llum',
             'Transformar les cèl·lules animals en ossos',
@@ -238,7 +295,122 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
             'És una cèl·lula animal sense orgànuls',
             'És un mitocondri independent'
         ]
+    },
+    {
+        topic: 'Estructures', level: 'easy',
+        q: 'Quina estructura delimita tant una cèl·lula animal com una cèl·lula vegetal?',
+        correct: 'La membrana cel·lular',
+        explanation: 'La membrana cel·lular envolta totes dues cèl·lules i controla l’intercanvi de substàncies.',
+        alternatives: [
+            'La paret cel·lular',
+            'La membrana cel·lular',
+            'El cloroplast',
+            'El vacúol'
+        ]
+    },
+    {
+        topic: 'Model', level: 'easy',
+        q: 'Quina estructura conté la informació genètica de la cèl·lula eucariota?',
+        correct: 'El nucli',
+        explanation: 'En les cèl·lules eucariotes, la major part del material genètic es troba dins del nucli.',
+        alternatives: [
+            'El nucli',
+            'El vacúol',
+            'El citoplasma',
+            'La paret cel·lular'
+        ]
+    },
+    {
+        topic: 'Estructures', level: 'easy',
+        q: 'Quina d’aquestes estructures no trobem habitualment en una cèl·lula animal?',
+        correct: 'La paret cel·lular',
+        explanation: 'La paret cel·lular és una estructura pròpia de les cèl·lules vegetals.',
+        alternatives: [
+            'La membrana cel·lular',
+            'El citoplasma',
+            'La paret cel·lular',
+            'El nucli'
+        ]
+    },
+    {
+        topic: 'Funcions', level: 'medium',
+        q: 'Una planta està exposada a la llum. Quina estructura de les seves cèl·lules aprofita aquesta energia?',
+        correct: 'El cloroplast',
+        explanation: 'Els cloroplasts contenen clorofil·la i capten energia lumínica per fer la fotosíntesi.',
+        alternatives: [
+            'El nucli',
+            'El vacúol',
+            'El cloroplast',
+            'La membrana'
+        ]
+    },
+    {
+        topic: 'Funcions', level: 'medium',
+        q: 'Per què una cèl·lula vegetal pot mantenir-se més rígida quan té prou aigua?',
+        correct: 'Perquè el vacúol ple d’aigua exerceix pressió contra la paret cel·lular',
+        explanation: 'L’aigua acumulada al vacúol augmenta la pressió interna i ajuda a mantenir la cèl·lula turgent.',
+        alternatives: [
+            'Perquè el nucli es fa més pesant',
+            'Perquè el vacúol ple d’aigua exerceix pressió contra la paret cel·lular',
+            'Perquè els cloroplasts es converteixen en músculs',
+            'Perquè la membrana fabrica ossos microscòpics'
+        ]
+    },
+    {
+        topic: 'Model', level: 'medium',
+        q: 'Quina afirmació explica millor la relació entre una cèl·lula vegetal i una fulla?',
+        correct: 'Les cèl·lules vegetals s’organitzen en teixits que formen la fulla',
+        explanation: 'Moltes cèl·lules especialitzades s’organitzen en teixits i òrgans amb funcions concretes.',
+        alternatives: [
+            'Una fulla és una única cèl·lula gegant',
+            'Les cèl·lules vegetals s’organitzen en teixits que formen la fulla',
+            'La fulla està formada només per cloroplasts',
+            'Les cèl·lules només serveixen per donar color a la fulla'
+        ]
+    },
+    {
+        topic: 'Funcions', level: 'hard',
+        q: 'Dues cèl·lules vegetals tenen la mateixa forma, però una té el vacúol molt més petit. Què és més probable?',
+        correct: 'La cèl·lula amb el vacúol petit té menys pressió interna',
+        explanation: 'Un vacúol menys ple sol exercir menys pressió contra la paret cel·lular.',
+        alternatives: [
+            'La cèl·lula amb el vacúol petit té menys pressió interna',
+            'La cèl·lula amb el vacúol petit no té material genètic',
+            'La cèl·lula amb el vacúol petit té més cloroplasts obligatòriament',
+            'La cèl·lula amb el vacúol petit és una cèl·lula animal'
+        ]
+    },
+    {
+        topic: 'Estructures', level: 'hard',
+        q: 'Quina observació permet descartar que una cèl·lula sigui animal?',
+        correct: 'La presència simultània de paret cel·lular i cloroplasts',
+        explanation: 'La paret cel·lular i els cloroplasts són estructures característiques de les cèl·lules vegetals.',
+        alternatives: [
+            'La presència d’un nucli',
+            'La presència simultània de paret cel·lular i cloroplasts',
+            'La presència de citoplasma',
+            'La presència de membrana cel·lular'
+        ]
     }
+];
+
+const BIO_CELLULA_EUCARIOTA_GLOSSARY = [
+    ['material genètic', 'Informació que indica com és i com funciona una cèl·lula.'],
+    ['membrana cel·lular', 'Capa que envolta la cèl·lula i controla què entra i què en surt.'],
+    ['paret cel·lular', 'Capa rígida que ajuda a protegir i sostenir les cèl·lules vegetals.'],
+    ['matèria orgànica', 'Substància que els éssers vius fabriquen o utilitzen per créixer i obtenir energia.'],
+    ['cloroplasts', 'Orgànuls de les cèl·lules vegetals que capten la llum i permeten fer la fotosíntesi.'],
+    ['fotosíntesi', 'Procés pel qual les plantes utilitzen la llum per fabricar el seu aliment.'],
+    ['citoplasma', 'Material gelatinós de dins de la cèl·lula on es troben moltes estructures.'],
+    ['ribosomes', 'Estructures petites que ajuden la cèl·lula a fabricar proteïnes.'],
+    ['mitocondris', 'Orgànuls que ajuden a obtenir energia a partir dels nutrients.'],
+    ['orgànuls', 'Estructures de dins de la cèl·lula que fan funcions concretes.'],
+    ['eucariota', 'Cèl·lula que té el material genètic dins d’un nucli.'],
+    ['vacúol', 'Compartiment que pot guardar aigua i altres substàncies dins de la cèl·lula vegetal.'],
+    ['turgència', 'Pressió que fa l’aigua de dins de la cèl·lula contra la paret cel·lular.'],
+    ['turgent', 'En estat ferm perquè la cèl·lula té prou aigua i pressió interna.'],
+    ['teixits', 'Conjunts de cèl·lules semblants que treballen juntes.'],
+    ['nucli', 'Estructura que conté i protegeix la major part del material genètic.']
 ];
 
 const bioCellulaEucariotaQuiz = {
@@ -319,16 +491,60 @@ function createBioCellulaFilterButton(label, value, modifier, type = 'topic') {
     return button;
 }
 
+function getBioCellulaQuestionVariant(question, level) {
+    const variant = question.variants && question.variants[level];
+    return variant ? { ...question, ...variant, level } : question;
+}
+
+function renderBioCellulaHelp(question) {
+    const button = document.getElementById('bio-cellula-eucariota-help');
+    const panel = document.getElementById('bio-cellula-eucariota-help-panel');
+    if (!button || !panel) return;
+
+    const text = [question.q, question.explanation, ...question.alternatives].join(' ').toLowerCase();
+    const terms = BIO_CELLULA_EUCARIOTA_GLOSSARY.filter(([term]) => text.includes(term));
+    panel.innerHTML = '';
+    panel.classList.add('hidden');
+    button.classList.toggle('hidden', terms.length === 0);
+    if (terms.length === 0) return;
+
+    const title = document.createElement('div');
+    title.className = 'bio-cellula-eucariota__help-title';
+    title.textContent = 'Paraules clau';
+    panel.appendChild(title);
+
+    const list = document.createElement('dl');
+    list.className = 'bio-cellula-eucariota__help-list';
+    terms.forEach(([term, definition]) => {
+        const termElement = document.createElement('div');
+        const label = document.createElement('dt');
+        label.className = 'bio-cellula-eucariota__help-term';
+        label.textContent = term;
+        const description = document.createElement('dd');
+        description.textContent = definition;
+        termElement.append(label, description);
+        list.appendChild(termElement);
+    });
+    panel.appendChild(list);
+    button.onclick = () => panel.classList.toggle('hidden');
+}
+
 function startBioCellulaQuiz(type, value, label) {
     let pool = [...BIO_CELLULA_EUCARIOTA_QUESTIONS];
     if (type === 'topic') pool = pool.filter(question => question.topic === value);
-    if (type === 'level') pool = pool.filter(question => question.level === value);
+    if (type === 'level') {
+        pool = pool.filter(question => question.level === value || question.variants?.[value]);
+    }
     if (pool.length === 0) return;
 
-    bioCellulaEucariotaQuiz.activeQuestions = shuffleBioCellula(pool).slice(0, 10).map(question => ({
-        ...question,
-        alternatives: shuffleBioCellula(question.alternatives)
-    }));
+    bioCellulaEucariotaQuiz.activeQuestions = shuffleBioCellula(pool).slice(0, 10).map(question => {
+        const level = type === 'level' ? value : question.level;
+        const selectedQuestion = getBioCellulaQuestionVariant(question, level);
+        return {
+            ...selectedQuestion,
+            alternatives: shuffleBioCellula(selectedQuestion.alternatives)
+        };
+    });
     bioCellulaEucariotaQuiz.currentQuestion = 0;
     bioCellulaEucariotaQuiz.score = 0;
     bioCellulaEucariotaQuiz.locked = false;
@@ -349,13 +565,14 @@ function renderBioCellulaQuestion() {
         `Pregunta ${quiz.currentQuestion + 1} de ${quiz.activeQuestions.length}`;
     document.getElementById('bio-cellula-eucariota-score').textContent = `Punts: ${quiz.score}`;
     document.getElementById('bio-cellula-eucariota-question').textContent = question.q;
+    renderBioCellulaHelp(question);
 
     const options = document.getElementById('bio-cellula-eucariota-options');
     options.innerHTML = '';
     question.alternatives.forEach(answer => {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = 'btn quiz-option-button text-left';
+        button.className = 'btn quiz-option-button bio-cellula-eucariota__option text-left';
         button.textContent = answer;
         button.addEventListener('click', () => answerBioCellulaQuestion(button, answer));
         options.appendChild(button);

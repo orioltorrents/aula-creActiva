@@ -114,6 +114,15 @@ function setGameTitle(title) {
     const fallbackTitle = state.currentProject ? state.currentProject.titol : 'Activitat';
     state.currentGameTitle = title || fallbackTitle;
 
+    const gameUserName = document.getElementById('game-user-name');
+    if (gameUserName) {
+        const userName = state.user
+            ? [state.user.nom, state.user.cognoms].filter(Boolean).join(' ').trim()
+            : '';
+        gameUserName.textContent = userName;
+        gameUserName.classList.toggle('hidden', !userName);
+    }
+
     const gameTitle = document.getElementById('game-title');
     if (gameTitle) {
         gameTitle.textContent = state.currentGameTitle;
