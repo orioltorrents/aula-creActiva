@@ -1727,9 +1727,13 @@ function showBioMenu() {
 
 function updateBioCourseVisibility() {
     const currentCourse = getCurrentBioCourseNumber();
+    const scope = getCurrentBioProjectScope();
     document.querySelectorAll('#bio-systems-menu [data-bio-courses]').forEach(card => {
         const allowedCourses = String(card.dataset.bioCourses || '').split(/\s+/);
-        card.classList.toggle('hidden', !allowedCourses.includes(currentCourse));
+        const systemId = card.getAttribute('data-bio-system');
+        const isAllowedByScope = !scope || !systemId || scope.includes(systemId);
+        const isVisible = allowedCourses.includes(currentCourse) && isAllowedByScope;
+        card.classList.toggle('hidden', !isVisible);
     });
 }
 
