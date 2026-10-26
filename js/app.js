@@ -1643,6 +1643,7 @@ const BIO_SYSTEM_TITLES = {
     reproductor: 'Reproductor',
     laboratori: 'Laboratori',
     conceptes: 'Conceptes de Biologia',
+    formats: 'Formats per cèl·lules',
     genetica: 'Gentica'
 };
 
@@ -1682,7 +1683,7 @@ const BIO_SENSE_TITLES = {
 };
 
 const BIO_PROJECT_SCOPES = {
-    p1_biologia: ['conceptes', 'laboratori'],
+    p1_biologia: ['conceptes', 'laboratori', 'formats'],
     p4_biologia: ['genetica']
 };
 
