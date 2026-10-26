@@ -1,0 +1,30 @@
+.bio-cellula-eucariota__explanation {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-left: 4px solid var(--primary-color);
+    border-radius: var(--radius-md);
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    text-align: left;
+}
+
+.bio-cellula-eucariota__option--correct,
+.bio-cellula-eucariota__option--incorrect {
+    animation: bio-cellula-eucariota-answer 0.45s ease-out;
+}
+
+.bio-cellula-eucariota__option--correct {
+    border-color: var(--success);
+    background-color: color-mix(in srgb, var(--success) 16%, white);
+}
+
+.bio-cellula-eucariota__option--incorrect {
+    border-color: var(--error);
+    background-color: color-mix(in srgb, var(--error) 14%, white);
+}
+
+@keyframes bio-cellula-eucariota-answer {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}

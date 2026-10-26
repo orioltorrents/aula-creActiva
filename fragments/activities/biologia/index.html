@@ -422,15 +422,51 @@
                     <div id="bio-formats-activities" class="activities-grid mt-4 hidden">
                         <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="showBioMenu()">Tornar als Sistemes</button>
 
-                        <div class="activity-card activity-card--disabled" data-bio-courses="1">
+                        <div class="activity-card" data-bio-courses="1" onclick="openBioActivity('cellula-eucariota')">
                             <div class="activity-card__media">
                                 <img src="assets/images/activities/biologia/cards/targeta-cellula-animal.png" alt="La cèl·lula eucariota" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">La cèl·lula eucariota</div>
                                 <div class="activity-card__description">Consolida els coneixements sobre el model Cèl·lula</div>
-                                <span class="badge-soon">Aviat</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITAT: La cèl·lula eucariota -->
+                    <div id="bio-activity-cellula-eucariota" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('formats')">Tornar al menú</button>
+                        <div class="game-panel__header text-center">
+                            <h3>La cèl·lula eucariota</h3>
+                            <p>Consolida els coneixements sobre les cèl·lules animals i vegetals</p>
+                        </div>
+
+                        <div id="bio-cellula-eucariota-loader" class="text-center p-8 hidden">
+                            <div class="loader"></div> Carregant preguntes...
+                        </div>
+
+                        <div id="bio-cellula-eucariota-selection" class="quiz-selection-container p-6 rounded-lg shadow-sm border mb-6 bg-white">
+                            <p class="mb-4 text-center font-bold">Tria un tema o nivell:</p>
+                            <div id="bio-cellula-eucariota-filters" class="flex flex-wrap justify-center gap-4"></div>
+                        </div>
+
+                        <div id="bio-cellula-eucariota-ui" class="hidden container-white p-6 rounded-lg shadow-sm border mb-6">
+                            <div class="flex justify-between items-center mb-4 opacity-75 text-sm font-bold border-b pb-2">
+                                <div id="bio-cellula-eucariota-progress">Pregunta 1 de 10</div>
+                                <div id="bio-cellula-eucariota-score">Punts: 0</div>
+                            </div>
+                            <div id="bio-cellula-eucariota-question" class="text-xl font-bold mb-6 text-center"></div>
+                            <div id="bio-cellula-eucariota-options" class="flex flex-col gap-3 mb-4"></div>
+                            <div id="bio-cellula-eucariota-feedback" class="text-center font-bold mt-2 min-h-6"></div>
+                            <div id="bio-cellula-eucariota-explanation" class="bio-cellula-eucariota__explanation hidden" aria-live="polite"></div>
+                            <button id="bio-cellula-eucariota-next" type="button" class="btn btn--primary hidden mt-4 mx-auto">Següent pregunta</button>
+                        </div>
+
+                        <div id="bio-cellula-eucariota-results" class="result-screen hidden text-center p-8 bg-white rounded-lg shadow-sm border">
+                            <h4 class="text-2xl font-bold mb-4">Puntuació final</h4>
+                            <div id="bio-cellula-eucariota-final-score" class="result-screen__score text-5xl font-extrabold text-green-600 mb-6">0%</div>
+                            <p id="bio-cellula-eucariota-message" class="text-lg mb-8"></p>
+                            <button onclick="initBioCellulaEucariotaQuiz()" class="btn btn--primary">Tornar a començar</button>
                         </div>
                     </div>
 

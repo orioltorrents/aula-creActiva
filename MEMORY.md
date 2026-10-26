@@ -31,9 +31,9 @@
 - Afegits `p2_fisica_quimica`, `p3_fisica_quimica` i `p4_fisica_quimica` al dashboard.
 - Els tres projectes comparteixen `fragments/projects/fisica-quimica/index.html` i l'activitat `bio-activity-lab-tools-3d`.
 
-### 2026-10-24 - Ràdio per a 1r i 2n ESO
-- Afegit `p1_radio` al catàleg local i a `api/Projects.gs`.
-- Ràdio 1r ESO mostra només Connexions; Ràdio 2n ESO manté Connexions i La Taula de So.
+### 2026-10-26 - La cèl·lula eucariota
+- Afegit el qüestionari de 1r ESO amb 20 preguntes, filtres per tema i dificultat, i quatre opcions per pregunta.
+- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats` i mostra explicacions amb pas manual entre preguntes.
 
 ### 2026-10-24 - Correccions de noms visibles
 - Actualitzat “Radio” a “Ràdio 2n ESO”.

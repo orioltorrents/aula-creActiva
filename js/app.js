@@ -1660,6 +1660,7 @@ const BIO_ACTIVITY_TITLES = {
     'lab-tools': 'Laboratori',
     'microscopi-parts': 'Parts del microscopi',
     'concept-drag': 'Arrossega conceptes',
+    'cellula-eucariota': 'La cèl·lula eucariota',
     'genetica-sim': 'Genètica',
     'genetica-pedigrees': 'Pedigrees i genotips',
     'vista-parts': 'Vista',
@@ -1852,6 +1853,11 @@ function openBioActivity(actId, options = {}) {
         document.getElementById('bio-activity-concept-drag').classList.remove('hidden');
         if (typeof initBioConceptDragGame === 'function') {
             initBioConceptDragGame();
+        }
+    } else if (actId === 'cellula-eucariota') {
+        document.getElementById('bio-activity-cellula-eucariota').classList.remove('hidden');
+        if (typeof initBioCellulaEucariotaQuiz === 'function') {
+            initBioCellulaEucariotaQuiz();
         }
     } else if (actId === 'genetica-sim') {
         document.getElementById('bio-activity-genetica-sim').classList.remove('hidden');
