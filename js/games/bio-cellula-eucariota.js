@@ -345,6 +345,63 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
         ]
     },
     {
+        topic: 'Funcions', level: 'hard',
+        q: 'Dues cèl·lules vegetals tenen la mateixa forma, però una té el vacúol molt més petit. Què és més probable?',
+        correct: 'La cèl·lula amb el vacúol petit té menys pressió interna',
+        explanation: 'Un vacúol menys ple sol exercir menys pressió contra la paret cel·lular.',
+        alternatives: [
+            'La cèl·lula amb el vacúol petit té menys pressió interna',
+            'La cèl·lula amb el vacúol petit no té material genètic',
+            'La cèl·lula amb el vacúol petit té més cloroplasts obligatòriament',
+            'La cèl·lula amb el vacúol petit és una cèl·lula animal'
+        ]
+    },
+    {
+        topic: 'Estructures', level: 'hard',
+        q: 'Quina observació permet descartar que una cèl·lula sigui animal?',
+        correct: 'La presència simultània de paret cel·lular i cloroplasts',
+        explanation: 'La paret cel·lular i els cloroplasts són estructures característiques de les cèl·lules vegetals.',
+        alternatives: [
+            'La presència d’un nucli',
+            'La presència simultània de paret cel·lular i cloroplasts',
+            'La presència de citoplasma',
+            'La presència de membrana cel·lular'
+        ]
+    },
+    {
+        topic: 'Model', level: 'easy',
+        q: 'Quina és la unitat bàsica de tots els éssers vius?',
+        correct: 'La cèl·lula',
+        explanation: 'Tots els éssers vius estan formats per una o més cèl·lules.',
+        alternatives: ['L’òrgan', 'La cèl·lula', 'El teixit', 'El sistema']
+    },
+    {
+        topic: 'Model', level: 'easy',
+        q: 'Quina diferència principal hi ha entre una cèl·lula eucariota i una procariota?',
+        correct: 'La cèl·lula eucariota té el material genètic dins d’un nucli',
+        explanation: 'Les cèl·lules eucariotes tenen un nucli delimitat; les procariotes no.',
+        alternatives: [
+            'La cèl·lula eucariota té el material genètic dins d’un nucli',
+            'La cèl·lula procariota té cloroplasts',
+            'La cèl·lula eucariota no té membrana',
+            'La cèl·lula procariota sempre és més gran'
+        ]
+    },
+    {
+        topic: 'Estructures', level: 'easy',
+        q: 'On es troben la majoria dels orgànuls cel·lulars?',
+        correct: 'Al citoplasma',
+        explanation: 'El citoplasma és el medi intern on es troben moltes estructures de la cèl·lula.',
+        alternatives: ['Al citoplasma', 'A la paret cel·lular', 'Fora de la membrana', 'Dins dels cloroplasts']
+    },
+    {
+        topic: 'Estructures', level: 'easy',
+        q: 'Quina estructura es troba situada fora de la membrana cel·lular en una cèl·lula vegetal?',
+        correct: 'La paret cel·lular',
+        explanation: 'La paret cel·lular envolta la membrana i aporta protecció i rigidesa.',
+        alternatives: ['El nucli', 'La paret cel·lular', 'El mitocondri', 'El ribosoma']
+    },
+    {
         topic: 'Funcions', level: 'medium',
         q: 'Per què una cèl·lula vegetal pot mantenir-se més rígida quan té prou aigua?',
         correct: 'Perquè el vacúol ple d’aigua exerceix pressió contra la paret cel·lular',
@@ -370,26 +427,38 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
     },
     {
         topic: 'Funcions', level: 'hard',
-        q: 'Dues cèl·lules vegetals tenen la mateixa forma, però una té el vacúol molt més petit. Què és més probable?',
-        correct: 'La cèl·lula amb el vacúol petit té menys pressió interna',
-        explanation: 'Un vacúol menys ple sol exercir menys pressió contra la paret cel·lular.',
+        q: 'Una cèl·lula vegetal i una cèl·lula animal necessiten energia. Quina afirmació és correcta?',
+        correct: 'Totes dues poden utilitzar mitocondris per obtenir energia',
+        explanation: 'Les cèl·lules animals i vegetals tenen mitocondris i fan respiració cel·lular.',
         alternatives: [
-            'La cèl·lula amb el vacúol petit té menys pressió interna',
-            'La cèl·lula amb el vacúol petit no té material genètic',
-            'La cèl·lula amb el vacúol petit té més cloroplasts obligatòriament',
-            'La cèl·lula amb el vacúol petit és una cèl·lula animal'
+            'Només la cèl·lula vegetal utilitza mitocondris',
+            'Només la cèl·lula animal fa respiració cel·lular',
+            'Totes dues poden utilitzar mitocondris per obtenir energia',
+            'Els cloroplasts substitueixen sempre els mitocondris'
         ]
     },
     {
-        topic: 'Estructures', level: 'hard',
-        q: 'Quina observació permet descartar que una cèl·lula sigui animal?',
-        correct: 'La presència simultània de paret cel·lular i cloroplasts',
-        explanation: 'La paret cel·lular i els cloroplasts són estructures característiques de les cèl·lules vegetals.',
+        topic: 'Model', level: 'hard',
+        q: 'Una cèl·lula vegetal té paret cel·lular, membrana, citoplasma, nucli i cloroplasts. Quina relació és correcta?',
+        correct: 'La paret dona suport i els cloroplasts permeten aprofitar la llum',
+        explanation: 'Les estructures cel·lulars tenen funcions diferents que, juntes, permeten el funcionament de la cèl·lula.',
         alternatives: [
-            'La presència d’un nucli',
-            'La presència simultània de paret cel·lular i cloroplasts',
-            'La presència de citoplasma',
-            'La presència de membrana cel·lular'
+            'El nucli fa la fotosíntesi i el cloroplast controla la cèl·lula',
+            'La paret dona suport i els cloroplasts permeten aprofitar la llum',
+            'La membrana fabrica energia i el vacúol conté el material genètic',
+            'El citoplasma dona rigidesa i la paret fabrica proteïnes'
+        ]
+    },
+    {
+        topic: 'Funcions', level: 'hard',
+        q: 'Una planta es col·loca durant molt temps en un lloc sense llum. Quina funció es veurà més afectada directament?',
+        correct: 'La fotosíntesi dels cloroplasts',
+        explanation: 'Sense llum, els cloroplasts no poden fer correctament la fotosíntesi.',
+        alternatives: [
+            'La fotosíntesi dels cloroplasts',
+            'La protecció de la paret cel·lular',
+            'La presència del nucli',
+            'La formació de la membrana'
         ]
     }
 ];
@@ -422,6 +491,14 @@ const bioCellulaEucariotaQuiz = {
     filterLabel: 'Barrejat'
 };
 
+const bioCellulaFilterSelection = {
+    mode: '',
+    topic: '',
+    topicLabel: '',
+    level: '',
+    levelLabel: ''
+};
+
 function shuffleBioCellula(items) {
     const result = [...items];
     for (let i = result.length - 1; i > 0; i--) {
@@ -441,6 +518,11 @@ function initBioCellulaEucariotaQuiz() {
     bioCellulaEucariotaQuiz.locked = false;
     bioCellulaEucariotaQuiz.finished = false;
     bioCellulaEucariotaQuiz.filterLabel = 'Barrejat';
+    bioCellulaFilterSelection.mode = '';
+    bioCellulaFilterSelection.topic = '';
+    bioCellulaFilterSelection.topicLabel = '';
+    bioCellulaFilterSelection.level = '';
+    bioCellulaFilterSelection.levelLabel = '';
 
     activity.classList.remove('hidden');
     document.getElementById('bio-cellula-eucariota-selection').classList.remove('hidden');
@@ -463,32 +545,85 @@ function renderBioCellulaFilters() {
 
     const topicLabel = document.createElement('p');
     topicLabel.className = 'w-full text-center font-bold text-gray-600';
-    topicLabel.textContent = 'Per tema:';
+    topicLabel.textContent = 'Tria un tema:';
     container.appendChild(topicLabel);
 
     topics.forEach(topic => {
-        container.appendChild(createBioCellulaFilterButton(topic, topic, 'quiz-filter-button--topic'));
+        const button = createBioCellulaSelectionButton(topic, topic, 'quiz-filter-button--topic', 'topic');
+        button.addEventListener('click', () => {
+            bioCellulaFilterSelection.mode = 'topic';
+            bioCellulaFilterSelection.topic = topic;
+            bioCellulaFilterSelection.topicLabel = topic;
+            updateBioCellulaFilterSelection();
+        });
+        container.appendChild(button);
     });
+
+    const mixedButton = createBioCellulaSelectionButton('Temes barrejats', 'mixed', 'quiz-filter-button--mixed', 'topic');
+    mixedButton.addEventListener('click', () => {
+        bioCellulaFilterSelection.mode = 'mixed';
+        bioCellulaFilterSelection.topic = '';
+        bioCellulaFilterSelection.topicLabel = 'Temes barrejats';
+        updateBioCellulaFilterSelection();
+    });
+    container.appendChild(mixedButton);
 
     const levelLabel = document.createElement('p');
     levelLabel.className = 'w-full text-center font-bold text-gray-600 mt-4';
-    levelLabel.textContent = 'Per nivell:';
+    levelLabel.textContent = 'Tria la dificultat:';
     container.appendChild(levelLabel);
 
     levels.forEach(([value, label, modifier]) => {
-        container.appendChild(createBioCellulaFilterButton(label, value, modifier, 'level'));
+        const button = createBioCellulaSelectionButton(label, value, modifier, 'level');
+        button.addEventListener('click', () => {
+            bioCellulaFilterSelection.level = value;
+            bioCellulaFilterSelection.levelLabel = label;
+            updateBioCellulaFilterSelection();
+        });
+        container.appendChild(button);
     });
 
-    container.appendChild(createBioCellulaFilterButton('Barrejat', 'mixed', 'quiz-filter-button--mixed', 'mixed'));
+    const startButton = document.createElement('button');
+    startButton.id = 'bio-cellula-eucariota-start';
+    startButton.type = 'button';
+    startButton.className = 'btn btn--primary quiz-filter-button bio-cellula-eucariota__start mt-4';
+    startButton.textContent = 'Començar';
+    startButton.disabled = true;
+    startButton.addEventListener('click', () => {
+        const selection = bioCellulaFilterSelection;
+        startBioCellulaQuiz(
+            selection.mode,
+            selection.level,
+            selection.topic,
+            `${selection.topicLabel} · ${selection.levelLabel}`
+        );
+    });
+    container.appendChild(startButton);
 }
 
-function createBioCellulaFilterButton(label, value, modifier, type = 'topic') {
+function createBioCellulaSelectionButton(label, value, modifier, filterType) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `btn btn--primary quiz-filter-button ${modifier}`;
+    button.dataset.filterType = filterType;
+    button.dataset.filterValue = value;
     button.textContent = label;
-    button.addEventListener('click', () => startBioCellulaQuiz(type, value, label));
     return button;
+}
+
+function updateBioCellulaFilterSelection() {
+    const selection = bioCellulaFilterSelection;
+    document.querySelectorAll('#bio-cellula-eucariota-filters [data-filter-type]').forEach(button => {
+        const isSelected = button.dataset.filterType === 'topic'
+            ? (selection.mode === 'mixed' && button.dataset.filterValue === 'mixed') ||
+                (selection.mode === 'topic' && button.dataset.filterValue === selection.topic)
+            : button.dataset.filterValue === selection.level;
+        button.classList.toggle('bio-cellula-eucariota__filter--selected', isSelected);
+        button.setAttribute('aria-pressed', String(isSelected));
+    });
+
+    const startButton = document.getElementById('bio-cellula-eucariota-start');
+    if (startButton) startButton.disabled = !selection.mode || !selection.level;
 }
 
 function getBioCellulaQuestionVariant(question, level) {
@@ -529,16 +664,15 @@ function renderBioCellulaHelp(question) {
     button.onclick = () => panel.classList.toggle('hidden');
 }
 
-function startBioCellulaQuiz(type, value, label) {
+function startBioCellulaQuiz(mode, level, topic, label) {
     let pool = [...BIO_CELLULA_EUCARIOTA_QUESTIONS];
-    if (type === 'topic') pool = pool.filter(question => question.topic === value);
-    if (type === 'level') {
-        pool = pool.filter(question => question.level === value || question.variants?.[value]);
+    if (mode === 'topic') {
+        pool = pool.filter(question => question.topic === topic);
     }
+    pool = pool.filter(question => question.level === level || question.variants?.[level]);
     if (pool.length === 0) return;
 
     bioCellulaEucariotaQuiz.activeQuestions = shuffleBioCellula(pool).slice(0, 10).map(question => {
-        const level = type === 'level' ? value : question.level;
         const selectedQuestion = getBioCellulaQuestionVariant(question, level);
         return {
             ...selectedQuestion,

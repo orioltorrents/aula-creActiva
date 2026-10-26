@@ -9,6 +9,16 @@
     border-color: var(--primary-color);
 }
 
+.bio-cellula-eucariota__filter--selected {
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+
+.bio-cellula-eucariota__start {
+    flex-basis: 100%;
+    width: 100%;
+    justify-self: center;
+}
+
 .bio-cellula-eucariota__help {
     width: min(100%, 42rem);
     margin: 0 auto 1rem;
