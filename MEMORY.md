@@ -33,7 +33,7 @@
 
 ### 2026-10-26 - La cèl·lula eucariota
 - Afegit el qüestionari de 1r ESO amb 20 preguntes, filtres per tema i dificultat, i quatre opcions per pregunta.
-- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats`, mostra explicacions amb pas manual entre preguntes, admet variants de dificultat, té un glossari d’ajuda contextual i conserva el nom de l’alumne a la capçalera de les activitats. El banc actual té 41 preguntes sense duplicats i el selector mostra tema (o temes barrejats) i dificultat a la mateixa pantalla.
+- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats`, mostra explicacions amb pas manual entre preguntes, admet variants de dificultat, té un glossari d’ajuda contextual i conserva el nom de l’alumne a la capçalera de les activitats. El banc actual té 41 preguntes sense duplicats, inclou el context definit d’Elysia chlorotica i el selector mostra tema (o temes barrejats) i dificultat a la mateixa pantalla.
 
 ### 2026-10-24 - Correccions de noms visibles
 - Actualitzat “Radio” a “Ràdio 2n ESO”.

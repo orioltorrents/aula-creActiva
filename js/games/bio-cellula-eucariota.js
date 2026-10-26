@@ -195,7 +195,7 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
     },
     {
         topic: 'Funcions', level: 'medium',
-        q: 'Un llimac de mar verd pot viure mesos amb poca alimentació perquè conserva cloroplasts d’algues dins les seves cèl·lules. Què li permeten fer?',
+        q: 'L’Elysia chlorotica és un petit llimac de mar, és a dir, un animal. Pot viure mesos amb poca alimentació perquè conserva cloroplasts d’algues dins les seves cèl·lules. Què li permeten fer?',
         correct: 'Fer fotosíntesi i obtenir matèria orgànica utilitzant la llum',
         explanation: 'Aquest llimac conserva cloroplasts d’algues, que poden continuar captant llum i fent fotosíntesi dins les seves cèl·lules.',
         variants: {
@@ -206,7 +206,7 @@ const BIO_CELLULA_EUCARIOTA_QUESTIONS = [
                 alternatives: ['Fer fotosíntesi utilitzant la llum', 'Guardar els ossos de l’animal', 'Fer circular la sang', 'Controlar els moviments del llimac']
             },
             hard: {
-                q: 'Com pot un animal obtenir matèria orgànica a partir de la llum en aquest cas excepcional?',
+                q: 'L’Elysia chlorotica és un petit llimac de mar que conserva cloroplasts d’algues. Com pot obtenir matèria orgànica a partir de la llum?',
                 correct: 'Conservant cloroplasts funcionals d’algues dins les seves cèl·lules',
                 explanation: 'L’animal no es converteix en una planta: conserva cloroplasts que mantenen la capacitat fotosintètica.',
                 alternatives: [
@@ -479,6 +479,8 @@ const BIO_CELLULA_EUCARIOTA_GLOSSARY = [
     ['turgència', 'Pressió que fa l’aigua de dins de la cèl·lula contra la paret cel·lular.'],
     ['turgent', 'En estat ferm perquè la cèl·lula té prou aigua i pressió interna.'],
     ['teixits', 'Conjunts de cèl·lules semblants que treballen juntes.'],
+    ['llimac de mar', 'Animal marí de cos tou, sense closca externa rígida, com l’Elysia chlorotica.'],
+    ['Elysia chlorotica', 'Petit llimac de mar que pot conservar cloroplasts d’algues i aprofitar-los per fer fotosíntesi.'],
     ['nucli', 'Estructura que conté i protegeix la major part del material genètic.']
 ];
 
@@ -637,7 +639,7 @@ function renderBioCellulaHelp(question) {
     if (!button || !panel) return;
 
     const text = [question.q, question.explanation, ...question.alternatives].join(' ').toLowerCase();
-    const terms = BIO_CELLULA_EUCARIOTA_GLOSSARY.filter(([term]) => text.includes(term));
+    const terms = BIO_CELLULA_EUCARIOTA_GLOSSARY.filter(([term]) => text.includes(term.toLowerCase()));
     panel.innerHTML = '';
     panel.classList.add('hidden');
     button.classList.toggle('hidden', terms.length === 0);
