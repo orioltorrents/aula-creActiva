@@ -1,0 +1,35 @@
+{
+  "title": "Parts del microscopi optic",
+  "language": "ca",
+  "model": "microscopi-optic-complet.glb",
+  "parts": [
+    { "anatomy_id": "oculars", "label_ca": "Oculars", "meshes": ["MIC_Ocular_Dret", "MIC_Ocular_Esquerre", "MIC_Tub_Binocular_Dret", "MIC_Tub_Binocular_Esquerre"] },
+    { "anatomy_id": "objectius", "label_ca": "Objectius", "meshes": ["MIC_Objectiu_4x", "MIC_Objectiu_10x", "MIC_Objectiu_40x", "MIC_Objectiu_100x"] },
+    { "anatomy_id": "revolver", "label_ca": "Revòlver", "meshes": ["MIC_Revolver"] },
+    { "anatomy_id": "capcal", "label_ca": "Capçal binocular", "meshes": ["MIC_Capçal_Binocular", "MIC_Capçal", "MIC_Tub_Optic"] },
+    { "anatomy_id": "brac", "label_ca": "Braç", "meshes": ["MIC_Braç", "MIC_Columna"] },
+    { "anatomy_id": "platina", "label_ca": "Platina", "meshes": ["MIC_Platina", "MIC_Platina_Superficie", "MIC_Suport_Platina"] },
+    { "anatomy_id": "pinces", "label_ca": "Pinces i carro de la platina", "meshes": ["MIC_Pinça_Dreta", "MIC_Pinça_Esquerra", "MIC_Carro_X", "MIC_Carro_Y", "MIC_Guia_Mostra"] },
+    { "anatomy_id": "macrometric", "label_ca": "Cargol macromètric", "meshes": ["MIC_Enfocament_Macro_Dret", "MIC_Enfocament_Macro_Esquerre"] },
+    { "anatomy_id": "micrometric", "label_ca": "Cargol micromètric", "meshes": ["MIC_Enfocament_Micro_Dret", "MIC_Enfocament_Micro_Esquerre"] },
+    { "anatomy_id": "condensador", "label_ca": "Condensador i diafragma", "meshes": ["MIC_Condensador", "MIC_Condensador_Lent", "MIC_Diafragma"] },
+    { "anatomy_id": "llum", "label_ca": "Font de llum", "meshes": ["MIC_Font_Llum", "MIC_Font_Llum_Carcassa", "MIC_Font_Llum_Difusor"] },
+    { "anatomy_id": "base", "label_ca": "Base", "meshes": ["MIC_Base", "MIC_Peu_Dret_Anterior", "MIC_Peu_Dret_Posterior", "MIC_Peu_Esquerre_Anterior", "MIC_Peu_Esquerre_Posterior"] },
+    { "anatomy_id": "comandaments", "label_ca": "Comandaments de la platina", "meshes": ["MIC_Comandament_X", "MIC_Comandament_Y", "MIC_Comandaments_XY_Suport"] },
+    { "anatomy_id": "interruptor", "label_ca": "Interruptor i regulador de llum", "meshes": ["MIC_Interruptor", "MIC_Regulador_Llum"] }
+  ],
+  "questions": [
+    { "id": "oculars", "prompt": "Clica els oculars", "target_anatomy_id": "oculars" },
+    { "id": "objectius", "prompt": "Clica els objectius", "target_anatomy_id": "objectius" },
+    { "id": "revolver", "prompt": "Clica el revòlver", "target_anatomy_id": "revolver" },
+    { "id": "brac", "prompt": "Clica el braç", "target_anatomy_id": "brac" },
+    { "id": "platina", "prompt": "Clica la platina", "target_anatomy_id": "platina" },
+    { "id": "pinces", "prompt": "Clica les pinces de la platina", "target_anatomy_id": "pinces" },
+    { "id": "macrometric", "prompt": "Clica el cargol macromètric", "target_anatomy_id": "macrometric" },
+    { "id": "micrometric", "prompt": "Clica el cargol micromètric", "target_anatomy_id": "micrometric" },
+    { "id": "condensador", "prompt": "Clica el condensador i el diafragma", "target_anatomy_id": "condensador" },
+    { "id": "llum", "prompt": "Clica la font de llum", "target_anatomy_id": "llum" },
+    { "id": "base", "prompt": "Clica la base", "target_anatomy_id": "base" },
+    { "id": "capcal", "prompt": "Clica el capçal binocular", "target_anatomy_id": "capcal" }
+  ]
+}

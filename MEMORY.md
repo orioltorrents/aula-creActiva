@@ -6,6 +6,8 @@
 - El banc de laboratori inclou preguntes de noms, funcions, capacitats, materials, àcids, selecció 3D i comparació de volums.
 - Física i Química té projectes per a 2n, 3r i 4t ESO amb un únic hub i una única activitat de laboratori reutilitzada.
 - Els models i les dades del laboratori viuen a `assets/models/estris-laboratori/`.
+- El laboratori de Biologia inclou el submenú `Microscopi òptic` i l'activitat 3D comparteix el model de `assets/models/microscopi-optic/`.
+- El GLB del microscopi s'ha reexportat amb els materials clars reduïts un 18% per evitar saturació al visor web; conserva 179 nodes i totes les categories del JSON.
 - Ràdio té un projecte per a 1r ESO només amb Connexions i un projecte per a 2n ESO amb Connexions i Taula de So, compartint el mateix codi.
 
 ## Riscos oberts
@@ -13,6 +15,7 @@
 - Cal desplegar Apps Script després dels canvis de `api/Projects.gs`.
 - El catàleg del backend encara ha d'incorporar els projectes de Física i Química per mantenir-se coherent amb el catàleg local.
 - La carpeta `assets/models/estris-laboratori/reixeta/` és un canvi local pendent d'integració i no s'ha modificat.
+- Cal fer una prova manual del visor del microscopi en navegador, especialment clics sobre grups de submalles i el retorn al submenú.
 
 ## Millores pendents
 - Provar manualment que Ràdio 1r ESO només mostra Connexions i que Ràdio 2n ESO mostra Connexions i La Taula de So.
@@ -31,11 +34,11 @@
 - Afegits `p2_fisica_quimica`, `p3_fisica_quimica` i `p4_fisica_quimica` al dashboard.
 - Els tres projectes comparteixen `fragments/projects/fisica-quimica/index.html` i l'activitat `bio-activity-lab-tools-3d`.
 
-### 2026-10-26 - La cèl·lula eucariota
-- Afegit el qüestionari de 1r ESO amb 20 preguntes, filtres per tema i dificultat, i quatre opcions per pregunta.
-- L'activitat desa el resultat amb `saveResult`, està connectada a la targeta `formats`, mostra explicacions amb pas manual entre preguntes, admet variants de dificultat, té un glossari d’ajuda contextual i conserva el nom de l’alumne a la capçalera de les activitats. El banc actual té 41 preguntes sense duplicats, inclou el context definit d’Elysia chlorotica i el selector mostra tema (o temes barrejats) i dificultat a la mateixa pantalla.
+### 2026-10-27 - Microscopi òptic 3D
+- Afegides les targetes jeràrquiques de Laboratori i el submenú de parts del microscopi.
+- Afegits el JSON d'anatomia, el visor Three.js amb OrbitControls/Raycaster, preguntes de selecció i desament de resultats.
+- Validats els 179 nodes del GLB, les 14 categories configurades, les 12 preguntes, la sintaxi JavaScript i el balanç de `div` del fragment.
 
-### 2026-10-24 - Correccions de noms visibles
-- Actualitzat “Radio” a “Ràdio 2n ESO”.
-- Actualitzat “Paralimpics” a “Paralímpics”.
-- Actualitzat el nom visible del projecte Mediterrani a “Mediterràniament”.
+### 2026-10-27 - Ajust visual del microscopi
+- Rebaixats els materials clars del blend i reexportat `microscopi-optic-complet.glb`.
+- Verificada la correspondència entre el GLB reexportat i les 14 categories del JSON.

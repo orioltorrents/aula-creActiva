@@ -392,13 +392,38 @@
                             </div>
                         </div>
 
-                        <div class="activity-card" data-bio-courses="1" onclick="openBioActivity('microscopi-parts')">
+                        <div class="activity-card" onclick="openBioMicroscopiOptic()">
                             <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Microscopi" class="activity-card__image">
+                                <img src="assets/models/microscopi-optic/microscopi-revisio.png" alt="Microscopi òptic" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
-                                <div class="activity-card__title">Parts del microscopi</div>
-                                <div class="activity-card__description">Posa nom a les parts amb tres nivells</div>
+                                <div class="activity-card__title">Microscopi òptic</div>
+                                <div class="activity-card__description">Explora el model 3D i identifica les seves parts.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITATS: Microscopi òptic -->
+                    <div id="bio-microscopi-optic-activities" class="activities-grid mt-4 hidden">
+                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="openBioSystem('laboratori')">← Tornar al Laboratori</button>
+
+                        <div class="activity-card" onclick="openBioActivity('microscopi-optic-3d')">
+                            <div class="activity-card__media">
+                                <img src="assets/models/microscopi-optic/microscopi-revisio.png" alt="Parts del microscopi òptic" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts del microscopi òptic</div>
+                                <div class="activity-card__description">Gira el model 3D i clica els oculars, objectius, braç, platina i altres parts.</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card" data-bio-courses="1" onclick="openBioActivity('microscopi-parts')">
+                            <div class="activity-card__media">
+                                <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Parts del microscopi en dues dimensions" class="activity-card__image">
+                            </div>
+                            <div class="activity-card__content">
+                                <div class="activity-card__title">Parts del microscopi (2D)</div>
+                                <div class="activity-card__description">Practica les etiquetes amb tres nivells de dificultat.</div>
                             </div>
                         </div>
                     </div>
@@ -1512,6 +1537,52 @@
                                 <button onclick="initBioMicroscopiPartsGame()" class="btn btn--primary btn--auto-width">Canviar nivell</button>
                             </section>
                         </div>
+                    </div>
+
+                    <!-- ACTIVITAT: Parts del microscopi òptic 3D -->
+                    <div id="bio-activity-microscopi-optic-3d" class="sub-activity hidden">
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="returnFromBioMicroscopiOptic()">← Tornar al microscopi òptic</button>
+                        <div class="game-panel__header">
+                            <h3>Parts del microscopi òptic</h3>
+                            <p>Explora el model i identifica cada part del microscopi.</p>
+                        </div>
+
+                        <section id="bio-microscopi-optic-3d-start" class="result-screen p-6 text-center">
+                            <h4 class="text-2xl font-bold mb-3">Parts del microscopi òptic</h4>
+                            <p class="text-slate-600 mb-6">Tria si vols explorar lliurement el model o practicar amb preguntes.</p>
+                            <div class="bio-microscopi-optic-3d__mode-grid">
+                                <button class="btn btn--secondary" onclick="startBioMicroscopiOptic3D('explore')">Exploració lliure</button>
+                                <button class="btn btn--primary" onclick="startBioMicroscopiOptic3D('practice')">Practicar parts</button>
+                            </div>
+                        </section>
+
+                        <section id="bio-microscopi-optic-3d-game" class="bio-microscopi-optic-3d hidden">
+                            <div class="game-panel__stats bio-microscopi-optic-3d__stats">
+                                <div id="bio-microscopi-optic-3d-mode">Exploració lliure</div>
+                                <div>Punts: <span id="bio-microscopi-optic-3d-score">0</span> · Pregunta: <span id="bio-microscopi-optic-3d-round">0 / 0</span></div>
+                            </div>
+                            <div id="bio-microscopi-optic-3d-viewport" class="bio-microscopi-optic-3d__viewport">
+                                <canvas id="bio-microscopi-optic-3d-canvas" class="bio-microscopi-optic-3d__canvas"></canvas>
+                                <div id="bio-microscopi-optic-3d-loader" class="bio-lab-3d__loader"><div class="loader"></div><span>Carregant el microscopi 3D...</span></div>
+                                <div class="bio-lab-3d__controls-hint">Arrossega per girar · roda per ampliar</div>
+                            </div>
+                            <div class="bio-lab-3d__quiz-panel">
+                                <div id="bio-microscopi-optic-3d-prompt" class="bio-lab-3d__prompt">Clica una part del model.</div>
+                                <div id="bio-microscopi-optic-3d-selected" class="bio-microscopi-optic-3d__selected" aria-live="polite"></div>
+                                <div id="bio-microscopi-optic-3d-feedback" class="game-panel__feedback text-center mt-2 p-2 rounded hidden" aria-live="polite"></div>
+                                <div class="text-center mt-4">
+                                    <button id="bio-microscopi-optic-3d-next" class="btn btn--primary hidden" onclick="nextBioMicroscopiOptic3DQuestion()">Següent pregunta</button>
+                                    <button class="btn btn--secondary" onclick="resetBioMicroscopiOptic3DGame()">Canviar mode</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="bio-microscopi-optic-3d-results" class="result-screen hidden text-center p-8">
+                            <h4 class="text-2xl font-bold mb-3">Resultat final</h4>
+                            <div id="bio-microscopi-optic-3d-final-score" class="result-screen__score text-5xl font-extrabold mb-4">0 / 0</div>
+                            <p id="bio-microscopi-optic-3d-message" class="result-screen__message text-lg mb-6"></p>
+                            <button class="btn btn--primary" onclick="startBioMicroscopiOptic3D('practice')">Tornar a practicar</button>
+                        </section>
                     </div>
 
                     <!-- ACTIVITAT: Estris de laboratori -->
