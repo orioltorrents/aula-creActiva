@@ -18,6 +18,7 @@
     let frameId = null;
     let highlighted = [];
     let pointerStart = null;
+    let canvas = null;
 
     function get(id) { return document.getElementById(id); }
 
@@ -25,9 +26,35 @@
         if (frameId) cancelAnimationFrame(frameId);
         frameId = null;
         window.removeEventListener('resize', resize);
+        if (canvas) {
+            canvas.removeEventListener('pointerdown', handlePointerDown);
+            canvas.removeEventListener('pointermove', handlePointerMove);
+            canvas.removeEventListener('pointerup', handlePointerUp);
+            canvas.removeEventListener('pointercancel', handlePointerCancel);
+        }
+        pointerStart = null;
+        clearHighlight();
+        if (modelRoot) {
+            const disposedGeometries = new Set();
+            const disposedMaterials = new Set();
+            modelRoot.traverse(node => {
+                if (node.geometry && !disposedGeometries.has(node.geometry)) {
+                    node.geometry.dispose();
+                    disposedGeometries.add(node.geometry);
+                }
+                const materials = Array.isArray(node.material) ? node.material : [node.material];
+                materials.forEach(material => {
+                    if (material && !disposedMaterials.has(material)) {
+                        material.dispose();
+                        disposedMaterials.add(material);
+                    }
+                });
+            });
+        }
         if (controls) controls.dispose();
         if (renderer) renderer.dispose();
         scene = camera = renderer = controls = modelRoot = null;
+        raycaster = pointer = canvas = null;
         highlighted = [];
         mode = 'explore';
         questionIndex = 0;
@@ -59,6 +86,7 @@
             updateQuestion();
         } catch (error) {
             console.error('Error inicialitzant el microscopi 3D:', error);
+            get('bio-microscopi-optic-3d-loader')?.classList.add('hidden');
             const prompt = get('bio-microscopi-optic-3d-prompt');
             if (prompt) prompt.textContent = 'No s’ha pogut carregar el model 3D. Torna-ho a provar.';
         }
@@ -66,7 +94,7 @@
 
     function setupViewport() {
         const container = get('bio-microscopi-optic-3d-viewport');
-        const canvas = get('bio-microscopi-optic-3d-canvas');
+        canvas = get('bio-microscopi-optic-3d-canvas');
         if (!container || !canvas || typeof THREE === 'undefined') throw new Error('Three.js no disponible.');
         if (renderer) { resize(); return; }
         const width = container.clientWidth || 800;
@@ -87,8 +115,10 @@
         controls.target.set(0, 0.35, 0);
         raycaster = new THREE.Raycaster();
         pointer = new THREE.Vector2();
-        canvas.addEventListener('pointerdown', event => { pointerStart = { x: event.clientX, y: event.clientY }; });
+        canvas.addEventListener('pointerdown', handlePointerDown);
+        canvas.addEventListener('pointermove', handlePointerMove);
         canvas.addEventListener('pointerup', handlePointerUp);
+        canvas.addEventListener('pointercancel', handlePointerCancel);
         window.addEventListener('resize', resize);
         animate();
     }
@@ -133,22 +163,57 @@
         controls.update();
     }
 
+    function handlePointerDown(event) {
+        if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) {
+            pointerStart = null;
+            return;
+        }
+        pointerStart = {
+            pointerId: event.pointerId,
+            x: event.clientX,
+            y: event.clientY,
+            maxDistance: 0
+        };
+    }
+
+    function handlePointerMove(event) {
+        if (!pointerStart || pointerStart.pointerId !== event.pointerId) return;
+        pointerStart.maxDistance = Math.max(
+            pointerStart.maxDistance,
+            Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y)
+        );
+    }
+
+    function handlePointerCancel(event) {
+        if (pointerStart?.pointerId === event.pointerId) pointerStart = null;
+    }
+
     function handlePointerUp(event) {
-        if (!pointerStart || Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) > 8) return;
-        const canvas = get('bio-microscopi-optic-3d-canvas');
+        const start = pointerStart;
+        pointerStart = null;
+        if (!start || !event.isPrimary || start.pointerId !== event.pointerId
+            || start.maxDistance > 8 || Math.hypot(event.clientX - start.x, event.clientY - start.y) > 8) return;
         if (!canvas || !modelRoot) return;
         const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
         pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        camera.updateMatrixWorld();
+        modelRoot.updateMatrixWorld(true);
         raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObject(modelRoot, true)[0];
-        if (!hit) return;
-        let node = hit.object;
-        while (node && node !== modelRoot && !node.userData.microscopePart) node = node.parent;
-        if (node?.userData?.microscopePart) selectPart(node.userData.microscopePart);
+        const intersections = raycaster.intersectObject(modelRoot, true);
+        for (const hit of intersections) {
+            let node = hit.object;
+            while (node && node !== modelRoot && !node.userData.microscopePart) node = node.parent;
+            if (node?.userData?.microscopePart) {
+                selectPart(node.userData.microscopePart);
+                return;
+            }
+        }
     }
 
     function selectPart(part) {
+        if (mode === 'practice' && answered) return;
         clearHighlight();
         highlightPart(part.anatomy_id);
         if (mode === 'explore') {
@@ -215,20 +280,27 @@
     function highlightPart(anatomyId) {
         if (!modelRoot) return;
         modelRoot.traverse(node => {
-            if (!node.isMesh || !node.parent) return;
+            if (!node.isMesh || !node.parent || !node.material) return;
             let current = node;
             while (current && current !== modelRoot && !current.userData.microscopePart) current = current.parent;
             if (current?.userData?.microscopePart?.anatomy_id === anatomyId) {
-                node.material = node.material.clone();
-                node.material.emissive?.setHex(0x38bdf8);
-                node.material.emissiveIntensity = 0.8;
-                highlighted.push(node);
+                const originalMaterial = node.material;
+                const clonedMaterials = Array.isArray(originalMaterial)
+                    ? originalMaterial.map(material => material.clone())
+                    : originalMaterial.clone();
+                const materials = Array.isArray(clonedMaterials) ? clonedMaterials : [clonedMaterials];
+                materials.forEach(material => {
+                    material.emissive?.setHex(0x38bdf8);
+                    material.emissiveIntensity = 0.8;
+                });
+                node.material = clonedMaterials;
+                highlighted.push({ node, originalMaterial });
             }
         });
     }
 
     function clearHighlight() {
-        highlighted.forEach(node => { if (node.material.emissive) node.material.emissive.setHex(0x000000); });
+        highlighted.forEach(({ node, originalMaterial }) => { node.material = originalMaterial; });
         highlighted = [];
     }
 

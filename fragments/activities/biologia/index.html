@@ -392,38 +392,13 @@
                             </div>
                         </div>
 
-                        <div class="activity-card" onclick="openBioMicroscopiOptic()">
+                        <div class="activity-card" onclick="openBioActivity('microscopi-optic-3d')">
                             <div class="activity-card__media">
                                 <img src="assets/models/microscopi-optic/microscopi-revisio.png" alt="Microscopi òptic" class="activity-card__image">
                             </div>
                             <div class="activity-card__content">
                                 <div class="activity-card__title">Microscopi òptic</div>
                                 <div class="activity-card__description">Explora el model 3D i identifica les seves parts.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ACTIVITATS: Microscopi òptic -->
-                    <div id="bio-microscopi-optic-activities" class="activities-grid mt-4 hidden">
-                        <button class="col-span-full btn btn--secondary btn--sm mb-2 btn--fit-content" onclick="openBioSystem('laboratori')">← Tornar al Laboratori</button>
-
-                        <div class="activity-card" onclick="openBioActivity('microscopi-optic-3d')">
-                            <div class="activity-card__media">
-                                <img src="assets/models/microscopi-optic/microscopi-revisio.png" alt="Parts del microscopi òptic" class="activity-card__image">
-                            </div>
-                            <div class="activity-card__content">
-                                <div class="activity-card__title">Parts del microscopi òptic</div>
-                                <div class="activity-card__description">Gira el model 3D i clica els oculars, objectius, braç, platina i altres parts.</div>
-                            </div>
-                        </div>
-
-                        <div class="activity-card" data-bio-courses="1" onclick="openBioActivity('microscopi-parts')">
-                            <div class="activity-card__media">
-                                <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Parts del microscopi en dues dimensions" class="activity-card__image">
-                            </div>
-                            <div class="activity-card__content">
-                                <div class="activity-card__title">Parts del microscopi (2D)</div>
-                                <div class="activity-card__description">Practica les etiquetes amb tres nivells de dificultat.</div>
                             </div>
                         </div>
                     </div>
@@ -1472,76 +1447,9 @@
                         </div>
                     </div>
 
-                    <!-- ACTIVITAT: Parts del microscopi -->
-                    <div id="bio-activity-microscopi-parts" class="sub-activity hidden">
-                        <button class="btn btn--secondary btn--sm mb-2" onclick="openBioSystem('laboratori')">Tornar al menu</button>
-                        <div class="game-panel__header">
-                            <h3>Parts del microscopi</h3>
-                        </div>
-
-                        <div class="bio-microscope">
-                            <section id="bio-microscope-start" class="result-screen p-6">
-                                <h4 class="bio-lab-tools__title">Com es diu cada part?</h4>
-                                <p class="bio-lab-tools__intro">Observa el microscopi i completa les etiquetes. Pots triar el nivell de dificultat.</p>
-                                <form id="bio-microscope-form" class="bio-lab-tools__form mt-4">
-                                    <div class="bio-microscope__level-grid">
-                                        <label class="bio-microscope__level-card">
-                                            <input type="radio" name="bio-microscope-level" value="easy" checked>
-                                            <strong>Facil</strong>
-                                            <span>Llista desplegable a cada fletxa.</span>
-                                        </label>
-                                        <label class="bio-microscope__level-card">
-                                            <input type="radio" name="bio-microscope-level" value="medium">
-                                            <strong>Mitja</strong>
-                                            <span>Banc de noms per assignar.</span>
-                                        </label>
-                                        <label class="bio-microscope__level-card">
-                                            <input type="radio" name="bio-microscope-level" value="hard">
-                                            <strong>Dificil</strong>
-                                            <span>Escriu cada nom a la casella.</span>
-                                        </label>
-                                    </div>
-                                    <div id="bio-microscope-feedback" class="game-panel__feedback bio-lab-tools__feedback" aria-live="polite"></div>
-                                    <button class="btn btn--primary btn--auto-width" type="submit">Comencar</button>
-                                </form>
-                            </section>
-
-                            <section id="bio-microscope-game" class="hidden">
-                                <div class="game-panel__stats bio-lab-tools__stats">
-                                    <div>Nivell: <span id="bio-microscope-level-label">Facil</span></div>
-                                    <div id="bio-microscope-instructions">Tria el nom correcte a cada desplegable.</div>
-                                </div>
-
-                                <div class="bio-microscope__layout">
-                                    <div class="bio-microscope__stage">
-                                        <img src="assets/images/activities/biologia/lab/microscopi.svg" alt="Microscopi optic" class="bio-microscope__image">
-                                        <div id="bio-microscope-labels" class="bio-microscope__labels"></div>
-                                    </div>
-
-                                    <aside class="bio-microscope__side-panel">
-                                        <h4>Respostes</h4>
-                                        <p id="bio-microscope-side-help">Completa totes les parts i comprova.</p>
-                                        <div id="bio-microscope-bank" class="bio-microscope__bank hidden"></div>
-                                        <div class="bio-microscope__actions">
-                                            <button id="bio-microscope-check-btn" class="btn btn--primary btn--auto-width" type="button">Comprovar</button>
-                                            <button id="bio-microscope-retry-btn" class="btn btn--secondary btn--auto-width hidden" type="button">Tornar-ho a provar</button>
-                                        </div>
-                                    </aside>
-                                </div>
-                            </section>
-
-                            <section id="bio-microscope-results" class="result-screen hidden text-center p-8">
-                                <h4 class="text-2xl font-bold mb-4">Resultat</h4>
-                                <div id="bio-microscope-final-score" class="result-screen__score text-5xl font-extrabold mb-6">0%</div>
-                                <p id="bio-microscope-message" class="result-screen__message text-lg mb-8"></p>
-                                <button onclick="initBioMicroscopiPartsGame()" class="btn btn--primary btn--auto-width">Canviar nivell</button>
-                            </section>
-                        </div>
-                    </div>
-
                     <!-- ACTIVITAT: Parts del microscopi òptic 3D -->
                     <div id="bio-activity-microscopi-optic-3d" class="sub-activity hidden">
-                        <button class="btn btn--secondary btn--sm mb-2" onclick="returnFromBioMicroscopiOptic()">← Tornar al microscopi òptic</button>
+                        <button class="btn btn--secondary btn--sm mb-2" onclick="returnFromBioMicroscopiOptic()">← Tornar al laboratori</button>
                         <div class="game-panel__header">
                             <h3>Parts del microscopi òptic</h3>
                             <p>Explora el model i identifica cada part del microscopi.</p>

@@ -1084,17 +1084,9 @@ function returnFromBioLabTools() {
     openBioSystem('laboratori');
 }
 
-function openBioMicroscopiOptic() {
-    document.getElementById('bio-systems-menu')?.classList.add('hidden');
-    document.querySelectorAll('#project-hub-biologia .activities-grid:not(#bio-systems-menu)').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('#project-hub-biologia .sub-activity').forEach(el => el.classList.add('hidden'));
-    document.getElementById('bio-microscopi-optic-activities')?.classList.remove('hidden');
-    setGameTitle('Microscopi òptic');
-}
-
 function returnFromBioMicroscopiOptic() {
     resetBioMicroscopiOptic3DGame();
-    openBioMicroscopiOptic();
+    openBioSystem('laboratori');
 }
 
 async function getApiProjectsForCourses(courses) {
@@ -1680,7 +1672,6 @@ const BIO_ACTIVITY_TITLES = {
     'immunitari-quiz': 'Reps de l\'Immunitari',
     'reproductor-quiz': 'Reps del Reproductor',
     'lab-tools': 'Laboratori',
-    'microscopi-parts': 'Parts del microscopi',
     'microscopi-optic-3d': 'Parts del microscopi òptic',
     'concept-drag': 'Arrossega conceptes',
     'cellula-eucariota': 'La cèl·lula eucariota',
@@ -1873,10 +1864,10 @@ function openBioActivity(actId, options = {}) {
             initBioLabTools3DGame();
         }
     } else if (actId === 'microscopi-optic-3d') {
-        document.getElementById('bio-activity-microscopi-optic-3d')?.classList.remove('hidden');
-        if (typeof startBioMicroscopiOptic3D === 'function') {
-            startBioMicroscopiOptic3D('explore');
+        if (typeof resetBioMicroscopiOptic3DGame === 'function') {
+            resetBioMicroscopiOptic3DGame();
         }
+        document.getElementById('bio-activity-microscopi-optic-3d')?.classList.remove('hidden');
     } else if (actId === 'concept-drag') {
         document.getElementById('bio-activity-concept-drag').classList.remove('hidden');
         if (typeof initBioConceptDragGame === 'function') {
