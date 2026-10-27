@@ -9,7 +9,7 @@ description: "Use when creating or changing an image-based identification activi
 
 - L'alumnat ha de clicar la part d'una imatge que respon una pregunta.
 - L'alumnat ha d'assignar noms a punts o zones marcats sobre un diagrama.
-- Cal revisar activitats com `bio-cor` o `bio-microscopi-parts`.
+- Cal revisar activitats com `bio-cor`.
 
 Per a una activitat nova, combina aquesta skill amb `integrar-activitat-webapp`.
 
@@ -17,7 +17,7 @@ Per a una activitat nova, combina aquesta skill amb `integrar-activitat-webapp`.
 
 1. Tria la mecànica adequada:
    - **Clicar la zona demanada**: mostra una pregunta i l'alumne selecciona la regió corresponent. Patró de `bio-cor`.
-   - **Etiquetar punts de referència**: mostra marcadors fixos i l'alumne n'introdueix o selecciona el nom. Patró de `bio-microscopi-parts`.
+   - **Etiquetar punts de referència**: mostra marcadors fixos i l'alumne n'introdueix o selecciona el nom.
    No barregis les dues mecàniques si no hi ha una necessitat didàctica concreta.
 2. Confirma quines parts s'avaluaran, els noms acceptats i si hi ha sinònims. Mantén IDs estables separats dels textos traduïts.
 3. Fes servir una imatge adequada, amb `alt` descriptiu, i defineix les zones en coordenades normalitzades respecte d'un sistema lògic de la imatge, no en píxels de pantalla.
@@ -32,8 +32,6 @@ Per a una activitat nova, combina aquesta skill amb `integrar-activitat-webapp`.
 ## Referències del projecte
 
 - `js/games/bio-cor.js`: identificació de parts del cor amb clic sobre la imatge i zones definides en coordenades lògiques.
-- `js/games/bio-microscopi-parts.js`: etiquetes ubicades sobre una imatge, nivells de dificultat i comprovació de respostes.
-- `fragments/activities/biologia/index.html`: markup de les activitats de cor i microscopi.
-- `css/pages/biologia-lab-tools.css`: estils de l'activitat de parts del microscopi. Busca la fulla adequada abans d'afegir estils nous i importa-la des del manifest existent si cal.
+- `fragments/activities/biologia/index.html`: markup de l'activitat del cor.
 
-Les coordenades i els noms de les parts depenen de cada imatge: no reutilitzis la configuració del cor o del microscopi en altres imatges.
+Les coordenades i els noms de les parts depenen de cada imatge: no reutilitzis la configuració del cor en altres imatges.

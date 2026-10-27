@@ -1,8 +1,10 @@
 /* Parts del microscopi optic: visor Three.js i identificacio per clic. */
 (function () {
     const DATA_URL = 'assets/models/microscopi-optic/Anatomia_Microscopi.json';
+    const CONTROLS_DATA_URL = 'assets/models/microscopi-optic/microscopi-controls.json';
     const MODEL_URL = 'assets/models/microscopi-optic/microscopi-optic-complet.glb';
     let data = null;
+    let controlsData = null;
     let mode = 'explore';
     let questions = [];
     let questionIndex = 0;
@@ -19,6 +21,12 @@
     let highlighted = [];
     let pointerStart = null;
     let canvas = null;
+    let revolver = null;
+    let focusSupport = null;
+    let focusObjectives = [];
+    let focusOffsetMm = 0;
+    let focusInitialY = 0;
+    let focusDrag = null;
 
     function get(id) { return document.getElementById(id); }
 
@@ -32,7 +40,10 @@
             canvas.removeEventListener('pointerup', handlePointerUp);
             canvas.removeEventListener('pointercancel', handlePointerCancel);
         }
+        if (controls) controls.enabled = true;
+        focusDrag = null;
         pointerStart = null;
+        updateRevolverPanel(false);
         clearHighlight();
         if (modelRoot) {
             const disposedGeometries = new Set();
@@ -55,6 +66,10 @@
         if (renderer) renderer.dispose();
         scene = camera = renderer = controls = modelRoot = null;
         raycaster = pointer = canvas = null;
+        revolver = focusSupport = null;
+        focusObjectives = [];
+        focusOffsetMm = 0;
+        focusInitialY = 0;
         highlighted = [];
         mode = 'explore';
         questionIndex = 0;
@@ -76,6 +91,11 @@
                 const response = await fetch(DATA_URL);
                 if (!response.ok) throw new Error('No s\'ha pogut carregar la configuracio del microscopi.');
                 data = await response.json();
+            }
+            if (!controlsData) {
+                const response = await fetch(CONTROLS_DATA_URL);
+                if (!response.ok) throw new Error('No s\'ha pogut carregar la configuracio dels controls.');
+                controlsData = await response.json();
             }
             questions = mode === 'practice' ? shuffle(data.questions || []) : [];
             questionIndex = 0;
@@ -130,6 +150,7 @@
             new Loader().load(MODEL_URL, gltf => {
                 modelRoot = gltf.scene;
                 applyPartMetadata(modelRoot);
+                setupMicroscopeControls(modelRoot);
                 scene.add(modelRoot);
                 frameModel(modelRoot);
                 get('bio-microscopi-optic-3d-loader')?.classList.add('hidden');
@@ -147,6 +168,38 @@
                 }
             });
         });
+    }
+
+    function setupMicroscopeControls(root) {
+        revolver = findNode(root, controlsData?.revolver?.pivot || 'MIC_Revolver');
+        focusSupport = findNode(root, controlsData?.enfocament?.grup_mobil || 'MIC_Suport_Enfocament');
+        focusObjectives = [];
+        root.traverse(node => {
+            if (node.isMesh && node.name.startsWith('MIC_Objectiu_')) focusObjectives.push(node);
+        });
+        if (focusSupport) {
+            focusInitialY = focusSupport.position.y;
+            focusOffsetMm = 0;
+        }
+        updateRevolverPanel(false);
+    }
+
+    function findNode(root, name) {
+        let result = null;
+        root?.traverse(node => {
+            if (!result && node.name === name) result = node;
+        });
+        return result;
+    }
+
+    function findNamedAncestor(node, names) {
+        const expected = new Set(names);
+        let current = node;
+        while (current && current !== modelRoot) {
+            if (expected.has(current.name)) return current;
+            current = current.parent;
+        }
+        return null;
     }
 
     function frameModel(root) {
@@ -168,6 +221,21 @@
             pointerStart = null;
             return;
         }
+        const focusControl = pickFocusControl(event);
+        if (focusControl) {
+            focusDrag = {
+                pointerId: event.pointerId,
+                startX: event.clientX,
+                startY: event.clientY,
+                lastY: event.clientY,
+                maxDistance: 0,
+                control: focusControl
+            };
+            controls.enabled = false;
+            canvas.setPointerCapture?.(event.pointerId);
+            event.preventDefault();
+            return;
+        }
         pointerStart = {
             pointerId: event.pointerId,
             x: event.clientX,
@@ -177,6 +245,17 @@
     }
 
     function handlePointerMove(event) {
+        if (focusDrag?.pointerId === event.pointerId) {
+            const deltaY = event.clientY - focusDrag.lastY;
+            focusDrag.lastY = event.clientY;
+            focusDrag.maxDistance = Math.max(
+                focusDrag.maxDistance,
+                Math.hypot(event.clientX - focusDrag.startX, event.clientY - focusDrag.startY)
+            );
+            applyFocusRadians(-deltaY * 0.02, focusDrag.control);
+            event.preventDefault();
+            return;
+        }
         if (!pointerStart || pointerStart.pointerId !== event.pointerId) return;
         pointerStart.maxDistance = Math.max(
             pointerStart.maxDistance,
@@ -185,23 +264,27 @@
     }
 
     function handlePointerCancel(event) {
+        if (focusDrag?.pointerId === event.pointerId) finishFocusDrag(event);
         if (pointerStart?.pointerId === event.pointerId) pointerStart = null;
     }
 
     function handlePointerUp(event) {
+        if (focusDrag?.pointerId === event.pointerId) {
+            const wasClick = focusDrag.maxDistance <= 8;
+            finishFocusDrag(event);
+            if (wasClick) selectFirstPart(event);
+            return;
+        }
         const start = pointerStart;
         pointerStart = null;
         if (!start || !event.isPrimary || start.pointerId !== event.pointerId
             || start.maxDistance > 8 || Math.hypot(event.clientX - start.x, event.clientY - start.y) > 8) return;
         if (!canvas || !modelRoot) return;
-        const rect = canvas.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
-        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        camera.updateMatrixWorld();
-        modelRoot.updateMatrixWorld(true);
-        raycaster.setFromCamera(pointer, camera);
-        const intersections = raycaster.intersectObject(modelRoot, true);
+        selectFirstPart(event);
+    }
+
+    function selectFirstPart(event) {
+        const intersections = raycastAt(event);
         for (const hit of intersections) {
             let node = hit.object;
             while (node && node !== modelRoot && !node.userData.microscopePart) node = node.parent;
@@ -212,7 +295,80 @@
         }
     }
 
+    function raycastAt(event) {
+        if (!canvas || !modelRoot) return [];
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return [];
+        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        camera.updateMatrixWorld();
+        modelRoot.updateMatrixWorld(true);
+        raycaster.setFromCamera(pointer, camera);
+        return raycaster.intersectObject(modelRoot, true);
+    }
+
+    function pickFocusControl(event) {
+        const names = [
+            'MIC_Enfocament_Macro_Dret',
+            'MIC_Enfocament_Macro_Esquerre',
+            'MIC_Enfocament_Micro_Dret',
+            'MIC_Enfocament_Micro_Esquerre'
+        ];
+        for (const hit of raycastAt(event)) {
+            const node = findNamedAncestor(hit.object, names);
+            if (node) return node.name.includes('Macro') ? 'macro' : 'micro';
+        }
+        return null;
+    }
+
+    function finishFocusDrag(event) {
+        focusDrag = null;
+        controls.enabled = true;
+        canvas.releasePointerCapture?.(event.pointerId);
+    }
+
+    function applyFocusRadians(radians, control) {
+        if (!focusSupport) return;
+        const rate = control === 'macro'
+            ? (controlsData?.enfocament?.macro_mm_per_radian ?? 4)
+            : (controlsData?.enfocament?.micro_mm_per_radian ?? 0.1);
+        const limits = controlsData?.enfocament?.limits_mm || [-20, 15];
+        const requested = Math.max(limits[0], Math.min(limits[1], focusOffsetMm + radians * rate));
+        if (requested === focusOffsetMm) return;
+        const previousY = focusSupport.position.y;
+        const previousOffset = focusOffsetMm;
+        focusOffsetMm = requested;
+        focusSupport.position.y = focusInitialY + focusOffsetMm * 0.001;
+        focusSupport.updateMatrixWorld(true);
+        modelRoot.updateMatrixWorld(true);
+        if (!isFocusPositionSafe()) {
+            focusSupport.position.y = previousY;
+            focusOffsetMm = previousOffset;
+        }
+    }
+
+    function isFocusPositionSafe() {
+        if (!focusSupport || !focusObjectives.length) return true;
+        const supportBox = new THREE.Box3().setFromObject(focusSupport);
+        const objectiveBox = new THREE.Box3();
+        focusObjectives.forEach(node => objectiveBox.expandByObject(node));
+        return objectiveBox.isEmpty() || !supportBox.intersectsBox(objectiveBox);
+    }
+
+    function rotateBioMicroscopeRevolver(direction) {
+        if (!revolver || typeof THREE === 'undefined') return;
+        const radians = controlsData?.revolver?.pas_radians || Math.PI / 2;
+        const axis = controlsData?.revolver?.eix_local_gltf || [0, 1, 0];
+        revolver.rotateOnAxis(new THREE.Vector3(axis[0], axis[1], axis[2]), direction * radians);
+        revolver.updateMatrixWorld(true);
+    }
+
+    function updateRevolverPanel(visible) {
+        get('bio-microscopi-optic-3d-revolver-controls')?.classList.toggle('hidden', !visible);
+    }
+
     function selectPart(part) {
+        updateRevolverPanel(part.anatomy_id === 'revolver');
         if (mode === 'practice' && answered) return;
         clearHighlight();
         highlightPart(part.anatomy_id);
@@ -317,4 +473,5 @@
     window.startBioMicroscopiOptic3D = startBioMicroscopiOptic3D;
     window.nextBioMicroscopiOptic3DQuestion = nextBioMicroscopiOptic3DQuestion;
     window.resetBioMicroscopiOptic3DGame = resetBioMicroscopiOptic3DGame;
+    window.rotateBioMicroscopeRevolver = rotateBioMicroscopeRevolver;
 })();

@@ -167,8 +167,23 @@
     font-weight: 600;
 }
 
+.bio-microscopi-optic-3d__revolver-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3, 0.75rem);
+    margin-top: var(--space-3, 0.75rem);
+}
+
+.bio-microscopi-optic-3d__control-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color, #1e293b);
+}
+
 @media (max-width: 640px) {
     .bio-microscopi-optic-3d__mode-grid { grid-template-columns: 1fr; }
     .bio-microscopi-optic-3d__viewport { height: 340px; }
     .bio-microscopi-optic-3d__stats { flex-direction: column; }
+    .bio-microscopi-optic-3d__revolver-controls { flex-wrap: wrap; }
 }

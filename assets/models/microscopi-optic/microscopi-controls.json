@@ -1,0 +1,76 @@
+{
+  "seleccio": {
+    "brac": "MIC_Braç",
+    "base": "MIC_Base",
+    "revolver": "MIC_Revolver"
+  },
+  "revolver": {
+    "pivot": "MIC_Revolver",
+    "eix_local_blender": [
+      0,
+      0,
+      1
+    ],
+    "pas_radians": 1.5707963267948966,
+    "posicions": [
+      {
+        "posicio": 0,
+        "objectiu": "10x"
+      },
+      {
+        "posicio": 1,
+        "objectiu": "4x"
+      },
+      {
+        "posicio": 2,
+        "objectiu": "100x"
+      },
+      {
+        "posicio": 3,
+        "objectiu": "40x"
+      }
+    ],
+    "nota": "A la web, aplicar el gir al pivot pare, amb tots els objectius com a fills; respectar la conversió d’eixos glTF. Els drivers de Blender no s’exporten."
+  },
+  "condensador": {
+    "control": "MIC_Condensador_Ajust",
+    "grup_mobil": "MIC_Condensador_Elevacio",
+    "propietat_blender": "altura_mm",
+    "limits_mm": [
+      -8,
+      3
+    ],
+    "moviment": "Desplaçament vertical respecte a la posició inicial; conserva el seguiment del grup d’enfocament"
+  },
+  "diafragma": {
+    "control": "MIC_Diafragma_Control",
+    "grup": "MIC_Diafragma",
+    "obertura": [
+      0,
+      1
+    ],
+    "diametre_mm": [
+      4,
+      20
+    ],
+    "lamines": [
+      "MIC_Diafragma_Lamina_00",
+      "MIC_Diafragma_Lamina_01",
+      "MIC_Diafragma_Lamina_02",
+      "MIC_Diafragma_Lamina_03",
+      "MIC_Diafragma_Lamina_04",
+      "MIC_Diafragma_Lamina_05",
+      "MIC_Diafragma_Lamina_06",
+      "MIC_Diafragma_Lamina_07"
+    ],
+    "morph_target": "Obertura",
+    "accio_web": "Assigna obertura a morphTargetInfluences del target Obertura de les vuit làmines; gira MIC_Diafragma_Control de -0.9 a 0.3 radians al seu eix equivalent a Z de Blender.",
+    "aproximacio": "Iris de sectors simplificat; efecte lumínic educatiu, no simulació òptica"
+  },
+  "llum_condensador": {
+    "node": "MIC_Llum_Preparacio",
+    "tipus": "spot",
+    "angle_total_radians": "0.35 + 0.8 * obertura",
+    "nota": "A Three.js, angle és el semiangle. Ajustar llum i contrast de la mostra a la web; mantenir interruptor i intensitat independents."
+  }
+}

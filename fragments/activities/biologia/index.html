@@ -1477,6 +1477,11 @@
                             <div class="bio-lab-3d__quiz-panel">
                                 <div id="bio-microscopi-optic-3d-prompt" class="bio-lab-3d__prompt">Clica una part del model.</div>
                                 <div id="bio-microscopi-optic-3d-selected" class="bio-microscopi-optic-3d__selected" aria-live="polite"></div>
+                                <div id="bio-microscopi-optic-3d-revolver-controls" class="bio-microscopi-optic-3d__revolver-controls hidden" aria-label="Controls del revòlver">
+                                    <span class="bio-microscopi-optic-3d__control-label">Gira el revòlver</span>
+                                    <button class="btn btn--secondary btn--sm" type="button" onclick="rotateBioMicroscopeRevolver(-1)">Esquerra</button>
+                                    <button class="btn btn--secondary btn--sm" type="button" onclick="rotateBioMicroscopeRevolver(1)">Dreta</button>
+                                </div>
                                 <div id="bio-microscopi-optic-3d-feedback" class="game-panel__feedback text-center mt-2 p-2 rounded hidden" aria-live="polite"></div>
                                 <div class="text-center mt-4">
                                     <button id="bio-microscopi-optic-3d-next" class="btn btn--primary hidden" onclick="nextBioMicroscopiOptic3DQuestion()">Següent pregunta</button>
