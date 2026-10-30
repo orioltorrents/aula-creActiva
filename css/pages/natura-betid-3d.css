@@ -12,11 +12,6 @@
     margin: 0 auto;
 }
 
-.betid-3d-header {
-    text-align: center;
-    margin-bottom: var(--space-2, 0.5rem);
-}
-
 .betid-3d-model-selector {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));

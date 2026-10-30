@@ -1,0 +1,70 @@
+<section id="fq-factors-activity" class="game-module hidden fq-factors">
+    <h2>Factors de conversió</h2>
+    <p class="fq-factors__intro">Construeix el factor o la cadena de factors que et permet convertir una magnitud sense canviar-ne el valor.</p>
+
+    <div id="fq-factors-setup" class="fq-factors__panel">
+        <h3>Tria el nivell</h3>
+        <div class="fq-factors__levels" role="group" aria-label="Nivell de dificultat">
+            <button class="btn btn--primary quiz-filter-button quiz-filter-button--easy" type="button"
+                onclick="startFisicaQuimicaFactorsRound('basic')">Bàsic</button>
+            <button class="btn btn--primary quiz-filter-button quiz-filter-button--medium" type="button"
+                onclick="startFisicaQuimicaFactorsRound('intermediate')">Intermedi</button>
+            <button class="btn btn--primary quiz-filter-button quiz-filter-button--hard" type="button"
+                onclick="startFisicaQuimicaFactorsRound('advanced')">Avançat</button>
+        </div>
+        <p>Resol 10 conversions. Selecciona els factors en l’ordre correcte i escriu el resultat. També pots arrossegar els factors fins a la zona de càlcul.</p>
+    </div>
+
+    <div id="fq-factors-game" class="fq-factors__panel hidden">
+        <div class="fq-factors__stats" aria-live="polite">
+            <span id="fq-factors-progress">Exercici 1/10</span>
+            <span id="fq-factors-score">Encerts: 0</span>
+            <span id="fq-factors-level">Nivell: Bàsic</span>
+        </div>
+
+        <div class="fq-factors__problem">
+            <span>Converteix</span>
+            <strong id="fq-factors-problem">—</strong>
+        </div>
+
+        <div class="fq-factors__work">
+            <span class="fq-factors__work-label">Zona de càlcul</span>
+            <div id="fq-factors-drop-zone" class="fq-factors__drop-zone" aria-label="Zona per construir els factors de conversió">
+                <span class="fq-factors__start-value">—</span>
+            </div>
+            <div class="fq-factors__answer">
+                <span class="fq-factors__equals" aria-hidden="true">=</span>
+                <label for="fq-factors-answer">Resultat numèric</label>
+                <div class="fq-factors__answer-input">
+                    <input id="fq-factors-answer" class="form-control" type="number" step="any" inputmode="decimal"
+                        aria-label="Resultat numèric de la conversió">
+                    <span id="fq-factors-target-unit">—</span>
+                </div>
+            </div>
+            <div class="fq-factors__controls">
+                <button id="fq-factors-check" class="btn btn--primary" type="button"
+                    onclick="checkFisicaQuimicaFactorsAnswer()">Comprova</button>
+                <button id="fq-factors-next" class="btn btn--secondary hidden" type="button"
+                    onclick="nextFisicaQuimicaFactorsQuestion()">Següent exercici</button>
+            </div>
+            <p id="fq-factors-feedback" class="game-panel__feedback fq-factors__feedback" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="fq-factors__bank">
+            <h3>Factors disponibles</h3>
+            <p>Fes clic o toca un factor per afegir-lo. Torna a seleccionar un factor de la zona de càlcul per retirar-lo.</p>
+            <div id="fq-factors-bank" class="fq-factors__bank-sections"></div>
+        </div>
+    </div>
+
+    <div id="fq-factors-results" class="fq-factors__panel hidden" aria-live="polite">
+        <h3>Resultat de la ronda</h3>
+        <p id="fq-factors-final-score" class="fq-factors__final-score"></p>
+        <p id="fq-factors-save-feedback" class="fq-factors__feedback" role="status" aria-live="polite"></p>
+        <div class="fq-factors__controls">
+            <button id="fq-factors-save-retry" class="btn btn--secondary hidden" type="button"
+                onclick="saveFisicaQuimicaFactorsResult()">Torna a desar</button>
+            <button class="btn btn--primary" type="button" onclick="initFisicaQuimicaFactorsGame()">Nova ronda</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,84 @@
+<section id="fq-si-activity" class="game-module hidden fq-si" data-game-id="fisica-quimica-si">
+    <h2>Magnituds i prefixos del SI</h2>
+    <p class="fq-si__intro">Identifica la magnitud, llegeix la unitat i expressa el prefix com una potència de 10.</p>
+
+    <div class="fq-si__card">
+        <div class="fq-si__unit-banner" aria-live="polite">
+            <span class="fq-si__unit-label">Unitat de l’exercici</span>
+            <strong id="fq-si-unit-display" class="fq-si__unit">—</strong>
+        </div>
+
+        <div class="fq-si__content">
+            <div class="fq-si__stats" aria-live="polite">
+                <span id="fq-si-score">Puntuació: 0,0/10</span>
+                <span id="fq-si-attempts">Intents: 0</span>
+            </div>
+
+            <div class="fq-si__questions">
+                <div class="fq-si__field">
+                    <label class="fq-si__label" for="fq-si-magnitude">De quina magnitud física es tracta?</label>
+                    <select id="fq-si-magnitude" class="form-select">
+                        <option value="">Selecciona una magnitud</option>
+                    </select>
+                </div>
+
+                <div class="fq-si__field">
+                    <label class="fq-si__label" for="fq-si-type">És una magnitud fonamental o derivada?</label>
+                    <select id="fq-si-type" class="form-select">
+                        <option value="">Selecciona el tipus</option>
+                        <option value="fundamental">Fonamental</option>
+                        <option value="derivada">Derivada</option>
+                    </select>
+                </div>
+
+                <div class="fq-si__field">
+                    <label class="fq-si__label" for="fq-si-prefix-kind">El prefix indica un múltiple o un submúltiple?</label>
+                    <select id="fq-si-prefix-kind" class="form-select">
+                        <option value="">Selecciona una opció</option>
+                        <option value="multiple">Múltiple</option>
+                        <option value="submultiple">Submúltiple</option>
+                    </select>
+                </div>
+
+                <div class="fq-si__field">
+                    <label class="fq-si__label" for="fq-si-prefix">Quin prefix té la unitat?</label>
+                    <select id="fq-si-prefix" class="form-select">
+                        <option value="">Selecciona un prefix</option>
+                    </select>
+                </div>
+
+                <div class="fq-si__field">
+                    <label class="fq-si__label" for="fq-si-unit-name">Quina és la unitat sense prefix?</label>
+                    <select id="fq-si-unit-name" class="form-select">
+                        <option value="">Selecciona una unitat</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fq-si__equation" aria-label="Expressa la unitat com una potència de deu">
+                <span id="fq-si-equation-left">1 — =</span>
+                <span class="fq-si__ten">10<sup class="fq-si__power">
+                <label class="fq-si__exponent-label" for="fq-si-exponent">Exponent</label>
+                <input id="fq-si-exponent" class="form-control fq-si__exponent" type="number" step="1"
+                    inputmode="numeric" aria-label="Exponent de deu">
+                </sup></span>
+                <span id="fq-si-equation-right">—</span>
+            </div>
+            <p class="fq-si__note">En les conversions de massa, la unitat de referència és el quilogram (kg).</p>
+
+            <div class="fq-si__controls">
+                <button id="fq-si-check" class="btn btn--primary" type="button" onclick="checkFisicaQuimicaSIAnswer()">
+                    Comprova
+                </button>
+                <button id="fq-si-next" class="btn btn--secondary hidden" type="button" onclick="nextFisicaQuimicaSIQuestion()">
+                    Un altre exercici
+                </button>
+                <button id="fq-si-save" class="btn btn--secondary" type="button" onclick="saveFisicaQuimicaSIResult()">
+                    Finalitza i desa la puntuació
+                </button>
+            </div>
+            <p id="fq-si-feedback" class="game-panel__feedback fq-si__feedback" role="status" aria-live="polite"></p>
+            <p id="fq-si-save-feedback" class="fq-si__feedback" role="status" aria-live="polite"></p>
+        </div>
+    </div>
+</section>

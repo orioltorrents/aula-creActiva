@@ -37,9 +37,12 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1r Batxillerat': [
+        { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
     ],
-    '2n Batxillerat': [],
+    '2n Batxillerat': [
+        { id: 'batx2_ambientals', titol: 'Geologia i Ciències Ambientals 2n', descripcio: 'Talls geològics i riscos naturals.' }
+    ],
     '1ESO': [
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
         { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
@@ -64,9 +67,12 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1Batx': [
+        { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
     ],
-    '2Batx': []
+    '2Batx': [
+        { id: 'batx2_ambientals', titol: 'Geologia i Ciències Ambientals 2n', descripcio: 'Talls geològics i riscos naturals.' }
+    ]
 };
 
 // **********************************************************
@@ -76,8 +82,11 @@ const state = {
     user: null,
     currentProject: null,
     currentGameTitle: '',
-    availabilityRows: []
+    availabilityRows: [],
+    gameBackAction: null
 };
+
+window.appState = state;
 
 function getCurrentUserGroups() {
     if (!state.user) return [];
@@ -127,6 +136,54 @@ function setGameTitle(title) {
     if (gameTitle) {
         gameTitle.textContent = state.currentGameTitle;
     }
+}
+
+function updateGameBackButton() {
+    const menuButton = document.getElementById('back-menu-btn');
+    const dashboardButton = document.getElementById('back-dashboard-btn');
+    const hasPreviousMenu = typeof state.gameBackAction === 'function';
+
+    if (menuButton) {
+        menuButton.classList.toggle('hidden', !hasPreviousMenu);
+    }
+
+    if (dashboardButton) {
+        dashboardButton.setAttribute('aria-label', 'Tornar al menú principal');
+        dashboardButton.title = 'Tornar al menú principal';
+    }
+}
+
+function setGameBackAction(action = null) {
+    state.gameBackAction = typeof action === 'function' ? action : null;
+    updateGameBackButton();
+}
+
+window.setGameBackAction = setGameBackAction;
+
+function setGameBackToCurrentView(beforeRestore = null) {
+    const activityArea = document.getElementById('activity-area');
+    if (!activityArea) return;
+
+    const previousBackAction = state.gameBackAction;
+    const visibility = new Map(
+        Array.from(activityArea.querySelectorAll('*'), element => [element, element.classList.contains('hidden')])
+    );
+    const title = state.currentGameTitle;
+
+    setGameBackAction(() => {
+        if (typeof beforeRestore === 'function') beforeRestore();
+
+        activityArea.querySelectorAll('.game-module').forEach(module => {
+            if (!visibility.has(module)) module.classList.add('hidden');
+        });
+
+        visibility.forEach((wasHidden, element) => {
+            if (element.isConnected) element.classList.toggle('hidden', wasHidden);
+        });
+
+        setGameBackAction(previousBackAction);
+        setGameTitle(title);
+    });
 }
 
 function prepareFragmentImages(container) {
@@ -212,6 +269,7 @@ async function ensureProjectFragment(projectId, fragmentPath) {
 }
 
 async function showDashboardFragment() {
+    state.gameBackAction = null;
     await loadFragment("#app", "fragments/screens/dashboard.html");
 
     const logoutBtn = document.getElementById("logout-btn");
@@ -238,6 +296,7 @@ async function showGameFragment() {
     await loadNestedFragments(document.getElementById("game-screen"));
 
     const backDashboardBtn = document.getElementById("back-dashboard-btn");
+    const backMenuBtn = document.getElementById("back-menu-btn");
     const fullscreenBtn = document.getElementById("fullscreen-btn");
 
     if (backDashboardBtn) {
@@ -245,6 +304,15 @@ async function showGameFragment() {
             loadDashboard().catch(error => {
                 console.error("Error carregant dashboard:", error);
             });
+        });
+        updateGameBackButton();
+    }
+
+    if (backMenuBtn) {
+        backMenuBtn.addEventListener("click", () => {
+            if (typeof state.gameBackAction === 'function') {
+                state.gameBackAction();
+            }
         });
     }
 
@@ -501,6 +569,43 @@ async function callApi(action, params = {}) {
         return { status: 'error', message: 'Error de connexi' };
     }
 }
+
+window.callApi = callApi;
+
+window.aulaCreActivaSaveFormulacioResult = async payload => {
+    if (!state.user || !state.currentProject) {
+        return { status: 'error', message: 'Sessió d’alumne no disponible' };
+    }
+
+    const levelLabels = { 1: '3r ESO', 2: '4t ESO', 3: 'Batxillerat' };
+    const levels = (payload.levels || []).map(level => levelLabels[level] || level);
+    const positive = {
+        mode: payload.mode,
+        attempts: payload.attempts,
+        firstCorrect: payload.firstCorrect,
+        secondCorrect: payload.secondCorrect,
+        points: payload.points,
+        maxPoints: payload.maxPoints,
+        stars: payload.stars,
+        levels,
+        families: payload.families || [],
+        activity: payload.activity || 'barreja',
+        results: payload.results || []
+    };
+
+    return callApi('saveResult', {
+        email: state.user.email,
+        curs: state.user.curs,
+        grup: state.user.grup || state.user.curs,
+        projecte: state.currentProject.titol,
+        app: 'Formulació inorgànica',
+        nivell: levels.length ? levels.join(', ') : 'Tots els nivells',
+        puntuacio: Math.round((payload.points / payload.maxPoints) * 100),
+        temps_segons: payload.elapsedSeconds || 0,
+        feedback_pos: JSON.stringify(positive),
+        feedback_neg: JSON.stringify({ missed: payload.missed || 0 })
+    });
+};
 
 // **********************************************************
 // LGICA DE NEGOCI
@@ -873,6 +978,8 @@ function getProjectCourse(projectId) {
     const match = String(projectId || '').match(/^p([1-4])_/);
     if (match) return `${match[1]}ESO`;
     if (projectId === 'batx1_tr') return '1Batx';
+    if (projectId === 'batx1_ambientals') return '1Batx';
+    if (projectId === 'batx2_ambientals') return '2Batx';
     return '';
 }
 
@@ -994,8 +1101,10 @@ function getLocalProjectsForCourses(courses) {
 
 function getProjectVisuals() {
     return {
+        'batx1_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
+        'batx2_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
         'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta_mediterrani.png" alt="Mediterràniament" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
+        'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta-mediterraniament.jpeg" alt="Mediterràniament" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
         'p1_natura': { icon: '<img src="assets/images/targeta_biologia.png" alt="Biologia" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
         'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns-card.jpg" alt="Entorns de Natura" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
@@ -1066,16 +1175,154 @@ async function openFisicaQuimicaLaboratori() {
     );
     if (!bioHub) return;
 
+    setGameBackToCurrentView();
     document.querySelectorAll('.game-module').forEach(module => module.classList.add('hidden'));
     bioHub.classList.remove('hidden');
     document.getElementById('bio-systems-menu')?.classList.add('hidden');
+    if (state.currentProject?.id === 'p2_fisica_quimica') {
+        showFisicaQuimicaLaboratoryMenu();
+        return;
+    }
     openBioActivity('lab-tools');
+    setGameBackAction(() => {
+        resetBioLabTools3DGame();
+        returnFromFisicaQuimicaLaboratoryMenu();
+    });
     setGameTitle(state.currentProject?.titol || 'Física i Química');
+}
+
+function showFisicaQuimicaLaboratoryMenu() {
+    const bioHub = document.getElementById('project-hub-biologia');
+    if (!bioHub) return;
+
+    document.querySelectorAll('.game-module').forEach(module => module.classList.add('hidden'));
+    bioHub.classList.remove('hidden');
+    document.getElementById('bio-systems-menu')?.classList.add('hidden');
+    document.querySelectorAll('#project-hub-biologia .activities-grid, #project-hub-biologia .sub-activity')
+        .forEach(element => element.classList.add('hidden'));
+
+    const laboratoryActivities = document.getElementById('bio-laboratori-activities');
+    laboratoryActivities?.classList.remove('hidden');
+    updateBioActivityCourseVisibility(laboratoryActivities);
+    setGameTitle('Laboratori');
+}
+
+function returnFromFisicaQuimicaLaboratoryMenu() {
+    document.getElementById('project-hub-biologia')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
+}
+
+async function openFisicaQuimicaSIActivity() {
+    if (!['p2_fisica_quimica', 'p3_fisica_quimica'].includes(state.currentProject?.id)) return;
+
+    const activity = await ensureProjectFragment(
+        'fq-si-activity',
+        'fragments/activities/fisica-quimica/repaso-si.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de magnituds i prefixos.');
+    }
+
+    setGameBackToCurrentView();
+    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    initFisicaQuimicaSIGame();
+    setGameTitle('Magnituds i prefixos');
+}
+
+function returnFromFisicaQuimicaSIActivity() {
+    document.getElementById('fq-si-activity')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
+}
+
+async function openFisicaQuimicaFactorsActivity() {
+    if (!['p2_fisica_quimica', 'p3_fisica_quimica'].includes(state.currentProject?.id)) return;
+
+    const activity = await ensureProjectFragment(
+        'fq-factors-activity',
+        'fragments/activities/fisica-quimica/factors-conversio.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de factors de conversió.');
+    }
+
+    setGameBackToCurrentView();
+    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    initFisicaQuimicaFactorsGame();
+    setGameTitle('Factors de conversió');
+}
+
+async function openFisicaQuimicaGraphActivity() {
+    if (!['p2_fisica_quimica', 'p3_fisica_quimica'].includes(state.currentProject?.id)) return;
+
+    const activity = await ensureProjectFragment(
+        'fq-graph-activity',
+        'fragments/activities/fisica-quimica/grafiques.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de representació gràfica.');
+    }
+
+    setGameBackToCurrentView(cleanupFisicaQuimicaGraphGame);
+    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    initFisicaQuimicaGraphGame();
+    setGameTitle('Representació gràfica');
+}
+
+async function openFisicaQuimicaFormulacioActivity() {
+    if (!['p3_fisica_quimica', 'p4_fisica_quimica'].includes(state.currentProject?.id)) return;
+
+    const activity = await ensureProjectFragment(
+        'fq-formulacio-activity',
+        'fragments/activities/fisica-quimica/formulacio-inorganica.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar Formulació inorgànica.');
+    }
+
+    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.add('game-screen--immersive');
+    setGameBackAction(returnFromFisicaQuimicaFormulacioActivity);
+    setGameTitle('Formulació inorgànica');
+}
+
+function returnFromFisicaQuimicaFormulacioActivity() {
+    document.getElementById('fq-formulacio-activity')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.remove('game-screen--immersive');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
+}
+
+function returnFromFisicaQuimicaGraphActivity() {
+    cleanupFisicaQuimicaGraphGame();
+    document.getElementById('fq-graph-activity')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
+}
+
+function returnFromFisicaQuimicaFactorsActivity() {
+    document.getElementById('fq-factors-activity')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
 }
 
 function returnFromBioLabTools() {
     resetBioLabTools3DGame();
     if (isFisicaQuimicaProject(state.currentProject?.id)) {
+        if (state.currentProject.id === 'p2_fisica_quimica') {
+            showFisicaQuimicaLaboratoryMenu();
+            return;
+        }
         document.getElementById('bio-activity-lab-tools-3d')?.classList.add('hidden');
         document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
         setGameTitle(state.currentProject.titol);
@@ -1086,6 +1333,10 @@ function returnFromBioLabTools() {
 
 function returnFromBioMicroscopiOptic() {
     resetBioMicroscopiOptic3DGame();
+    if (state.currentProject?.id === 'p2_fisica_quimica') {
+        showFisicaQuimicaLaboratoryMenu();
+        return;
+    }
     openBioSystem('laboratori');
 }
 
@@ -1197,6 +1448,7 @@ async function loadDashboard() {
 
 async function openProject(project) {
     if (!isProjectAvailable(project?.id)) return;
+    setGameBackAction(null);
     state.currentProject = project;
     state.currentGameTitle = project.titol;
     await showGameFragment();
@@ -1252,6 +1504,15 @@ async function openProject(project) {
             hubDiv.classList.remove('hidden');
             showSolidartMenu();
         }
+    } else if (project.id === 'batx1_ambientals' || project.id === 'batx2_ambientals') {
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-ciencies-ambientals',
+            'fragments/projects/ciencies-ambientals/index.html'
+        );
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            showAmbientalsMenu();
+        }
     } else if (project.id === 'batx1_tr') {
         const hubDiv = await ensureProjectFragment(
             'project-hub-tr',
@@ -1296,7 +1557,27 @@ async function openProject(project) {
             'project-hub-fisica-quimica',
             'fragments/projects/fisica-quimica/index.html'
         );
-        if (hubDiv) hubDiv.classList.remove('hidden');
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            const siActivityCard = document.getElementById('fq-si-activity-card');
+            siActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
+            const factorsActivityCard = document.getElementById('fq-factors-activity-card');
+            factorsActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
+            const graphActivityCard = document.getElementById('fq-graph-activity-card');
+            graphActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
+            const formulacioActivityCard = document.getElementById('fq-formulacio-activity-card');
+            formulacioActivityCard?.classList.toggle('hidden', !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id));
+            if (formulacioActivityCard && formulacioActivityCard.dataset.eventsBound !== 'true') {
+                formulacioActivityCard.dataset.eventsBound = 'true';
+                formulacioActivityCard.addEventListener('click', openFisicaQuimicaFormulacioActivity);
+                formulacioActivityCard.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openFisicaQuimicaFormulacioActivity();
+                    }
+                });
+            }
+        }
     } else if (isBiologiaProject(project.id)) {
         const hubDiv = await ensureProjectFragment(
             'project-hub-biologia',
@@ -1402,30 +1683,59 @@ async function simulateGameSave() {
 
 // --- MEDITERRANI NAVIGATION ---
 function showMediterraniMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-mediterrani');
     if (hub) {
         document.getElementById('med-activities-menu').classList.remove('hidden');
+        document.getElementById('med-phase-activities')?.classList.remove('hidden');
+        hub.querySelectorAll('.mediterrani-phase-menu').forEach(el => el.classList.add('hidden'));
         hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
+        setGameTitle(state.currentProject?.titol || 'Mediterràniament');
     }
 }
 
 function openMediterraniActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    setGameBackToCurrentView();
+    const activityConfig = PROJECT_ACTIVITIES?.mediterrani?.find(item => item.action === actId);
+    const specialTitles = {
+        'creacio-mar': 'Creació del Mar Mediterrani',
+        plaques: 'Plaques tectòniques',
+        'crisi-messinia': 'Crisi salina del Messinià',
+        'temps-geologic': 'Història de la Terra i del Mediterrani',
+        'mars-oceans': 'Mars i oceans',
+        map: 'Països del Mediterrani',
+        capitals: 'Capitals del Mediterrani'
+    };
+    let title = specialTitles[actId] || activityConfig?.fallbackTitle || 'Mediterràniament';
+    if (activityConfig?.titleKey && typeof i18n !== 'undefined') {
+        const translatedTitle = i18n.t(activityConfig.titleKey);
+        if (translatedTitle && translatedTitle !== activityConfig.titleKey) title = translatedTitle;
+    }
+    setGameTitle(title);
     const hub = document.getElementById('project-hub-mediterrani');
     const menu = document.getElementById('med-activities-menu');
     const activity = document.getElementById(`med-activity-${actId}`);
 
     if (menu) menu.classList.add('hidden');
+    document.getElementById('med-phase-activities')?.classList.add('hidden');
     if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
     if (activity) activity.classList.remove('hidden');
 
     if (actId === 'biodiversitat' && typeof initMediterraniBiodiversitatQuiz === 'function') {
         initMediterraniBiodiversitatQuiz();
     }
+    if (actId === 'temps-geologic' && typeof initMediterraniTempsGeologicQuiz === 'function') {
+        initMediterraniTempsGeologicQuiz();
+    }
+    if (actId === 'mars-oceans' && typeof initMediterraniMarsOceansQuiz === 'function') {
+        initMediterraniMarsOceansQuiz();
+    }
 }
 
 // --- TREBALL DE RECERCA NAVIGATION ---
 function showTrMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-tr');
     if (hub) {
         document.getElementById('tr-activities-menu').classList.remove('hidden');
@@ -1435,6 +1745,7 @@ function showTrMenu() {
 
 function openTrActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    setGameBackToCurrentView();
     document.getElementById('tr-activities-menu').classList.add('hidden');
     document.getElementById(`tr-activity-${actId}`).classList.remove('hidden');
 
@@ -1451,6 +1762,7 @@ function openTrActivity(actId) {
 
 // --- PARALIMPICS NAVIGATION ---
 function showParalimpicsMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-paralimpics');
     if (hub) {
         document.getElementById('par-activities-menu').classList.remove('hidden');
@@ -1460,12 +1772,14 @@ function showParalimpicsMenu() {
 
 function openParalimpicsActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    setGameBackToCurrentView();
     document.getElementById('par-activities-menu').classList.add('hidden');
     document.getElementById(`paralimpics-activity-${actId}`).classList.remove('hidden');
 }
 
 // --- DIGITALITZACI NAVIGATION ---
 function showDigitalitzacioMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-digitalitzacio');
     if (hub) {
         document.getElementById('digi-activities-menu').classList.remove('hidden');
@@ -1475,6 +1789,7 @@ function showDigitalitzacioMenu() {
 
 function openDigitalitzacioActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    setGameBackToCurrentView();
     document.getElementById('digi-activities-menu').classList.add('hidden');
     document.getElementById(`digi-activity-${actId}`).classList.remove('hidden');
 
@@ -1485,6 +1800,7 @@ function openDigitalitzacioActivity(actId) {
 
 // --- SOLIDART NAVIGATION ---
 function showSolidartMenu() {
+    setGameBackAction(null);
     if (typeof clearSolidartQuadresAutoAdvance === 'function') clearSolidartQuadresAutoAdvance();
     if (typeof clearSolidartQuadres2AutoAdvance === 'function') clearSolidartQuadres2AutoAdvance();
 
@@ -1497,6 +1813,7 @@ function showSolidartMenu() {
 
 function openSolidartActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    setGameBackToCurrentView();
     if (typeof clearSolidartQuadresAutoAdvance === 'function') clearSolidartQuadresAutoAdvance();
     if (typeof clearSolidartQuadres2AutoAdvance === 'function') clearSolidartQuadres2AutoAdvance();
 
@@ -1541,16 +1858,19 @@ function openSolidartActivity(actId) {
 
 // --- NATURA NAVIGATION ---
 function showNaturaMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-natura');
     if (hub) {
         document.getElementById('natura-activities-menu').classList.remove('hidden');
         hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
         applyAvailabilityToCurrentProject();
+        setGameTitle(state.currentProject?.titol || 'Entorns de Natura');
     }
 }
 
 function openNaturaProject(projectId) {
     if (!blockUnavailableActivity(projectId)) return;
+    setGameBackToCurrentView();
     const hub = document.getElementById('project-hub-natura');
     const menu = document.getElementById('natura-activities-menu');
     const projectMenu = document.getElementById(`natura-project-${projectId}`);
@@ -1558,6 +1878,15 @@ function openNaturaProject(projectId) {
     if (menu) menu.classList.add('hidden');
     if (hub) hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
     if (projectMenu) projectMenu.classList.remove('hidden');
+    const projectTitles = {
+        rius: 'Projecte Rius',
+        mat: 'MAT Penedès',
+        agroparc: 'AgroParc Atmetller',
+        orenetes: 'Projecte Orenetes',
+        vespa: 'Vespa velutina',
+        liquencity: 'Liquencity'
+    };
+    setGameTitle(projectTitles[projectId] || state.currentProject?.titol || 'Entorns de Natura');
     applyAvailabilityToCurrentProject();
 }
 
@@ -1565,12 +1894,19 @@ function openNaturaProject(projectId) {
 // RATES A LA CARRERA (HUB)
 // **********************************************************
 function showRatesMenu() {
+    setGameBackAction(null);
     document.getElementById('rates-activities-menu').classList.remove('hidden');
     document.querySelectorAll('#game-container-p1_rates .sub-activity').forEach(el => el.classList.add('hidden'));
+    setGameTitle(state.currentProject?.titol || 'Rates a la carrera');
 }
 
 function openRatesActivity(activityId) {
     if (!blockUnavailableActivity(activityId)) return;
+    setGameBackToCurrentView();
+    if (activityId === 'preguntes') {
+        const title = typeof i18n !== 'undefined' ? i18n.t('act_tr_preguntes_title') : '';
+        setGameTitle(title && title !== 'act_tr_preguntes_title' ? title : 'Preguntes investigables');
+    }
     // Amagar men
     document.getElementById('rates-activities-menu').classList.add('hidden');
 
@@ -1587,11 +1923,25 @@ function openRatesActivity(activityId) {
     }
 }
 
+function getNaturaActivityTitle(activityId) {
+    const activity = PROJECT_ACTIVITIES?.entorns?.find(item => item.action === activityId);
+    if (!activity) return state.currentProject?.titol || 'Entorns de Natura';
+
+    if (activity.titleKey && typeof i18n !== 'undefined') {
+        const translatedTitle = i18n.t(activity.titleKey);
+        if (translatedTitle && translatedTitle !== activity.titleKey) return translatedTitle;
+    }
+
+    return activity.fallbackTitle;
+}
+
 function openNaturaActivity(actId) {
     const parent = document.querySelector('.sub-activity:not(.hidden)[id^="natura-project-"]');
     const projectName = parent ? parent.id.replace('natura-project-', '') : '';
     const availabilityIds = projectName ? [`${projectName}/${actId}`, actId] : [actId];
     if (!blockUnavailableActivity(availabilityIds)) return;
+    setGameBackToCurrentView();
+    setGameTitle(getNaturaActivityTitle(actId));
     document.getElementById('natura-activities-menu')?.classList.add('hidden');
     document.querySelectorAll('#project-hub-natura .sub-activity').forEach(el => el.classList.add('hidden'));
 
@@ -1723,6 +2073,7 @@ function applyBioProjectScope() {
 }
 
 function showBioMenu() {
+    setGameBackAction(null);
     setGameTitle(state.currentProject ? state.currentProject.titol : 'Biologia');
 
     if (typeof resetBioLabToolsGame === 'function') {
@@ -1769,6 +2120,7 @@ function openBioSystem(systemId) {
         return;
     }
 
+    setGameBackToCurrentView();
     setGameTitle(BIO_SYSTEM_TITLES[systemId] || 'Biologia');
 
     if (typeof resetBioLabToolsGame === 'function') {
@@ -1801,6 +2153,16 @@ function updateBioActivityCourseVisibility(container) {
 
 function openBioActivity(actId, options = {}) {
     if (!blockUnavailableActivity([actId, `biologia/${actId}`])) return;
+    const cleanupActivity = actId === 'lab-tools' || actId === 'lab-tools-3d'
+        ? () => {
+            if (typeof resetBioLabTools3DGame === 'function') resetBioLabTools3DGame();
+        }
+        : actId === 'microscopi-optic-3d'
+            ? () => {
+                if (typeof resetBioMicroscopiOptic3DGame === 'function') resetBioMicroscopiOptic3DGame();
+            }
+            : null;
+    setGameBackToCurrentView(cleanupActivity);
     setGameTitle(BIO_ACTIVITY_TITLES[actId] || 'Biologia');
 
     if (actId !== 'lab-tools' && typeof resetBioLabToolsGame === 'function') {
@@ -1906,6 +2268,7 @@ function openBioActivity(actId, options = {}) {
 }
 
 function openSenseMenu() {
+    setGameBackToCurrentView();
     setGameTitle('Sentits');
 
     document.getElementById('bio-systems-menu').classList.add('hidden');
@@ -1920,6 +2283,7 @@ function openSenseMenu() {
 
 function openSenseSubActivity(senseId) {
     if (!blockUnavailableActivity([senseId, `biologia/${senseId}`])) return;
+    setGameBackToCurrentView();
     setGameTitle(BIO_SENSE_TITLES[senseId] || 'Sentits');
 
     // Amagar el men principal dels sentits i totes les llistes d'activitats
@@ -1937,6 +2301,7 @@ function openSenseSubActivity(senseId) {
 
 // --- RADIO NAVIGATION ---
 function showRadioMenu() {
+    setGameBackAction(null);
     const hub = document.getElementById('project-hub-radio');
     if (hub) {
         document.getElementById('radio-activities-menu').classList.remove('hidden');
@@ -1954,6 +2319,7 @@ function openRadioActivity(actId) {
         showRadioMenu();
         return;
     }
+    setGameBackToCurrentView();
     document.getElementById('radio-activities-menu').classList.add('hidden');
     document.querySelectorAll('#project-hub-radio .sub-activity').forEach(el => el.classList.add('hidden'));
 

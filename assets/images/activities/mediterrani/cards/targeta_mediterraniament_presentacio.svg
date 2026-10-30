@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="title desc">
+  <title id="title">Presentació del projecte Mediterraniament</title>
+  <desc id="desc">Paisatge mediterrani amb mar blau i un quadern de bitàcola obert</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b9e7f2"/>
+      <stop offset="1" stop-color="#f8dfb3"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#238fa8"/>
+      <stop offset="1" stop-color="#07556c"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff4cf"/>
+      <stop offset="1" stop-color="#e5c988"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#173b46" flood-opacity=".38"/>
+    </filter>
+  </defs>
+  <rect width="900" height="560" fill="url(#sky)"/>
+  <circle cx="735" cy="105" r="52" fill="#f8bd59" opacity=".9"/>
+  <path d="M0 205 C135 165 215 220 330 188 C450 155 525 207 650 170 C760 138 828 172 900 145 V315 H0Z" fill="#557e69"/>
+  <path d="M0 250 C135 215 238 255 350 225 C485 190 570 251 690 215 C790 185 845 212 900 194 V325 H0Z" fill="#315d58" opacity=".92"/>
+  <rect y="290" width="900" height="270" fill="url(#sea)"/>
+  <path d="M0 335 C130 315 205 355 330 332 S590 312 720 340 S830 354 900 329" fill="none" stroke="#8ed4d5" stroke-width="8" opacity=".65"/>
+  <path d="M0 405 C145 380 230 425 375 397 S625 385 900 420" fill="none" stroke="#5db9c1" stroke-width="5" opacity=".55"/>
+  <path d="M80 286 C160 263 224 270 285 294 C232 313 150 318 80 303Z" fill="#d5a76c"/>
+  <path d="M710 286 C774 255 833 258 900 287 V320 C825 310 760 316 710 305Z" fill="#d5a76c"/>
+  <path d="M104 298 C120 265 138 248 155 231 M144 299 C164 260 180 244 202 224 M760 300 C779 264 798 246 820 229" stroke="#35674f" stroke-width="12" stroke-linecap="round"/>
+  <g transform="translate(105 375) rotate(-4)" filter="url(#shadow)">
+    <path d="M0 35 Q180 0 347 25 L350 175 Q172 148 0 188Z" fill="url(#paper)" stroke="#895f38" stroke-width="7"/>
+    <path d="M350 25 Q530 0 690 42 L692 190 Q525 145 350 175Z" fill="url(#paper)" stroke="#895f38" stroke-width="7"/>
+    <path d="M350 25 Q335 95 350 175" fill="none" stroke="#9e7044" stroke-width="7"/>
+    <path d="M45 75 Q180 52 305 69 M45 108 Q180 85 305 102 M45 141 Q180 118 305 135 M398 66 Q520 45 645 77 M398 99 Q520 78 645 110 M398 132 Q520 111 645 143" fill="none" stroke="#9b9b80" stroke-width="4" opacity=".75"/>
+    <path d="M90 40 Q170 18 250 35" fill="none" stroke="#357c87" stroke-width="8"/>
+    <circle cx="565" cy="58" r="25" fill="none" stroke="#357c87" stroke-width="5"/>
+    <path d="M565 35 L572 58 L565 82 L558 58Z M542 58 L565 51 L588 58 L565 65Z" fill="#357c87"/>
+    <text x="175" y="173" fill="#244c59" font-family="Georgia, serif" font-size="25" text-anchor="middle">QUADERN DE BITÀCOLA</text>
+  </g>
+  <path d="M730 475 q36 -72 70 0 M780 475 q32 -54 58 0" fill="none" stroke="#d7b06f" stroke-width="8" stroke-linecap="round"/>
+</svg>

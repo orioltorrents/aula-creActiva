@@ -1,0 +1,60 @@
+<section id="fq-graph-activity" class="game-module hidden fq-graph" data-game-id="fisica-quimica-grafiques">
+    <h2>Representació gràfica de dades</h2>
+    <p class="fq-graph__intro">Representa les dades de la taula col·locant els punts sobre els eixos. Cada ronda té cinc gràfics. Cada coordenada correcta suma 0,2 punts; una coordenada incorrecta en resta 0,2 i un punt no col·locat en resta 0,4. Unir els punts no modifica la puntuació.</p>
+
+    <div id="fq-graph-game" class="fq-graph__panel">
+        <div class="fq-graph__stats" aria-live="polite">
+            <span id="fq-graph-progress">Gràfic 1/5</span>
+            <span id="fq-graph-score">Puntuació: 0,0/10</span>
+            <span id="fq-graph-attempts">Correccions: 0</span>
+        </div>
+
+        <h3 id="fq-graph-pair" class="fq-graph__pair">—</h3>
+        <div class="fq-graph__table-wrap">
+            <table class="fq-graph__table">
+                <caption id="fq-graph-table-caption">Col·loca els cinc punts a la gràfica en l’ordre de la taula.</caption>
+                <thead><tr id="fq-graph-table-head"></tr></thead>
+                <tbody id="fq-graph-table-body"></tbody>
+            </table>
+        </div>
+
+        <div id="fq-graph-canvas-wrap" class="fq-graph__canvas-wrap">
+            <canvas id="fq-graph-canvas" class="fq-graph__canvas" tabindex="0"
+                aria-label="Gràfica de coordenades. Fes clic o toca per col·locar els punts de la taula."
+                aria-describedby="fq-graph-keyboard-hint"
+                aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Space Enter Backspace"></canvas>
+        </div>
+        <p id="fq-graph-coordinate" class="fq-graph__coordinate" aria-live="polite">
+            Mou el cursor per consultar les coordenades.
+        </p>
+        <p id="fq-graph-keyboard-hint" class="fq-graph__hint">
+            Teclat: fletxes per moure el cursor, espai per col·locar, Retorn per corregir, Retrocés per desfer i Ctrl+Retorn per avançar.
+        </p>
+
+        <div class="fq-graph__controls">
+            <label class="fq-graph__join">
+                <input id="fq-graph-join" type="checkbox">
+                Uneix els punts en ordre
+            </label>
+            <button id="fq-graph-undo" class="btn btn--secondary" type="button"
+                onclick="undoFisicaQuimicaGraphPoint()">Desfés l’últim punt</button>
+            <button id="fq-graph-check" class="btn btn--primary" type="button"
+                onclick="checkFisicaQuimicaGraphAnswer()">Corregeix</button>
+            <button id="fq-graph-next" class="btn btn--secondary hidden" type="button"
+                onclick="nextFisicaQuimicaGraphQuestion()">Següent gràfic</button>
+        </div>
+        <p id="fq-graph-feedback" class="game-panel__feedback fq-graph__feedback" role="status" aria-live="polite"></p>
+    </div>
+
+    <div id="fq-graph-results" class="fq-graph__panel hidden" aria-live="polite">
+        <h3>Resultat de la ronda</h3>
+        <p id="fq-graph-final-score" class="fq-graph__final-score"></p>
+        <p id="fq-graph-save-feedback" class="fq-graph__feedback" role="status" aria-live="polite"></p>
+        <div class="fq-graph__controls">
+            <button id="fq-graph-save-retry" class="btn btn--secondary hidden" type="button"
+                onclick="saveFisicaQuimicaGraphResult()">Torna a desar</button>
+            <button id="fq-graph-new-round" class="btn btn--primary" type="button"
+                onclick="initFisicaQuimicaGraphGame()">Nova ronda</button>
+        </div>
+    </div>
+</section>

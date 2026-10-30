@@ -56,16 +56,81 @@ S'elimina més endavant:
 */
 
 // js/config/project-activities.js
+const PROJECT_PHASES = {
+  mediterrani: [
+    { id: "fase-01", title: "Mediterràniament - Presentació", cardTitle: "Presentació", description: "Coneix el projecte i prepara el quadern de bitàcola.", image: "assets/images/activities/mediterrani/cards/targeta-presentacio.jpeg", showHeader: false },
+    { id: "fase-02", title: "Mediterràniament - Activitats inicials", cardTitle: "Activitats inicials", description: "Descobreix el Mediterrani i activa les idees inicials.", image: "assets/images/activities/mediterrani/cards/targeta-activitats-inicials.jpeg", showHeader: false },
+    { id: "fase-03", title: "Mediterràniament - Vora mar", cardTitle: "Vora mar", description: "Situa el Mediterrani entre mars, oceans i països.", image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png", showHeader: false },
+    { id: "fase-04", title: "Mediterràniament - Mar entre terres", cardTitle: "Mar entre terres", description: "Investiga la història, les característiques i la biodiversitat del Mediterrani.", image: "assets/images/activities/mediterrani/cards/targeta-mar-entre-terres.jpeg", showHeader: false },
+    { id: "fase-05", title: "Mediterràniament - Mar crítica", cardTitle: "Mar crítica", description: "Analitza els reptes que afecten el Mediterrani i pensa com podem protegir-lo.", image: "assets/images/activities/mediterrani/cards/targeta-mar-critica.jpeg", showHeader: false },
+    { id: "fase-06", title: "Mediterràniament - ADN Mediterrani", cardTitle: "ADN Mediterrani", description: "Descobreix els trets naturals i culturals que defineixen el Mediterrani.", image: "assets/images/activities/mediterrani/cards/targeta-adn-mediterrani.jpeg", showHeader: false },
+    { id: "fase-07", title: "Mediterràniament - Maqueta", cardTitle: "Maqueta", description: "Representa el Mediterrani amb una maqueta i comparteix allò que has après.", image: "assets/images/activities/mediterrani/cards/targeta-maqueta.jpeg", showHeader: false }
+  ]
+};
+
 const PROJECT_ACTIVITIES = {
   mediterrani: [
     {
-      id: "capitals",
-      titleKey: "act_capitals_title",
-      descKey: "act_capitals_desc",
-      fallbackTitle: "Capitals",
-      fallbackDesc: "Aprèn les capitals del Mediterrani",
-      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png",
-      action: "capitals"
+      id: "presentacio-projecte",
+      titleKey: "act_med_presentation_title",
+      descKey: "act_med_presentation_desc",
+      fallbackTitle: "Presentació del projecte",
+      fallbackDesc: "Descobreix el projecte Mediterraniament",
+      image: "assets/images/activities/mediterrani/cards/targeta-mediterraniament-presentacio.jpeg",
+      action: "presentacio-projecte",
+      phase: "fase-01",
+      pending: true
+    },
+    {
+      id: "quadern-bitacola",
+      titleKey: "act_med_logbook_title",
+      descKey: "act_med_logbook_desc",
+      fallbackTitle: "Quadern de bitàcola",
+      fallbackDesc: "Recull el teu viatge pel Mediterrani",
+      image: "assets/images/activities/mediterrani/cards/targeta-quadern-bitacola.jpeg",
+      mediaClass: "med-logbook__media",
+      mediaHtml: "<span aria-hidden=\"true\">📖</span>",
+      action: "quadern-bitacola",
+      phase: "fase-01"
+    },
+    {
+      id: "xarxa-pescador",
+      titleKey: "act_med_fisher_net_title",
+      descKey: "act_med_pending_desc",
+      fallbackTitle: "Xarxa de pescador",
+      fallbackDesc: "Activitat en preparació",
+      image: "assets/images/activities/mediterrani/cards/targeta-xarxa-pescador.jpeg",
+      mediaClass: "med-pending-activity__media",
+      mediaHtml: "<span aria-hidden=\"true\">🕸</span>",
+      action: "xarxa-pescador",
+      phase: "fase-02",
+      pending: true
+    },
+    {
+      id: "postal-estiu",
+      titleKey: "act_med_summer_postcard_title",
+      descKey: "act_med_pending_desc",
+      fallbackTitle: "Postal d'estiu",
+      fallbackDesc: "Activitat en preparació",
+      image: "assets/images/activities/mediterrani/cards/targeta-postal-estiu.jpeg",
+      mediaClass: "med-pending-activity__media",
+      mediaHtml: "<span aria-hidden=\"true\">🌅</span>",
+      action: "postal-estiu",
+      phase: "fase-02",
+      pending: true
+    },
+    {
+      id: "el-meu-mar",
+      titleKey: "act_med_my_sea_title",
+      descKey: "act_med_pending_desc",
+      fallbackTitle: "El teu mar",
+      fallbackDesc: "Activitat en preparació",
+      image: "assets/images/activities/mediterrani/cards/targeta-el-teu-mar.jpeg",
+      mediaClass: "med-pending-activity__media",
+      mediaHtml: "<span aria-hidden=\"true\">🌊</span>",
+      action: "el-meu-mar",
+      phase: "fase-02",
+      pending: true
     },
     {
       id: "mar-del-mig",
@@ -74,16 +139,51 @@ const PROJECT_ACTIVITIES = {
       fallbackTitle: "El Mar del Mig",
       fallbackDesc: "Vídeo i Test de coneixements",
       image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_elmardelmig.png",
-      action: "test_mar"
+      action: "test_mar",
+      phase: "fase-02"
     },
     {
       id: "paisos",
-      titleKey: "act_map_title",
-      descKey: "act_map_desc",
-      fallbackTitle: "Mapa del Mediterrani",
-      fallbackDesc: "Identifica els països al mapa",
-      image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png",
-      action: "map"
+      image: "assets/images/activities/mediterrani/cards/targeta-paisos-banyats-pel-mediterrani.jpeg",
+      titleKey: "act_med_countries_title",
+      descKey: "act_med_countries_desc",
+      fallbackTitle: "Països banyats pel Mediterrani",
+      fallbackDesc: "Identifica els països banyats pel mar Mediterrani",
+      action: "map",
+      phase: "fase-03",
+      order: 2,
+      submenu: "paisos",
+      children: [
+        {
+          titleKey: "act_map_title",
+          descKey: "act_map_desc",
+          fallbackTitle: "Països del Mediterrani",
+          fallbackDesc: "Identifica els països al mapa",
+          image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png",
+          action: "map"
+        },
+        {
+          titleKey: "act_capitals_title",
+          descKey: "act_capitals_desc",
+          fallbackTitle: "Capitals del Mediterrani",
+          fallbackDesc: "Aprèn les capitals del Mediterrani",
+          image: "assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png",
+          action: "capitals"
+        }
+      ]
+    },
+    {
+      id: "mars-oceans",
+      titleKey: "act_seas_oceans_title",
+      descKey: "act_seas_oceans_desc",
+      fallbackTitle: "Mars i oceans",
+      fallbackDesc: "Vídeo i preguntes sobre els mars i els oceans",
+      image: "assets/images/activities/mediterrani/cards/targeta-mars-i-oceans.jpeg",
+      mediaClass: "med-mars-oceans__media",
+      mediaHtml: "<span aria-hidden=\"true\">🌊</span>",
+      action: "mars-oceans",
+      phase: "fase-03",
+      order: 1
     },
     {
       id: "biodiversitat",
@@ -92,7 +192,36 @@ const PROJECT_ACTIVITIES = {
       fallbackTitle: "Biodiversitat del Mediterrani",
       fallbackDesc: "Descobreix espècies i ecosistemes mediterranis",
       image: "assets/images/activities/mediterrani/biodiversitat/targeta_mediterrani_biodiversitat.png",
-      action: "biodiversitat"
+      action: "biodiversitat",
+      phase: "fase-04",
+      order: 3
+    },
+    {
+      id: "com-es-mediterrani",
+      titleKey: "act_med_characteristics_title",
+      descKey: "act_med_pending_desc",
+      fallbackTitle: "Com és el Mediterrani",
+      fallbackDesc: "Activitat en preparació",
+      image: "assets/images/activities/mediterrani/cards/targeta-com-es-el-mediterrani.jpeg",
+      mediaClass: "med-pending-activity__media",
+      mediaHtml: "<span aria-hidden=\"true\">🧭</span>",
+      action: "com-es-mediterrani",
+      phase: "fase-04",
+      order: 2,
+      pending: true
+    },
+    {
+      id: "creacio-mar",
+      titleKey: "",
+      descKey: "",
+      fallbackTitle: "Creació del Mediterrani",
+      fallbackDesc: "Descobreix com es va formar a través del moviment de les plaques tectòniques.",
+      image: "assets/images/activities/mediterrani/cards/targeta-creacio-del-mediterrani.jpeg",
+      mediaClass: "med-creacio-mar__media",
+      mediaHtml: "<span>540 Ma</span><strong>→</strong><span>avui</span>",
+      action: "creacio-mar",
+      phase: "fase-04",
+      order: 1
     }
   ],
 

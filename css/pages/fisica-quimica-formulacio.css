@@ -1,0 +1,12 @@
+.fq-formulacio {
+    padding: 8px;
+}
+
+.fq-formulacio__frame {
+    display: block;
+    width: 100%;
+    min-height: min(920px, calc(100vh - 120px));
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--surface-bg);
+}

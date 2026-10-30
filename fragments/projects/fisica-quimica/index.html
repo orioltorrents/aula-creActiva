@@ -1,5 +1,55 @@
 <div id="project-hub-fisica-quimica" class="game-module hidden">
     <div class="activities-grid mt-4">
+        <div id="fq-si-activity-card" class="activity-card hidden" role="button" tabindex="0"
+            aria-label="Obrir l'activitat de magnituds i prefixos"
+            onclick="openFisicaQuimicaSIActivity()"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openFisicaQuimicaSIActivity();}">
+            <div class="activity-card__media" aria-hidden="true">
+                <img src="assets/images/activities/fisica-quimica/cards/targeta-magnituds-prefixos.png"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Magnituds i prefixos</div>
+                <div class="activity-card__description">Practica les magnituds, els prefixos del SI i les potències de 10.</div>
+            </div>
+        </div>
+        <div id="fq-factors-activity-card" class="activity-card hidden" role="button" tabindex="0"
+            aria-label="Obrir l'activitat de factors de conversió"
+            onclick="openFisicaQuimicaFactorsActivity()"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openFisicaQuimicaFactorsActivity();}">
+            <div class="activity-card__media" aria-hidden="true">
+                <img src="assets/images/activities/fisica-quimica/cards/targeta-factors-conversio.png"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Factors de conversió</div>
+                <div class="activity-card__description">Construeix conversions d'unitats amb factors i comprova el resultat.</div>
+            </div>
+        </div>
+        <div id="fq-graph-activity-card" class="activity-card hidden" role="button" tabindex="0"
+            aria-label="Obrir l'activitat de representació gràfica"
+            onclick="openFisicaQuimicaGraphActivity()"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openFisicaQuimicaGraphActivity();}">
+            <div class="activity-card__media" aria-hidden="true">
+                <img src="assets/images/activities/fisica-quimica/cards/targeta-representacio-grafica.png"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Representació gràfica</div>
+                <div class="activity-card__description">Representa dades experimentals en gràfiques de coordenades.</div>
+            </div>
+        </div>
+        <div id="fq-formulacio-activity-card" class="activity-card hidden" role="button" tabindex="0"
+            aria-label="Obrir Formulació inorgànica">
+            <div class="activity-card__media" aria-hidden="true">
+                <img src="assets/images/activities/fisica-quimica/cards/targeta-formulacio-inorganica.png"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Formulació inorgànica</div>
+                <div class="activity-card__description">Practica fórmules, noms i famílies de compostos en tres nivells.</div>
+            </div>
+        </div>
         <div class="activity-card" onclick="openFisicaQuimicaLaboratori()">
             <div class="activity-card__media">
                 <img src="assets/images/activities/biologia/lab/labtools.png" alt="Laboratori de Física i Química" class="activity-card__image">

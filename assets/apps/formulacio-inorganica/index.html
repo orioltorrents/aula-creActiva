@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulació inorgànica</title>
+    <meta name="description" content="Laboratori interactiu per aprendre a formular i anomenar compostos inorgànics (IUPAC 2005) a l'ESO i al batxillerat." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Barra superior: títol, mode, filtres i accions -->
+      <header class="topbar">
+        <div class="brand">
+          <img src="favicon.svg" alt="" class="brand-logo" />
+          <h1 class="brand-title">Laboratori de formulació</h1>
+        </div>
+
+        <div class="mode-tabs" role="tablist" aria-label="Mode de treball">
+          <button type="button" role="tab" class="mode-tab" data-mode="apren" aria-selected="false">Aprèn</button>
+          <button type="button" role="tab" class="mode-tab active" data-mode="practica" aria-selected="true">Practica</button>
+          <button type="button" role="tab" class="mode-tab" data-mode="repte" aria-selected="false">Repte</button>
+        </div>
+
+        <div class="filters">
+          <div class="level-chips" id="levelChips" role="group" aria-label="Nivells"></div>
+          <div class="dropdown" id="familyDropdown">
+            <button type="button" class="dropdown-trigger" id="familyTrigger" aria-haspopup="true" aria-expanded="false">Totes les famílies</button>
+            <div class="dropdown-menu" id="familyMenu" role="group" aria-label="Famílies de compostos"></div>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button type="button" class="primary-btn" id="newQuestionBtn">Nova pregunta</button>
+          <button type="button" class="icon-btn" id="ionsBtn" title="Taula d'ions" aria-label="Taula d'ions" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="progressBtn" title="El meu progrés" aria-label="El meu progrés" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="projectorBtn" aria-pressed="false" title="Mode projector: lletra més gran per a la pissarra digital" aria-label="Mode projector">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Mode Aprèn: fitxes per mòduls -->
+      <main class="learn" id="learnView" hidden>
+        <nav class="learn-nav panel" id="moduleNav" aria-label="Mòduls"></nav>
+        <article class="learn-card" id="moduleCard" aria-live="polite"></article>
+      </main>
+
+      <!-- Modes Practica i Repte -->
+      <main class="lab" id="practiceView">
+        <section class="lab-card" aria-label="Pregunta">
+          <div class="lab-head">
+            <div class="q-tags" id="qTags"></div>
+            <div class="challenge-bar" id="challengeBar" hidden></div>
+            <div class="status" id="statusBox">
+              <span class="status-icon" id="statusIcon" aria-hidden="true">?</span>
+              <span class="status-text" id="statusText">Sense respondre</span>
+            </div>
+          </div>
+
+          <div class="question">
+            <p class="q-label" id="qLabel"></p>
+            <div class="q-prompt" id="qPrompt"></div>
+            <p class="q-kind" id="qKind"></p>
+          </div>
+
+          <div class="work" id="workArea"></div>
+
+          <div class="action-bar">
+            <button type="button" class="action-btn check" id="checkBtn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Comprova
+            </button>
+            <button type="button" class="action-btn soft" id="hintBtn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>Pista
+            </button>
+            <button type="button" class="action-btn ghost" id="solutionBtn">Mostra la solució</button>
+            <button type="button" class="action-btn next" id="nextBtn" hidden>Següent pregunta
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="feedback neutral" id="feedback" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="panel activity-panel" aria-labelledby="activityTitle">
+            <h2 class="panel-title" id="activityTitle">Activitat</h2>
+            <div class="activity-list" id="activityList" role="radiogroup" aria-label="Tipus d'activitat"></div>
+          </section>
+
+          <section class="panel help-panel" aria-labelledby="helpTitle">
+            <h2 class="panel-title" id="helpTitle">Ajuda</h2>
+            <div class="help-body" id="helpBody"></div>
+          </section>
+
+          <section class="panel score-panel" aria-label="Marcador">
+            <div class="score"><span class="score-label">Intents</span><span class="score-value" id="attemptCount">0</span></div>
+            <div class="score"><span class="score-label">Encerts</span><span class="score-value" id="correctCount">0</span></div>
+            <div class="score"><span class="score-label">Ratxa</span><span class="score-value" id="streakCount">0</span></div>
+          </section>
+        </aside>
+      </main>
+
+      <footer class="felip-app-footer">
+        <a class="felip-license-image-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer" aria-label="Llicència Creative Commons BY-NC-SA 4.0">
+          <img class="felip-license-image" src="assets/CC_BY-NC-SA.png" alt="Creative Commons BY-NC-SA" />
+        </a>
+        <div class="felip-footer-text">
+          <p>Aplicació creada per <a href="https://ja.cat/felipsarroca" target="_blank" rel="noopener noreferrer">Felip Sarroca</a> amb assistència de la IA</p>
+          <p>Obra sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a></p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Taula d'ions i progrés -->
+    <dialog class="modal info-modal" id="infoDialog" aria-labelledby="infoTitle">
+      <div class="info-head">
+        <div class="info-title">
+          <span class="info-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg>
+          </span>
+          <div>
+            <h2 id="infoTitle">Quadern de formulació</h2>
+            <p>Consulta els ions i segueix el teu progrés.</p>
+          </div>
+        </div>
+        <button type="button" class="icon-btn close" data-close aria-label="Tanca">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="info-tabs" role="tablist" aria-label="Seccions">
+        <button type="button" role="tab" class="info-tab" id="tab-ions" data-tab="ions" aria-controls="pane-ions" aria-selected="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg>Taula d'ions
+        </button>
+        <button type="button" role="tab" class="info-tab" id="tab-progres" data-tab="progres" aria-controls="pane-progres" aria-selected="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>El meu progrés
+        </button>
+      </div>
+      <div class="info-body">
+        <section class="info-pane" id="pane-ions" role="tabpanel" aria-labelledby="tab-ions">
+          <p class="pane-intro">Els cations (positius) s'anomenen amb el nom de l'element; si en pot tenir més d'una càrrega, s'hi afegeixen xifres romanes. Els anions (negatius) acaben en <span class="nowrap">-ur</span>, <span class="nowrap">-at</span> o <span class="nowrap">-it</span>.</p>
+          <div id="ionTables"></div>
+        </section>
+        <section class="info-pane" id="pane-progres" role="tabpanel" aria-labelledby="tab-progres" hidden>
+          <div class="stat-cards" id="statCards"></div>
+          <h3 class="pane-title">Per nivells</h3>
+          <div class="level-cards" id="levelCards"></div>
+          <h3 class="pane-title">Per famílies</h3>
+          <div class="type-progress" id="familyProgress"></div>
+          <div class="progress-foot">
+            <p class="muted">Compten els compostos resolts sense mirar la solució. El progrés es desa només en aquest navegador.</p>
+            <button type="button" class="action-btn ghost small" id="resetProgressBtn">Esborra el progrés i el marcador</button>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <!-- Resultat del repte -->
+    <dialog class="modal small" id="resultDialog" aria-labelledby="resultTitle">
+      <div class="modal-head">
+        <h2 id="resultTitle">Repte acabat!</h2>
+      </div>
+      <div class="modal-body result-body">
+        <div class="stars" id="resultStars" aria-hidden="true"></div>
+        <p class="result-points" id="resultPoints"></p>
+        <p class="muted" id="resultDetail"></p>
+        <div class="result-actions">
+          <button type="button" class="primary-btn" id="playAgainBtn">Torna a jugar</button>
+          <button type="button" class="action-btn ghost" id="backPracticeBtn">Torna a practicar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

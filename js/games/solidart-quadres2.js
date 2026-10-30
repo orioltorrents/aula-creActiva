@@ -44,8 +44,7 @@ async function initSolidartQuadres2(dificultat) {
             renderSolidartQuadres2();
         } else {
             const errorMsg = response && response.message ? response.message : "No s'han trobat preguntes per a aquesta dificultat.";
-            quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>
-                                 <button class="btn btn--secondary mt-4" onclick="showSolidartMenu()">Tornar</button>`;
+            quizDiv.innerHTML = `<div class="alert alert-error">${errorMsg}</div>`;
         }
     } catch (e) {
         console.error("Error initSolidartQuadres2:", e);
@@ -219,6 +218,5 @@ async function finishSolidartQuadres2() {
         console.error("Error saving SolidArt 2 results:", e);
     }
 }
-
 
 

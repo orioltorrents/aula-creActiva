@@ -1,6 +1,15 @@
 ﻿    <section id="game-screen" class="screen hidden">
         <header class="top-bar">
-            <button id="back-dashboard-btn" class="btn btn--secondary" data-i18n="back">← Tornar</button>
+            <div class="game-back-actions">
+                <button id="back-menu-btn" class="btn btn--secondary game-back-button hidden" type="button"
+                    aria-label="Tornar al menú anterior" title="Tornar al menú anterior">
+                    <span class="game-back-button__icon" aria-hidden="true">‹</span>
+                </button>
+                <button id="back-dashboard-btn" class="btn btn--secondary game-back-button" type="button"
+                    aria-label="Tornar al menú principal" title="Tornar al menú principal">
+                    <span class="game-back-button__icon" aria-hidden="true">«</span>
+                </button>
+            </div>
             <div class="top-bar__identity">
                 <div id="game-title" class="title">Activitat</div>
             </div>

@@ -1,56 +1,13 @@
 <div id="project-hub-mediterrani" class="game-module hidden">
-    <h3 data-i18n="med_project_title">Projecte Mediterrani</h3>
-
-    <div id="med-activities-menu" class="activities-grid">
-        <div class="activity-card" onclick="openMediterraniActivity('capitals')">
-            <div class="activity-card__media">
-                <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_capitals.png" alt="Capitals"
-                    class="activity-card__image">
-            </div>
-            <div class="activity-card__content">
-                <div class="activity-card__title" data-i18n="act_capitals_title">Capitals</div>
-                <div class="activity-card__description" data-i18n="act_capitals_desc">
-                    Aprèn les capitals del Mediterrani
-                </div>
-            </div>
-        </div>
-
-        <div class="activity-card" onclick="openMediterraniActivity('test_mar')">
-            <div class="activity-card__media">
-                <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_elmardelmig.png"
-                    alt="Mar del Mig" class="activity-card__image">
-            </div>
-            <div class="activity-card__content">
-                <div class="activity-card__title" data-i18n="act_sea_title">El Mar del Mig</div>
-                <div class="activity-card__description" data-i18n="act_sea_desc">Vídeo i Test de coneixements</div>
-            </div>
-        </div>
-
-        <div class="activity-card" onclick="openMediterraniActivity('map')">
-            <div class="activity-card__media">
-                <img src="assets/images/activities/mediterrani/cards/targeta_mediterrani_paisos.png" alt="Mapa"
-                    class="activity-card__image">
-            </div>
-            <div class="activity-card__content">
-                <div class="activity-card__title" data-i18n="act_map_title">Mapa del Mediterrani</div>
-                <div class="activity-card__description" data-i18n="act_map_desc">Identifica els països al mapa</div>
-            </div>
-        </div>
-
-        <div class="activity-card" onclick="openMediterraniActivity('biodiversitat')">
-            <div class="activity-card__media">
-                <img src="assets/images/activities/mediterrani/biodiversitat/targeta_mediterrani_biodiversitat.png"
-                    alt="Biodiversitat del Mediterrani" class="activity-card__image">
-            </div>
-            <div class="activity-card__content">
-                <div class="activity-card__title">Biodiversitat del Mediterrani</div>
-                <div class="activity-card__description">Descobreix espècies i ecosistemes mediterranis</div>
-            </div>
-        </div>
-    </div>
+    <div id="med-activities-menu" class="mediterrani-phases"></div>
+    <div id="med-phase-activities" class="mediterrani-phase-menus"></div>
 
     <div data-fragment="fragments/activities/mediterrani/med-activity-capitals.html"></div>
     <div data-fragment="fragments/activities/mediterrani/med-activity-test_mar.html"></div>
     <div data-fragment="fragments/activities/mediterrani/med-activity-map.html"></div>
+    <div data-fragment="fragments/activities/mediterrani/med-activity-mars-oceans.html"></div>
     <div data-fragment="fragments/activities/mediterrani/med-activity-biodiversitat.html"></div>
+    <div data-fragment="fragments/activities/mediterrani/med-activity-temps-geologic.html"></div>
+    <div data-fragment="fragments/activities/mediterrani/med-activity-creacio-mar.html"></div>
+    <div data-fragment="fragments/activities/mediterrani/med-activity-quadern-bitacola.html"></div>
 </div>

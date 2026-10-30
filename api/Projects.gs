@@ -30,9 +30,12 @@ function getProjects(curs) {
         ],
         // Batxillerat.
         '1r Batxillerat': [
+            { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
             { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
         ],
-        '2n Batxillerat': [],
+        '2n Batxillerat': [
+            { id: 'batx2_ambientals', titol: 'Geologia i Ciències Ambientals 2n', descripcio: 'Talls geològics i riscos naturals.' }
+        ],
         // Aliases: acceptem tambe versions curtes que poden apareixer al Sheet.
         '1ESO': [
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
@@ -55,9 +58,12 @@ function getProjects(curs) {
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
         ],
         '1Batx': [
+            { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
             { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
         ],
-        '2Batx': []
+        '2Batx': [
+            { id: 'batx2_ambientals', titol: 'Geologia i Ciències Ambientals 2n', descripcio: 'Talls geològics i riscos naturals.' }
+        ]
     };
 
     const projectes = catalog[curs] || [];

@@ -191,6 +191,8 @@ async function initMediterraniMapGame(mode) {
     medMapState.wasShown = medMapState.showName;
     medMapState.locked = false;
 
+    document.getElementById('med-map-stats').classList.remove('hidden');
+
     // IMPORTANT: mostra l'àrea abans d'injectar (evita SVG amb 0 alçada si estava hidden)
     document.getElementById('med-map-area').classList.remove('hidden');
 
@@ -262,7 +264,7 @@ function showNextMapQuestion() {
     <span id="med-map-country-name" style="visibility: ${medMapState.showName ? 'visible' : 'hidden'}">${countryName}</span>
   `;
 
-    document.getElementById('med-map-feedback').innerText = i18n.t('select_answer');
+    document.getElementById('med-map-feedback').innerText = '';
     setElementStateColor(document.getElementById('med-map-feedback'), null);
 }
 
@@ -300,14 +302,6 @@ function handleMapClick(countryId) {
         pathEl.classList.add('incorrect');
         document.getElementById('med-map-feedback').innerText = i18n.t('incorrect');
         setElementStateColor(document.getElementById('med-map-feedback'), 'error');
-
-        if (medMapState.mode !== 'exam') {
-            const correctEl = getElementByCountryId(correctQ.id);
-            if (correctEl) {
-                correctEl.classList.add('correct');
-                setTimeout(() => correctEl.classList.add('correct_perm'), 600);
-            }
-        }
 
         setTimeout(() => {
             pathEl.classList.remove('incorrect');

@@ -1,0 +1,29 @@
+<section id="med-activity-temps-geologic" class="sub-activity hidden med-temps-geologic">
+    <div id="med-temps-geologic-selector" class="quiz-selection-container">
+        <p class="med-temps-geologic__intro" data-i18n="geoquiz_choose">Tria el nivell i el tema abans de començar.</p>
+        <div id="med-temps-geologic-filters" class="med-temps-geologic__filters"></div>
+        <button id="med-temps-geologic-start" type="button" class="btn btn--primary quiz-filter-button med-temps-geologic__start" disabled data-i18n="geoquiz_start">Començar</button>
+    </div>
+
+    <div id="med-temps-geologic-quiz" class="hidden">
+        <div class="game-panel__stats">
+            <span id="med-temps-geologic-progress"></span>
+            <span id="med-temps-geologic-score"></span>
+            <span id="med-temps-geologic-selection"></span>
+        </div>
+        <div class="game-panel__question">
+            <h4 id="med-temps-geologic-question"></h4>
+            <div id="med-temps-geologic-options" class="game-panel__options"></div>
+        </div>
+        <p id="med-temps-geologic-feedback" class="game-panel__feedback" role="status" aria-live="polite"></p>
+        <button id="med-temps-geologic-next" type="button" class="btn btn--primary hidden" data-i18n="btn_next">Següent</button>
+    </div>
+
+    <div id="med-temps-geologic-results" class="result-screen hidden text-center">
+        <h3 data-i18n="final_score">Puntuació final</h3>
+        <p id="med-temps-geologic-final-score" class="result-screen__score"></p>
+        <p id="med-temps-geologic-final-message" class="result-screen__message"></p>
+        <button id="med-temps-geologic-retry" type="button" class="btn btn--primary" data-i18n="geoquiz_retry">Tornar a jugar</button>
+        <button id="med-temps-geologic-change" type="button" class="btn btn--secondary" data-i18n="geoquiz_change">Canviar selecció</button>
+    </div>
+</section>

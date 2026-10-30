@@ -1,0 +1,145 @@
+.fq-graph {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.fq-graph__intro {
+    margin: 8px 0 20px;
+    color: var(--text-light);
+}
+
+.fq-graph__panel {
+    margin-top: 16px;
+    padding: 20px;
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-xl);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+}
+
+.fq-graph__stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 14px;
+    border: 1px solid var(--border-info);
+    border-radius: var(--radius-md);
+    background: var(--panel-info-bg);
+    font-weight: 600;
+}
+
+.fq-graph__pair {
+    margin: 0 0 14px;
+    text-align: center;
+}
+
+.fq-graph__table-wrap {
+    overflow-x: auto;
+}
+
+.fq-graph__table {
+    width: 100%;
+    border: 1px solid var(--border-muted);
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+.fq-graph__table caption {
+    padding: 8px;
+    color: var(--text-light);
+    text-align: left;
+}
+
+.fq-graph__table th,
+.fq-graph__table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-muted);
+    text-align: right;
+}
+
+.fq-graph__table th:first-child,
+.fq-graph__table td:first-child {
+    text-align: center;
+}
+
+.fq-graph__table thead {
+    background: var(--surface-muted);
+}
+
+.fq-graph__canvas-wrap {
+    margin-top: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-md);
+    background: var(--surface-bg);
+}
+
+.fq-graph__canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: crosshair;
+    touch-action: manipulation;
+}
+
+.fq-graph__canvas:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: -3px;
+}
+
+.fq-graph__coordinate,
+.fq-graph__hint {
+    margin: 8px 0 0;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.fq-graph__hint {
+    font-size: 0.9rem;
+}
+
+.fq-graph__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.fq-graph__join {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fq-graph__feedback {
+    min-height: 28px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.fq-graph__final-score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .fq-graph__panel {
+        padding: 14px;
+    }
+
+    .fq-graph__stats {
+        justify-content: center;
+    }
+
+    .fq-graph__table th,
+    .fq-graph__table td {
+        padding: 7px 6px;
+        font-size: 0.9rem;
+    }
+}

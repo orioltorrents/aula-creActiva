@@ -218,8 +218,29 @@
     background-color: var(--error);
 }
 
+.quiz-filter-button--very-hard {
+    background-color: var(--purple);
+}
+
 .quiz-filter-button--mixed {
     background-color: #7c3aed;
+}
+
+.quiz-filter-button--eso1 {
+    background-color: var(--success);
+}
+
+.quiz-filter-button--eso4 {
+    background-color: var(--info-text);
+}
+
+.quiz-filter-button--bat1 {
+    background-color: var(--warning);
+    color: var(--text-color);
+}
+
+.quiz-filter-button--bat2 {
+    background-color: var(--error);
 }
 
 .quiz-filter-button--compact {
@@ -263,4 +284,3 @@
     background-color: var(--error);
     transform: scale(1.05);
 }
-

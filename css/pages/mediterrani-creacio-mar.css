@@ -1,0 +1,94 @@
+.med-creacio-mar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.med-plaques {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.med-creacio-mar__header,
+.med-plaques__content {
+    max-width: 900px;
+    margin: 0 auto 24px;
+    text-align: center;
+}
+
+.med-creacio-mar__header h2,
+.med-plaques__content h2 {
+    margin: 0 0 10px;
+    color: var(--primary-color);
+}
+
+.med-creacio-mar__header p,
+.med-plaques__content p {
+    color: var(--text-light);
+}
+
+.med-creacio-mar__eyebrow {
+    margin-bottom: 8px;
+    color: var(--primary-hover) !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.med-creacio-mar__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 120px;
+    padding: 16px;
+    background: linear-gradient(135deg, #0f766e, #164e63);
+    color: var(--white);
+    font-size: clamp(0.85rem, 2vw, 1.15rem);
+    font-weight: 700;
+}
+
+.activity-card__media.med-creacio-mar__media {
+    background: var(--white);
+}
+
+.med-creacio-mar__media strong {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.med-creacio-mar__card--pending {
+    cursor: not-allowed;
+    opacity: 0.72;
+}
+
+.med-plaques__video {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 24px auto 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-lg);
+    background: var(--text-color);
+    box-shadow: var(--card-shadow);
+}
+
+.med-plaques__video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media (max-width: 640px) {
+    .med-plaques {
+        padding: 12px;
+    }
+
+    .med-creacio-mar__media {
+        min-height: 96px;
+    }
+}

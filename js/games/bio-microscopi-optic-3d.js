@@ -18,21 +18,56 @@
     let raycaster = null;
     let pointer = null;
     let frameId = null;
+    let clock = null;
+    let mixer = null;
+    let animationClips = [];
+    let revolverAction = null;
+    let revolverAnimating = false;
+    let revolverSegment = null;
+    let revolverPosition = 0;
+    let revolverSelected = false;
+    let explodedActions = [];
+    let explodedRunning = false;
+    let explodedEndTime = 0;
     let highlighted = [];
     let pointerStart = null;
     let canvas = null;
-    let revolver = null;
     let focusSupport = null;
     let focusObjectives = [];
     let focusOffsetMm = 0;
     let focusInitialY = 0;
     let focusDrag = null;
+    let stageDrag = null;
+    let diaphragmDrag = null;
+    let carNodes = { x: null, y: null, preparation: null };
+    let carInitial = { x: 0, y: 0 };
+    let diaphragmPivot = null;
+    let diaphragmInitialRotation = 0;
+    let diaphragmOpening = 0;
+    let lightSwitch = null;
+    let lightSwitchInitialRotation = null;
+    let beam = null;
+    let beamMaterials = [];
+    let indicator = null;
+    let microscopeLight = null;
+    let lightLevel = 0;
+    let lightTarget = 0;
+    let interactiveNames = new Set();
 
     function get(id) { return document.getElementById(id); }
 
     function resetBioMicroscopiOptic3DGame() {
         if (frameId) cancelAnimationFrame(frameId);
         frameId = null;
+        mixer = null;
+        animationClips = [];
+        revolverAction = null;
+        revolverAnimating = false;
+        revolverSegment = null;
+        revolverPosition = 0;
+        revolverSelected = false;
+        explodedActions = [];
+        explodedRunning = false;
         window.removeEventListener('resize', resize);
         if (canvas) {
             canvas.removeEventListener('pointerdown', handlePointerDown);
@@ -42,8 +77,9 @@
         }
         if (controls) controls.enabled = true;
         focusDrag = null;
+        stageDrag = null;
+        diaphragmDrag = null;
         pointerStart = null;
-        updateRevolverPanel(false);
         clearHighlight();
         if (modelRoot) {
             const disposedGeometries = new Set();
@@ -66,8 +102,14 @@
         if (renderer) renderer.dispose();
         scene = camera = renderer = controls = modelRoot = null;
         raycaster = pointer = canvas = null;
-        revolver = focusSupport = null;
+        focusSupport = null;
         focusObjectives = [];
+        carNodes = { x: null, y: null, preparation: null };
+        diaphragmPivot = null;
+        lightSwitch = beam = indicator = microscopeLight = null;
+        beamMaterials = [];
+        lightLevel = lightTarget = 0;
+        interactiveNames = new Set();
         focusOffsetMm = 0;
         focusInitialY = 0;
         highlighted = [];
@@ -135,6 +177,7 @@
         controls.target.set(0, 0.35, 0);
         raycaster = new THREE.Raycaster();
         pointer = new THREE.Vector2();
+        clock = new THREE.Clock();
         canvas.addEventListener('pointerdown', handlePointerDown);
         canvas.addEventListener('pointermove', handlePointerMove);
         canvas.addEventListener('pointerup', handlePointerUp);
@@ -149,8 +192,11 @@
             if (!Loader) return reject(new Error('GLTFLoader no disponible.'));
             new Loader().load(MODEL_URL, gltf => {
                 modelRoot = gltf.scene;
+                animationClips = gltf.animations || [];
+                mixer = new THREE.AnimationMixer(gltf.scene);
                 applyPartMetadata(modelRoot);
                 setupMicroscopeControls(modelRoot);
+                setupAnimations(animationClips);
                 scene.add(modelRoot);
                 frameModel(modelRoot);
                 get('bio-microscopi-optic-3d-loader')?.classList.add('hidden');
@@ -171,8 +217,42 @@
     }
 
     function setupMicroscopeControls(root) {
-        revolver = findNode(root, controlsData?.revolver?.pivot || 'MIC_Revolver');
-        focusSupport = findNode(root, controlsData?.enfocament?.grup_mobil || 'MIC_Suport_Enfocament');
+        focusSupport = findNode(root, 'MIC_Suport_Enfocament');
+        carNodes.x = findNode(root, 'MIC_Carro_X');
+        carNodes.y = findNode(root, 'MIC_Carro_Y');
+        carNodes.preparation = findNode(root, 'MIC_Preparacio');
+        diaphragmPivot = findNode(root, 'MIC_Diafragma_Palanca_Pivot');
+        lightSwitch = findNode(root, 'MIC_Interruptor_Cos');
+        beam = findNode(root, 'MIC_Feix_Llum_Visible');
+        indicator = findNode(root, 'MIC_Indicador_Llum');
+        if (lightSwitch) lightSwitchInitialRotation = lightSwitch.rotation.clone();
+        if (diaphragmPivot) diaphragmInitialRotation = diaphragmPivot.rotation.z;
+        if (carNodes.x) carInitial.x = carNodes.x.position.x;
+        if (carNodes.y) carInitial.y = carNodes.y.position.z;
+        if (beam) {
+            beamMaterials = (Array.isArray(beam.material) ? beam.material : [beam.material]).filter(Boolean).map(material => {
+                const clone = material.clone();
+                clone.transparent = true;
+                beam.material = Array.isArray(beam.material)
+                    ? beam.material.map(item => item === material ? clone : item)
+                    : clone;
+                return clone;
+            });
+        }
+        const lightSource = findNode(root, 'MIC_Font_Llum') || findNode(root, 'MIC_Llum_Preparacio');
+        if (!lightSource) console.error("Microscopi: no s'ha trobat la font de llum MIC_Font_Llum ni MIC_Llum_Preparacio");
+        if (lightSource && scene) {
+            microscopeLight = new THREE.SpotLight(0xffe9b0, 0, 3, 0.45, 0.35, 1);
+            lightSource.getWorldPosition(microscopeLight.position);
+            microscopeLight.target.position.set(0, -1, 0);
+            scene.add(microscopeLight, microscopeLight.target);
+        }
+        [
+            'MIC_Revolver', 'MIC_Enfocament_Macro_Dret', 'MIC_Enfocament_Macro_Esquerre',
+            'MIC_Enfocament_Micro_Dret', 'MIC_Enfocament_Micro_Esquerre', 'MIC_Suport_Enfocament',
+            'MIC_Carro_X', 'MIC_Carro_Y', 'MIC_Interruptor', 'MIC_Diafragma',
+            'MIC_Diafragma_Palanca_Pivot'
+        ].forEach(name => { if (findNode(root, name)) interactiveNames.add(name); else console.error(`Microscopi: no s'ha trobat el node ${name}`); });
         focusObjectives = [];
         root.traverse(node => {
             if (node.isMesh && node.name.startsWith('MIC_Objectiu_')) focusObjectives.push(node);
@@ -181,7 +261,26 @@
             focusInitialY = focusSupport.position.y;
             focusOffsetMm = 0;
         }
-        updateRevolverPanel(false);
+        if (!diaphragmPivot) console.error("Microscopi: no s'ha trobat el node MIC_Diafragma_Palanca_Pivot");
+        if (!beam) console.error("Microscopi: no s'ha trobat el node MIC_Feix_Llum_Visible");
+        if (!indicator) console.error("Microscopi: no s'ha trobat el node MIC_Indicador_Llum");
+        if (!lightSwitch) console.error("Microscopi: no s'ha trobat el node MIC_Interruptor_Cos");
+        if (!carNodes.preparation) console.error("Microscopi: no s'ha trobat el node MIC_Preparacio");
+        setDiaphragmOpening(0);
+        updateMicroscopeLight(0);
+    }
+
+    function setupAnimations(clips) {
+        const revolverClip = clips.find(clip => clip.name === 'MIC_Revolver_Canvi_Objectius_Local');
+        if (!revolverClip) console.error('Microscopi: no s\'ha trobat l\'animació MIC_Revolver_Canvi_Objectius_Local');
+        else revolverAction = mixer.clipAction(revolverClip);
+        explodedActions = clips.filter(clip => clip.name.startsWith('MIC_Exploded')).map(clip => {
+            const action = mixer.clipAction(clip);
+            action.setLoop(THREE.LoopOnce, 1);
+            action.clampWhenFinished = true;
+            return action;
+        });
+        if (!explodedActions.length) console.error('Microscopi: no s\'han trobat animacions MIC_Exploded');
     }
 
     function findNode(root, name) {
@@ -221,7 +320,21 @@
             pointerStart = null;
             return;
         }
-        const focusControl = pickFocusControl(event);
+        if (explodedRunning) return;
+        const interaction = resolveInteraction(event);
+        if (interaction?.name === 'MIC_Revolver') {
+            if (revolverSelected) {
+                advanceRevolver();
+            } else {
+                const part = findPartForObject(interaction.object);
+                if (part) selectPart(part);
+                else selectFirstPart(event);
+                revolverSelected = true;
+            }
+            pointerStart = null;
+            return;
+        }
+        const focusControl = interaction && getFocusControl(interaction.name);
         if (focusControl) {
             focusDrag = {
                 pointerId: event.pointerId,
@@ -236,6 +349,25 @@
             event.preventDefault();
             return;
         }
+        if (interaction?.name === 'MIC_Carro_X' || interaction?.name === 'MIC_Carro_Y') {
+            stageDrag = { pointerId: event.pointerId, name: interaction.name, startX: event.clientX, startY: event.clientY, initialX: carNodes.x?.position.x ?? 0, initialY: carNodes.y?.position.z ?? 0 };
+            controls.enabled = false;
+            canvas.setPointerCapture?.(event.pointerId);
+            event.preventDefault();
+            return;
+        }
+        if (interaction?.name === 'MIC_Diafragma' || interaction?.name === 'MIC_Diafragma_Palanca_Pivot') {
+            diaphragmDrag = { pointerId: event.pointerId, startY: event.clientY, initial: diaphragmOpening, maxDistance: 0 };
+            controls.enabled = false;
+            canvas.setPointerCapture?.(event.pointerId);
+            event.preventDefault();
+            return;
+        }
+        if (interaction?.name === 'MIC_Interruptor') {
+            toggleMicroscopeLight();
+            pointerStart = null;
+            return;
+        }
         pointerStart = {
             pointerId: event.pointerId,
             x: event.clientX,
@@ -245,6 +377,22 @@
     }
 
     function handlePointerMove(event) {
+        if (stageDrag?.pointerId === event.pointerId) {
+            const delta = stageDrag.name === 'MIC_Carro_X'
+                ? (event.clientX - stageDrag.startX) * 0.0015
+                : -(event.clientY - stageDrag.startY) * 0.0015;
+            if (stageDrag.name === 'MIC_Carro_X' && carNodes.x) carNodes.x.position.x = stageDrag.initialX + delta;
+            if (stageDrag.name === 'MIC_Carro_Y' && carNodes.y) carNodes.y.position.z = stageDrag.initialY + delta;
+            event.preventDefault();
+            return;
+        }
+        if (diaphragmDrag?.pointerId === event.pointerId) {
+            const delta = (diaphragmDrag.startY - event.clientY) * 0.004;
+            diaphragmDrag.maxDistance = Math.max(diaphragmDrag.maxDistance, Math.abs(delta));
+            setDiaphragmOpening(diaphragmDrag.initial + delta);
+            event.preventDefault();
+            return;
+        }
         if (focusDrag?.pointerId === event.pointerId) {
             const deltaY = event.clientY - focusDrag.lastY;
             focusDrag.lastY = event.clientY;
@@ -265,10 +413,15 @@
 
     function handlePointerCancel(event) {
         if (focusDrag?.pointerId === event.pointerId) finishFocusDrag(event);
+        if (stageDrag?.pointerId === event.pointerId || diaphragmDrag?.pointerId === event.pointerId) finishControlDrag(event);
         if (pointerStart?.pointerId === event.pointerId) pointerStart = null;
     }
 
     function handlePointerUp(event) {
+        if (stageDrag?.pointerId === event.pointerId || diaphragmDrag?.pointerId === event.pointerId) {
+            finishControlDrag(event);
+            return;
+        }
         if (focusDrag?.pointerId === event.pointerId) {
             const wasClick = focusDrag.maxDistance <= 8;
             finishFocusDrag(event);
@@ -286,13 +439,27 @@
     function selectFirstPart(event) {
         const intersections = raycastAt(event);
         for (const hit of intersections) {
-            let node = hit.object;
-            while (node && node !== modelRoot && !node.userData.microscopePart) node = node.parent;
-            if (node?.userData?.microscopePart) {
-                selectPart(node.userData.microscopePart);
+            const node = resolveInteractionNode(hit.object);
+            if (node?.object?.userData?.microscopePart) {
+                selectPart(node.object.userData.microscopePart);
+                return;
+            }
+            let partNode = hit.object;
+            while (partNode && partNode !== modelRoot && !partNode.userData?.microscopePart) partNode = partNode.parent;
+            if (partNode?.userData?.microscopePart) {
+                selectPart(partNode.userData.microscopePart);
                 return;
             }
         }
+    }
+
+    function findPartForObject(object) {
+        let node = object;
+        while (node && node !== modelRoot) {
+            if (node.userData?.microscopePart) return node.userData.microscopePart;
+            node = node.parent;
+        }
+        return null;
     }
 
     function raycastAt(event) {
@@ -315,8 +482,8 @@
             'MIC_Enfocament_Micro_Esquerre'
         ];
         for (const hit of raycastAt(event)) {
-            const node = findNamedAncestor(hit.object, names);
-            if (node) return node.name.includes('Macro') ? 'macro' : 'micro';
+            const node = resolveInteractionNode(hit.object);
+            if (node && names.includes(node.name)) return node.name.includes('Macro') ? 'macro' : 'micro';
         }
         return null;
     }
@@ -327,12 +494,44 @@
         canvas.releasePointerCapture?.(event.pointerId);
     }
 
+    function finishControlDrag(event) {
+        stageDrag = null;
+        diaphragmDrag = null;
+        controls.enabled = true;
+        canvas.releasePointerCapture?.(event.pointerId);
+    }
+
+    function getFocusControl(name) {
+        return name?.includes('Macro') ? 'macro' : name?.includes('Micro') ? 'micro' : null;
+    }
+
+    function resolveInteraction(event) {
+        for (const hit of raycastAt(event)) {
+            const node = resolveInteractionNode(hit.object);
+            if (node) return node;
+        }
+        return null;
+    }
+
+    function resolveInteractionNode(object) {
+        let node = object;
+        while (node && node !== modelRoot) {
+            const target = node.userData?.selection_target || node.userData?.click_action;
+            if (interactiveNames.has(node.name) || target || node.userData?.is_interactive_candidate) {
+                const name = target || node.name;
+                return { object: node, name: name === 'MIC_Interruptor' ? 'MIC_Interruptor' : name };
+            }
+            node = node.parent;
+        }
+        return null;
+    }
+
     function applyFocusRadians(radians, control) {
         if (!focusSupport) return;
         const rate = control === 'macro'
-            ? (controlsData?.enfocament?.macro_mm_per_radian ?? 4)
-            : (controlsData?.enfocament?.micro_mm_per_radian ?? 0.1);
-        const limits = controlsData?.enfocament?.limits_mm || [-20, 15];
+            ? 2.5
+            : 0.15;
+        const limits = [-20, 22.745];
         const requested = Math.max(limits[0], Math.min(limits[1], focusOffsetMm + radians * rate));
         if (requested === focusOffsetMm) return;
         const previousY = focusSupport.position.y;
@@ -355,20 +554,75 @@
         return objectiveBox.isEmpty() || !supportBox.intersectsBox(objectiveBox);
     }
 
-    function rotateBioMicroscopeRevolver(direction) {
-        if (!revolver || typeof THREE === 'undefined') return;
-        const radians = controlsData?.revolver?.pas_radians || Math.PI / 2;
-        const axis = controlsData?.revolver?.eix_local_gltf || [0, 1, 0];
-        revolver.rotateOnAxis(new THREE.Vector3(axis[0], axis[1], axis[2]), direction * radians);
-        revolver.updateMatrixWorld(true);
+    function setDiaphragmOpening(value) {
+        diaphragmOpening = Math.max(0, Math.min(1, value));
+        if (diaphragmPivot) {
+            const degrees = -17.6 + (22 - (-17.6)) * diaphragmOpening;
+            diaphragmPivot.rotation.z = diaphragmInitialRotation + THREE.MathUtils.degToRad(degrees);
+        }
+        if (microscopeLight) microscopeLight.angle = 0.35 + 0.8 * diaphragmOpening;
+        if (beam) {
+            const scale = 0.55 + diaphragmOpening * 0.9;
+            beam.scale.x = scale;
+            beam.scale.z = scale;
+        }
     }
 
-    function updateRevolverPanel(visible) {
-        get('bio-microscopi-optic-3d-revolver-controls')?.classList.toggle('hidden', !visible);
+    function toggleMicroscopeLight() {
+        lightTarget = lightTarget > 0.5 ? 0 : 1;
+        if (lightSwitch && lightSwitchInitialRotation) {
+            lightSwitch.rotation.x = lightSwitchInitialRotation.x + (lightTarget ? -0.35 : 0.35);
+        }
+        if (indicator?.material) {
+            const materials = Array.isArray(indicator.material) ? indicator.material : [indicator.material];
+            materials.forEach(material => material.emissive?.setHex(lightTarget ? 0xffd166 : 0x222222));
+        }
+    }
+
+    function updateMicroscopeLight(delta) {
+        lightLevel += (lightTarget - lightLevel) * Math.min(1, delta * 5);
+        if (microscopeLight) microscopeLight.intensity = 2.2 * lightLevel;
+        beamMaterials.forEach(material => { material.opacity = lightLevel * 0.55; });
+        if (beam) beam.visible = lightLevel > 0.01;
+    }
+
+    function advanceRevolver() {
+        if (!revolverAction || revolverAnimating || explodedRunning) return;
+        const frames = [1, 37, 73, 109, 145];
+        const start = frames[revolverPosition] / 24;
+        const end = frames[revolverPosition + 1] / 24;
+        revolverAction.enabled = true;
+        revolverAction.paused = false;
+        revolverAction.setLoop(THREE.LoopOnce, 1);
+        revolverAction.clampWhenFinished = true;
+        revolverAction.time = start;
+        revolverAction.play();
+        revolverSegment = { start, end };
+        revolverAnimating = true;
+        revolverPosition = (revolverPosition + 1) % 4;
+    }
+
+    function playExplodedView() {
+        if (!explodedActions.length || explodedRunning) return;
+        if (revolverAction) revolverAction.paused = true;
+        explodedActions.forEach(action => {
+            action.stop().reset();
+            action.time = 180 / 24;
+            action.setLoop(THREE.LoopOnce, 1);
+            action.clampWhenFinished = true;
+            action.play();
+        });
+        explodedRunning = true;
+        explodedEndTime = performance.now() + (400 - 180) / 24 * 1000;
+        updateInteractionLock();
+    }
+
+    function updateInteractionLock() {
+        get('bio-microscopi-optic-3d-exploded')?.toggleAttribute('disabled', explodedRunning);
     }
 
     function selectPart(part) {
-        updateRevolverPanel(part.anatomy_id === 'revolver');
+        revolverSelected = part.anatomy_id === 'revolver';
         if (mode === 'practice' && answered) return;
         clearHighlight();
         highlightPart(part.anatomy_id);
@@ -468,10 +722,28 @@
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);
     }
-    function animate() { frameId = requestAnimationFrame(animate); controls?.update(); renderer?.render(scene, camera); }
+    function animate() {
+        frameId = requestAnimationFrame(animate);
+        const delta = clock?.getDelta() || 0;
+        mixer?.update(delta);
+        if (revolverAnimating && revolverSegment && revolverAction.time >= revolverSegment.end) {
+            revolverAction.time = revolverSegment.end;
+            revolverAction.paused = true;
+            revolverAnimating = false;
+            revolverSegment = null;
+        }
+        if (explodedRunning && performance.now() >= explodedEndTime) {
+            explodedActions.forEach(action => action.stop());
+            explodedRunning = false;
+            updateInteractionLock();
+        }
+        updateMicroscopeLight(delta);
+        controls?.update();
+        renderer?.render(scene, camera);
+    }
 
     window.startBioMicroscopiOptic3D = startBioMicroscopiOptic3D;
     window.nextBioMicroscopiOptic3DQuestion = nextBioMicroscopiOptic3DQuestion;
     window.resetBioMicroscopiOptic3DGame = resetBioMicroscopiOptic3DGame;
-    window.rotateBioMicroscopeRevolver = rotateBioMicroscopeRevolver;
+    window.playBioMicroscopiOptic3DExploded = playExplodedView;
 })();

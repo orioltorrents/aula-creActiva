@@ -1,0 +1,71 @@
+<section id="med-activity-creacio-mar" class="sub-activity med-creacio-mar hidden" aria-label="Activitats de la creació del Mar Mediterrani">
+    <div id="med-creacio-mar-menu" class="activities-grid med-creacio-mar__activities" aria-label="Activitats de la creació del Mar Mediterrani">
+        <div class="activity-card" role="button" tabindex="0" onclick="openMediterraniActivity('plaques')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openMediterraniActivity('plaques');}">
+            <div class="activity-card__media med-creacio-mar__media" aria-hidden="true">
+                <img src="assets/images/activities/mediterrani/cards/targeta-plaques-tectoniques.jpeg"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Plaques tectòniques</div>
+                <div class="activity-card__description">Observa el vídeo del moviment de les plaques tectòniques.</div>
+            </div>
+        </div>
+
+        <div class="activity-card" role="button" tabindex="0" onclick="openMediterraniActivity('temps-geologic')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openMediterraniActivity('temps-geologic');}">
+            <div class="activity-card__media med-creacio-mar__media" aria-hidden="true">
+                <img src="assets/images/activities/mediterrani/cards/targeta-historia-terra-mediterrania.jpeg"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Història de la Terra i del Mediterrani</div>
+                <div class="activity-card__description">Tria el nivell i repassa la història de la Terra i del Mediterrani.</div>
+            </div>
+        </div>
+
+        <div class="activity-card" role="button" tabindex="0" onclick="openMediterraniActivity('crisi-messinia')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openMediterraniActivity('crisi-messinia');}">
+            <div class="activity-card__media med-creacio-mar__media" aria-hidden="true">
+                <img src="assets/images/activities/mediterrani/cards/targeta-crisi-salina-del-messinia.jpeg"
+                    alt="" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Crisi salina del Messinià</div>
+                <div class="activity-card__description">Observa el vídeo sobre la crisi salina del Messinià.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="med-activity-crisi-messinia" class="sub-activity med-plaques hidden" aria-labelledby="med-crisi-messinia-title">
+    <div class="med-plaques__content">
+        <h2 id="med-crisi-messinia-title">Crisi salina del Messinià</h2>
+        <p>Observa el vídeo sobre la dessecació i la formació dels dipòsits de sal a la conca mediterrània.</p>
+        <div class="med-plaques__video">
+            <iframe
+                src="https://www.youtube.com/embed/PLIdVpyW60g"
+                title="Crisi salina del Messinià"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+<section id="med-activity-plaques" class="sub-activity med-plaques hidden" aria-labelledby="med-plaques-title">
+    <div class="med-plaques__content">
+        <h2 id="med-plaques-title">Plaques tectòniques</h2>
+        <p>Observa l’evolució dels continents i de les plaques tectòniques des de fa 540 milions d’anys fins a l’actualitat.</p>
+        <div class="med-plaques__video">
+            <iframe
+                src="https://www.youtube.com/embed/UevnAq1MTVA"
+                title="Moviment de les plaques tectòniques des de fa 540 milions d'anys"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</section>

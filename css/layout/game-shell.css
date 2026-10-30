@@ -11,6 +11,100 @@
     width: 100%;
 }
 
+.game-back-button {
+    min-width: 2.75rem;
+    padding: 0.4rem 0.65rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.game-back-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.game-back-button__icon {
+    display: block;
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.game-screen--immersive .game-content {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+}
+
+.game-screen--immersive {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.game-screen--immersive .top-bar {
+    flex: 0 0 auto;
+}
+
+.game-screen--immersive .game-container,
+.game-screen--immersive #activity-area {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    margin: 0;
+}
+
+.game-screen--immersive .game-container {
+    position: absolute;
+    inset: 0;
+}
+
+.game-screen--immersive #activity-area {
+    width: 100%;
+    height: 100%;
+}
+
+.game-screen--immersive #fq-formulacio-activity {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    height: auto;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+}
+
+.game-screen--immersive .fq-formulacio {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0;
+}
+
+.game-screen--immersive .fq-formulacio__frame {
+    position: fixed;
+    z-index: 10;
+    top: 70px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100vw;
+    height: calc(100vh - 70px);
+    min-height: 0;
+    border-radius: 0;
+}
+
 .top-bar__identity {
     min-width: 0;
     text-align: center;
@@ -44,4 +138,10 @@
     .top-bar__user-name {
         max-width: 8rem;
     }
+
+    .game-screen--immersive .fq-formulacio__frame {
+        top: 62px;
+        height: calc(100vh - 62px);
+    }
+
 }

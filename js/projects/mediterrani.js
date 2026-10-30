@@ -40,37 +40,86 @@ Exemples de funcions que NO hi haurien d'anar:
 
 // Dibuixa les targetes del menú d'activitats del projecte Mediterrani
 function renderMediterraniActivities() {
-  // Contenidor on es pinten les targetes
   const container = document.getElementById("med-activities-menu");
-
-  // Activitats configurades per al projecte Mediterrani.
-  // Si no n'hi ha cap definida, fem servir un array buit.
+  const phaseActivities = document.getElementById("med-phase-activities");
+  const phases = PROJECT_PHASES?.mediterrani || [];
   const activities = PROJECT_ACTIVITIES?.mediterrani || [];
+  if (!container || !phaseActivities || phases.length === 0) return;
 
-  // Si no existeix el contenidor o no hi ha activitats definides, sortim
-  if (!container || activities.length === 0) return;
-
-  // Generem les targetes a partir de la configuració
-  container.innerHTML = activities.map(activity => `
-    <div class="activity-card" onclick="openMediterraniActivity('${activity.action}')">
-      <div class="activity-card__media">
-        <img src="${activity.image}" alt="${activity.fallbackTitle}" class="activity-card__image">
-      </div>
-      <div class="activity-card__content">
-        <div class="activity-card__title" data-i18n="${activity.titleKey}">
-          ${activity.fallbackTitle}
-        </div>
-        <div class="activity-card__description" data-i18n="${activity.descKey}">
-          ${activity.fallbackDesc}
-        </div>
-      </div>
+  container.innerHTML = phases.map(phase => `
+    <div class="mediterrani-phase-card" role="button" tabindex="0" onclick="openMediterraniPhase('${phase.id}')"
+      onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); openMediterraniPhase('${phase.id}');}">
+      ${phase.image ? `<span class="mediterrani-phase-card__media"><img src="${phase.image}" alt="" loading="lazy"></span>` : ''}
+      <span class="mediterrani-phase-card__content">
+        <strong class="mediterrani-phase-card__title">${phase.cardTitle || phase.title}</strong>
+        <span class="mediterrani-phase-card__description">${phase.description}</span>
+      </span>
     </div>
   `).join("");
 
-  // Reapliquem les traduccions si la funció existeix
+  phaseActivities.innerHTML = phases.map(phase => {
+    const phaseItems = activities
+      .filter(activity => activity.phase === phase.id)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+    return `<section id="med-${phase.id}" class="mediterrani-phase-menu hidden" aria-labelledby="med-${phase.id}-title">
+      ${phase.showHeader !== false ? `<h2 id="med-${phase.id}-title" class="mediterrani-phase-menu__title">${phase.title}</h2>
+      <p class="mediterrani-phase-menu__description">${phase.description}</p>` : ''}
+      <div class="activities-grid mediterrani-phase-menu__activities">${phaseItems.map(renderMediterraniActivityCard).join("")}</div>
+      ${phaseItems.filter(activity => activity.submenu).map(activity => `
+        <div id="med-${phase.id}-${activity.submenu}" class="mediterrani-nested-menu hidden">
+          <div class="activities-grid">${(activity.children || []).map(renderMediterraniActivityCard).join("")}</div>
+        </div>`).join("")}
+    </section>`;
+  }).join("");
+
   if (typeof applyTranslations === "function") {
     applyTranslations();
   }
+}
+
+function renderMediterraniActivityCard(activity) {
+  const action = activity.pending ? '' : activity.submenu
+    ? `openMediterraniSubmenu('${activity.submenu}')`
+    : `openMediterraniActivity('${activity.action}')`;
+  return `<div class="activity-card${activity.pending ? ' mediterrani-activity-card--pending' : ''}"${action ? ` onclick="${action}"` : ' aria-disabled="true"'}>
+    <div class="activity-card__media ${activity.mediaClass || ''}">
+      ${activity.image ? `<img src="${activity.image}" alt="${activity.fallbackTitle}" class="activity-card__image">` : activity.mediaHtml || ''}
+    </div>
+    <div class="activity-card__content">
+      <div class="activity-card__title" data-i18n="${activity.titleKey || ''}">${activity.fallbackTitle}</div>
+      <div class="activity-card__description" data-i18n="${activity.descKey || ''}">${activity.fallbackDesc}</div>
+    </div>
+  </div>`;
+}
+
+function openMediterraniSubmenu(submenuId) {
+  const nestedMenu = document.getElementById(`med-fase-03-${submenuId}`);
+  const phaseMenu = nestedMenu?.closest('.mediterrani-phase-menu');
+  const activities = phaseMenu?.querySelector('.mediterrani-phase-menu__activities');
+  if (!nestedMenu || !phaseMenu || !activities) return;
+  if (typeof setGameBackToCurrentView === "function") setGameBackToCurrentView();
+  activities.classList.add('hidden');
+  phaseMenu.querySelector('.mediterrani-phase-menu__title')?.classList.add('hidden');
+  phaseMenu.querySelector('.mediterrani-phase-menu__description')?.classList.add('hidden');
+  phaseMenu.querySelectorAll('.mediterrani-nested-menu').forEach(element => element.classList.add('hidden'));
+  nestedMenu.classList.remove('hidden');
+  if (typeof setGameTitle === "function") setGameTitle('Països banyats pel Mediterrani');
+}
+
+function openMediterraniPhase(phaseId) {
+  const phase = PROJECT_PHASES?.mediterrani?.find(item => item.id === phaseId);
+  const menu = document.getElementById("med-activities-menu");
+  const phaseMenu = document.getElementById(`med-${phaseId}`);
+  if (!phase || !menu || !phaseMenu) return;
+  if (typeof setGameBackToCurrentView === "function") setGameBackToCurrentView();
+  menu.classList.add("hidden");
+  document.querySelectorAll("#med-phase-activities .mediterrani-phase-menu").forEach(element => element.classList.add("hidden"));
+  phaseMenu.classList.remove("hidden");
+  phaseMenu.querySelector('.mediterrani-phase-menu__title')?.classList.remove('hidden');
+  phaseMenu.querySelector('.mediterrani-phase-menu__description')?.classList.remove('hidden');
+  phaseMenu.querySelector('.mediterrani-phase-menu__activities')?.classList.remove('hidden');
+  phaseMenu.querySelectorAll('.mediterrani-nested-menu').forEach(element => element.classList.add('hidden'));
+  if (typeof setGameTitle === "function") setGameTitle(phase.title);
 }
 
 // Amaga totes les subactivitats del projecte Mediterrani
@@ -81,7 +130,13 @@ function hideMediterraniActivities() {
     "med-activity-capitals",
     "med-activity-test_mar",
     "med-activity-map",
-    "med-activity-biodiversitat"
+    "med-activity-mars-oceans",
+    "med-activity-biodiversitat",
+    "med-activity-quadern-bitacola",
+    "med-activity-temps-geologic",
+    "med-activity-creacio-mar",
+    "med-activity-plaques",
+    "med-activity-crisi-messinia"
   ];
 
   // Recorrem cada id i amaguem el bloc si existeix
@@ -136,4 +191,3 @@ function openMediterraniActivity(activityName) {
     initMediterraniBiodiversitatQuiz();
   }
 }
-

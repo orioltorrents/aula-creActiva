@@ -1,0 +1,146 @@
+.fq-si {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.fq-si__intro {
+    margin: 8px 0 20px;
+    color: var(--text-light);
+}
+
+.fq-si__card {
+    overflow: hidden;
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-xl);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+}
+
+.fq-si__unit-banner {
+    min-height: 170px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-muted);
+    background: var(--surface-bg);
+}
+
+.fq-si__unit-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.fq-si__unit {
+    color: var(--text-color);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(4rem, 14vw, 7rem);
+    line-height: 1;
+}
+
+.fq-si__content {
+    padding: 20px;
+}
+
+.fq-si__stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 14px;
+    border: 1px solid var(--border-info);
+    border-radius: var(--radius-md);
+    background: var(--panel-info-bg);
+    font-weight: 600;
+}
+
+.fq-si__questions {
+    display: grid;
+    gap: 16px;
+}
+
+.fq-si__field {
+    display: grid;
+    gap: 6px;
+}
+
+.fq-si__label {
+    font-weight: 600;
+}
+
+.fq-si__equation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 24px 0 12px;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-weight: 600;
+}
+
+.fq-si__exponent-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.fq-si__exponent {
+    position: relative;
+    top: -0.5rem;
+    width: 58px;
+    min-height: 36px;
+    padding: 4px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.fq-si__ten {
+    white-space: nowrap;
+}
+
+.fq-si__power {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.fq-si__note {
+    margin: 0;
+    color: var(--text-light);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.fq-si__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.fq-si__feedback {
+    min-height: 28px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+@media (min-width: 700px) {
+    .fq-si__content {
+        padding: 24px 30px 28px;
+    }
+
+    .fq-si__questions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fq-si__field:first-child {
+        grid-column: 1 / -1;
+    }
+}

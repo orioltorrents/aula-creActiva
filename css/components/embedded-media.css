@@ -19,6 +19,11 @@
     height: 100%;
 }
 
+.video-container--compact {
+    max-width: 480px;
+    margin-inline: auto;
+}
+
 .media-contained-md {
     width: 100%;
     max-width: 520px;
@@ -134,4 +139,3 @@
         min-height: 68vh;
     }
 }
-

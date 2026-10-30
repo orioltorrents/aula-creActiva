@@ -442,13 +442,3 @@ async function finishBiblioGame() {
     saveNaturaResult(percentage, label);
   }
 }
-
-/* -----------------------------
-   Tornar al menú
------------------------------ */
-
-function showNaturaMenuFromBiblio() {
-  document.getElementById("natura-activity-biblio").classList.add("hidden");
-  document.getElementById("natura-activities-menu").classList.remove("hidden");
-  document.getElementById("biblio-level-selection").classList.remove("hidden");
-}

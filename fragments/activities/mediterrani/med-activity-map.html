@@ -1,8 +1,6 @@
 <div id="med-activity-map" class="sub-activity hidden">
-    <button class="btn btn--secondary btn--sm mb-2" onclick="showMediterraniMenu()">← Tornar al menú</button>
 
-    <div class="game-panel__header">
-        <h3 data-i18n="act_map_title">Mapa del Mediterrani</h3>
+    <div class="game-panel__header med-map-toolbar">
         <div class="game-panel__controls">
             <button id="btn-toggle-country-map" onclick="toggleCountryNameMap()" class="btn btn--secondary"
                 data-i18n="hide_country">Amagar País</button>
@@ -11,17 +9,20 @@
             <button id="btn-med-map-exam" onclick="initMediterraniMapGame('exam')" class="btn btn--secondary"
                 data-i18n="btn_exam">Examen</button>
         </div>
-    </div>
-
-    <div id="med-map-area" class="hidden">
-        <div class="game-panel__stats">
+        <div id="med-map-stats" class="game-panel__stats med-map-toolbar__stats hidden">
             <span id="med-map-score">Punts: 0</span>
             <span id="med-map-time" class="hidden">Temps: 60s</span>
         </div>
+    </div>
+
+    <div id="med-map-area" class="hidden">
         <div class="game-panel__question">
-            <h4 id="med-map-question">Clicka...</h4>
+            <p data-i18n="map_click_instruction">Clica al mapa el país corresponent a la bandera.</p>
+            <div class="med-map-question-row">
+                <h4 id="med-map-question">Clicka...</h4>
+                <p id="med-map-feedback" class="game-panel__feedback" aria-live="polite"></p>
+            </div>
         </div>
         <div id="map-container" class="map-wrapper"></div>
-        <p id="med-map-feedback" class="game-panel__feedback"></p>
     </div>
 </div>
