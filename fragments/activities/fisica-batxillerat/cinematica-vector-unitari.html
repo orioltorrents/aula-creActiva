@@ -1,0 +1,81 @@
+<section id="fisica-batx-cinematica-activity" class="game-module hidden fisica-batx-cinematica" data-game-id="fisica-batxillerat-cinematica">
+    <header class="fisica-batx-cinematica__header">
+        <h2>Vector unitari en la direcció AB</h2>
+        <p>Calcula el vector desplaçament, el seu mòdul i el vector unitari a partir de dos punts.</p>
+    </header>
+
+    <div id="fisica-batx-cinematica-game" class="fisica-batx-cinematica__card">
+        <div class="fisica-batx-cinematica__stats" aria-live="polite">
+            <span id="fisica-batx-cinematica-progress">Exercici 1 de 10</span>
+            <span id="fisica-batx-cinematica-score">Encerts: 0/50 (0%)</span>
+        </div>
+
+        <div class="fisica-batx-cinematica__workspace">
+            <figure class="fisica-batx-cinematica__graph">
+                <svg id="fisica-batx-cinematica-graph" viewBox="0 0 640 420" role="img"
+                    aria-labelledby="fisica-batx-cinematica-graph-title fisica-batx-cinematica-graph-desc">
+                    <title id="fisica-batx-cinematica-graph-title">Pla cartesià de l’exercici</title>
+                    <desc id="fisica-batx-cinematica-graph-desc">Representació dels punts A i B i del vector que va d’A cap a B.</desc>
+                </svg>
+                <figcaption>Representació del vector en el pla cartesià</figcaption>
+            </figure>
+
+            <div class="fisica-batx-cinematica__answer-panel">
+                <div class="fisica-batx-cinematica__points" aria-live="polite">
+                    <div class="fisica-batx-cinematica__point">
+                        <span class="fisica-batx-cinematica__point-label">Punt A</span>
+                        <strong id="fisica-batx-cinematica-point-a">A = (0, 0)</strong>
+                    </div>
+                    <div class="fisica-batx-cinematica__arrow" aria-hidden="true">→</div>
+                    <div class="fisica-batx-cinematica__point">
+                        <span class="fisica-batx-cinematica__point-label">Punt B</span>
+                        <strong id="fisica-batx-cinematica-point-b">B = (0, 0)</strong>
+                    </div>
+                </div>
+
+                <p class="fisica-batx-cinematica__instruction">Escriu els resultats. Arrodoneix els decimals a dues xifres.</p>
+
+                <div class="fisica-batx-cinematica__fields">
+                    <div class="fisica-batx-cinematica__field">
+                        <label for="fisica-batx-cinematica-dx">Component x de AB</label>
+                        <input id="fisica-batx-cinematica-dx" class="form-control" type="number" step="any" inputmode="decimal">
+                    </div>
+                    <div class="fisica-batx-cinematica__field">
+                        <label for="fisica-batx-cinematica-dy">Component y de AB</label>
+                        <input id="fisica-batx-cinematica-dy" class="form-control" type="number" step="any" inputmode="decimal">
+                    </div>
+                    <div class="fisica-batx-cinematica__field">
+                        <label for="fisica-batx-cinematica-module">Mòdul de AB</label>
+                        <input id="fisica-batx-cinematica-module" class="form-control" type="number" step="any" min="0" inputmode="decimal">
+                    </div>
+                    <div class="fisica-batx-cinematica__field">
+                        <label for="fisica-batx-cinematica-ux">Component x del vector unitari</label>
+                        <input id="fisica-batx-cinematica-ux" class="form-control" type="number" step="any" inputmode="decimal">
+                    </div>
+                    <div class="fisica-batx-cinematica__field">
+                        <label for="fisica-batx-cinematica-uy">Component y del vector unitari</label>
+                        <input id="fisica-batx-cinematica-uy" class="form-control" type="number" step="any" inputmode="decimal">
+                    </div>
+                </div>
+
+                <div class="fisica-batx-cinematica__controls">
+                    <button id="fisica-batx-cinematica-check" class="btn btn--primary" type="button" onclick="checkFisicaBatxCinematicaAnswer()">Comprova</button>
+                    <button id="fisica-batx-cinematica-next" class="btn btn--secondary hidden" type="button" onclick="nextFisicaBatxCinematicaQuestion()">Següent exercici</button>
+                </div>
+                <p id="fisica-batx-cinematica-feedback" class="fisica-batx-cinematica__feedback" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="fisica-batx-cinematica-results" class="fisica-batx-cinematica__card hidden">
+        <h3>Resultat final</h3>
+        <p id="fisica-batx-cinematica-final-score" class="fisica-batx-cinematica__final-score">0%</p>
+        <p id="fisica-batx-cinematica-save-feedback" class="fisica-batx-cinematica__feedback" role="status" aria-live="polite"></p>
+        <button id="fisica-batx-cinematica-save-retry" class="btn btn--secondary hidden" type="button" onclick="saveFisicaBatxCinematicaResult()">Torna a desar</button>
+        <button id="fisica-batx-cinematica-retry" class="btn btn--secondary" type="button" onclick="restartFisicaBatxCinematica()">Torna a començar</button>
+    </div>
+
+    <p class="fisica-batx-cinematica__source">
+        Activitat pròpia inspirada en <a href="https://onio72.github.io/iesmajuelo/bach/fi2/t00/vectorunit/" target="_blank" rel="noopener noreferrer">Vector unitario en la dirección AB</a>, del repositori <a href="https://github.com/onio72/iesmajuelo" target="_blank" rel="noopener noreferrer">iesmajuelo</a> (GPL-3.0). Aquesta versió ha estat reimplementada i traduïda al català.
+    </p>
+</section>

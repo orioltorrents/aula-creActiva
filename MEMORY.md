@@ -57,6 +57,9 @@
 - Activitats inicials mostra quatre targetes en aquest ordre: Xarxa de pescador, Postal d'estiu, El meu mar i El Mar del Mig; les tres primeres són pendents.
 - Mar entre terres mostra tres targetes en aquest ordre: Creació del Mediterrani, Com és el Mediterrani i Biodiversitat del Mediterrani; les dues primeres utilitzen les imatges pròpies i «Com és el Mediterrani» continua marcada com a pendent.
 - Les quatre targetes grans de fase utilitzen imatges de fons que ocupen tota la targeta, amb una capa d'ombra per garantir la lectura del text.
+- S'ha afegit el projecte «Física 1r Batxillerat» amb un hub de cinc targetes: Cinemàtica, Dinàmica, Treball i energia, Camp gravitatori i Camp elèctric.
+- Les targetes de Física de Batxillerat utilitzen il·lustracions SVG locals; Cinemàtica obre l'activitat de vector unitari i Dinàmica obre els diagrames de forces.
+- Dinàmica és una reimplementació pròpia en català inspirada en l'activitat GPL-3.0 de diagrames de forces: escena SVG a l'esquerra, enunciat, selecció de forces, vectors arrossegables, pistes, correcció ponderada, informe adaptatiu i desament detallat al Sheets.
 
 ## Riscos oberts
 - Cal comprovar el desament real dels talls geològics després del desplegament d'Apps Script i la interacció en dispositiu tàctil físic; la prova en navegador ha interceptat el backend.
@@ -74,46 +77,36 @@
 - La carpeta `assets/models/estris-laboratori/reixeta/` és un canvi local pendent d'integració i no s'ha modificat.
 - Cal fer una prova manual de l'iframe de Formulació inorgànica, especialment el repte, el pont de resultats, el retorn i la visualització en mòbil.
 - Cal confirmar manualment que el mode immersiu de Formulació ocupa tota la zona sota el capçalera i no genera doble scroll en ordinador i mòbil.
+- Cal provar manualment la ronda de Cinemàtica, el percentatge sobre 50 apartats i el desament detallat al Sheets amb un alumne autenticat.
+- Cal provar manualment Dinàmica en ratolí i tàctil, especialment els vectors sobre el SVG, el càlcul de la puntuació i el desament final al Sheets.
 
 ## Tres últims passos
+
+### 2026-11-07 - Activitat de vector unitari en català
+- Afegida una reimplementació pròpia de l'activitat GPL-3.0 amb 10 exercicis de vector AB, mòdul i vector unitari.
+- Connectat el càlcul de percentatge i el desament autenticat via `saveResult`, amb el detall de cada exercici en JSON.
+- Afegit un paper mil·limetrat SVG responsive amb eixos, punts A/B i la fletxa del vector `AB`.
+- Reorganitzada l'activitat en dues columnes: gràfic a l'esquerra i valors en una columna a la dreta; la fletxa i els punts s'han fet més fins.
+- L'activitat de Cinemàtica funciona en mode immersiu; el paper mil·limetrat ocupa aproximadament tres quartes parts de l'espai i el panell queda a la dreta.
+- El mode de pantalla completa de Cinemàtica utilitza la classe específica `game-screen--fisica-batx` per no interferir amb el contenidor immersiu d'altres activitats.
+- Validats la sintaxi JavaScript, l'estructura HTML, els estils i les referències dels fragments.
+
+### 2026-11-07 - Diagrames de forces de Dinàmica
+- Activada la targeta Dinàmica i creat el fragment amb l'enunciat complet, escena SVG responsive i panell de resposta.
+- Implementades deu situacions de forces, selecció, vectors arrossegables, guies, pistes, correcció ponderada i informe per categories amb selecció adaptativa.
+- Connectat el desament final mitjançant `callApi('saveResult', ...)`, conservant respostes, vectors, errors i pistes en JSON.
+- Corregida la composició de les escenes: el bloc toca el terra, s'hi mostren els eixos `x`/`y` i la velocitat `v`, i els eixos dels plans inclinats segueixen el pla i la normal.
+- Centrats els eixos en el centre geomètric de la caixa i reduïda l'alçada del bloc per acostar el dibuix al model de referència.
+- L'escena de pla inclinat s'ha aproximat a la referència aportada: triangle gris, bloc fi rotat, eixos horitzontal/vertical i paral·lel/perpendicular al pla, angle de 25°, velocitat `v` i acceleració `a`.
+- Dinàmica presenta ara 10 situacions aleatòries diferents per partida, seleccionades del banc de preguntes sense repeticions, i desa aquesta configuració com a `random-10`.
+- Corregida la geometria de les situacions de paret: el bloc queda en contacte amb la paret i el centre de les forces es desplaça al centre real del bloc.
+
+### 2026-11-07 - Hub de Física 1r Batxillerat
+- Afegit `batx1_fisica` als catàlegs local i d'Apps Script i connectat a la navegació del dashboard.
+- Creat el hub amb cinc targetes i sis il·lustracions SVG locals, preparat per incorporar activitats.
+- Validats la sintaxi de `js/app.js`, el balanç de `div`, les referències d'imatges i el diff.
 
 ### 2026-10-30 - Imatge de la targeta Història de la Terra i del Mediterrani
 - Connectada `targeta-historia-terra-mediterrania.jpeg` a la targeta corresponent de «Creació del Mediterrani».
 - Substituït el gràfic decoratiu mantenint el títol, la descripció i la navegació.
 - Validats l'asset, l'estructura HTML i el diff.
-
-### 2026-10-30 - Imatge de la targeta Crisi salina del Messinià
-- Connectada `targeta-crisi-salina-del-messinia.jpeg` a la targeta corresponent de «Creació del Mediterrani».
-- Substituït el gràfic decoratiu mantenint el títol, la descripció i la navegació.
-- Validats l'asset, l'estructura HTML i el diff.
-
-### 2026-10-30 - Imatge de la targeta Plaques tectòniques
-- Connectada `targeta-plaques-tectoniques.jpeg` a la targeta «Plaques tectòniques» de «Creació del Mediterrani».
-- Substituït el gràfic decoratiu de temps geològic per la imatge de portada.
-- Validats l'asset, l'estructura HTML i el diff.
-- Validada la configuració JavaScript i el diff.
-
-### 2026-10-30 - Imatge i títol de la fase Maqueta
-- Connectada `targeta-maqueta.jpeg` com a fons de la fase «Maqueta» i ajustat el títol amb només la primera lletra en majúscula.
-- Mantinguts la mida, el títol i la navegació de la targeta.
-- Validats l'asset, la configuració JavaScript i el diff.
-
-### 2026-10-30 - Mida uniforme i imatge de la fase ADN Mediterrani
-- Donada a totes les targetes de fase una alçada igual, també en la graella mòbil.
-- Connectada `targeta-adn-mediterrani.jpeg` com a fons de la fase «ADN Mediterrani».
-- Validats l'asset, la configuració JavaScript i els estils.
-
-### 2026-10-30 - Imatge de la fase Activitats inicials
-- Connectada `targeta-activitats-inicials.jpeg` a la targeta de fase «Activitats inicials».
-- Mantinguts el títol, la descripció i la navegació de la fase.
-- Validats l'asset, la configuració JavaScript i el diff.
-
-### 2026-10-30 - Imatge de la fase Mar entre terres
-- Connectada `targeta-mar-entre-terres.jpeg` a la targeta «Mar entre terres».
-- Substituït el fons anterior de Biodiversitat, mantenint el títol i la navegació.
-- Validats l'asset, la configuració JavaScript i el diff.
-
-### 2026-10-30 - Il·lustració inicial del quadern
-- Afegida `jove-mariner-quader-bitacola.jpeg` a l'inici de l'activitat, abans de l'explicació.
-- La imatge es mostra sencera i centrada perquè es vegin les dues escenes i el títol.
-- Validats la referència de l'arxiu, l'estructura del fragment i els estils.

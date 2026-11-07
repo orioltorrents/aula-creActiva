@@ -30,6 +30,7 @@ function getProjects(curs) {
         ],
         // Batxillerat.
         '1r Batxillerat': [
+            { id: 'batx1_fisica', titol: 'Física 1r Batxillerat', descripcio: 'Cinemàtica, dinàmica, energia i camps físics.' },
             { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
             { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
         ],
@@ -58,6 +59,7 @@ function getProjects(curs) {
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
         ],
         '1Batx': [
+            { id: 'batx1_fisica', titol: 'Física 1r Batxillerat', descripcio: 'Cinemàtica, dinàmica, energia i camps físics.' },
             { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
             { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
         ],

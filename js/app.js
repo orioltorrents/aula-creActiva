@@ -37,6 +37,7 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1r Batxillerat': [
+        { id: 'batx1_fisica', titol: 'Física 1r Batxillerat', descripcio: 'Cinemàtica, dinàmica, energia i camps físics.' },
         { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
     ],
@@ -67,6 +68,7 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '1Batx': [
+        { id: 'batx1_fisica', titol: 'Física 1r Batxillerat', descripcio: 'Cinemàtica, dinàmica, energia i camps físics.' },
         { id: 'batx1_ambientals', titol: 'Geologia i Ciències Ambientals 1r', descripcio: 'Talls geològics i riscos naturals.' },
         { id: 'batx1_tr', titol: 'Treball de recerca', descripcio: 'Aprendre a formular bones preguntes investigables.' }
     ],
@@ -979,6 +981,7 @@ function getProjectCourse(projectId) {
     if (match) return `${match[1]}ESO`;
     if (projectId === 'batx1_tr') return '1Batx';
     if (projectId === 'batx1_ambientals') return '1Batx';
+    if (projectId === 'batx1_fisica') return '1Batx';
     if (projectId === 'batx2_ambientals') return '2Batx';
     return '';
 }
@@ -1101,6 +1104,7 @@ function getLocalProjectsForCourses(courses) {
 
 function getProjectVisuals() {
     return {
+        'batx1_fisica': { icon: '<img src="assets/images/activities/fisica-quimica/cards/batx1-fisica-portada.svg" alt="Física 1r Batxillerat" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #1d4ed8, #0f172a)' },
         'batx1_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
         'batx2_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
         'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
@@ -1316,6 +1320,56 @@ function returnFromFisicaQuimicaFactorsActivity() {
     setGameTitle(state.currentProject?.titol);
 }
 
+async function openFisicaBatxilleratCinematicaActivity() {
+    if (state.currentProject?.id !== 'batx1_fisica') return;
+
+    const activity = await ensureProjectFragment(
+        'fisica-batx-cinematica-activity',
+        'fragments/activities/fisica-batxillerat/cinematica-vector-unitari.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de vector unitari.');
+    }
+
+    setGameBackToCurrentView(() => {
+        document.getElementById('game-screen')?.classList.remove('game-screen--fisica-batx');
+    });
+    document.getElementById('project-hub-fisica-batxillerat')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.add('game-screen--fisica-batx');
+    initFisicaBatxCinematica();
+    setGameTitle('Cinemàtica - Vector unitari');
+}
+
+async function openFisicaBatxilleratForcesActivity() {
+    if (state.currentProject?.id !== 'batx1_fisica') return;
+
+    const activity = await ensureProjectFragment(
+        'fisica-batx-forces-activity',
+        'fragments/activities/fisica-batxillerat/diagrames-forces.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de diagrames de forces.');
+    }
+
+    setGameBackToCurrentView(() => {
+        document.getElementById('game-screen')?.classList.remove('game-screen--fisica-batx');
+    });
+    document.getElementById('project-hub-fisica-batxillerat')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.add('game-screen--fisica-batx');
+    initFisicaBatxilleratForces();
+    setGameTitle('Dinàmica - Diagrames de forces');
+}
+
+function returnFromFisicaBatxilleratCinematicaActivity() {
+    document.getElementById('fisica-batx-cinematica-activity')?.classList.add('hidden');
+    document.getElementById('project-hub-fisica-batxillerat')?.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.remove('game-screen--fisica-batx');
+    setGameBackAction(null);
+    setGameTitle(state.currentProject?.titol);
+}
+
 function returnFromBioLabTools() {
     resetBioLabTools3DGame();
     if (isFisicaQuimicaProject(state.currentProject?.id)) {
@@ -1503,6 +1557,14 @@ async function openProject(project) {
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             showSolidartMenu();
+        }
+    } else if (project.id === 'batx1_fisica') {
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-fisica-batxillerat',
+            'fragments/projects/fisica-batxillerat/index.html'
+        );
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
         }
     } else if (project.id === 'batx1_ambientals' || project.id === 'batx2_ambientals') {
         const hubDiv = await ensureProjectFragment(

@@ -1,0 +1,92 @@
+<section id="fisica-batx-forces-activity" class="game-module hidden fisica-batx-forces" data-game-id="fisica-batxillerat-forces">
+    <header class="fisica-batx-forces__header">
+        <div class="fisica-batx-forces__topline">
+            <div class="fisica-batx-forces__badges">
+                <span id="fisica-batx-forces-phase" class="fisica-batx-forces__badge">Diagnòstic</span>
+                <span id="fisica-batx-forces-counter" class="fisica-batx-forces__muted">Situació 1 de 10</span>
+                <span id="fisica-batx-forces-session-score" class="fisica-batx-forces__badge">Puntuació: 0,0 / 10</span>
+            </div>
+            <div class="fisica-batx-forces__actions">
+                <button id="fisica-batx-forces-calculator" class="btn btn--secondary" type="button">Calculadora</button>
+                <button id="fisica-batx-forces-hint" class="btn btn--secondary" type="button">Pista</button>
+                <button id="fisica-batx-forces-report-button" class="btn btn--secondary" type="button">Progrés</button>
+                <button id="fisica-batx-forces-reset" class="btn btn--secondary" type="button">Reiniciar</button>
+            </div>
+        </div>
+        <div class="fisica-batx-forces__progress" aria-label="Progrés cap als 10 punts">
+            <span id="fisica-batx-forces-progress"></span>
+        </div>
+    </header>
+
+    <div class="fisica-batx-forces__prompt-wrap">
+        <p id="fisica-batx-forces-prompt" class="fisica-batx-forces__prompt"></p>
+        <p id="fisica-batx-forces-data" class="fisica-batx-forces__data"></p>
+    </div>
+
+    <div class="fisica-batx-forces__workspace">
+        <div class="fisica-batx-forces__scene-wrap">
+            <svg id="fisica-batx-forces-scene" class="fisica-batx-forces__scene" viewBox="0 0 640 400"
+                role="img" aria-label="Escena física per dibuixar el diagrama de forces"></svg>
+            <p class="fisica-batx-forces__scene-note">Els eixos <strong>x</strong> i <strong>y</strong> indiquen la referència; la fletxa discontínua <strong>v</strong> representa la velocitat o el moviment, no una força.</p>
+        </div>
+
+        <section class="fisica-batx-forces__panel" aria-label="Eines de resposta">
+            <div id="fisica-batx-forces-selection">
+                <h3>1. Quines forces actuen sobre el cos?</h3>
+                <div id="fisica-batx-forces-options" class="fisica-batx-forces__force-grid"></div>
+                <button id="fisica-batx-forces-confirm" class="btn btn--primary" type="button">Confirma les forces</button>
+            </div>
+
+            <div id="fisica-batx-forces-drawing" class="hidden">
+                <h3>2. Dibuixa els vectors</h3>
+                <p class="fisica-batx-forces__help">Selecciona una força i arrossega des del punt central del cos.</p>
+                <div id="fisica-batx-forces-buttons" class="fisica-batx-forces__force-buttons"></div>
+                <div class="fisica-batx-forces__guide-controls">
+                    <label><input id="fisica-batx-forces-guide" type="checkbox"> Mostra guies del pla</label>
+                    <label><input id="fisica-batx-forces-world-guide" type="checkbox"> Mostra vertical i horitzontal</label>
+                </div>
+                <p id="fisica-batx-forces-draw-status" class="fisica-batx-forces__status" role="status" aria-live="polite"></p>
+                <div class="fisica-batx-forces__controls">
+                    <button id="fisica-batx-forces-back-selection" class="btn btn--secondary" type="button">Canvia les forces</button>
+                    <button id="fisica-batx-forces-undo" class="btn btn--secondary" type="button">Desfés</button>
+                    <button id="fisica-batx-forces-check" class="btn btn--primary" type="button">Comprova</button>
+                </div>
+            </div>
+
+            <div id="fisica-batx-forces-feedback" class="hidden" aria-live="polite">
+                <div class="fisica-batx-forces__score-row">
+                    <strong id="fisica-batx-forces-score">0%</strong>
+                    <span>en aquesta situació</span>
+                </div>
+                <p id="fisica-batx-forces-score-breakdown" class="fisica-batx-forces__muted"></p>
+                <div class="fisica-batx-forces__view-buttons">
+                    <button id="fisica-batx-forces-view-student" class="btn btn--secondary" type="button">La meva resposta</button>
+                    <button id="fisica-batx-forces-view-solution" class="btn btn--secondary" type="button">Solució correcta</button>
+                </div>
+                <div id="fisica-batx-forces-feedback-list"></div>
+                <div class="fisica-batx-forces__explanation">
+                    <strong>Idea física clau</strong>
+                    <p id="fisica-batx-forces-explanation"></p>
+                </div>
+                <button id="fisica-batx-forces-next" class="btn btn--primary" type="button">Següent situació</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="fisica-batx-forces-hint-box" class="fisica-batx-forces__hint hidden" role="status" aria-live="polite"></div>
+    <section id="fisica-batx-forces-report" class="fisica-batx-forces__report hidden" aria-label="Informe de progrés">
+        <div class="fisica-batx-forces__report-head">
+            <h2>Informe de progrés</h2>
+            <button id="fisica-batx-forces-close-report" class="btn btn--secondary" type="button">Tanca</button>
+        </div>
+        <p id="fisica-batx-forces-report-score"></p>
+        <div id="fisica-batx-forces-skill-report"></div>
+        <p id="fisica-batx-forces-recommendation"></p>
+        <p id="fisica-batx-forces-save-feedback" class="fisica-batx-forces__status" role="status" aria-live="polite"></p>
+        <button id="fisica-batx-forces-save-retry" class="btn btn--secondary hidden" type="button">Torna a desar</button>
+    </section>
+
+    <p class="fisica-batx-forces__source">
+        Activitat pròpia inspirada en <a href="https://onio72.github.io/iesmajuelo/bach/fi2/t00/esquemasfuerzas/" target="_blank" rel="noopener noreferrer">Diagramas de fuerzas</a>, del repositori <a href="https://github.com/onio72/iesmajuelo" target="_blank" rel="noopener noreferrer">iesmajuelo</a> (GPL-3.0). Aquesta versió ha estat reimplementada i traduïda al català.
+    </p>
+</section>
