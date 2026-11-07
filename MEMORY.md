@@ -100,6 +100,7 @@
 - L'escena de pla inclinat s'ha aproximat a la referència aportada: triangle gris, bloc fi rotat, eixos horitzontal/vertical i paral·lel/perpendicular al pla, angle de 25°, velocitat `v` i acceleració `a`.
 - Dinàmica presenta ara 10 situacions aleatòries diferents per partida, seleccionades del banc de preguntes sense repeticions, i desa aquesta configuració com a `random-10`.
 - Corregida la geometria de les situacions de paret: el bloc queda en contacte amb la paret i el centre de les forces es desplaça al centre real del bloc.
+- Activada la targeta «Treball mecànic» amb una reimplementació pròpia inspirada en la versió GPL-3.0: paper mil·limetrat canvas, vector `AB`, regla, transportador, calculadora, cinc apartats de resposta, sis exercicis aleatoris i desament final.
 
 ### 2026-11-07 - Hub de Física 1r Batxillerat
 - Afegit `batx1_fisica` als catàlegs local i d'Apps Script i connectat a la navegació del dashboard.

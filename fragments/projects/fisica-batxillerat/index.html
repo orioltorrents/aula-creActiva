@@ -28,15 +28,17 @@
             </div>
         </div>
 
-        <div class="activity-card activity-card--disabled" aria-disabled="true">
+        <div class="activity-card" role="button" tabindex="0"
+            aria-label="Obrir l’activitat de treball mecànic"
+            onclick="window.openFisicaBatxilleratTreballActivity()"
+            onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); window.openFisicaBatxilleratTreballActivity();}">
             <div class="activity-card__media" aria-hidden="true">
                 <img src="assets/images/activities/fisica-quimica/cards/batx1-energia.svg"
                     alt="" class="activity-card__image">
             </div>
             <div class="activity-card__content">
-                <div class="activity-card__title">Treball i energia</div>
-                <div class="activity-card__description">Investiga el treball, la potència i la conservació de l’energia.</div>
-                <span class="badge-soon">Properament</span>
+                <div class="activity-card__title">Treball mecànic</div>
+                <div class="activity-card__description">Mesura vectors gràficament i calcula el treball d’una força.</div>
             </div>
         </div>
 

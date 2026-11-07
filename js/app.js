@@ -1362,6 +1362,29 @@ async function openFisicaBatxilleratForcesActivity() {
     setGameTitle('Dinàmica - Diagrames de forces');
 }
 
+async function openFisicaBatxilleratTreballActivity() {
+    if (state.currentProject?.id && state.currentProject.id !== 'batx1_fisica') return;
+
+    const activity = await ensureProjectFragment(
+        'fisica-batx-treball-activity',
+        'fragments/activities/fisica-batxillerat/treball-mecanic.html'
+    );
+    if (!activity) {
+        throw new Error('No s’ha pogut carregar l’activitat de treball mecànic.');
+    }
+
+    setGameBackToCurrentView(() => {
+        document.getElementById('game-screen')?.classList.remove('game-screen--fisica-batx');
+    });
+    document.getElementById('project-hub-fisica-batxillerat')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.add('game-screen--fisica-batx');
+    initFisicaBatxilleratTreball();
+    setGameTitle('Treball mecànic - Mesura gràfica de vectors');
+}
+
+window.openFisicaBatxilleratTreballActivity = openFisicaBatxilleratTreballActivity;
+
 function returnFromFisicaBatxilleratCinematicaActivity() {
     document.getElementById('fisica-batx-cinematica-activity')?.classList.add('hidden');
     document.getElementById('project-hub-fisica-batxillerat')?.classList.remove('hidden');

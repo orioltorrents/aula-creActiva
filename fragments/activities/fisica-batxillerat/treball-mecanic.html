@@ -1,0 +1,64 @@
+<section id="fisica-batx-treball-activity" class="game-module hidden fisica-batx-treball" data-game-id="fisica-batxillerat-treball">
+    <header class="fisica-batx-treball__topbar">
+        <div class="fisica-batx-treball__title-group">
+            <span class="fisica-batx-treball__badge">Treball mecànic</span>
+            <span>Exercici <strong id="fisica-batx-treball-number">1</strong> de 6</span>
+            <span class="fisica-batx-treball__score">Nota: <strong id="fisica-batx-treball-score">0,00</strong> / 10</span>
+        </div>
+        <div class="fisica-batx-treball__actions">
+            <button id="fisica-batx-treball-ruler" class="btn btn--secondary" type="button">Regla</button>
+            <button id="fisica-batx-treball-protractor" class="btn btn--secondary" type="button">Transportador</button>
+            <button id="fisica-batx-treball-calculator" class="btn btn--secondary" type="button">Calculadora</button>
+            <button id="fisica-batx-treball-reset" class="btn btn--secondary" type="button">Reiniciar</button>
+        </div>
+    </header>
+
+    <div class="fisica-batx-treball__progress"><span id="fisica-batx-treball-progress"></span></div>
+    <div class="fisica-batx-treball__layout">
+        <section class="fisica-batx-treball__paper-card" aria-label="Paper mil·limetrat i vectors">
+            <div class="fisica-batx-treball__canvas-wrap">
+                <canvas id="fisica-batx-treball-canvas" aria-label="Paper mil·limetrat per construir el vector desplaçament"></canvas>
+                <p id="fisica-batx-treball-readout" class="fisica-batx-treball__readout">Traça el vector desplaçament des d’A fins a B.</p>
+            </div>
+            <p class="fisica-batx-treball__paper-note">Escala del paper: 1 quadrícula gran = 1 m. Les lectures de regla i transportador tenen tolerància experimental.</p>
+        </section>
+
+        <section class="fisica-batx-treball__panel" aria-label="Enunciat i respostes">
+            <div class="fisica-batx-treball__prompt-card">
+                <p id="fisica-batx-treball-prompt" class="fisica-batx-treball__prompt"></p>
+                <p id="fisica-batx-treball-data" class="fisica-batx-treball__data"></p>
+            </div>
+            <div class="fisica-batx-treball__instructions">
+                <strong>Objectiu</strong>
+                <p>Construeix <em>AB</em>, mesura el desplaçament i la força, estima l’angle i calcula <em>W = |F| · |Δr| · cos θ</em>.</p>
+            </div>
+            <div id="fisica-batx-treball-item-vector" class="fisica-batx-treball__answer">
+                <h3>1. Vector desplaçament</h3><p>Comença exactament a A i acaba exactament a B.</p><span class="fisica-batx-treball__mark"></span><p class="fisica-batx-treball__feedback"></p>
+            </div>
+            <div id="fisica-batx-treball-item-dr" class="fisica-batx-treball__answer">
+                <h3>2. Mòdul del desplaçament</h3><label>|Δr| = <input id="fisica-batx-treball-dr" inputmode="decimal" autocomplete="off"> m</label><span class="fisica-batx-treball__mark"></span><p class="fisica-batx-treball__feedback"></p>
+            </div>
+            <div id="fisica-batx-treball-item-force" class="fisica-batx-treball__answer">
+                <h3>3. Mòdul de la força</h3><label>|F| = <input id="fisica-batx-treball-force" inputmode="decimal" autocomplete="off"> N</label><span class="fisica-batx-treball__mark"></span><p class="fisica-batx-treball__feedback"></p>
+            </div>
+            <div id="fisica-batx-treball-item-angle" class="fisica-batx-treball__answer">
+                <h3>4. Angle entre vectors</h3><label>θ = <input id="fisica-batx-treball-angle" inputmode="decimal" autocomplete="off"> °</label><span class="fisica-batx-treball__mark"></span><p class="fisica-batx-treball__feedback"></p>
+            </div>
+            <div id="fisica-batx-treball-item-work" class="fisica-batx-treball__answer">
+                <h3>5. Treball</h3><label>W = <input id="fisica-batx-treball-work" inputmode="decimal" autocomplete="off"> J</label><span class="fisica-batx-treball__mark"></span><p class="fisica-batx-treball__feedback"></p>
+            </div>
+            <p id="fisica-batx-treball-correction" class="fisica-batx-treball__correction" role="status" aria-live="polite"></p>
+            <p id="fisica-batx-treball-action" class="fisica-batx-treball__action" role="status" aria-live="polite"></p>
+            <button id="fisica-batx-treball-check" class="btn btn--primary" type="button">Comprova</button>
+            <button id="fisica-batx-treball-next" class="btn btn--primary hidden" type="button">Un altre exercici</button>
+            <p id="fisica-batx-treball-completed" class="fisica-batx-treball__completed" role="status"></p>
+        </section>
+    </div>
+
+    <div id="fisica-batx-treball-toolbox" class="fisica-batx-treball__toolbox hidden" role="dialog" aria-label="Eina de mesura">
+        <div class="fisica-batx-treball__toolbox-head"><strong id="fisica-batx-treball-tool-title">Eina</strong><button id="fisica-batx-treball-tool-close" class="btn btn--secondary" type="button">Tanca</button></div>
+        <p id="fisica-batx-treball-tool-help"></p>
+        <div id="fisica-batx-treball-tool-controls"></div>
+    </div>
+    <p class="fisica-batx-treball__source">Reimplementació pròpia inspirada en <a href="https://onio72.github.io/iesmajuelo/bach/fi2/t00/trabajo01/" target="_blank" rel="noopener noreferrer">Trabajo mecánico: medida gráfica de vectores</a>, repositori <a href="https://github.com/onio72/iesmajuelo" target="_blank" rel="noopener noreferrer">iesmajuelo</a> (GPL-3.0).</p>
+</section>

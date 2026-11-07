@@ -1,0 +1,38 @@
+.fisica-batx-treball { width: 100%; min-height: 100%; padding: 18px clamp(14px, 3vw, 48px) 28px; color: #172033; background: linear-gradient(145deg, #f8fbff, #eef4f8); }
+.fisica-batx-treball__topbar, .fisica-batx-treball__title-group, .fisica-batx-treball__actions, .fisica-batx-treball__toolbox-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.fisica-batx-treball__topbar { justify-content: space-between; max-width: 1600px; margin: 0 auto 12px; }
+.fisica-batx-treball__badge, .fisica-batx-treball__score { padding: 6px 11px; border-radius: 999px; color: #fff; background: var(--primary-color); font-size: .82rem; font-weight: 700; }
+.fisica-batx-treball__score { background: #0f766e; }
+.fisica-batx-treball__progress { max-width: 1600px; height: 8px; margin: 0 auto 16px; overflow: hidden; border-radius: 99px; background: #dbe5ed; }
+.fisica-batx-treball__progress span { display: block; width: 0; height: 100%; background: #0f766e; transition: width .25s ease; }
+.fisica-batx-treball__layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(360px, .85fr); gap: 18px; max-width: 1600px; margin: 0 auto; align-items: stretch; }
+.fisica-batx-treball__paper-card, .fisica-batx-treball__panel { min-width: 0; padding: 14px; border: 1px solid #d5e0ea; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-sm); }
+.fisica-batx-treball__canvas-wrap { position: relative; height: min(70vh, 720px); min-height: 430px; }
+.fisica-batx-treball canvas { display: block; width: 100%; height: 100%; border: 2px solid #cbd5e1; border-radius: 12px; touch-action: none; cursor: crosshair; }
+.fisica-batx-treball__readout { position: absolute; right: 12px; bottom: 12px; max-width: 75%; margin: 0; padding: 7px 10px; border-radius: 8px; color: #334155; background: rgba(255,255,255,.92); font-size: .82rem; pointer-events: none; }
+.fisica-batx-treball__paper-note, .fisica-batx-treball__source { color: #64748b; font-size: .76rem; line-height: 1.4; }
+.fisica-batx-treball__prompt-card { padding: 15px 17px; border-left: 5px solid #f59e0b; border-radius: var(--radius-md); background: #fff9e8; }
+.fisica-batx-treball__prompt { margin: 0; font-size: 1.12rem; font-weight: 700; line-height: 1.4; }
+.fisica-batx-treball__data { margin: 8px 0 0; color: #475569; font-size: .9rem; }
+.fisica-batx-treball__instructions { margin: 12px 0; padding: 11px 13px; border-radius: var(--radius-md); background: #effaf8; font-size: .88rem; }
+.fisica-batx-treball__instructions p { margin: 4px 0 0; }
+.fisica-batx-treball__answer { position: relative; margin: 10px 0; padding: 11px 38px 9px 12px; border: 1px solid #d8e2ed; border-radius: var(--radius-md); background: #fbfdff; }
+.fisica-batx-treball__answer h3 { margin: 0 0 5px; font-size: .95rem; }
+.fisica-batx-treball__answer p { margin: 3px 0; color: #64748b; font-size: .8rem; }
+.fisica-batx-treball__answer label { display: flex; align-items: center; gap: 6px; font-size: .9rem; }
+.fisica-batx-treball__answer input { width: 90px; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+.fisica-batx-treball__mark { position: absolute; top: 12px; right: 12px; font-weight: 800; }
+.fisica-batx-treball__answer.is-correct { border-color: #10b981; background: #effcf6; }
+.fisica-batx-treball__answer.is-correct .fisica-batx-treball__mark { color: #059669; }
+.fisica-batx-treball__answer.is-wrong { border-color: #ef4444; background: #fff5f5; }
+.fisica-batx-treball__answer.is-wrong .fisica-batx-treball__mark { color: #dc2626; }
+.fisica-batx-treball__correction, .fisica-batx-treball__action, .fisica-batx-treball__completed { min-height: 22px; margin: 8px 0; color: #0f766e; font-weight: 700; }
+.fisica-batx-treball__toolbox { position: fixed; z-index: 10; right: 24px; bottom: 24px; width: min(390px, calc(100% - 32px)); padding: 16px; border: 1px solid #cbd5e1; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-lg); }
+.fisica-batx-treball__toolbox-head { justify-content: space-between; margin-bottom: 8px; }
+.fisica-batx-treball__toolbox p { margin: 7px 0 12px; color: #64748b; font-size: .86rem; }
+.fisica-batx-treball__toolbox #fisica-batx-treball-tool-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.fisica-batx-treball__calculator-input { min-width: 0; flex: 1 1 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+.fisica-batx-treball__calculator-output { min-height: 28px; padding: 6px; color: #0f766e; font-weight: 700; }
+.fisica-batx-treball__source { max-width: 1600px; margin: 16px auto 0; }
+@media (max-width: 900px) { .fisica-batx-treball__layout { grid-template-columns: 1fr; } .fisica-batx-treball__canvas-wrap { height: min(65vh, 580px); min-height: 360px; } }
+@media (max-width: 520px) { .fisica-batx-treball { padding: 12px 10px 22px; } .fisica-batx-treball__actions { width: 100%; } .fisica-batx-treball__actions .btn { flex: 1 1 auto; } .fisica-batx-treball__canvas-wrap { min-height: 300px; } }
