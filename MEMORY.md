@@ -113,7 +113,6 @@
 - Substituït el fons anterior de Biodiversitat, mantenint el títol i la navegació.
 - Validats l'asset, la configuració JavaScript i el diff.
 
-
 ### 2026-10-30 - Il·lustració inicial del quadern
 - Afegida `jove-mariner-quader-bitacola.jpeg` a l'inici de l'activitat, abans de l'explicació.
 - La imatge es mostra sencera i centrada perquè es vegin les dues escenes i el títol.

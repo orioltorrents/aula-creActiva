@@ -1796,6 +1796,9 @@ function openDigitalitzacioActivity(actId) {
     if (actId === 'audio' && typeof initSonarGame === 'function') {
         initSonarGame();
     }
+    if (actId === 'sheets' && typeof initDigitalitzacioSheetsGame === 'function') {
+        initDigitalitzacioSheetsGame();
+    }
 }
 
 // --- SOLIDART NAVIGATION ---

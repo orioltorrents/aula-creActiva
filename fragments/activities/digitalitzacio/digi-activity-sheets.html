@@ -1,0 +1,59 @@
+<!-- ACTIVITAT: Exercicis de rangs de Google Sheets -->
+<section id="digi-activity-sheets" class="sub-activity hidden digi-sheets" data-game-id="digitalitzacio-sheets">
+    <div class="game-panel__header">
+        <h3 data-i18n="digi_sheets_title">Exercicis de Google Sheets</h3>
+    </div>
+
+    <p class="digi-sheets__intro" data-i18n="digi_sheets_intro">
+        Practica rangs i fórmules en un full de càlcul petit.
+    </p>
+
+    <div id="digi-sheets-game" class="digi-sheets__panel">
+        <div class="digi-sheets__stats" aria-live="polite">
+            <span id="digi-sheets-progress"></span>
+            <span id="digi-sheets-score"></span>
+        </div>
+
+        <p id="digi-sheets-question" class="digi-sheets__question" role="status"></p>
+        <div id="digi-sheets-formula-display" class="digi-sheets__formula-display hidden"></div>
+        <div id="digi-sheets-formula-target" class="digi-sheets__formula-target hidden"></div>
+        <div class="digi-sheets__table-wrap">
+            <table id="digi-sheets-grid" class="digi-sheets__grid">
+                <caption class="sr-only" data-i18n="digi_sheets_grid_caption">Full de càlcul interactiu</caption>
+                <thead id="digi-sheets-grid-head"></thead>
+                <tbody id="digi-sheets-grid-body"></tbody>
+            </table>
+        </div>
+        <p id="digi-sheets-hint" class="digi-sheets__hint" data-i18n="digi_sheets_hint">
+            Arrossega entre dues cel·les o fes clic a la primera i Maj+Clic a l’última.
+        </p>
+
+        <div id="digi-sheets-input-wrap" class="digi-sheets__input-wrap hidden">
+            <label for="digi-sheets-range-input" data-i18n="digi_sheets_range_label">Escriu el rang:</label>
+            <input id="digi-sheets-range-input" class="digi-sheets__range-input" type="text"
+                inputmode="text" autocomplete="off">
+        </div>
+        <div id="digi-sheets-formula-input-wrap" class="digi-sheets__input-wrap hidden">
+            <label for="digi-sheets-formula-input">Fórmula:</label>
+            <input id="digi-sheets-formula-input" class="digi-sheets__range-input digi-sheets__formula-input"
+                type="text" inputmode="text" autocomplete="off">
+        </div>
+
+        <div class="digi-sheets__controls">
+            <button id="digi-sheets-check" class="btn btn--primary" type="button"
+                onclick="checkDigitalitzacioSheetsAnswer()" data-i18n="digi_sheets_check">Corregeix</button>
+            <button id="digi-sheets-next" class="btn btn--secondary hidden" type="button"
+                onclick="nextDigitalitzacioSheetsQuestion()" data-i18n="digi_sheets_next">Següent</button>
+        </div>
+        <p id="digi-sheets-feedback" class="game-panel__feedback digi-sheets__feedback" role="status"
+            aria-live="polite"></p>
+    </div>
+
+    <div id="digi-sheets-results" class="digi-sheets__panel hidden" aria-live="polite">
+        <h3 data-i18n="digi_sheets_results_title">Resultat de la ronda</h3>
+        <p id="digi-sheets-final-score" class="digi-sheets__final-score"></p>
+        <p id="digi-sheets-save-feedback" class="digi-sheets__feedback" role="status"></p>
+        <button id="digi-sheets-new-round" class="btn btn--primary" type="button"
+            onclick="initDigitalitzacioSheetsGame()" data-i18n="digi_sheets_new_round">Nova ronda</button>
+    </div>
+</section>

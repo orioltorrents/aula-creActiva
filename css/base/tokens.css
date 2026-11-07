@@ -24,6 +24,10 @@
     --white: #ffffff;
     --error: #ef4444;
     --success: #10b981;
+    --success-bg: #ecfdf5;
+    --sheets-blue-bg: #bfdbfe;
+    --sheets-yellow-bg: #fde68a;
+    --sheets-green-bg: #bbf7d0;
     --warning: #eab308;
     --warning-border: #ca8a04;
     --danger: #ef4444;
@@ -40,4 +44,3 @@
     --transition-fast: all 0.2s;
     --font-family: 'Outfit', sans-serif;
 }
-

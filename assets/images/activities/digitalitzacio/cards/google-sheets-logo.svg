@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Google Sheets</title>
+  <desc id="desc">Logo de Google Sheets</desc>
+  <path fill="#0F9D58" d="M38 8h58l32 32v112H38z"/>
+  <path fill="#87CEAC" d="M96 8v32h32z"/>
+  <rect x="57" y="63" width="52" height="58" rx="3" fill="#fff"/>
+  <path fill="#0F9D58" d="M57 78h52v5H57zm0 15h52v5H57zm0 15h52v5H57z"/>
+  <path fill="#0F9D58" d="M73 63h5v58h-5zm17 0h5v58h-5z"/>
+</svg>
