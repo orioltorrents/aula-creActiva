@@ -436,11 +436,11 @@ function getQuizLevelRank(levelName) {
 function getQuizLevelLabel(levelName) {
     const labels = {
         'molt facil': 'Molt fcil',
-        facil: 'Fcil',
-        mitja: 'Mitj',
-        mitjana: 'Mitj',
+        facil: 'Fàcil',
+        mitja: 'Mitjà',
+        mitjana: 'Mitjà',
         avancat: 'Avanat',
-        dificil: 'Difcil',
+        dificil: 'Difícil',
         'molt dificil': 'Molt difcil',
         pau: 'PAU',
         'pau dificil': 'PAU difcil'
