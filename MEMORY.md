@@ -70,6 +70,9 @@
 - Els exercicis de rangs inclouen selecció de columnes i files consecutives amb Maj/Clic i seleccions discontínues amb Ctrl/Cmd/Clic, mantenint també la selecció de rangs de cel·les.
 - Els nivells mitjà i avançat de Rangs utilitzen graelles de 6-8 i 9-12 files/columnes; els reptes avançats poden demanar esborrar estructuralment files o columnes amb el menú contextual.
 - El menú contextual dels reptes estructurals de Rangs és una finestra flotant i ofereix «Esborra la selecció» i «Amaga la selecció»; els exercicis d'amagar tenen correcció pròpia.
+- Google Sheets desa ara a `feedback_pos` i `feedback_neg` el detall de cada resposta finalitzada, amb tipus, dificultat, enunciat, resposta i resposta esperada; la pantalla final també mostra el resum d'encerts i errors.
+- Les pistes de combinació de clics dels exercicis de selecció de files i columnes només es mostren al nivell inicial; els nivells mitjà i avançat només indiquen la selecció objectiu.
+- La selecció discontínua de files i columnes processa `Ctrl/Cmd` en `pointerdown` i evita duplicar l'acció en el `click`, per mantenir la selecció múltiple en navegadors que perden el modificador.
 - El catàleg local i `api/Projects.gs` mostren «Digitalització» amb accent; després del canvi d'Apps Script cal desplegar una nova versió de la Web App.
 
 ## Riscos oberts

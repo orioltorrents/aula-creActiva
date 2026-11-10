@@ -295,6 +295,12 @@
     text-align: center;
 }
 
+.digi-sheets__feedback-summary {
+    margin: 12px auto;
+    color: var(--text-light);
+    text-align: center;
+}
+
 #digi-sheets-results {
     text-align: center;
 }
