@@ -25,7 +25,7 @@ function getProjects(curs) {
         ],
         '4t ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-            { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
         ],
         // Batxillerat.
@@ -55,7 +55,7 @@ function getProjects(curs) {
         ],
         '4ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-            { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+            { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
         ],
         '1Batx': [

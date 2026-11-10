@@ -46,6 +46,7 @@ Donar orientacions per treballar amb coherència en l’estructura actual del pr
 - La càrrega dinàmica de fragments es fa des de `js/app.js` amb `loadFragment`, `loadNestedFragments` i `ensureProjectFragment`.
 - `index.html` ha de romandre com a shell; `#app` és l’arrel on s’injecten `login`, `dashboard` i `game-screen`.
 - No afegeixis noves rutes o selectors sense comprovar primer possibles duplicats o conflictes globals.
+- Quan creïs una targeta nova d'activitat, defineix el títol al capçalera global amb `setGameTitle('Projecte - Activitat')` en obrir-la i no repeteixis el títol de l'activitat dins del fragment; el contingut ha de començar directament amb la introducció o els controls.
 
 ## Dashboard de professorat
 

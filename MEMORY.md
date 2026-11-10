@@ -60,6 +60,17 @@
 - S'ha afegit el projecte «Física 1r Batxillerat» amb un hub de cinc targetes: Cinemàtica, Dinàmica, Treball i energia, Camp gravitatori i Camp elèctric.
 - Les targetes de Física de Batxillerat utilitzen il·lustracions SVG locals; Cinemàtica obre l'activitat de vector unitari i Dinàmica obre els diagrames de forces.
 - Dinàmica és una reimplementació pròpia en català inspirada en l'activitat GPL-3.0 de diagrames de forces: escena SVG a l'esquerra, enunciat, selecció de forces, vectors arrossegables, pistes, correcció ponderada, informe adaptatiu i desament detallat al Sheets.
+- Google Sheets mostra ara les condicions dels reptes de construcció de fórmules, inclosos els reptes booleans amb comparacions, i només les valida quan són visibles; els exercicis de càlcul no imposen requisits ocults.
+- Google Sheets permet triar tipus d'exercici, dificultat i rondes de 10, 20, 30 o 40 preguntes; la ronda completa conserva la proporció 10 rangs, 15 fórmules i 15 referències.
+- Les preguntes de referències de Google Sheets separen ara visualment les cel·les objectiu de les distractores en les quatre categories: relatives, absolutes, columna fixa i fila fixa.
+- Les respostes booleanes `TRUE`, `FALSE`, `CERT` i `FALS` dels exercicis de fórmules es validen sense passar pel tokenitzador matemàtic, i mostren feedback quan són incorrectes.
+- La targeta de Google Sheets descriu rangs, fórmules i referències; Google Docs mostra el seu logo local i continua marcat com a «Aviat».
+- Google Sheets té ara un submenú propi amb la targeta «Rangs, fórmules i referències»; l'activitat només s'inicialitza en obrir aquesta targeta i el retorn simple conserva el menú intermedi.
+- L'activitat «Rangs, fórmules i referències» mostra el títol global «Digitalització - Rangs, fórmules i referències» i ja no repeteix «Exercicis de Google Sheets» dins del fragment.
+- Els exercicis de rangs inclouen selecció de columnes i files consecutives amb Maj/Clic i seleccions discontínues amb Ctrl/Cmd/Clic, mantenint també la selecció de rangs de cel·les.
+- Els nivells mitjà i avançat de Rangs utilitzen graelles de 6-8 i 9-12 files/columnes; els reptes avançats poden demanar esborrar estructuralment files o columnes amb el menú contextual.
+- El menú contextual dels reptes estructurals de Rangs és una finestra flotant i ofereix «Esborra la selecció» i «Amaga la selecció»; els exercicis d'amagar tenen correcció pròpia.
+- El catàleg local i `api/Projects.gs` mostren «Digitalització» amb accent; després del canvi d'Apps Script cal desplegar una nova versió de la Web App.
 
 ## Riscos oberts
 - Cal comprovar el desament real dels talls geològics després del desplegament d'Apps Script i la interacció en dispositiu tàctil físic; la prova en navegador ha interceptat el backend.
@@ -82,15 +93,6 @@
 
 ## Tres últims passos
 
-### 2026-11-07 - Activitat de vector unitari en català
-- Afegida una reimplementació pròpia de l'activitat GPL-3.0 amb 10 exercicis de vector AB, mòdul i vector unitari.
-- Connectat el càlcul de percentatge i el desament autenticat via `saveResult`, amb el detall de cada exercici en JSON.
-- Afegit un paper mil·limetrat SVG responsive amb eixos, punts A/B i la fletxa del vector `AB`.
-- Reorganitzada l'activitat en dues columnes: gràfic a l'esquerra i valors en una columna a la dreta; la fletxa i els punts s'han fet més fins.
-- L'activitat de Cinemàtica funciona en mode immersiu; el paper mil·limetrat ocupa aproximadament tres quartes parts de l'espai i el panell queda a la dreta.
-- El mode de pantalla completa de Cinemàtica utilitza la classe específica `game-screen--fisica-batx` per no interferir amb el contenidor immersiu d'altres activitats.
-- Validats la sintaxi JavaScript, l'estructura HTML, els estils i les referències dels fragments.
-
 ### 2026-11-07 - Diagrames de forces de Dinàmica
 - Activada la targeta Dinàmica i creat el fragment amb l'enunciat complet, escena SVG responsive i panell de resposta.
 - Implementades deu situacions de forces, selecció, vectors arrossegables, guies, pistes, correcció ponderada i informe per categories amb selecció adaptativa.
@@ -107,7 +109,7 @@
 - Creat el hub amb cinc targetes i sis il·lustracions SVG locals, preparat per incorporar activitats.
 - Validats la sintaxi de `js/app.js`, el balanç de `div`, les referències d'imatges i el diff.
 
-### 2026-10-30 - Imatge de la targeta Història de la Terra i del Mediterrani
-- Connectada `targeta-historia-terra-mediterrania.jpeg` a la targeta corresponent de «Creació del Mediterrani».
-- Substituït el gràfic decoratiu mantenint el títol, la descripció i la navegació.
-- Validats l'asset, l'estructura HTML i el diff.
+### 2026-11-10 - Reptes visibles de fórmules de Google Sheets
+- Separats els bancs de preguntes de càlcul i de construcció de fórmules.
+- Afegides consignes visibles per als operadors obligatoris, inclòs el repte de dos operadors de prioritat superior a la suma o la resta.
+- Corregida la validació perquè analitzi els operadors tokenitzats i mostri feedback específic quan el resultat és correcte però falta un requisit.

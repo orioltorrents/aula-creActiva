@@ -1,12 +1,40 @@
 <!-- ACTIVITAT: Exercicis de rangs de Google Sheets -->
 <section id="digi-activity-sheets" class="sub-activity hidden digi-sheets" data-game-id="digitalitzacio-sheets">
-    <div class="game-panel__header">
-        <h3 data-i18n="digi_sheets_title">Exercicis de Google Sheets</h3>
-    </div>
-
     <p class="digi-sheets__intro" data-i18n="digi_sheets_intro">
         Practica rangs i fórmules en un full de càlcul petit.
     </p>
+
+    <div class="digi-sheets__settings" aria-label="Configuració de la ronda">
+        <div class="digi-sheets__setting">
+            <label class="digi-sheets__label" for="digi-sheets-type" data-i18n="digi_sheets_type_label">Tipus d’exercici</label>
+            <select id="digi-sheets-type" class="digi-sheets__select">
+                <option value="all" data-i18n="digi_sheets_type_all">Tots els tipus</option>
+                <option value="range" data-i18n="digi_sheets_type_range">Rangs</option>
+                <option value="formula" data-i18n="digi_sheets_type_formula">Fórmules</option>
+                <option value="reference" data-i18n="digi_sheets_type_reference">Referències</option>
+            </select>
+        </div>
+        <div class="digi-sheets__setting">
+            <label class="digi-sheets__label" for="digi-sheets-difficulty" data-i18n="digi_sheets_difficulty_label">Dificultat</label>
+            <select id="digi-sheets-difficulty" class="digi-sheets__select">
+                <option value="all" data-i18n="digi_sheets_difficulty_all">Totes les dificultats</option>
+                <option value="easy" data-i18n="digi_sheets_difficulty_easy">Inicial</option>
+                <option value="medium" data-i18n="digi_sheets_difficulty_medium">Mitjana</option>
+                <option value="hard" data-i18n="digi_sheets_difficulty_hard">Avançada</option>
+            </select>
+        </div>
+        <div class="digi-sheets__setting">
+            <label class="digi-sheets__label" for="digi-sheets-count" data-i18n="digi_sheets_count_label">Nombre de preguntes</label>
+            <select id="digi-sheets-count" class="digi-sheets__select">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40" selected>40</option>
+            </select>
+        </div>
+        <button id="digi-sheets-start" class="btn btn--primary digi-sheets__start" type="button"
+            onclick="initDigitalitzacioSheetsGame()" data-i18n="digi_sheets_start">Comença la ronda</button>
+    </div>
 
     <div id="digi-sheets-game" class="digi-sheets__panel">
         <div class="digi-sheets__stats" aria-live="polite">
@@ -23,6 +51,12 @@
                 <thead id="digi-sheets-grid-head"></thead>
                 <tbody id="digi-sheets-grid-body"></tbody>
             </table>
+        </div>
+        <div id="digi-sheets-context-menu" class="digi-sheets__context-menu hidden" role="menu">
+            <button class="digi-sheets__context-action" type="button" role="menuitem" data-sheet-action="delete"
+                data-i18n="digi_sheets_delete_selection">Esborra la selecció</button>
+            <button class="digi-sheets__context-action" type="button" role="menuitem" data-sheet-action="hide"
+                data-i18n="digi_sheets_hide_selection">Amaga la selecció</button>
         </div>
         <p id="digi-sheets-hint" class="digi-sheets__hint" data-i18n="digi_sheets_hint">
             Arrossega entre dues cel·les o fes clic a la primera i Maj+Clic a l’última.

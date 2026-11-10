@@ -32,7 +32,7 @@ const LOCAL_PROJECT_CATALOG = {
     ],
     '4t ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
         { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
@@ -63,7 +63,7 @@ const LOCAL_PROJECT_CATALOG = {
     ],
     '4ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
-        { id: 'p4_digitalitzacio', titol: 'Digitalitzacio', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
         { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
@@ -1113,7 +1113,7 @@ function getProjectVisuals() {
         'p3_solidart': { icon: '<img src="assets/images/activities/solidart/cards/targeta_solidart.png" alt="SolidArt" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_natura': { icon: '<img src="assets/images/activities/entorns/cards/targeta_entorns-card.jpg" alt="Entorns de Natura" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
         'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
-        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalitzacio" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
+        'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
         'p1_biologia': { icon: '<img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Biologia 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #14b8a6, #0f766e)' },
         'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p3_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
@@ -1874,6 +1874,13 @@ function showDigitalitzacioMenu() {
 
 function openDigitalitzacioActivity(actId) {
     if (!blockUnavailableActivity(actId)) return;
+    if (actId === 'sheets') {
+        setGameBackToCurrentView();
+        setGameTitle('Digitalització - Google Sheets');
+        document.getElementById('digi-activities-menu').classList.add('hidden');
+        document.getElementById('digi-sheets-menu').classList.remove('hidden');
+        return;
+    }
     setGameBackToCurrentView();
     document.getElementById('digi-activities-menu').classList.add('hidden');
     document.getElementById(`digi-activity-${actId}`).classList.remove('hidden');
@@ -1881,9 +1888,14 @@ function openDigitalitzacioActivity(actId) {
     if (actId === 'audio' && typeof initSonarGame === 'function') {
         initSonarGame();
     }
-    if (actId === 'sheets' && typeof initDigitalitzacioSheetsGame === 'function') {
-        initDigitalitzacioSheetsGame();
-    }
+}
+
+function openDigitalitzacioSheetsActivity() {
+    setGameBackToCurrentView();
+    setGameTitle('Digitalització - Rangs, fórmules i referències');
+    document.getElementById('digi-sheets-menu').classList.add('hidden');
+    document.getElementById('digi-activity-sheets').classList.remove('hidden');
+    if (typeof initDigitalitzacioSheetsGame === 'function') initDigitalitzacioSheetsGame();
 }
 
 // --- SOLIDART NAVIGATION ---

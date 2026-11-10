@@ -2,12 +2,21 @@ const DIGITALITZACIO_SHEETS_ROUND_LENGTH = 40;
 const DIGITALITZACIO_SHEETS_RANGE_COUNT = 10;
 const DIGITALITZACIO_SHEETS_FORMULA_COUNT = 15;
 const DIGITALITZACIO_SHEETS_MIN_SIZE = 4;
-const DIGITALITZACIO_SHEETS_MAX_SIZE = 7;
+const DIGITALITZACIO_SHEETS_MAX_SIZE = 12;
+const DIGITALITZACIO_SHEETS_DEFAULT_COUNT = 40;
+const DIGITALITZACIO_SHEETS_DIFFICULTIES = ['easy', 'medium', 'hard'];
 
 const digitalitzacioSheetsState = {
     questions: [],
     questionIndex: 0,
     selected: null,
+    selectionAnchor: null,
+    selectedRows: new Set(),
+    selectedColumns: new Set(),
+    deletedRows: new Set(),
+    deletedColumns: new Set(),
+    hiddenRows: new Set(),
+    hiddenColumns: new Set(),
     dragStart: null,
     dragging: false,
     dragMoved: false,
@@ -15,7 +24,12 @@ const digitalitzacioSheetsState = {
     score: 0,
     answered: false,
     startedAt: 0,
-    eventsBound: false
+    eventsBound: false,
+    settings: {
+        type: 'all',
+        difficulty: 'all',
+        count: DIGITALITZACIO_SHEETS_DEFAULT_COUNT
+    }
 };
 
 function digitalitzacioSheetsShuffle(items) {
@@ -60,22 +74,80 @@ function digitalitzacioSheetsCreateRange(rows, columns, shape) {
     return { top, left, bottom, right };
 }
 
-function digitalitzacioSheetsCreateQuestion() {
-    const rows = digitalitzacioSheetsRandomInt(DIGITALITZACIO_SHEETS_MIN_SIZE, DIGITALITZACIO_SHEETS_MAX_SIZE);
-    const columns = digitalitzacioSheetsRandomInt(DIGITALITZACIO_SHEETS_MIN_SIZE, DIGITALITZACIO_SHEETS_MAX_SIZE);
-    const shape = digitalitzacioSheetsShuffle(['block', 'column', 'row'])[0];
+function digitalitzacioSheetsPickIndices(total, count) {
+    return digitalitzacioSheetsShuffle(Array.from({ length: total }, (_, index) => index))
+        .slice(0, Math.min(total, count))
+        .sort((first, second) => first - second);
+}
+
+function digitalitzacioSheetsCreateHeaderSelection(rows, columns, selectionKind) {
+    const isColumnSelection = selectionKind.startsWith('columns');
+    const total = isColumnSelection ? columns : rows;
+    const axis = isColumnSelection ? 'column' : 'row';
+    if (selectionKind.endsWith('contiguous')) {
+        const start = digitalitzacioSheetsRandomInt(0, Math.max(0, total - 2));
+        const end = digitalitzacioSheetsRandomInt(start + 1, total - 1);
+        return { axis, indices: Array.from({ length: end - start + 1 }, (_, offset) => start + offset) };
+    }
+    return { axis, indices: digitalitzacioSheetsPickIndices(total, 3) };
+}
+
+function digitalitzacioSheetsCreateDeleteSelection(rows, columns, axis) {
+    const total = axis === 'column' ? columns : rows;
+    const count = digitalitzacioSheetsRandomInt(1, Math.min(3, total - 1));
+    const start = digitalitzacioSheetsRandomInt(0, total - count);
+    return {
+        axis,
+        indices: Array.from({ length: count }, (_, offset) => start + offset),
+        mode: 'contiguous'
+    };
+}
+
+function digitalitzacioSheetsCreateQuestion(difficulty = 'all') {
+    const level = difficulty === 'all'
+        ? digitalitzacioSheetsShuffle(DIGITALITZACIO_SHEETS_DIFFICULTIES)[0]
+        : difficulty;
+    const sizeByDifficulty = {
+        easy: [4, 5],
+        medium: [6, 8],
+        hard: [9, DIGITALITZACIO_SHEETS_MAX_SIZE]
+    };
+    const [minimumSize, maximumSize] = sizeByDifficulty[level];
+    const rows = digitalitzacioSheetsRandomInt(minimumSize, maximumSize);
+    const columns = digitalitzacioSheetsRandomInt(minimumSize, maximumSize);
+    const shapesByDifficulty = {
+        easy: ['row', 'column'],
+        medium: ['block', 'column', 'row'],
+        hard: ['block']
+    };
+    const shape = digitalitzacioSheetsShuffle(shapesByDifficulty[level])[0];
     const range = digitalitzacioSheetsCreateRange(rows, columns, shape);
-    const mode = digitalitzacioSheetsShuffle(['select', 'write', 'select', 'write'])[0];
+    const selectionKindsByDifficulty = {
+        easy: ['cells', 'columns-contiguous', 'rows-contiguous'],
+        medium: ['cells', 'columns-contiguous', 'rows-contiguous', 'columns-discontinuous', 'rows-discontinuous', 'delete-rows', 'hide-rows'],
+        hard: ['cells', 'columns-discontinuous', 'rows-discontinuous', 'delete-rows', 'delete-columns', 'hide-rows', 'hide-columns']
+    };
+    const selectionKind = digitalitzacioSheetsShuffle(selectionKindsByDifficulty[level])[0];
+    const headerSelection = selectionKind === 'cells' ? null
+        : selectionKind === 'delete-rows' ? digitalitzacioSheetsCreateDeleteSelection(rows, columns, 'row')
+            : selectionKind === 'delete-columns' ? digitalitzacioSheetsCreateDeleteSelection(rows, columns, 'column')
+                : digitalitzacioSheetsCreateHeaderSelection(rows, columns, selectionKind);
+    const mode = level === 'easy' ? 'select' : level === 'hard' ? 'write'
+        : digitalitzacioSheetsShuffle(['select', 'write'])[0];
     const visual = digitalitzacioSheetsShuffle(['blue', 'yellow', 'green'])[0];
     const values = Array.from({ length: rows }, () => Array.from({ length: columns }, () =>
         String(digitalitzacioSheetsRandomInt(10, 99))
     ));
 
     return {
+        type: 'range',
+        difficulty: level,
         rows,
         columns,
         range,
         shape,
+        selectionKind,
+        headerSelection,
         mode,
         visual,
         values,
@@ -83,41 +155,69 @@ function digitalitzacioSheetsCreateQuestion() {
     };
 }
 
-function digitalitzacioSheetsCreateRound() {
-    const rangeQuestions = Array.from({ length: DIGITALITZACIO_SHEETS_RANGE_COUNT }, digitalitzacioSheetsCreateQuestion);
-    const formulaQuestions = Array.from({ length: DIGITALITZACIO_SHEETS_FORMULA_COUNT },
-        digitalitzacioSheetsCreateFormulaQuestion);
-    const referenceQuestions = Array.from({
-        length: DIGITALITZACIO_SHEETS_ROUND_LENGTH - DIGITALITZACIO_SHEETS_RANGE_COUNT - DIGITALITZACIO_SHEETS_FORMULA_COUNT
-    }, digitalitzacioSheetsCreateReferenceQuestion);
-    return digitalitzacioSheetsShuffle([...rangeQuestions, ...formulaQuestions, ...referenceQuestions]);
+function digitalitzacioSheetsCreateRound(settings = digitalitzacioSheetsState.settings) {
+    const count = settings.count || DIGITALITZACIO_SHEETS_DEFAULT_COUNT;
+    const typeCounts = settings.type === 'all'
+        ? digitalitzacioSheetsGetTypeCounts(count)
+        : { [settings.type]: count };
+    const questions = [];
+    Object.entries(typeCounts).forEach(([type, typeCount]) => {
+        for (let index = 0; index < typeCount; index += 1) {
+            if (type === 'range') questions.push(digitalitzacioSheetsCreateQuestion(settings.difficulty));
+            if (type === 'formula') questions.push(digitalitzacioSheetsCreateFormulaQuestion(settings.difficulty));
+            if (type === 'reference') questions.push(digitalitzacioSheetsCreateReferenceQuestion(settings.difficulty));
+        }
+    });
+    return digitalitzacioSheetsShuffle(questions);
 }
 
-function digitalitzacioSheetsCreateReferenceQuestion() {
+function digitalitzacioSheetsGetTypeCounts(count) {
+    const rangeCount = Math.round(count * DIGITALITZACIO_SHEETS_RANGE_COUNT / DIGITALITZACIO_SHEETS_ROUND_LENGTH);
+    const formulaCount = Math.round(count * DIGITALITZACIO_SHEETS_FORMULA_COUNT / DIGITALITZACIO_SHEETS_ROUND_LENGTH);
+    return {
+        range: rangeCount,
+        formula: formulaCount,
+        reference: count - rangeCount - formulaCount
+    };
+}
+
+function digitalitzacioSheetsCreateReferenceQuestion(difficulty = 'all') {
     const categories = ['absolute', 'relative', 'column', 'row'];
-    const category = categories[digitalitzacioSheetsRandomInt(0, categories.length - 1)];
+    const categoryByDifficulty = {
+        easy: ['relative'],
+        medium: ['absolute', 'row'],
+        hard: ['column', 'absolute', 'row']
+    };
+    const level = difficulty === 'all'
+        ? digitalitzacioSheetsShuffle(DIGITALITZACIO_SHEETS_DIFFICULTIES)[0]
+        : difficulty;
+    const availableCategories = difficulty === 'all' ? categories : categoryByDifficulty[level];
+    const category = availableCategories[digitalitzacioSheetsRandomInt(0, availableCategories.length - 1)];
     const rows = 4;
     const columns = 4;
     const target = new Set();
+    const formulasByCategory = {
+        absolute: (column, row) => `=$${column}$${row}`,
+        relative: (column, row) => `=${column}${row}`,
+        column: (column, row) => `=$${column}${row}`,
+        row: (column, row) => `=${column}$${row}`
+    };
+    const distractorCategory = category === 'relative' ? 'absolute' : 'relative';
     const values = Array.from({ length: rows }, (_, row) => Array.from({ length: columns }, (_, column) => {
         const key = `${row}:${column}`;
         const isTarget = Math.random() < 0.38;
         if (isTarget) target.add(key);
         const sourceColumn = digitalitzacioSheetsColumnName((column + 1) % columns);
         const sourceRow = row + 1;
-        if (category === 'absolute' && isTarget) return `=${sourceColumn}$${sourceRow}`.replace(sourceColumn, `$${sourceColumn}`);
-        if (category === 'relative' && isTarget) return `=${sourceColumn}${sourceRow}`;
-        if (category === 'column' && isTarget) return `=$${sourceColumn}${sourceRow}`;
-        if (category === 'row' && isTarget) return `=${sourceColumn}$${sourceRow}`;
-        return `=${sourceColumn}${sourceRow}`;
+        const formulaCategory = isTarget ? category : distractorCategory;
+        return formulasByCategory[formulaCategory](sourceColumn, sourceRow);
     }));
     if (target.size < 2) target.add('0:0');
-    const forcedFormula = category === 'absolute' ? '=$B$1'
-        : category === 'column' ? '=$B1'
-            : category === 'row' ? '=B$1' : '=B1';
+    const forcedFormula = formulasByCategory[category]('B', 1);
     if (target.has('0:0')) values[0][0] = forcedFormula;
     return {
         type: 'reference',
+        difficulty: level,
         rows,
         columns,
         values,
@@ -127,31 +227,73 @@ function digitalitzacioSheetsCreateReferenceQuestion() {
     };
 }
 
-function digitalitzacioSheetsCreateFormulaQuestion() {
+function digitalitzacioSheetsCreateFormulaQuestion(difficulty = 'all') {
     const a = digitalitzacioSheetsRandomInt(2, 9);
     const b = digitalitzacioSheetsRandomInt(2, 9);
     const c = digitalitzacioSheetsRandomInt(2, 6);
-    const templates = [
-        { formula: `${a}+${b}*${c}`, required: ['+','*'] },
-        { formula: `(${a}+${b})*${c}`, required: ['+','*','('] },
-        { formula: `${a}^2+${b}`, required: ['^','+'] },
-        { formula: `${a * c}/${c}+${b}`, required: ['/','+'] },
-        { formula: `${a + b}-${b}-${c}`, required: ['-'] },
-        { formula: `${a}+${b}*${c}>${a + b}`, required: ['+','*','>'] },
-        { formula: `${a}^2<=${b}*${c}`, required: ['^','*','<='] },
-        { formula: `(${a}+${b})/${c}<>${a}`, required: ['+','/','<>'] },
-        { formula: `${a}<${b}+${c}`, required: ['<','+'] },
-        { formula: `${a}=${a}^1`, required: ['=','^'] }
+    const evaluateTemplates = [
+        { formula: `${a}+${b}*${c}`, required: ['+','*'], difficulty: 'easy' },
+        { formula: `(${a}+${b})*${c}`, required: ['+','*','('], difficulty: 'medium' },
+        { formula: `${a}^2+${b}`, required: ['^','+'], difficulty: 'medium' },
+        { formula: `${a * c}/${c}+${b}`, required: ['/','+'], difficulty: 'medium' },
+        { formula: `${a + b}-${b}-${c}`, required: ['-'], difficulty: 'easy' },
+        { formula: `${a}+${b}*${c}>${a + b}`, required: ['+','*','>'], difficulty: 'hard' },
+        { formula: `${a}^2<=${b}*${c}`, required: ['^','*','<='], difficulty: 'hard' },
+        { formula: `(${a}+${b})/${c}<>${a}`, required: ['+','/','<>'], difficulty: 'hard' },
+        { formula: `${a}<${b}+${c}`, required: ['<','+'], difficulty: 'hard' },
+        { formula: `${a}=${a}^1`, required: ['=','^'], difficulty: 'hard' }
     ];
+    const buildTemplates = [
+        {
+            formula: `${a}*${b}+${c}^2`,
+            required: ['*', '^'],
+            difficulty: 'hard',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir dos operadors diferents amb prioritat superior a la suma o la resta: per exemple, multiplicació, divisió o potència.'
+        },
+        {
+            formula: `(${a}+${b})*${c}`,
+            required: ['+', '*', '('],
+            difficulty: 'medium',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir parèntesis, una suma i una multiplicació.'
+        },
+        {
+            formula: `${a}^2+${b}`,
+            required: ['^', '+'],
+            difficulty: 'medium',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir una potència i una suma.'
+        },
+        {
+            formula: `${a * c}/${c}+${b}`,
+            required: ['/', '+'],
+            difficulty: 'medium',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir una divisió i una suma.'
+        },
+        {
+            formula: `${a}<${a + 1}`,
+            required: ['<'],
+            difficulty: 'hard',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir l’operador de comparació <.'
+        },
+        {
+            formula: `${a + 1}<${a}`,
+            required: ['<'],
+            difficulty: 'hard',
+            instruction: 'Construeix una fórmula que doni el resultat demanat. Fes servir l’operador de comparació <.'
+        }
+    ];
+    const templates = [...evaluateTemplates.map(template => ({ ...template, formulaMode: 'evaluate' })),
+        ...buildTemplates.map(template => ({ ...template, formulaMode: 'build' }))]
+        .filter(template => difficulty === 'all' || template.difficulty === difficulty);
     const template = templates[digitalitzacioSheetsRandomInt(0, templates.length - 1)];
     const parsed = digitalitzacioSheetsEvaluateFormula(template.formula);
-    const build = Math.random() < 0.5;
     return {
         type: 'formula',
-        formulaMode: build ? 'build' : 'evaluate',
+        difficulty: template.difficulty,
+        formulaMode: template.formulaMode,
         formula: template.formula,
         result: parsed.value,
         required: template.required,
+        instruction: template.instruction || 'Calcula el resultat de la fórmula.',
         values: [],
         mode: 'formula'
     };
@@ -264,6 +406,14 @@ function digitalitzacioSheetsEvaluateFormula(source) {
     return { value: result };
 }
 
+function digitalitzacioSheetsGetFormulaOperators(source) {
+    let input = String(source || '').trim();
+    if (input.startsWith('=')) input = input.slice(1);
+    return new Set(digitalitzacioSheetsTokenizeFormula(input)
+        .filter(token => token.type === 'operator')
+        .map(token => token.value));
+}
+
 function digitalitzacioSheetsRangeFromCells(first, second = first) {
     return {
         top: Math.min(first.row, second.row),
@@ -308,6 +458,99 @@ function digitalitzacioSheetsGetCellFromEvent(event) {
     return { row: Number(cell.dataset.sheetRow), column: Number(cell.dataset.sheetColumn) };
 }
 
+function digitalitzacioSheetsGetHeaderFromEvent(event) {
+    const header = event.target.closest('[data-sheet-axis]');
+    if (!header || !document.getElementById('digi-sheets-grid')?.contains(header)) return null;
+    return {
+        axis: header.dataset.sheetAxis,
+        index: Number(header.dataset.sheetIndex)
+    };
+}
+
+function digitalitzacioSheetsIsHeaderSelection(question) {
+    return question.type === 'range' && question.selectionKind !== 'cells';
+}
+
+function digitalitzacioSheetsHandleHeaderClick(event, header) {
+    const state = digitalitzacioSheetsState;
+    const question = state.questions[state.questionIndex];
+    if (!digitalitzacioSheetsIsHeaderSelection(question) || question.headerSelection.axis !== header.axis) return;
+    const selected = header.axis === 'column' ? state.selectedColumns : state.selectedRows;
+    const isDiscontinuous = question.selectionKind.endsWith('discontinuous');
+    const hasModifier = event.ctrlKey || event.metaKey;
+    if (isDiscontinuous && hasModifier) {
+        if (selected.has(header.index)) selected.delete(header.index);
+        else selected.add(header.index);
+    } else if (!isDiscontinuous && event.shiftKey && state.selectionAnchor !== null) {
+        selected.clear();
+        const start = Math.min(state.selectionAnchor, header.index);
+        const end = Math.max(state.selectionAnchor, header.index);
+        for (let index = start; index <= end; index += 1) selected.add(index);
+    } else {
+        selected.clear();
+        selected.add(header.index);
+    }
+    state.selectionAnchor = header.index;
+    digitalitzacioSheetsRenderSelection();
+}
+
+function digitalitzacioSheetsIsDeleteSelection(question) {
+    return question?.selectionKind === 'delete-rows' || question?.selectionKind === 'delete-columns';
+}
+
+function digitalitzacioSheetsIsStructuralSelection(question) {
+    return digitalitzacioSheetsIsDeleteSelection(question)
+        || question?.selectionKind === 'hide-rows'
+        || question?.selectionKind === 'hide-columns';
+}
+
+function digitalitzacioSheetsHideContextMenu() {
+    document.getElementById('digi-sheets-context-menu')?.classList.add('hidden');
+}
+
+function digitalitzacioSheetsHandleContextMenu(event) {
+    const state = digitalitzacioSheetsState;
+    const question = state.questions[state.questionIndex];
+    if (!digitalitzacioSheetsIsStructuralSelection(question)) return;
+    const header = digitalitzacioSheetsGetHeaderFromEvent(event);
+    if (!header || header.axis !== question.headerSelection.axis) return;
+    event.preventDefault();
+    const selected = header.axis === 'column' ? state.selectedColumns : state.selectedRows;
+    if (!selected.has(header.index)) {
+        selected.clear();
+        selected.add(header.index);
+        state.selectionAnchor = header.index;
+        digitalitzacioSheetsRenderSelection();
+    }
+    document.getElementById('digi-sheets-context-menu')?.classList.remove('hidden');
+}
+
+function digitalitzacioSheetsApplyHeaderAction(action) {
+    const state = digitalitzacioSheetsState;
+    const question = state.questions[state.questionIndex];
+    if (!digitalitzacioSheetsIsStructuralSelection(question)) return;
+    const selected = question.headerSelection.axis === 'column' ? state.selectedColumns : state.selectedRows;
+    if (!selected.size) return;
+    const isColumn = question.headerSelection.axis === 'column';
+    if (action === 'delete') {
+        if (isColumn) state.deletedColumns = new Set(selected);
+        else state.deletedRows = new Set(selected);
+    } else {
+        if (isColumn) state.hiddenColumns = new Set(selected);
+        else state.hiddenRows = new Set(selected);
+    }
+    state.selectedRows.clear();
+    state.selectedColumns.clear();
+    digitalitzacioSheetsHideContextMenu();
+    digitalitzacioSheetsRenderGrid(question);
+    digitalitzacioSheetsSetFeedback(
+        action === 'delete'
+            ? 'Selecció esborrada. Prem «Corregeix» per comprovar-la.'
+            : 'Selecció amagada. Prem «Corregeix» per comprovar-la.',
+        'muted'
+    );
+}
+
 function digitalitzacioSheetsSelectTo(cell) {
     const state = digitalitzacioSheetsState;
     if (!state.dragStart) state.dragStart = cell;
@@ -345,6 +588,11 @@ function digitalitzacioSheetsHandlePointerUp() {
 function digitalitzacioSheetsHandleCellClick(event) {
     const state = digitalitzacioSheetsState;
     if (state.answered || state.dragging) return;
+    const header = digitalitzacioSheetsGetHeaderFromEvent(event);
+    if (header) {
+        digitalitzacioSheetsHandleHeaderClick(event, header);
+        return;
+    }
     const cell = digitalitzacioSheetsGetCellFromEvent(event);
     if (!cell) return;
     if (state.questions[state.questionIndex]?.type === 'reference') {
@@ -374,13 +622,28 @@ function digitalitzacioSheetsIsInside(range, row, column) {
 function digitalitzacioSheetsRenderSelection() {
     const state = digitalitzacioSheetsState;
     const selected = state.selected;
-    const isReference = state.questions[state.questionIndex]?.type === 'reference';
+    const question = state.questions[state.questionIndex];
+    const isReference = question?.type === 'reference';
+    const isHeaderSelection = digitalitzacioSheetsIsHeaderSelection(question);
     document.querySelectorAll('#digi-sheets-grid [data-sheet-row]').forEach(cell => {
         const row = Number(cell.dataset.sheetRow);
         const column = Number(cell.dataset.sheetColumn);
-        const marked = isReference ? state.markedCells.has(`${row}:${column}`) : digitalitzacioSheetsIsInside(selected, row, column);
+        const marked = isReference
+            ? state.markedCells.has(`${row}:${column}`)
+            : isHeaderSelection
+                ? question.headerSelection.axis === 'column'
+                    ? state.selectedColumns.has(column)
+                    : state.selectedRows.has(row)
+                : digitalitzacioSheetsIsInside(selected, row, column);
         cell.classList.toggle('digi-sheets__cell--selected', marked);
         cell.setAttribute('aria-pressed', marked ? 'true' : 'false');
+    });
+    document.querySelectorAll('#digi-sheets-grid [data-sheet-axis]').forEach(header => {
+        const axis = header.dataset.sheetAxis;
+        const index = Number(header.dataset.sheetIndex);
+        const marked = axis === 'column' ? state.selectedColumns.has(index) : state.selectedRows.has(index);
+        header.classList.toggle('digi-sheets__header-button--selected', marked);
+        header.setAttribute('aria-pressed', marked ? 'true' : 'false');
     });
 }
 
@@ -392,21 +655,43 @@ function digitalitzacioSheetsRenderGrid(question) {
     corner.setAttribute('aria-hidden', 'true');
     headerRow.appendChild(corner);
     for (let column = 0; column < question.columns; column += 1) {
+        if (digitalitzacioSheetsState.deletedColumns.has(column)
+            || digitalitzacioSheetsState.hiddenColumns.has(column)) continue;
         const header = document.createElement('th');
         header.scope = 'col';
-        header.textContent = digitalitzacioSheetsColumnName(column);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'digi-sheets__header-button';
+        button.dataset.sheetAxis = 'column';
+        button.dataset.sheetIndex = String(column);
+        button.textContent = digitalitzacioSheetsColumnName(column);
+        button.setAttribute('aria-label', `Columna ${button.textContent}`);
+        button.setAttribute('aria-pressed', 'false');
+        header.appendChild(button);
         headerRow.appendChild(header);
     }
     head.replaceChildren(headerRow);
     body.replaceChildren();
 
     for (let row = 0; row < question.rows; row += 1) {
+        if (digitalitzacioSheetsState.deletedRows.has(row)
+            || digitalitzacioSheetsState.hiddenRows.has(row)) continue;
         const tableRow = document.createElement('tr');
         const rowHeader = document.createElement('th');
         rowHeader.scope = 'row';
-        rowHeader.textContent = String(row + 1);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'digi-sheets__header-button';
+        button.dataset.sheetAxis = 'row';
+        button.dataset.sheetIndex = String(row);
+        button.textContent = String(row + 1);
+        button.setAttribute('aria-label', `Fila ${button.textContent}`);
+        button.setAttribute('aria-pressed', 'false');
+        rowHeader.appendChild(button);
         tableRow.appendChild(rowHeader);
         for (let column = 0; column < question.columns; column += 1) {
+            if (digitalitzacioSheetsState.deletedColumns.has(column)
+                || digitalitzacioSheetsState.hiddenColumns.has(column)) continue;
             const tableCell = document.createElement('td');
             const button = document.createElement('button');
             button.type = 'button';
@@ -430,6 +715,28 @@ function digitalitzacioSheetsRenderGrid(question) {
 }
 
 function digitalitzacioSheetsSelectionInstruction(question) {
+    if (digitalitzacioSheetsIsStructuralSelection(question)) {
+        const axis = question.headerSelection.axis === 'column' ? 'columnes' : 'files';
+        const labels = question.headerSelection.indices.map(index => question.headerSelection.axis === 'column'
+            ? digitalitzacioSheetsColumnName(index)
+            : String(index + 1));
+        const action = question.selectionKind.startsWith('delete') ? 'esborra' : 'amaga';
+        return `Selecciona les ${axis} ${labels.join(', ')} i fes clic dret. Després tria «${action} la selecció».`;
+    }
+    if (question.selectionKind === 'columns-contiguous' || question.selectionKind === 'rows-contiguous') {
+        const axis = question.headerSelection.axis === 'column' ? 'columnes' : 'files';
+        const labels = question.headerSelection.indices.map(index => question.headerSelection.axis === 'column'
+            ? digitalitzacioSheetsColumnName(index)
+            : String(index + 1));
+        return `Selecciona les ${axis} ${labels[0]} fins a ${labels[labels.length - 1]} amb clic a la primera i Maj/Clic a l’última.`;
+    }
+    if (question.selectionKind === 'columns-discontinuous' || question.selectionKind === 'rows-discontinuous') {
+        const axis = question.headerSelection.axis === 'column' ? 'columnes' : 'files';
+        const labels = question.headerSelection.indices.map(index => question.headerSelection.axis === 'column'
+            ? digitalitzacioSheetsColumnName(index)
+            : String(index + 1));
+        return `Selecciona les ${axis} ${labels.join(', ')} amb Ctrl/Clic o Cmd/Clic.`;
+    }
     const height = question.range.bottom - question.range.top + 1;
     const width = question.range.right - question.range.left + 1;
     const column = digitalitzacioSheetsColumnName(question.range.left);
@@ -460,10 +767,25 @@ function digitalitzacioSheetsUpdateStats() {
     document.getElementById('digi-sheets-score').textContent = `Puntuació: ${state.score}/${state.questions.length}`;
 }
 
+function digitalitzacioSheetsGetSettings() {
+    const type = document.getElementById('digi-sheets-type')?.value || 'all';
+    const difficulty = document.getElementById('digi-sheets-difficulty')?.value || 'all';
+    const count = Number(document.getElementById('digi-sheets-count')?.value) || DIGITALITZACIO_SHEETS_DEFAULT_COUNT;
+    return { type, difficulty, count };
+}
+
 function digitalitzacioSheetsRenderQuestion() {
     const state = digitalitzacioSheetsState;
     const question = state.questions[state.questionIndex];
     state.selected = null;
+    state.selectionAnchor = null;
+    state.selectedRows = new Set();
+    state.selectedColumns = new Set();
+    state.deletedRows = new Set();
+    state.deletedColumns = new Set();
+    state.hiddenRows = new Set();
+    state.hiddenColumns = new Set();
+    digitalitzacioSheetsHideContextMenu();
     state.dragStart = null;
     state.dragging = false;
     state.dragMoved = false;
@@ -472,19 +794,20 @@ function digitalitzacioSheetsRenderQuestion() {
     digitalitzacioSheetsUpdateStats();
     const isFormula = question.type === 'formula';
     const isReference = question.type === 'reference';
+    const isHeaderSelection = digitalitzacioSheetsIsHeaderSelection(question);
     document.querySelector('.digi-sheets__table-wrap').classList.toggle('hidden', isFormula);
-    document.getElementById('digi-sheets-hint').classList.toggle('hidden', isFormula || isReference);
+    document.getElementById('digi-sheets-hint').classList.toggle('hidden', isFormula || isReference || isHeaderSelection);
     document.getElementById('digi-sheets-formula-display').classList.toggle('hidden', !isFormula || question.formulaMode !== 'evaluate');
     document.getElementById('digi-sheets-formula-target').classList.toggle('hidden', !isFormula || question.formulaMode !== 'build');
-    document.getElementById('digi-sheets-input-wrap').classList.toggle('hidden', isFormula || question.mode !== 'write');
+    document.getElementById('digi-sheets-input-wrap').classList.toggle('hidden', isFormula || isHeaderSelection || question.mode !== 'write');
     document.getElementById('digi-sheets-formula-input-wrap').classList.toggle('hidden', !isFormula);
     if (!isFormula) digitalitzacioSheetsRenderGrid(question);
     document.getElementById('digi-sheets-question').textContent = isFormula
-        ? (question.formulaMode === 'evaluate'
-            ? 'Calcula el resultat de la fórmula.'
-            : 'Construeix una fórmula que doni el resultat demanat.')
+        ? question.instruction
         : isReference
             ? digitalitzacioSheetsReferenceInstruction(question)
+        : isHeaderSelection
+            ? digitalitzacioSheetsSelectionInstruction(question)
         : question.mode === 'select'
             ? digitalitzacioSheetsSelectionInstruction(question)
             : 'Escriu el rang de la zona pintada al full.';
@@ -501,7 +824,8 @@ function digitalitzacioSheetsRenderQuestion() {
 
 function initDigitalitzacioSheetsGame() {
     const state = digitalitzacioSheetsState;
-    state.questions = digitalitzacioSheetsCreateRound();
+    state.settings = digitalitzacioSheetsGetSettings();
+    state.questions = digitalitzacioSheetsCreateRound(state.settings);
     state.questionIndex = 0;
     state.score = 0;
     state.startedAt = Date.now();
@@ -514,6 +838,13 @@ function initDigitalitzacioSheetsGame() {
         grid.addEventListener('pointerdown', digitalitzacioSheetsHandlePointerDown);
         grid.addEventListener('pointerover', digitalitzacioSheetsHandlePointerEnter);
         grid.addEventListener('click', digitalitzacioSheetsHandleCellClick);
+        grid.addEventListener('contextmenu', digitalitzacioSheetsHandleContextMenu);
+        document.querySelectorAll('#digi-sheets-context-menu [data-sheet-action]').forEach(button => {
+            button.addEventListener('click', () => digitalitzacioSheetsApplyHeaderAction(button.dataset.sheetAction));
+        });
+        document.addEventListener('click', event => {
+            if (!event.target.closest('#digi-sheets-context-menu')) digitalitzacioSheetsHideContextMenu();
+        });
         window.addEventListener('pointerup', digitalitzacioSheetsHandlePointerUp);
         state.eventsBound = true;
     }
@@ -530,6 +861,14 @@ function checkDigitalitzacioSheetsAnswer() {
     }
     if (question.type === 'reference') {
         checkDigitalitzacioSheetsReferenceAnswer(question);
+        return;
+    }
+    if (digitalitzacioSheetsIsStructuralSelection(question)) {
+        checkDigitalitzacioSheetsStructuralAnswer(question);
+        return;
+    }
+    if (digitalitzacioSheetsIsHeaderSelection(question)) {
+        checkDigitalitzacioSheetsHeaderAnswer(question);
         return;
     }
     let answer = state.selected;
@@ -553,6 +892,54 @@ function checkDigitalitzacioSheetsAnswer() {
     document.getElementById('digi-sheets-next').classList.remove('hidden');
     digitalitzacioSheetsSetFeedback(
         correct ? 'Correcte! El rang és exacte.' : 'No és correcte.',
+        correct ? 'success' : 'error'
+    );
+}
+
+function checkDigitalitzacioSheetsStructuralAnswer(question) {
+    const state = digitalitzacioSheetsState;
+    const isDelete = question.selectionKind.startsWith('delete');
+    const applied = question.headerSelection.axis === 'column'
+        ? isDelete ? state.deletedColumns : state.hiddenColumns
+        : isDelete ? state.deletedRows : state.hiddenRows;
+    const actionLabel = isDelete ? 'esborra' : 'amaga';
+    if (applied.size === 0) {
+        digitalitzacioSheetsSetFeedback(`Fes clic dret sobre la selecció i tria «${actionLabel} la selecció».`, 'warning');
+        return;
+    }
+    const target = new Set(question.headerSelection.indices);
+    const correct = applied.size === target.size && [...target].every(index => applied.has(index));
+    state.answered = true;
+    if (correct) state.score += 1;
+    digitalitzacioSheetsUpdateStats();
+    document.getElementById('digi-sheets-check').disabled = true;
+    document.getElementById('digi-sheets-next').classList.remove('hidden');
+    digitalitzacioSheetsSetFeedback(
+        correct
+            ? isDelete ? 'Correcte! Les files o columnes s’han esborrat correctament.' : 'Correcte! Les files o columnes s’han amagat correctament.'
+            : 'No és correcte.',
+        correct ? 'success' : 'error'
+    );
+}
+
+function checkDigitalitzacioSheetsHeaderAnswer(question) {
+    const state = digitalitzacioSheetsState;
+    const selected = question.headerSelection.axis === 'column'
+        ? state.selectedColumns
+        : state.selectedRows;
+    if (selected.size === 0) {
+        digitalitzacioSheetsSetFeedback('Selecciona almenys una fila o columna abans de corregir.', 'warning');
+        return;
+    }
+    const target = new Set(question.headerSelection.indices);
+    const correct = selected.size === target.size && [...target].every(index => selected.has(index));
+    state.answered = true;
+    if (correct) state.score += 1;
+    digitalitzacioSheetsUpdateStats();
+    document.getElementById('digi-sheets-check').disabled = true;
+    document.getElementById('digi-sheets-next').classList.remove('hidden');
+    digitalitzacioSheetsSetFeedback(
+        correct ? 'Correcte! La selecció és exacta.' : 'No és correcte.',
         correct ? 'success' : 'error'
     );
 }
@@ -594,16 +981,24 @@ function checkDigitalitzacioSheetsFormulaAnswer(question) {
     const sameResult = typeof result.value === 'number' && typeof question.result === 'number'
         ? Math.abs(result.value - question.result) < 0.000001
         : result.value === question.result;
-    const hasRequiredOperators = question.formulaMode !== 'build'
-        || question.required.every(operator => input.includes(operator));
+    const formulaOperators = question.formulaMode === 'build'
+        ? digitalitzacioSheetsGetFormulaOperators(input)
+        : new Set();
+    const missingOperators = question.formulaMode === 'build'
+        ? question.required.filter(operator => !formulaOperators.has(operator))
+        : [];
+    const hasRequiredOperators = missingOperators.length === 0;
     const correct = sameResult && hasRequiredOperators;
     state.answered = true;
     if (correct) state.score += 1;
     digitalitzacioSheetsUpdateStats();
     document.getElementById('digi-sheets-check').disabled = true;
     document.getElementById('digi-sheets-next').classList.remove('hidden');
+    const missingMessage = missingOperators.length > 0
+        ? ` El resultat és correcte, però falta utilitzar: ${missingOperators.join(', ')}.`
+        : '';
     digitalitzacioSheetsSetFeedback(
-        correct ? 'Correcte!' : 'No és correcte.',
+        correct ? 'Correcte!' : `No és correcte.${sameResult ? missingMessage : ''}`,
         correct ? 'success' : 'error'
     );
 }

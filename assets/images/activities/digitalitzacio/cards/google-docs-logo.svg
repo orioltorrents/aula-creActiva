@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Google Docs</title>
+  <desc id="desc">Logo de Google Docs</desc>
+  <path fill="#4285F4" d="M38 8h58l32 32v112H38z"/>
+  <path fill="#AECBFA" d="M96 8v32h32z"/>
+  <rect x="57" y="59" width="52" height="64" rx="3" fill="#fff"/>
+  <path fill="#4285F4" d="M66 70h34v5H66zm0 14h34v5H66zm0 14h34v5H66zm0 14h23v5H66z"/>
+</svg>
