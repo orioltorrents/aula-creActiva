@@ -1,0 +1,73 @@
+<div id="project-hub-musica" class="game-module hidden">
+    <div id="musica-activities-menu" class="activities-grid mt-4">
+        <div id="musica-activity-pentagrama-card" class="activity-card" role="button" tabindex="0">
+            <div class="activity-card__media">
+                <img src="assets/images/activities/musica/cards/targeta-pentagrama.jfif" alt="Pentagrama" class="activity-card__image">
+            </div>
+            <div class="activity-card__content">
+                <div class="activity-card__title">Pentagrama</div>
+                <div class="activity-card__description">Llegeix 45 notes en tres pentagrames i posa a prova el teu llenguatge musical.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="musica-pentagrama-activity" class="sub-activity hidden">
+        <section class="music-pentagrama" aria-labelledby="music-pentagrama-title">
+            <div class="music-pentagrama__intro">
+                <div class="music-pentagrama__intro-copy">
+                    <h2 id="music-pentagrama-title">Pentagrama i lectures musicals</h2>
+                    <p>Llegeix les notes de cada pentagrama i selecciona el seu nom. Tens 45 notes per resoldre.</p>
+                </div>
+                <div class="music-pentagrama__stats" aria-live="polite">
+                    <span id="music-pentagrama-progress">45 notes</span>
+                    <span id="music-pentagrama-timer">00:00</span>
+                </div>
+            </div>
+
+            <div class="music-pentagrama__controls" aria-label="Controls de la partida">
+                <div class="music-pentagrama__levels" role="group" aria-label="Nivell de dificultat">
+                    <button type="button" class="btn quiz-filter-button quiz-filter-button--easy is-selected" data-music-level="iniciacio">Iniciació</button>
+                    <button type="button" class="btn quiz-filter-button quiz-filter-button--medium" data-music-level="intermig">Intermedi</button>
+                    <button type="button" class="btn quiz-filter-button quiz-filter-button--hard" data-music-level="avancat">Avançat</button>
+                </div>
+                <div class="music-pentagrama__actions">
+                    <button id="music-pentagrama-hints" type="button" class="btn btn--secondary">Pistes</button>
+                    <button id="music-pentagrama-new" type="button" class="btn btn--secondary">Nova partida</button>
+                    <button id="music-pentagrama-check" type="button" class="btn btn--primary">Corregir</button>
+                </div>
+            </div>
+
+            <div id="music-pentagrama-staves" class="music-pentagrama__staves" aria-live="polite"></div>
+            <div id="music-pentagrama-result" class="music-pentagrama__result hidden" aria-live="polite"></div>
+            <div id="music-pentagrama-save" class="music-pentagrama__save-feedback" aria-live="polite"></div>
+        </section>
+
+        <dialog id="music-pentagrama-hints-dialog" class="music-pentagrama__dialog">
+            <div class="music-pentagrama__dialog-header">
+                <h3>Pistes per llegir les notes</h3>
+                <button id="music-pentagrama-hints-close" type="button" class="btn btn--secondary" aria-label="Tancar les pistes">Tancar</button>
+            </div>
+            <div class="music-pentagrama__hint-grid">
+                <article>
+                    <h4>Clau de Sol</h4>
+                    <p>La segona línia és el Sol. Les línies, de baix a dalt, són Mi, Sol, Si, Re i Fa.</p>
+                    <p>Els espais són Fa, La, Do i Mi.</p>
+                </article>
+                <article>
+                    <h4>Clau de Fa</h4>
+                    <p>La quarta línia és el Fa. Les línies, de baix a dalt, són Sol, Si, Re, Fa i La.</p>
+                    <p>Els espais són La, Do, Mi i Sol.</p>
+                </article>
+                <article>
+                    <h4>Clau de Do</h4>
+                    <p>La tercera línia és el Do central. Les línies, de baix a dalt, són Fa, La, Do, Mi i Sol.</p>
+                    <p>Els espais són Sol, Si, Re i Fa.</p>
+                </article>
+                <article>
+                    <h4>Alteracions</h4>
+                    <p>El sostingut (♯) puja la nota un semitò i el bemoll (♭) la baixa un semitò.</p>
+                </article>
+            </div>
+        </dialog>
+    </div>
+</div>

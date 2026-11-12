@@ -12,7 +12,8 @@ function getProjects(curs) {
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
             { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
             { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
-            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
+            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' },
+            { id: 'p1_musica', titol: 'Música 1r ESO', descripcio: 'So, ritme i llenguatge musical.' }
         ],
         '2n ESO': [
             { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
@@ -42,7 +43,8 @@ function getProjects(curs) {
             { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
             { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
             { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
-            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
+            { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' },
+            { id: 'p1_musica', titol: 'Música 1r ESO', descripcio: 'So, ritme i llenguatge musical.' }
         ],
         '2ESO': [
             { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },

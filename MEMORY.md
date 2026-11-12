@@ -74,6 +74,9 @@
 - Les pistes de combinació de clics dels exercicis de selecció de files i columnes només es mostren al nivell inicial; els nivells mitjà i avançat només indiquen la selecció objectiu.
 - La selecció discontínua de files i columnes processa `Ctrl/Cmd` en `pointerdown` i evita duplicar l'acció en el `click`, per mantenir la selecció múltiple en navegadors que perden el modificador.
 - El catàleg local i `api/Projects.gs` mostren «Digitalització» amb accent; després del canvi d'Apps Script cal desplegar una nova versió de la Web App.
+- S'ha afegit el projecte «Música 1r ESO» amb una targeta de projecte il·lustrada i un hub amb la targeta pendent «Pentagrama», també amb il·lustració SVG local.
+- Pentagrama és ara una activitat autocorregible amb tres pentagrames de quinze notes, dificultats Iniciació/Intermedi/Avançat, claus de Sol/Fa/Do, alteracions, pistes i desament de resultats amb `callApi('saveResult', ...)`.
+- La vista de Pentagrama ocupa tota l'amplada disponible i els 15 desplegables de cada pentagrama queden alineats sota les notes, sense textos visibles repetits de «Pentagrama, nota».
 
 ## Riscos oberts
 - Cal comprovar el desament real dels talls geològics després del desplegament d'Apps Script i la interacció en dispositiu tàctil físic; la prova en navegador ha interceptat el backend.
@@ -86,6 +89,7 @@
 - Cal comprovar manualment l'accés a Factors de conversió i l'arrossegament de targetes en dispositius tàctils.
 - Cal provar manualment que les targetes compartides d'Estris i Microscopi obren l'activitat correcta a Física i Química de 2n i que els botons de retorn tornen al menú de laboratori.
 - Cal fer una prova manual de Representació gràfica amb alumnat, especialment la tolerància dels punts a mòbil i el desament real de la nota.
+- Cal provar manualment Pentagrama amb 45 selectors, especialment el desplaçament horitzontal en mòbil, la lectura de les claus i el desament real amb un alumne autenticat.
 - Cal desplegar Apps Script després dels canvis de `api/Projects.gs`.
 - El catàleg del backend encara ha d'incorporar els projectes de Física i Química per mantenir-se coherent amb el catàleg local.
 - La carpeta `assets/models/estris-laboratori/reixeta/` és un canvi local pendent d'integració i no s'ha modificat.
@@ -107,12 +111,18 @@
 - Corregida la geometria de les situacions de paret: el bloc queda en contacte amb la paret i el centre de les forces es desplaça al centre real del bloc.
 - Activada la targeta «Treball mecànic» amb una reimplementació pròpia inspirada en la versió GPL-3.0: paper mil·limetrat canvas, vector `AB`, regla, transportador, calculadora, cinc apartats de resposta, sis exercicis aleatoris i desament final.
 
-### 2026-11-07 - Hub de Física 1r Batxillerat
-- Afegit `batx1_fisica` als catàlegs local i d'Apps Script i connectat a la navegació del dashboard.
-- Creat el hub amb cinc targetes i sis il·lustracions SVG locals, preparat per incorporar activitats.
-- Validats la sintaxi de `js/app.js`, el balanç de `div`, les referències d'imatges i el diff.
-
 ### 2026-11-10 - Reptes visibles de fórmules de Google Sheets
 - Separats els bancs de preguntes de càlcul i de construcció de fórmules.
 - Afegides consignes visibles per als operadors obligatoris, inclòs el repte de dos operadors de prioritat superior a la suma o la resta.
 - Corregida la validació perquè analitzi els operadors tokenitzats i mostri feedback específic quan el resultat és correcte però falta un requisit.
+
+### 2026-11-12 - Projecte Música 1r ESO
+- Afegit `p1_musica` als catàlegs local i d'Apps Script per als formats `1r ESO` i `1ESO`.
+- Creat el hub de Música amb la targeta pendent «Pentagrama» i connectada la navegació del dashboard.
+- Afegides les il·lustracions SVG locals de Música i Pentagrama; validats la sintaxi JavaScript i el balanç de `div`.
+
+### 2026-11-12 - Activitat Pentagrama
+- Substituïda la targeta pendent per una activitat de lectura musical amb 3 pentagrames i 15 notes per pentagrama.
+- Afegits selectors de resposta, generació procedural, tres nivells de dificultat, claus, línies addicionals, alteracions, pistes i feedback visual.
+- Connectat el resultat a la sessió de login i a `saveResult`, amb bloqueig anti-duplicats, reintent manual i feedback JSON positiu/negatiu.
+- Eixamplada la zona de treball i alineats els selectors de notes sota cadascuna de les 45 notes; s'ha eliminat el text visible repetitiu dels selectors.

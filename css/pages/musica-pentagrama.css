@@ -1,0 +1,338 @@
+.music-pentagrama {
+    width: 100%;
+    max-width: none;
+    margin: -12px auto 0;
+    color: var(--text-color);
+}
+
+.music-pentagrama__intro,
+.music-pentagrama__controls,
+.music-pentagrama__staff-heading,
+.music-pentagrama__dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.music-pentagrama__intro {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    min-height: 68px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+.music-pentagrama__intro-copy {
+    width: 100%;
+}
+
+.music-pentagrama__intro h2 {
+    margin: 0 0 6px;
+}
+
+.music-pentagrama__intro p {
+    margin: 0;
+    color: var(--text-light);
+}
+
+.music-pentagrama__eyebrow {
+    color: var(--primary-color) !important;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.music-pentagrama__stats {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.music-pentagrama__stats span {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-bg);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.music-pentagrama__controls {
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-bottom: 18px;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+}
+
+.music-pentagrama__levels,
+.music-pentagrama__actions {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+.music-pentagrama__levels .is-selected {
+    opacity: 1;
+    outline: 3px solid color-mix(in srgb, var(--primary-color) 25%, transparent);
+    outline-offset: 2px;
+}
+
+.music-pentagrama__staves {
+    display: grid;
+    gap: 6px;
+}
+
+.music-pentagrama__staff-card {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+}
+
+.music-pentagrama__staff-heading {
+    min-height: 32px;
+    padding: 0 16px;
+    background: var(--surface-bg);
+}
+
+.music-pentagrama__staff-heading h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.music-pentagrama__staff-heading span {
+    color: var(--text-light);
+    font-size: .9rem;
+}
+
+.music-pentagrama__svg {
+    display: block;
+    width: 100%;
+    min-width: 1040px;
+    min-height: 142px;
+    padding: 0;
+    margin-bottom: 0;
+    transform: none;
+    background: #fffdf8;
+}
+
+.music-pentagrama__staff-body {
+    width: 100%;
+    min-width: 1040px;
+    overflow: hidden;
+}
+
+.music-pentagrama__staff-line,
+.music-pentagrama__ledger {
+    stroke: #475569;
+    stroke-width: 1.5;
+}
+
+.music-pentagrama__ledger {
+    stroke-width: 2;
+}
+
+.music-pentagrama__clef {
+    fill: #312e81;
+    font-family: Georgia, serif;
+    font-size: 58px;
+}
+
+.music-pentagrama__note,
+.music-pentagrama__stem {
+    fill: #0f172a;
+    stroke: #0f172a;
+    stroke-width: 2;
+}
+
+.music-pentagrama__accidental {
+    fill: #be123c;
+    font-family: Georgia, serif;
+    font-size: 28px;
+}
+
+.music-pentagrama__selectors {
+    position: relative;
+    height: 66px;
+    width: 100%;
+    min-width: 1040px;
+    padding: 10px 0 14px;
+    background: #fffdf8;
+}
+
+.music-pentagrama__note-control {
+    position: absolute;
+    top: 10px;
+    width: 5.2%;
+    min-width: 54px;
+    max-width: 76px;
+    transform: translateX(-50%);
+}
+
+.music-pentagrama__note-control:nth-child(1) { left: 13.46153846%; }
+.music-pentagrama__note-control:nth-child(2) { left: 19.23076923%; }
+.music-pentagrama__note-control:nth-child(3) { left: 25%; }
+.music-pentagrama__note-control:nth-child(4) { left: 30.76923077%; }
+.music-pentagrama__note-control:nth-child(5) { left: 36.53846154%; }
+.music-pentagrama__note-control:nth-child(6) { left: 42.30769231%; }
+.music-pentagrama__note-control:nth-child(7) { left: 48.07692308%; }
+.music-pentagrama__note-control:nth-child(8) { left: 53.84615385%; }
+.music-pentagrama__note-control:nth-child(9) { left: 59.61538462%; }
+.music-pentagrama__note-control:nth-child(10) { left: 65.38461538%; }
+.music-pentagrama__note-control:nth-child(11) { left: 71.15384615%; }
+.music-pentagrama__note-control:nth-child(12) { left: 76.92307692%; }
+.music-pentagrama__note-control:nth-child(13) { left: 82.69230769%; }
+.music-pentagrama__note-control:nth-child(14) { left: 88.46153846%; }
+.music-pentagrama__note-control:nth-child(15) { left: 94.23076923%; }
+
+.music-pentagrama__select {
+    width: 100%;
+    min-height: 38px;
+    padding: 4px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font: inherit;
+    font-size: .78rem;
+}
+
+.music-pentagrama__select:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary-color) 35%, transparent);
+    outline-offset: 1px;
+}
+
+.music-pentagrama__select.is-correct {
+    border-color: var(--success);
+    background: color-mix(in srgb, var(--success) 12%, var(--card-bg));
+}
+
+.music-pentagrama__select.is-incorrect {
+    border-color: var(--error);
+    background: color-mix(in srgb, var(--error) 10%, var(--card-bg));
+}
+
+.music-pentagrama__result,
+.music-pentagrama__save-feedback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+}
+
+.music-pentagrama__result {
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    background: var(--surface-bg);
+}
+
+.music-pentagrama__result strong {
+    font-size: 1.5rem;
+}
+
+.music-pentagrama__result--positive {
+    border-color: var(--success);
+}
+
+.music-pentagrama__result--needs-practice {
+    border-color: var(--warning);
+}
+
+.music-pentagrama__save-feedback {
+    min-height: 24px;
+    padding: 8px 0;
+}
+
+.music-pentagrama__save-feedback--success {
+    color: var(--success);
+}
+
+.music-pentagrama__save-feedback--error {
+    color: var(--error);
+}
+
+.music-pentagrama__save-feedback--pending {
+    color: var(--text-light);
+}
+
+.music-pentagrama__dialog {
+    width: min(720px, calc(100% - 32px));
+    border: 0;
+    border-radius: var(--radius-lg);
+    padding: 0;
+    color: var(--text-color);
+    background: var(--card-bg);
+    box-shadow: var(--shadow-lg);
+}
+
+.music-pentagrama__dialog::backdrop {
+    background: rgb(15 23 42 / 55%);
+}
+
+.music-pentagrama__dialog-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.music-pentagrama__dialog-header h3 {
+    margin: 0;
+}
+
+.music-pentagrama__hint-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 20px;
+}
+
+.music-pentagrama__hint-grid article {
+    padding: 14px;
+    border-radius: var(--radius-md);
+    background: var(--surface-bg);
+}
+
+.music-pentagrama__hint-grid h4,
+.music-pentagrama__hint-grid p {
+    margin: 0;
+}
+
+.music-pentagrama__hint-grid h4 {
+    margin-bottom: 6px;
+}
+
+.music-pentagrama__hint-grid p + p {
+    margin-top: 8px;
+}
+
+@media (max-width: 720px) {
+    .music-pentagrama__intro {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .music-pentagrama__stats {
+        position: static;
+        justify-content: flex-start;
+    }
+
+    .music-pentagrama__hint-grid {
+        grid-template-columns: 1fr;
+    }
+}

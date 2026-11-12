@@ -17,7 +17,8 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
         { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
         { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
-        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
+        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' },
+        { id: 'p1_musica', titol: 'Música 1r ESO', descripcio: 'So, ritme i llenguatge musical.' }
     ],
     '2n ESO': [
         { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
@@ -48,7 +49,8 @@ const LOCAL_PROJECT_CATALOG = {
         { id: 'p1_rates', titol: 'Rates a la carrera', descripcio: 'Projecte de biologia i matematiques.' },
         { id: 'p1_mediterrani', titol: 'Mediterràniament', descripcio: 'Historia i geografia del mar Mediterrani.' },
         { id: 'p1_biologia', titol: 'Biologia 1r ESO', descripcio: 'Conceptes de Biologia i material de laboratori.' },
-        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' }
+        { id: 'p1_radio', titol: 'Ràdio 1r ESO', descripcio: 'Connexions i cables d’àudio.' },
+        { id: 'p1_musica', titol: 'Música 1r ESO', descripcio: 'So, ritme i llenguatge musical.' }
     ],
     '2ESO': [
         { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
@@ -1104,8 +1106,8 @@ function getLocalProjectsForCourses(courses) {
 
 function getProjectVisuals() {
     return {
-        'batx1_fisica': { icon: '<img src="assets/images/activities/fisica-quimica/cards/batx1-fisica-portada.svg" alt="Física 1r Batxillerat" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #1d4ed8, #0f172a)' },
-        'batx1_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
+        'batx1_fisica': { icon: '<img src="assets/images/activities/fisica-quimica/cards/batx1-fisica-portada.jfif" alt="Física 1r Batxillerat" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #1d4ed8, #0f172a)' },
+        'batx1_ambientals': { icon: '<img src="assets/images/activities/geologia/cards/targeta-geologia.jfif" alt="Geologia i Ciències Ambientals 1r" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
         'batx2_ambientals': { icon: '⛰', gradient: 'linear-gradient(135deg, var(--success), var(--info-text))' },
         'p1_rates': { icon: '<img src="assets/images/activities/rates/cards/targeta_rates-a-la-carrera.png" alt="Rates" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
         'p1_mediterrani': { icon: '<img src="assets/images/activities/mediterrani/cards/targeta-mediterraniament.jpeg" alt="Mediterràniament" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)' },
@@ -1122,6 +1124,7 @@ function getProjectVisuals() {
         'p3_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0284c7, #075985)' },
         'p4_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0369a1, #164e63)' },
         'p1_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
+        'p1_musica': { icon: '<img src="assets/images/activities/musica/cards/targeta-musica.jfif" alt="Música 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #6d28d9, #db2777)' },
         'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 2n ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
@@ -1685,12 +1688,53 @@ async function openProject(project) {
                 showRadioMenu();
             }
         }
+    } else if (project.id === 'p1_musica') {
+        const hubDiv = await ensureProjectFragment(
+            'project-hub-musica',
+            'fragments/projects/musica/index.html'
+        );
+        if (hubDiv) {
+            hubDiv.classList.remove('hidden');
+            showMusicMenu();
+        }
     } else {
         // Fallback genric
         document.getElementById('game-container-generic').classList.remove('hidden');
     }
 
     applyAvailabilityToCurrentProject();
+}
+
+function showMusicMenu() {
+    setGameBackAction(null);
+    const hub = document.getElementById('project-hub-musica');
+    if (!hub) return;
+    const card = document.getElementById('musica-activity-pentagrama-card');
+    if (card && card.dataset.eventsBound !== 'true') {
+        card.dataset.eventsBound = 'true';
+        card.addEventListener('click', () => openMusicActivity('pentagrama'));
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openMusicActivity('pentagrama');
+            }
+        });
+    }
+    document.getElementById('musica-activities-menu')?.classList.remove('hidden');
+    document.getElementById('musica-pentagrama-activity')?.classList.add('hidden');
+    setGameTitle(state.currentProject?.titol || 'Música 1r ESO');
+}
+
+function openMusicActivity(activityId) {
+    if (activityId !== 'pentagrama') return;
+    const menu = document.getElementById('musica-activities-menu');
+    const activity = document.getElementById('musica-pentagrama-activity');
+    if (!menu || !activity) return;
+    setGameBackToCurrentView();
+    menu.classList.add('hidden');
+    activity.classList.remove('hidden');
+    setGameTitle('Música 1r ESO - Pentagrama');
+    if (typeof initMusicPentagrama === 'function') initMusicPentagrama();
 }
 
 ;
