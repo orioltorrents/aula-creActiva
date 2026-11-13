@@ -7,10 +7,17 @@ function saveResult(data) {
         const sheet = getSheet('resultats');
         if (!sheet) return { status: 'error', message: 'Pestanya resultats no trobada' };
 
+        const resultId = data.resultat_id || Utilities.getUuid();
+        ensureResultIdColumn(sheet);
+        if (resultAlreadySaved(sheet, resultId)) {
+            return { status: 'success', message: 'Resultat ja guardat', duplicate: true };
+        }
+
         // Aquesta llista ha de seguir el mateix ordre que les capçaleres de la pestanya "resultats".
         const result = {
             data: new Date(),
             timestamp: new Date(),
+            resultat_id: resultId,
             email: data.email,
             curs: data.curs,
             grup: data.grup || data.curs,
@@ -29,6 +36,29 @@ function saveResult(data) {
         clearSheetCache(sheet);
         return { status: 'success', message: 'Resultat guardat correctament' };
     });
+}
+
+function ensureResultIdColumn(sheet) {
+    const lastColumn = sheet.getLastColumn();
+    const headers = lastColumn > 0
+        ? sheet.getRange(1, 1, 1, lastColumn).getValues()[0].map(normalizeHeader)
+        : [];
+
+    if (headers.indexOf('resultat_id') === -1) {
+        sheet.getRange(1, lastColumn + 1).setValue('resultat_id');
+    }
+}
+
+function resultAlreadySaved(sheet, resultId) {
+    const lastColumn = sheet.getLastColumn();
+    const headers = sheet.getRange(1, 1, 1, lastColumn).getValues()[0].map(normalizeHeader);
+    const idColumn = headers.indexOf('resultat_id');
+    const lastRow = sheet.getLastRow();
+
+    if (idColumn === -1 || lastRow < 2) return false;
+
+    const ids = sheet.getRange(2, idColumn + 1, lastRow - 1, 1).getDisplayValues().flat();
+    return ids.includes(String(resultId));
 }
 
 function buildResultRow(sheet, result) {
@@ -52,7 +82,8 @@ function buildResultRow(sheet, result) {
         result.puntuacio,
         result.temps_segons,
         result.feedback_pos,
-        result.feedback_neg
+        result.feedback_neg,
+        result.resultat_id
     ];
 }
 

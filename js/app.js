@@ -239,6 +239,40 @@ async function loadFragmentInto(container, fragmentPath) {
     return container;
 }
 
+function showLoadError(message, retry) {
+    const app = document.getElementById('app');
+    if (!app) return;
+
+    app.innerHTML = '';
+    const section = document.createElement('section');
+    section.className = 'load-error';
+    section.setAttribute('role', 'alert');
+
+    const title = document.createElement('h2');
+    title.textContent = 'No s’ha pogut carregar la pantalla';
+
+    const description = document.createElement('p');
+    description.textContent = message;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn btn--primary';
+    button.textContent = 'Tornar a intentar';
+    button.addEventListener('click', async () => {
+        button.disabled = true;
+        button.textContent = 'Tornant a intentar...';
+        try {
+            await retry();
+        } catch (error) {
+            console.error('Error repetint la càrrega:', error);
+            showLoadError(message, retry);
+        }
+    });
+
+    section.append(title, description, button);
+    app.appendChild(section);
+}
+
 async function loadNestedFragments(root = document) {
     const placeholders = [...root.querySelectorAll('[data-fragment]')];
 
@@ -472,14 +506,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedUser = localStorage.getItem('user');
 
     if (savedUser) {
-        state.user = JSON.parse(savedUser);
+        try {
+            const parsedUser = JSON.parse(savedUser);
+            if (!parsedUser || typeof parsedUser !== 'object' || !parsedUser.email) {
+                throw new Error('La sessió desada no té un format vàlid.');
+            }
+            state.user = parsedUser;
+        } catch (error) {
+            console.warn('S’ha descartat una sessió desada invàlida:', error);
+            localStorage.removeItem('user');
+            showLoginFragment().catch(loginError => {
+                console.error("Error carregant login:", loginError);
+                showLoadError('Revisa la connexió i torna-ho a intentar.', () => showLoginFragment());
+            });
+            return;
+        }
 
         loadDashboard().catch(error => {
             console.error("Error carregant dashboard:", error);
+            showLoadError('Revisa la connexió i torna-ho a intentar.', () => loadDashboard());
         });
     } else {
         showLoginFragment().catch(error => {
             console.error("Error carregant login:", error);
+            showLoadError('Revisa la connexió i torna-ho a intentar.', () => showLoginFragment());
         });
     }
 });
@@ -550,6 +600,13 @@ async function callApi(action, params = {}) {
     url.searchParams.set('action', action);
 
     // Opcions per a POST (per defecte)
+    if (action === 'saveResult' && !params.resultat_id) {
+        const generatedId = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+            ? crypto.randomUUID()
+            : `result-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        params.resultat_id = generatedId;
+    }
+
     const requestParams = { ...params, action: action };
 
     if (action === 'saveResult' && state.user && state.user.grup && !requestParams.grup) {
@@ -689,9 +746,12 @@ async function handleLogin(email, password) {
             state.user = response.user;
             localStorage.setItem('user', JSON.stringify(state.user));
 
-            await loadDashboard().catch(error => {
+            try {
+                await loadDashboard();
+            } catch (error) {
                 console.error("Error carregant dashboard:", error);
-            });
+                showLoadError('La sessió és correcta, però no s’ha pogut carregar el dashboard.', () => loadDashboard());
+            }
         } else {
             errorMsg.textContent = response ? response.message : 'Error desconegut';
         }
@@ -711,6 +771,7 @@ function logout() {
 
     showLoginFragment().catch(error => {
         console.error("Error carregant login:", error);
+        showLoadError('Revisa la connexió i torna-ho a intentar.', () => showLoginFragment());
     });
 }
 
@@ -1058,6 +1119,24 @@ function getCardAvailabilityIds(card, projectId) {
 
     if (systemId) return [systemId, `biologia/${systemId}`];
     if (senseMatch) return [senseMatch[1], `biologia/${senseMatch[1]}`];
+
+    const directActivityMatch = onclick.match(/(?:window\.)?(open(?:FisicaQuimicaSIActivity|FisicaQuimicaFactorsActivity|FisicaQuimicaGraphActivity|FisicaQuimicaFormulacioActivity|FisicaQuimicaLaboratori|FisicaBatxilleratCinematicaActivity|FisicaBatxilleratForcesActivity|FisicaBatxilleratTreballActivity|GeologicalActivity|MusicActivity))\s*\(/i);
+    if (directActivityMatch) {
+        const activityIds = {
+            openFisicaQuimicaSIActivity: 'si',
+            openFisicaQuimicaFactorsActivity: 'factors',
+            openFisicaQuimicaGraphActivity: 'grafiques',
+            openFisicaQuimicaFormulacioActivity: 'formulacio',
+            openFisicaQuimicaLaboratori: 'laboratori',
+            openFisicaBatxilleratCinematicaActivity: 'cinematica',
+            openFisicaBatxilleratForcesActivity: 'forces',
+            openFisicaBatxilleratTreballActivity: 'treball-mecanic',
+            openGeologicalActivity: 'talls-geologics',
+            openMusicActivity: 'pentagrama'
+        };
+        const activityId = activityIds[directActivityMatch[1]];
+        if (activityId) return [activityId];
+    }
 
     const projectMatch = onclick.match(/openNaturaProject\(['"]([^'"]+)/i);
     if (projectMatch) return [projectMatch[1]];
@@ -2097,7 +2176,7 @@ function openNaturaActivity(actId) {
         if (typeof initImpacteGame === 'function') initImpacteGame();
     } else if (actId === 'rols') {
         document.getElementById('natura-activity-rols').classList.remove('hidden');
-        if (typeof initRolsGame === 'function') initRolsGame();
+        if (typeof initRolsActivity === 'function') initRolsActivity();
     } else if (actId === 'biblio') {
         document.getElementById('natura-activity-biblio').classList.remove('hidden');
         if (typeof initBiblioGame === 'function') initBiblioGame();

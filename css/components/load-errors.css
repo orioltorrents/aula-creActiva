@@ -1,0 +1,21 @@
+.load-error {
+    display: flex;
+    min-height: 60vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px 20px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.load-error h2,
+.load-error p {
+    margin: 0;
+}
+
+.load-error p {
+    max-width: 30rem;
+    color: var(--text-light);
+}

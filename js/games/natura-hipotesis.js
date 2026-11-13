@@ -18,6 +18,8 @@ const RIVER_HYPOTHESIS_CRITERIA = [
     { id: 'investigable', label: 'Podem imaginar com investigar-la?', hint: 'Llegint-la podem imaginar una observació, una comparació o un mostratge.' }
 ];
 
+const RIVER_HYPOTHESES = [];
+
 RIVER_HYPOTHESES.push(
     {
         text: 'Si estudiem 20 minuts abans d’un examen, traurem millor nota.',
@@ -140,7 +142,7 @@ RIVER_HYPOTHESES.push(
     }
 );
 
-const RIVER_HYPOTHESES = [
+RIVER_HYPOTHESES.push(
     {
         text: 'Si augmenta la concentració de nitrats a l’aigua, disminuirà el nombre de famílies de macroinvertebrats sensibles.',
         checks: { conditional: true, independent: true, dependent: true, precision: true, investigable: true },
@@ -229,7 +231,7 @@ const RIVER_HYPOTHESES = [
             investigable: 'Caldria concretar les condicions del lloc i la dada que recollirem.'
         }
     }
-];
+);
 
 function initRiverHypothesisGame() {
     const activity = document.getElementById('natura-activity-hipotesis');

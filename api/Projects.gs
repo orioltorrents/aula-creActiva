@@ -18,16 +18,19 @@ function getProjects(curs) {
         '2n ESO': [
             { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
             { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+            { id: 'p2_fisica_quimica', titol: 'Física i Química 2n ESO', descripcio: 'Pràctiques i estris de laboratori.' },
             { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
+            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+            { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         '4t ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
-            { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
+            { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
+            { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         // Batxillerat.
         '1r Batxillerat': [
@@ -49,16 +52,19 @@ function getProjects(curs) {
         '2ESO': [
             { id: 'p2_paralimpics', titol: 'Paralímpics', descripcio: 'Educacio fisica i valors.' },
             { id: 'p2_biologia', titol: 'Biologia', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+            { id: 'p2_fisica_quimica', titol: 'Física i Química 2n ESO', descripcio: 'Pràctiques i estris de laboratori.' },
             { id: 'p2_radio', titol: 'Ràdio 2n ESO', descripcio: 'Comunicacio, locucio i edicio radiofonica.' }
         ],
         '3ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' }
+            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+            { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         '4ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
-            { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' }
+            { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
+            { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         '1Batx': [
             { id: 'batx1_fisica', titol: 'Física 1r Batxillerat', descripcio: 'Cinemàtica, dinàmica, energia i camps físics.' },

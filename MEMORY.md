@@ -76,12 +76,19 @@
 - El catàleg local i `api/Projects.gs` mostren «Digitalització» amb accent; després del canvi d'Apps Script cal desplegar una nova versió de la Web App.
 - S'ha afegit el projecte «Música 1r ESO» amb una targeta de projecte il·lustrada i un hub amb la targeta pendent «Pentagrama», també amb il·lustració SVG local.
 - Pentagrama és ara una activitat autocorregible amb tres pentagrames de quinze notes, dificultats Iniciació/Intermedi/Avançat, claus de Sol/Fa/Do, alteracions, pistes i desament de resultats amb `callApi('saveResult', ...)`.
+- Corregit l'error crític d'inicialització de `RIVER_HYPOTHESES`; les hipòtesis generals i les específiques del Projecte Rius ara es combinen en una única matriu inicialitzada abans d'utilitzar-la.
+- Corregida la navegació de «Rols tròfics»: `app.js` ara crida `initRolsActivity()`, que és la funció d'inicialització existent.
+- Consolidada la navegació d'Entorns de Natura a `app.js`; s'han eliminat les còpies globals de `showNaturaMenu()`, `openNaturaProject()` i `openNaturaActivity()` dels fitxers de projecte i de Xarxes Tròfiques.
+- El desament de `saveResult` ara genera i conserva `resultat_id`, crea la columna al final de `resultats` si cal i rebutja reintents duplicats dins del bloqueig d'escriptura.
+- `getCardAvailabilityIds()` reconeix ara les targetes de Física i Química, Física de Batxillerat, Geologia i Música, inclosa Formulació inorgànica.
+- Les càrregues inicials de login i dashboard ara mostren un error visible en català amb botó de reintent quan fallen, en lloc de deixar només un error a la consola.
+- La sessió recuperada de `localStorage` es valida abans de carregar el dashboard; si és JSON corrupte o no conté un correu, es descarta i es mostra el login.
 - La vista de Pentagrama ocupa tota l'amplada disponible i els 15 desplegables de cada pentagrama queden alineats sota les notes, sense textos visibles repetits de «Pentagrama, nota».
 
 ## Riscos oberts
 - Cal comprovar el desament real dels talls geològics després del desplegament d'Apps Script i la interacció en dispositiu tàctil físic; la prova en navegador ha interceptat el backend.
-- El backend de resultats no és idempotent: una resposta perduda seguida d'un reintent pot duplicar una fila.
-- La prova de navegador ha detectat l'error preexistent `Cannot access 'RIVER_HYPOTHESES' before initialization` en carregar els scripts globals; no ha impedit el flux de talls geològics.
+- Cal provar en Apps Script el nou control d'idempotència de `saveResult`, inclòs el primer desament que crea la columna `resultat_id` i un reintent del mateix objecte.
+- L'error `Cannot access 'RIVER_HYPOTHESES' before initialization` ha estat corregit; cal repetir la prova global del navegador per confirmar que no queda cap error de càrrega relacionat.
 - Cal fer una prova manual de la navegació del laboratori des dels tres projectes de Física i Química i comprovar el retorn al menú.
 - Cal fer una prova manual del gir del revòlver, l'arrossegament dels quatre comandaments i la col·lisió amb els objectius en dispositius tàctils.
 - Cal comprovar manualment l'accés al repàs del SI des del menú de 2n i confirmar que no apareix a 3r ni a 4t d'ESO.

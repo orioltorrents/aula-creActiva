@@ -36,6 +36,7 @@
 @import url("./components/project-cards.css");
 @import url("./layout/game-shell.css");
 @import url("./components/loaders.css");
+@import url("./components/load-errors.css");
 @import url("./components/game-panel.css");
 @import url("./components/feedback-results.css");
 

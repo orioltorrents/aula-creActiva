@@ -20,33 +20,6 @@ const naturaXarxesState = {
     penaltyPoints: 0
 };
 
-function showNaturaMenu() {
-    const hub = document.getElementById('project-hub-natura');
-    if (hub) {
-        document.getElementById('natura-activities-menu').classList.remove('hidden');
-        hub.querySelectorAll('.sub-activity').forEach(el => el.classList.add('hidden'));
-    }
-}
-
-function openNaturaActivity(actId) {
-    document.getElementById('natura-activities-menu').classList.add('hidden');
-    document.getElementById(`natura-activity-${actId}`).classList.remove('hidden');
-
-    if (actId === 'xarxes') {
-        initXarxesGame();
-    } else if (actId === 'rols') {
-        initRolsActivity();
-    } else if (actId === 'impacte' && typeof initImpacteGame === 'function') {
-        initImpacteGame();
-    } else if (actId === 'biblio' && typeof initBiblioGame === 'function') {
-        initBiblioGame();
-    } else if (actId === 'orenetes' && typeof initOrenetesGame === 'function') {
-        initOrenetesGame();
-    } else if (actId === 'orenetes-preguntes' && typeof initOrenetesPreguntesQuiz === 'function') {
-        initOrenetesPreguntesQuiz();
-    }
-}
-
 function initRolsActivity() {
     document.getElementById('rols-ecosystem-selection').classList.remove('hidden');
     document.getElementById('rols-quiz-area').classList.add('hidden');
