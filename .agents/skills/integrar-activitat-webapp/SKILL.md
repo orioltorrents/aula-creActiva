@@ -17,14 +17,16 @@ Combina aquesta skill amb la skill específica de la interacció (per exemple, o
 
 1. Llegeix `AGENTS.md` i `MEMORY.md` per conèixer les regles i l'estat actual.
 2. Examina una activitat similar abans de decidir l'estructura. Comprova fragments, `js/games/`, `js/activities/`, `js/config/project-activities.js`, estils i inicialització a `js/app.js`.
-3. Reutilitza els helpers, components, patrons de navegació i tokens CSS existents. No creïs una nova ruta, selector o helper global sense comprovar abans si ja n'hi ha un.
-4. Mantén el fragment HTML, la lògica de la interacció i els estils als llocs corresponents. Conserva els IDs i noms que connecten aquests fitxers; si els canvies, actualitza totes les referències.
-5. Afegeix l'activitat al menú o configuració del projecte seguint el patró que aquest projecte utilitzi actualment. No dupliquis una targeta que ja es genera des de la configuració.
-6. Connecta una inicialització repetible: en tornar a obrir l'activitat, reinicia l'estat i evita registrar listeners duplicats o deixar resultats antics visibles.
-7. Fes servir les claus de `js/i18n.js` quan el text hagi de seguir el sistema de traduccions existent.
-8. Desa resultats només si l'activitat és avaluable i seguint el patró actual de `saveResult`/`callApi`. No afegeixis cap acció de backend si n'hi ha una de reutilitzable.
-9. Comprova que la interacció funcioni amb ratolí i en pantalles tàctils; proporciona també una alternativa accessible amb teclat quan correspongui.
-10. Executa els checks pertinents de `AGENTS.md`, revisa `git status` i prova manualment el flux afectat si es pot.
+3. Revisa també el catàleg local i `api/Projects.gs` abans d'afegir o canviar un projecte. No deixis el projecte definit només en un dels dos catàlegs.
+4. Reutilitza els helpers, components, patrons de navegació i tokens CSS existents. No creïs una nova ruta, selector o helper global sense comprovar abans si ja n'hi ha un.
+5. Mantén el fragment HTML, la lògica de la interacció i els estils als llocs corresponents. Conserva els IDs i noms que connecten aquests fitxers; si els canvies, actualitza totes les referències.
+6. Afegeix l'activitat al menú o configuració del projecte seguint el patró que aquest projecte utilitzi actualment. No dupliquis una targeta que ja es genera des de la configuració.
+7. Connecta una inicialització repetible: en tornar a obrir l'activitat, reinicia l'estat i evita registrar listeners duplicats o deixar resultats antics visibles.
+8. Fes servir les claus de `js/i18n.js` quan el text hagi de seguir el sistema de traduccions existent.
+9. Desa resultats només si l'activitat és avaluable i seguint el patró actual de `saveResult`/`callApi`. No afegeixis cap acció de backend si n'hi ha una de reutilitzable; usa un identificador estable per evitar duplicats en reintents.
+10. Comprova que la interacció funcioni amb ratolí i en pantalles tàctils; proporciona també una alternativa accessible amb teclat quan correspongui.
+11. No afegeixis `style=""` a fragments. Usa classes BEM i tokens; reserva les propietats dinàmiques del DOM per a geometria calculada que CSS no pugui resoldre.
+12. Executa els checks pertinents de `AGENTS.md`, revisa `git status` i prova manualment el flux afectat si es pot. Indica explícitament si falta desplegar Apps Script.
 
 ## Criteris
 

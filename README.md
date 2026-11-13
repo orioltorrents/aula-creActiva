@@ -107,6 +107,14 @@ Activitats orientades al desenvolupament de la competència digital i a l’ús 
 <img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" width="400">
 Materials i activitats per ajudar l’alumnat a pensar preguntes investigables, enfocar temes, treballar bibliografia i estructurar millor el procés de recerca.
 
+### Altres projectes i activitats
+
+- **Física 1r Batxillerat**: Cinemàtica, Dinàmica i Treball mecànic, amb activitats interactives, correcció i desament de resultats.
+- **Geologia i Ciències Ambientals 1r i 2n Batxillerat**: talls geològics i riscos naturals amb models procedurals, nivells i desament de la ronda final.
+- **Música 1r ESO**: Pentagrama, amb lectura de notes, claus, alteracions, dificultats i puntuació.
+- **Formulació inorgànica**: aplicació externa integrada dins Física i Química mitjançant iframe, amb pont de resultats cap a Aula CreActiva.
+- **Laboratori 3D**: activitat compartida entre Biologia i Física i Química, amb models GLB, metadades i preguntes de selecció i comparació.
+
 ---
 
 ## Finalitat pedagògica
@@ -158,3 +166,36 @@ Les preguntes, respostes i moltes dades de les activitats estan organitzades en 
 - Accions rellevants per al professorat: `getResultGroups`, `createResultsSheet` i `createGroupStudentsSheet`.
 
 Quan es modifiqui `api/Code.js` o el manifest, cal tornar a desplegar l'Apps Script com a Web App perquè els canvis arribin a la web publicada.
+
+---
+
+## Manteniment i validació
+
+Les regles detallades per treballar amb el repositori són a [`AGENTS.md`](./AGENTS.md). Abans de donar per acabada una modificació:
+
+- Revisa `MEMORY.md` per conèixer l'estat temporal i els riscos oberts.
+- Comprova que la navegació, els IDs, els `data-game-id`, els fragments i les funcions d'inicialització continuen connectats.
+- Mantén sincronitzats el catàleg local de projectes i `api/Projects.gs`.
+- Reutilitza una única activitat quan diversos cursos comparteixen el mateix contingut; no copiïs fragments ni lògica.
+- Usa classes BEM i tokens de `css/base/tokens.css`; no afegeixis estils declaratius inline.
+- Les targetes legacy amb `onclick` han de tenir alternativa de teclat amb `Tab`, `Enter` i `Espai`, i les targetes desactivades no poden activar-se.
+- En activitats avaluables, desa només rondes finalitzades i utilitza un identificador estable per evitar duplicats si es repeteix una petició.
+
+### Validacions automàtiques
+
+Amb Node disponible, cal comprovar:
+
+```powershell
+node --check js/app.js
+node --check js/games/fitxer-modificat.js
+Get-Content api\Results.gs -Raw | node --check --input-type=commonjs
+git diff --check
+```
+
+Si es modifiquen fragments HTML, comprova el balanç de `<div>`. Si es modifiquen models 3D o els seus bancs de preguntes, comprova que totes les rutes de GLB existeixen.
+
+### Validacions manuals i desplegament
+
+Les comprovacions automàtiques no substitueixen la prova al navegador. Per cada activitat modificada cal obrir-la des del menú, completar una ronda, provar l'última pregunta, reiniciar, tornar enrere, obrir-la de nou i revisar una amplada mòbil. Les interaccions 3D s'han de provar també amb pantalla tàctil.
+
+Les modificacions d'Apps Script no són visibles a la Web App publicada fins que es desplega una nova versió. Després del desplegament cal comprovar el desament real a `resultats`, especialment el primer desament que crea `resultat_id` i els reintents de la mateixa ronda.

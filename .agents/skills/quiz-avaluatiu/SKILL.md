@@ -23,7 +23,9 @@ Per a una activitat nova, combina aquesta skill amb `integrar-activitat-webapp`.
 6. Reinicia preguntes, seleccions, missatges, comptadors i listeners en començar o tornar a obrir una ronda.
 7. Desa resultats només si el patró actual de l'activitat ho requereix; reutilitza `saveResult`/el flux existent i evita duplicats o desar rondes parcials.
 8. Comprova preguntes buides, opcions repetides, l'última pregunta, reinici, filtres i qualsevol mode de pràctica/examen. Utilitza els components de quiz compartits i les traduccions existents.
-9. Segueix `integrar-activitat-webapp` per connectar fragment, menú, JavaScript, estils, navegació i validació.
+9. Tots els botons de resposta i filtres han de seguir els components BEM del projecte; no introdueixis colors, amplades o paddings amb `style=""` ni amb `element.style` si només representen un estat visual.
+10. El feedback ha de ser textual i accessible, i el focus de teclat ha de quedar clar després de respondre o canviar de pregunta.
+11. Segueix `integrar-activitat-webapp` per connectar fragment, menú, JavaScript, estils, navegació i validació.
 
 ## Referències del projecte
 

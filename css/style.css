@@ -48,6 +48,7 @@
 
 /* 4. Components d'activitats */
 @import url("./components/activity-cards.css");
+@import url("./components/natura-quiz.css");
 
 /* 5. Pages específiques */
 @import url("./pages/natura-orenetes.css");

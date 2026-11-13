@@ -5,6 +5,8 @@ description: Incorporar models GLB a una web educativa existent per explorar-los
 
 # Activitat educativa: identifica les parts del bètid
 
+> Aquesta skill descriu el patró de models 3D del projecte. Per a laboratori i microscopi, aplica els mateixos principis però consulta també `AGENTS.md` i les metadades de `assets/models/estris-laboratori/`.
+
 ## 1. Objectiu
 
 Integrar a la web existent una activitat que permeti:
@@ -150,6 +152,8 @@ Completar-lo amb càmera, llums, renderer i controls.
 Mostrar un estat de càrrega i un botó de reintent si falla.
 Enquadrar automàticament el model segons els seus límits.
 
+Abans de donar per bona la integració, comprovar que totes les referències de models del JSON existeixen físicament i que el GLB, les metadades i els scripts de creació/verificació del model es mantenen junts a la seva carpeta. No reutilitzar noms de materials transparents per identificar una peça si altres estris comparteixen el mateix material.
+
 No interpretar les dimensions del fitxer com la mida real
 de l’insecte: el model utilitza una escala didàctica.
 
@@ -215,6 +219,8 @@ Acceptar una selecció només si:
 Comprovar el desplaçament màxim durant tot el gest.
 No comparar només el punt inicial i el final: l’alumne
 pot arrossegar i tornar al mateix lloc.
+
+La prova mínima ha d'incloure ratolí, un dit, arrossegament del model, zoom, canvi de pregunta, retorn al menú i reobertura de l'activitat. També cal revisar que les preguntes d'ordre o posició siguin neutres perquè el banc es barreja.
 
 ## 7. Definir les preguntes i corregir
 

@@ -48,6 +48,14 @@ Donar orientacions per treballar amb coherència en l’estructura actual del pr
 - No afegeixis noves rutes o selectors sense comprovar primer possibles duplicats o conflictes globals.
 - Quan creïs una targeta nova d'activitat, defineix el títol al capçalera global amb `setGameTitle('Projecte - Activitat')` en obrir-la i no repeteixis el títol de l'activitat dins del fragment; el contingut ha de començar directament amb la introducció o els controls.
 
+### Regles apreses de manteniment
+
+- Abans de crear una funció de navegació, revisa `js/app.js`, `js/projects/` i `js/games/`: no hi pot haver dues implementacions globals de la mateixa funció. Mantén la navegació compartida en un únic lloc.
+- Quan afegeixis o canviïs un projecte, actualitza i compara el catàleg local amb `api/Projects.gs`. Un projecte visible només al frontend o només a Apps Script provoca menús i disponibilitats incoherents.
+- Quan un projecte comparteixi una activitat entre cursos, reutilitza el mateix fragment, joc i entrada de configuració. No copiïs la lògica per curs.
+- Quan canviïs un nom de funció, ID, `data-game-id` o ruta de fragment, busca totes les referències abans d'acabar. Els fragments es carreguen dinàmicament i els errors poden aparèixer només en obrir una activitat concreta.
+- Abans de donar per bona una correcció, prova també l'última pregunta, el reinici, el retorn al menú i l'obertura repetida de l'activitat. Són punts habituals de listeners duplicats i estat antic.
+
 ## Dashboard de professorat
 
 - La secció de professorat viu a `fragments/screens/dashboard.html` i només s'ha de mostrar a rols de professorat o administració.
@@ -153,6 +161,10 @@ Reutilitza aquestes classes abans de crear-ne de noves:
 - No canviïs noms de funcions referenciades pels fragments sense actualitzar totes les crides.
 - Comprova que els IDs esperats per les funcions existeixin als fragments carregats.
 - Afegeix gestió d’errors a les càrregues de fragments i a les inicialitzacions de jocs si és possible.
+- Per als errors de càrrega, mostra feedback visible i una acció de reintent; no deixis només un `console.error`.
+- En activitats avaluables, desa només la ronda finalitzada i conserva un identificador estable (`resultat_id` o equivalent) perquè un reintent de xarxa no dupliqui el resultat.
+- Declara constants i dades abans d'utilitzar-les. En particular, evita errors d'inicialització com usar `RIVER_HYPOTHESES` abans de declarar-la.
+- Quan connectis un joc amb un fragment existent, comprova que el nom de la funció d'inicialització real coincideix amb la crida (`init...`). No assumeixis el nom a partir del nom del fitxer.
 ### Helpers globals disponibles a `js/app.js`
 
 - **`setElementStateColor(element, stateName)`**: Assigna classe de color d'estat (`success`, `error`, `warning`, `muted`).
@@ -175,6 +187,8 @@ Reutilitza aquestes classes abans de crear-ne de noves:
 - Els fragments poden contenir placeholders `data-fragment`; `loadNestedFragments` els processa automàticament.
 - **Estructura i aïllament de contenidors**: Cada activitat o sub-mòdul ha de ser un bloc independent (germà) dins del seu contenidor pare. Mai insereixis el codi d'una subactivitat dins del cos d'una altra activitat per evitar tancar contenidors pare abans d'hora.
 - **Balanç d'etiquetes HTML**: En editar fragments HTML, verifica sempre que no quedin etiquetes `<div` sense tancar o `</div>` duplicades que trobin la jerarquia DOM.
+- Per a una acció, prefereix `<button>` o `<a>` abans que un `<div onclick>`. Si has de mantenir una targeta legacy amb `onclick`, ha de tenir `role="button"`, `tabindex="0"` i activació amb `Enter` i `Espai`; no afegeixis listeners duplicats a targetes que ja gestionen el teclat.
+- Les targetes amb `aria-disabled="true"` no han de ser activables amb teclat ni amb clic.
 
 ### Noms i IDs convencionals
 
@@ -196,6 +210,7 @@ Segueix aquests patrons per mantenir la coherència:
 - Si fas una migració, comprova que l’antiga i la nova versió funcionin amb el mateix HTML.
 - No afegeixis regles globals noves sense verificar l’impacte en altres activitats.
 - Prioritza llegibilitat i coherència amb l’estil del projecte.
+- No consideris una prova automatitzada com una prova manual: documenta separadament què s'ha provat al navegador, què requereix un dispositiu tàctil i què requereix desplegar Apps Script.
 
 ### Cicle de revisió
 
@@ -220,11 +235,11 @@ Detecta caràcters corruptats o encoding dolent. No ha de retornar resultats.
 ### Check 2: Estils inline
 
 ```powershell
-rg -n "style=\"" index.html
+rg -n "style=\"" index.html fragments
 rg -n "style\\.cssText" js
 ```
 
-Els estils han de ser a CSS, mai inline. No ha de retornar resultats.
+Els estils declaratius han de ser a CSS, mai inline. Les assignacions dinàmiques de geometria que depenen de mides calculades en temps d'execució només són acceptables quan no es poden expressar amb classes CSS; documenta aquest cas i no les utilitzis per substituir estats visuals.
 
 ### Check 3: Classes CSS obsoletes
 
@@ -244,7 +259,7 @@ Revisa els fitxers canviats. Assegura't que només has modificat els fitxers nec
 
 ### Check 5: Sintaxi JavaScript (opcional, si hi ha Node)
 
-Si tens Node disponible, valida la sintaxi bàsica dels fitxers JS modificats amb un linter o parser.
+Si tens Node disponible, valida la sintaxi de tots els fitxers `js/**/*.js` modificats. Per als fitxers Apps Script `.gs`, passa el contingut per stdin amb `node --check --input-type=commonjs`, perquè Node no accepta directament l'extensió `.gs`.
 
 ### Check 6: Balanç d'etiquetes HTML (divs)
 
@@ -259,3 +274,13 @@ node -e "const fs=require('fs'); const files=['index.html','fragments/projects/f
 ```powershell
 node -e "const fs=require('fs'), path=require('path'); const root='assets/models/estris-laboratori'; const q=JSON.parse(fs.readFileSync(path.join(root,'preguntes-pilot-3d.json'),'utf8')); const models=[]; for(const item of q.questions){ if(item.model) models.push(item.model); for(const model of item.models||[]) models.push(model.glb); } const missing=[...new Set(models)].filter(file=>!fs.existsSync(file)); if(missing.length){ console.error('Models absents:', missing); process.exit(1); } console.log('Referències 3D correctes:', models.length);"
 ```
+
+### Check 8: Catàlegs i referències
+
+- Comprova que cada projecte utilitzat per `js/app.js` existeix al catàleg local i, si és públic, també a `api/Projects.gs`.
+- Comprova que cada `data-game-id`, fragment i funció d'inicialització que apareix en un menú té una implementació real.
+- Després de modificar `api/Code.js`, `api/Projects.gs`, `api/Results.gs` o `api/appsscript.json`, marca explícitament que cal desplegar una nova versió de la Web App.
+
+### Check 9: Prova manual mínima
+
+Per cada activitat modificada, prova: obrir-la des del menú correcte, respondre una ronda completa, tornar enrere, obrir-la de nou, activar-la amb teclat si té targetes clicables i revisar-la en una amplada mòbil. Per activitats amb desament, comprova la fila real al Sheet després del desplegament.

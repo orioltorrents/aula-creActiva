@@ -1,0 +1,32 @@
+.natura-quiz__level-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.natura-quiz__level-button {
+    width: auto;
+}
+
+.natura-quiz__level-button--easy,
+.natura-quiz__answer-button--yes {
+    background-color: var(--success);
+}
+
+.natura-quiz__level-button--hard {
+    background-color: var(--warning);
+}
+
+.natura-quiz__level-button--mixed,
+.natura-quiz__answer-button--no {
+    background-color: var(--error);
+}
+
+.natura-quiz__question-image {
+    width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    margin-bottom: 18px;
+}

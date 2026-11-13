@@ -35,6 +35,29 @@
     transition: all 0.3s;
 }
 
+.project-card__media--batx1-fisica { background: linear-gradient(135deg, #1d4ed8, #0f172a); }
+.project-card__media--batx1-ambientals,
+.project-card__media--batx2-ambientals { background: linear-gradient(135deg, var(--success), var(--info-text)); }
+.project-card__media--p1-rates { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.project-card__media--p1-mediterrani { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+.project-card__media--p1-natura { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.project-card__media--p3-solidart { background: linear-gradient(135deg, #ec4899, #db2777); }
+.project-card__media--p4-natura { background: linear-gradient(135deg, #10b981, #059669); }
+.project-card__media--p2-paralimpics { background: linear-gradient(135deg, #f97316, #ea580c); }
+.project-card__media--p4-digitalitzacio { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+.project-card__media--p1-biologia { background: linear-gradient(135deg, #14b8a6, #0f766e); }
+.project-card__media--p2-biologia,
+.project-card__media--p3-biologia { background: linear-gradient(135deg, #ec4899, #db2777); }
+.project-card__media--p4-biologia { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.project-card__media--p2-fisica-quimica { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+.project-card__media--p3-fisica-quimica { background: linear-gradient(135deg, #0284c7, #075985); }
+.project-card__media--p4-fisica-quimica { background: linear-gradient(135deg, #0369a1, #164e63); }
+.project-card__media--p1-radio,
+.project-card__media--p2-radio { background: linear-gradient(135deg, #facc15, #ca8a04); }
+.project-card__media--p1-musica { background: linear-gradient(135deg, #6d28d9, #db2777); }
+.project-card__media--batx1-tr { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+.project-card__media--default { background: linear-gradient(135deg, #94a3b8, #64748b); }
+
 .project-card__image {
     /* Element BEM: imatge de portada que omple la zona media. */
     width: 100%;
@@ -67,4 +90,3 @@
     font-size: 0.9rem;
     color: var(--text-light);
 }
-

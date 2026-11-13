@@ -83,6 +83,7 @@
 - `getCardAvailabilityIds()` reconeix ara les targetes de Física i Química, Física de Batxillerat, Geologia i Música, inclosa Formulació inorgànica.
 - Les càrregues inicials de login i dashboard ara mostren un error visible en català amb botó de reintent quan fallen, en lloc de deixar només un error a la consola.
 - La sessió recuperada de `localStorage` es valida abans de carregar el dashboard; si és JSON corrupte o no conté un correu, es descarta i es mostra el login.
+- Les targetes d'activitat amb `onclick` ara reben focus de teclat, rol accessible i activació amb Enter/Espai quan el fragment es carrega.
 - La vista de Pentagrama ocupa tota l'amplada disponible i els 15 desplegables de cada pentagrama queden alineats sota les notes, sense textos visibles repetits de «Pentagrama, nota».
 
 ## Riscos oberts
@@ -107,17 +108,6 @@
 
 ## Tres últims passos
 
-### 2026-11-07 - Diagrames de forces de Dinàmica
-- Activada la targeta Dinàmica i creat el fragment amb l'enunciat complet, escena SVG responsive i panell de resposta.
-- Implementades deu situacions de forces, selecció, vectors arrossegables, guies, pistes, correcció ponderada i informe per categories amb selecció adaptativa.
-- Connectat el desament final mitjançant `callApi('saveResult', ...)`, conservant respostes, vectors, errors i pistes en JSON.
-- Corregida la composició de les escenes: el bloc toca el terra, s'hi mostren els eixos `x`/`y` i la velocitat `v`, i els eixos dels plans inclinats segueixen el pla i la normal.
-- Centrats els eixos en el centre geomètric de la caixa i reduïda l'alçada del bloc per acostar el dibuix al model de referència.
-- L'escena de pla inclinat s'ha aproximat a la referència aportada: triangle gris, bloc fi rotat, eixos horitzontal/vertical i paral·lel/perpendicular al pla, angle de 25°, velocitat `v` i acceleració `a`.
-- Dinàmica presenta ara 10 situacions aleatòries diferents per partida, seleccionades del banc de preguntes sense repeticions, i desa aquesta configuració com a `random-10`.
-- Corregida la geometria de les situacions de paret: el bloc queda en contacte amb la paret i el centre de les forces es desplaça al centre real del bloc.
-- Activada la targeta «Treball mecànic» amb una reimplementació pròpia inspirada en la versió GPL-3.0: paper mil·limetrat canvas, vector `AB`, regla, transportador, calculadora, cinc apartats de resposta, sis exercicis aleatoris i desament final.
-
 ### 2026-11-10 - Reptes visibles de fórmules de Google Sheets
 - Separats els bancs de preguntes de càlcul i de construcció de fórmules.
 - Afegides consignes visibles per als operadors obligatoris, inclòs el repte de dos operadors de prioritat superior a la suma o la resta.
@@ -133,3 +123,7 @@
 - Afegits selectors de resposta, generació procedural, tres nivells de dificultat, claus, línies addicionals, alteracions, pistes i feedback visual.
 - Connectat el resultat a la sessió de login i a `saveResult`, amb bloqueig anti-duplicats, reintent manual i feedback JSON positiu/negatiu.
 - Eixamplada la zona de treball i alineats els selectors de notes sota cadascuna de les 45 notes; s'ha eliminat el text visible repetitiu dels selectors.
+
+### 2026-11-13 - Accessibilitat i estils de targetes
+- Les targetes d'activitat amb `onclick` reben focus de teclat i activació amb Enter/Espai quan es carrega el fragment.
+- Els degradats de les targetes de projecte s'han mogut de l'HTML generat a classes BEM de `project-cards.css`; s'ha eliminat l'estil inline d'aquest renderitzat.

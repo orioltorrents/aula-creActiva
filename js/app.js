@@ -197,6 +197,18 @@ function prepareFragmentImages(container) {
         if (!img.hasAttribute('loading')) img.loading = 'lazy';
         if (!img.hasAttribute('decoding')) img.decoding = 'async';
     });
+
+    container.querySelectorAll('.activity-card[onclick]').forEach(card => {
+        if (card.getAttribute('aria-disabled') === 'true' || card.hasAttribute('onkeydown') || card.dataset.keyboardBound === 'true') return;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.dataset.keyboardBound = 'true';
+        card.addEventListener('keydown', event => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            card.click();
+        });
+    });
 }
 
 async function loadFragment(containerSelector, fragmentPath) {
@@ -1223,11 +1235,12 @@ function renderProjectCards(grid, projects) {
 
     projects.forEach(proj => {
         const visual = projectVisuals[proj.id] || { icon: 'P', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
+        const visualClass = projectVisuals[proj.id] ? proj.id.replace(/_/g, '-') : 'default';
 
         const card = document.createElement('div');
         card.className = 'project-card';
         card.innerHTML = `
-            <div class="project-card__media" style="${!proj.imatge ? `background: ${visual.gradient}` : ''}">
+            <div class="project-card__media project-card__media--${visualClass}">
                 ${proj.imatge
                 ? `<img src="${proj.imatge}" alt="${proj.titol}" class="project-card__image" decoding="async">`
                 : visual.icon}

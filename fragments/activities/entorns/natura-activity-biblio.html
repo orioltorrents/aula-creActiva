@@ -26,24 +26,21 @@
                 O tria per nivell (tots els temes):
             </p>
 
-            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <div class="natura-quiz__level-buttons">
                 <button onclick="startGameWithFilter('all', 'facil')"
-                    class="btn-primary"
-                    style="background-color: var(--success); width: auto;"
+                    class="btn-primary natura-quiz__level-button natura-quiz__level-button--easy"
                     data-i18n="level_easy">
                     Fàcil
                 </button>
 
                 <button onclick="startGameWithFilter('all', 'dificil')"
-                    class="btn-primary"
-                    style="background-color: #f59e0b; width: auto;"
+                    class="btn-primary natura-quiz__level-button natura-quiz__level-button--hard"
                     data-i18n="level_hard">
                     Difícil
                 </button>
 
                 <button onclick="startGameWithFilter('all', 'mixed')"
-                    class="btn-primary"
-                    style="background-color: var(--error); width: auto;"
+                    class="btn-primary natura-quiz__level-button natura-quiz__level-button--mixed"
                     data-i18n="level_mixed">
                     Barrejat
                 </button>

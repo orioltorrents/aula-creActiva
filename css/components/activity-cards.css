@@ -47,6 +47,11 @@
     border-color: var(--primary-color);
 }
 
+.activity-card[role="button"]:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
 .activity-card--disabled {
     /* Modificador BEM: activitat visible però no clicable o encara no disponible. */
     opacity: 0.6;
