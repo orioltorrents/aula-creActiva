@@ -16,23 +16,25 @@
     </header>
 
     <main class="dashboard-content">
-        <dialog id="change-password-dialog" aria-labelledby="change-password-title">
-            <h3 id="change-password-title">Canvia la contrasenya</h3>
+        <dialog id="change-password-dialog" class="password-dialog" aria-labelledby="change-password-title">
+            <h3 id="change-password-title" class="password-dialog__title">Canvia la contrasenya</h3>
             <form id="change-password-form">
                 <div class="form-group">
                     <label for="change-password-current">Contrasenya actual</label>
-                    <input id="change-password-current" name="password" type="password" autocomplete="current-password" required>
+                    <input id="change-password-current" name="password" type="password" autocomplete="current-password" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label for="change-password-new">Contrasenya nova (mínim 12 caràcters)</label>
-                    <input id="change-password-new" name="newPassword" type="password" autocomplete="new-password" minlength="12" required>
+                    <label for="change-password-new">Contrasenya nova</label>
+                    <input id="change-password-new" name="newPassword" type="password" autocomplete="new-password" minlength="12" aria-describedby="change-password-hint" required>
+                    <p id="change-password-hint" class="password-dialog__hint">Fes servir almenys 12 caràcters.</p>
                 </div>
-                <button type="submit" class="btn btn--primary">Desa la contrasenya</button>
-                <p role="status"></p>
+                <div class="password-dialog__actions">
+                    <button class="btn btn--secondary btn--auto-width" type="submit" form="change-password-close-form">Cancel·la</button>
+                    <button type="submit" class="btn btn--primary btn--auto-width">Desa la contrasenya</button>
+                </div>
+                <p class="password-dialog__status" role="status"></p>
             </form>
-            <form method="dialog">
-                <button class="btn btn--secondary">Tanca</button>
-            </form>
+            <form id="change-password-close-form" method="dialog"></form>
         </dialog>
         <div class="welcome-banner">
             <h2 id="welcome-msg" data-i18n="hi">Hola!</h2>

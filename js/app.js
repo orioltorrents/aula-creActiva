@@ -851,7 +851,7 @@ function bindPasswordForm(form, action, getEmail, onSuccess) {
             status.textContent = 'Indica el correu del compte.';
             return;
         }
-        const submit = form.querySelector('button[type="submit"]');
+        const submit = form.querySelector('button[type="submit"]:not([form])');
         submit.disabled = true;
         status.textContent = 'Processant…';
         try {

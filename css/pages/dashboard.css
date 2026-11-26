@@ -256,6 +256,50 @@
     padding: 10px 5px;
 }
 
+.password-dialog {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(28rem, calc(100% - 2rem));
+    height: fit-content;
+    max-height: calc(100% - 2rem);
+    overflow: auto;
+    padding: clamp(1.25rem, 5vw, 2rem);
+    color: var(--text-color);
+    background: var(--surface-bg);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.password-dialog::backdrop {
+    background: var(--modal-backdrop);
+}
+
+.password-dialog__title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.password-dialog__hint,
+.password-dialog__status {
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.password-dialog__status:empty {
+    margin: 0;
+}
+
+.password-dialog__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
 .dashboard-project-level {
     grid-column: 1 / -1;
     min-width: 0;
