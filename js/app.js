@@ -1323,6 +1323,7 @@ function getCardAvailabilityIds(card, projectId) {
     if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
     if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
     if (card.id === 'fq-igualacio-quimica-card') return ['igualacio-quimica'];
+    if (card.id === 'fq-densitats-card') return ['densitats'];
     if (card.id === 'fq-configuracio-electronica-card') return ['configuracio-electronica'];
     if (card.id === 'fq-configuracio-electronica2-card') return ['configuracio-electronica2'];
     const onclick = card.getAttribute('onclick') || '';
@@ -2039,6 +2040,8 @@ async function openProject(project) {
             graphActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
             const formulacioActivityCard = document.getElementById('fq-formulacio-activity-card');
             const embeddedActivities = [
+                { id: 'densitats', title: 'Densitats', fragment: 'densitats',
+                    visible: ['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id) },
                 { id: 'taula-periodica', title: 'Taula periòdica dinàmica', fragment: 'taula-periodica-dinamica',
                     visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) },
                 { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true },

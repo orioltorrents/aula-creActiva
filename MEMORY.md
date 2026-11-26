@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- Física i Química de 2n i 3r d'ESO obre el simulador extern «Densitats» de Felip Sarroca, sense puntuació.
 - Física i Química de 3r i 4t d'ESO inclou una segona targeta de Configuració electrònica que obre el simulador extern de Felip Sarroca.
 - Física i Química de 3r i 4t d'ESO inclou el simulador «Configuració electrònica» de Felip Sarroca, amb targeta pròpia i sense puntuació.
 - Igualació química de Felip Sarroca és a Física i Química de 2n a 4t d'ESO. El repte original desa la nota i el detall de les equacions amb la sessió de l'Aula.
