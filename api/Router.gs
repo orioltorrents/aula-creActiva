@@ -6,6 +6,7 @@
 
 const ACTIONS = {
     login: data => loginUser(data.email, data.password),
+    revokeDashboardSession: data => revokeDashboardSession_(data.dashboardToken),
     getProjects: data => getProjects(data.curs),
     getAvailability: data => getAvailability(data.curs),
     saveResult: data => saveResult(data),

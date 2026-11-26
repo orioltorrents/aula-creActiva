@@ -1,7 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
-- El Dashboard de Professorat disposa d'una pàgina HTML per Apps Script i d'una càrrega de resultats restringida a usuaris amb rol professor o admin.
+- El Dashboard de Professorat reutilitza la sessió docent de l'Aula amb un token temporal. L'accés directe o una sessió caducada obren el formulari de login.
 - A 3r ESO, el catàleg mostra Música (`p1_musica`) i reutilitza la Biologia de 2n ESO (`p2_biologia`) amb el nom visible «Biologia 3ESO».
 - La targeta «Història de la Terra i del Mediterrani» de «Creació del Mediterrani» utilitza `targeta-historia-terra-mediterrania.jpeg`.
 - La targeta «Plaques tectòniques» de «Creació del Mediterrani» utilitza `targeta-plaques-tectoniques.jpeg`.

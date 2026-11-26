@@ -198,6 +198,10 @@
     .fb-ok { border-left: 4px solid var(--success); }
     .fb-err { border-left: 4px solid var(--danger); }
     pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; }
+    .login-dialog { max-width: 420px; }
+    .login-dialog label { display: block; margin: 0.8rem 0 0.3rem; font-weight: 600; }
+    .login-dialog input { width: 100%; padding: 0.65rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; }
+    .login-error { color: var(--danger); margin-top: 0.75rem; }
   </style>
 </head>
 <body>
@@ -326,6 +330,19 @@
     </section>
   </main>
 
+  <dialog id="modal-login" class="login-dialog">
+    <h2>Accés al dashboard</h2>
+    <p>Entra amb el compte de l’Aula CreActiva.</p>
+    <form id="login-form">
+      <label for="login-email">Correu electrònic</label>
+      <input id="login-email" name="email" type="email" autocomplete="username" required>
+      <label for="login-password">Contrasenya</label>
+      <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+      <p id="login-error" class="login-error" role="alert"></p>
+      <button id="login-submit" type="submit" class="btn btn-export">Entrar</button>
+    </form>
+  </dialog>
+
   <!-- MODAL PER VISUALITZAR FEEDBACK_POS I FEEDBACK_NEG -->
   <dialog id="modal-feedback">
     <div class="modal-header">
@@ -338,6 +355,7 @@
   <script>
     let totsElsResultats = [];
     let resultatsFiltratsActuals = [];
+    let dashboardCredentials = null;
 
     const els = {
       profInfo: document.getElementById('prof-info'),
@@ -362,34 +380,73 @@
       document.getElementById('btn-netejar').addEventListener('click', netejarFiltres);
       document.getElementById('btn-refrescar').addEventListener('click', carregarDades);
       document.getElementById('btn-exportar').addEventListener('click', exportarCSV);
-      carregarDades();
+      document.getElementById('login-form').addEventListener('submit', event => {
+        event.preventDefault();
+        dashboardCredentials = {
+          email: document.getElementById('login-email').value.trim(),
+          password: document.getElementById('login-password').value
+        };
+        document.getElementById('login-error').textContent = 'Validant credencials...';
+        carregarDades();
+      });
+      if (typeof google === 'undefined' || !google.script?.url) {
+        document.getElementById('modal-login').showModal();
+        return;
+      }
+      google.script.url.getLocation(location => {
+        const dashboardToken = new URLSearchParams(location.hash).get('dashboardToken');
+        if (!dashboardToken) {
+          document.getElementById('modal-login').showModal();
+          return;
+        }
+        google.script.history.replace({}, null, '');
+        dashboardCredentials = { dashboardToken };
+        carregarDades();
+      });
     });
 
     function carregarDades() {
       els.tbody.innerHTML = '<tr><td colspan="10" class="empty-state">Carregant dades...</td></tr>';
 
-      if (typeof google !== 'undefined' && google.script && google.script.run) {
-        google.script.run
-          .withSuccessHandler(dadesRebutudes)
-          .withFailureHandler(errorServer)
-          .getDashboardResults();
+      if (!dashboardCredentials) {
+        errorServer(new Error('Cal iniciar sessió per consultar els resultats.'));
         return;
       }
 
-      fetch(window.location.href + (window.location.search ? '&' : '?') + 'action=getDashboardResults')
-        .then(response => response.json())
-        .then(dadesRebutudes)
-        .catch(errorServer);
+      if (typeof google === 'undefined' || !google.script || !google.script.run) {
+        errorServer(new Error('Obre el dashboard des de l’enllaç de la Web App d’Apps Script.'));
+        return;
+      }
+
+      google.script.run
+        .withSuccessHandler(dadesRebutudes)
+        .withFailureHandler(errorServer)
+        .getDashboardResults(dashboardCredentials);
     }
 
     function dadesRebutudes(data) {
       if (!data || data.status !== 'success') {
-        errorServer(data && data.message ? { message: data.message } : new Error('Error desconegut'));
+        if (data?.code === 'dashboard_session_expired') {
+          dashboardCredentials = null;
+          totsElsResultats = [];
+          resultatsFiltratsActuals = [];
+          els.profInfo.textContent = '';
+          document.getElementById('modal-login').showModal();
+        }
+        const message = data && data.message
+          ? data.message
+          : `Resposta buida o inesperada del servidor: ${JSON.stringify(data)}`;
+        document.getElementById('login-error').textContent = message;
+        errorServer(new Error(message));
         return;
       }
 
+      if (data.dashboardToken) dashboardCredentials = { dashboardToken: data.dashboardToken };
+      document.getElementById('modal-login').close();
+      document.getElementById('login-error').textContent = '';
+      document.getElementById('login-password').value = '';
       const user = data.user || {};
-      els.profInfo.textContent = `Prof. ${[user.name, user.surname].filter(Boolean).join(' ') || user.email || 'Docent'}`;
+      els.profInfo.textContent = `Prof. ${[user.nom, user.cognoms].filter(Boolean).join(' ') || user.email || 'Docent'}`;
       totsElsResultats = Array.isArray(data.resultats) ? data.resultats : [];
       poblarFiltres();
       aplicarFiltres();
@@ -397,6 +454,11 @@
 
     function errorServer(error) {
       const message = error && error.message ? error.message : String(error);
+      console.error('Error carregant el dashboard:', error);
+      const loginError = document.getElementById('login-error');
+      if (loginError && document.getElementById('modal-login').open) {
+        loginError.textContent = message;
+      }
       els.tbody.innerHTML = `<tr><td colspan="10" class="empty-state">${escaparHTML(message)}</td></tr>`;
     }
 

@@ -759,6 +759,11 @@ async function handleLogin(email, password) {
         if (response && response.status === 'success') {
             state.user = response.user;
             localStorage.setItem('user', JSON.stringify(state.user));
+            if (response.dashboardToken) {
+                localStorage.setItem('teacherDashboardToken', response.dashboardToken);
+            } else {
+                localStorage.removeItem('teacherDashboardToken');
+            }
 
             try {
                 await loadDashboard();
@@ -779,6 +784,10 @@ async function handleLogin(email, password) {
 }
 
 function logout() {
+    const dashboardToken = localStorage.getItem('teacherDashboardToken');
+    localStorage.removeItem('teacherDashboardToken');
+    if (dashboardToken) void callApi('revokeDashboardSession', { dashboardToken });
+
     state.user = null;
     state.currentProject = null;
     localStorage.removeItem('user');
@@ -874,12 +883,21 @@ function setupTeacherTools(projects, groups) {
     const toolsCard = document.getElementById('teacher-tools-card');
     const toolsPanel = document.getElementById('teacher-tools-panel');
     const resultsCard = document.getElementById('teacher-results-card');
+    const resultsDashboardCard = document.getElementById('teacher-results-dashboard-card');
     const resultsPanel = document.getElementById('teacher-results-panel');
     const copyFormulaBtn = document.getElementById('teacher-copy-formula-btn');
     const createSheetBtn = document.getElementById('teacher-create-sheet-btn');
     const createStudentsSheetBtn = document.getElementById('teacher-create-students-sheet-btn');
     const programmingCard = document.getElementById('teacher-programming-card');
     const feedback = document.getElementById('teacher-results-feedback');
+
+    if (resultsDashboardCard) {
+        const dashboardUrl = new URL(API_URL);
+        dashboardUrl.searchParams.set('page', 'dashboard-professors');
+        const dashboardToken = localStorage.getItem('teacherDashboardToken');
+        if (dashboardToken) dashboardUrl.hash = new URLSearchParams({ dashboardToken }).toString();
+        resultsDashboardCard.href = dashboardUrl.toString();
+    }
 
     populateTeacherSelect(
         projectSelect,
