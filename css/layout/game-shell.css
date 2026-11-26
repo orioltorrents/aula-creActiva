@@ -74,7 +74,7 @@
     height: 100%;
 }
 
-.game-screen--immersive :is(#fq-formulacio-activity, #fq-taula-periodica-activity) {
+.game-screen--immersive .fq-formulacio {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -83,11 +83,6 @@
     position: absolute;
     inset: 0;
     margin: 0;
-}
-
-.game-screen--immersive .fq-formulacio {
-    flex: 1 1 auto;
-    min-height: 0;
     padding: 0;
 }
 

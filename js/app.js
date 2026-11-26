@@ -657,6 +657,40 @@ async function callApi(action, params = {}) {
 
 window.callApi = callApi;
 
+window.aulaCreActivaSaveReactiusResult = async payload => {
+    const project = state.currentProject;
+    if (!state.user?.email || !isFisicaQuimicaProject(project?.id) ||
+        !document.getElementById('fq-reactius-sobrants-frame')) {
+        return { status: 'error', message: 'Sessió de l’activitat no disponible.' };
+    }
+    const { resultat_id: resultId, results, levels, errors, elapsedSeconds } = payload || {};
+    if (typeof resultId !== 'string' || !resultId || !Array.isArray(results) ||
+        results.length !== 10 || !results.every(points => [0, 1, 2].includes(points))) {
+        return { status: 'error', message: 'El repte no està complet.' };
+    }
+
+    const points = results.reduce((sum, value) => sum + value, 0);
+    return callApi('saveResult', {
+        resultat_id: resultId,
+        email: state.user.email,
+        curs: state.user.curs,
+        grup: state.user.grup || state.user.curs,
+        projecte: project.titol,
+        app: 'Reactius sobrants',
+        nivell: Array.isArray(levels) && levels.length ? levels.join(', ') : 'Repte',
+        puntuacio: points * 5,
+        temps_segons: elapsedSeconds,
+        feedback_pos: JSON.stringify({
+            punts: points, maxim: 20, primera: results.filter(value => value === 2).length,
+            segona: results.filter(value => value === 1).length
+        }),
+        feedback_neg: JSON.stringify({
+            senseEncert: results.flatMap((value, index) => value === 0 ? [index + 1] : []),
+            errorsConceptuals: errors || []
+        })
+    });
+};
+
 window.aulaCreActivaSaveTaulaPeriodicaResult = async payload => {
     const project = state.currentProject;
     if (!state.user?.email || !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project?.id) ||
@@ -1225,6 +1259,7 @@ async function loadAvailability(courses) {
 
 function getCardAvailabilityIds(card, projectId) {
     if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
+    if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
     const onclick = card.getAttribute('onclick') || '';
     const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
     const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
@@ -1533,14 +1568,12 @@ async function openFisicaQuimicaFormulacioActivity() {
     setGameTitle('Formulació inorgànica');
 }
 
-async function openFisicaQuimicaTaulaPeriodicaActivity() {
-    if (!['p3_fisica_quimica', 'p4_fisica_quimica'].includes(state.currentProject?.id)) return;
-
+async function openFisicaQuimicaEmbeddedActivity({ id, title, fragment }) {
     const activity = await ensureProjectFragment(
-        'fq-taula-periodica-activity',
-        'fragments/activities/fisica-quimica/taula-periodica-dinamica.html'
+        `fq-${id}-activity`,
+        `fragments/activities/fisica-quimica/${fragment}.html`
     );
-    if (!activity) throw new Error('No s’ha pogut carregar la Taula periòdica.');
+    if (!activity) throw new Error(`No s’ha pogut carregar l’activitat: ${title}`);
 
     document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
     activity.classList.remove('hidden');
@@ -1551,9 +1584,9 @@ async function openFisicaQuimicaTaulaPeriodicaActivity() {
         document.getElementById('game-screen')?.classList.remove('game-screen--immersive');
         setGameBackAction(null);
         setGameTitle(state.currentProject?.titol);
-        document.getElementById('fq-taula-periodica-card')?.focus();
+        document.getElementById(`fq-${id}-card`)?.focus();
     });
-    setGameTitle(`${state.currentProject.titol} - Taula periòdica dinàmica`);
+    setGameTitle(`${state.currentProject.titol} - ${title}`);
 }
 
 function returnFromFisicaQuimicaFormulacioActivity() {
@@ -1911,19 +1944,25 @@ async function openProject(project) {
             const graphActivityCard = document.getElementById('fq-graph-activity-card');
             graphActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
             const formulacioActivityCard = document.getElementById('fq-formulacio-activity-card');
-            const taulaPeriodicaCard = document.getElementById('fq-taula-periodica-card');
-            if (taulaPeriodicaCard) {
-                taulaPeriodicaCard.classList.toggle('hidden', !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id));
-                const feedback = document.getElementById('fq-taula-periodica-status');
-                taulaPeriodicaCard.onclick = async () => {
-                    taulaPeriodicaCard.disabled = true;
+            const embeddedActivities = [
+                { id: 'taula-periodica', title: 'Taula periòdica dinàmica', fragment: 'taula-periodica-dinamica',
+                    visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) },
+                { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true }
+            ];
+            const feedback = document.getElementById('fq-embedded-activity-status');
+            for (const embedded of embeddedActivities) {
+                const card = document.getElementById(`fq-${embedded.id}-card`);
+                if (!card) continue;
+                card.classList.toggle('hidden', !embedded.visible);
+                card.onclick = async () => {
+                    card.disabled = true;
                     feedback.textContent = '';
                     try {
-                        await openFisicaQuimicaTaulaPeriodicaActivity();
+                        await openFisicaQuimicaEmbeddedActivity(embedded);
                     } catch {
-                        feedback.textContent = 'No s’ha pogut carregar la Taula periòdica. Torna a prémer la targeta per reintentar-ho.';
+                        feedback.textContent = `No s’ha pogut carregar l’activitat «${embedded.title}». Torna a prémer la targeta per reintentar-ho.`;
                     } finally {
-                        taulaPeriodicaCard.disabled = false;
+                        card.disabled = false;
                     }
                 };
             }
