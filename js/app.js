@@ -1570,25 +1570,40 @@ async function openFisicaQuimicaFormulacioActivity() {
     setGameTitle('Formulació inorgànica');
 }
 
-async function openFisicaQuimicaEmbeddedActivity({ id, title, fragment }) {
+async function openEmbeddedProjectActivity({ id, title, path, hubId, cardId }) {
     const activity = await ensureProjectFragment(
-        `fq-${id}-activity`,
-        `fragments/activities/fisica-quimica/${fragment}.html`
+        id,
+        path
     );
     if (!activity) throw new Error(`No s’ha pogut carregar l’activitat: ${title}`);
 
-    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    document.getElementById(hubId)?.classList.add('hidden');
     activity.classList.remove('hidden');
     document.getElementById('game-screen')?.classList.add('game-screen--immersive');
     setGameBackAction(() => {
         activity.parentElement.remove();
-        document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+        document.getElementById(hubId)?.classList.remove('hidden');
         document.getElementById('game-screen')?.classList.remove('game-screen--immersive');
         setGameBackAction(null);
         setGameTitle(state.currentProject?.titol);
-        document.getElementById(`fq-${id}-card`)?.focus();
+        document.getElementById(cardId)?.focus();
     });
     setGameTitle(`${state.currentProject.titol} - ${title}`);
+}
+
+function bindEmbeddedProjectActivity(card, feedback, options) {
+    if (!card) return;
+    card.onclick = async () => {
+        card.disabled = true;
+        feedback.textContent = '';
+        try {
+            await openEmbeddedProjectActivity({ ...options, cardId: card.id });
+        } catch {
+            feedback.textContent = `No s’ha pogut carregar l’activitat «${options.title}». Torna a prémer la targeta per reintentar-ho.`;
+        } finally {
+            card.disabled = false;
+        }
+    };
 }
 
 function returnFromFisicaQuimicaFormulacioActivity() {
@@ -1925,6 +1940,16 @@ async function openProject(project) {
         const hub = await ensureProjectFragment('project-hub-socials', 'fragments/projects/socials/index.html');
         if (!hub) throw new Error('No s’ha pogut carregar Ciències Socials.');
         hub.classList.remove('hidden');
+        bindEmbeddedProjectActivity(
+            document.getElementById('socials-revolucio-industrial-card'),
+            document.getElementById('socials-activity-status'),
+            {
+                id: 'socials-revolucio-industrial-activity',
+                title: 'La revolució industrial',
+                path: 'fragments/activities/socials/revolucio-industrial.html',
+                hubId: hub.id
+            }
+        );
     } else if (project.id === 'p4_digitalitzacio') {
         const hubDiv = await ensureProjectFragment(
             'project-hub-digitalitzacio',
@@ -1960,17 +1985,12 @@ async function openProject(project) {
                 const card = document.getElementById(`fq-${embedded.id}-card`);
                 if (!card) continue;
                 card.classList.toggle('hidden', !embedded.visible);
-                card.onclick = async () => {
-                    card.disabled = true;
-                    feedback.textContent = '';
-                    try {
-                        await openFisicaQuimicaEmbeddedActivity(embedded);
-                    } catch {
-                        feedback.textContent = `No s’ha pogut carregar l’activitat «${embedded.title}». Torna a prémer la targeta per reintentar-ho.`;
-                    } finally {
-                        card.disabled = false;
-                    }
-                };
+                bindEmbeddedProjectActivity(card, feedback, {
+                    id: `fq-${embedded.id}-activity`,
+                    title: embedded.title,
+                    path: `fragments/activities/fisica-quimica/${embedded.fragment}.html`,
+                    hubId: hubDiv.id
+                });
             }
             formulacioActivityCard?.classList.toggle('hidden', !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id));
             if (formulacioActivityCard && formulacioActivityCard.dataset.eventsBound !== 'true') {
