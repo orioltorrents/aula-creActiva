@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Configuració electrònica</title>
+  <meta name="description" content="Construeix els àtoms electró a electró: taula periòdica, diagrama d'orbitals, regla de Moeller i model de Bohr connectats." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+  <script>
+    /* Tema desat abans de pintar, per evitar el parpelleig */
+    try { if (localStorage.getItem('confe:theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) { }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1 class="title"><img src="./favicon.svg" alt="" width="34" height="34" /><span>Configuració electrònica</span></h1>
+
+      <div class="controls" role="group" aria-label="Electrons">
+        <button id="btn-reset" class="btn btn-ghost" type="button" title="Reinicia (tecla Inici)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          Reinicia
+        </button>
+        <button id="btn-minus" class="btn btn-round" type="button" title="Treu un electró (←)" aria-label="Treu un electró">−</button>
+        <div class="counter" aria-live="polite">
+          <span id="count" class="count">0</span>
+          <span class="count-lbl">electrons</span>
+        </div>
+        <button id="btn-plus" class="btn btn-round btn-primary" type="button" title="Afegeix un electró (→)" aria-label="Afegeix un electró">+</button>
+      </div>
+
+      <button id="btn-theme" class="icon-btn" type="button" title="Canvia el tema clar o fosc" aria-label="Canvia el tema clar o fosc">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+    </header>
+
+    <main class="main">
+      <section class="col-left">
+        <div class="card card-table">
+          <div class="table-scroll">
+            <div id="ptable" class="ptable" role="group" aria-label="Taula periòdica">
+              <div class="table-panel">
+                <div class="seg" role="radiogroup" aria-label="Color de la taula">
+                  <button type="button" data-mode="block" role="radio" aria-checked="true">Per blocs</button>
+                  <button type="button" data-mode="family" role="radio" aria-checked="false">Per famílies</button>
+                </div>
+                <div id="legend" class="legend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-orbitals">
+          <div class="orb-wrap">
+            <div class="orb-main">
+              <h2 class="card-title">Diagrama d'orbitals <span id="next-hint" class="hint"></span></h2>
+              <div id="orbitals" class="orbitals"></div>
+            </div>
+            <div class="orb-side">
+              <h2 class="card-title">Ordre d'ompliment <span class="hint">(regla de Moeller)</span></h2>
+              <svg id="moeller" class="moeller" viewBox="0 0 230 200" role="img" aria-label="Diagrama de Moeller"></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="col-right">
+        <div class="card card-element" aria-live="polite">
+          <div id="tile" class="tile"></div>
+          <div id="facts" class="facts"></div>
+        </div>
+
+        <div class="card card-config">
+          <div id="config" class="config"></div>
+        </div>
+
+        <div class="card card-bohr">
+          <h2 class="card-title">Model de Bohr <span class="hint">(electrons per capa)</span></h2>
+          <div class="bohr-box"><svg id="bohr" class="bohr" viewBox="0 0 300 300" role="img" aria-label="Model de Bohr"></svg></div>
+          <div id="shells" class="shells"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="felip-app-footer">
+      <a class="felip-license-image-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer" aria-label="Llicència Creative Commons BY-NC-SA 4.0">
+        <img class="felip-license-image" src="./assets/CC_BY-NC-SA.png" alt="Creative Commons BY-NC-SA" />
+      </a>
+      <div class="felip-footer-text">
+        <p>Aplicació creada per <a href="https://ja.cat/felipsarroca" target="_blank" rel="noopener noreferrer">Felip Sarroca</a> amb assistència de la IA</p>
+        <p>Obra sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a></p>
+      </div>
+      <p class="keys"><kbd>→</kbd> <kbd>+</kbd> afegeix · <kbd>←</kbd> <kbd>−</kbd> treu · <kbd>Inici</kbd> reinicia · clic a una casella o a un element per anar-hi</p>
+    </footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

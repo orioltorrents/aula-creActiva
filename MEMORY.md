@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- Física i Química de 3r i 4t d'ESO inclou el simulador «Configuració electrònica» de Felip Sarroca, amb targeta pròpia i sense puntuació.
 - Igualació química de Felip Sarroca és a Física i Química de 2n a 4t d'ESO. El repte original desa la nota i el detall de les equacions amb la sessió de l'Aula.
 - A 4t d'ESO, Ciències Socials: Geografia i Història obre l'adaptació de l'atles de Felip Sarroca. Cada intent complet de repte desa la nota i el capítol amb la sessió de l'Aula.
 - Reactius sobrants de Felip Sarroca és a Física i Química de 2n a 4t d'ESO. El repte original desa els punts i els errors conceptuals amb la sessió de l'Aula.

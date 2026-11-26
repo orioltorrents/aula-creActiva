@@ -1323,6 +1323,7 @@ function getCardAvailabilityIds(card, projectId) {
     if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
     if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
     if (card.id === 'fq-igualacio-quimica-card') return ['igualacio-quimica'];
+    if (card.id === 'fq-configuracio-electronica-card') return ['configuracio-electronica'];
     const onclick = card.getAttribute('onclick') || '';
     const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
     const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
@@ -2040,7 +2041,9 @@ async function openProject(project) {
                 { id: 'taula-periodica', title: 'Taula periòdica dinàmica', fragment: 'taula-periodica-dinamica',
                     visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) },
                 { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true },
-                { id: 'igualacio-quimica', title: 'Igualació química', fragment: 'igualacio-quimica', visible: true }
+                { id: 'igualacio-quimica', title: 'Igualació química', fragment: 'igualacio-quimica', visible: true },
+                { id: 'configuracio-electronica', title: 'Configuració electrònica', fragment: 'configuracio-electronica',
+                    visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) }
             ];
             const feedback = document.getElementById('fq-embedded-activity-status');
             for (const embedded of embeddedActivities) {

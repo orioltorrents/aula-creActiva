@@ -1,0 +1,275 @@
+/* =========================================================
+   Configuració electrònica — estils
+   Disseny de referència: 1440 × 800 px útils. app.js calcula
+   --ui-zoom per escalar-ho tot uniformement en altres pantalles.
+   ========================================================= */
+:root{
+  --bg:#eef2f8; --card:#ffffff; --ink:#1e293b; --muted:#64748b; --border:#dbe3ef;
+  --soft:#f4f7fb; --accent:#0e7490; --accent-2:#0891b2; --shadow:0 4px 18px rgba(15,35,70,.08);
+  --empty:#e7ecf3; --box-border:#94a3b8;
+
+  /* blocs: color de text (fort) i de fons (suau) */
+  --s:#db2777; --p:#d97706; --d:#0891b2; --f:#7c3aed;
+  --s-bg:#fbcfe8; --p-bg:#fde68a; --d-bg:#a5f3fc; --f-bg:#ddd6fe;
+
+  /* famílies */
+  --am:#fca5a5; --ae:#fdba74; --tm:#fde68a; --pt:#cbd5e1; --ml:#99f6e4; --nm:#bef264;
+  --ha:#a5f3fc; --ng:#c4b5fd; --la:#f9a8d4; --ac:#f0abfc; --un:#e5e7eb;
+
+  --ui-zoom:1;
+  --vh:calc(1vh / var(--ui-zoom));
+  --cell-h:36px;
+  --footer-h:52px;
+}
+html.dark{
+  --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --muted:#94a3b8; --border:#334155;
+  --soft:#172033; --accent:#22d3ee; --accent-2:#67e8f9; --shadow:0 4px 18px rgba(0,0,0,.35);
+  --empty:#334155; --box-border:#64748b;
+  --s:#f472b6; --p:#fbbf24; --d:#22d3ee; --f:#a78bfa;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%; zoom:var(--ui-zoom); font-size:15px}
+body{
+  margin:0; min-height:100%; background:var(--bg); color:var(--ink);
+  font-family:"Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height:1.4; -webkit-font-smoothing:antialiased; text-size-adjust:100%;
+}
+button{font:inherit; color:inherit}
+svg{display:block}
+sup{font-size:.68em; line-height:0; vertical-align:.55em; font-weight:700}
+
+/* ---------- estructura ---------- */
+.app{
+  min-height:calc(100 * var(--vh));
+  display:grid; grid-template-rows:auto minmax(0,1fr) var(--footer-h);
+}
+.topbar{
+  display:flex; align-items:center; gap:16px; padding:6px 20px;
+  background:var(--card); border-bottom:1px solid var(--border);
+}
+.title{display:flex; align-items:center; gap:10px; margin:0; font-size:1.45rem; font-weight:750; letter-spacing:-.01em}
+.title img{width:34px; height:34px}
+.controls{display:flex; align-items:center; gap:10px; margin-left:auto}
+.main{
+  display:grid; grid-template-columns:minmax(0,1fr) 450px; gap:12px;
+  padding:12px 16px; min-height:0;
+}
+.col-left,.col-right{display:flex; flex-direction:column; gap:12px; min-height:0; min-width:0}
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  box-shadow:var(--shadow); padding:12px 14px; min-width:0;
+}
+.card-title{margin:0 0 4px; font-size:.95rem; font-weight:700; color:var(--ink)}
+.hint{font-weight:500; color:var(--muted); font-size:.85rem}
+
+/* ---------- botons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border);
+  background:var(--soft); border-radius:10px; padding:7px 12px; cursor:pointer; font-weight:600;
+  transition:background .15s, transform .1s, border-color .15s;
+}
+.btn svg{width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.btn:hover:not(:disabled){border-color:var(--accent-2)}
+.btn:active:not(:disabled){transform:scale(.96)}
+.btn:disabled{opacity:.4; cursor:not-allowed}
+.btn-round{width:44px; height:44px; justify-content:center; padding:0; font-size:1.6rem; line-height:1; border-radius:50%}
+.btn-primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+html.dark .btn-primary{color:#0f172a}
+.btn-primary:hover:not(:disabled){filter:brightness(1.08)}
+.counter{display:flex; flex-direction:column; align-items:center; min-width:76px; line-height:1}
+.count{font-size:1.9rem; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums}
+.count-lbl{font-size:.75rem; color:var(--muted); margin-top:2px}
+.icon-btn{
+  width:40px; height:40px; border-radius:10px; border:1px solid var(--border); background:var(--soft);
+  display:grid; place-items:center; cursor:pointer;
+}
+.icon-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+.icon-btn .moon{display:none}
+html.dark .icon-btn .sun{display:none}
+html.dark .icon-btn .moon{display:block}
+:focus-visible{outline:3px solid var(--accent-2); outline-offset:2px}
+
+/* ---------- taula periòdica ---------- */
+.card-table{padding:10px 12px 8px; flex-shrink:0}
+.table-scroll{overflow:visible}
+.ptable{
+  position:relative; display:grid; max-width:920px; margin:0 auto;
+  grid-template-columns:18px repeat(18, minmax(0,1fr));
+  grid-template-rows:16px repeat(7, var(--cell-h)) 8px repeat(2, var(--cell-h));
+  gap:3px;
+}
+.ax{font-size:.68rem; color:var(--muted); display:grid; place-items:center; font-variant-numeric:tabular-nums}
+.ax.on{color:var(--accent); font-weight:800}
+.fl{grid-column:2 / 4; font-size:.7rem; color:var(--muted); display:flex; align-items:center; justify-content:flex-end; padding-right:4px; text-align:right; line-height:1.1}
+.el{
+  position:relative; border:0; border-radius:6px; padding:0; cursor:pointer;
+  background:var(--c, var(--un)); color:#1e293b;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .12s, box-shadow .12s, opacity .2s;
+}
+.el .z{position:absolute; top:2px; left:4px; font-size:.6rem; font-weight:600; opacity:.75}
+.el .sy{font-size:1.02rem; font-weight:800; margin-top:6px}
+.el:hover{transform:scale(1.14); z-index:3; box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.el.sel{box-shadow:0 0 0 3px var(--ink), 0 0 0 5px var(--card); z-index:4; transform:scale(1.1)}
+.table-panel{
+  grid-column:4 / 14; grid-row:2 / 5; display:flex; flex-direction:column; gap:6px;
+  align-items:center; justify-content:flex-start; padding:0 4px;
+}
+.seg{display:inline-flex; background:var(--soft); border:1px solid var(--border); border-radius:999px; padding:2px}
+.seg button{border:0; background:transparent; padding:3px 12px; border-radius:999px; cursor:pointer; font-size:.8rem; font-weight:600; color:var(--muted)}
+.seg button[aria-checked="true"]{background:var(--accent); color:#fff}
+html.dark .seg button[aria-checked="true"]{color:#0f172a}
+.legend{display:flex; flex-wrap:wrap; justify-content:center; gap:3px 10px; font-size:.74rem; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:4px; white-space:nowrap}
+.legend i{width:11px; height:11px; border-radius:3px; background:var(--c); display:inline-block}
+.legend.blocks{gap:4px 14px; font-size:.8rem}
+.legend.blocks b{font-weight:800}
+
+/* ---------- orbitals ---------- */
+.card-orbitals{flex:1 0 auto; display:flex; padding:10px 14px}
+.orb-wrap{display:flex; gap:18px; width:100%; align-items:center; justify-content:center}
+.orb-main{min-width:0}
+.orb-side{flex-shrink:0; border-left:1px solid var(--border); padding-left:16px}
+.orbitals{
+  display:grid; grid-template-columns:auto auto auto auto; column-gap:22px; row-gap:2px;
+  align-items:center;
+}
+.oh{font-size:.78rem; color:var(--muted); font-weight:600; padding-bottom:1px}
+.oh b{font-size:.95rem; margin-right:3px}
+.sub{display:flex; align-items:center; gap:4px}
+.sub .lbl{width:36px; text-align:right; font-weight:700; font-size:.98rem; font-variant-numeric:tabular-nums}
+.boxes{display:flex}
+.box{
+  display:flex; width:23px; height:23px; border:1.5px solid var(--box-border); margin-left:-1.5px;
+  background:var(--card);
+}
+.box:first-child{margin-left:0; border-radius:4px 0 0 4px}
+.box:last-child{border-radius:0 4px 4px 0}
+.box:only-child{border-radius:4px}
+.half{
+  flex:1; border:0; padding:0; background:transparent; cursor:pointer;
+  font-size:1.05rem; font-weight:900; line-height:1; display:grid; place-items:center;
+}
+.half:hover{background:color-mix(in srgb, var(--accent-2) 18%, transparent)}
+.half.next{animation:glow 1.3s ease-in-out infinite; border-radius:3px}
+.half.last{background:color-mix(in srgb, var(--accent-2) 22%, transparent)}
+.half.pop{animation:pop .28s ease-out}
+.sub.cur .lbl{text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:2px}
+.c-s{color:var(--s)} .c-p{color:var(--p)} .c-d{color:var(--d)} .c-f{color:var(--f)}
+@keyframes glow{0%,100%{box-shadow:inset 0 0 0 2px var(--accent-2); background:transparent}50%{box-shadow:inset 0 0 0 2px var(--accent-2); background:color-mix(in srgb, var(--accent-2) 30%, transparent)}}
+@keyframes pop{0%{transform:scale(.3); opacity:0}100%{transform:scale(1); opacity:1}}
+
+.moeller{width:230px; height:200px}
+.moeller .ln{stroke:var(--muted); stroke-width:1.8; stroke-linecap:round; fill:none; opacity:.8}
+.moeller .hd{fill:var(--muted)}
+.moeller rect{stroke:var(--box-border); stroke-width:1; fill:var(--card)}
+.moeller text{font-size:11px; font-weight:700; text-anchor:middle; dominant-baseline:central; fill:var(--muted)}
+.moeller .full rect{stroke:none}
+.moeller .full text{fill:#1e293b}
+.moeller .cur rect{stroke-width:2.5}
+.moeller .cur text{fill:var(--ink)}
+
+/* ---------- element ---------- */
+.card-element{display:flex; gap:14px; align-items:stretch}
+.tile{
+  flex-shrink:0; width:112px; height:112px; border-radius:12px; background:var(--c, var(--empty));
+  color:#1e293b; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+}
+.tile .z{position:absolute; top:6px; left:9px; font-weight:800; font-size:1rem}
+.tile .sy{font-size:2.7rem; font-weight:850; line-height:1}
+.tile .nm{font-size:.82rem; font-weight:650; margin-top:4px; text-align:center; padding:0 4px; line-height:1.1}
+.tile .ms{position:absolute; bottom:5px; font-size:.7rem; opacity:.75}
+.tile.empty .sy{color:var(--muted)}
+.facts{display:grid; grid-template-columns:auto 1fr; gap:3px 12px; align-content:center; font-size:.88rem; min-width:0}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0; font-weight:650}
+.facts .msg{grid-column:1 / -1; color:var(--muted); font-size:.9rem}
+.facts .name{grid-column:1 / -1; font-size:1.3rem; font-weight:800; margin-bottom:2px}
+
+/* ---------- configuració ---------- */
+.config{display:flex; flex-direction:column; gap:7px}
+.cfg-row .k{font-size:.78rem; color:var(--muted); font-weight:600; text-transform:none}
+.cfg-row .v{font-size:1.02rem; font-weight:600; letter-spacing:.01em; word-spacing:.1em; line-height:1.5}
+.cfg-row .v .t{white-space:nowrap}
+.cfg-row .v .core{font-weight:800}
+.cfg-row .v.small{font-size:.92rem}
+.note{
+  font-size:.82rem; line-height:1.35; border-radius:9px; padding:6px 9px;
+  background:color-mix(in srgb, var(--p-bg) 55%, var(--card)); border:1px solid color-mix(in srgb, var(--p) 45%, transparent);
+}
+html.dark .note{background:color-mix(in srgb, #d97706 18%, var(--card))}
+.note .v{font-size:.98rem; font-weight:700}
+.qn{font-variant-numeric:tabular-nums}
+
+/* ---------- Bohr ---------- */
+.card-bohr{flex:1 0 auto; display:flex; flex-direction:column}
+.bohr-box{flex:1; min-height:160px; position:relative}
+.bohr{position:absolute; inset:0; width:100%; height:100%}
+.bohr .orbit{fill:none; stroke:var(--box-border); stroke-width:1; stroke-dasharray:3 3}
+.bohr .orbit.val{stroke:var(--accent-2); stroke-width:1.6; stroke-dasharray:none}
+.bohr .nuc{fill:var(--accent)}
+html.dark .bohr .nuc{fill:#0e7490}
+.bohr .nuc-t{fill:#fff; font-weight:800; font-size:20px; text-anchor:middle; dominant-baseline:central}
+.bohr .nuc-s{fill:#fff; font-size:8.5px; text-anchor:middle; opacity:.9}
+.bohr .e{fill:var(--ink)}
+.bohr .e.val{fill:var(--accent-2)}
+.bohr .e.new{animation:pop .3s ease-out; transform-box:fill-box; transform-origin:center}
+.shells{display:flex; flex-wrap:wrap; justify-content:center; gap:4px 6px; font-size:.82rem}
+.shells span{background:var(--soft); border:1px solid var(--border); border-radius:999px; padding:1px 9px; font-variant-numeric:tabular-nums}
+.shells span.val{border-color:var(--accent-2); color:var(--accent); font-weight:700}
+
+/* ---------- peu ---------- */
+.felip-app-footer{
+  display:flex; align-items:center; gap:8px; padding:6px 20px;
+  background:var(--card); border-top:1px solid var(--border);
+  color:var(--muted); font-size:.8rem; line-height:1.22; min-width:0;
+}
+.felip-license-image-link{display:block; line-height:0; flex-shrink:0}
+.felip-license-image{display:block; width:78px; height:auto}
+.felip-footer-text{display:flex; flex-direction:column; align-items:flex-start; gap:3px}
+.felip-footer-text p{margin:0}
+.felip-footer-text a{color:var(--accent); font-weight:650; text-decoration:none}
+.felip-footer-text a:hover{text-decoration:underline}
+.keys{margin:0 0 0 auto; font-size:.78rem; text-align:right}
+kbd{
+  font-family:inherit; font-size:.72rem; font-weight:700; border:1px solid var(--border); border-bottom-width:2px;
+  border-radius:5px; padding:0 5px; background:var(--soft); color:var(--ink);
+}
+
+/* ---------- mòbils i tauletes (sense escalar) ---------- */
+html.compact .app{height:auto; min-height:100vh; grid-template-rows:auto auto auto}
+html.compact .topbar{flex-wrap:wrap; padding:8px 16px; gap:10px}
+html.compact .title{font-size:1.15rem}
+html.compact .controls{margin-left:0; order:3; width:100%; justify-content:center}
+html.compact #btn-theme{margin-left:auto}
+html.compact .main{grid-template-columns:1fr; padding:10px 16px}
+html.compact .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px}
+html.compact .ptable{min-width:600px; --cell-h:32px}
+html.compact .el .sy{font-size:.9rem}
+html.compact .legend{font-size:.68rem}
+html.compact .orb-wrap{flex-wrap:wrap}
+html.compact .orb-main{overflow-x:auto; max-width:100%}
+html.compact .orb-side{border-left:0; padding-left:0}
+html.compact .bohr-box{height:300px}
+html.compact .bohr-box{min-height:260px}
+html.compact .felip-app-footer{flex-wrap:wrap; padding:8px 16px}
+html.compact .keys{display:none}
+@media (max-width:420px){
+  .card-element{flex-direction:column; align-items:center}
+  .tile{width:100px; height:100px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+}
+.cfg-row.inline{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
+.oh{white-space:nowrap}
+html.compact .col-left, html.compact .col-right{display:contents}
+html.compact .card-table{order:1}
+html.compact .card-element{order:2}
+html.compact .card-config{order:3}
+html.compact .card-orbitals{order:4}
+html.compact .card-bohr{order:5}
+html.compact .table-panel{margin-bottom:8px}
