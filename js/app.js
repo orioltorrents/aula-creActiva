@@ -941,6 +941,10 @@ function setupTeacherTools(projects, groups) {
     if (resultsDashboardCard) {
         const dashboardUrl = new URL(API_URL);
         dashboardUrl.searchParams.set('page', 'dashboard-professors');
+        const aulaUrl = new URL(window.location.href);
+        aulaUrl.search = '';
+        aulaUrl.hash = '';
+        dashboardUrl.searchParams.set('returnTo', aulaUrl.href);
         const dashboardToken = localStorage.getItem('teacherDashboardToken');
         if (dashboardToken) dashboardUrl.hash = new URLSearchParams({ dashboardToken }).toString();
         resultsDashboardCard.href = dashboardUrl.toString();

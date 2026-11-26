@@ -113,6 +113,7 @@
       transition: background 0.15s;
     }
     .btn-outline { background: #fff; border-color: var(--border); color: var(--text-main); }
+    .btn[hidden] { display: none; }
     .btn-outline:hover { background: #f1f5f9; }
     .btn-export { background: #0f766e; color: #fff; }
     .btn-export:hover { background: #115e59; }
@@ -213,7 +214,7 @@
     </div>
     <div style="display: flex; align-items: center; gap: 0.75rem;">
       <span id="prof-info" class="user-badge">Sessió Professorat</span>
-      <a href="/index.html" class="btn btn-outline">Tornar a l'Aula</a>
+      <a id="return-to-aula" class="btn btn-outline" target="_top" rel="noreferrer" hidden>Tornar a l'Aula</a>
     </div>
   </header>
 
@@ -394,6 +395,7 @@
         return;
       }
       google.script.url.getLocation(location => {
+        configureReturnToAula(location.parameter.returnTo);
         const dashboardToken = new URLSearchParams(location.hash).get('dashboardToken');
         if (!dashboardToken) {
           document.getElementById('modal-login').showModal();
@@ -404,6 +406,22 @@
         carregarDades();
       });
     });
+
+    function configureReturnToAula(address) {
+      if (!address) return;
+      try {
+        const url = new URL(address);
+        const localHosts = ['localhost', '127.0.0.1', '[::1]'];
+        const allowed = url.protocol === 'https:' ||
+          (url.protocol === 'http:' && localHosts.includes(url.hostname));
+        if (!allowed || url.username || url.password) return;
+        const link = document.getElementById('return-to-aula');
+        link.href = url.href;
+        link.hidden = false;
+      } catch {
+        // L'enllaç només es mostra quan hi ha una adreça de retorn vàlida.
+      }
+    }
 
     function carregarDades() {
       els.tbody.innerHTML = '<tr><td colspan="10" class="empty-state">Carregant dades...</td></tr>';
