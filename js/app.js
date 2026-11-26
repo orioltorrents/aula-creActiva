@@ -1320,6 +1320,7 @@ async function loadAvailability(courses) {
 }
 
 function getCardAvailabilityIds(card, projectId) {
+    if (card.id === 'solidart-cronologia-renaixement-card') return ['cronologia-renaixement'];
     if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
     if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
     if (card.id === 'fq-igualacio-quimica-card') return ['igualacio-quimica'];
@@ -1954,6 +1955,16 @@ async function openProject(project) {
         if (hubDiv) {
             hubDiv.classList.remove('hidden');
             showSolidartMenu();
+            bindEmbeddedProjectActivity(
+                document.getElementById('solidart-cronologia-renaixement-card'),
+                document.getElementById('solidart-activity-status'),
+                {
+                    id: 'solidart-cronologia-renaixement-activity',
+                    title: 'Cronologia del Renaixement',
+                    path: 'fragments/activities/solidart/cronologia-renaixement.html',
+                    hubId: 'project-hub-solidart'
+                }
+            );
         }
     } else if (project.id === 'batx1_fisica') {
         const hubDiv = await ensureProjectFragment(

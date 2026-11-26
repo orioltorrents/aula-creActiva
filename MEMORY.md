@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- SolidArt incorpora la «Cronologia del Renaixement» de Felip Sarroca com a recurs extern sense puntuació.
 - Física i Química de 2n i 3r d'ESO obre el simulador extern «Densitats» de Felip Sarroca, sense puntuació.
 - Física i Química de 3r i 4t d'ESO inclou una segona targeta de Configuració electrònica que obre el simulador extern de Felip Sarroca.
 - Física i Química de 3r i 4t d'ESO inclou el simulador «Configuració electrònica» de Felip Sarroca, amb targeta pròpia i sense puntuació.
