@@ -1199,11 +1199,17 @@ function applyAvailabilityToCurrentProject() {
 }
 
 function dedupeProjects(projects) {
-    const seenIds = new Set();
+    const seenKeys = new Set();
 
     return projects.filter(project => {
-        if (!project || !project.id || seenIds.has(project.id)) return false;
-        seenIds.add(project.id);
+        if (!project?.id) return false;
+        const key = canUseTeacherTools() && project.dashboardCourse
+            ? `${project.dashboardCourse}:${project.id}`
+            : project.id === 'p1_musica'
+            ? `${project.id}:${normalizeAvailabilityValue(project.titol)}`
+            : project.id;
+        if (seenKeys.has(key)) return false;
+        seenKeys.add(key);
         return true;
     });
 }
@@ -1253,6 +1259,40 @@ function renderProjectCards(grid, projects) {
         return;
     }
 
+    if (canUseTeacherTools()) {
+        const levels = [
+            ['1 ESO', ['1eso']],
+            ['2 ESO', ['2eso']],
+            ['3 ESO', ['3eso']],
+            ['4 ESO', ['4eso']],
+            ['Batxillerat', ['1batx', '2batx']]
+        ];
+        const knownCourses = new Set(levels.flatMap(([, courses]) => courses));
+        levels.push(['Altres cursos', projects.map(project => project.dashboardCourse)
+            .filter(course => !knownCourses.has(course))]);
+
+        for (const [label, courses] of levels) {
+            const levelProjects = projects.filter(project => courses.includes(project.dashboardCourse));
+            if (!levelProjects.length) continue;
+
+            const section = document.createElement('section');
+            section.className = 'dashboard-project-level';
+            const heading = document.createElement('h3');
+            heading.className = 'dashboard-project-level__title';
+            heading.textContent = label;
+            const cards = document.createElement('div');
+            cards.className = 'projects-grid';
+            appendProjectCards(cards, levelProjects, projectVisuals);
+            section.append(heading, cards);
+            grid.appendChild(section);
+        }
+        return;
+    }
+
+    appendProjectCards(grid, projects, projectVisuals);
+}
+
+function appendProjectCards(grid, projects, projectVisuals) {
     projects.forEach(proj => {
         const visual = projectVisuals[proj.id] || { icon: 'P', gradient: 'linear-gradient(135deg, #94a3b8, #64748b)' };
         const visualClass = projectVisuals[proj.id] ? proj.id.replace(/_/g, '-') : 'default';
@@ -1551,6 +1591,7 @@ async function getApiProjectsForCourses(courses) {
 function normalizeDashboardProject(project, courseName = '') {
     if (!project) return project;
 
+    project = { ...project, dashboardCourse: normalizeAvailabilityCourse(courseName) };
     const title = String(project.titol || '').toLowerCase();
     const id = String(project.id || '').toLowerCase();
     if (!id.includes('biologia') && !title.includes('biologia')) return project;

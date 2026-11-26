@@ -256,6 +256,15 @@
     padding: 10px 5px;
 }
 
+.dashboard-project-level {
+    grid-column: 1 / -1;
+    min-width: 0;
+}
+
+.dashboard-project-level__title {
+    margin: 0 0 0.75rem;
+}
+
 .projects-grid::-webkit-scrollbar {
     height: 6px;
 }

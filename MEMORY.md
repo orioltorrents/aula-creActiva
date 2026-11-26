@@ -1,8 +1,9 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- El dashboard docent agrupa les targetes de projecte per nivell d'ESO i Batxillerat, segons els cursos assignats al compte.
 - El Dashboard de Professorat reutilitza la sessió docent de l'Aula amb un token temporal. L'accés directe o una sessió caducada obren el formulari de login.
-- A 3r ESO, el catàleg mostra Música (`p1_musica`) i reutilitza la Biologia de 2n ESO (`p2_biologia`) amb el nom visible «Biologia 3ESO».
+- Música reutilitza `p1_musica` a 1r i 3r ESO. El dashboard conserva les dues targetes quan el compte té els dos cursos assignats.
 - La targeta «Història de la Terra i del Mediterrani» de «Creació del Mediterrani» utilitza `targeta-historia-terra-mediterrania.jpeg`.
 - La targeta «Plaques tectòniques» de «Creació del Mediterrani» utilitza `targeta-plaques-tectoniques.jpeg`.
 - La targeta «Crisi salina del Messinià» de «Creació del Mediterrani» utilitza `targeta-crisi-salina-del-messinia.jpeg`.
