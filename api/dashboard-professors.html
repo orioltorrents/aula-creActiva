@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Professorat — Aula CreActiva</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1e3a8a;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --accent-soft: #eff6ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .topbar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .topbar h1 { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+    .topbar span { font-size: 0.875rem; color: var(--text-muted); }
+    .user-badge {
+      background: var(--accent-soft);
+      color: var(--primary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .container { max-width: 1380px; margin: 1.5rem auto; padding: 0 1.5rem; }
+
+    .filters-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 0.9rem;
+      align-items: end;
+    }
+    .filter-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .filter-group select,
+    .filter-group input {
+      width: 100%;
+      padding: 0.52rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      background: #fff;
+      color: var(--text-main);
+    }
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .filters-actions {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-outline { background: #fff; border-color: var(--border); color: var(--text-main); }
+    .btn-outline:hover { background: #f1f5f9; }
+    .btn-export { background: #0f766e; color: #fff; }
+    .btn-export:hover { background: #115e59; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .kpi-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+    .kpi-value { font-size: 1.65rem; font-weight: 700; margin-top: 0.25rem; color: var(--text-main); }
+
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+    th, td { padding: 0.72rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    tr:hover td { background: #f8fafc; }
+
+    .badge-nota {
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .nota-aprovat { background: #dcfce7; color: #166534; }
+    .nota-suspes { background: #fee2e2; color: #991b1b; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    dialog {
+      border: none;
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 650px;
+      width: 92%;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+      margin: auto;
+    }
+    dialog::backdrop { background: rgba(15, 23, 42, 0.5); }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .feedback-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.86rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .feedback-box h4 { margin-bottom: 0.4rem; font-size: 0.9rem; }
+    .fb-ok { border-left: 4px solid var(--success); }
+    .fb-err { border-left: 4px solid var(--danger); }
+    pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div>
+      <h1>Aula CreActiva — Dashboard de Resultats</h1>
+      <span>Filtratge i exportació de qualificacions de l'alumnat</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span id="prof-info" class="user-badge">Sessió Professorat</span>
+      <a href="/index.html" class="btn btn-outline">Tornar a l'Aula</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 1. FILTRES BASATS EN ELS HEADERS REALS -->
+    <section class="filters-card" aria-label="Filtres de resultats">
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label for="filtre-curs">Curs</label>
+          <select id="filtre-curs">
+            <option value="">Tots els cursos</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-grup">Grup</label>
+          <select id="filtre-grup">
+            <option value="">Tots els grups</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-projecte">Projecte</label>
+          <select id="filtre-projecte">
+            <option value="">Tots els projectes</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-app">App / Activitat</label>
+          <select id="filtre-app">
+            <option value="">Totes les apps</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-nivell">Nivell</label>
+          <select id="filtre-nivell">
+            <option value="">Tots els nivells</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-email">Cercar Email</label>
+          <input type="text" id="filtre-email" placeholder="alumne@escola...">
+        </div>
+
+        <div class="filter-group">
+          <label for="filtre-vista">Agrupació</label>
+          <select id="filtre-vista">
+            <option value="tots">Tots els intents</option>
+            <option value="millor">Nota màxima per alumne/app</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filters-actions">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" id="btn-netejar" class="btn btn-outline">Netejar filtres</button>
+          <button type="button" id="btn-refrescar" class="btn btn-outline">Actualitzar dades</button>
+        </div>
+
+        <button type="button" id="btn-exportar" class="btn btn-export">
+          Exportar selecció a CSV (Excel)
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. INDICADORS RESUM (KPIs) -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Registres filtrats</div>
+        <div class="kpi-value" id="kpi-total">0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Alumnes diferents</div>
+        <div class="kpi-value" id="kpi-alumnes">0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Puntuació mitjana</div>
+        <div class="kpi-value" id="kpi-mitjana">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">% Aprovats (≥ 5)</div>
+        <div class="kpi-value" id="kpi-aprovats">—</div>
+      </div>
+    </section>
+
+    <!-- 3. TAULA DE RESULTATS -->
+    <section class="table-card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Data (timestamp)</th>
+              <th>Email</th>
+              <th>Curs</th>
+              <th>Grup</th>
+              <th>Projecte</th>
+              <th>App</th>
+              <th>Nivell</th>
+              <th>Puntuació</th>
+              <th>Temps (s)</th>
+              <th>Feedback</th>
+            </tr>
+          </thead>
+          <tbody id="taula-resultats-body">
+            <tr>
+              <td colspan="10" class="empty-state">Carregant resultats...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL PER VISUALITZAR FEEDBACK_POS I FEEDBACK_NEG -->
+  <dialog id="modal-feedback">
+    <div class="modal-header">
+      <h3 id="modal-titol">Detall de Feedback</h3>
+      <button type="button" class="btn btn-outline" onclick="document.getElementById('modal-feedback').close()">Tancar</button>
+    </div>
+    <div id="modal-contingut"></div>
+  </dialog>
+
+  <script src="dashboard-professors.js"></script>
+</body>
+</html>

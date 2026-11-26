@@ -28,7 +28,8 @@ const LOCAL_PROJECT_CATALOG = {
     ],
     '3r ESO': [
         { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+        { id: 'p2_biologia', titol: 'Biologia 3ESO', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+        { id: 'p1_musica', titol: 'Música 3r ESO', descripcio: 'So, ritme i llenguatge musical.' },
         { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '4t ESO': [
@@ -60,7 +61,8 @@ const LOCAL_PROJECT_CATALOG = {
     ],
     '3ESO': [
         { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-        { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+        { id: 'p2_biologia', titol: 'Biologia 3ESO', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+        { id: 'p1_musica', titol: 'Música 3r ESO', descripcio: 'So, ritme i llenguatge musical.' },
         { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
     '4ESO': [
@@ -1208,14 +1210,14 @@ function getProjectVisuals() {
         'p2_paralimpics': { icon: '<img src="assets/images/activities/paralimpics/cards/targeta-paralimpics.png" alt="Paralímpics" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
         'p4_digitalitzacio': { icon: '<img src="assets/images/activities/digitalitzacio/cards/targeta-digitalitzacio.png" alt="Digitalització" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #a855f7, #7c3aed)' },
         'p1_biologia': { icon: '<img src="assets/images/activities/biologia/cards/repas-biologia-humana.png" alt="Biologia 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #14b8a6, #0f766e)' },
-        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia Humana" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'p2_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p3_biologia': { icon: '<img src="assets/images/activities/biologia/cards/biologia_humana.png" alt="Biologia 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
         'p4_biologia': { icon: '<img src="assets/images/activities/biologia/cards/targeta-genetica.png" alt="Biologia 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)' },
         'p2_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 2n ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0ea5e9, #0369a1)' },
         'p3_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 3r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0284c7, #075985)' },
         'p4_fisica_quimica': { icon: '<img src="assets/images/activities/biologia/lab/labtools.png" alt="Física i Química 4t ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #0369a1, #164e63)' },
         'p1_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
-        'p1_musica': { icon: '<img src="assets/images/activities/musica/cards/targeta-musica.jfif" alt="Música 1r ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #6d28d9, #db2777)' },
+        'p1_musica': { icon: '<img src="assets/images/activities/musica/cards/targeta-musica.jfif" alt="Música" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #6d28d9, #db2777)' },
         'p2_radio': { icon: '<img src="assets/images/activities/radio/targeta-radio.png" alt="Ràdio 2n ESO" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #facc15, #ca8a04)' },
         'batx1_tr': { icon: '<img src="assets/images/activities/treball-recerca/cards/targeta-tr.png" alt="Treball de recerca" class="project-card__image" decoding="async">', gradient: 'linear-gradient(135deg, #f43f5e, #e11d48)' }
     };
@@ -1825,7 +1827,7 @@ function openMusicActivity(activityId) {
     setGameBackToCurrentView();
     menu.classList.add('hidden');
     activity.classList.remove('hidden');
-    setGameTitle('Música 1r ESO - Pentagrama');
+    setGameTitle(`${state.currentProject?.titol || 'Música'} - Pentagrama`);
     if (typeof initMusicPentagrama === 'function') initMusicPentagrama();
 }
 

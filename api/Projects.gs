@@ -23,7 +23,8 @@ function getProjects(curs) {
         ],
         '3r ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+            { id: 'p2_biologia', titol: 'Biologia 3ESO', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+            { id: 'p1_musica', titol: 'Música 3r ESO', descripcio: 'So, ritme i llenguatge musical.' },
             { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         '4t ESO': [
@@ -57,7 +58,8 @@ function getProjects(curs) {
         ],
         '3ESO': [
             { id: 'p3_solidart', titol: 'SolidArt', descripcio: 'Art i solidaritat.' },
-            { id: 'p3_biologia', titol: 'Biologia 3r ESO', descripcio: 'Biologia humana i activitats de repas.' },
+            { id: 'p2_biologia', titol: 'Biologia 3ESO', descripcio: 'Estudi dels essers vius i el seu entorn.' },
+            { id: 'p1_musica', titol: 'Música 3r ESO', descripcio: 'So, ritme i llenguatge musical.' },
             { id: 'p3_fisica_quimica', titol: 'Física i Química 3r ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
         '4ESO': [
