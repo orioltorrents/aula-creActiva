@@ -16,6 +16,10 @@
    dos blocs; per exemple, evitar `project-card__image` dins `activity-card`.
    ========================================================================== */
 
+button.activity-card {
+    font-family: inherit;
+}
+
 .activity-card__content {
     /* Element BEM: contenidor textual de la targeta d'activitat. */
     padding: 20px;
