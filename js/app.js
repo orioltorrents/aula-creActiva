@@ -35,6 +35,7 @@ const LOCAL_PROJECT_CATALOG = {
     '4t ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
         { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_socials', titol: 'Ciències Socials: Geografia i Història', descripcio: 'Història contemporània i transformacions socials.' },
         { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
@@ -68,6 +69,7 @@ const LOCAL_PROJECT_CATALOG = {
     '4ESO': [
         { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
         { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+        { id: 'p4_socials', titol: 'Ciències Socials: Geografia i Història', descripcio: 'Història contemporània i transformacions socials.' },
         { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
         { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
     ],
@@ -1919,6 +1921,10 @@ async function openProject(project) {
                 showNaturaMenu();
             }
         }
+    } else if (project.id === 'p4_socials') {
+        const hub = await ensureProjectFragment('project-hub-socials', 'fragments/projects/socials/index.html');
+        if (!hub) throw new Error('No s’ha pogut carregar Ciències Socials.');
+        hub.classList.remove('hidden');
     } else if (project.id === 'p4_digitalitzacio') {
         const hubDiv = await ensureProjectFragment(
             'project-hub-digitalitzacio',

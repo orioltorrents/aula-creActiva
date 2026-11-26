@@ -30,6 +30,7 @@ function getProjects(curs) {
         '4t ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+            { id: 'p4_socials', titol: 'Ciències Socials: Geografia i Història', descripcio: 'Història contemporània i transformacions socials.' },
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
             { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],
@@ -65,6 +66,7 @@ function getProjects(curs) {
         '4ESO': [
             { id: 'p4_natura', titol: 'Entorns de Natura', descripcio: 'Medi ambient i sostenibilitat.' },
             { id: 'p4_digitalitzacio', titol: 'Digitalització', descripcio: 'Eines i recursos digitals per al segle XXI.' },
+            { id: 'p4_socials', titol: 'Ciències Socials: Geografia i Història', descripcio: 'Història contemporània i transformacions socials.' },
             { id: 'p4_biologia', titol: 'Biologia 4t ESO', descripcio: 'Genetica, pedigrees i herencia.' },
             { id: 'p4_fisica_quimica', titol: 'Física i Química 4t ESO', descripcio: 'Pràctiques i estris de laboratori.' }
         ],

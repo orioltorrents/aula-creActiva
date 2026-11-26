@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- A 4t d'ESO, Ciències Socials: Geografia i Història té la targeta pendent «La revolució industrial». Cal desplegar el catàleg d'Apps Script.
 - Reactius sobrants de Felip Sarroca és a Física i Química de 2n a 4t d'ESO. El repte original desa els punts i els errors conceptuals amb la sessió de l'Aula.
 - La Taula periòdica dinàmica de Felip Sarroca és a Física i Química de 3r i 4t ESO. El repte de 10 preguntes envia el resultat a `saveResult` amb la sessió de l'Aula i un identificador estable.
 - El visor docent de Pentagrama genera recomanacions automàtiques a partir de les errades, les confusions repetides i les notes en blanc desades.
