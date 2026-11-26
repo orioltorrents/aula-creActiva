@@ -1,0 +1,81 @@
+{
+  "dataFiles": [
+    "data/eq_nivell1.json",
+    "data/eq_nivell2.json",
+    "data/eq_nivell3.json",
+    "data/eq_batxillerat.json"
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "name": "Fàcil",
+      "description": "2 o 3 substàncies i coeficients petits"
+    },
+    {
+      "id": 2,
+      "name": "Mitjà",
+      "description": "4 substàncies o més, grups entre parèntesis"
+    },
+    {
+      "id": 3,
+      "name": "Avançat",
+      "description": "Coeficients grans i fins a 6 substàncies"
+    },
+    {
+      "id": 4,
+      "name": "Batxillerat",
+      "description": "Reaccions redox amb ions: cal igualar també la càrrega"
+    }
+  ],
+  "types": [
+    {
+      "id": "sintesi",
+      "name": "Síntesi",
+      "description": "Dues o més substàncies s'uneixen i en formen una de nova.",
+      "pattern": "A + B -> AB",
+      "example": "2 Na + Cl2 -> 2 NaCl"
+    },
+    {
+      "id": "descomposicio",
+      "name": "Descomposició",
+      "description": "Una substància es descompon en dues o més de més senzilles.",
+      "pattern": "AB -> A + B",
+      "example": "2 H2O2 -> 2 H2O + O2"
+    },
+    {
+      "id": "combustio",
+      "name": "Combustió",
+      "description": "Una substància crema amb l'oxigen i desprèn energia.",
+      "pattern": "combustible + O2 -> CO2 + H2O",
+      "example": "CH4 + 2 O2 -> CO2 + 2 H2O"
+    },
+    {
+      "id": "substitucio_simple",
+      "name": "Substitució simple",
+      "description": "Un element ocupa el lloc d'un altre en un compost.",
+      "pattern": "A + BC -> AC + B",
+      "example": "Zn + 2 HCl -> ZnCl2 + H2"
+    },
+    {
+      "id": "substitucio_doble",
+      "name": "Substitució doble",
+      "description": "Dos compostos s'intercanvien una part (sovint es forma un precipitat).",
+      "pattern": "AB + CD -> AD + CB",
+      "example": "AgNO3 + NaCl -> AgCl + NaNO3"
+    },
+    {
+      "id": "neutralitzacio",
+      "name": "Neutralització",
+      "description": "Un àcid i una base reaccionen i formen una sal (i sovint aigua).",
+      "pattern": "àcid + base -> sal + aigua",
+      "example": "HCl + NaOH -> NaCl + H2O"
+    },
+    {
+      "id": "redox",
+      "name": "Oxidació-reducció",
+      "description": "Una substància s'oxida i una altra es redueix: hi ha transferència d'electrons.",
+      "pattern": "reductor + oxidant -> oxidat + reduït",
+      "example": "Fe2O3 + 3 CO -> 2 Fe + 3 CO2"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+[
+  {"id": "eq069", "reactants": ["C7H16", "O2"], "products": ["CO2", "H2O"], "coefficients": [1, 11, 7, 8], "type": "combustio", "level": 3, "explanation": "L'heptà és un dels components de la gasolina."},
+  {"id": "eq107", "reactants": ["C4H10", "O2"], "products": ["CO2", "H2O"], "coefficients": [2, 13, 8, 10], "type": "combustio", "level": 3, "explanation": "El butà és el gas de les bombones domèstiques."},
+  {"id": "eq108", "reactants": ["C6H6", "O2"], "products": ["CO2", "H2O"], "coefficients": [2, 15, 12, 6], "type": "combustio", "level": 3, "explanation": "El benzè és un hidrocarbur del petroli; crema amb una flama molt fumosa."},
+  {"id": "eq113", "reactants": ["C8H18", "O2"], "products": ["CO2", "H2O"], "coefficients": [2, 25, 16, 18], "type": "combustio", "level": 3, "explanation": "L'octà és el component de referència de la gasolina: d'aquí ve la paraula «octanatge»."},
+  {"id": "eq114", "reactants": ["Fe2O3", "CO"], "products": ["Fe", "CO2"], "coefficients": [1, 3, 2, 3], "type": "redox", "level": 3, "explanation": "Alt forn: el monòxid de carboni pren l'oxigen de l'òxid de ferro i se n'obté ferro."},
+  {"id": "eq115", "reactants": ["NH3", "O2"], "products": ["NO", "H2O"], "coefficients": [4, 5, 4, 6], "type": "redox", "level": 3, "explanation": "Primer pas de la fabricació industrial de l'àcid nítric (procés d'Ostwald)."},
+  {"id": "eq116", "reactants": ["FeS2", "O2"], "products": ["Fe2O3", "SO2"], "coefficients": [4, 11, 2, 8], "type": "redox", "level": 3, "explanation": "Torrefacció de la pirita, un mineral de ferro i sofre de color daurat."},
+  {"id": "eq117", "reactants": ["Cu", "HNO3"], "products": ["Cu(NO3)2", "NO", "H2O"], "coefficients": [3, 8, 3, 2, 4], "type": "redox", "level": 3, "explanation": "L'àcid nítric ataca el coure i desprèn un gas que es torna marró en contacte amb l'aire."},
+  {"id": "eq118", "reactants": ["C12H22O11", "O2"], "products": ["CO2", "H2O"], "coefficients": [1, 12, 12, 11], "type": "combustio", "level": 3, "explanation": "La sacarosa és el sucre de taula; el cos l'oxida per obtenir energia."},
+  {"id": "eq119", "reactants": ["CO2", "H2O"], "products": ["C6H12O6", "O2"], "coefficients": [6, 6, 1, 6], "type": "redox", "level": 3, "explanation": "Fotosíntesi: les plantes fabriquen glucosa a partir de diòxid de carboni i aigua, i alliberen oxigen."},
+  {"id": "eq122", "reactants": ["Ca3(PO4)2", "H2SO4"], "products": ["CaSO4", "H3PO4"], "coefficients": [1, 3, 3, 2], "type": "substitucio_doble", "level": 3, "explanation": "A partir de la roca fosfàtica s'obté l'àcid fosfòric que es fa servir per fabricar adobs."},
+  {"id": "eq111", "reactants": ["Na2S2O3", "HCl"], "products": ["NaCl", "SO2", "S", "H2O"], "coefficients": [1, 2, 2, 1, 1, 1], "type": "redox", "level": 3, "explanation": "El tiosulfat de sodi amb àcid clorhídric enterboleix la dissolució perquè s'hi forma sofre."},
+  {"id": "eq123", "reactants": ["KMnO4", "HCl"], "products": ["KCl", "MnCl2", "Cl2", "H2O"], "coefficients": [2, 16, 2, 2, 5, 8], "type": "redox", "level": 3, "explanation": "Repte final: el permanganat de potassi oxida l'àcid clorhídric i se n'allibera clor gas."}
+]

@@ -691,6 +691,34 @@ window.aulaCreActivaSaveRevolucioIndustrialResult = async (payload, source) => {
     });
 };
 
+window.aulaCreActivaSaveIgualacioResult = async (payload, source) => {
+    const frame = document.getElementById('fq-igualacio-quimica-frame');
+    const project = state.currentProject;
+    if (!frame || frame.contentWindow !== source || !state.user?.email || !isFisicaQuimicaProject(project?.id)) {
+        return { status: 'error', message: 'Sessió de l’activitat no disponible.' };
+    }
+    const { resultat_id: resultId, total, equations, elapsedSeconds } = payload || {};
+    if (typeof resultId !== 'string' || !resultId || !Number.isInteger(total) || total < 1 || total > 5 ||
+        !Array.isArray(equations) || equations.length !== total ||
+        !equations.every(equation => equation && [0, 1, 2].includes(equation.points))) {
+        return { status: 'error', message: 'El repte no està complet.' };
+    }
+    const points = equations.reduce((sum, equation) => sum + equation.points, 0);
+    return callApi('saveResult', {
+        resultat_id: resultId,
+        email: state.user.email,
+        curs: state.user.curs,
+        grup: state.user.grup || state.user.curs,
+        projecte: project.titol,
+        app: 'Igualació química',
+        nivell: [...new Set(equations.map(equation => equation.level))].join(', '),
+        puntuacio: Math.round(points * 100 / (total * 2)),
+        temps_segons: elapsedSeconds,
+        feedback_pos: JSON.stringify({ punts: points, maxim: total * 2, encerts: equations.filter(equation => equation.points > 0) }),
+        feedback_neg: JSON.stringify({ errors: equations.filter(equation => equation.points === 0) })
+    });
+};
+
 window.aulaCreActivaSaveReactiusResult = async payload => {
     const project = state.currentProject;
     if (!state.user?.email || !isFisicaQuimicaProject(project?.id) ||
@@ -1294,6 +1322,7 @@ async function loadAvailability(courses) {
 function getCardAvailabilityIds(card, projectId) {
     if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
     if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
+    if (card.id === 'fq-igualacio-quimica-card') return ['igualacio-quimica'];
     const onclick = card.getAttribute('onclick') || '';
     const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
     const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
@@ -2010,7 +2039,8 @@ async function openProject(project) {
             const embeddedActivities = [
                 { id: 'taula-periodica', title: 'Taula periòdica dinàmica', fragment: 'taula-periodica-dinamica',
                     visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) },
-                { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true }
+                { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true },
+                { id: 'igualacio-quimica', title: 'Igualació química', fragment: 'igualacio-quimica', visible: true }
             ];
             const feedback = document.getElementById('fq-embedded-activity-status');
             for (const embedded of embeddedActivities) {

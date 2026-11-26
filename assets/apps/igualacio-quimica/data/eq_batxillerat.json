@@ -1,0 +1,11 @@
+[
+  {"id": "eq102", "reactants": ["Fe^2+", "MnO4^-", "H^+"], "products": ["Fe^3+", "Mn^2+", "H2O"], "coefficients": [5, 1, 8, 5, 1, 4], "type": "redox", "level": 4, "explanation": "El ferro(II) s'oxida a ferro(III) i el permanganat es redueix a manganès(II) en medi àcid."},
+  {"id": "eq103", "reactants": ["Cr2O7^2-", "Fe^2+", "H^+"], "products": ["Cr^3+", "Fe^3+", "H2O"], "coefficients": [1, 6, 14, 2, 6, 7], "type": "redox", "level": 4, "explanation": "El dicromat oxida el ferro(II) a ferro(III) en medi àcid."},
+  {"id": "eq104", "reactants": ["MnO4^-", "C2O4^2-", "H^+"], "products": ["Mn^2+", "CO2", "H2O"], "coefficients": [2, 5, 16, 2, 10, 8], "type": "redox", "level": 4, "explanation": "El permanganat oxida l'oxalat a diòxid de carboni en medi àcid."},
+  {"id": "eq105", "reactants": ["Cl2", "OH^-"], "products": ["Cl^-", "ClO^-", "H2O"], "coefficients": [1, 2, 1, 1, 1], "type": "redox", "level": 4, "explanation": "Dismutació del clor en medi bàsic: el mateix element s'oxida i es redueix. És la base del lleixiu."},
+  {"id": "eq106", "reactants": ["MnO4^-", "I^-", "H2O"], "products": ["MnO2", "I2", "OH^-"], "coefficients": [2, 6, 4, 2, 3, 8], "type": "redox", "level": 4, "explanation": "El permanganat oxida l'iodur a iode en medi bàsic."},
+  {"id": "eq109", "reactants": ["I2", "S2O3^2-"], "products": ["I^-", "S4O6^2-"], "coefficients": [1, 2, 2, 1], "type": "redox", "level": 4, "explanation": "Iodometria: el iode reacciona amb el tiosulfat."},
+  {"id": "eq110", "reactants": ["K2Cr2O7", "HCl"], "products": ["KCl", "CrCl3", "Cl2", "H2O"], "coefficients": [1, 14, 2, 2, 3, 7], "type": "redox", "level": 4, "explanation": "El dicromat de potassi oxida l'àcid clorhídric i se n'allibera clor."},
+  {"id": "eq112", "reactants": ["H2S", "HNO3"], "products": ["S", "NO2", "H2O"], "coefficients": [1, 2, 1, 2, 2], "type": "redox", "level": 4, "explanation": "L'àcid nítric concentrat oxida el sulfur d'hidrogen a sofre."},
+  {"id": "eq070", "reactants": ["Fe^3+", "Sn^2+"], "products": ["Fe^2+", "Sn^4+"], "coefficients": [2, 1, 2, 1], "type": "redox", "level": 4, "explanation": "El ferro(III) oxida l'estany(II) a estany(IV). Fixa't també en les càrregues!"}
+]
