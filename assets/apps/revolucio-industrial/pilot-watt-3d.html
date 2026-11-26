@@ -1,0 +1,1336 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later AND CC-BY-NC-SA-4.0 -->
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4ecd9">
+  <meta name="description" content="Prova pilota Blender 5.3 · v5 pedagògica i realista: Màquina de vapor de Watt (1769) en 3D interactiu amb flux tèrmic, focus per peces i 4 fases.">
+  <title>Prova pilota 3D · Màquina de Watt (1769)</title>
+  <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estil.css?v=20261114-llegibilitat1">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <style>
+    .pilot-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 18px 20px 52px;
+    }
+    .pilot-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(46, 34, 26, 0.14);
+    }
+    .pilot-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #2e221a;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(46, 34, 26, 0.24);
+      background: #fffaf0;
+    }
+    .pilot-back:hover {
+      background: #f1e6ce;
+    }
+    .pilot-badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: #b93d24;
+      color: #fffaf0;
+    }
+    .pilot-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px 24px;
+      margin-bottom: 16px;
+    }
+    .pilot-head .eyebrow {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9e4c1d;
+    }
+    .pilot-head h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.7rem, 3vw, 2.55rem);
+      margin: 4px 0 6px;
+      color: #2e221a;
+      line-height: 1.08;
+    }
+    .pilot-head p {
+      margin: 0;
+      color: rgba(46, 34, 26, 0.84);
+      max-width: 78ch;
+      font-size: 0.96rem;
+    }
+    /* Layout principal en dues columnes per encabir visor + didàctica en 1366x768 */
+    .layout-3d {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 345px;
+      gap: 16px;
+      align-items: start;
+    }
+    .pilot-card {
+      background: #fffbf2;
+      border: 1.5px solid rgba(46, 34, 26, 0.14);
+      border-radius: 16px;
+      padding: 14px 16px 16px;
+      box-shadow: 0 8px 24px rgba(46, 34, 26, 0.06);
+      min-width: 0;
+    }
+    .pilot-sub {
+      margin: 0 0 10px;
+      font-size: 0.86rem;
+      color: rgba(46, 34, 26, 0.78);
+      line-height: 1.38;
+    }
+    .pilot-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .pilot-btn {
+      font-family: inherit;
+      font-size: 0.81rem;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(46, 34, 26, 0.22);
+      background: #f7f1e1;
+      color: #2e221a;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .pilot-btn:hover {
+      background: #efe3ca;
+    }
+    .pilot-btn.actiu {
+      background: #2e221a;
+      color: #fffaf0;
+      border-color: #2e221a;
+    }
+    .pilot-btn.calor-btn.actiu {
+      background: #b93d24;
+      border-color: #b93d24;
+      color: #fffaf0;
+    }
+    .mv-caixa {
+      position: relative;
+      border-radius: 13px;
+      background: radial-gradient(circle at 50% 42%, #fbf7ec 0%, #eadec5 100%);
+      border: 1px solid rgba(46, 34, 26, 0.14);
+      overflow: hidden;
+    }
+    model-viewer {
+      width: 100%;
+      height: 465px;
+      display: block;
+      --poster-color: transparent;
+    }
+    .hs-wrap {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+    .hotspot-3d {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 2px solid #fffaf0;
+      background: #b93d24;
+      color: #fffaf0;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: transform 0.15s, background 0.15s, opacity 0.15s;
+    }
+    .hotspot-3d:hover,
+    .hotspot-3d.actiu {
+      transform: scale(1.22);
+      background: #2e221a;
+    }
+    /* Mantenim les coordenades actives per ancorar el flux tèrmic fins i tot sense números */
+    model-viewer.sense-etiquetes .hs-wrap {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Capa SVG animada de flux tèrmic sobre 3D o làmina */
+    .flow-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      display: none;
+    }
+    .flow-svg.visible {
+      display: block;
+    }
+    .flow-svg path {
+      fill: none;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 9 7;
+      animation: flow-dash 1.35s linear infinite;
+      filter: drop-shadow(0 1px 1.5px rgba(255, 250, 240, 0.92));
+      transition: opacity 0.28s;
+    }
+    .flow-svg .hot { stroke: rgba(216, 87, 34, 0.85); }
+    .flow-svg .cold { stroke: rgba(28, 122, 163, 0.85); }
+    .flow-svg .eq { stroke: rgba(164, 112, 34, 0.82); }
+    .flow-svg text {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      paint-order: stroke;
+      stroke: rgba(255, 249, 238, 0.94);
+      stroke-width: 3.5px;
+      transition: opacity 0.28s;
+    }
+    .flow-svg .hot-lbl { fill: #9b3714; }
+    .flow-svg .cold-lbl { fill: #125d80; }
+    .flow-svg .eq-lbl { fill: #7b4e11; }
+    .flow-legend {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.84);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(46, 34, 26, 0.14);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #2e221a;
+      pointer-events: none;
+      z-index: 12;
+    }
+    .flow-legend.visible {
+      display: inline-flex;
+    }
+    .flow-legend .dot-hot::before,
+    .flow-legend .dot-cold::before {
+      content: '● ';
+    }
+    .flow-legend .dot-hot { color: #a8421b; }
+    .flow-legend .dot-cold { color: #16688c; }
+    @keyframes flow-dash {
+      to { stroke-dashoffset: -40; }
+    }
+    .mv-pop,
+    .pin-pop {
+      display: none;
+      position: absolute;
+      width: min(265px, 76vw);
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #fffdf7;
+      border: 1.5px solid rgba(46, 34, 26, 0.30);
+      box-shadow: 0 10px 26px rgba(24, 16, 10, 0.24);
+      color: #2e221a;
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.83rem;
+      line-height: 1.42;
+      text-align: left;
+      pointer-events: auto;
+      z-index: 60;
+    }
+    .mv-pop.obert,
+    .pin-pop.obert {
+      display: block;
+    }
+    .pop-cap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .pop-cap strong {
+      color: #9e2d18;
+      font-size: 0.86rem;
+      line-height: 1.25;
+    }
+    .pop-tanca {
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(46, 34, 26, 0.10);
+      color: #2e221a;
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .pop-tanca:hover {
+      background: rgba(46, 34, 26, 0.22);
+    }
+    .pop-txt {
+      margin: 0;
+      color: #2e221a;
+    }
+    .mv-pad {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 28px);
+      grid-template-rows: repeat(3, 28px);
+      gap: 3px;
+      padding: 4px;
+      border-radius: 11px;
+      background: rgba(255, 250, 240, 0.88);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(46, 34, 26, 0.18);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+      z-index: 15;
+    }
+    .mv-pad button {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(46, 34, 26, 0.18);
+      background: #fffdf7;
+      color: #2e221a;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mv-pad button:hover {
+      background: #2e221a;
+      color: #fffaf0;
+    }
+    .mv-pad .pad-up { grid-column: 2; grid-row: 1; }
+    .mv-pad .pad-left { grid-column: 1; grid-row: 2; }
+    .mv-pad .pad-reset { grid-column: 2; grid-row: 2; font-size: 0.74rem; }
+    .mv-pad .pad-right { grid-column: 3; grid-row: 2; }
+    .mv-pad .pad-down { grid-column: 2; grid-row: 3; }
+
+    /* Quatre fases didàctiques clicables */
+    .steps-4 {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+    }
+    .step-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-align: left;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(46, 34, 26, 0.16);
+      background: #fffdf7;
+      color: #2e221a;
+      font-family: inherit;
+      font-size: 0.79rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .step-btn:hover {
+      background: #f4ebd8;
+    }
+    .step-btn.actiu {
+      border-color: #b96a21;
+      background: #fff0d3;
+      color: #7c3f11;
+    }
+    .step-btn b {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #e5d4b4;
+      color: #2e221a;
+      font-size: 0.74rem;
+    }
+    .step-btn.actiu b {
+      background: #b93d24;
+      color: #fffaf0;
+    }
+
+    /* Columna didàctica dreta */
+    .pilot-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .aside-mini {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9e4c1d;
+    }
+    .pilot-aside h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.38rem;
+      line-height: 1.12;
+      margin: 0;
+      color: #2e221a;
+    }
+    .idea-box {
+      border-left: 4px solid #b96a21;
+      padding: 9px 11px;
+      background: #fff4df;
+      border-radius: 0 9px 9px 0;
+      font-size: 0.85rem;
+      line-height: 1.44;
+      color: #2e221a;
+    }
+    .idea-box b {
+      color: #9e2d18;
+    }
+    .detail-fig {
+      margin: 0;
+      border: 1.5px solid rgba(46, 34, 26, 0.16);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f5eedc;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .detail-fig:hover {
+      border-color: #b93d24;
+      transform: translateY(-1px);
+    }
+    .detail-fig img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .detail-fig figcaption {
+      padding: 6px 9px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      background: #fcf7ea;
+      border-top: 1px solid rgba(46, 34, 26, 0.1);
+    }
+    .detail-fig .calent { color: #a84625; }
+    .detail-fig .fred { color: #176d8d; }
+    .cicle-card {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f7f1e1;
+      border: 1px solid rgba(46, 34, 26, 0.16);
+      font-size: 0.83rem;
+      line-height: 1.4;
+      color: #2e221a;
+    }
+    .cicle-card strong {
+      display: block;
+      color: #9e2d18;
+      margin-bottom: 3px;
+    }
+    .valv-xips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .valv-xip {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(46, 34, 26, 0.18);
+      background: #fffaf0;
+      color: #2e221a;
+    }
+    .valv-xip.oberta {
+      background: #e1f2d8;
+      border-color: #5aa63c;
+      color: #1f4f12;
+    }
+    .valv-xip.tancada {
+      background: #fae2dd;
+      border-color: #c9422a;
+      color: #7c1f10;
+    }
+    .aside-source {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(46, 34, 26, 0.14);
+      font-size: 0.75rem;
+      line-height: 1.42;
+      color: rgba(46, 34, 26, 0.75);
+    }
+    .aside-source a {
+      color: #1d5d75;
+    }
+
+    .mv-avis {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #fff3d6;
+      border: 1px solid #d5a94e;
+      font-size: 0.86rem;
+    }
+    .mv-avis.visible {
+      display: block;
+    }
+
+    /* Secció 2: comparativa amb focus selectiu */
+    .pilot-sec {
+      margin-top: 20px;
+      background: #fffbf2;
+      border: 1.5px solid rgba(46, 34, 26, 0.14);
+      border-radius: 16px;
+      padding: 16px 18px 20px;
+      box-shadow: 0 6px 20px rgba(46, 34, 26, 0.05);
+    }
+    .pilot-sec h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.28rem;
+      margin: 0 0 5px;
+      color: #2e221a;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .comp-card {
+      background: #f7f1e1;
+      border: 1px solid rgba(46, 34, 26, 0.14);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .comp-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #2e221a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .comp-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(46, 34, 26, 0.1);
+    }
+    .comp-tag.b3d {
+      background: #235c47;
+      color: #fffaf0;
+    }
+    .lamina-box {
+      position: relative;
+      border-radius: 10px;
+      overflow: visible;
+      background: #f7f1e1;
+    }
+    .lamina-box img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .lamina-box.is-focused #img-blender {
+      opacity: 0.24;
+      filter: grayscale(0.75) blur(1.2px);
+    }
+    .focus-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      display: none;
+      filter: drop-shadow(0 0 9px #e0a129) drop-shadow(0 0 2px #fff8df);
+      z-index: 3;
+    }
+    .lamina-box.is-focused .focus-layer {
+      display: block;
+    }
+    .pin-3d {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 2px solid #fffaf0;
+      background: #b93d24;
+      color: #fffaf0;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+      transition: transform 0.15s, background 0.15s, opacity 0.15s;
+      z-index: 6;
+    }
+    .lamina-box.is-focused .pin-3d:not(.actiu) {
+      opacity: 0.62;
+    }
+    .pin-3d:hover,
+    .pin-3d.actiu {
+      transform: translate(-50%, -50%) scale(1.20);
+      background: #2e221a;
+      opacity: 1;
+      z-index: 25;
+    }
+
+    @media (max-width: 1020px) {
+      .layout-3d {
+        grid-template-columns: 1fr;
+      }
+      .pilot-aside {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .pilot-aside .aside-mini,
+      .pilot-aside h2,
+      .pilot-aside .idea-box,
+      .pilot-aside .aside-source {
+        grid-column: 1 / -1;
+      }
+    }
+    @media (max-width: 820px) {
+      .comp-grid {
+        grid-template-columns: 1fr;
+      }
+      model-viewer {
+        height: 380px;
+      }
+    }
+    @media (max-width: 600px) {
+      .pilot-wrap {
+        padding: 14px 12px 42px;
+      }
+      .pilot-aside {
+        grid-template-columns: 1fr;
+      }
+      .steps-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .pin-3d {
+        width: 20px;
+        height: 20px;
+        font-size: 0.65rem;
+        border-width: 1.5px;
+      }
+      .mv-pad {
+        right: 8px;
+        bottom: 8px;
+        grid-template-columns: repeat(3, 26px);
+        grid-template-rows: repeat(3, 26px);
+      }
+      .mv-pad button {
+        width: 26px;
+        height: 26px;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body class="pag-capitol">
+  <main class="pilot-wrap">
+    <div class="pilot-top">
+      <a class="pilot-back" href="vapor.html">← Tornar al capítol del vapor</a>
+      <span class="pilot-badge">Prova pilota Blender 5.3 · v5</span>
+    </div>
+
+    <header class="pilot-head">
+      <div>
+        <div class="eyebrow">1769 · James Watt · Model 3D interactiu + focus didàctic</div>
+        <h1>El cilindre calent, el condensador fred</h1>
+        <p>
+          Versió v5 fusionada: model 3D navegable i animat, flux tèrmic en directe, quatre fases del cicle, zoom de condensació i focus visual per peça amb bafarada emergent sobre el mateix número.
+        </p>
+      </div>
+    </header>
+
+    <div class="layout-3d">
+      <section class="pilot-card" aria-labelledby="tit-visor">
+        <p class="pilot-sub" id="tit-visor">
+          <strong>Esquerra:</strong> gira 360° · <strong>Roda:</strong> amplia · <strong>Botó dret / Maj+arrossegar / fletxes:</strong> desplaça · <strong>Número (1–9):</strong> obre la descripció allà mateix.
+        </p>
+
+        <div class="pilot-controls">
+          <button type="button" class="pilot-btn actiu" id="btn-play">Pausa animació</button>
+          <button type="button" class="pilot-btn actiu" id="btn-etiquetes">Etiquetes 3D</button>
+          <button type="button" class="pilot-btn calor-btn actiu" id="btn-flux">Curs de l’aigua calenta i freda</button>
+        </div>
+
+        <div class="mv-caixa" id="mv-caixa">
+          <model-viewer
+            id="mv-watt"
+            src="assets/models/watt.glb"
+            alt="Model 3D animat de la màquina de vapor de James Watt de 1769"
+            camera-controls
+            enable-pan
+            autoplay
+            environment-image="neutral"
+            tone-mapping="agx"
+            shadow-intensity="0.92"
+            shadow-softness="0.72"
+            exposure="1.05"
+            camera-orbit="22deg 74deg 15.2m"
+            camera-target="0.45m 2.4m 0m"
+            min-camera-orbit="auto 12deg 2.8m"
+            max-camera-orbit="auto 110deg 26m">
+          </model-viewer>
+
+          <!-- Fletxes discretes de curs calent i fred sincronitzades amb les coordenades 3D -->
+          <svg class="flow-svg visible" id="flow-svg" aria-hidden="true">
+            <defs>
+              <marker id="arr-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10Z" fill="#d85722"/>
+              </marker>
+              <marker id="arr-cold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10Z" fill="#1c7aa3"/>
+              </marker>
+              <marker id="arr-eq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10Z" fill="#a47022"/>
+              </marker>
+            </defs>
+            <path class="hot" id="fl-hot-p" marker-end="url(#arr-hot)"/>
+            <text class="hot-lbl" id="fl-hot-t">vapor calent</text>
+            <path class="hot" id="fl-exh-p" marker-end="url(#arr-hot)"/>
+            <text class="hot-lbl" id="fl-exh-t">vapor usat</text>
+            <path class="eq" id="fl-eq-p" marker-end="url(#arr-eq)"/>
+            <text class="eq-lbl" id="fl-eq-t">equilibri</text>
+            <path class="cold" id="fl-inj-p" marker-end="url(#arr-cold)"/>
+            <text class="cold-lbl" id="fl-inj-t">aigua freda</text>
+            <path class="cold" id="fl-cond-p" marker-end="url(#arr-cold)"/>
+            <text class="cold-lbl" id="fl-cond-t">condensat</text>
+            <path class="cold" id="fl-mine-p" marker-end="url(#arr-cold)"/>
+            <text class="cold-lbl" id="fl-mine-t">aigua pujada</text>
+          </svg>
+          <div class="flow-legend visible" id="flow-legend" aria-hidden="true">
+            <span class="dot-hot">Vapor / aigua calenta</span>
+            <span class="dot-cold">Aigua freda</span>
+          </div>
+
+          <div class="mv-pad" role="group" aria-label="Desplaça la vista del model 3D">
+            <button type="button" class="pad-up" data-pan="0,1" title="Desplaça amunt" aria-label="Desplaça amunt">↑</button>
+            <button type="button" class="pad-left" data-pan="-1,0" title="Desplaça a l’esquerra" aria-label="Desplaça a l’esquerra">←</button>
+            <button type="button" class="pad-reset" id="btn-pan-reset" title="Centra la màquina" aria-label="Centra la màquina">⌖</button>
+            <button type="button" class="pad-right" data-pan="1,0" title="Desplaça a la dreta" aria-label="Desplaça a la dreta">→</button>
+            <button type="button" class="pad-down" data-pan="0,-1" title="Desplaça avall" aria-label="Desplaça avall">↓</button>
+          </div>
+
+          <div class="mv-pop" id="mv-pop" role="dialog" aria-live="polite"></div>
+        </div>
+
+        <div class="steps-4" id="steps-4" aria-label="Quatre fases del cicle de Watt">
+          <button type="button" class="step-btn actiu" data-step="1" data-frac="0.10"><b>1</b><span>Vapor i buit</span></button>
+          <button type="button" class="step-btn" data-step="2" data-frac="0.32"><b>2</b><span>Pistó avall</span></button>
+          <button type="button" class="step-btn" data-step="3" data-frac="0.50"><b>3</b><span>Canvi de vàlvules</span></button>
+          <button type="button" class="step-btn" data-step="4" data-frac="0.75"><b>4</b><span>Retorn d’equilibri</span></button>
+        </div>
+
+        <div class="mv-avis" id="mv-avis">
+          Per veure el model <code>.glb</code> interactiu cal obrir aquesta pàgina amb un servidor web local (p. ex. <code>python -m http.server 8015</code>), perquè els navegadors bloquegen la càrrega de fitxers 3D des de <code>file://</code>.
+        </div>
+      </section>
+
+      <aside class="pilot-card pilot-aside" aria-label="Explicació didàctica de Watt">
+        <div class="aside-mini">La idea que ho canvia tot</div>
+        <h2>Separar el fred de la calor</h2>
+        <div class="idea-box">
+          El vapor es refreda en un recipient <b>separat</b> (condensador). Així el cilindre es manté sempre calent i no es malgasta carbó reescalfant-lo a cada cicle.
+        </div>
+
+        <figure class="detail-fig" id="btn-detall-zoom" title="Clica per acostar la vista 3D al cilindre calent i condensador fred">
+          <img src="assets/blender/out/watt-detall.png" alt="Detall ampliat del cilindre calent seccionat al costat del condensador fred amb gotes de condensació">
+          <figcaption>
+            <span class="calent">2–3 · Cilindre calent</span>
+            <span class="fred">→ 6 · Condensador fred</span>
+          </figcaption>
+        </figure>
+
+        <div class="cicle-card" aria-live="polite">
+          <div id="cicle-fase">
+            <strong>1 · Vapor i buit</strong>
+            Entra vapor calent per dalt del pistó i l’escapament obert crea buit al condensador fred.
+          </div>
+          <div class="valv-xips">
+            <span class="valv-xip oberta" id="chip-adm">Admissió: oberta</span>
+            <span class="valv-xip tancada" id="chip-eq">Equilibri: tancada</span>
+            <span class="valv-xip oberta" id="chip-esc">Escapament: oberta</span>
+          </div>
+        </div>
+
+        <div class="aside-source">
+          Reconstrucció didàctica de 1769: combina camisa anular, vàlvules d’equilibri i condensador seccionat amb gotes de condensació. Fonament històric:
+          <a href="https://blog.sciencemuseum.org.uk/james-watt-and-the-separate-condenser/" target="_blank" rel="noopener">Science Museum (condensador separat)</a>
+          i <a href="https://collection.sciencemuseumgroup.org.uk/objects/co50928/watts-second-separate-condenser-1765-condensers" target="_blank" rel="noopener">model de 1765</a>.
+        </div>
+      </aside>
+    </div>
+
+    <section class="pilot-sec" aria-labelledby="tit-comp">
+      <h2 id="tit-comp">Comparativa amb focus per peça: làmines WebP actuals vs. renders 3D Blender</h2>
+      <p class="pilot-sub">Alterna entre la vista muntada i l’explosionada; en clicar qualsevol número vermell s’atenua la resta de la màquina, destaca la peça i s’obre l’explicació al costat mateix.</p>
+
+      <div class="pilot-controls">
+        <button type="button" class="pilot-btn actiu" id="tab-muntada">Vista muntada 3/4</button>
+        <button type="button" class="pilot-btn" id="tab-explotada">Vista explosionada 3/4</button>
+      </div>
+
+      <div class="comp-grid">
+        <article class="comp-card">
+          <h3><span>Actual al web</span> <span class="comp-tag" id="lbl-actual-fitxer">illustration-watt.webp</span></h3>
+          <div class="lamina-box">
+            <img id="img-actual" src="img/illustration-watt.webp" alt="Làmina actual de la màquina de Watt">
+          </div>
+        </article>
+
+        <article class="comp-card">
+          <h3><span>Render Blender 5.3 + focus selectiu</span> <span class="comp-tag b3d" id="lbl-blender-fitxer">watt-muntada.png</span></h3>
+          <div class="lamina-box" id="box-blender">
+            <img id="img-blender" src="assets/blender/out/watt-muntada.png" alt="Render 3D en Blender 5.3 de la màquina de Watt">
+            <img id="focus-layer" class="focus-layer" alt="" aria-hidden="true">
+            <div class="pin-pop" id="pin-pop" role="dialog" aria-live="polite"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const PECES = {
+        caldera: { nom: '1 · Caldera i fogar', text: 'Ara és a part del cilindre, reblonada en doble anell, amb arc de maó, vàlvula de seguretat amb contrapès, manòmetre i nivell d’aigua.' },
+        camisa: { nom: '2 · Camisa de vapor', text: 'Doble paret amb vapor càlid envoltant el cilindre interior (talls vermells esglaonats): manté les parets sempre calentes.' },
+        cilindre: { nom: '3 · Cilindre tancat', text: 'Tapat per dalt amb premsaestopes i brida de 10 perns: el pistó l’empeny el vapor, no la pressió atmosfèrica.' },
+        piston: { nom: '4 · Pistó i cadena articulada', text: 'Baixa quan té vapor a sobre i buit a sota, estirat per una cadena plana amb passadors sobre el sector circular del balancí.' },
+        equilibri: { nom: '5 · Tub d’equilibri i vàlvules', text: 'Comunica la part superior i inferior del cilindre mitjançant tres vàlvules de bronze animades perquè el pistó pugui tornar a pujar.' },
+        condensador: { nom: '6 · Condensador separat (seccionat)', text: 'La gran innovació de Watt (1769): recipient immers en la tina d’aigua freda amb injecció freda i gotes de condensació.' },
+        bomba: { nom: '7 · Bomba d’aire (seccionada)', text: 'Immersa al costat del condensador i moguda pel balancí: l’èmbol i la vàlvula de peu extreuen aigua i aire per mantenir el buit.' },
+        balanci: { nom: '8 · Balancí amb puntal i arcs', text: 'Biga de roure afuada amb tires laterals de ferro, perns passants, tirants i sectors circulars concèntrics (arch-heads).' },
+        bombamina: { nom: '9 · Bomba i canaleta de la mina', text: 'Aspira l’aigua del pou de carreus i l’aboca per la canaleta cap a la bassa, fent la mateixa feina amb fins a un 75 % menys de carbó.' }
+      };
+      const ORDRE = ['caldera', 'camisa', 'cilindre', 'piston', 'equilibri', 'condensador', 'bomba', 'balanci', 'bombamina'];
+      const FASES = {
+        1: { tit: '1 · Vapor i buit', txt: 'Entra vapor calent per dalt del pistó i l’escapament obert crea buit al condensador fred.' },
+        2: { tit: '2 · Pistó avall', txt: 'La diferència de pressions empeny el pistó cap avall; el balancí puja l’aigua de la mina.' },
+        3: { tit: '3 · Canvi de vàlvules', txt: 'Punt mort inferior: es tanquen admissió i escapament i s’obre el pas d’equilibri.' },
+        4: { tit: '4 · Retorn d’equilibri', txt: 'El vapor passa per darrere el tub d’equilibri; el pistó puja i el cilindre continua calent.' }
+      };
+
+      let meta = {
+        muntada_pct: { caldera: [13.2, 49.3], camisa: [27.3, 51.4], cilindre: [35.8, 45.6], piston: [31.9, 56.7], equilibri: [39.4, 51.0], condensador: [45.4, 67.9], bomba: [51.3, 66.7], balanci: [52.2, 17.7], bombamina: [81.5, 69.1] },
+        explotada_pct: { caldera: [15.2, 50.4], camisa: [30.1, 57.9], cilindre: [37.6, 52.7], piston: [33.9, 40.9], equilibri: [43.1, 57.5], condensador: [46.0, 61.5], bomba: [51.3, 62.6], balanci: [52.0, 15.5], bombamina: [77.5, 66.3] },
+        hotspots_3d: {}
+      };
+
+      const mv = document.getElementById('mv-watt');
+      const mvCaixa = document.getElementById('mv-caixa');
+      const mvPop = document.getElementById('mv-pop');
+      const flowSvg = document.getElementById('flow-svg');
+      const flowLegend = document.getElementById('flow-legend');
+      const flHotP = document.getElementById('fl-hot-p');
+      const flHotT = document.getElementById('fl-hot-t');
+      const flExhP = document.getElementById('fl-exh-p');
+      const flExhT = document.getElementById('fl-exh-t');
+      const flEqP = document.getElementById('fl-eq-p');
+      const flEqT = document.getElementById('fl-eq-t');
+      const flInjP = document.getElementById('fl-inj-p');
+      const flInjT = document.getElementById('fl-inj-t');
+      const flCondP = document.getElementById('fl-cond-p');
+      const flCondT = document.getElementById('fl-cond-t');
+      const flMineP = document.getElementById('fl-mine-p');
+      const flMineT = document.getElementById('fl-mine-t');
+      const btnPlay = document.getElementById('btn-play');
+      const btnEtiq = document.getElementById('btn-etiquetes');
+      const btnFlux = document.getElementById('btn-flux');
+      const btnPanReset = document.getElementById('btn-pan-reset');
+      const btnDetallZoom = document.getElementById('btn-detall-zoom');
+      const mvAvis = document.getElementById('mv-avis');
+      const faseTxt = document.getElementById('cicle-fase');
+      const chipAdm = document.getElementById('chip-adm');
+      const chipEq = document.getElementById('chip-eq');
+      const chipEsc = document.getElementById('chip-esc');
+      const stepBtns = Array.from(document.querySelectorAll('.step-btn'));
+
+      if (location.protocol === 'file:') {
+        mvAvis.classList.add('visible');
+      }
+      mv.addEventListener('error', () => mvAvis.classList.add('visible'));
+
+      function posaChip(el, nom, oberta) {
+        el.textContent = nom + ': ' + (oberta ? 'oberta' : 'tancada');
+        el.classList.toggle('oberta', oberta);
+        el.classList.toggle('tancada', !oberta);
+      }
+
+      function faseDesdeFrac(t) {
+        if (t >= 0.02 && t < 0.23) return 1;
+        if (t >= 0.23 && t < 0.48) return 2;
+        if (t >= 0.52 && t < 0.96) return 4;
+        return 3;
+      }
+
+      function centreHotspotEnCaixa(clau) {
+        const w = mv.querySelector('.hs-wrap[data-clau="' + clau + '"]');
+        if (!w) return null;
+        const r = w.getBoundingClientRect();
+        const rc = mvCaixa.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) return null;
+        return { x: r.left - rc.left + r.width * 0.5, y: r.top - rc.top + r.height * 0.5 };
+      }
+
+      function actualitzaFluxTermic(stepNum) {
+        if (!flowSvg.classList.contains('visible')) return;
+        const cCald = centreHotspotEnCaixa('caldera');
+        const cCil = centreHotspotEnCaixa('cilindre');
+        const cEq = centreHotspotEnCaixa('equilibri');
+        const cCond = centreHotspotEnCaixa('condensador');
+        const cBomba = centreHotspotEnCaixa('bomba');
+        const cMina = centreHotspotEnCaixa('bombamina');
+        if (!cCald || !cCil || !cCond) return;
+
+        // 1) Vapor calent: caldera -> cim del cilindre
+        const hx1 = cCald.x + 8;
+        const hy1 = cCald.y - 42;
+        const hx2 = cCil.x - 16;
+        const hy2 = cCil.y - 40;
+        const hmx = (hx1 + hx2) * 0.5;
+        const hmy = Math.min(hy1, hy2) - 20;
+        flHotP.setAttribute('d', `M ${hx1.toFixed(1)} ${hy1.toFixed(1)} Q ${hmx.toFixed(1)} ${hmy.toFixed(1)} ${hx2.toFixed(1)} ${hy2.toFixed(1)}`);
+        flHotT.setAttribute('x', hmx.toFixed(1));
+        flHotT.setAttribute('y', (hmy - 5).toFixed(1));
+        flHotT.setAttribute('text-anchor', 'middle');
+
+        // 2) Vapor usat encara calent: base cilindre -> condensador
+        const ex1 = (cEq ? cEq.x - 6 : cCil.x + 12);
+        const ey1 = cCond.y - 34;
+        const ex2 = cCond.x - 10;
+        const ey2 = cCond.y - 14;
+        flExhP.setAttribute('d', `M ${ex1.toFixed(1)} ${ey1.toFixed(1)} L ${ex2.toFixed(1)} ${ey1.toFixed(1)} L ${ex2.toFixed(1)} ${ey2.toFixed(1)}`);
+        flExhT.setAttribute('x', ((ex1 + ex2) * 0.5 + 8).toFixed(1));
+        flExhT.setAttribute('y', (ey1 - 6).toFixed(1));
+        flExhT.setAttribute('text-anchor', 'middle');
+
+        // 3) Tub d'equilibri (retorn del vapor cap a sota el pistó)
+        if (cEq) {
+          const qx = cEq.x + 20;
+          const qy1 = cEq.y - 22;
+          const qy2 = cEq.y + 32;
+          flEqP.setAttribute('d', `M ${qx.toFixed(1)} ${qy1.toFixed(1)} L ${qx.toFixed(1)} ${qy2.toFixed(1)}`);
+          flEqT.setAttribute('x', (qx + 8).toFixed(1));
+          flEqT.setAttribute('y', ((qy1 + qy2) * 0.5 + 4).toFixed(1));
+        }
+
+        // 4) Aigua freda d'injecció de la tina -> interior del condensador
+        const ix1 = cCond.x - 36;
+        const iy1 = cCond.y + 16;
+        const ix2 = cCond.x - 6;
+        const iy2 = cCond.y + 4;
+        flInjP.setAttribute('d', `M ${ix1.toFixed(1)} ${iy1.toFixed(1)} Q ${(ix1 + ix2) * 0.5} ${(iy1 + 6).toFixed(1)} ${ix2.toFixed(1)} ${iy2.toFixed(1)}`);
+        flInjT.setAttribute('x', (ix1 - 4).toFixed(1));
+        flInjT.setAttribute('y', (iy1 + 14).toFixed(1));
+        flInjT.setAttribute('text-anchor', 'middle');
+
+        // 5) Condensat extret del condensador -> bomba d'aire
+        if (cBomba) {
+          const kx1 = cCond.x + 8;
+          const ky = cCond.y + 16;
+          const kx2 = cBomba.x + 2;
+          flCondP.setAttribute('d', `M ${kx1.toFixed(1)} ${ky.toFixed(1)} L ${kx2.toFixed(1)} ${ky.toFixed(1)}`);
+          flCondT.setAttribute('x', ((kx1 + kx2) * 0.5 + 8).toFixed(1));
+          flCondT.setAttribute('y', (ky + 14).toFixed(1));
+          flCondT.setAttribute('text-anchor', 'middle');
+        }
+
+        // 6) Aigua freda pujada del pou de la mina -> canaleta de desguàs
+        if (cMina) {
+          const mx1 = cMina.x;
+          const my1 = cMina.y + 26;
+          const my2 = cMina.y - 26;
+          const mx2 = cMina.x + 56;
+          flMineP.setAttribute('d', `M ${mx1.toFixed(1)} ${my1.toFixed(1)} L ${mx1.toFixed(1)} ${my2.toFixed(1)} L ${mx2.toFixed(1)} ${(my2 + 4).toFixed(1)}`);
+          flMineT.setAttribute('x', (mx1 + 26).toFixed(1));
+          flMineT.setAttribute('y', (my2 - 7).toFixed(1));
+          flMineT.setAttribute('text-anchor', 'middle');
+        }
+
+        const powerOn = (stepNum === 1 || stepNum === 2);
+        const eqOn = (stepNum === 3 || stepNum === 4);
+        const pumpOutOn = (stepNum === 2 || stepNum === 4);
+
+        const opHot = powerOn ? '0.92' : '0.14';
+        const opEq = eqOn ? '0.92' : '0.14';
+        const opCold = powerOn ? '0.88' : '0.18';
+        const opCond = pumpOutOn ? '0.88' : '0.24';
+
+        flHotP.style.opacity = opHot; flHotT.style.opacity = opHot;
+        flExhP.style.opacity = opHot; flExhT.style.opacity = opHot;
+        flEqP.style.opacity = opEq;   flEqT.style.opacity = opEq;
+        flInjP.style.opacity = opCold; flInjT.style.opacity = opCold;
+        flMineP.style.opacity = opCold; flMineT.style.opacity = opCold;
+        flCondP.style.opacity = opCond; flCondT.style.opacity = opCond;
+      }
+
+      function pintaFaseActual(stepNum) {
+        const f = FASES[stepNum] || FASES[1];
+        faseTxt.innerHTML = '<strong>' + f.tit + '</strong>' + f.txt;
+        const power = (stepNum === 1 || stepNum === 2);
+        const ret = (stepNum === 4);
+        posaChip(chipAdm, 'Admissió', power);
+        posaChip(chipEsc, 'Escapament', power);
+        posaChip(chipEq, 'Equilibri', ret);
+        stepBtns.forEach((b) => b.classList.toggle('actiu', Number(b.dataset.step) === stepNum));
+      }
+
+      let pasFixat = null;
+
+      function actualitzaLecturaCicle() {
+        const dur = mv.duration;
+        let stepNum = pasFixat || 1;
+        if (dur && dur > 0) {
+          const t = (mv.currentTime % dur) / dur;
+          stepNum = mv.paused && pasFixat ? pasFixat : faseDesdeFrac(t);
+          pintaFaseActual(stepNum);
+        }
+        actualitzaFluxTermic(stepNum);
+        posicionaMvPop();
+        requestAnimationFrame(actualitzaLecturaCicle);
+      }
+      requestAnimationFrame(actualitzaLecturaCicle);
+
+      function actualitzaBotoPlay() {
+        const pausat = mv.paused;
+        btnPlay.textContent = pausat ? 'Reprèn animació' : 'Pausa animació';
+        btnPlay.classList.toggle('actiu', !pausat);
+      }
+
+      btnPlay.addEventListener('click', () => {
+        pasFixat = null;
+        if (mv.paused) mv.play();
+        else mv.pause();
+        actualitzaBotoPlay();
+      });
+
+      stepBtns.forEach((b) => {
+        b.addEventListener('click', () => {
+          const stepNum = Number(b.dataset.step);
+          const frac = Number(b.dataset.frac);
+          pasFixat = stepNum;
+          mv.pause();
+          const dur = mv.duration || 2.5;
+          mv.currentTime = dur * frac;
+          pintaFaseActual(stepNum);
+          actualitzaBotoPlay();
+        });
+      });
+
+      btnEtiq.addEventListener('click', () => {
+        const amaga = mv.classList.toggle('sense-etiquetes');
+        btnEtiq.classList.toggle('actiu', !amaga);
+        if (amaga) tancaTotsHotspots3D();
+      });
+
+      btnFlux.addEventListener('click', () => {
+        const actiu = flowSvg.classList.toggle('visible');
+        flowLegend.classList.toggle('visible', actiu);
+        btnFlux.classList.toggle('actiu', actiu);
+      });
+
+      document.querySelectorAll('[data-orbit]').forEach((b) => {
+        b.addEventListener('click', () => {
+          mv.cameraOrbit = b.dataset.orbit;
+          mv.cameraTarget = b.dataset.target;
+          if (typeof mv.jumpCameraToGoal === 'function') mv.jumpCameraToGoal();
+        });
+      });
+
+      btnDetallZoom.addEventListener('click', () => {
+        mv.cameraOrbit = '8deg 72deg 6.8m';
+        mv.cameraTarget = '-0.85m 2.05m 0m';
+        if (typeof mv.jumpCameraToGoal === 'function') mv.jumpCameraToGoal();
+      });
+
+      // Desplaçament (pan) dreta-esquerra i amunt-avall
+      document.querySelectorAll('[data-pan]').forEach((b) => {
+        b.addEventListener('click', () => {
+          if (typeof mv.getCameraTarget !== 'function' || typeof mv.getCameraOrbit !== 'function') return;
+          const [px, py] = b.dataset.pan.split(',').map(Number);
+          const cur = mv.getCameraTarget();
+          const orb = mv.getCameraOrbit();
+          const step = Math.max(0.32, (orb.radius || 12) * 0.06);
+          const theta = orb.theta || 0;
+          const nx = cur.x + px * step * Math.cos(theta);
+          const ny = cur.y + py * step;
+          const nz = cur.z - px * step * Math.sin(theta);
+          mv.cameraTarget = nx.toFixed(3) + 'm ' + ny.toFixed(3) + 'm ' + nz.toFixed(3) + 'm';
+        });
+      });
+
+      btnPanReset.addEventListener('click', () => {
+        mv.cameraOrbit = '22deg 74deg 15.2m';
+        mv.cameraTarget = '0.45m 2.4m 0m';
+        if (typeof mv.jumpCameraToGoal === 'function') mv.jumpCameraToGoal();
+      });
+
+      let hsObertBtn = null;
+
+      function tancaTotsHotspots3D() {
+        hsObertBtn = null;
+        mvPop.classList.remove('obert');
+        mv.querySelectorAll('.hotspot-3d.actiu').forEach((b) => b.classList.remove('actiu'));
+      }
+
+      function posicionaMvPop() {
+        if (!hsObertBtn || !mvPop.classList.contains('obert')) return;
+        const rBtn = hsObertBtn.getBoundingClientRect();
+        const rCaixa = mvCaixa.getBoundingClientRect();
+        const pw = mvPop.offsetWidth || 255;
+        const ph = mvPop.offsetHeight || 110;
+        const cx = rBtn.left - rCaixa.left + rBtn.width * 0.5;
+        const topBtn = rBtn.top - rCaixa.top;
+        const botBtn = topBtn + rBtn.height;
+
+        let left = cx - pw * 0.5;
+        left = Math.max(8, Math.min(rCaixa.width - pw - 8, left));
+
+        let top = topBtn - ph - 10;
+        if (top < 8) {
+          top = Math.min(rCaixa.height - ph - 8, botBtn + 10);
+        }
+
+        mvPop.style.left = Math.round(left) + 'px';
+        mvPop.style.top = Math.round(top) + 'px';
+      }
+
+      function obreHotspot3D(clau, btn) {
+        const info = PECES[clau];
+        if (!info) return;
+        if (hsObertBtn === btn && mvPop.classList.contains('obert')) {
+          tancaTotsHotspots3D();
+          return;
+        }
+        tancaTotsHotspots3D();
+        hsObertBtn = btn;
+        btn.classList.add('actiu');
+        mvPop.innerHTML =
+          '<div class="pop-cap"><strong>' + info.nom + '</strong>' +
+          '<button type="button" class="pop-tanca" aria-label="Tanca">×</button></div>' +
+          '<p class="pop-txt">' + info.text + '</p>';
+        mvPop.querySelector('.pop-tanca').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          tancaTotsHotspots3D();
+        });
+        mvPop.classList.add('obert');
+        posicionaMvPop();
+      }
+
+      mvPop.addEventListener('click', (ev) => ev.stopPropagation());
+
+      function pintaHotspots3D() {
+        mv.querySelectorAll('.hs-wrap').forEach((n) => n.remove());
+        tancaTotsHotspots3D();
+        const hs = meta.hotspots_3d || {};
+        ORDRE.forEach((clau, idx) => {
+          const p = hs[clau];
+          const info = PECES[clau];
+          if (!p || !info) return;
+
+          const wrap = document.createElement('div');
+          wrap.slot = 'hotspot-' + clau;
+          wrap.className = 'hs-wrap';
+          wrap.dataset.clau = clau;
+          wrap.dataset.position = p[0] + 'm ' + p[1] + 'm ' + p[2] + 'm';
+          wrap.dataset.normal = '0m 0m 1m';
+
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'hotspot-3d';
+          b.textContent = String(idx + 1);
+          b.title = info.nom;
+          b.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            obreHotspot3D(clau, b);
+          });
+
+          wrap.appendChild(b);
+          mv.appendChild(wrap);
+        });
+      }
+
+      // --- Secció 2: làmines amb focus selectiu i bafarada inline ---
+      let mode = 'muntada';
+      const boxBlender = document.getElementById('box-blender');
+      const focusLayer = document.getElementById('focus-layer');
+      const pinPop = document.getElementById('pin-pop');
+      const imgActual = document.getElementById('img-actual');
+      const imgBlender = document.getElementById('img-blender');
+      const lblActual = document.getElementById('lbl-actual-fitxer');
+      const lblBlender = document.getElementById('lbl-blender-fitxer');
+      const tabM = document.getElementById('tab-muntada');
+      const tabE = document.getElementById('tab-explotada');
+
+      function tancaPinPop() {
+        pinPop.classList.remove('obert');
+        boxBlender.classList.remove('is-focused');
+        boxBlender.querySelectorAll('.pin-3d.actiu').forEach((p) => p.classList.remove('actiu'));
+      }
+
+      function obrePinPop(clau, pt) {
+        const info = PECES[clau];
+        if (!info || !pt) return;
+        const jaActiu = boxBlender.querySelector('.pin-3d[data-clau="' + clau + '"].actiu');
+        if (jaActiu && pinPop.classList.contains('obert')) {
+          tancaPinPop();
+          return;
+        }
+        boxBlender.querySelectorAll('.pin-3d').forEach((p) => {
+          p.classList.toggle('actiu', p.dataset.clau === clau);
+        });
+        focusLayer.src = 'assets/blender/out/focus/' + mode + '-' + clau + '.webp';
+        boxBlender.classList.add('is-focused');
+
+        pinPop.innerHTML =
+          '<div class="pop-cap"><strong>' + info.nom + '</strong>' +
+          '<button type="button" class="pop-tanca" aria-label="Tanca">×</button></div>' +
+          '<p class="pop-txt">' + info.text + '</p>';
+        pinPop.querySelector('.pop-tanca').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          tancaPinPop();
+        });
+
+        pinPop.classList.add('obert');
+        const bw = boxBlender.clientWidth || 320;
+        const bh = boxBlender.clientHeight || 200;
+        const pw = pinPop.offsetWidth || 240;
+        const ph = pinPop.offsetHeight || 110;
+        const cx = (pt[0] / 100) * bw;
+        const cy = (pt[1] / 100) * bh;
+
+        let left = cx - pw * 0.5;
+        left = Math.max(4, Math.min(bw - pw - 4, left));
+
+        let top = cy - ph - 18;
+        if (top < 4) {
+          top = cy + 18;
+        }
+
+        pinPop.style.right = 'auto';
+        pinPop.style.bottom = 'auto';
+        pinPop.style.transform = 'none';
+        pinPop.style.left = Math.round(left) + 'px';
+        pinPop.style.top = Math.round(top) + 'px';
+      }
+
+      function pintaPins() {
+        boxBlender.querySelectorAll('.pin-3d').forEach((n) => n.remove());
+        tancaPinPop();
+        const coords = mode === 'muntada' ? meta.muntada_pct : meta.explotada_pct;
+        ORDRE.forEach((clau, idx) => {
+          const pt = coords[clau];
+          if (!pt) return;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pin-3d';
+          btn.dataset.clau = clau;
+          btn.textContent = String(idx + 1);
+          btn.title = PECES[clau].nom;
+          btn.style.left = pt[0] + '%';
+          btn.style.top = pt[1] + '%';
+          btn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            obrePinPop(clau, pt);
+          });
+          boxBlender.appendChild(btn);
+        });
+      }
+
+      function canviaMode(nou) {
+        mode = nou;
+        const esM = nou === 'muntada';
+        tabM.classList.toggle('actiu', esM);
+        tabE.classList.toggle('actiu', !esM);
+        imgActual.src = esM ? 'img/illustration-watt.webp' : 'img/exploded-watt.webp';
+        imgBlender.src = esM ? 'assets/blender/out/watt-muntada.png' : 'assets/blender/out/watt-explotada.png';
+        lblActual.textContent = esM ? 'illustration-watt.webp' : 'exploded-watt.webp';
+        lblBlender.textContent = esM ? 'watt-muntada.png' : 'watt-explotada.png';
+        pintaPins();
+      }
+
+      tabM.addEventListener('click', () => canviaMode('muntada'));
+      tabE.addEventListener('click', () => canviaMode('explotada'));
+
+      pinPop.addEventListener('click', (ev) => ev.stopPropagation());
+      document.addEventListener('click', () => {
+        tancaTotsHotspots3D();
+        tancaPinPop();
+      });
+      document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') {
+          tancaTotsHotspots3D();
+          tancaPinPop();
+        }
+      });
+
+      fetch('assets/blender/out/watt_meta.json')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d && d.muntada_pct && d.explotada_pct) {
+            meta = d;
+            pintaPins();
+            pintaHotspots3D();
+          }
+        })
+        .catch(() => {});
+
+      pintaPins();
+    })();
+  </script>
+</body>
+</html>

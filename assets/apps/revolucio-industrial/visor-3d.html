@@ -1,0 +1,1252 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later AND CC-BY-NC-SA-4.0 -->
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4ecd9">
+  <title>Visor 3D interactiu · La Revolució Industrial</title>
+  <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&display=swap" rel="stylesheet">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <style>
+    :root {
+      --paper: #f6efde;
+      --paper2: #fffdf7;
+      --ink: #2e221a;
+      --muted: #6b5848;
+      --accent: #9e2d18;
+      --accent-soft: #fae4d4;
+      --blue: #186487;
+      --line: rgba(46, 34, 26, 0.14);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Figtree', system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    .page-wrap {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 16px 20px 28px;
+    }
+    body.es-popup .page-wrap {
+      padding: 10px 14px 14px;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    body.es-popup .topbar { display: none; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: var(--paper2);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .back-link:hover { border-color: var(--accent); color: var(--accent); }
+    .badge-pilot {
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-head { margin-bottom: 12px; }
+    body.es-popup .hero-head { margin-bottom: 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+    body.es-popup .hero-head .eyebrow { width: 100%; font-size: 0.7rem; }
+    body.es-popup .hero-head h1 { font-size: clamp(1.12rem, 1.75vw, 1.42rem); margin: 0; }
+    body.es-popup .hero-head .sub { font-size: 0.82rem; line-height: 1.35; }
+    .eyebrow {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    h1 {
+      margin: 3px 0 4px;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(1.38rem, 2.5vw, 1.95rem);
+      line-height: 1.15;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+      max-width: 78ch;
+    }
+    .layout-3d {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 338px;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1020px) {
+      .layout-3d { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--paper2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(46, 34, 26, 0.06);
+    }
+    .pilot-main {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pilot-hint {
+      font-size: 0.77rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .pilot-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+    .mv-transport {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      background: #f8f2e4;
+      border: 1px solid var(--line);
+    }
+    .mv-play-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 14px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(158, 45, 24, 0.24);
+      transition: filter 0.15s;
+    }
+    .mv-play-btn:hover { filter: brightness(1.08); }
+    .mv-play-btn[aria-pressed="false"] { background: #3e6b48; }
+    .mv-seek-wrap {
+      position: relative;
+      flex: 1 1 auto;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      min-width: 110px;
+    }
+    .mv-seek-trams {
+      position: absolute;
+      inset: 5px 0;
+      display: flex;
+      gap: 3px;
+      pointer-events: none;
+    }
+    .mv-seek-trams span {
+      flex: 1;
+      border-radius: 6px;
+      background: #e4d9bf;
+      border: 1px solid rgba(46, 34, 26, 0.14);
+      transition: background 0.15s;
+    }
+    .mv-seek-trams span.act {
+      background: #eed2a8;
+      border-color: rgba(158, 45, 24, 0.35);
+    }
+    .mv-seek {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 30px;
+      margin: 0;
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .mv-seek::-webkit-slider-runnable-track { background: transparent; height: 20px; }
+    .mv-seek::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 28px;
+      margin-top: -4px;
+      border-radius: 6px;
+      background: var(--ink);
+      border: 2px solid #fffdf7;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.32);
+      cursor: grab;
+    }
+    .mv-seek::-moz-range-track { background: transparent; height: 20px; }
+    .mv-seek::-moz-range-thumb {
+      width: 12px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--ink);
+      border: 2px solid #fffdf7;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.32);
+      cursor: grab;
+    }
+    .mv-pct {
+      flex: 0 0 auto;
+      min-width: 34px;
+      text-align: right;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    button.pill-vel {
+      flex: 0 0 auto;
+      appearance: none;
+      border: 1.5px solid #b5925b;
+      background: #fff8e7;
+      color: #5b3a12;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    button.pill-vel:hover { background: #f9e6ba; border-color: #7c511a; }
+    @media (max-width: 560px) {
+      .mv-transport { flex-wrap: wrap; gap: 6px; }
+      .mv-seek-wrap { order: 3; flex: 1 0 100%; }
+      .mv-pct { order: 2; }
+    }
+    button.pill {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #f5ecda;
+      color: var(--ink);
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    button.pill:hover { border-color: var(--ink); background: #efe2c8; }
+    button.pill[aria-pressed="true"] {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    button.pill.flux-actiu[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .mv-wrap {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: radial-gradient(circle at 50% 44%, #fcf8ee 0%, #ede3cc 100%);
+      height: clamp(340px, 56vh, 520px);
+    }
+    body.es-popup .card { padding: 10px 12px; }
+    body.es-popup .pilot-main { gap: 7px; }
+    body.es-popup .pilot-aside { gap: 6px; }
+    body.es-popup .mv-wrap {
+      height: clamp(290px, 55vh, 470px);
+    }
+    body.es-popup .detail-fig img { height: 104px; }
+    body.es-popup .idea-box { padding: 7px 10px; font-size: 0.82rem; line-height: 1.4; }
+    body.es-popup .phase-box { padding: 7px 10px; font-size: 0.80rem; min-height: 102px; }
+    @media (min-width: 1021px) and (min-height: 560px) {
+      html:has(body.es-popup),
+      body.es-popup {
+        height: 100%;
+        overflow: hidden;
+      }
+      body.es-popup .page-wrap {
+        max-width: none;
+        width: 100%;
+        height: 100vh;
+        height: 100%;
+        padding: 10px 18px 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      body.es-popup .hero-head { flex: 0 0 auto; }
+      body.es-popup .layout-3d {
+        flex: 1 1 auto;
+        min-height: 0;
+        grid-template-rows: minmax(0, 1fr);
+        align-items: stretch;
+      }
+      body.es-popup .pilot-main {
+        height: 100%;
+        min-height: 0;
+      }
+      body.es-popup .mv-wrap {
+        flex: 1 1 auto;
+        min-height: 300px;
+        height: 100%;
+      }
+      body.es-popup .pilot-aside {
+        max-height: 100%;
+        overflow-y: auto;
+      }
+    }
+    @media (max-width: 720px) {
+      .mv-wrap { height: clamp(300px, 46vh, 390px); }
+      .mv-pad { grid-template-columns: repeat(3, 24px); grid-template-rows: repeat(3, 24px); right: 8px; bottom: 8px; }
+      .mv-pad button { font-size: 0.74rem; }
+    }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      --poster-color: transparent;
+      display: block;
+    }
+    model-viewer:not(.show-hs) .hs {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 2px solid #fffdf7;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.34);
+      transition: transform 0.15s, background 0.15s;
+      padding: 0;
+    }
+    .hs:hover, .hs.actiu {
+      background: #2e221a;
+      transform: scale(1.16);
+    }
+    .flow-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .flow-svg.visible { opacity: 1; }
+    .flow-svg .fl-path {
+      fill: none;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-dasharray: 9 7;
+      animation: flow-dash 1.25s linear infinite;
+      transition: opacity 0.28s;
+    }
+    .flow-svg .fl-hot { stroke: #c24b22; }
+    .flow-svg .fl-cold { stroke: #197196; }
+    .flow-svg .fl-eq { stroke: #8a5a18; }
+    .flow-svg .fl-lbl {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      paint-order: stroke;
+      stroke: rgba(255, 252, 247, 0.94);
+      stroke-width: 3.5px;
+      transition: opacity 0.28s;
+    }
+    .flow-svg .hot-lbl { fill: #9b3714; }
+    .flow-svg .cold-lbl { fill: #125d80; }
+    .flow-svg .eq-lbl { fill: #7b4e11; }
+    .flow-legend {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.88);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--line);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink);
+      pointer-events: none;
+      z-index: 12;
+    }
+    .flow-legend.visible { display: inline-flex; }
+    .flow-legend .dot-hot::before,
+    .flow-legend .dot-cold::before { content: '● '; }
+    .flow-legend .dot-hot { color: #a8421b; }
+    .flow-legend .dot-cold { color: #16688c; }
+    @keyframes flow-dash { to { stroke-dashoffset: -32; } }
+
+    .mv-pop {
+      display: none;
+      position: absolute;
+      width: min(268px, 76vw);
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #fffdf7;
+      border: 1.5px solid rgba(46, 34, 26, 0.30);
+      box-shadow: 0 10px 26px rgba(24, 16, 10, 0.24);
+      color: var(--ink);
+      font-family: 'Figtree', sans-serif;
+      font-size: 0.83rem;
+      line-height: 1.42;
+      text-align: left;
+      pointer-events: auto;
+      z-index: 60;
+    }
+    .mv-pop.obert { display: block; }
+    .pop-cap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .pop-cap strong {
+      color: var(--accent);
+      font-size: 0.86rem;
+      line-height: 1.25;
+    }
+    .pop-tanca {
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(46, 34, 26, 0.10);
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .pop-tanca:hover { background: rgba(46, 34, 26, 0.22); }
+    .pop-txt { margin: 0; color: var(--ink); }
+    .pop-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px solid var(--line);
+    }
+    .pop-nav button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8f1e2;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      cursor: pointer;
+    }
+    .pop-nav button:hover { border-color: var(--accent); background: #f2e4ca; }
+    .pop-nav .pop-zoom {
+      background: var(--accent-soft);
+      border-color: rgba(158, 45, 24, 0.35);
+      color: var(--accent);
+      margin-right: auto;
+    }
+    .pop-nav .pop-zoom.actiu {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .mv-pad {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 28px);
+      grid-template-rows: repeat(3, 28px);
+      gap: 3px;
+      padding: 4px;
+      border-radius: 10px;
+      background: rgba(255, 253, 247, 0.88);
+      border: 1px solid rgba(46, 34, 26, 0.18);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      z-index: 25;
+    }
+    .mv-pad button {
+      border: 1px solid rgba(46, 34, 26, 0.14);
+      border-radius: 6px;
+      background: #fffdf7;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 0.82rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mv-pad button:hover { background: #f3e4cd; }
+    .mv-pad .up { grid-column: 2; grid-row: 1; }
+    .mv-pad .lt { grid-column: 1; grid-row: 2; }
+    .mv-pad .rst { grid-column: 2; grid-row: 2; font-size: 0.76rem; }
+    .mv-pad .rt { grid-column: 3; grid-row: 2; }
+    .mv-pad .dn { grid-column: 2; grid-row: 3; }
+
+    .steps-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+    }
+    @media (max-width: 720px) {
+      .steps-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .step-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: #f9f3e4;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .step-btn:hover { background: #f2e5cb; border-color: var(--ink); }
+    .step-btn.actiu {
+      background: #fae8d6;
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px rgba(158, 45, 24, 0.28);
+    }
+    .step-btn .k {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: #d8cdb7;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    .step-btn.actiu .k {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .pilot-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .aside-eyebrow {
+      font-size: 0.71rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .pilot-aside h2 {
+      margin: 2px 0 0;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.24rem;
+      line-height: 1.2;
+    }
+    .idea-box {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #fcf4e6;
+      border-left: 3.5px solid var(--accent);
+      font-size: 0.87rem;
+      line-height: 1.45;
+    }
+    .idea-box strong { color: var(--accent); }
+    .detail-fig {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fbf7ec;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+    }
+    .detail-fig:hover { border-color: var(--accent); }
+    .detail-fig img {
+      display: block;
+      width: 100%;
+      height: 142px;
+      object-fit: cover;
+      background: #f5eedb;
+    }
+    .detail-cap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-top: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .detail-cap span:last-child { color: var(--blue); }
+    .phase-box {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f6efe0;
+      border: 1px solid var(--line);
+      font-size: 0.84rem;
+      min-height: 112px;
+    }
+    .phase-box strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 3px;
+      font-size: 0.87rem;
+    }
+    .phase-box p { margin: 0 0 8px; line-height: 1.42; }
+    .valv-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .valv-xip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .valv-xip.oberta { background: #e6f4e4; border-color: #3f7d38; color: #265420; }
+    .valv-xip.tancada { background: #fbe9e5; border-color: #b4432a; color: #7a2614; }
+    .sources-note {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .sources-note a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="topbar">
+      <a class="back-link" id="back-link" href="vapor.html#watt">← Tornar al capítol</a>
+      <span class="badge-pilot" id="badge-pilot">MODEL 3D INTERACTIU</span>
+    </div>
+
+    <div class="hero-head">
+      <div class="eyebrow" id="hero-eyebrow">MODEL 3D INTERACTIU</div>
+      <h1 id="hero-title">Carregant model…</h1>
+      <p class="sub" id="hero-sub"></p>
+    </div>
+
+    <div class="layout-3d">
+      <section class="card pilot-main">
+        <div class="pilot-hint">
+          <strong>Esquerra:</strong> gira 360° · <strong>Roda:</strong> amplia ·
+          <strong>Botó dret / Maj+arrossegar / fletxes:</strong> desplaça ·
+          <strong>Número (1–N):</strong> obre la descripció allà mateix.
+        </div>
+
+        <div class="pilot-controls">
+          <button class="pill" id="btn-etiquetes" aria-pressed="true">Etiquetes 3D</button>
+          <button class="pill flux-actiu" id="btn-flux" aria-pressed="false">Curs i moviment</button>
+          <button class="pill" id="btn-tour" aria-pressed="false" title="Recorre pas a pas l’interior de la màquina acostant-hi la càmera">🔍 Recorregut interior</button>
+        </div>
+
+        <div class="mv-wrap" id="mv-wrap">
+          <model-viewer
+            id="mv"
+            class="show-hs"
+            src=""
+            poster=""
+            alt=""
+            camera-controls
+            min-camera-orbit="auto auto 0.45m"
+            min-field-of-view="10deg"
+            interpolation-decay="95"
+            enable-pan
+            autoplay
+            environment-image="neutral"
+            tone-mapping="agx"
+            touch-action="none"
+            shadow-intensity="0.90"
+            shadow-softness="0.72"
+            exposure="1.05"
+          >
+            <svg slot="hotspot-placeholder" style="display:none"></svg>
+          </model-viewer>
+
+          <svg class="flow-svg" id="flow-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="arr-hot" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto">
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c24b22"/>
+              </marker>
+              <marker id="arr-cold" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto">
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#197196"/>
+              </marker>
+              <marker id="arr-eq" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto">
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8a5a18"/>
+              </marker>
+            </defs>
+            <g id="flow-layers"></g>
+          </svg>
+
+          <div class="flow-legend" id="flow-legend">
+            <span class="dot-hot" id="leg-hot"></span>
+            <span class="dot-cold" id="leg-cold"></span>
+          </div>
+
+          <div class="mv-pad" aria-label="Desplaçament lateral i vertical">
+            <button type="button" class="up" data-pan="0,0.28,0" title="Amunt">↑</button>
+            <button type="button" class="lt" data-pan="-0.32,0,0" title="Esquerra">←</button>
+            <button type="button" class="rst" id="btn-pan-reset" title="Centra vista">⌖</button>
+            <button type="button" class="rt" data-pan="0.32,0,0" title="Dreta">→</button>
+            <button type="button" class="dn" data-pan="0,-0.28,0" title="Avall">↓</button>
+          </div>
+
+          <div class="mv-pop" id="mv-pop" role="dialog" aria-live="polite">
+            <div class="pop-cap">
+              <strong id="mv-pop-tit"></strong>
+              <button type="button" class="pop-tanca" id="mv-pop-tanca" aria-label="Tanca">×</button>
+            </div>
+            <p class="pop-txt" id="mv-pop-txt"></p>
+            <div class="pop-nav">
+              <button type="button" class="pop-zoom" id="mv-pop-zoom" title="Acosta i centra la càmera en aquesta peça">🔭 Acosta-t’hi</button>
+              <button type="button" id="mv-pop-prev" title="Peça anterior">‹</button>
+              <button type="button" id="mv-pop-next" title="Peça següent">›</button>
+              <button type="button" id="mv-pop-reset" title="Torna a la vista general">↺</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mv-transport" aria-label="Control de l’animació i barra de progrés">
+          <button type="button" class="mv-play-btn" id="btn-play" aria-pressed="true">⏸ Pausa</button>
+          <div class="mv-seek-wrap">
+            <div class="mv-seek-trams" id="mv-seek-trams" aria-hidden="true"></div>
+            <input type="range" class="mv-seek" id="mv-seek" min="0" max="1000" value="0" aria-label="Progrés de l’animació" />
+          </div>
+          <span class="mv-pct" id="mv-pct">0%</span>
+          <button type="button" class="pill-vel" id="btn-vel" title="Canvia la velocitat de l’animació">Vel: lenta</button>
+        </div>
+
+        <div class="steps-4" id="steps-4" aria-label="Fases del cicle"></div>
+      </section>
+
+      <aside class="card pilot-aside">
+        <div>
+          <div class="aside-eyebrow">La idea que ho canvia tot</div>
+          <h2 id="idea-titol"></h2>
+        </div>
+
+        <div class="idea-box" id="idea-box"></div>
+
+        <button type="button" class="detail-fig" id="btn-detall-zoom" title="Clica per acostar la càmera 3D a aquest detall">
+          <img id="detall-img" src="" alt="" />
+          <div class="detail-cap">
+            <span id="detall-l"></span>
+            <span id="detall-r"></span>
+          </div>
+        </button>
+
+        <div class="phase-box" id="cicle-fase">
+          <strong id="fase-titol"></strong>
+          <p id="fase-desc"></p>
+          <div class="valv-chips" id="fase-chips"></div>
+        </div>
+
+        <div class="sources-note" id="fonament-note"></div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/visor3d-dades.js?v=20261114-3d5"></script>
+  <script>
+    (function () {
+      const qs = new URLSearchParams(location.search);
+      const id = (qs.get('m') || 'watt').toLowerCase();
+      if (qs.get('popup') === '1') {
+        document.body.classList.add('es-popup');
+        document.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Escape' && window.parent && window.parent !== window) {
+            window.parent.postMessage({ tipus: 'tanca-modal-3d' }, '*');
+          }
+        });
+        window.addEventListener('message', (ev) => {
+          if (ev.data && ev.data.tipus === 'fs-modal-3d') {
+            const act = !!ev.data.actiu;
+            document.documentElement.classList.toggle('en-fs', act);
+            document.body.classList.toggle('en-fs', act);
+            requestAnimationFrame(actualitzaFluxSVG);
+          }
+        });
+        if (window.parent && window.parent !== window) {
+          try { window.parent.postMessage({ tipus: 'consulta-fs-modal-3d' }, '*'); } catch (_) {}
+        }
+      }
+      const specs = (window.RI_VISOR3D_DADES || {});
+      const spec = specs[id] || specs.watt;
+      if (!spec) return;
+
+      document.title = spec.titol + ' · 3D · La Revolució Industrial';
+      document.getElementById('back-link').href = spec.backHref;
+      document.getElementById('back-link').textContent = '← ' + spec.backLabel;
+      document.getElementById('badge-pilot').textContent = spec.badge;
+      document.getElementById('hero-eyebrow').textContent = spec.eyebrow;
+      document.getElementById('hero-title').textContent = spec.titol;
+      document.getElementById('hero-sub').textContent = spec.subtitol;
+      document.getElementById('idea-titol').textContent = spec.ideaTitol;
+      document.getElementById('idea-box').innerHTML = spec.ideaHtml;
+      document.getElementById('detall-img').src = spec.detallImg;
+      document.getElementById('detall-img').alt = spec.detallAlt;
+      document.getElementById('detall-l').textContent = spec.detallL;
+      document.getElementById('detall-r').textContent = spec.detallR;
+      document.getElementById('fonament-note').innerHTML = spec.fonamentHtml;
+      document.getElementById('btn-flux').textContent = spec.flowBtnLabel;
+      document.getElementById('leg-hot').textContent = spec.legendHot;
+      document.getElementById('leg-cold').textContent = spec.legendCold;
+
+      const mv = document.getElementById('mv');
+      const mvWrap = document.getElementById('mv-wrap');
+      const mvPop = document.getElementById('mv-pop');
+      const mvPopTit = document.getElementById('mv-pop-tit');
+      const mvPopTxt = document.getElementById('mv-pop-txt');
+      const btnPlay = document.getElementById('btn-play');
+      const btnVel = document.getElementById('btn-vel');
+      const mvSeek = document.getElementById('mv-seek');
+      const mvSeekTrams = document.getElementById('mv-seek-trams');
+      const mvPct = document.getElementById('mv-pct');
+      // Cicle real de ~2,5 s massa ràpid: per defecte 0,16× (~15 s per cicle), opció molt lenta (0,08×) i normal (0,38×)
+      const VELOCITATS = [['lenta', 0.16], ['molt lenta', 0.08], ['normal', 0.38]];
+      let velIdx = 0;
+      function aplicaVelocitat() {
+        mv.timeScale = VELOCITATS[velIdx][1];
+        btnVel.textContent = 'Vel: ' + VELOCITATS[velIdx][0];
+      }
+      function pintaPlayBtn(playing) {
+        btnPlay.textContent = playing ? '⏸ Pausa' : '▶ Reprodueix';
+        btnPlay.setAttribute('aria-pressed', playing ? 'true' : 'false');
+      }
+      btnVel.addEventListener('click', () => { velIdx = (velIdx + 1) % VELOCITATS.length; aplicaVelocitat(); });
+      aplicaVelocitat();
+      const btnEtq = document.getElementById('btn-etiquetes');
+      const btnFlux = document.getElementById('btn-flux');
+      const btnTour = document.getElementById('btn-tour');
+      const mvPopZoom = document.getElementById('mv-pop-zoom');
+      const mvPopPrev = document.getElementById('mv-pop-prev');
+      const mvPopNext = document.getElementById('mv-pop-next');
+      const mvPopReset = document.getElementById('mv-pop-reset');
+      const flowSvg = document.getElementById('flow-svg');
+      const flowLayers = document.getElementById('flow-layers');
+      const flowLegend = document.getElementById('flow-legend');
+      const stepsBox = document.getElementById('steps-4');
+
+      let activeHsBtn = null;
+      let zoomedDetail = false;
+      let tourActiu = false;
+      let currentFaseIdx = 0;
+
+      // Carregar model i càmera inicial
+      // Models comprimits (Draco + WebP); la versió força el navegador a no reutilitzar els antics
+      mv.src = spec.glb + '?v=20261114-opt2';
+      mv.poster = spec.poster;
+      mv.alt = spec.titol;
+      // Les distàncies de càmera estan pensades per a un requadre apaïsat (~1,85:1);
+      // si és més alt en proporció, la càmera s'allunya perquè la màquina no quedi retallada
+      // i abaixa lleugerament l'objectiu vertical perquè el model pugi al centre en mòbil.
+      function aspecteViewport() {
+        const r = mvWrap.getBoundingClientRect();
+        return r.width && r.height ? r.width / r.height : 2;
+      }
+      function orbitaGeneral() {
+        const aspecte = aspecteViewport();
+        const k = Math.max(1, Math.pow(1.85 / aspecte, 0.82));
+        return spec.cameraOrbit.replace(/([\d.]+)m$/, (_, d) => (parseFloat(d) * k).toFixed(2) + 'm');
+      }
+      function targetGeneral() {
+        const aspecte = aspecteViewport();
+        if (aspecte >= 1.25) return spec.cameraTarget;
+        const m = spec.cameraTarget.trim().split(/\s+/);
+        if (m.length !== 3) return spec.cameraTarget;
+        const y0 = parseFloat(m[1]);
+        if (!Number.isFinite(y0)) return spec.cameraTarget;
+        const baixada = Math.min(0.68, Math.max(0.28, y0 * 0.50)) * Math.min(1, (1.25 - aspecte) / 0.45);
+        return `${m[0]} ${Math.max(0.15, y0 - baixada).toFixed(2)}m ${m[2]}`;
+      }
+      mv.cameraOrbit = orbitaGeneral();
+      mv.cameraTarget = targetGeneral();
+      mv.fieldOfView = spec.fov || '36deg';
+
+      // Crear hotspots 3D dinàmics
+      const entries = Object.entries(spec.hotspots);
+      entries.forEach(([key, h]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'hs';
+        b.slot = 'hotspot-' + key;
+        b.dataset.hs = key;
+        b.dataset.position = `${h.pos3d[0]}m ${h.pos3d[1]}m ${h.pos3d[2]}m`;
+        b.dataset.normal = '0m 0m 1m';
+        b.textContent = String(h.num);
+        b.title = `${h.num} · ${h.titol}`;
+        mv.appendChild(b);
+      });
+
+      // Crear 4 botons de fase + trams de la barra de progrés
+      stepsBox.innerHTML = spec.fases.map((f, idx) =>
+        `<button type="button" class="step-btn${idx === 0 ? ' actiu' : ''}" data-fase-idx="${idx}"><span class="k">${idx + 1}</span><span>${f.curt}</span></button>`
+      ).join('');
+      mvSeekTrams.innerHTML = spec.fases.map((f, idx) => {
+        const nextP = idx + 1 < spec.fases.length ? spec.fases[idx + 1].pMin : 1;
+        const w = Math.max(0.08, nextP - f.pMin);
+        return `<span style="flex:${w.toFixed(3)}" class="${idx === 0 ? 'act' : ''}"></span>`;
+      }).join('');
+
+      // Crear capes SVG per als fluxos discrets
+      flowLayers.innerHTML = spec.flows.map(fl => {
+        const marker = fl.cls === 'fl-cold' ? 'url(#arr-cold)' : fl.cls === 'fl-eq' ? 'url(#arr-eq)' : 'url(#arr-hot)';
+        const lblCls = fl.cls === 'fl-cold' ? 'cold-lbl' : fl.cls === 'fl-eq' ? 'eq-lbl' : 'hot-lbl';
+        return `<path id="flp-${fl.id}" class="fl-path ${fl.cls}" marker-end="${marker}" d=""/>` +
+               `<text id="flt-${fl.id}" class="fl-lbl ${lblCls}" text-anchor="middle" x="0" y="0">${fl.lbl}</text>`;
+      }).join('');
+
+      function posPopNearButton(btn) {
+        const wRect = mvWrap.getBoundingClientRect();
+        mvPop.classList.add('obert');
+        const pw = mvPop.offsetWidth || 255;
+        const ph = mvPop.offsetHeight || 110;
+        if (tourActiu || mvPopZoom.classList.contains('actiu')) {
+          mvPop.style.left = '10px';
+          mvPop.style.top = (wRect.width < 520 ? 10 : Math.round(Math.max(10, wRect.height - ph - 10))) + 'px';
+          return;
+        }
+        const bRect = btn.getBoundingClientRect();
+        const cx = bRect.left - wRect.left + bRect.width / 2;
+        const cy = bRect.top - wRect.top + bRect.height / 2;
+        let left = cx + 16;
+        if (left + pw > wRect.width - 10) left = cx - pw - 16;
+        left = Math.max(10, Math.min(wRect.width - pw - 10, left));
+        let top = cy - ph / 2;
+        if (top < 10) top = cy + 18;
+        top = Math.max(10, Math.min(wRect.height - ph - 10, top));
+        mvPop.style.left = Math.round(left) + 'px';
+        mvPop.style.top = Math.round(top) + 'px';
+      }
+
+      function tancaMvPop() {
+        mvPop.classList.remove('obert');
+        if (activeHsBtn) { activeHsBtn.classList.remove('actiu'); activeHsBtn = null; }
+      }
+
+      function faseDesdeTemps(p) {
+        for (let i = spec.fases.length - 1; i >= 0; i--) {
+          if (p >= spec.fases[i].pMin) return i;
+        }
+        return 0;
+      }
+
+      function pintaFaseUI(idx) {
+        currentFaseIdx = idx;
+        const f = spec.fases[idx];
+        document.getElementById('fase-titol').textContent = `${idx + 1} · ${f.titol}`;
+        document.getElementById('fase-desc').innerHTML = f.desc;
+        document.getElementById('fase-chips').innerHTML = f.chips.map(([txt, estat]) =>
+          `<span class="valv-xip ${estat}">${txt}</span>`
+        ).join('');
+        stepsBox.querySelectorAll('.step-btn').forEach((b, k) => b.classList.toggle('actiu', k === idx));
+        mvSeekTrams.querySelectorAll('span').forEach((s, k) => s.classList.toggle('act', k === idx));
+        actualitzaOpacitatFlux(idx);
+      }
+
+      function centreHs(key) {
+        const btn = mv.querySelector(`.hs[data-hs="${key}"]`);
+        if (!btn) return null;
+        const wr = mvWrap.getBoundingClientRect();
+        const r = btn.getBoundingClientRect();
+        if (!r.width && !r.height) return null;
+        return { x: r.left - wr.left + r.width / 2, y: r.top - wr.top + r.height / 2 };
+      }
+
+      function actualitzaFluxSVG() {
+        const wr = mvWrap.getBoundingClientRect();
+        if (wr.width < 10 || wr.height < 10) return;
+        flowSvg.setAttribute('viewBox', `0 0 ${Math.round(wr.width)} ${Math.round(wr.height)}`);
+        spec.flows.forEach(fl => {
+          const pA = centreHs(fl.from);
+          const pB = fl.to ? centreHs(fl.to) : null;
+          const pEl = document.getElementById('flp-' + fl.id);
+          const tEl = document.getElementById('flt-' + fl.id);
+          if (!pA || !pEl || !tEl) return;
+          const x1 = pA.x + (fl.dx1 || 0);
+          const y1 = pA.y + (fl.dy1 || 0);
+          const x2 = pB ? (pB.x + (fl.dx2 || 0)) : (x1 + (fl.dx2 || 0));
+          const y2 = pB ? (pB.y + (fl.dy2 || 0)) : (y1 + (fl.dy2 || 0));
+          const mx = (x1 + x2) * 0.5 + (fl.ctrlDx || 0);
+          const my = (y1 + y2) * 0.5 + (fl.ctrlDy || -16);
+          pEl.setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+          tEl.setAttribute('x', (mx + (fl.lblDx || 0)).toFixed(1));
+          tEl.setAttribute('y', (my + (fl.lblDy != null ? fl.lblDy : -6)).toFixed(1));
+        });
+        if (activeHsBtn && mvPop.classList.contains('obert')) posPopNearButton(activeHsBtn);
+      }
+
+      function actualitzaOpacitatFlux(idx) {
+        spec.flows.forEach(fl => {
+          const actiu = fl.fases.includes(idx);
+          const pEl = document.getElementById('flp-' + fl.id);
+          const tEl = document.getElementById('flt-' + fl.id);
+          if (pEl) pEl.style.opacity = actiu ? '0.92' : '0.18';
+          if (tEl) tEl.style.opacity = actiu ? '0.95' : '0.26';
+        });
+      }
+
+      function syncSeekFromP(p) {
+        if (document.activeElement !== mvSeek) mvSeek.value = String(Math.round(p * 1000));
+        mvPct.textContent = Math.round(p * 100) + '%';
+      }
+
+      btnPlay.addEventListener('click', () => {
+        if (mv.paused) {
+          mv.play();
+          pintaPlayBtn(true);
+        } else {
+          mv.pause();
+          pintaPlayBtn(false);
+        }
+      });
+
+      mvSeek.addEventListener('input', () => {
+        const p = Math.max(0, Math.min(0.999, (+mvSeek.value || 0) / 1000));
+        mv.pause();
+        pintaPlayBtn(false);
+        if (mv.duration) mv.currentTime = p * mv.duration;
+        mvPct.textContent = Math.round(p * 100) + '%';
+        const idx = faseDesdeTemps(p);
+        if (idx !== currentFaseIdx) pintaFaseUI(idx);
+        requestAnimationFrame(actualitzaFluxSVG);
+      });
+
+      btnEtq.addEventListener('click', () => {
+        const on = btnEtq.getAttribute('aria-pressed') !== 'true';
+        btnEtq.setAttribute('aria-pressed', String(on));
+        mv.classList.toggle('show-hs', on);
+        if (!on) tancaMvPop();
+      });
+
+      btnFlux.addEventListener('click', () => {
+        const on = btnFlux.getAttribute('aria-pressed') !== 'true';
+        btnFlux.setAttribute('aria-pressed', String(on));
+        flowSvg.classList.toggle('visible', on);
+        flowLegend.classList.toggle('visible', on);
+        actualitzaFluxSVG();
+      });
+
+      function distBase() {
+        const m = spec.cameraOrbit.match(/([\d.]+)m$/);
+        return m ? parseFloat(m[1]) : 8;
+      }
+      function enfocaHotspot(key) {
+        const info = spec.hotspots[key];
+        if (!info || !info.pos3d) return;
+        const p = info.pos3d;
+        mv.cameraTarget = `${p[0].toFixed(2)}m ${p[1].toFixed(2)}m ${p[2].toFixed(2)}m`;
+        if (info.orbit) {
+          mv.cameraOrbit = info.orbit;
+        } else {
+          const d = Math.max(1.75, Math.min(3.4, distBase() * 0.34));
+          mv.cameraOrbit = `16deg 76deg ${d.toFixed(2)}m`;
+        }
+        zoomedDetail = false;
+        mvPopZoom.classList.add('actiu');
+        document.getElementById('detall-r').textContent = spec.detallR;
+      }
+      function tornaVistaGeneral() {
+        zoomedDetail = false;
+        tourActiu = false;
+        btnTour.setAttribute('aria-pressed', 'false');
+        mvPopZoom.classList.remove('actiu');
+        mv.cameraOrbit = orbitaGeneral();
+        mv.cameraTarget = targetGeneral();
+        document.getElementById('detall-r').textContent = spec.detallR;
+        requestAnimationFrame(actualitzaFluxSVG);
+      }
+      function obriHotspot(b, enfoca) {
+        if (!b) return;
+        if (activeHsBtn) activeHsBtn.classList.remove('actiu');
+        activeHsBtn = b;
+        b.classList.add('actiu');
+        const info = spec.hotspots[b.dataset.hs];
+        mvPopTit.textContent = `${info.num} · ${info.titol}`;
+        mvPopTxt.textContent = info.text;
+        mvPopZoom.classList.toggle('actiu', !!(enfoca || tourActiu));
+        if (enfoca || tourActiu) enfocaHotspot(b.dataset.hs);
+        posPopNearButton(b);
+      }
+      function saltaHotspot(delta) {
+        const btns = Array.from(mv.querySelectorAll('.hs'));
+        if (!btns.length) return;
+        const idx = activeHsBtn ? btns.indexOf(activeHsBtn) : -1;
+        const nextIdx = (idx + delta + btns.length) % btns.length;
+        if (!mv.classList.contains('show-hs')) {
+          mv.classList.add('show-hs');
+          btnEtq.setAttribute('aria-pressed', 'true');
+        }
+        obriHotspot(btns[nextIdx], tourActiu || mvPopZoom.classList.contains('actiu'));
+      }
+
+      btnTour.addEventListener('click', () => {
+        tourActiu = btnTour.getAttribute('aria-pressed') !== 'true';
+        btnTour.setAttribute('aria-pressed', String(tourActiu));
+        if (tourActiu) {
+          if (!mv.classList.contains('show-hs')) {
+            mv.classList.add('show-hs');
+            btnEtq.setAttribute('aria-pressed', 'true');
+          }
+          const targetBtn = activeHsBtn || mv.querySelector('.hs');
+          if (targetBtn) obriHotspot(targetBtn, true);
+        } else {
+          tornaVistaGeneral();
+        }
+      });
+
+      mv.addEventListener('click', (ev) => {
+        const b = ev.target.closest('.hs');
+        if (!b) { tancaMvPop(); return; }
+        ev.stopPropagation();
+        if (activeHsBtn === b && mvPop.classList.contains('obert')) { tancaMvPop(); return; }
+        obriHotspot(b, tourActiu);
+      });
+      mvPopZoom.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        if (!activeHsBtn) return;
+        tourActiu = true;
+        btnTour.setAttribute('aria-pressed', 'true');
+        enfocaHotspot(activeHsBtn.dataset.hs);
+      });
+      mvPopPrev.addEventListener('click', (ev) => { ev.stopPropagation(); saltaHotspot(-1); });
+      mvPopNext.addEventListener('click', (ev) => { ev.stopPropagation(); saltaHotspot(1); });
+      mvPopReset.addEventListener('click', (ev) => { ev.stopPropagation(); tornaVistaGeneral(); });
+      document.getElementById('mv-pop-tanca').addEventListener('click', tancaMvPop);
+
+      stepsBox.addEventListener('click', (ev) => {
+        const b = ev.target.closest('.step-btn');
+        if (!b) return;
+        const idx = +b.dataset.faseIdx;
+        const f = spec.fases[idx];
+        mv.pause();
+        pintaPlayBtn(false);
+        if (mv.duration) mv.currentTime = f.pJump * mv.duration;
+        syncSeekFromP(f.pJump);
+        pintaFaseUI(idx);
+        if (f.target) mv.cameraTarget = f.target;
+        if (f.orbit) mv.cameraOrbit = f.orbit;
+        requestAnimationFrame(actualitzaFluxSVG);
+      });
+
+      // Botó de zoom al detall de la barra lateral
+      document.getElementById('btn-detall-zoom').addEventListener('click', () => {
+        zoomedDetail = !zoomedDetail;
+        if (zoomedDetail) {
+          tourActiu = false;
+          btnTour.setAttribute('aria-pressed', 'false');
+          mv.cameraOrbit = spec.detallOrbit;
+          mv.cameraTarget = spec.detallTarget;
+          document.getElementById('detall-r').textContent = 'torna a vista general ↩';
+        } else {
+          tornaVistaGeneral();
+        }
+      });
+
+      // Pad direccional 3D (orientat respecte a la càmera)
+      document.querySelectorAll('.mv-pad [data-pan]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (typeof mv.getCameraTarget !== 'function' || typeof mv.getCameraOrbit !== 'function') return;
+          const [px, py] = btn.dataset.pan.split(',').map(Number);
+          const cur = mv.getCameraTarget();
+          const orb = mv.getCameraOrbit();
+          const step = Math.max(0.18, (orb.radius || 5) * 0.08);
+          const theta = orb.theta || 0;
+          const dx = Math.sign(px) * step * Math.cos(theta);
+          const dz = -Math.sign(px) * step * Math.sin(theta);
+          const dy = Math.sign(py) * step;
+          mv.cameraTarget = `${(cur.x + dx).toFixed(3)}m ${(cur.y + dy).toFixed(3)}m ${(cur.z + dz).toFixed(3)}m`;
+          requestAnimationFrame(actualitzaFluxSVG);
+        });
+      });
+      document.getElementById('btn-pan-reset').addEventListener('click', tornaVistaGeneral);
+
+      mv.addEventListener('camera-change', () => requestAnimationFrame(actualitzaFluxSVG));
+      mv.addEventListener('load', () => {
+        pintaFaseUI(0);
+        requestAnimationFrame(actualitzaFluxSVG);
+        let prevIdx = 0;
+        function tick() {
+          if (mv.duration) {
+            const p = (mv.currentTime % mv.duration) / mv.duration;
+            if (!mv.paused) {
+              syncSeekFromP(p);
+              const idx = faseDesdeTemps(p);
+              if (idx !== prevIdx) { prevIdx = idx; pintaFaseUI(idx); }
+            }
+            if (flowSvg.classList.contains('visible')) actualitzaFluxSVG();
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+      new ResizeObserver(() => requestAnimationFrame(actualitzaFluxSVG)).observe(mvWrap);
+
+      pintaFaseUI(0);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-13",
+  "tool": "ChatGPT image_gen",
+  "images": [
+    {
+      "id": "roda-fus-muntada",
+      "prompt": "Reference image role: STYLE REFERENCE ONLY, not an object to preserve. Create a NEW museum-quality educational illustration of an eighteenth-century manual SPINDLE SPINNING WHEEL (great wheel / walking wheel), of the type used for wool and cotton before mechanization. Keep the elegant realistic oak, iron details, pale ivory background and soft daylight of the reference. The machine has exactly ONE large vertical wooden spoked drive wheel on the RIGHT, on an upright post above a low long three-legged oak bench. At the LEFT end of the bench is a SMALL simple horizontal iron pointed spindle held in two short bearings, with a small cone-shaped cop of cream yarn near its base and a clearly visible bare pointed tip; a narrow drive cord connects the large wheel rim to the small spindle whorl. The two pulley axes must be parallel and their drive band coplanar, structurally coherent; view from front-left three-quarter oblique, showing the pointed spindle tip towards the front-left. NO flyer cage, NO Saxony flyer arms, NO separate large bobbin, NO pedal or treadle or footman rod, NO distaff pole. A small loose roll of carded ivory cotton lies on the bench near the spindle, one thin thread joins it to the spindle tip. A short hand grip at the drive wheel hub indicates hand power. Whole machine visible with generous margins, landscape 3:2. One assembled machine, restrained clear construction, readable silhouette. NO text, arrows, labels, numbers, inset scenes or people. Historically plausible functional spindle wheel, not an ornamental modern wheel.",
+      "file": "img/illustration-roda-fus.webp"
+    },
+    {
+      "id": "roda-fus-explotada",
+      "prompt": "Edit the attached manual spindle spinning wheel into a restrained EXPLODED VIEW of this EXACT machine. Preserve its wooden construction, number of spokes, proportions, perspective and all orientations; landscape 3:2 pale ivory, naturalistic museum illustration with soft shadows. Keep the long low bench and three legs assembled as the anchor. Gently translate the complete large wheel with its hub about 8 percent upward from the right upright bearing, keeping wheel plane unchanged. Gently translate the complete small pointed spindle, cone of yarn, whorl and two short bearing blocks together about 7 percent upward from the left end of the bench. Lift the single long drive cord slightly clear, maintaining its original triangular loop route parallel to its original plane. Preserve the cotton tuft on the bench. Only short straight separations, recognizable as this very same object opened slightly. No treadle, pedal, flyer arms, extra bobbin or additional wheel. NO text, arrows, numbering, labels, dashed lines or insets. All pieces have generous canvas margins.",
+      "file": "img/exploded-roda-fus.webp"
+    }
+  ]
+}

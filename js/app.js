@@ -659,6 +659,38 @@ async function callApi(action, params = {}) {
 
 window.callApi = callApi;
 
+window.aulaCreActivaSaveRevolucioIndustrialResult = async (payload, source) => {
+    const frame = document.getElementById('socials-revolucio-industrial-frame');
+    if (!frame || frame.contentWindow !== source || !state.user?.email || state.currentProject?.id !== 'p4_socials') {
+        return { status: 'error', message: 'Sessió de l’activitat no disponible.' };
+    }
+    const chapters = {
+        camp: 'El camp', vapor: 'El vapor', textil: 'El cotó', fabrica: 'La fàbrica',
+        metalls: 'Ferro i acer', tren: 'La locomotora', vaixell: 'El vaixell de vapor', capital: 'El capital'
+    };
+    const { resultat_id: resultId, chapter, total, answers, elapsedSeconds } = payload || {};
+    if (!Object.hasOwn(chapters, chapter) || typeof resultId !== 'string' || !resultId ||
+        !Number.isInteger(total) || total < 1 || !Array.isArray(answers) || answers.length !== total ||
+        !answers.every(answer => typeof answer?.correct === 'boolean' && typeof answer.question === 'string')) {
+        return { status: 'error', message: 'El repte no està complet.' };
+    }
+    const encerts = answers.filter(answer => answer.correct);
+    const errors = answers.filter(answer => !answer.correct);
+    return callApi('saveResult', {
+        resultat_id: resultId,
+        email: state.user.email,
+        curs: state.user.curs,
+        grup: state.user.grup || state.user.curs,
+        projecte: state.currentProject.titol,
+        app: 'La revolució industrial',
+        nivell: chapters[chapter],
+        puntuacio: Math.round(encerts.length * 100 / total),
+        temps_segons: elapsedSeconds,
+        feedback_pos: JSON.stringify({ total, encerts }),
+        feedback_neg: JSON.stringify({ errors })
+    });
+};
+
 window.aulaCreActivaSaveReactiusResult = async payload => {
     const project = state.currentProject;
     if (!state.user?.email || !isFisicaQuimicaProject(project?.id) ||
