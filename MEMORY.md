@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- El visor docent de Pentagrama genera recomanacions automàtiques a partir de les errades, les confusions repetides i les notes en blanc desades.
 - El Dashboard de Resultats rep l'adreça de l'Aula que l'ha obert i hi enllaça, també amb un servidor local.
 - Professorat i alumnat poden canviar la contrasenya des d'un diàleg centrat o restablir-la amb un codi per correu. Les contrasenyes noves es desen amb bcrypt. Cal desplegar Apps Script amb permís d'enviament i provar el correu real.
 - El dashboard docent agrupa les targetes de projecte per nivell d'ESO i Batxillerat, segons els cursos assignats al compte.

@@ -196,6 +196,8 @@
       overflow-y: auto;
     }
     .feedback-box h4 { margin-bottom: 0.4rem; font-size: 0.9rem; }
+    .feedback-box :is(ul, ol) { padding-inline-start: 1.25rem; }
+    .feedback-box details { margin-top: 0.75rem; }
     .fb-ok { border-left: 4px solid var(--success); }
     .fb-err { border-left: 4px solid var(--danger); }
     pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; }
@@ -593,10 +595,94 @@
       const registre = resultatsFiltratsActuals[index];
       if (!registre) return;
       document.getElementById('modal-titol').textContent = `${registre.email} — ${registre.app} (${registre.puntuacio})`;
-      document.getElementById('modal-contingut').innerHTML = `
+      const resum = registre.app === 'Pentagrama' ? feedbackPentagrama(registre) : '';
+      document.getElementById('modal-contingut').innerHTML = resum || `
         <div class="feedback-box fb-ok"><h4>Feedback Positiu</h4>${formatarFeedback(registre.feedback_pos)}</div>
         <div class="feedback-box fb-err"><h4>Feedback Negatiu i Recomanacions</h4>${formatarFeedback(registre.feedback_neg)}</div>`;
       document.getElementById('modal-feedback').showModal();
+    }
+
+    function llegirFeedback(valor) {
+      try {
+        return typeof valor === 'string' ? JSON.parse(valor) : valor;
+      } catch {
+        return null;
+      }
+    }
+
+    function feedbackPentagrama(registre) {
+      const positiu = llegirFeedback(registre.feedback_pos);
+      const negatiu = llegirFeedback(registre.feedback_neg);
+      if (!Array.isArray(positiu?.encerts) || !Array.isArray(negatiu?.errors)) return '';
+      const encerts = positiu.encerts.filter(nota => nota && typeof nota === 'object');
+      const errors = negatiu.errors.filter(nota => nota && typeof nota === 'object');
+      const total = Number(positiu.total) || encerts.length + errors.length;
+      if (!total) return '';
+
+      const esEnBlanc = nota => !nota.resposta || nota.resposta === 'En blanc';
+      const claus = new Map();
+      const perClau = nota => {
+        const clau = nota.clau || 'Sense clau indicada';
+        if (!claus.has(clau)) claus.set(clau, { clau, encerts: 0, errors: 0, blancs: 0, confusions: new Map() });
+        return claus.get(clau);
+      };
+      encerts.forEach(nota => perClau(nota).encerts++);
+      for (const nota of errors) {
+        const grup = perClau(nota);
+        if (esEnBlanc(nota)) {
+          grup.blancs++;
+          continue;
+        }
+        grup.errors++;
+        if (nota.correcta) {
+          const key = JSON.stringify([nota.resposta, nota.correcta]);
+          const parell = grup.confusions.get(key) || { resposta: nota.resposta, correcta: nota.correcta, cops: 0 };
+          parell.cops++;
+          grup.confusions.set(key, parell);
+        }
+      }
+
+      const ordre = [...claus.values()].sort((a, b) => b.errors - a.errors || b.blancs - a.blancs);
+      const prioritat = ordre[0];
+      const blancs = ordre.reduce((suma, grup) => suma + grup.blancs, 0);
+      const consells = [];
+      if (!errors.length) consells.push('Has identificat totes les notes. Prova una ronda amb una altra clau.');
+      if (prioritat?.errors) {
+        const clau = escaparHTML(prioritat.clau);
+        const referencies = new Map([
+          ['Sol', 'Pren el Sol de la segona línia com a referència.'],
+          ['Fa', 'Pren el Fa de la quarta línia com a referència.'],
+          ['Do', 'Pren el Do de la línia que marca la clau com a referència.']
+        ]);
+        const referencia = referencies.get(prioritat.clau) || '';
+        consells.push(`Comença revisant la clau de <strong>${clau}</strong>, on has tingut més respostes incorrectes. ${referencia} Compta línies i espais a partir de la nota de referència.`);
+        const confusio = [...prioritat.confusions.values()].sort((a, b) => b.cops - a.cops)[0];
+        if (confusio?.cops > 1) {
+          consells.push(`Has respost <strong>${escaparHTML(confusio.resposta)}</strong> en lloc de <strong>${escaparHTML(confusio.correcta)}</strong> ${confusio.cops} vegades en aquesta clau. Practica localitzant aquestes dues notes per separat.`);
+        }
+      }
+      if (blancs) consells.push(`Torna a les notes en blanc (${blancs}). Situa primer la nota de referència de la clau i prova d’identificar-les una a una.`);
+
+      const detall = errors.map(nota => {
+        const index = Number(nota.index);
+        const posicio = Number.isInteger(index) && index > 0
+          ? `Pentagrama ${Math.ceil(index / 15)}, nota ${(index - 1) % 15 + 1}`
+          : 'Posició no registrada';
+        return `<li>${posicio} · Clau de ${escaparHTML(nota.clau || '—')} ·
+          ${esEnBlanc(nota) ? 'En blanc' : 'Has respost ' + escaparHTML(nota.resposta)} ·
+          Resposta correcta: <strong>${escaparHTML(nota.correcta || '—')}</strong></li>`;
+      }).join('');
+
+      return `
+        <div class="feedback-box fb-ok">
+          <h4>${encerts.length} de ${total} notes correctes (${Math.round(encerts.length * 100 / total)}%)</h4>
+          <ul>${ordre.map(grup => `<li>${escaparHTML(grup.clau)}: ${grup.encerts} correctes, ${grup.errors} incorrectes i ${grup.blancs} en blanc.</li>`).join('')}</ul>
+        </div>
+        <div class="feedback-box ${errors.length ? 'fb-err' : 'fb-ok'}">
+          <h4>Què practicar ara?</h4>
+          <ul>${consells.map(consell => `<li>${consell}</li>`).join('')}</ul>
+          ${detall ? `<details><summary>Revisa les notes (${errors.length})</summary><ol>${detall}</ol></details>` : ''}
+        </div>`;
     }
 
     function formatarFeedback(valor) {
