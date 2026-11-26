@@ -10,11 +10,30 @@
             </select>
             <span id="user-name">Carregant...</span>
             <span id="user-course" class="badge">...</span>
+            <button id="change-password-btn" class="btn-secondary" type="button">Canvia la contrasenya</button>
             <button id="logout-btn" class="btn-secondary" data-i18n="logout">Sortir</button>
         </div>
     </header>
 
     <main class="dashboard-content">
+        <dialog id="change-password-dialog" aria-labelledby="change-password-title">
+            <h3 id="change-password-title">Canvia la contrasenya</h3>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="change-password-current">Contrasenya actual</label>
+                    <input id="change-password-current" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="change-password-new">Contrasenya nova (mínim 12 caràcters)</label>
+                    <input id="change-password-new" name="newPassword" type="password" autocomplete="new-password" minlength="12" required>
+                </div>
+                <button type="submit" class="btn btn--primary">Desa la contrasenya</button>
+                <p role="status"></p>
+            </form>
+            <form method="dialog">
+                <button class="btn btn--secondary">Tanca</button>
+            </form>
+        </dialog>
         <div class="welcome-banner">
             <h2 id="welcome-msg" data-i18n="hi">Hola!</h2>
             <p data-i18n="active_projects">Aquests són els teus projectes actius.</p>

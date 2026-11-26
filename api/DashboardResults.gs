@@ -7,9 +7,11 @@ function getDashboardResults(data) {
     let authentication;
     if (requestData.dashboardToken) {
         const key = dashboardSessionKey_(requestData.dashboardToken);
-        const session = key && CacheService.getScriptCache().get(key);
-        authentication = session
-            ? { status: 'success', user: JSON.parse(session) }
+        const cachedSession = key && CacheService.getScriptCache().get(key);
+        const session = cachedSession && JSON.parse(cachedSession);
+        const account = session?.user && findPasswordAccount_(session.user.email);
+        authentication = account && session.passwordStamp === passwordDigest_(account.password)
+            ? { status: 'success', user: session.user }
             : { status: 'error', code: 'dashboard_session_expired', message: 'La sessió ha caducat. Torna a iniciar sessió.' };
     } else {
         authentication = loginUser(requestData.email, requestData.password);

@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- Professorat i alumnat poden canviar la contrasenya o restablir-la amb un codi per correu. Les contrasenyes noves es desen amb bcrypt. Cal desplegar Apps Script amb permís d'enviament i provar el correu real.
 - El dashboard docent agrupa les targetes de projecte per nivell d'ESO i Batxillerat, segons els cursos assignats al compte.
 - El Dashboard de Professorat reutilitza la sessió docent de l'Aula amb un token temporal. L'accés directe o una sessió caducada obren el formulari de login.
 - Música reutilitza `p1_musica` a 1r i 3r ESO. El dashboard conserva les dues targetes quan el compte té els dos cursos assignats.

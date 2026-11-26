@@ -330,6 +330,16 @@ async function showDashboardFragment() {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", logout);
     }
+    const passwordDialog = document.getElementById('change-password-dialog');
+    const passwordForm = document.getElementById('change-password-form');
+    document.getElementById('change-password-btn')?.addEventListener('click', () => passwordDialog.showModal());
+    passwordDialog?.addEventListener('close', () => {
+        passwordForm.reset();
+        passwordForm.querySelector('[role="status"]').textContent = '';
+    });
+    bindPasswordForm(passwordForm, 'changePassword', () => state.user?.email, () => {
+        logout('Contrasenya actualitzada. Entra amb la nova.');
+    });
 
     if (languageSelector) {
         languageSelector.addEventListener("change", (event) => {
@@ -783,7 +793,7 @@ async function handleLogin(email, password) {
     }
 }
 
-function logout() {
+function logout(message) {
     const dashboardToken = localStorage.getItem('teacherDashboardToken');
     localStorage.removeItem('teacherDashboardToken');
     if (dashboardToken) void callApi('revokeDashboardSession', { dashboardToken });
@@ -792,7 +802,9 @@ function logout() {
     state.currentProject = null;
     localStorage.removeItem('user');
 
-    showLoginFragment().catch(error => {
+    showLoginFragment().then(() => {
+        if (typeof message === 'string') document.getElementById('login-error').textContent = message;
+    }).catch(error => {
         console.error("Error carregant login:", error);
         showLoadError('Revisa la connexió i torna-ho a intentar.', () => showLoginFragment());
     });
@@ -802,6 +814,15 @@ async function showLoginFragment() {
     await loadFragment("#app", "fragments/screens/login.html");
 
     const loginForm = document.getElementById("login-form");
+    const resetEmail = document.getElementById('password-reset-email');
+    bindPasswordForm(document.getElementById('password-reset-request-form'), 'requestPasswordReset');
+    bindPasswordForm(document.getElementById('password-reset-form'), 'resetPassword', () => resetEmail.value, form => {
+        document.getElementById('email').value = resetEmail.value;
+        document.getElementById('login-error').textContent = form.querySelector('[role="status"]').textContent;
+        form.reset();
+        form.closest('details').open = false;
+        document.getElementById('password').focus();
+    });
 
     if (loginForm) {
         loginForm.addEventListener("submit", async (event) => {
@@ -817,6 +838,32 @@ async function showLoginFragment() {
     if (typeof translateUI === "function") {
         translateUI();
     }
+}
+
+function bindPasswordForm(form, action, getEmail, onSuccess) {
+    if (!form) return;
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form));
+        if (getEmail) data.email = getEmail().trim();
+        const status = form.querySelector('[role="status"]');
+        if (!data.email) {
+            status.textContent = 'Indica el correu del compte.';
+            return;
+        }
+        const submit = form.querySelector('button[type="submit"]');
+        submit.disabled = true;
+        status.textContent = 'Processant…';
+        try {
+            const result = await callApi(action, data);
+            status.textContent = result?.message || 'No s’ha pogut completar la petició. Torna-ho a provar.';
+            if (result?.status === 'success') onSuccess?.(form);
+        } catch {
+            status.textContent = 'No s’ha pogut completar la petició. Torna-ho a provar.';
+        } finally {
+            submit.disabled = false;
+        }
+    });
 }
 
 function escapeSheetsQueryValue(value) {

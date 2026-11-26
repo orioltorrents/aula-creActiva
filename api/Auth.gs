@@ -25,7 +25,7 @@ function loginUser(email, password) {
     // El correu no distingeix majúscules/minúscules; la contrasenya sí.
     for (let i = 1; i < data.length; i++) {
         if (String(data[i][emailIdx]).toLowerCase() === String(email).toLowerCase() &&
-            String(data[i][passIdx]) === String(password)) {
+            matchesPassword_(password, data[i][passIdx])) {
 
             const user = {};
             data[0].forEach((header, index) => {
@@ -38,7 +38,8 @@ function loginUser(email, password) {
             const response = { status: 'success', user };
             if (isDashboardTeacher_(user)) {
                 const token = Utilities.getUuid() + Utilities.getUuid();
-                CacheService.getScriptCache().put(dashboardSessionKey_(token), JSON.stringify(user), 21600);
+                const session = { user, passwordStamp: passwordDigest_(data[i][passIdx]) };
+                CacheService.getScriptCache().put(dashboardSessionKey_(token), JSON.stringify(session), 21600);
                 response.dashboardToken = token;
             }
             return response;

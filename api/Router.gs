@@ -6,6 +6,9 @@
 
 const ACTIONS = {
     login: data => loginUser(data.email, data.password),
+    changePassword: data => changePassword_(data),
+    requestPasswordReset: data => requestPasswordReset_(data),
+    resetPassword: data => resetPassword_(data),
     revokeDashboardSession: data => revokeDashboardSession_(data.dashboardToken),
     getProjects: data => getProjects(data.curs),
     getAvailability: data => getAvailability(data.curs),
@@ -63,6 +66,9 @@ function handleRequest(e) {
 
         // "action" diu al backend què ha de fer: login, guardar resultat, carregar preguntes...
         const action = data.action;
+        if (['changePassword', 'requestPasswordReset', 'resetPassword'].includes(action) && !request.postData) {
+            return createJSONOutput({ status: 'error', message: 'Cal una petició POST.' });
+        }
         const handler = ACTIONS[action];
 
         const result = handler
