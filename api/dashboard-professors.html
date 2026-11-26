@@ -335,6 +335,237 @@
     <div id="modal-contingut"></div>
   </dialog>
 
-  <script src="dashboard-professors.js"></script>
+  <script>
+    let totsElsResultats = [];
+    let resultatsFiltratsActuals = [];
+
+    const els = {
+      profInfo: document.getElementById('prof-info'),
+      curs: document.getElementById('filtre-curs'),
+      grup: document.getElementById('filtre-grup'),
+      projecte: document.getElementById('filtre-projecte'),
+      app: document.getElementById('filtre-app'),
+      nivell: document.getElementById('filtre-nivell'),
+      email: document.getElementById('filtre-email'),
+      vista: document.getElementById('filtre-vista'),
+      tbody: document.getElementById('taula-resultats-body')
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      els.curs.addEventListener('change', () => { actualitzarApps(); aplicarFiltres(); });
+      els.projecte.addEventListener('change', () => { actualitzarApps(); aplicarFiltres(); });
+      els.grup.addEventListener('change', aplicarFiltres);
+      els.app.addEventListener('change', aplicarFiltres);
+      els.nivell.addEventListener('change', aplicarFiltres);
+      els.vista.addEventListener('change', aplicarFiltres);
+      els.email.addEventListener('input', aplicarFiltres);
+      document.getElementById('btn-netejar').addEventListener('click', netejarFiltres);
+      document.getElementById('btn-refrescar').addEventListener('click', carregarDades);
+      document.getElementById('btn-exportar').addEventListener('click', exportarCSV);
+      carregarDades();
+    });
+
+    function carregarDades() {
+      els.tbody.innerHTML = '<tr><td colspan="10" class="empty-state">Carregant dades...</td></tr>';
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(dadesRebutudes)
+          .withFailureHandler(errorServer)
+          .getDashboardResults();
+        return;
+      }
+
+      fetch(window.location.href + (window.location.search ? '&' : '?') + 'action=getDashboardResults')
+        .then(response => response.json())
+        .then(dadesRebutudes)
+        .catch(errorServer);
+    }
+
+    function dadesRebutudes(data) {
+      if (!data || data.status !== 'success') {
+        errorServer(data && data.message ? { message: data.message } : new Error('Error desconegut'));
+        return;
+      }
+
+      const user = data.user || {};
+      els.profInfo.textContent = `Prof. ${[user.name, user.surname].filter(Boolean).join(' ') || user.email || 'Docent'}`;
+      totsElsResultats = Array.isArray(data.resultats) ? data.resultats : [];
+      poblarFiltres();
+      aplicarFiltres();
+    }
+
+    function errorServer(error) {
+      const message = error && error.message ? error.message : String(error);
+      els.tbody.innerHTML = `<tr><td colspan="10" class="empty-state">${escaparHTML(message)}</td></tr>`;
+    }
+
+    function poblarFiltres() {
+      omplirSelect(els.curs, valorsUnics('curs'), 'Tots els cursos');
+      omplirSelect(els.grup, valorsUnics('grup'), 'Tots els grups');
+      omplirSelect(els.projecte, valorsUnics('projecte'), 'Tots els projectes');
+      omplirSelect(els.nivell, valorsUnics('nivell'), 'Tots els nivells');
+      actualitzarApps();
+    }
+
+    function valorsUnics(camp) {
+      return [...new Set(totsElsResultats.map(registre => registre[camp]).filter(Boolean))].sort();
+    }
+
+    function omplirSelect(select, opcions, textPerDefecte) {
+      const anterior = select.value;
+      select.innerHTML = `<option value="">${textPerDefecte}</option>`;
+      opcions.forEach(opcio => {
+        const option = document.createElement('option');
+        option.value = opcio;
+        option.textContent = opcio;
+        select.appendChild(option);
+      });
+      if (opcions.includes(anterior)) select.value = anterior;
+    }
+
+    function actualitzarApps() {
+      let dades = totsElsResultats;
+      if (els.curs.value) dades = dades.filter(registre => registre.curs === els.curs.value);
+      if (els.projecte.value) dades = dades.filter(registre => registre.projecte === els.projecte.value);
+      omplirSelect(els.app, [...new Set(dades.map(registre => registre.app).filter(Boolean))].sort(), 'Totes les apps');
+    }
+
+    function aplicarFiltres() {
+      let filtrats = totsElsResultats.filter(registre => {
+        if (els.curs.value && registre.curs !== els.curs.value) return false;
+        if (els.grup.value && registre.grup !== els.grup.value) return false;
+        if (els.projecte.value && registre.projecte !== els.projecte.value) return false;
+        if (els.app.value && registre.app !== els.app.value) return false;
+        if (els.nivell.value && registre.nivell !== els.nivell.value) return false;
+        if (els.email.value.trim() && !(registre.email || '').toLowerCase().includes(els.email.value.trim().toLowerCase())) return false;
+        return true;
+      });
+
+      filtrats.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+
+      if (els.vista.value === 'millor') {
+        const millors = new Map();
+        filtrats.forEach(registre => {
+          const clau = `${registre.email || 'anonim'}__${registre.curs}__${registre.projecte}__${registre.app}__${registre.nivell || ''}`;
+          const nota = parseFloat(String(registre.puntuacio).replace(',', '.')) || 0;
+          const anterior = millors.get(clau);
+          const notaAnterior = anterior ? (parseFloat(String(anterior.puntuacio).replace(',', '.')) || 0) : -1;
+          if (!anterior || nota > notaAnterior) millors.set(clau, { ...registre });
+        });
+        filtrats = Array.from(millors.values());
+      }
+
+      resultatsFiltratsActuals = filtrats;
+      actualitzarKPIs(filtrats);
+      renderitzarTaula(filtrats);
+    }
+
+    function actualitzarKPIs(dades) {
+      document.getElementById('kpi-total').textContent = dades.length;
+      document.getElementById('kpi-alumnes').textContent = new Set(dades.map(registre => registre.email).filter(Boolean)).size;
+      if (!dades.length) {
+        document.getElementById('kpi-mitjana').textContent = '—';
+        document.getElementById('kpi-aprovats').textContent = '—';
+        return;
+      }
+      const notes = dades.map(registre => parseFloat(String(registre.puntuacio).replace(',', '.')) || 0);
+      const mitjana = notes.reduce((total, nota) => total + nota, 0) / notes.length;
+      const aprovats = notes.filter(nota => nota >= 5).length;
+      document.getElementById('kpi-mitjana').textContent = mitjana.toFixed(2);
+      document.getElementById('kpi-aprovats').textContent = `${Math.round((aprovats / notes.length) * 100)}%`;
+    }
+
+    function renderitzarTaula(dades) {
+      if (!dades.length) {
+        els.tbody.innerHTML = '<tr><td colspan="10" class="empty-state">No hi ha resultats amb els filtres seleccionats.</td></tr>';
+        return;
+      }
+
+      els.tbody.innerHTML = dades.map((registre, index) => {
+        const nota = parseFloat(String(registre.puntuacio ?? 0).replace(',', '.'));
+        const notaText = isNaN(nota) ? (registre.puntuacio ?? '—') : nota.toFixed(2);
+        const classeNota = nota >= 5 ? 'nota-aprovat' : 'nota-suspes';
+        const data = registre.timestamp
+          ? new Date(registre.timestamp).toLocaleString('ca-ES', { dateStyle: 'short', timeStyle: 'short' })
+          : '—';
+        return `
+          <tr>
+            <td>${escaparHTML(data)}</td>
+            <td><strong>${escaparHTML(registre.email || '—')}</strong></td>
+            <td>${escaparHTML(registre.curs || '—')}</td>
+            <td>${escaparHTML(registre.grup || '—')}</td>
+            <td>${escaparHTML(registre.projecte || '—')}</td>
+            <td>${escaparHTML(registre.app || '—')}</td>
+            <td>${escaparHTML(registre.nivell || '—')}</td>
+            <td><span class="badge-nota ${classeNota}">${escaparHTML(notaText)}</span></td>
+            <td>${escaparHTML(registre.temps_segons ?? '—')}s</td>
+            <td><button type="button" class="btn btn-outline" data-feedback-index="${index}">Veure detall</button></td>
+          </tr>`;
+      }).join('');
+
+      els.tbody.querySelectorAll('[data-feedback-index]').forEach(button => {
+        button.addEventListener('click', () => veureFeedback(Number(button.dataset.feedbackIndex)));
+      });
+    }
+
+    function veureFeedback(index) {
+      const registre = resultatsFiltratsActuals[index];
+      if (!registre) return;
+      document.getElementById('modal-titol').textContent = `${registre.email} — ${registre.app} (${registre.puntuacio})`;
+      document.getElementById('modal-contingut').innerHTML = `
+        <div class="feedback-box fb-ok"><h4>Feedback Positiu</h4>${formatarFeedback(registre.feedback_pos)}</div>
+        <div class="feedback-box fb-err"><h4>Feedback Negatiu i Recomanacions</h4>${formatarFeedback(registre.feedback_neg)}</div>`;
+      document.getElementById('modal-feedback').showModal();
+    }
+
+    function formatarFeedback(valor) {
+      if (!valor) return '<em>Sense registre.</em>';
+      if (typeof valor === 'string') {
+        try { return `<pre>${escaparHTML(JSON.stringify(JSON.parse(valor), null, 2))}</pre>`; }
+        catch { return `<pre>${escaparHTML(valor)}</pre>`; }
+      }
+      return `<pre>${escaparHTML(JSON.stringify(valor, null, 2))}</pre>`;
+    }
+
+    function netejarFiltres() {
+      [els.curs, els.grup, els.projecte, els.app, els.nivell].forEach(select => { select.value = ''; });
+      els.email.value = '';
+      els.vista.value = 'tots';
+      poblarFiltres();
+      aplicarFiltres();
+    }
+
+    function exportarCSV() {
+      if (!resultatsFiltratsActuals.length) {
+        alert('No hi ha dades filtrades per exportar.');
+        return;
+      }
+      const capcaleres = ['timestamp', 'email', 'curs', 'grup', 'projecte', 'app', 'nivell', 'puntuacio', 'temps_segons', 'feedback_pos', 'feedback_neg'];
+      const files = resultatsFiltratsActuals.map(registre => capcaleres.map(camp => {
+        let valor = registre[camp] ?? '';
+        if (typeof valor === 'object') valor = JSON.stringify(valor);
+        if (camp === 'puntuacio') valor = String(valor).replace('.', ',');
+        return `"${String(valor).replace(/"/g, '""')}"`;
+      }).join(';'));
+      const csv = '\uFEFF' + [capcaleres.map(camp => `"${camp}"`).join(';'), ...files].join('\n');
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+      const enllac = document.createElement('a');
+      enllac.href = url;
+      enllac.download = `resultats_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(enllac);
+      enllac.click();
+      document.body.removeChild(enllac);
+      URL.revokeObjectURL(url);
+    }
+
+    function escaparHTML(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
 </body>
 </html>
