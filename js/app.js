@@ -657,6 +657,35 @@ async function callApi(action, params = {}) {
 
 window.callApi = callApi;
 
+window.aulaCreActivaSaveTaulaPeriodicaResult = async payload => {
+    const project = state.currentProject;
+    if (!state.user?.email || !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project?.id) ||
+        !document.getElementById('fq-taula-periodica-frame')) {
+        return { status: 'error', message: 'Sessió de l’activitat no disponible.' };
+    }
+    if (typeof payload?.resultat_id !== 'string' || !payload.resultat_id ||
+        !Array.isArray(payload.answers) || payload.answers.length !== 10 ||
+        !payload.answers.every(answer => typeof answer?.encert === 'boolean')) {
+        return { status: 'error', message: 'El repte no està complet.' };
+    }
+
+    const encerts = payload.answers.filter(answer => answer.encert);
+    const errors = payload.answers.filter(answer => !answer.encert);
+    return callApi('saveResult', {
+        resultat_id: payload.resultat_id,
+        email: state.user.email,
+        curs: state.user.curs,
+        grup: state.user.grup || state.user.curs,
+        projecte: project.titol,
+        app: 'Taula periòdica dinàmica',
+        nivell: 'Repte',
+        puntuacio: encerts.length * 10,
+        temps_segons: payload.elapsedSeconds,
+        feedback_pos: JSON.stringify({ total: 10, encerts }),
+        feedback_neg: JSON.stringify({ errors })
+    });
+};
+
 window.aulaCreActivaSaveFormulacioResult = async payload => {
     if (!state.user || !state.currentProject) {
         return { status: 'error', message: 'Sessió d’alumne no disponible' };
@@ -1195,6 +1224,7 @@ async function loadAvailability(courses) {
 }
 
 function getCardAvailabilityIds(card, projectId) {
+    if (card.id === 'fq-taula-periodica-card') return ['taula-periodica-dinamica'];
     const onclick = card.getAttribute('onclick') || '';
     const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
     const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
@@ -1501,6 +1531,29 @@ async function openFisicaQuimicaFormulacioActivity() {
     document.getElementById('game-screen')?.classList.add('game-screen--immersive');
     setGameBackAction(returnFromFisicaQuimicaFormulacioActivity);
     setGameTitle('Formulació inorgànica');
+}
+
+async function openFisicaQuimicaTaulaPeriodicaActivity() {
+    if (!['p3_fisica_quimica', 'p4_fisica_quimica'].includes(state.currentProject?.id)) return;
+
+    const activity = await ensureProjectFragment(
+        'fq-taula-periodica-activity',
+        'fragments/activities/fisica-quimica/taula-periodica-dinamica.html'
+    );
+    if (!activity) throw new Error('No s’ha pogut carregar la Taula periòdica.');
+
+    document.getElementById('project-hub-fisica-quimica')?.classList.add('hidden');
+    activity.classList.remove('hidden');
+    document.getElementById('game-screen')?.classList.add('game-screen--immersive');
+    setGameBackAction(() => {
+        activity.parentElement.remove();
+        document.getElementById('project-hub-fisica-quimica')?.classList.remove('hidden');
+        document.getElementById('game-screen')?.classList.remove('game-screen--immersive');
+        setGameBackAction(null);
+        setGameTitle(state.currentProject?.titol);
+        document.getElementById('fq-taula-periodica-card')?.focus();
+    });
+    setGameTitle(`${state.currentProject.titol} - Taula periòdica dinàmica`);
 }
 
 function returnFromFisicaQuimicaFormulacioActivity() {
@@ -1858,6 +1911,22 @@ async function openProject(project) {
             const graphActivityCard = document.getElementById('fq-graph-activity-card');
             graphActivityCard?.classList.toggle('hidden', !['p2_fisica_quimica', 'p3_fisica_quimica'].includes(project.id));
             const formulacioActivityCard = document.getElementById('fq-formulacio-activity-card');
+            const taulaPeriodicaCard = document.getElementById('fq-taula-periodica-card');
+            if (taulaPeriodicaCard) {
+                taulaPeriodicaCard.classList.toggle('hidden', !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id));
+                const feedback = document.getElementById('fq-taula-periodica-status');
+                taulaPeriodicaCard.onclick = async () => {
+                    taulaPeriodicaCard.disabled = true;
+                    feedback.textContent = '';
+                    try {
+                        await openFisicaQuimicaTaulaPeriodicaActivity();
+                    } catch {
+                        feedback.textContent = 'No s’ha pogut carregar la Taula periòdica. Torna a prémer la targeta per reintentar-ho.';
+                    } finally {
+                        taulaPeriodicaCard.disabled = false;
+                    }
+                };
+            }
             formulacioActivityCard?.classList.toggle('hidden', !['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id));
             if (formulacioActivityCard && formulacioActivityCard.dataset.eventsBound !== 'true') {
                 formulacioActivityCard.dataset.eventsBound = 'true';

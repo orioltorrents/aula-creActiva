@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Taula periòdica dinàmica</title>
+    <meta name="description" content="Taula periòdica interactiva que acoloreix els elements segons famílies, propietats, abundància, història i més." />
+    <link rel="icon" type="image/svg+xml" href="data/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      /* Tema desat abans de pintar, per evitar el parpelleig */
+      try { if (localStorage.getItem('tpd:theme') === 'dark') document.documentElement.classList.add('dark-mode'); } catch (e) { }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar" aria-label="Controls">
+        <div class="sidebar-header">
+          <h1 class="app-title"><img class="app-icon" src="data/favicon.svg" alt="" width="49" height="49" /><span>Taula periòdica<br />dinàmica</span></h1>
+        </div>
+
+        <div class="select-row">
+          <label for="mode-select" class="label">Tria la visualització</label>
+          <div class="header-buttons">
+            <button id="projector-btn" class="icon-btn" type="button" aria-pressed="false" title="Mode projector: text més gran a les cel·les" aria-label="Mode projector">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+            </button>
+            <button id="theme-toggle-btn" class="icon-btn" type="button" title="Canvia el tema clar o fosc" aria-label="Canvia el tema clar o fosc">
+              <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+              <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+            </button>
+          </div>
+        </div>
+        <select id="mode-select" class="select"></select>
+
+        <div id="mode-options" class="mode-options"></div>
+
+        <section id="legend" class="legend" aria-live="polite"></section>
+
+        <div class="tools" role="group" aria-label="Activitats">
+          <button id="compare-btn" class="tool-btn" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="7" height="14" rx="1.5"/><rect x="14" y="5" width="7" height="14" rx="1.5"/></svg>
+            Compara
+          </button>
+          <button id="quiz-btn" class="tool-btn" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/></svg>
+            Repte
+          </button>
+        </div>
+
+        <footer class="felip-app-footer">
+          <a class="felip-license-image-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer" aria-label="Llicència Creative Commons BY-NC-SA 4.0">
+            <img class="felip-license-image" src="assets/CC_BY-NC-SA.png" alt="Creative Commons BY-NC-SA" />
+          </a>
+          <div class="felip-footer-text">
+            <p>Aplicació de <a href="https://ja.cat/felipsarroca" target="_blank" rel="noopener noreferrer">Felip Sarroca</a></p>
+            <p>i sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a></p>
+          </div>
+        </footer>
+      </aside>
+
+      <main class="board">
+        <div class="grid-viewport" id="grid-viewport">
+          <div class="grid-scale" id="grid-scale">
+            <div id="periodic-grid" class="grid" role="group" aria-label="Taula periòdica"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+      <div id="element-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+        <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Tanca">&times;</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+    <script src="data/elements.js"></script>
+    <script src="data/noms_ca.js"></script>
+    <script src="data/propietats.js"></script>
+    <script src="data/origens.js"></script>
+    <script src="data/summaries_ca.js"></script>
+    <script src="data/extra.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

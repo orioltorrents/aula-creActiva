@@ -1,6 +1,7 @@
 # Memòria Global del Projecte: aulaCreActiva
 
 ## Estat actual
+- La Taula periòdica dinàmica de Felip Sarroca és a Física i Química de 3r i 4t ESO. El repte de 10 preguntes envia el resultat a `saveResult` amb la sessió de l'Aula i un identificador estable.
 - El visor docent de Pentagrama genera recomanacions automàtiques a partir de les errades, les confusions repetides i les notes en blanc desades.
 - El Dashboard de Resultats rep l'adreça de l'Aula que l'ha obert i hi enllaça, també amb un servidor local.
 - Professorat i alumnat poden canviar la contrasenya des d'un diàleg centrat o restablir-la amb un codi per correu. Les contrasenyes noves es desen amb bcrypt. Cal desplegar Apps Script amb permís d'enviament i provar el correu real.
