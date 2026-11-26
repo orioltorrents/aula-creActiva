@@ -12,6 +12,7 @@ const ACTIONS = {
     createResultsSheet: data => createResultsSheet(data),
     createGroupStudentsSheet: data => createGroupStudentsSheet(data),
     getResultGroups: () => getResultGroups(),
+    getDashboardResults: data => getDashboardResults(data),
     getNaturaQuestions: data => getNaturaQuestions(data.ecosistema),
     saveNaturaQuizResult: data => saveNaturaQuizResult(data),
     getImpactePhases: () => getImpactePhases(),

@@ -6,6 +6,13 @@
  */
 
 function doGet(e) {
+    if (e && e.parameter && e.parameter.page === 'dashboard-professors') {
+        return HtmlService.createTemplateFromFile('dashboard-professors')
+            .evaluate()
+            .setTitle('Dashboard de Professorat — Aula CreActiva')
+            .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    }
+
     return handleRequest(e);
 }
 
