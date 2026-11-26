@@ -1324,6 +1324,7 @@ function getCardAvailabilityIds(card, projectId) {
     if (card.id === 'fq-reactius-sobrants-card') return ['reactius-sobrants'];
     if (card.id === 'fq-igualacio-quimica-card') return ['igualacio-quimica'];
     if (card.id === 'fq-configuracio-electronica-card') return ['configuracio-electronica'];
+    if (card.id === 'fq-configuracio-electronica2-card') return ['configuracio-electronica2'];
     const onclick = card.getAttribute('onclick') || '';
     const activityMatch = onclick.match(/open(?:Rates|Mediterrani|Paralimpics|Radio|Digitalitzacio|Solidart|Tr|Bio)Activity\(['"]([^'"]+)/i);
     const senseMatch = onclick.match(/openSenseSubActivity\(['"]([^'"]+)/i);
@@ -2043,6 +2044,8 @@ async function openProject(project) {
                 { id: 'reactius-sobrants', title: 'Reactius sobrants', fragment: 'reactius-sobrants', visible: true },
                 { id: 'igualacio-quimica', title: 'Igualació química', fragment: 'igualacio-quimica', visible: true },
                 { id: 'configuracio-electronica', title: 'Configuració electrònica', fragment: 'configuracio-electronica',
+                    visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) },
+                { id: 'configuracio-electronica2', title: 'Configuració electrònica 2', fragment: 'configuracio-electronica2',
                     visible: ['p3_fisica_quimica', 'p4_fisica_quimica'].includes(project.id) }
             ];
             const feedback = document.getElementById('fq-embedded-activity-status');
